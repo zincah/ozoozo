@@ -1,0 +1,149 @@
+@charset "UTF-8";
+
+/* 아연 추가 */
+a{
+	color: inherit;
+	text-decoration: none;
+}
+
+a:hover{
+	color: #ff778e;
+}
+
+.insert_title {
+	font-weight: 600;
+}
+
+#layoutSidenav_content {
+	background-color: #f5f5f5;
+}
+
+.card-body {
+	font-size: 13px;
+	padding: 1.5rem 1.5rem;
+}
+
+.card-body2 {
+	font-size: 13px;
+	padding: 0.75rem 1.5rem;
+}
+
+.icon-margin-right {
+	margin-right: 0.35rem;
+}
+
+.title-badge-margin-left {
+	margin-left: 0.5rem;
+}
+
+.box-shadow {
+	border: #e3e3e3;
+	box-shadow: 1px 1px 2px 1px #e3e3e3;
+}
+
+.notice-date {
+	color: #bcbcbc;
+	margin-left: 0.25rem;
+}
+
+.notice-view {
+	margin-left: 0.75rem;
+}
+
+.notice-num {
+	list-style: none;
+	color: #ff778e;
+}
+
+.title-text {
+	font-weight: 600;
+	font-size: 13px;
+	padding-bottom: 1rem;
+}
+
+.num-text-color {
+	color: #ff778e;
+}
+
+.bg-pointcolor {
+	background-color: #ff778e;
+}
+
+.badge {
+	font-size: 13px;
+	font-weight: 600;
+	padding: 3px 0.65em;
+	width: 35px;
+	height: 18px;
+}
+
+.margin-zero {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.padding-zero {
+	padding: 0 0;
+}
+
+.sub-text {
+	font-size: 11px;
+}
+
+.bottom-line {
+	border-bottom: 1px solid #e3e3e3;
+	margin-bottom: 1rem;
+}
+
+.dataTable-selector {
+	font-size: 11px !important; 
+	height: 2rem !important;
+	padding: 0.375rem 0.75rem !important;
+	border-radius: 0.25rem !important;
+	border: 1px solid #ced4da !important; 
+	color: #444 !important;
+	width: 4rem !important;
+}
+
+.dataTable-input {
+	font-size: 11px !important;
+	min-height: calc(1.5em + 0.5rem + 2px) !important;
+	padding: 0.375rem 0.5rem !important;
+	border-radius: 0.2rem !important;
+}
+
+.dataTable-sorter {
+	font-size: 13px !important;
+	text-align: center !important;
+	font-weight: 600 !important;
+}
+
+thead>tr {
+	background-color: #f5f5f5 !important;
+}
+
+tbody {
+	font-size: 11px !important;
+	text-align: center !important;
+}
+
+.dataTable-pagination li.active a {
+	color: #fff !important;
+	background-color: #ff778e !important;
+	border-color: #ff778e !important;
+}
+
+.dataTable-pagination .active a, .dataTable-pagination .active a:focus,
+	.dataTable-pagination .active a:hover {
+	background-color: #fc6982 !important;
+}
+
+.page-link, .dataTable-pagination a {
+	color: #ff778e !important;
+}
+
+.dataTable-info {
+	font-size: 11px !important;
+	color: #bcbcbc !important;
+}
+

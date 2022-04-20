@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+.search-select {
+	margin-right: 3px;
+}
+
+.col-1 {
+	width: 10.66666%
+}
+
+.paddingLeft1 {
+	padding-left: 0;
+}
+
+.selectState {
+	width: 6rem;
+}
+
+.search-input-box {
+	margin-left: 5px;
+}
+
+.input-font {
+	height: 2rem;
+}
