@@ -8,6 +8,9 @@
 <h1>
 	Hello world! hi
 </h1>
+<div>
+	fuck
+</div>
 
 <P>  The time on the server is ${serverTime}. </P>
 </body>
