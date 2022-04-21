@@ -31,6 +31,22 @@
 	</servlet-mapping>
 
 	<!-- 판매자 -->
+	<servlet>
+		<servlet-name>action1</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				WEB-INF/config/seller-management.xml
+				<!-- 각자 만들 context.xml 등록 -->
+			</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>action1</servlet-name>
+		<url-pattern>*.seller</url-pattern>
+	</servlet-mapping>
 
 	<!-- 관리자 -->
 		<servlet>
