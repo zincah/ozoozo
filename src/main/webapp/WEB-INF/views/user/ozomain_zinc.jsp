@@ -561,7 +561,7 @@
 				</div>
 			</div>
 
-			<script src="../../cssList/zinc/category_move.js" type="text/javascript"></script>
+			<script src="resources/js/userjs/category_move.js" type="text/javascript"></script>
 		</section>
 
 		<section class="container store_index_best">

@@ -88,7 +88,7 @@
 									<div class="deals_item_pic_out">
 										<div class="deals_item_pic">
 											<div class="item_ani">
-												<img class="images" src="../../cssList/zinc/k.webp">
+												<img class="images" src="resources/assets/img/k.webp">
 											</div>
 										</div>
 										<button class="item_bookmark">
