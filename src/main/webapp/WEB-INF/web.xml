@@ -22,12 +22,13 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 				<!-- 각자 만들 context.xml 등록 -->
+				WEB-INF/config/user-management.xml
 			</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>action</servlet-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.com</url-pattern>
 	</servlet-mapping>
 
 	<!-- 판매자 -->
