@@ -60,5 +60,10 @@ public class AdminController {
 	public String eventManagementView() {
 		return "eventManagement_dj";
 	}
+	
+	@RequestMapping(value = "/login.admin")
+	public String loginView() {
+		return "adminLogin_dj";
+	}
 
 }
