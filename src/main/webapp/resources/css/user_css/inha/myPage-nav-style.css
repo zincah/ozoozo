@@ -1,0 +1,30 @@
+*{margin: 0px; font-family: "S-Core", sans-serif; font-weight: 600;}
+@font-face {font-family: 'S-Core'; font-weight:400; src: url('../font/S-CoreDream-4Regular.woff') format('woff');}
+@font-face {font-family: 'S-Core'; font-weight:600; src: url('../font/S-CoreDream-6Bold.woff') format('woff');}
+@font-face {font-family: 'S-Core'; font-weight:800; src: url('../font/S-CoreDream-8Heavy.woff') format('woff');}
+
+blockquote, body, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, pre, td, textarea, th, ul {margin: 0; padding: 0;}
+html {color: #424242; background: #fff;}
+div, nav {display: block;}
+ol, ul {list-style: none;}
+.layout-footer__shortcut ul {display: block;  margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px;}/* 이게 ul 태그 였던것*/
+li {display: list-item; text-align: -webkit-match-parent;}
+a {color: inherit; text-decoration: none; border: 0; cursor: pointer;}
+button {cursor: pointer;}
+[role=button], a, button, input[type=button], input[type=reset], input[type=submit] {cursor: pointer; -ms-touch-action: manipulation; touch-action: manipulation;}
+fieldset, img {border: 0;}
+
+.area-position-mypage {position: relative; padding: 0px 0px 40px;}
+.mypage-nav {position: relative; width: 100%; margin: 0 auto;}
+.mypage-nav-owner {overflow: visible; font-size: 16px;}
+.mypage-nav-content {overflow: visible; font-size: 14px;}
+.page-navigation {border-bottom: 1px solid #ededed; width: 100%; overflow: hidden;}
+.page-navigation>ul {text-align: center; white-space: nowrap;}
+.mypage-nav-owner .mypage-nav-item>a:active::after, .mypage-nav-owner .mypage-nav-item>a:active::before {content: ""; display: block; position: absolute; top: 100%; left: 50%; width: 0; height: 0; border-style: solid; background-color: transparent; margin-left: -5px; border-width: 0 5px 10px; z-index: 1;}
+.mypage-nav-owner .mypage-nav-item>a:active::after {margin-top: -8px; border-color: transparent transparent #fff;}
+.mypage-nav-owner .mypage-nav-item>a:active::before {margin-top: -10px; border-color: transparent transparent #dbdbdb;}
+.mypage-nav-item {display: inline-block;}
+.mypage-nav-item>a.active {color: #ff778e;}
+.mypage-nav-item>a.active.select {color: #ff778e; border-bottom: 4px solid #ff778e;}
+.mypage-nav-item>a:hover {color: #ff778e}
+.mypage-nav-item>a {display: block; padding: 0 10px; font-weight: 700; position: relative; height: 60px; line-height: 60px; transition: color .15s ease;}

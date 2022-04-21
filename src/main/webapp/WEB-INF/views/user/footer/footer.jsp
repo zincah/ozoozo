@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="../../cssList/inha/footer-style.css" />
-<link rel="stylesheet" href="../../cssList/inha/myPage-nav-style.css?var=1" />
+<link rel="stylesheet" href="resources/css/user_css/inha/footer-style.css" />
+<link rel="stylesheet" href="resources/css/user_css/inha/myPage-nav-style.css?var=1" />
  <style type="text/css">
       address {
         font-style: normal;

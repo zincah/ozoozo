@@ -1,0 +1,653 @@
+blockquote, body, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, pre, td, textarea, th, ul {
+    margin: 0;
+    padding: 0;
+}
+
+*{
+    margin: 0px;
+    font-family: "S-Core", sans-serif;
+    font-weight: 600;
+}
+
+@font-face {
+	font-family: 'S-Core';
+	font-weight:400;
+	src: url('../font/S-CoreDream-4Regular.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'S-Core';
+	font-weight:600;
+	src: url('../font/S-CoreDream-6Bold.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'S-Core';
+	font-weight:800;
+	src: url('../font/S-CoreDream-8Heavy.woff') format('woff');
+}
+
+
+a{
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+    /* text 색상 적용시키는거 찾아서 넣기 */
+}
+
+button{
+    cursor: pointer;
+}
+
+img{
+    border: 0;
+}
+/* carousel */
+/* img size 4번 바뀜 */
+/* 1028 -> 작아지게 , 768 -> 꽉차지만 크게 395px*/
+
+
+.carousel_layout{
+    position: relative;
+}
+
+.carousel_frame{
+    position: relative;
+    height: 380px;
+    background-color: antiquewhite;
+}
+
+.carousel_banner{
+    height: 100%;
+    overflow: hidden;
+}
+
+.banner_img_first{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel_banner_sm{
+    display: none;
+}
+
+/* 메인 화면 */
+
+/* 오늘의 딜 영역 */
+
+.store_index_section{
+    margin-top: 50px;
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -10px;
+    margin-left: -10px;
+    box-sizing: border-box;
+}
+
+.container{
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1136px;
+    max-width: 100%;
+    height: auto;
+}
+
+
+
+.col-lg-3{
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    box-sizing: border-box;
+    flex: 0 0 25%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 25%;
+    max-width: 25%;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.store_index_header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.store_index_header_text{
+    font-size: 20px;
+}
+
+.move_deals{
+    margin-right: 7px;
+    color: #f77;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.deals_item{
+    position: relative;
+    display: flex;
+    padding: 0 10px 18px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.deals_item_pic_out{
+    position: relative;
+    width: auto;
+    margin: 0 -10px;
+}
+
+
+.deals_item_pic{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.item_ani{
+    position: relative;
+    padding-bottom: 100%;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: all 0.2s linear;
+}
+
+.item_ani img{
+    position: absolute;
+    width: 100%;
+    
+    /* 부드럽게 커지게 하기 위해서 */
+}
+
+.item_ani:hover{
+    transform: scale(1.1);
+    /* 커서 올릴 시 확대 되는 효과 */
+}
+
+.images{
+    width: 100%;
+    height: 100%;
+}
+
+.deals_item_header{
+    display: flex;
+    flex-direction: column;
+}
+
+.deals_item_content{
+    margin-top: 10px;
+}
+
+.deals_item_header_brand{
+    font-size: 11px;
+}
+
+.deals_item_header_name{
+    font-size: 13px;
+    color: #424242;
+}
+
+.deals_item_body_price{
+    margin-top: 5px;
+}
+
+.sale_percent{
+    font-size: 18px;
+    color: #6AC8FE;
+    font-weight: 800;
+}
+
+.price{
+    font-size: 18px;
+    color: black;
+    font-weight: 800;
+}
+
+.deals_item_review{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 12px;
+}
+
+.review_icon{
+    margin-right: 3px;
+    color: #6AC8FE;
+}
+
+.review_score{
+    color: #424242;
+    margin-right: 3px;
+    font-weight: 800;
+}
+
+.review_count{
+    font-weight: 800;
+}
+
+/* 오늘의 딜 타이머 및 버튼 (버튼은 상품 전체 적용) */
+/* 반응형 적용해야해 */
+
+.item_bookmark{
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 2;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: black;
+}
+
+.item_bookmark:hover{
+    background-color: #828282;
+    border-radius: 4px;
+    opacity: 0.3;
+}
+
+.item_timer{
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 7px;
+    font-size: 13px;
+    line-height: 15px;
+    z-index: 3;
+    background-color: #f77;
+    color: #fff;
+    font-weight: 800;
+    border-radius: 4px;
+}
+
+.move_deals_btn{
+    display: none;
+}
+
+
+/* 카테고리 영역 */
+
+.store_index_category{
+    margin-top: 40px;
+}
+
+.store_index_category_text{
+    font-size: 20px;
+    margin-bottom: 14px;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+.category_whole{
+    overflow: hidden;
+    position: relative; 
+}
+
+.category_right_layout, .category_left_layout{
+    position: absolute;
+    height: 100%;
+    width: 64px;
+    top: 0;
+}
+
+.category_right_layout{
+    right: 0%;
+    background-image: linear-gradient(90deg,hsla(0,0%,100%,.01),#fff);
+}
+
+.category_left_layout{
+    left: 0%;
+    background-image: linear-gradient(90deg,hsla(0,0%,100%,.01),#fff);
+}
+
+.category_btn_right{
+    z-index: 3;
+    right: 0%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background: transparent;
+}
+
+.category_btn_left{
+    z-index: 3;
+    left: 0%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    background: transparent;
+}
+
+.category_list{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    /* 이게 뭘까 ? */
+    transition-timing-function: ease;
+    transition-duration: 500ms;
+    transform: translateX(0%);
+
+}
+
+.category_item_wrap{
+    min-width: 10%;
+}
+
+.category_item{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.category_item_image{
+    width: 80px;
+    height: 80px;
+}
+
+.category_item_title{
+    margin-top: 18px;
+    color: #424242;
+    font-size: 15px;
+    line-height: 20px
+}
+
+@keyframes category_move {
+    
+
+
+}
+
+
+
+/* 인기 상품 */
+.store_index_best{
+    margin-top: 50px;
+}
+
+.store_index_best_text{
+    font-size: 20px;
+}
+
+.store_index_best_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.best_btn{
+    bottom: 41%;
+}
+
+.dropdown_wrap{
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: 0;
+    z-index: 3;
+    border-radius: 8px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown_list{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 150px;
+}
+
+.dropdown_list li{
+    width: 100%;
+}
+
+.dropdown_btn{
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 15px;
+    border: none;
+    background-color: #fff;
+    color: #424242;
+    font-weight: 400;
+    font-size: 12px;
+    text-decoration: none;
+    text-align: left;
+    cursor: pointer;
+}
+
+.dropdown_btn:hover{
+    background-color: #d3edfc;
+}
+
+
+/* 나중에 list로 바꿔야함 */
+.filter_btn{
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    z-index: 2;
+    transition: opacity .1s;
+    color: #f77;
+}
+
+.filter_btn:hover .dropdown_wrap{
+    display: block;
+}
+
+.best_items{
+    position: relative;
+    display: flex;
+    padding: 0 10px 30px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.best_item_info{
+    margin-top: 8px;
+}
+
+
+@media all and (max-width:1256px) {
+
+    .container{
+        width: calc(100% - 120px);
+    }
+    
+}
+
+@media all and (max-width:1024px) {
+
+    .container{
+        width: calc(100% - 80px);
+    }
+
+    .col-md-4{
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        box-sizing: border-box;
+        flex: 0 0 33.3333333333%;
+        max-width: 33.3333333333%;
+        padding-right: 7.5px;
+        padding-left: 7.5px;
+
+    }
+
+
+    .carousel_frame{
+        height: 270px;
+    }
+
+    .category_whole{
+        overflow: auto;
+    }
+
+    .category_list{
+        margin-bottom: 20px;
+    }
+
+    .category_right_layout{
+        display: none;
+    }
+
+    .category_left_layout{
+        display: none;
+    }
+
+    .category_item_wrap{
+        min-width: 92px;
+    }
+
+
+    
+}
+
+
+@media all and (max-width:768px) {
+
+    .carousel_frame{
+        height: 395px;
+    }
+
+    .carousel_banner{
+        display: none;
+    }
+
+    .carousel_banner_sm{
+        display: block;
+        height: 100%;
+        overflow: hidden;
+    }
+    .banner_img_second{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* 메인 */
+    /* 오늘의 딜 */
+
+    .row{
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    .container{
+        width: calc(100% - 30px);
+    }
+
+    .col-12{
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        box-sizing: border-box;
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-right: 5px;
+        padding-left: 5px;
+        margin-top: 10px;
+    }
+
+    .deals_list_wrap{
+        border-bottom: 0.5px solid #e2e2e2;
+    }
+
+    .deals_item{
+        padding: 16px 0px;
+    }
+
+    .deals_item_wrap{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .deals_item_pic{
+        margin: 0;
+        margin-right: 15px;
+    }
+
+    
+    .item_ani{
+        position: relative;
+        padding-bottom: 0;
+        background-color: #f5f5f5;
+        border-radius: 4px;
+        overflow: hidden;
+        height: 300px;
+    }
+    
+    .item_ani img{
+        all: initial;
+        height: 300px;
+    }
+
+    .deals_item_content {
+        margin-top: 0;
+        margin-left: 10px;
+    }
+
+
+    .move_deals_btn{
+        margin-top: 20px;
+        text-align: center;
+        display: block;
+        width: 100%;
+        background-color: #6AC8FE;
+        border-radius: 4px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: #fff;
+    }
+
+    .move_deals_btn span{
+        font-weight: 800;
+    }
+
+    .move_deals_btn:hover{
+        opacity: 0.5;
+    }
+
+    /* 카테고리 */
+    
+    
+    /* bookmark button */
+    .item_bookmark{
+        bottom: 12px;
+        right: 20px;
+    }
+
+
+}
+
+@media all and (max-width:576px) {
+
+    .carousel_frame{
+        height: 300px;
+    }
+    
+}

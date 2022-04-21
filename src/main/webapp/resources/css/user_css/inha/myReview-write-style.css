@@ -1,0 +1,149 @@
+*{margin: 0px; font-family: "S-Core", sans-serif; font-weight: 600;}
+@font-face {font-family: 'S-Core'; font-weight:400; src: url('../font/S-CoreDream-4Regular.woff') format('woff');}
+@font-face {font-family: 'S-Core'; font-weight:600; src: url('../font/S-CoreDream-6Bold.woff') format('woff');}
+@font-face {font-family: 'S-Core'; font-weight:800; src: url('../font/S-CoreDream-8Heavy.woff') format('woff');}
+
+blockquote, body, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, pre, td, textarea, th, ul {margin: 0; padding: 0;}
+html {color: #424242; background: #fff;}
+div, nav {display: block;}
+ol, ul {list-style: none;}
+ul {display: block; list-style-type: disc; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px;}
+li {display: list-item; text-align: -webkit-match-parent;}
+a {color: inherit; text-decoration: none; border: 0; cursor: pointer;}
+button {cursor: pointer;}
+[role=button], a, button, input[type=button], input[type=reset], input[type=submit] {cursor: pointer; -ms-touch-action: manipulation; touch-action: manipulation;}
+fieldset, img {border: 0;}
+input, select, textarea {font-family: inherit; font-size: inherit; font-weight: inherit;}
+button, input, select, textarea {font-size: inherit;}
+
+.container {margin-right: auto; margin-left: auto; width: calc(100% - 30px); max-width: 100%; box-sizing: border-box; min-height: 1px;}
+.review-my-home__search {margin: 30px 0px;}
+.review-my-home__search__title {font-size: 18px; font-weight: 800;}
+.review-my-home__search__form {margin-top: 15px;}
+.review-my-home__search__form__wrap {display: -webkit-box;}
+.review-my-home__search__form__input {-webkit-box-flex: 1; flex: 1 0 0px; height: 40px; line-height: 40px; font-size: 15px;}
+.form-control {transition: border-color .2s,box-shadow .2s,background-color .2s; display: block; box-sizing: border-box; height: 40px; width: 100%; padding: 0 15px; line-height: 40px; border-radius: 4px; border: 1px solid #dbdbdb; background-color: #fff; color: #424242; font-size: 12px;}
+.form-control::placeholder {color: #bbbbbb; font-weight: 400;}
+.form-control:active, .form-control:hover {background-color: #fafafa; border-color: #bdbdbd;}
+.review-my-home__search__form__button {margin-left: 8px; width: 84px;}
+._3Z6oR {user-select: none; display: inline-block; box-sizing: border-box; font-weight: 800; text-align: center; cursor: pointer; margin: 0px; padding: 0px; border-width: 1px; border-style: solid; border-color: #ff778e; border-image: initial; background: none; text-decoration: none; transition: color 0.1s ease 0s, background-color 0.1s ease 0s, border-color 0.1s ease 0s; border-radius: 4px;}
+._1myYS {background-color: #fff; border-color: #ff778e; color: #ff778e;}
+._3AsCW {background-color: #ff778e; border-color: #ff778e; color: #fff;}
+._1BDvx {padding: 9px 10px; font-size: 15px;}
+._1BDvx, ._32u90 {line-height: 20px;}
+.review-my-home__review-list__item {display: flex; -webkit-box-align: start; align-items: flex-start; color: rgb(41, 41, 41); margin-bottom: 18px;}
+.review-my-home__review-list__item__image {border-radius: 4px; width: 70px; height: 70px;}
+.review-my-home__review-list__item__wrap {-webkit-box-flex: 1; flex: 1 0 0px; margin-left: 12px;}
+.review-my-home__review-list__item__wrap > span {overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical; overflow-wrap: break-word; word-break: break-all;}
+.review-my-home__review-list__item__wrap__brand {font-size: 10px; line-height: 1.3; color: rgb(130, 140, 148); margin-bottom: 4px; -webkit-line-clamp: 1;}
+.review-my-home__review-list__item__wrap__name {font-size: 12px; line-height: 1.3; font-weight: 800; color: rgb(66, 66, 66); margin-bottom: 4px; -webkit-line-clamp: 2;}
+.review-my-home__review-list__item__wrap__option {font-weight: 400; font-size: 10px; line-height: 1.3; color: rgb(66, 66, 66); margin-bottom: 4px; -webkit-line-clamp: 1;}
+.review-my-home__review-list__item__wrap__point-info {font-size: 9px; line-height: 1.3; font-weight: 800; color: #ff778e; -webkit-line-clamp: 1;}
+.review-my-home__review-list__item__review-btn {display: flex; -webkit-box-direction: normal; -webkit-box-orient: vertical; flex-direction: column; -webkit-box-pack: center; justify-content: center; margin-left: 10px; height: 70px;}
+.review-my-home__review-list__item__review-btn__from {font-size: 12px; line-height: 19px; color: rgb(158, 158, 158); text-align: center; font-weight: 800; margin-bottom: 4px;}
+.review-my-home__review-list__item__review-btn__button {font-size: 14px; width: 84px;}
+
+/*리뷰 작성 모달 스타일*/
+.modalScroll {overflow: auto;}
+.react-modal {display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: none; -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; -moz-justify-content: center; justify-content: center; position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 100000; background-color: rgb(0 0 0 / 40%);}
+.react-modal__content-wrap {-webkit-box-flex: 0; -webkit-flex: 0 0 auto; -moz-box-flex: 0; -moz-flex: 0 0 auto; -ms-flex: 0 0 auto; flex: 0 0 auto; width: 100%; max-height: 100%; overflow: auto; z-index: 504; opacity: 0; box-sizing: border-box; transform: translateY(-50px); -webkit-overflow-scrolling: touch;}
+.open>.react-modal__content-wrap {opacity: 1; transform: none;}
+.react-modal__content {margin: 20px auto; background-color: #fff; box-sizing: border-box; border-radius: 4px; animation-name: modalopen; animation-duration: 0.4s;}
+.review-modal {position: relative; width: 680px; border-radius: 4px; background-color: #fff; color: #292929; padding: 40px 40px 0;}
+.review-modal__title {line-height: 1.35; font-weight: 700; text-align: center; font-size: 20px; display: block;}
+.review-modal__close {display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; -moz-justify-content: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border: 0; cursor: pointer; background-color: #fff;}
+.review-modal__close__icon {width: 20px; height: 20px;}
+.review-modal__point-explain {display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; margin-top: 30px; height: 45px; background-color: #525b61; padding: 0 16px; color: #fff; font-weight: 700;}
+.review-modal__point-explain__icon {fill: #fff; margin-right: 8px; height: 18px;}
+.review-modal__point-explain__value {color: #6cd5f4;}
+.review-modal__form__product {display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; margin: 20px 0 30px;}
+.review-modal__form__product__image { width: 100px; height: 100px; border-radius: 4px;}
+.review-modal__form__product__contents { -webkit-box-flex: 1; -webkit-flex: 1 0 0px; -moz-box-flex: 1; -moz-flex: 1 0 0px; -ms-flex: 1 0 0px; flex: 1 0 0px; margin-left: 12px;}
+.review-modal__form__product__contents__brand { font-size: 11px; color: #757575; margin-bottom: 6px;}
+.review-modal__form__product__contents__name { margin-bottom: 6px; font-size: 15px; line-height: 1.2;}
+.review-modal__form__product__contents__options { font-size: 13px; line-height: 1.3; color: #757575;}
+.review-modal__section { position: relative; margin-bottom: 32px; width: 100%;}
+.review-modal__section__title { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; font-size: 15px; font-weight: 700; margin-bottom: 15px;}
+.review-modal { position: relative; width: 680px; border-radius: 4px; background-color: #fff; color: #292929; padding: 40px 40px 0;}
+.review-modal__form__star { display: -webkit-inline-box; display: -webkit-inline-flex; display: -moz-inline-flex; display: -ms-inline-flexbox; display: inline-flex; margin: 30px 60px 0 0; align-items: center;}
+.review-modal__form__star:first-of-type, .review-modal__form__star:nth-of-type(2) { margin-top: 0;}
+.review-modal__form__star__label { font-size: 15px; line-height: 42px; width: 55px;}
+.rating-input>li { display: inline-block;}
+.review-modal__form__star__value>.rating-input>li>.rating-input__star { font-size: 36px; padding-right: 4px;}
+.rating-input__star { padding-right: 6px; color: #dbdbdb; font-size: 52px; line-height: 0; cursor: pointer; transition: color .1s;}
+.rating-input__star>input { position: absolute; opacity: 0; z-index: -10000;}
+.review-modal__form__photo-point { margin-left: 8px; height: 28px;}
+.review-modal__section__explain { font-size: 13px; margin-bottom: 10px;}
+.review-modal .select-my-card { width: 100%; max-height: 234px; overflow-y: scroll;}
+.review-modal .select-my-card__content { display: inline-block; position: relative; overflow: hidden; width: 110px; height: 110px; margin-top: 4px; margin-right: 2px; border-radius: 4px;}
+.review-modal .select-my-card__content__image { width: 110px; height: 110px;}
+.review-modal .select-my-card__content>.round-checkbox-input { position: absolute; top: 10px; right: 10px;}
+.round-checkbox-input__label { position: relative; cursor: pointer; display: block; padding-left: 24px; min-height: 24px;}
+.round-checkbox-input__input { left: -1000px; position: absolute; opacity: 0;}
+.round-checkbox-input__icon { position: absolute; top: 0; left: 0; display: inline-block; width: 24px; height: 24px; box-sizing: border-box; border-radius: 100%; border: 1px solid #dbdbdb; background-color: #fff; vertical-align: -6px; transition: background-color .2s,border-color .2s,box-shadow .2s;}
+.review-modal .select-my-card__content>.round-checkbox-input>.round-checkbox-input__label>.round-checkbox-input__icon { border-color: hsla(0,0%,100%,.6); background-color: rgba(0,0,0,.14);}
+.round-checkbox-input__icon>.check { margin: -1px; opacity: 0; visibility: none; transition: opacity .2s,visibility 0s .2s;}
+.review-modal .upload-button { display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; -moz-justify-content: center; justify-content: center; width: 100%; height: 45px; border-radius: 4px; font-weight: 700; font-size: 15px; padding: 0; line-height: 1; margin-top: 10px;}
+.button { -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -ms-user-select: none; user-select: none; display: inline-block; margin: 0; padding: 0; box-sizing: border-box; border: 1px solid transparent; background: none; font-family: inherit; font-weight: 700; text-decoration: none; text-align: center; transition: color .1s,background-color .1s,border-color .1s; border-radius: 4px; cursor: pointer;}
+.button--size-50 { padding: 11px 10px; font-size: 17px; line-height: 26px;}
+.button--color-blue-inverted { background-color: #fff; border-color: #ff778e; color: #ff778e;}
+.button--color-blue {background-color: #ff778e; border-color: #ff778e; color: #fff;}
+.review-modal .upload-button>svg { width: 24px; height: 24px; margin-right: 8px; fill: #ff778e;}
+.review-modal__form__review-input.form-control { padding-bottom: 25px; min-height: 110px; font-size: 15px;}
+textarea.form-control { resize: none; line-height: 20px; padding-top: 9px; padding-bottom: 9px;}
+select.form-control[multiple], textarea.form-control { height: auto;}
+.form-control { transition: border-color .2s,box-shadow .2s,background-color .2s; display: block; box-sizing: border-box; height: 40px; width: 100%; padding: 0 15px; line-height: 40px; border-radius: 4px; border: 1px solid #dbdbdb; background-color: #fff; color: #424242; font-size: 12px;}
+.form-check-group, .form-control, .form-radio-group, .input-group { -webkit-box-flex: 1; -webkit-flex: 1 0 auto; -moz-box-flex: 1; -moz-flex: 1 0 auto; -ms-flex: 1 0 auto; flex: 1 0 auto;}
+.review-modal__form__review-input__length { position: relative; top: -20px; right: 10px; text-align: right; font-size: 11px;}
+.review-modal__form__submit { width: 100%; height: 45px; padding: 0; line-height: 43px; margin-bottom: 32px;}
+.review-modal__policy { margin-bottom: 32px; background-color: #f7f9fa; border-radius: 4px; overflow: hidden;}
+.review-modal__policy__button { display: flex; align-items: center; justify-content: space-between; padding: 16px; cursor: pointer;}
+.review-modal__policy__button>span { color: #2f3438; font-weight: 700; font-size: 16px; line-height: 20px; letter-spacing: -.3px;}
+.review-modal__policy__button>.icon { transition: transform .2s;}
+.review-modal__explain { width: 100%; margin: 0 -40px; padding: 20px 40px; border-radius: 4px; background-color: #f7f8fa; border-top: 1px solid #ededed; line-height: 1.46; color: #424242; font-size: 13px;}
+.review-modal__explain>ul { list-style-type: disc; list-style-position: inside;}
+
+/*반응형*/
+@media not all, (hover: hover), not all {
+ ._3AsCW.focus-visible, ._3AsCW:hover, html:not(.js-focus-visible) ._3AsCW:focus {border-color: #fc6982; background-color: #fc6982;}
+ ._1myYS.focus-visible, ._1myYS:hover, html:not(.js-focus-visible) ._1myYS:focus {background-color: #fef7f7;}
+}
+
+@media (min-width: 375px) {
+    .container {margin-right: auto; margin-left: auto; width: calc(100% - 30px); max-width: 100%; box-sizing: border-box; min-height: 1px;}
+}
+@media (min-width: 768px) {
+    .container {margin-right: auto; margin-left: auto; width: calc(100% - 80px); max-width: 100%; box-sizing: border-box; min-height: 1px;}
+    .form-control {font-size: 14px;}
+    .review-my-home__search__form__button {width: 120px;}
+    .review-my-home__review-list__item {margin-bottom: 22px;}
+    .review-my-home__review-list__item__image {width: 86px; height: 86px;}
+    .review-my-home__review-list__item__wrap__brand {font-size: 12px;}
+    .review-my-home__review-list__item__wrap__name {font-size: 14px;}
+    .review-my-home__review-list__item__wrap__option {font-size: 12px;}
+    .review-my-home__review-list__item__wrap__point-info {font-size: 11px;}
+    .review-my-home__review-list__item__review-btn {height: 86px;}
+    .review-my-home__review-list__item__review-btn__button {width: 120px;}
+
+    /*리뷰 작성 모달*/
+    .react-modal__content {width: 375px;}
+    .rating-input__star { padding-right: 10px;  font-size: 72px; }
+    .form-control { font-size: 14px;}
+    .button--color-blue:active, .button--color-blue:hover { border-color: #fc6982;  background-color: #fc6982; }
+}
+@media (min-width: 1024px) {
+    .container {margin-right: auto; margin-left: auto; width: calc(100% - 120px); max-width: 100%; box-sizing: border-box; min-height: 1px;}
+}
+@media (min-width: 1256px) {
+    .container {margin-right: auto; margin-left: auto; width: 1136px; max-width: 100%; box-sizing: border-box; min-height: 1px;}
+}
+
+@media (max-width: 767px) {
+    .review-modal__modal {margin: 0 auto; width: 100%; min-height: 100%;}
+}
+
+/* 모달 크기 우선순위 */
+.review-modal__modal {width: 760px;}
+
+/* 모달 애니메이션 */
+@keyframes modalopen {from{opacity: 0;} to{opacity: 1;}}

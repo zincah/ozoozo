@@ -1,0 +1,166 @@
+blockquote, body, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, pre, td, textarea, th, ul {
+    margin: 0;
+    padding: 0;
+}
+
+*{
+    margin: 0px;
+    font-family: "S-Core", sans-serif;
+    font-weight: 600;
+}
+
+@font-face {
+	font-family: 'S-Core';
+	font-weight:400;
+	src: url('../font/S-CoreDream-4Regular.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'S-Core';
+	font-weight:600;
+	src: url('../font/S-CoreDream-6Bold.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'S-Core';
+	font-weight:800;
+	src: url('../font/S-CoreDream-8Heavy.woff') format('woff');
+}
+
+
+a{
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+    /* text 색상 적용시키는거 찾아서 넣기 */
+}
+
+ul, ol{
+    list-style: none;
+}
+
+li{
+    margin: 0;
+    padding: 0;
+}
+
+button{
+    cursor: pointer;
+}
+
+img{
+    border: 0;
+}
+
+.container{
+    margin-right: auto;
+    margin-left: auto;
+    width: 1136px;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-height: 1px;
+}
+
+.todaydeal_title{
+    display: block;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 36px;
+    margin: 40px 0 20px;
+}
+
+.todaydeal_sub{
+    display: block;
+    font-size: 13px;
+    margin-bottom: 40px;
+    color: #757575;
+}
+
+.row{
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    margin-right: -10px;
+    margin-left: -10px;
+}
+
+.col-lg-3{
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    box-sizing: border-box;
+    flex: 0 0 25%;
+    max-width: 25%;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.item_timer{
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 7px;
+    font-size: 13px;
+    line-height: 15px;
+    z-index: 3;
+    background-color: #f77;
+    color: #fff;
+    font-weight: 800;
+    border-radius: 4px;
+}
+
+
+@media all and (max-width:1256px) {
+
+    .container{
+        width: calc(100% - 120px);
+    }
+    
+}
+
+@media all and (max-width:1024px) {
+
+    .container{
+        width: calc(100% - 80px);
+    }
+
+    .row{
+        margin-right: -7.5px;
+        margin-left: -7.5px;
+    }
+
+    .col-md-4{
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        box-sizing: border-box;
+        flex: 0 0 33.3333333333%;
+        max-width: 33.3333333333%;
+        padding-right: 7.5px;
+        padding-left: 7.5px;
+    }
+}
+
+@media all and (max-width:768px) {
+
+    .container{
+        width: calc(100% - 30px);
+    }
+
+    .row{
+        margin-right: -5px;
+        margin-left: -5px;
+    }
+
+    .col-12{
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        box-sizing: border-box;
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+    
+}

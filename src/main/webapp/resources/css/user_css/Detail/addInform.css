@@ -1,0 +1,307 @@
+@charset "EUC-KR";
+/* 문의  */
+.production-question-feed {
+    margin-top: 40px;
+}
+@media (min-width: 768px) {
+    .production-question-feed {
+        margin-top: 0;
+    }
+}
+.production-question-feed__item {
+    margin: 0 0 40px;
+}
+.production-question-feed__item__header {
+    position: relative;
+    display: block;
+    margin: 0 0 8px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #424242;
+}
+.production-question-feed__item__author {
+    margin: 0 0 9px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #bdbdbd;
+}
+.production-question-feed__item__answer, .production-question-feed__item__question {
+    position: relative;
+    margin: 0 0 10px;
+    padding-left: 15px;
+    font-size: 13px;
+    line-height: 20px;
+    color: #424242;
+}
+@media (min-width: 768px){
+.production-question-feed__item__answer, .production-question-feed__item__question {
+    padding-left: 22px;
+    font-size: 15px;
+    line-height: 22px;
+}
+}
+.production-question-feed__item__badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #35c5f0;
+    font-weight: 700;
+}
+.production-question-feed__item__content {
+    white-space: pre-line;
+}
+.production-question-feed__item__content__option-name {
+    font-size: 13px;
+    line-height: 22px;
+    color: #bdbdbd;
+    margin-bottom: 6px;
+}
+.production-question-feed__item__content__secret-icon {
+    position: relative;
+    top: 3px;
+    margin-right: 6px;
+    width: 15px;
+    height: 15px;
+}
+/* 문의 내용 페이지 수 */
+.list-paginator {
+    text-align: center;
+}
+.list-paginator>li {
+    display: inline-block;
+    vertical-align: bottom;
+    font-size: 0;
+}
+.list-paginator__page.sm {
+    display: block;
+}
+.list-paginator__page:hover {
+    color: #35c5f0;
+}
+.list-paginator__page.selected {
+    background-color: #35c5f0;
+    color: #fff;
+    text-decoration: none;
+}
+
+.list-paginator__page {
+    display: none;
+    min-width: 26px;
+    margin: 0 2px;
+    padding: 5.5px 5px;
+    box-sizing: border-box;
+    border: none;
+    background-color: transparent;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+    color: #424242;
+    transition: background-color .1s,color .1s;
+}
+@media (min-width: 768px) {
+    .list-paginator__page {
+        display: block;
+    }
+}
+.list-paginator__end, .list-paginator__next, .list-paginator__prev, .list-paginator__start {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: 0;
+    transition: opacity .1s;
+}
+
+.list-paginator__next {
+    margin-left: 20px;
+}
+@media (min-width: 768px){
+.list-paginator__next {
+    margin-left: 25px;
+}
+}
+/* 배송 */
+
+
+/* 상품 상세 이미지 우측 배너 (창 줄어들면 사라짐) */
+
+
+.col-4 {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    box-sizing: border-box;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 33.3333333333%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 33.3333333333%;
+    -ms-flex: 0 0 33.3333333333%;
+    flex: 0 0 33.3333333333%;
+    max-width: 33.3333333333%;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+@media (min-width: 375px) {
+    .col-4 {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+}
+
+@media (min-width: 768px) {
+    .col-4 {
+        padding-right: 7.5px;
+        padding-left: 7.5px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .col-4 {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+}
+
+
+@media (min-width: 1256px) {
+    .col-4 {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+}
+.production-selling__detail__sidebar {
+    position: relative;
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .production-selling__detail__sidebar {
+        display: block;
+    }
+}
+.production-selling-sidebar, .production-selling-sidebar-wrap {
+    z-index: 99;
+}
+.production-selling-sidebar__content {
+    max-width: 300px;
+    padding: 0 0 20px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    height: 100%;
+}
+.production-selling-sidebar-content {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+/* 안에 div */
+.production-selling-sidebar-content__option-form.production-selling-option-form {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0 0px;
+    -moz-box-flex: 1;
+    -moz-flex: 1 0 0px;
+    -ms-flex: 1 0 0px;
+    flex: 1 0 0px;
+    min-height: 0;
+}
+.production-selling-option-form, .production-selling-option-form__form {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    -moz-box-flex: 1;
+    -moz-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+}
+.production-selling-option-form {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+
+.production-selling-option-form__form {
+    margin-top: 20px;
+    min-height: 1px;
+}
+
+
+
+/* select */
+
+
+
+.form-check-group, .form-control, .form-radio-group, .input-group {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0 auto;
+    -moz-box-flex: 1;
+    -moz-flex: 1 0 auto;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+}
+
+
+/* 교환 환불 */
+.production-selling-refund__title {
+    margin: 30px 0 5px;
+    color: #424242;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 21px;
+}
+.production-selling-refund__note {
+    margin-bottom: 10px;
+    color: #757575;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+@media (min-width: 768px){
+.production-selling-refund__note {
+    font-size: 13px;
+    line-height: 17px;
+}
+}
+.production-selling-refund__list {
+    counter-reset: index;
+    color: #424242;
+    font-size: 12px;
+    line-height: 16px;
+}
+@media (min-width: 768px){
+.production-selling-refund__list {
+    font-size: 13px;
+    line-height: 17px;
+}
+}
+.production-selling-refund__list>li {
+    position: relative;
+    padding-left: 14px;
+}
+.production-selling-refund__list>li:before {
+    counter-increment: index;
+    content: counter(index) " ";
+    font-weight: 700;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
