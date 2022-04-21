@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta property="og:title" content="리뷰 쓰기" />
     <meta property="og:type" content="website" />
-    <link rel="stylesheet" href="resources/css/user_css/inha/myPage-nav-style.css" />
+    <link rel="stylesheet" href="resources/css/user_css/inha/myPage-nav-style.css?var=1" />
     <link rel="stylesheet" href="resources/css/user_css/inha/myReview-write-style.css" />
     <link rel="stylesheet" href="resources/css/user_css/inha/footer-style.css" />
     <style type="text/css">
@@ -372,6 +372,6 @@
         </div>
       </div>
     </div>
-    <script src="../js/myReview-write-js.js"></script>
+    <script src="resources/js/userjs/myReview-write-js.js"></script>
   </body>
 </html>
