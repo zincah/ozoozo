@@ -1,0 +1,203 @@
+*{
+    font-family: "Noto Sans KR", "Noto Sans CJK KR", "¸¼Àº °íµñ", "Malgun Gothic", sans-serif;
+}
+
+button{
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+div{
+    display: block;
+}
+
+.login_layout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+.login_main{
+    padding: 40px;
+    display: flex;
+    width: 300px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.link_to_homepage{
+    margin-bottom: 30px;
+}
+
+.login_form{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logo{
+    width: 147px;
+    height: 50px;
+    background-color: beige;
+}
+
+.input_wrap{
+    position: relative;
+    width: 100%;
+}
+
+.input_form{
+    position: relative;
+    display: block;
+    width: 100%;
+    border-radius: 4px 4px 0px 0px;
+    margin: 0;
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+    color: #000;
+    box-sizing: border-box;
+    font-size: 15px;
+    line-height: 21px;
+    resize: none;
+}
+
+.input_pat{
+    padding: 13px 15px 14px;
+}
+
+.login_btn_area{
+    margin: 20px 0px;
+    width: 100%;
+}
+
+.login_btn{
+    padding: 15px 10px;
+    line-height: 20px;
+    font-size: 17px;
+    min-height: 50px;
+}
+
+.login_btn_shape{
+    user-select: none;
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    font-family: "Noto Sans KR", "Noto Sans CJK KR", "¸¼Àº °íµñ", "Malgun Gothic", sans-serif;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #35c5f0;
+    border-image: initial;
+    color: #fff;
+    background: none;
+    text-decoration: none;
+    transition: color 0.1s ease 0s, background-color 0.1s ease 0s, border-color 0.1s ease 0s;
+    border-radius: 4px;
+    background-color: #35c5f0;
+    width: 100%;
+}
+
+.login_info{
+    width: 68%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.login_info a{
+    margin-left: 0;
+    font-size: 12px;
+    font-weight: 700;
+    color: #424242;
+
+}
+
+.social_text{
+    margin: 35px 0 15px;
+    color: #757575;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.33;
+    text-align: center;
+}
+
+.social_icon div{
+    display: inline;
+    margin-right: 10px;
+}
+
+.move_cs_center{
+    margin-top: 24px;
+    color: rgb(194, 200, 204);
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.nonmember_layer{
+    width: 100%;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid rgb(219, 219, 219);
+}
+
+.nonmember_order_btn{
+    width: 100%;
+    background-color: transparent;
+    border: 0px;
+    margin: 0px 0px 20px;
+    padding: 0px;
+    font-size: 15px;
+    line-height: 1.4;
+    color: rgb(66, 66, 66);
+}
+
+.login_non_member{
+    display: flex;
+    flex-direction: column;
+}
+
+.nonmember_input{
+    margin-bottom: 10px;
+}
+
+.hide{
+    display: none;
+}
+
+
+:focus{
+    outline: none;
+}
+
+
+
+.login_footer{
+    width: 100%;
+    color: #757575;
+    font-size: 10px;
+    line-height: 20px;
+    margin: -5px 0 25px;
+    text-align: center;
+}
+
+@media all and (min-width: 768px) {
+
+    body, html{
+        font-size: 15px;
+    }
+    
+}

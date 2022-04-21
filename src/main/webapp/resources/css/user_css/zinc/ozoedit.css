@@ -1,0 +1,266 @@
+blockquote, body, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, pre, td, textarea, th, ul {
+    margin: 0;
+    padding: 0;
+}
+
+*{
+    margin: 0px;
+    font-family: "S-Core", sans-serif;
+    font-weight: 600;
+}
+
+@font-face {
+	font-family: 'S-Core';
+	font-weight:400;
+	src: url('../font/S-CoreDream-4Regular.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'S-Core';
+	font-weight:600;
+	src: url('../font/S-CoreDream-6Bold.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'S-Core';
+	font-weight:800;
+	src: url('../font/S-CoreDream-8Heavy.woff') format('woff');
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.container{
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    width: 1136px;
+    max-width: 100%;
+    height: auto;
+}
+
+.edit_user_info_wrap{
+    margin: 50px auto;
+    /* 영역 그림자 넣기 */
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%);
+    padding: 50px;
+    color: #292929;
+
+}
+
+.edit_user_info_header{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 60px;
+}
+
+.edit_user_info_header_title{
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.edit_user_info_header_secession{
+    font-size: 14px;
+    color: #ccc;
+}
+
+.edit_user_info_item{
+    display: flex;
+    align-items: flex-start;
+}
+
+.edit_user_info_item_title{
+    padding-top: 30px;
+    width: 100px;
+    font-size: 15px;
+}
+
+.edit_user_info_item_title_sub{
+    margin-top: 5px;
+    font-size: 13px;
+    color: #757575;
+}
+
+.edit_user_info_item_body{
+    max-width: 400px;
+    flex: 1 0 0px;
+    padding: 20px 0;
+}
+
+.edit_user_info_item_body_wrap{
+    position: relative;
+}
+
+.email_input{
+    display: flex;
+}
+
+.form_control{
+    font-size: 15px;
+    border-radius: 6px;
+    text-align: left;
+    transition: border-color .2s,box-shadow .2s,background-color .2s;
+    display: block;
+    box-sizing: border-box;
+    height: 40px;
+    width: 100%;
+    padding: 0 15px;
+    line-height: 40px;
+    border-radius: 4px;
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+    color: #424242;
+}
+
+.input_seperator{
+    flex: 0 0 20px;
+    text-align: center;
+    line-height: 40px;
+    color: #dbdbdb;
+}
+
+.email_input_warn{
+    margin-top: 10px;
+    color: #9e9e9e;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.char_input{
+    display: flex;
+}
+
+.radio_group_input{
+    margin: -10px -5px;
+    list-style: none;
+    display: flex;
+}
+
+.gender_input{
+    margin-top: 20px;
+    flex: 1 1 auto;
+    font-size: 15px;
+}
+
+.radio_group_input li{
+    margin-left: 10px;
+}
+
+.profile_layer{
+    margin-bottom: 10px;
+    
+}
+
+.profile_btn_wrap{
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.delete_btn{
+    z-index: 3;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    border-radius: 4px;
+    border: none;
+    background-color: #35c5f0;
+    padding: 5px 12px;
+    color: #fff;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.delete_btn:hover{
+    background-color: #35c5f0;
+    opacity: 1.0;
+}
+
+.profile_btn{
+    position: relative;
+    min-width: 200px;
+    min-height: 200px;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid #dbdbdb;
+    background-color: #d8d8d8;
+    font-size: 0;
+    cursor: pointer;
+    transition: opacity .1s;
+}
+
+.profile_img{
+    width: 100%;
+    height: 100%;
+}
+
+.update_btn_position{
+    margin: 50px 0 0 100px;
+    width: 290px;
+}
+
+.update_btn{
+    z-index: 3;
+    background-color: #35c5f0;
+    padding: 11px 10px;
+    color: #fff;
+    font-size: 17px;
+    line-height: 26px;
+    border: 1px solid transparent;
+    font-family: inherit;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    transition: color .1s,background-color .1s,border-color .1s;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.update_btn:hover{
+    opacity: 0.8;
+}
+
+@media all and (max-width:1256px) {
+
+    .container{
+        width: calc(100% - 200px);
+    }
+    
+}
+
+
+
+@media all and (max-width:1024px) {
+
+    .container{
+        width: calc(100% - 120px);
+    }
+    
+}
+
+@media all and (max-width:768px){
+
+    .container{
+        width: calc(100% - 80px);
+    }
+
+    .edit_user_info_wrap{
+    box-shadow: none;
+    padding: 50px;
+    }
+
+    .update_btn_position{
+        margin: 50px 0;
+        width: 100%;
+    }
+
+    .edit_user_info_item_body {
+        max-width: 100%;
+    }
+}

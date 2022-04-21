@@ -1,0 +1,174 @@
+.layout-navigation-search-modal.react-modal.open>.react-modal__content-wrap {
+    transform: none;
+}
+
+.layout-navigation-search-modal.react-modal>.react-modal__content-wrap {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    background-color: #fff;
+    transform: translateX(50px);
+}
+.open>.react-modal__content-wrap {
+    opacity: 1;
+    transform: none;
+}
+.react-modal__content-wrap {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    z-index: 504;
+    opacity: 0;
+    box-sizing: border-box;
+    transform: translateY(-50px);
+    -webkit-overflow-scrolling: touch;
+}
+.layout-navigation-search-modal__content.react-modal__content {
+    margin: 0;
+    border-radius: 0;
+    height: 100%;
+}
+
+.react-modal__content {
+    margin: 20px auto;
+    background-color: #fff;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+.layout-navigation-search-modal__search {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: 100%;
+}
+.layout-navigation-search {
+    position: relative;
+}
+.layout-navigation-search-modal__search .layout-navigation-search__header {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    padding: 15px;
+}
+.layout-navigation-search__header {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.layout-navigation-search__combobox {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0 auto;
+    -moz-box-flex: 1;
+    -moz-flex: 1 0 auto;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+}
+.layout-navigation-search__input {
+    position: relative;
+}
+.layout-navigation-search__input input[type=text].layout-navigation-search__input__text {
+    border-radius: 4px;
+}
+
+.layout-navigation-search-modal__search__close {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    margin: 0 0 0 15px;
+    padding: 9px 5px 10px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #424242;
+    border: none;
+    background: none;
+    line-height: 21px;
+}
+.layout-navigation-search-modal__search .layout-navigation-search__list {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 1 auto;
+    -moz-box-flex: 0;
+    -moz-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    position: static;
+    max-height: none;
+    margin: 0 30px 15px;
+    width: auto;
+}
+.layout-navigation-search__list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 400px;
+    margin-top: 4px;
+    padding: 8px;
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+    box-shadow: 0 4px 6px 0 rgb(82 91 97 / 18%);
+    border-radius: 4px;
+    overflow: auto;
+    box-sizing: border-box;
+}
+.layout-navigation-search__list__history-header__title {
+    font-size: 13px;
+    line-height: 23px;
+    color: #757575;
+}
+.layout-navigation-search__list__history-empty {
+    display: block;
+    padding: 10px 16px 11px;
+    font-size: 15px;
+    line-height: 21px;
+    color: #bdbdbd;
+}
+@media (min-width: 768px){
+.layout-navigation-search-modal__search .layout-navigation-search__header {
+    padding: 30px 30px 5px;
+}
+}
+@media (min-width: 768px){
+.layout-navigation-search-modal__content.react-modal__content {
+    width: 100%;
+}
+}
+@media (min-width: 768px){
+.react-modal__content {
+    width: 375px;
+}
+}
+@media (min-width: 768px){
+    .layout-navigation-search-modal__search__close {
+        display: none;
+    }
+    }
+    @media (min-width: 768px) {
+        .layout-navigation-search-modal.react-modal>.react-modal__content-wrap {
+            min-width: 256px;
+            max-width: 326px;
+        }
+    }
+
+    
