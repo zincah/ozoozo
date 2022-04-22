@@ -15,27 +15,27 @@
     <script src="https://kit.fontawesome.com/58c5618a7b.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100&display=swap" rel="stylesheet">
     <!-----카테고리js------->
-    <script>
+   <script>
         $(document).ready(function () {
 
             $('#custumstyle .layout-navigation-hamburger-pc__content').hide();
             $('#catcat').mouseover(function () {
-                $('.layout-navigation-hamburger-pc__content').children().eq(0).find('a').addClass('on');
+                $('.layout-navigation-hamburger-pc__content').children();
+                // #gnb에 자식 요소(li)가 몇번째인지를 확인한 후 on이라는 클래스 추가
+                $('.layout-navigation-hamburger-pc__content').css({
+                    display: 'flex' 
+                })
+            });
+            $('.layout-navigation-hamburger-pc').mouseover(function () {
+                $('.layout-navigation-hamburger-pc__content').children();
                 // #gnb에 자식 요소(li)가 몇번째인지를 확인한 후 on이라는 클래스 추가
                 $('.layout-navigation-hamburger-pc__content').css({
                     display: 'flex'
                 })
             });
-            $('.layout-navigation-hamburger-pc').mouseover(function () {
-                $('.layout-navigation-hamburger-pc').children().eq(0).find('a').addClass('on');
-                // #gnb에 자식 요소(li)가 몇번째인지를 확인한 후 on이라는 클래스 추가
-                $('.layout-navigation-hamburger-pc').css({
-                    display: 'flex'
-                })
-            });
 
             $('.layout-navigation-hamburger-pc').mouseleave(function () {
-                $('.layout-navigation-hamburger-pc').hide();
+                $('.layout-navigation-hamburger-pc__content').hide();
             });
         });
     </script>
@@ -74,14 +74,14 @@
 
 <body>
 
-    <header class="layout-navigation-bar">
-        <div class="sticky-container layout-navigation-primary-wrap" >
+     <header class="layout-navigation-bar">
+        <div class="sticky-container layout-navigation-primary-wrap" style="height: 81px;">
             <div class="sticky-child layout-navigation-primary"
                 style="position: fixed; transition: top 0.1s ease 0s; top: 0px; left: 0px; right: 0px;">
                 <div class="layout-navigation-primary__content">
                     <div class="layout-navigation-primary__leftmost"><button
                             class="layout-navigation-bar-icon layout-navigation-bar-drawer-button" title="메뉴"
-                            aria-label="메뉴" type="button"><svg id="hambuck_btn" class="icon" width="24" height="24"
+                            aria-label="메뉴" type="button"><svg id="hambuck_btn" class="icon_search_btn" width="24" height="24"
                                 viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
                                 <path fill="currentColor" d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"></path>
                             </svg></button></div>
@@ -133,15 +133,51 @@
                                 <path d="M22 22l-5-5"></path>
                                 <circle id="search_btn" cx="11" cy="11" r="8"></circle>
                             </svg></button>
-                       
+                        <!-- <a class="layout-navigation-bar-icon layout-navigation-bar-icon--hide-mobile"
+                            title="스크랩북" aria-label="스크랩북" href="/users/17136427/collections"><svg class="icon"
+                                width="24" height="24" stroke="currentColor" viewBox="0 0 24 24"
+                                preserveAspectRatio="xMidYMid meet">
+                                <path fill="none" stroke-width="2"
+                                    d="M3 20.967zm0 0V2.5a.5.5 0 01.5-.5h17a.5.5 0 01.5.5v18.467l-8.057-4.309a2 2 0 00-1.886 0L3 20.968z">
+                                </path>
+                            </svg></a> -->
+                        <a class="layout-navigation-bar-icon layout-navigation-bar-icon--hide-mobile"
+                            title="알림" aria-label="알림" href="/notifications/feed"><svg class="icon" width="24"
+                                height="24" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M10.04 4.19C10.16 3.16 10.6 2 12.05 2c1.35 0 1.78 1.11 1.9 2.13C21.05 5.25 21 13.43 21 19H3c0-5.48-.05-13.48 7.04-14.81zM10 19c0 1.66.9 3 2 3s2-1.34 2-3">
+                                </path>
+                            </svg></a>
+                        <!-- <a class="layout-navigation-bar-icon" title="장바구니" aria-label="장바구니"
+                            href="/cart"><svg class="icon" width="24" height="24" viewBox="0 0 24 24"
+                                stroke="currentColor" fill="none" stroke-linejoin="round" stroke-width="2"
+                                preserveAspectRatio="xMidYMid meet">
+                                <path stroke-linecap="round"
+                                    d="M4 5h18l-2.6 10.5a2 2 0 0 1-2 1.5H8.6a2 2 0 0 1-2-1.5L4 5zm4 15.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0zm7 0a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0z">
+                                </path>
+                                <path d="M1 2h3v3"></path>
+                            </svg>
+
+                            <span class="layout-navigation-bar-icon__ticker">1</span></a>-->
+                        <!-- <div class="drop-down layout-navigation-bar-user-section"><button
+                                class="layout-navigation-bar-user-button" type="button" aria-label="우동이형님">
+                                <div class="layout-navigation-bar-user-button__image"><img class="image"
+                                        src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36&amp;h=36&amp;c=c"
+                                        srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144&amp;h=144&amp;c=c 3x">
+                                </div><svg class="layout-navigation-bar-user-button__caret" width="8" height="8"
+                                    viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet">
+                                    <path d="M0 2l4 4 4-4z"></path>
+                                </svg>
+                            </button></div> -->
 
 
 
 
-                        <list class="end_word_pre"><a class="end_word" href="">로그인</a></list>
-                        <i id="i_divide" class="fa-solid fa-grip-lines-vertical"></i>
-                        <list class="end_word_pre"><a class="end_word" href="">회원가입</a></list>
-                        <i id="i_divide" class="fa-solid fa-grip-lines-vertical"></i>
+                        <list  class="end_word_pre"><a id="wordtree" class="end_word" href="">로그인</a></list>
+                        
+                        <list class="end_word_pre"><a  id="wordtree" class="end_word" href="">회원가입</a></list>
+                        
                         <list class="end_word_pre"><a class="end_word" href="">고객센터</a></list>
 
 
@@ -402,61 +438,7 @@
                 </script>
 
             </div>
-            <!-- -------------------------------------------------서치바----------------------- -->
-            <div class="bg_search"></div>
-            <div id="sidebar_search" class="react-modal__content-wrap">
-                <div class="react-modal__content layout-navigation-search-modal__content">
-                    <div class="layout-navigation-search layout-navigation-search-modal__search" id="id-14">
-                        <div class="layout-navigation-search__header">
-                            <div id="id-14-combobox" class="layout-navigation-search__combobox" role="combobox"
-                                aria-haspopup="listbox" aria-expanded="false">
-                                <div class="layout-navigation-search__input"><input
-                                        class="layout-navigation-search__input__text" type="text" autocomplete="off"
-                                        size="1" id="id-14-input" aria-autocomplete="list" placeholder="스토어 검색"
-                                        aria-label="스토어 검색" value=""><svg class="layout-navigation-search__input__icon"
-                                        width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" preserveAspectRatio="xMidYMid meet">
-                                        <path d="M22 22l-5-5"></path>
-                                        <circle cx="11" cy="11" r="8"></circle>
-                                    </svg></div>
-                            </div>
-                            <button class="layout-navigation-search-modal__search__close" type="button">취소</button>
-                        </div>
-                        <div>
-                            <ul id="id-14-list" class="layout-navigation-search__list" role="listbox"
-                                aria-label="스토어 검색">
-                                <div class="layout-navigation-search__list__history-header"><span
-                                        class="layout-navigation-search__list__history-header__title">최근 검색어</span>
-                                </div>
-                                <div class="layout-navigation-search__list__history-empty">최근 검색한 내역이 없습니다.</div>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <script>
-                $(document).ready(function () {
-                    var target = $("#sidebar_search");
-                    $('#search_btn').on('click', function () {
-                        $('.bg_search').show();
-                        $('#sidebar_search').show().animate({
-                            right: 0
-                        });
-                    });
-                    $(".bg_search").mouseup(function (e) {
-                        if (target.has(e.target).length == 0) {
-                            $('.bg_search').hide();
-                            $('#sidebar_search').animate({
-                                right: '-' + 50 + '%'
-                            }, function () {
-                                $('#sidebar_search').hide();
-                            });
-                        }
-
-                    });
-
-                });
-            </script>
+            
 
         </div>
 
@@ -464,6 +446,7 @@
         </div>
 
     </header>
+    
 
 
 
@@ -488,112 +471,112 @@
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/164819973129963284.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/164819973129963284.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/164819973129963284.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/164819973129963284.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">식품</span></a></li>
+                                class="cate_text">식품</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item"
                             href="/store/category?affect_type=StoreHamburger&amp;category=0"><span
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/164333420626278506.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/164333420626278506.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/164333420626278506.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/164333420626278506.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">가구</span></a></li>
+                                class="cate_text">가구</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item"
                             href="/store/category?affect_type=StoreHamburger&amp;category=1"><span
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835980444900252.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835980444900252.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835980444900252.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835980444900252.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">패브릭</span></a></li>
+                                class="cate_text">패브릭</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item"
                             href="/store/category?affect_type=StoreHamburger&amp;category=27"><span
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835980888059254.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835980888059254.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835980888059254.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835980888059254.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">조명</span></a></li>
+                                class="cate_text">조명</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item"
                             href="/store/category?affect_type=StoreHamburger&amp;category=3"><span
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835981383575039.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835981383575039.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835981383575039.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835981383575039.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">가전</span></a></li>
+                                class="cate_text">가전</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item"
                             href="/store/category?affect_type=StoreHamburger&amp;category=5"><span
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835981863959257.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835981863959257.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835981863959257.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835981863959257.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">주방용품</span></a></li>
+                                class="cate_text">주방용품</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item"
                             href="/store/category?affect_type=StoreHamburger&amp;category=2"><span
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835982382781033.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835982382781033.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835982382781033.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835982382781033.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">데코/식물</span></a></li>
+                                class="cate_text">데코/식물</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item"
                             href="/store/category?affect_type=StoreHamburger&amp;category=11"><span
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835982930888316.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835982930888316.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835982930888316.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835982930888316.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">수납/정리</span></a></li>
+                                class="cate_text">수납/정리</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item"
                             href="/store/category?affect_type=StoreHamburger&amp;category=4"><span
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/163609846171803764.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/163609846171803764.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/163609846171803764.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/163609846171803764.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">생활용품</span></a></li>
+                                class="cate_text">생활용품</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item"
                             href="/store/category?affect_type=StoreHamburger&amp;category=21"><span
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/163575475291672614.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/163575475291672614.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/163575475291672614.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/163575475291672614.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">생필품</span></a></li>
+                                class="cate_text">생필품</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item"
                             href="/store/category?affect_type=StoreHamburger&amp;category=6"><span
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835985103343415.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835985103343415.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835985103343415.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835985103343415.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">공구/DIY</span></a></li>
+                                class="cate_text">공구/DIY</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item"
                             href="/store/category?affect_type=StoreHamburger&amp;category=8"><span
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835986432363224.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835986432363224.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835986432363224.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835986432363224.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">반려동물</span></a></li>
+                                class="cate_text">반려동물</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item"
                             href="/store/category?affect_type=StoreHamburger&amp;category=7"><span
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835985751246256.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835985751246256.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835985751246256.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835985751246256.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">인테리어시공</span></a></li>
+                                class="cate_text">인테리어시공</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item"
                             href="/store/category?affect_type=StoreHamburger&amp;category=20"><span
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835986953510985.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835986953510985.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835986953510985.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835986953510985.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">캠핑용품</span></a></li>
+                                class="cate_text">캠핑용품</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item"
                             href="/store/category?affect_type=StoreHamburger&amp;category=22"><span
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835987414167522.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835987414167522.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835987414167522.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/162835987414167522.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">실내운동</span></a></li>
+                                class="cate_text">실내운동</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item layout-navigation-hamburger-pc__item--selected"
                             href="/store/category?affect_type=StoreHamburger&amp;category=25"><span
                                 class="image-wrap"><img class="image"
                                     src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/164148741337337391.png?gif=1&amp;w=80&amp;h=80&amp;c=c"
                                     srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/164148741337337391.png?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/164148741337337391.png?gif=1&amp;w=160&amp;h=160&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_hamburger_categories/164148741337337391.png?gif=1&amp;w=240&amp;h=240&amp;c=c 3x"></span><span
-                                class="text">렌탈</span></a></li>
+                                class="cate_text">렌탈</span></a></li>
                     <li class="layout-navigation-hamburger-pc__item-wrap"><a
                             class="layout-navigation-hamburger-pc__item" href=""><span class="image-wrap"><img
                                     class="image" src="" srcset=""></span><span class="text"></span></a></li>
@@ -616,7 +599,7 @@
     </ul>
 
     </div>
-
+    
 
 
 

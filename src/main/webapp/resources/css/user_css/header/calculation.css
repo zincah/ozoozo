@@ -134,7 +134,7 @@ footer, header, main {
     background-color: transparent;
     font-size: 16px;
     line-height: 19px;
-    color: #35c5f0;
+    color: #ff778e;
     transition: color .2s;
     border: none;
     font-weight: 700;
@@ -171,11 +171,11 @@ footer, header, main {
 ._4du-- {
     padding: 3px 8px;
     box-sizing: border-box;
-    border: 1px solid #35c5f0;
+    border: 1px solid #ff778e;
     border-radius: 100px;
     font-size: 12px;
     line-height: 14px;
-    color: #35c5f0;
+    color: #ff778e;
     margin-left: 8px;
     user-select: none;
 }
@@ -335,7 +335,7 @@ footer, header, main {
     color: #000;
 }
 ._1vQx0 {
-    color: #35c5f0;
+    color: #ff778e;
     font-family: Tahoma,sans;
 }
 ._1-Gyq {
@@ -404,8 +404,8 @@ footer, header, main {
 }
 
 ._3SroY {
-    background-color: #35c5f0;
-    border-color: #35c5f0;
+    background-color: #ff778e;
+    border-color: #ff778e;
     color: #fff;
 }
 
@@ -585,8 +585,8 @@ input, select, textarea {
 }
 ._2wuTD {
     background-color: #fff;
-    border-color: #35c5f0;
-    color: #35c5f0;
+    border-color: #ff778e;
+    color: #ff778e;
 }
 
 ._1eWD8 {
@@ -618,7 +618,7 @@ input, select, textarea {
 }
 ._1xjJk {
     margin-left: 5px;
-    color: #35c5f0;
+    color: #ff778e;
     font-weight: 700;
 }
 .EFfDW, .JsdI1 {
@@ -689,8 +689,8 @@ input, select, textarea {
 }
 @media not all, (hover: hover), not all{
 ._3SroY.focus-visible, ._3SroY:hover, html:not(.js-focus-visible) ._3SroY:focus {
-    border-color: #09addb;
-    background-color: #09addb;
+    border-color: #f2acb8;
+    background-color: #f2acb8;
 }
 }
 .css-1pkqci5 button {
