@@ -53,7 +53,7 @@ a {
     padding-right: 96px;
 }
 .customer-center {
-    background-color: #effbff;
+    background-color: #ffe6ea;
     padding-top: 70px;
     padding-bottom: 66px;
 }
@@ -176,7 +176,7 @@ address, caption, cite, code, dfn, em, th, var {
     background: transparent;
     font-size: 15px;
     text-decoration: underline;
-    color: #35c5f0;
+    color: #ff778e;
 }
 button, input, select, textarea {
     font-size: inherit;
@@ -250,8 +250,8 @@ button, input, select, textarea {
     user-select: none;
 }
 .btn-priority {
-    background-color: #35c5f0;
-    border-color: #35c5f0;
+    background-color: #ff778e;
+    border-color: #ff778e;
     color: #fff;
 }
 .btn {
@@ -288,8 +288,8 @@ button, input, select, textarea {
 }
 .btn-light {
     background-color: #fff;
-    border-color: #35c5f0;
-    color: #35c5f0;
+    border-color: #ff778e;
+    color: #ff778e;
 }
 
 
@@ -305,7 +305,7 @@ ol, ul {
     margin-bottom: 20px;
     display: block;
     font-weight: 700;
-    color: #09addb;
+    color: #ffb0bd;
     line-height: 1.5;
     background-color: transparent;
     border: none;
@@ -342,7 +342,7 @@ ol, ul {
     border-bottom: 1px solid #dbdbdb;
 }
 .faq__nav__item--active {
-    color: #35c5f0;
+    color: #ff778e;
 }
 .faq__contents__item {
     padding: 23px 0;
@@ -361,7 +361,7 @@ ol, ul {
     
 }
 .faq__contents__item__answer:before, .faq__contents__item__question:before {
-    color: #35c5f0;
+    color: #ff778e;
     font-weight: 700;
     position: absolute;
     left: 0;
