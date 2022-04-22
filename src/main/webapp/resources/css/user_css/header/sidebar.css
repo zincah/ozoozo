@@ -169,7 +169,7 @@
 
 
 .layout-navigation-drawer-menu__item__button:hover {
-    color: #35c5f0;
+    color: #ff778e;
 }
 .layout-navigation-drawer-menu__item__button {
     position: relative;
@@ -214,7 +214,7 @@ button, input[type=email], input[type=file], input[type=number], input[type=pass
     padding: 0 0 20px;
 }
 .layout-navigation-drawer-secondary-menu__item--active {
-    color: #35c5f0;
+    color: #ff778e;
 }
 .layout-navigation-drawer-secondary-menu__item {
     position: relative;

@@ -27,6 +27,10 @@ blockquote, body, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6,
     margin: 0;
     padding: 0;
 }
+* {
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+    -webkit-tap-highlight-color: transparent;
+}
 
 .layout-navigation-hamburger-pc {
     overflow: auto;
@@ -99,10 +103,12 @@ fieldset, img {
     display: block;
     margin: 20px -10px 0;
 }
-.layout-navigation-hamburger-pc__item--selected {
-    color: #35c5f0;
+.layout-navigation-hamburger-pc__item--selected:hover {
+    color: #ff778e;
 }
-
+.cate_text:hover{
+    color: #ff778e;
+}
 
 #catcat:hover .layout-navigation-hamburger-pc__content li{
 
@@ -113,16 +119,25 @@ fieldset, img {
 .end_word{
     font-size: 16px;
     white-space: nowrap;
-    padding:8px;
+    padding:0px 6px;
+    font-weight: 600;
+
+    
+    
 }
 #i_divide{
     white-space: nowrap;
     padding-top: 25px;
+    
 }
 .end_word_pre{
     padding-top: 20px;
+    
 }
-
+#wordtree{
+    
+    border-right: 2px solid #dbdbdb;
+}
 @media (max-width:1024px){
     layout-navigation-bar-icon layout-navigation-bar-search-button{
         display: flex;
@@ -142,7 +157,7 @@ fieldset, img {
     layout-navigation-bar-icon layout-navigation-bar-search-button{
         display: none;
     }
-    .icon{
+    .icon_search_btn{
         display: none;
     }
    
