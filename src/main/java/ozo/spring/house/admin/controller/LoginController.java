@@ -23,6 +23,7 @@ public class LoginController {
 		
 		if(code.equals(admincode) && pw.equals(password)) {
 			System.out.println("관리자 로그인 성공");
+			// session에 저장
 			return "redirect:index.admin";
 		}else {
 			System.out.println("로그인 실패");
