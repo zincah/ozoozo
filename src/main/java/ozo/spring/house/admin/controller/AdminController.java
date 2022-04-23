@@ -1,5 +1,7 @@
 package ozo.spring.house.admin.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -7,12 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
 	@RequestMapping(value = "/index.admin")
-	public String adminIndex() {
-		return "index";
+	public String adminIndex(HttpSession session) {
+		
+		if(session.getAttribute("admincode")!=null) {
+			return "index";
+		}else {
+			return "adminLogin_dj";
+		}
 	}
 
 	@RequestMapping(value = "/information.admin")
 	public String informationView() {
+		
 		return "information_zinc";
 	}
 
@@ -61,9 +69,5 @@ public class AdminController {
 		return "eventManagement_dj";
 	}
 	
-	@RequestMapping(value = "/login.admin")
-	public String loginView() {
-		return "adminLogin_dj";
-	}
 
 }
