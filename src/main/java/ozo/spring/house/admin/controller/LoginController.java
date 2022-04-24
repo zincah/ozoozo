@@ -1,35 +1,47 @@
 package ozo.spring.house.admin.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import ozo.spring.house.admin.service.MemberService;
+import ozo.spring.house.admin.vo.MemberVO;
 
 @Controller
 public class LoginController {
+
+	@Autowired
+	MemberService memberService;
 	
-	// test
-	private String admincode = "ozohouse";
-	private String password = "1234";
-	
-	@RequestMapping("/loginTest.admin")
-	public String loginTest(HttpServletRequest request, HttpServletResponse response) {
-		
-		String code = request.getParameter("admincode");
-		String pw = request.getParameter("password");
-		
-		System.out.println(code + pw);
-		
-		if(code.equals(admincode) && pw.equals(password)) {
-			System.out.println("관리자 로그인 성공");
-			// session에 저장
-			return "redirect:index.admin";
+	@RequestMapping(value = "/login.admin", method=RequestMethod.GET)
+	public String loginView(HttpSession session) {
+		if(session.getAttribute("admincode")!=null) {
+			return "index";
 		}else {
-			System.out.println("로그인 실패");
-			return "redirect:views/adminLogin_dj.jsp";
+			return "adminLogin_dj";
 		}
+	}
+
+	@RequestMapping(value="/login.admin", method=RequestMethod.POST)
+	public String loginTest(MemberVO vo, Model model, HttpSession session) {
+
+		// log 처리
+		System.out.println("login controller");
+		MemberVO admin = memberService.checkAdmin(vo);
 		
+		if(admin != null) {
+			session.setAttribute("admincode", admin.getAdmin_code());
+			return "index";
+		}else {
+			String msg = "입력하신 정보가 잘못 되었습니다.";
+			model.addAttribute("msg", msg);
+			return "adminLogin_dj";
+		}
 	}
 	
 

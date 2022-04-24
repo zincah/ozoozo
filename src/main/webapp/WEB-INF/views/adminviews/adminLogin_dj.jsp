@@ -25,12 +25,12 @@
 				<a href="" class="mtext"></a>
 
 				<!-- admin,seller login -->
-				<form class="css-18fd3as-FormContent e7sx0344" action="loginTest.admin" method="post">
+				<form class="css-18fd3as-FormContent e7sx0344" action="login.admin" method="post">
 					<div class="css-14zpkc9-InputFieldWrap e7sx0343">
-						<input type="text" class="_3ASDR _2wjXG css-ov0qvl-FormInputField e7sx0342" value="" name="admincode" position="top" placeholder="사원코드">
+						<input type="text" class="_3ASDR _2wjXG css-ov0qvl-FormInputField e7sx0342" value="" name="admin_code" position="top" placeholder="사원코드">
 					</div>
 					<div class="css-14zpkc9-InputFieldWrap e7sx0343">
-						<input type="password" class="_3ASDR _2wjXG css-1uzhxvg-FormInputField e7sx0342" value="" name="password" position="bottom" placeholder="비밀번호">
+						<input type="password" class="_3ASDR _2wjXG css-1uzhxvg-FormInputField e7sx0342" value="" name="admin_password" position="bottom" placeholder="비밀번호">
 					</div>
 					<button class="_1eWD8 _3SroY _27do9 css-15i71tl-SubmitButton e7sx0340" type="submit">
 						로그인

@@ -1,5 +1,8 @@
 package ozo.spring.house.admin.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -7,63 +10,138 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
 	@RequestMapping(value = "/index.admin")
-	public String adminIndex() {
-		return "index";
+	public String adminIndex(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("admincode")!=null) {
+			return "index";
+		}else {
+			return "adminLogin_dj";
+		}
+
 	}
 
 	@RequestMapping(value = "/information.admin")
-	public String informationView() {
-		return "information_zinc";
+	public String informationView(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("admincode")!=null) {
+			return "information_zinc";
+		}else {
+			return "adminLogin_dj";
+		}
+
 	}
 
 	@RequestMapping(value = "/companyManagement.admin")
-	public String companyManageView() {
-		return "companyManagement_dh";
+	public String companyManageView(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("admincode")!=null) {
+			return "companyManagement_dh";
+		}else {
+			return "adminLogin_dj";
+		}
 	}
 
 	@RequestMapping(value = "/productManagementList.admin")
-	public String productManageView() {
-		return "productManagementList_zinc";
+	public String productManageView(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("admincode")!=null) {
+			return "productManagementList_zinc";
+		}else {
+			return "adminLogin_dj";
+		}
 	}
 
 	@RequestMapping(value = "/reviewManagement.admin")
-	public String reviewManageView() {
-		return "reviewManagement_02";
+	public String reviewManageView(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("admincode")!=null) {
+			return "reviewManagement_02";
+		}else {
+			return "adminLogin_dj";
+		}
 	}
 
 	@RequestMapping(value = "/salesStatus.admin")
-	public String saleStatusView() {
-		return "salesStatus_dh";
+	public String saleStatusView(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("admincode")!=null) {
+			return "salesStatus_dh";
+		}else {
+			return "adminLogin_dj";
+		}
 	}
 
 	@RequestMapping(value = "/calculateManagement.admin")
-	public String calculateManageView() {
-		return "calculateManagement_dj";
+	public String calculateManageView(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("admincode")!=null) {
+			return "calculateManagement_dj";
+		}else {
+			return "adminLogin_dj";
+		}
 	}
 
 	@RequestMapping(value = "/clientInformation.admin")
-	public String clientInformationView() {
-		return "clientInformation_zinc";
+	public String clientInformationView(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("admincode")!=null) {
+			return "clientInformation_zinc";
+		}else {
+			return "adminLogin_dj";
+		}
 	}
 
 	@RequestMapping(value = "/memberManagement.admin")
-	public String memberManagementView() {
-		return "memberManagement_dh";
+	public String memberManagementView(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("admincode")!=null) {
+			return "memberManagement_dh";
+		}else {
+			return "adminLogin_dj";
+		}
 	}
 
 	@RequestMapping(value = "/couponManagement.admin")
-	public String couponManagementView() {
-		return "couponManagement_zinc";
+	public String couponManagementView(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("admincode")!=null) {
+			return "couponManagement_zinc";
+		}else {
+			return "adminLogin_dj";
+		}
 	}
 
 	@RequestMapping(value = "/eventManagement.admin")
-	public String eventManagementView() {
-		return "eventManagement_dj";
+	public String eventManagementView(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("admincode")!=null) {
+			return "eventManagement_dj";
+		}else {
+			return "adminLogin_dj";
+		}
 	}
 	
-	@RequestMapping(value = "/login.admin")
-	public String loginView() {
-		return "adminLogin_dj";
-	}
 
 }
