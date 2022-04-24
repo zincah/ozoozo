@@ -51,6 +51,8 @@
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
 
+	<!-- 암호화 -->
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 
 
 

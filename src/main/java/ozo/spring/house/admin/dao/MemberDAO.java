@@ -13,10 +13,10 @@ public class MemberDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-//	@Autowired
-//	BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
 	
-	BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	//BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	public MemberVO checkAdmin(MemberVO vo) {
 		System.out.println("--> mybatis in memberdao checkadmin");
