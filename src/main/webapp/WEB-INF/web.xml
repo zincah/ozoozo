@@ -9,11 +9,12 @@
 		<param-value>classpath:applicationContext.xml</param-value>
 	</context-param>
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
 	</listener>
 
 	<!-- controller 등록 -->
-	<!-- 사용자 --> 
+	<!-- 사용자 -->
 	<servlet>
 		<servlet-name>action</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet
@@ -50,7 +51,7 @@
 	</servlet-mapping>
 
 	<!-- 관리자 -->
-		<servlet>
+	<servlet>
 		<servlet-name>action2</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet
 		</servlet-class>
@@ -58,6 +59,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 				WEB-INF/config/admin-management.xml
+				classpath:security-config.xml
 				<!-- 각자 만들 context.xml 등록 -->
 			</param-value>
 		</init-param>

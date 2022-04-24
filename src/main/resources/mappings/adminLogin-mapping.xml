@@ -6,7 +6,12 @@
 
 	<!-- 관리자 인증 -->
 	<select id="checkAdmin" resultType="admin">
-		SELECT * FROM admin_table WHERE admin_code = #{admin_code} and admin_password = #{admin_password}
+		SELECT * FROM admin_table WHERE admin_code = #{admin_code}
 	</select>
+	
+	<!-- 관리자 생성 -->
+	<insert id="insertAdmin" parameterType="admin">
+		INSERT INTO admin_table VALUES (#{admin_code}, #{admin_password})
+	</insert>
 
 </mapper>
