@@ -29,7 +29,7 @@
             <div class="row">
               <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card h-100 box-shadow">
-	                <a href="information_zinc.jsp">
+	                <a href="information.admin">
 	                  <div class="card-body">
 	                    <div class="d-flex title-text">
 	                      <p class="margin-zero"><i class="bi bi-megaphone-fill icon-margin-right"></i>공지사항</p>
@@ -54,7 +54,7 @@
               </div>
               <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card h-100 box-shadow">
-                <a href="companyManagement_dh.jsp">
+                <a href="companyManagement.admin">
 	                  <div class="card-body">
 	                    <div class="d-flex title-text">
 	                      <p class="margin-zero"><i class="bi bi-person-workspace icon-margin-right"></i>신규입점신청</p>
@@ -80,7 +80,7 @@
               </div>
               <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card h-100 box-shadow">
-	                <a href="productManagementList.jsp">
+	                <a href="productManagementList.admin">
 	                  <div class="card-body">
 	                    <div class="d-flex title-text">
 	                      <p class="margin-zero"><i class="bi bi-tags-fill icon-margin-right"></i>상품등록요청</p>
@@ -106,7 +106,7 @@
               </div>
               <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card h-100 box-shadow">
-                	<a href="reviewManagement_02.jsp">
+                	<a href="reviewManagement.admin">
 	                  <div class="card-body">
 	                    <div class="d-flex title-text">
 	                      <p class="margin-zero"><i class="bi bi-exclamation-circle-fill icon-margin-right"></i>신규신고</p>

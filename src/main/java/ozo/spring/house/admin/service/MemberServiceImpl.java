@@ -22,4 +22,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.checkAdmin(vo);
 	}
 
+	@Override
+	public void insertAdmin(MemberVO vo) {
+		memberDAO.insertAdmin(vo);
+	}
+
 }

@@ -18,6 +18,7 @@ public class LoginController {
 	@Autowired
 	MemberService memberService;
 	
+	// login
 	@RequestMapping(value = "/login.admin", method=RequestMethod.GET)
 	public String loginView(HttpSession session) {
 		if(session.getAttribute("admincode")!=null) {
@@ -28,7 +29,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value="/login.admin", method=RequestMethod.POST)
-	public String loginTest(MemberVO vo, Model model, HttpSession session) {
+	public String login(MemberVO vo, Model model, HttpSession session) {
 
 		// log 처리
 		System.out.println("login controller");
@@ -36,6 +37,8 @@ public class LoginController {
 		
 		if(admin != null) {
 			session.setAttribute("admincode", admin.getAdmin_code());
+			model.addAttribute("admincode", vo.getAdmin_code());
+			model.addAttribute("member", vo); // member 정보
 			return "index";
 		}else {
 			String msg = "입력하신 정보가 잘못 되었습니다.";
@@ -44,5 +47,12 @@ public class LoginController {
 		}
 	}
 	
+	// logout
+	@RequestMapping(value = "/logout.admin", method=RequestMethod.GET)
+	public String logout(HttpSession session) {
+
+		session.invalidate();
+		return "redirect:login.admin";
+	}
 
 }
