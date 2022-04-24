@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="resources/css/user_css/header/OzoH.css?var=1">
     <link rel="stylesheet" href="resources/css/user_css/header/category.css">
     <link rel="stylesheet" href="resources/css/user_css/header/sidebar.css">
-    <link rel="stylesheet" href="resources/css/user_css/header/sidebar_search.css">
+<!--     <link rel="stylesheet" href="resources/css/user_css/header/sidebar_search.css"> -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/58c5618a7b.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100&display=swap" rel="stylesheet">
@@ -80,12 +80,12 @@
                 style="position: fixed; transition: top 0.1s ease 0s; top: 0px; left: 0px; right: 0px;">
                 <div class="layout-navigation-primary__content">
                     <div class="layout-navigation-primary__leftmost"><button
-                            class="layout-navigation-bar-icon layout-navigation-bar-drawer-button" title="메뉴"
-                            aria-label="메뉴" type="button"><svg id="hambuck_btn" class="icon_search_btn" width="24" height="24"
+                              class="layout-navigation-bar-icon layout-navigation-bar-drawer-button" title="메뉴"
+                            aria-label="메뉴" type="button"><svg  id="hambuck_btn" class="icon_search_btn"  width="24" height="24"
                                 viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
                                 <path fill="currentColor" d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"></path>
                             </svg></button></div>
-                    <div class="layout-navigation-primary__left"><a href=""><img src="resources/assets/img/ozohouse-logo.svg" alt="오조의집"></a>
+                    <div class="layout-navigation-primary__left"><a href="/house/main.com"><img src="resources/assets/img/ozohouse-logo.svg" alt="오조의집"></a>
                         <path fill="#000"
                             d="M14.2 25.17H9.28V20.7a1.45 1.45 0 0 0-2.9 0v4.47H1.44a1.45 1.45 0 1 0 0 2.9H14.2a1.45 1.45 0 0 0 0-2.9M4.5 9.15c0-4.6 2.08-5.28 3.33-5.28 1.24 0 3.33.69 3.33 5.28v.36c0 4.6-2.09 5.28-3.33 5.28-1.25 0-3.34-.69-3.34-5.28v-.36zm3.33 8.54c3.84 0 6.23-3.13 6.23-8.18v-.36c0-5.05-2.39-8.18-6.23-8.18-3.85 0-6.24 3.13-6.24 8.18v.36c0 5.05 2.39 8.19 6.24 8.19zm25.54-7.34H17.81a1.45 1.45 0 0 0 0 2.9h15.56a1.45 1.45 0 1 0 0-2.9m-1.55 15.5c-7.08 1.83-9.45.79-10.14.25-.45-.35-.65-.8-.65-1.48v-.87h10.25c.8 0 1.46-.65 1.46-1.45v-5.08c0-.8-.66-1.45-1.46-1.45h-11.7a1.45 1.45 0 1 0 0 2.9h10.25v2.18H19.57c-.8 0-1.45.65-1.45 1.45v2.32a4.6 4.6 0 0 0 1.78 3.78c1.2.93 2.94 1.39 5.21 1.39 2.05 0 4.54-.38 7.44-1.13a1.45 1.45 0 1 0-.73-2.82M20.3 7.83h10.8a1.45 1.45 0 1 0 0-2.9h-9.35V1.45a1.45 1.45 0 1 0-2.9 0v4.93c0 .8.65 1.45 1.45 1.45">
                         </path>
@@ -100,12 +100,12 @@
                         </svg></a>
                     </div>
                     <nav class="layout-navigation-primary__menu">
-                        <a class="layout-navigation-primary__menu__item" href="">스토어홈</a>
+                        <a class="layout-navigation-primary__menu__item" href="/house/main.com">스토어홈</a>
                         <a id="catcat" class="layout-navigation-primary__menu__item layout-navigation-primary__menu__item--active 
-                            layout-navigation-primary__menu__item--open" href="">카테고리</a>
+                            layout-navigation-primary__menu__item--open" href="/house/category.com">카테고리</a>
 
-                        <a class="layout-navigation-primary__menu__item" href="/experts">베스트</a>
-                        <a class="layout-navigation-primary__menu__item" href="/experts">오늘의딜</a>
+                        <a class="layout-navigation-primary__menu__item" href="/house/best.com">베스트</a>
+                        <a class="layout-navigation-primary__menu__item" href="/house/todaydeal.com">오늘의딜</a>
                     </nav>
                     <div class="layout-navigation-primary__right">
                         <div class="layout-navigation-bar-search">
@@ -174,11 +174,11 @@
 
 
 
-                        <list  class="end_word_pre"><a id="wordtree" class="end_word" href="">로그인</a></list>
+                        <list  class="end_word_pre"><a id="wordtree" class="end_word" href="/house/login.com">로그인</a></list>
                         
-                        <list class="end_word_pre"><a  id="wordtree" class="end_word" href="">회원가입</a></list>
+                        <list class="end_word_pre"><a  id="wordtree" class="end_word" href="/house/signUp.com">회원가입</a></list>
                         
-                        <list class="end_word_pre"><a class="end_word" href="">고객센터</a></list>
+                        <list class="end_word_pre"><a class="end_word" href="/house/customercenter.com">고객센터</a></list>
 
 
                     </div>
@@ -186,26 +186,26 @@
 
                 <!-- --클론상 메뉴 정리가 어려워 메뉴 하나더 추가 접두어에 mobile- 붙임------------------- -->
                 <nav class="mobile-layout-navigation-primary__menu">
-                    <a class="layout-navigation-primary__menu__item" href="/">스토어홈</a>
+                    <a class="layout-navigation-primary__menu__item" href="/house/main.com">스토어홈</a>
                     <a class="layout-navigation-primary__menu__item layout-navigation-primary__menu__item--active 
-                        layout-navigation-primary__menu__item--open" href="/store">카테고리</a>
-                    <a class="layout-navigation-primary__menu__item" href="/experts">베스트</a>
-                    <a class="layout-navigation-primary__menu__item" href="/experts">오늘의딜</a>
+                        layout-navigation-primary__menu__item--open" href="/house/category.com">카테고리</a>
+                    <a class="layout-navigation-primary__menu__item" href="/house/best.com">베스트</a>
+                    <a class="layout-navigation-primary__menu__item" href="/house/todaydeal.com">오늘의딜</a>
                 </nav>
                 <!-- -----------------------------------사이드바------------------------------------- -->
                 <div id="bg_menu"></div>
-                <div id="sidebar_site"
-                    class="react-modal react-modal--center layout-navigation-drawer-wrap open open-active">
+               <!--  <div id="sidebar_site"
+                    class="react-modal react-modal--center layout-navigation-drawer-wrap open open-active"> -->
 
                     <div class="react-modal__content-wrap ">
                         <div id="sidebar_menu" class="react-modal__content layout-navigation-drawer"
                             style="overflow:scroll; height:730px;">
                             <div class="layout-navigation-drawer-header"><a
                                     class="layout-navigation-logo layout-navigation-drawer-header__logo"
-                                    aria-label="오늘의집" href="/"><svg class="icon" width="74" height="30"
+                                    aria-label="오늘의집" href="/main.com"><svg class="icon" width="74" height="30"
                                         viewBox="0 0 74 30" preserveAspectRatio="xMidYMid meet">
                                         <g fill="none" fill-rule="evenodd">
-                                            <img class="ham_logo" src="resources/assets/img/ozohouse-logo.svg" alt="오조의집"
+                                            <img  class="ham_logo" src="resources/assets/img/ozohouse-logo.svg" alt="오조의집"
                                                 style="height:70px;">
                                         </g>
                                     </svg></a>
@@ -232,8 +232,8 @@
                                         srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144&amp;h=144&amp;c=c 3x"></span><span
                                     class="layout-navigation-drawer-user__nickname">우동이형님</span></a> -->
                             <div class="sidebar2">
-                                <a class="sidebar_login" href="">로그인</a>
-                                <a class="sidebar_join" href="">회원가입</a>
+                                <a class="sidebar_login" href="/house/login.com">로그인</a>
+                                <a class="sidebar_join" href="/house/signUp.com">회원가입</a>
                             </div>
                             <ul class="layout-navigation-drawer-menu">
                                 <li class="layout-navigation-drawer-menu__item-wrap">
@@ -283,7 +283,7 @@
                                             <ul class="layout-navigation-drawer-secondary-menu">
                                                 <li class="layout-navigation-drawer-secondary-menu__item-wrap"><a
                                                         class="layout-navigation-drawer-secondary-menu__item layout-navigation-drawer-secondary-menu__item--active"
-                                                        href="/store">스토어홈</a></li>
+                                                        href="/house/main.com">스토어홈</a></li>
                                                 <li id="catecate"
                                                     class="layout-navigation-drawer-secondary-menu__item-wrap"><button
                                                         class="layout-navigation-drawer-secondary-menu__item layout-navigation-drawer-secondary-menu__item--openable"
@@ -367,10 +367,10 @@
 
                                                 <li class="layout-navigation-drawer-secondary-menu__item-wrap"><a
                                                         class="layout-navigation-drawer-secondary-menu__item"
-                                                        href="/commerces/ranks">베스트</a></li>
+                                                        href="/house/best.com">베스트</a></li>
                                                 <li class="layout-navigation-drawer-secondary-menu__item-wrap"><a
                                                         class="layout-navigation-drawer-secondary-menu__item"
-                                                        href="/commerces/today_deals?special_feed=true">오늘의딜</a></li>
+                                                        href="/house/todaydeal.com">오늘의딜</a></li>
                                                 
                                             </ul>
                                         </div>
@@ -396,7 +396,7 @@
                             
                                     <li class="layout-navigation-drawer-user-menu__item-wrap"><a
                                             class="layout-navigation-drawer-user-menu__item"
-                                            href="/customer_center">고객센터</a></li>
+                                            href="/house/customercenter.com">고객센터</a></li>
                                 </ul>
                                 <ul
                                     class="layout-navigation-drawer-user-menu layout-navigation-drawer-user-menu--footer">
@@ -598,7 +598,7 @@
         </div>
     </ul>
     <!-- dh 서치바 -->
-    <div>
+     <div>
     <div class="react-modal react-modal--center layout-navigation-search-modal open open-active" id="search_div">
         <div class="react-modal__content-wrap-dh">
             <div class="react-modal__content layout-navigation-search-modal__content">
@@ -628,8 +628,8 @@
             </div>
         </div>
     </div>
-</div>
-   <script>
+</div> 
+    <script>
     const search = document.querySelector('.layout-navigation-bar-search-button');
     const search_div = document.getElementById('search_div');
     search.onclick = () =>{

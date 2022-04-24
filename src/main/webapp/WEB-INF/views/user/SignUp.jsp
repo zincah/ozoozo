@@ -5,15 +5,15 @@
 <head>
     <meta charset='utf-8'>
     <title>SignUp Page</title>
-    <link rel='stylesheet' type='text/css'  href='css/SignUp/DivSignUp.css'>
-    <link rel='stylesheet' type='text/css'  href='css/SignUp/block.css'>
-    <link rel='stylesheet' type='text/css'  href='css/font.css'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/DivSignUp.css?var=1'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/block.css'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/font.css'>
     <script src='main.js'></script>
 </head>
 <body>
          <!-- 전체 창 -->
         <div class="main">
-            <a href="">오늘의 집
+            <a href="/house/main.com"><img class="signUp_logo" src="resources/assets/img/ozohouse-logo.svg" alt="오조의집">
             </a>
             <!--가운데 메인 창-->
             <div class="real_main">

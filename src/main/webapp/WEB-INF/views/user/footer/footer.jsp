@@ -20,7 +20,7 @@
         <div class="layout-footer__top">
           <address class="layout-footer__cs">
             <div class="layout-footer__cs__row">
-              <a class="layout-footer__cs__link" href="/customer_center"
+              <a class="layout-footer__cs__link" href="/house/customercenter.com"
                 >고객센터<svg
                   class="icon-sns"
                   aria-hidden="true"

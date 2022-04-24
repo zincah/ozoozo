@@ -28,26 +28,26 @@
         <nav class="page-navigation mypage-nav-owner">
           <ul style="transform: translateX(0px); margin: 0px">
             <li class="mypage-nav-item">
-              <a href="myPage.html" target="self">프로필</a>
+              <a class="active" href="/house/myPage.com" target="self">프로필</a>
             </li>
             <li class="mypage-nav-item">
-              <a href="#" target="self">나의 쇼핑</a>
+              <a href="/house/myshopping.com" target="self">나의 쇼핑</a>
             </li>
             <li class="mypage-nav-item">
-              <a class="active" href="#" target="self">나의 리뷰</a>
+              <a href="/house/myreview.com" target="self">나의 리뷰</a>
             </li>
             <li class="mypage-nav-item">
-              <a href="#" target="self">설정</a>
+              <a href="/house/edit.com" target="self">설정</a>
             </li>
           </ul>
         </nav>
         <nav class="page-navigation mypage-nav-content">
           <ul style="transform: translateX(0px); margin: 0px">
             <li class="mypage-nav-item">
-              <a href="myReview-write.html" target="self">리뷰쓰기</a>
+              <a href="/house/myreview_write.com" target="self">리뷰쓰기</a>
             </li>
             <li class="mypage-nav-item">
-              <a class="active select" href="#" target="self"
+              <a class="active select" href="/house/myreview.com" target="self"
                 >내가 작성한 리뷰</a
               >
             </li>

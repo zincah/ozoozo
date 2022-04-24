@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="resources/css/user_css/header/public.css">
-    <link rel="stylesheet" href="resources/css/user_css/header/customer.css">
+    <link rel="stylesheet" href="resources/css/user_css/header/public.css?var=1">
+    <link rel="stylesheet" href="resources/css/user_css/header/customer.css?var=1">
     
     <title>Document</title>
 </head>
@@ -15,6 +15,7 @@
 <header>
     	<jsp:include page="./header/OzoH.jsp"></jsp:include>
     </header>
+    
    <div class="layout">
         <!--헤더 -->
 	

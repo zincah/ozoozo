@@ -18,17 +18,17 @@ window.addEventListener("click", outsideClick);
 
 // Function to open modal
 function openModal() {
-  modal.style.display = "flex";
-  body.style.overflow = "hidden";
+	modal.style.display = "flex";
+	body.style.overflow = "hidden";
 }
 // Function to close modal
 function closeModal() {
-  modal.style.display = "none";
-  body.style.overflow = "auto";
+	modal.style.display = "none";
+	body.style.overflow = "auto";
 }
 // Function to close modal if outside click
 function outsideClick(e) {
-  if (e.target == modalBack) {
-    modal.style.display = "none";
-  }
+	if (e.target == modalBack) {
+		modal.style.display = "none";
+	}
 }

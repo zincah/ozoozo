@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="resources/css/user_css/zinc/ozologin.css" rel="stylesheet" />
+    <link href="resources/css/user_css/zinc/ozologin.css?var=1" rel="stylesheet" />
      <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
 	integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
 	crossorigin="anonymous"></script>
@@ -27,8 +27,7 @@
     <div class="login_layout">
         <div class="login_main">
             <a aria-label="오조의집" href="#" class="link_to_homepage">
-                <div class="logo">
-                </div>
+                <div class="logo"><a href="/house/main.com"><img src="resources/assets/img/ozohouse-logo.svg" alt="오조의집"></a></div>
             </a>
             <form method="post" class="login_form">
 
@@ -41,8 +40,8 @@
 
                 <button class="login_btn_area login_btn login_btn_shape">로그인</button>
                 <div class="login_info">
-                    <a href="#">비밀번호 재설정</a>
-                    <a href="#">회원가입</a>
+                    <a href="/house//password_m.com">비밀번호 재설정</a>
+                    <a href="/house/signUp.com">회원가입</a>
                 </div>
                 <div class="social_text">SNS계정으로 간편 로그인/회원가입</div>
                 

@@ -46,9 +46,9 @@ a{
 }
 
 .logo{
-    width: 147px;
-    height: 50px;
-    background-color: beige;
+    width: 181px;
+    height: 104px;
+    background-color: rgb(255, 255, 255);
 }
 
 .input_wrap{
@@ -100,14 +100,14 @@ a{
     cursor: pointer;
     border-width: 1px;
     border-style: solid;
-    border-color: #35c5f0;
+    border-color: #ff778e;
     border-image: initial;
     color: #fff;
     background: none;
     text-decoration: none;
     transition: color 0.1s ease 0s, background-color 0.1s ease 0s, border-color 0.1s ease 0s;
     border-radius: 4px;
-    background-color: #35c5f0;
+    background-color: #ff778e;
     width: 100%;
 }
 
