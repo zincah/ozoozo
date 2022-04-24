@@ -20,18 +20,17 @@ public class UserController {
 	public String user_category() {
 		return "ozocategory_zinc";
 	}
-	@RequestMapping(value = "/edit.com")
-	public String user_edit() {
-		return "ozoedit_zinc";
-	}
+	
 	@RequestMapping(value = "/login.com")
 	public String user_login() {
 		return "ozoLogin_zinc";
 	}
-	@RequestMapping(value = "/password_m.com")
-	public String user_P_M() {
-		return "ozopasswordModi_zinc";
+	//회원가입 페이지
+	@RequestMapping(value = "/signUp.com")
+	public String user_signUp() {
+		return "SignUp";
 	}
+	
 	@RequestMapping(value = "/shop.com")
 	public String user_shop() {
 		return "ozoshop_main";
@@ -56,10 +55,7 @@ public class UserController {
 	public String user_orders() {
 		return "orders";
 	}
-	@RequestMapping(value = "/myPage.com")
-	public String user_mypage() {
-		return "myPage";
-	}
+	
 	@RequestMapping(value = "/calculation.com")
 	public String user_calculation() {
 		return "calculation";
@@ -69,4 +65,38 @@ public class UserController {
 		return "customercenter";
 	}
 	// my_shopping (status) 이거 두개라서 설정 고민해야함
+	
+	//마이페이지
+	@RequestMapping(value = "/myPage.com")
+	public String user_mypage() {
+		return "myPage";
+	}
+	//나의 쇼핑
+	@RequestMapping(value = "/myshopping.com")
+	public String user_myShopping() {
+		return "my_shopping_status";
+	}
+	//나의리뷰
+	@RequestMapping(value = "/myreview.com")
+	public String user_myReview_view() {
+		return "myReview-view";
+	}
+	
+	//설정
+	//-	비밀번호 변경
+	
+	@RequestMapping(value = "/password_m.com")
+	public String user_P_M() {
+		return "ozopasswordModi_zinc";
+	}
+	//-회원정보 변경
+	@RequestMapping(value = "/edit.com")
+	public String user_edit() {
+		return "ozoedit_zinc";
+	}
+	//리뷰쓰는 페이지 
+	@RequestMapping(value = "/myreview_write.com")
+	public String user_myReview_write() {
+		return "myReview-write";
+	}
 }
