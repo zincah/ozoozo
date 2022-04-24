@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+blockquote, body, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, pre, td, textarea, th, ul {
+    margin: 0;
+    padding: 0;
+}
+* {
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+    -webkit-tap-highlight-color: transparent;
+   
+}
+body, html {
+    line-height: 1;
+    font-family: OhouseSans, "Noto Sans KR", "Apple SD Gothic Neo", "맑은 고딕", "Malgun Gothic", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.4px;
+    font-size: 13px;
+}
+a {
+    color: inherit;
+    
+}
+.main{
+    padding-top: 40px;
+    width: calc(100% - 30px);
+    margin: auto;
+}
+
+
+.real_main{
+    width: 100%;
+    margin: 0px auto;
+    padding: 60px 0px;
+}
+@media (min-width: 768px){
+    .real_main {
+        width: 360px;
+    }
+}
+
+.SNS_div{
+    margin: 30px 0px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgb(237, 237, 237);
+}
+
+.input_email{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0 auto;
+    -moz-box-flex: 1;
+    -moz-flex: 1 0 auto;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+}
+.emailBtn_div{
+    margin-bottom: 30px;
+    padding-top: 2px;
+}
+
+.password_div,.confirmPassword_div,.nickname_div,.agree_div{
+    margin-bottom: 30px;
+}
+
+.agreeBox{
+    border: 1px solid rgb(219, 219, 219);
+    padding: 0px 23px 6px 16px;
+}
+.agree1_div{
+    border-bottom: 1px solid rgb(237, 237, 237);
+    height: 70px;
+    display: flex;
+}
+.agreecheck_div{
+    position: relative;
+    display: inline-block;
+    font-size: 0;
+    padding: 9px;
+}
+.agreeBottom_div{
+    font-size: 14px;
+    color: #424242;
+    line-height: 18px;
+}
+.sns{
+    margin: 0 10px;
+}

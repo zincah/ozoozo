@@ -597,11 +597,61 @@
             </div>
         </div>
     </ul>
-
+    <!-- dh 서치바 -->
+    <div>
+    <div class="react-modal react-modal--center layout-navigation-search-modal open open-active" id="search_div">
+        <div class="react-modal__content-wrap-dh">
+            <div class="react-modal__content layout-navigation-search-modal__content">
+                <div class="layout-navigation-search layout-navigation-search-modal__search" id="id-3">
+                    <div class="layout-navigation-search__header">
+                        <div id="id-3-combobox" class="layout-navigation-search__combobox" role="combobox"
+                            aria-haspopup="listbox" aria-expanded="false">
+                            <div class="layout-navigation-search__input"><input
+                                    class="layout-navigation-search__input__text" type="text" autocomplete="off" size="1"
+                                    id="id-3-input" aria-autocomplete="list" placeholder="스토어 검색" aria-label="스토어 검색"
+                                    value=""><svg class="layout-navigation-search__input__icon" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    preserveAspectRatio="xMidYMid meet">
+                                    <path d="M22 22l-5-5"></path>
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                </svg></div>
+                        </div><button class="layout-navigation-search-modal__search__close" type="button">취소</button>
+                    </div>
+                    <div>
+                        <ul id="id-3-list" class="layout-navigation-search__list" role="listbox" aria-label="스토어 검색">
+                            <div class="layout-navigation-search__list__history-header"><span
+                                    class="layout-navigation-search__list__history-header__title">최근 검색어</span></div>
+                            <div class="layout-navigation-search__list__history-empty">최근 검색한 내역이 없습니다.</div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
+</div>
+   <script>
+    const search = document.querySelector('.layout-navigation-bar-search-button');
+    const search_div = document.getElementById('search_div');
+    search.onclick = () =>{
+        search_div.style.backgroundColor = 'rgba(0,0,0,.5)';
+        search_div.style.display = 'flex';
+    }
 
+    $('.layout-navigation-search-modal').click(function(e) { 
+        if($(e.target).hasClass("layout-navigation-search-modal")) {
+            $(search_div).css("display","none");
 
+            } 
+        });
+        $('.layout-navigation-search-modal__search__close').click(function(e) { 
+        if($(e.target).hasClass("layout-navigation-search-modal__search__close")) {
+            $(search_div).css("display","none");
+
+            } 
+        });    
+
+        
+</script>
 
 </body>
 
