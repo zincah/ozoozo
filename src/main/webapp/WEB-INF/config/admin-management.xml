@@ -10,6 +10,8 @@
 	<context:component-scan
 		base-package="ozo.spring.house.admin"></context:component-scan>
 
+	<mvc:annotation-driven/>
+	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/adminviews/" />
 		<property name="suffix" value=".jsp" />
@@ -17,4 +19,5 @@
 	
 	<!-- transaction or file upload 그 외 설정 -->
  
+ 	
 </beans>
