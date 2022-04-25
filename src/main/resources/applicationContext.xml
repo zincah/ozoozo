@@ -12,12 +12,6 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
-	<!-- spring annotation read -->
-	<context:component-scan
-		base-package="ozo.spring.house"></context:component-scan>
-
-	<!-- Enables the Spring MVC @Controller programming model -->
-	<mvc:annotation-driven/>
 
 	<!-- html,css,js 등등 파일 위치 정리 -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
@@ -51,6 +45,8 @@
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
 
+	<!-- 암호화 -->
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 
 
 
