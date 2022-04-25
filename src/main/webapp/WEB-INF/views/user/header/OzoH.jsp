@@ -618,7 +618,7 @@
                         </div><button class="layout-navigation-search-modal__search__close" type="button">취소</button>
                     </div>
                     <div>
-                        <ul id="id-3-list" class="layout-navigation-search__list" role="listbox" aria-label="스토어 검색">
+                        <ul id="id-3-list" class="layout-navigation-search__list-dh" role="listbox" aria-label="스토어 검색">
                             <div class="layout-navigation-search__list__history-header"><span
                                     class="layout-navigation-search__list__history-header__title">최근 검색어</span></div>
                             <div class="layout-navigation-search__list__history-empty">최근 검색한 내역이 없습니다.</div>
