@@ -29,13 +29,13 @@
             <a aria-label="오조의집" href="#" class="link_to_homepage">
                 <div class="logo"><a href="/house/main.com"><img src="resources/assets/img/ozohouse-logo.svg" alt="오조의집"></a></div>
             </a>
-            <form method="post" class="login_form">
+            <form method="post" class="login_form" action="login.com">
 
                 <div class="input_wrap">
-                    <input class="input_form input_pat" type="text" name="email" placeholder="이메일">
+                    <input class="input_form input_pat" type="text" name="user_email" placeholder="이메일">
                 </div>
                 <div class="input_wrap">
-                    <input class="input_form input_pat" type="password" name="password" placeholder="비밀번호">
+                    <input class="input_form input_pat" type="password" name="user_pw" placeholder="비밀번호">
                 </div>
 
                 <button class="login_btn_area login_btn login_btn_shape">로그인</button>
