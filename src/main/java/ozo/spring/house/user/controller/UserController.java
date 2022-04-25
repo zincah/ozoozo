@@ -25,10 +25,6 @@ public class UserController {
 		return "ozocategory_zinc";
 	}
 	
-	@RequestMapping(value = "/login.com")
-	public String user_login() {
-		return "ozoLogin_zinc";
-	}
 	
 	//회원가입 페이지
 	@RequestMapping(value = "/signUp.com")
@@ -71,11 +67,7 @@ public class UserController {
 	}
 	// my_shopping (status) 이거 두개라서 설정 고민해야함
 	
-	//마이페이지
-	@RequestMapping(value = "/myPage.com")
-	public String user_mypage() {
-		return "myPage";
-	}
+	
 	//나의 쇼핑
 	@RequestMapping(value = "/myshopping.com")
 	public String user_myShopping() {

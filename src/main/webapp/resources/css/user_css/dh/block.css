@@ -184,7 +184,7 @@
     font-size: 12px;
     margin-left: 4px;
 }
-.SginUpBtn{
+.SignUpBtn{
     background-color: #ff778e;
     border-color: #ff778e;
     color: #fff;
@@ -220,4 +220,47 @@
     font-weight: bold;
     display: inline-block;
     padding-left: 10px;
+}
+/*입력란 효과 */
+.css-1azo586 {
+    display: block;
+    margin: 0px 0px 12px;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(255, 119, 119);
+    line-height: 21px;
+    word-break: keep-all;
+}
+.css-1thr4j {
+    padding-top: 10px;
+    font-size: 13px;
+    line-height: 21px;
+    color: rgb(255, 119, 119);
+}
+
+/* 마우스 포인터 효과 */
+
+.input-dh:focus{
+    outline:none;
+	box-shadow: 0 0 0 3px rgb(130 224 250 / 50%);
+}
+.false:focus{
+	 outline:none;
+	box-shadow: 0 0 0 3px rgb(255 119 119 / 30%);
+}
+/* 입력 틀리면 나오는 효과 */
+.error {
+    border-color: #f77;
+}
+.email_1.error:focus{
+    outline:none;
+	box-shadow: 0 0 0 2px rgb(255 119 119 / 50%);
+}
+.EmailBtn_true:hover{
+	background-color: #effbff;
+}
+.EmailBtn_true {
+    background-color: #fff;
+    border-color: #35c5f0;
+    color: #35c5f0;
 }

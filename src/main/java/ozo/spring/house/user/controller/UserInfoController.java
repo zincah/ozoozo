@@ -1,5 +1,6 @@
 package ozo.spring.house.user.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class UserInfoController {
 		@RequestMapping(value = "/login.com", method=RequestMethod.GET)
 		public String loginView(HttpSession session) {
 			if(session.getAttribute("usercode")!=null) {
-				return "redirect:main.com";
+				return "ozomain_zinc";
 			}else {
 				return "ozoLogin_zinc";
 			}
@@ -50,14 +51,32 @@ public class UserInfoController {
 				session.setAttribute("Usercode", user.getUser_email());
 				model.addAttribute("Usercode", vo.getUser_email());
 				model.addAttribute("member", vo); // member 정보
-				return "index";
+				return "ozomain_zinc";
 			}else {
 				String msg = "입력하신 정보가 잘못 되었습니다.";
 				model.addAttribute("msg", msg);
-				return "adminLogin_dj";
+				return "ozoLogin_zinc";
 			}
 		}
-		
+		// logout
+		@RequestMapping(value = "/logout.com", method=RequestMethod.GET)
+		public String logout(HttpSession session) {
+
+			session.invalidate();
+			return "redirect:login.com";
+		}
+		@RequestMapping(value = "/myPage.com")
+		public String mypageView(HttpServletRequest request, Model model) {
+			HttpSession session = request.getSession();
+			
+			if(session.getAttribute("Usercode")!=null) {
+				return "myPage";
+			}else {
+				String msg = "로그인후 이용 가능합니다.";
+				model.addAttribute("msg", msg);
+				return "ozoLogin_zinc";
+			}
+		}
 		
 	
 	

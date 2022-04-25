@@ -6,7 +6,7 @@
     <meta charset='utf-8'>
     <title>SignUp Page</title>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/DivSignUp.css?var=1'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/block.css'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/block.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/font.css'>
     <script src='main.js'></script>
 </head>
@@ -63,12 +63,12 @@
                         <label class="emailLogo">이메일</label>
                         <div class="input_email">
                             <span class="emailSpan">
-                            	<input class="email_1" placeholder="이메일" name="user_email1">
+                            	<input class="email_1 input-dh" placeholder="이메일" name="user_email1" oninput="checkEmail()">
                             </span>
                             <span class="golbang">@</span>
                             <span class="emailSpan">
-                                <select class="emailSelect" name="user_email2">
-                                    <option value disabled>선택해주세요</option>
+                                <select class="emailSelect" name="user_email2" onclick="checkEmail()">
+                                    <option value disabled selected>선택해주세요</option>
                                     <option value="naver.com">naver.com</option> 
                                     <option value="hanmail.com">hanmail.com</option> 
                                     <option value="daum.com">daum.com</option> 
@@ -85,7 +85,8 @@
                                 </button>-->
                             </span>
                         </div>
-                    </div>  
+                    </div>
+                    <div class="css-1thr4j euhjq6q0" style="display : none">이메일 형식이 올바르지 않습니다.</div>  
                     <div class="emailBtn_div">
                         <button class="emailBtn" name="">이메일 인증하기</button>
                     </div><!-- email end -->
@@ -93,20 +94,20 @@
                     <div class="password_div">
                         <label class="passwordLogo">비밀번호</label>
                         <div class="passwordInform">영문,숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</div>
-                        <input class="passwordInput" name="user_pw" type="password" placeholder="비밀번호" value>
+                        <input class="passwordInput input-dh" name="user_pw" type="password" placeholder="비밀번호" value>
                     </div><!-- 비밀번호 end-->
 
                 <!-- 비밀번호 확인 -->
                     <div class="confirmPassword_div">
                         <label class="passwordLogo">비밀번호 확인</label>
                         <div class="passwordInform">영문,숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</div>
-                        <input class="passwordInput" name="confirm_pw" type="password" placeholder="비밀번호 확인" value>
+                        <input class="passwordInput input-dh" name="confirm_pw" type="password" placeholder="비밀번호 확인" value>
                     </div><!-- 비밀번호 확인 end-->
                 <!-- 닉네임 입력란-->
                     <div class="nickname_div">
                         <label class="nicknameLogo">닉네임</label>
                         <div class="nicknameInform">다른 유저와 겹치지 않는 별명을 입력해주세요. (2~15자)</div>
-                        <input class="nicknameInput"  name="nickname" placeholder="별명 (2~15자)" value="">
+                        <input class="nicknameInput input-dh"  name="nickname" placeholder="별명 (2~15자)" value="">
                     </div><!-- 닉네임 end -->
                 <!-- 약관 동의 -->
                     <div class="agree_div">
@@ -166,5 +167,26 @@
                 </p>
             </div>
         </div>
+      <script>
+      	function checkEmail(){
+      		var email = document.querySelector(".email_1").value;
+      		var email_S = document.querySelector(".emailSelect").value;
+      		if(email.length > 0 && email_S.length > 0){
+      			document.querySelector(".css-1thr4j").style.display = "none";
+      			document.querySelector(".emailLogo").classList.remove('css-1azo586');
+      			document.querySelector(".email_1").classList.remove('error');
+      			document.querySelector(".emailSelect").classList.remove('error');
+      			document.querySelector(".emailBtn").classList.add('EmailBtn_true');
+      		}else {
+      			document.querySelector(".css-1thr4j").style.display = "block";
+      			document.querySelector(".emailLogo").classList.add('css-1azo586');
+      			document.querySelector(".email_1").classList.add('error');
+      			document.querySelector(".emailSelect").classList.add('error');
+      			document.querySelector(".emailBtn").classList.remove('EmailBtn_true');
+      		}
+      	}
+      
+      </script>
+        
 </body>
 </html>

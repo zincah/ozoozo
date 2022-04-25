@@ -36,7 +36,7 @@ public class UserDAO {
 	
 	public UserVO checkUser(UserVO vo) {
 		System.out.println("--> mybatis in UserDAO checkUser");
-		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserVO.checkUser", vo);
+		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.checkUser", vo);
 		
 		if(passwordEncoder.matches(vo.getUser_pw(), user.getUser_pw())) {
 			return user;
