@@ -13,10 +13,10 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
 	rel="stylesheet" />
-<link href="resources/css/sellercss/fonts.css?after" rel="stylesheet" />
+<link href="resources/css/sellercss/fonts.css?var=1" rel="stylesheet" />
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
-<link href="resources/css/sellercss/insertProduct.css" rel="stylesheet" />
-<script type="text/javascript" src="resources/js/sellercss/jquery-3.6.0.min.js"></script>
+<link href="resources/css/sellercss/insertProduct.css?var=1" rel="stylesheet" />
+<script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
 <script>
@@ -142,10 +142,24 @@
         container.appendChild(newImage);
         $(".image-show").show();
       }
+      
+      function gatherData(){
+    	  
+    	  if($(".optionGroup1").is("#using_people") == true) {
+				alert("hi");
+    		}else{
+    			alert("no");
+    		}
+    	  
+    	  var hi = $(".optionGroup1");
+    	  console.log(hi);
+
+      }
+      
+      
     </script>
-<script type="text/javascript" src="./js/plus_photo.js"></script>
-<!--옵션추가 js-->
-<script type="text/javascript" src="./js/option_clone.js"></script>
+	<script type="text/javascript" src="resources/js/sellerjs/plus_photo.js"></script>
+	<script type="text/javascript" src="resources/js/sellerjs/option_clone.js"></script>
 </head>
 
 <jsp:include page="header/header.jsp"></jsp:include>
@@ -166,8 +180,7 @@
 				</li>
 			</ol>
 
-			<form method="post" action="indexSeller.html"
-				enctype="multipart/form-data">
+			<form method="post" action="index.seller" enctype="multipart/form-data">
 				<div
 					class="container container-option container-option-topPadding bottomline">
 					<div class="row optionGroup1">
@@ -178,13 +191,13 @@
 						<div class="col-4 search-input status-name-400">이영</div>
 					</div>
 				</div>
-
+				<input type="hidden" value="brand_name">
 				<div
 					class="container container-option container-option-topPadding bottomline">
 					<div class="row optionGroup1">
 						<div class="col-2 status-name-600">상품명</div>
 						<div class="col-10 search-input">
-							<input type="text" class="form-control input-custom" />
+							<input type="text" class="form-control input-custom" name="product_name"/>
 						</div>
 					</div>
 				</div>
@@ -197,7 +210,7 @@
 							<div class="radio-productCode">
 								<div class="btn-group" role="group"
 									aria-label="Basic radio toggle button group">
-									<select class="form-select selectState" id="large-select"
+									<select class="form-select selectState" id="large-select" name="category_name"
 										aria-label="Default select example">
 										<option selected>대분류</option>
 										<option value="1">가구</option>
@@ -211,7 +224,7 @@
 								</div>
 								<div class="btn-group" role="group"
 									aria-label="Basic radio toggle button group">
-									<select class="form-select selectState" id="middle-select"
+									<select class="form-select selectState" id="middle-select" name="subcategory1"
 										disabled="" aria-label="Default select example">
 										<option selected>중분류</option>
 										<option value="1">메트리스</option>
@@ -225,7 +238,7 @@
 								</div>
 								<div class="btn-group" role="group"
 									aria-label="Basic radio toggle button group">
-									<select class="form-select selectState" id="small-select"
+									<select class="form-select selectState" id="small-select" name="subcategory2"
 										disabled="" aria-label="Default select example">
 										<option selected>소분류</option>
 										<option value="1">1</option>
@@ -249,10 +262,11 @@
 							<div class="col-2 status-name-600">옵션 (가구)</div>
 							<div class="col-10 search-input option_container"
 								id="option_input0">
+								
 								<div class="radio-productCode">
 									<div class="btn-group" role="group"
 										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState"
+										<select class="form-select selectState" id="using_people" name="using_people"
 											aria-label="Default select example">
 											<option selected>사용인원</option>
 											<option value="1">1인</option>
@@ -262,144 +276,153 @@
 											<option value="5">5인</option>
 											<option value="6">6인</option>
 											<option value="7">7인</option>
-											<option value="7">8인</option>
+											<option value="8">8인이상</option>
 										</select>
 									</div>
 									<div class="btn-group" role="group"
 										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState"
+										<select class="form-select selectState" name="place"
 											aria-label="Default select example">
 											<option selected>사용공간</option>
-											<option value="1">거실</option>
-											<option value="2">침실</option>
-											<option value="3">주방</option>
-											<option value="4">옷방</option>
-											<option value="5">서재/공부방</option>
-											<option value="6">아이방</option>
+											<option value="living room">거실</option>
+											<option value="bed room">침실</option>
+											<option value="kitchen">주방</option>
+											<option value="dress room">옷방</option>
+											<option value="study room">서재/공부방</option>
+											<option value="kid room">아이방</option>
 										</select>
 									</div>
 									<div class="btn-group" role="group"
 										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState"
+										<select class="form-select selectState" name="rental"
 											aria-label="Default select example">
 											<option selected>상품유형</option>
-											<option value="1">렌탈상품</option>
-											<option value="2">렌탈상품 x</option>
+											<option value="y">렌탈상품</option>
+											<option value="n">렌탈상품 x</option>
 										</select>
 									</div>
 									<div class="btn-group" role="group"
 										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState"
+										<select class="form-select selectState" name="refurbish"
 											aria-label="Default select example">
 											<option selected>리퍼상품 유무</option>
-											<option value="1">리퍼상품</option>
-											<option value="2">리퍼상품 x</option>
+											<option value="y">리퍼상품</option>
+											<option value="n">리퍼상품 x</option>
 										</select>
 									</div>
+								</div>
+								<div class="color_option mt-3 row mb-1">
+										<div class="col-2 option_title" style="font-size: 13px">옵션명</div>
+										<div class="col-10 color_options bottomline2">
+											<div class="price-layer">
+												<input class="form-control option-title-input" type="text" 
+												id="price-per-option" name="title"/>
+											</div>
+										</div>
 								</div>
 								<div class="color_option mt-3 row">
 									<div class="col-2 option_title" style="font-size: 13px">색상</div>
 									<div class="col-10 color_options bottomline2">
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 화이트
+												type="checkbox" value="white" id="colorcheck1" /> <label
+												class="form-check-label" for="colorcheck1"> 화이트
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 블랙
+												type="checkbox" value="black" id="colorcheck2" /> <label
+												class="form-check-label" for="colorcheck2"> 블랙
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 브라운
+												type="checkbox" value="brown" id="colorcheck3" /> <label
+												class="form-check-label" for="colorcheck3"> 브라운
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 골드
+												type="checkbox" value="gold" id="colorcheck4" /> <label
+												class="form-check-label" for="colorcheck4"> 골드
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 오렌지
+												type="checkbox" value="orange" id="colorcheck5" /> <label
+												class="form-check-label" for="colorcheck5"> 오렌지
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 그린
+												type="checkbox" value="green" id="colorcheck6" /> <label
+												class="form-check-label" for="colorcheck6"> 그린
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 네이비
+												type="checkbox" value="navy" id="colorcheck7" /> <label
+												class="form-check-label" for="colorcheck7"> 네이비
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 핑크
+												type="checkbox" value="pink" id="colorcheck8" /> <label
+												class="form-check-label" for="colorcheck8"> 핑크
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 투명
+												type="checkbox" value="transparent" id="colorcheck9" /> <label
+												class="form-check-label" for="colorcheck9"> 투명
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 그레이
+												type="checkbox" value="grey" id="colorcheck10" /> <label
+												class="form-check-label" for="colorcheck10"> 그레이
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 베이지
+												type="checkbox" value="beige" id="colorcheck11" /> <label
+												class="form-check-label" for="colorcheck11"> 베이지
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 실버
+												type="checkbox" value="silver" id="colorcheck12" /> <label
+												class="form-check-label" for="colorcheck12"> 실버
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 레드
+												type="checkbox" value="red" id="colorcheck13" /> <label
+												class="form-check-label" for="colorcheck13"> 레드
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 옐로우
+												type="checkbox" value="yellow" id="colorcheck14" /> <label
+												class="form-check-label" for="colorcheck14"> 옐로우
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 블루
+												type="checkbox" value="blue" id="colorcheck15" /> <label
+												class="form-check-label" for="colorcheck15"> 블루
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault">
+												type="checkbox" value="violet" id="colorcheck16" /> <label
+												class="form-check-label" for="colorcheck16">
 												바이올렛 </label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 멀티
+												type="checkbox" value="multi" id="colorcheck17" /> <label
+												class="form-check-label" for="colorcheck17"> 멀티
 											</label>
 										</div>
 									</div>
@@ -410,20 +433,20 @@
 									<div class="col-10 color_options bottomline2">
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 밝은
+												type="checkbox" value="rigth" id="woodcheck1" /> <label
+												class="form-check-label" for="woodcheck1"> 밝은
 												우드톤 </label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 중간
+												type="checkbox" value="middle" id="woodcheck2" /> <label
+												class="form-check-label" for="woodcheck2"> 중간
 												우드톤 </label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 어두운
+												type="checkbox" value="dark" id="woodcheck3" /> <label
+												class="form-check-label" for="woodcheck3"> 어두운
 												우드톤 </label>
 										</div>
 									</div>
@@ -434,104 +457,104 @@
 									<div class="col-10 color_options bottomline2">
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 원목
+												type="checkbox" value="wood" id="meterialcheck1" /> <label
+												class="form-check-label" for="meterialcheck1"> 원목
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 천연
+												type="checkbox" value="nature" id="meterialcheck2" /> <label
+												class="form-check-label" for="meterialcheck2"> 천연
 												대리석 </label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 세라믹
+												type="checkbox" value="ceramic" id="meterialcheck3" /> <label
+												class="form-check-label" for="meterialcheck3"> 세라믹
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 유리
+												type="checkbox" value="glass" id="meterialcheck4" /> <label
+												class="form-check-label" for="meterialcheck4"> 유리
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault">
+												type="checkbox" value="plastic" id="meterialcheck5" /> <label
+												class="form-check-label" for="meterialcheck5">
 												플라스틱 </label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault">
+												type="checkbox" value="concrete" id="meterialcheck6" /> <label
+												class="form-check-label" for="meterialcheck6">
 												콘크리트 </label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault">
+												type="checkbox" value="leather" id="meterialcheck7" /> <label
+												class="form-check-label" for="meterialcheck7">
 												인조가죽 </label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault">
+												type="checkbox" value="suede" id="meterialcheck8" /> <label
+												class="form-check-label" for="meterialcheck8">
 												스웨이드 </label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 벨벳
+												type="checkbox" value="velvet" id="meterialcheck9" /> <label
+												class="form-check-label" for="meterialcheck9"> 벨벳
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 가공목
+												type="checkbox" value="process wood" id="meterialcheck10" /> <label
+												class="form-check-label" for="meterialcheck10"> 가공목
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault">
+												type="checkbox" value="artificial marble" id="meterialcheck11" /> <label
+												class="form-check-label" for="meterialcheck11">
 												인조대리석 </label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 화산석
+												type="checkbox" value="volcanic stone" id="meterialcheck12" /> <label
+												class="form-check-label" for="meterialcheck12"> 화산석
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault">
+												type="checkbox" value="steel" id="meterialcheck13" /> <label
+												class="form-check-label" for="meterialcheck13">
 												철재/스틸 </label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 라탄
+												type="checkbox" value="rattan" id="meterialcheck14" /> <label
+												class="form-check-label" for="meterialcheck14"> 라탄
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault">
+												type="checkbox" value="natural leather" id="meterialcheck15" /> <label
+												class="form-check-label" for="meterialcheck15">
 												천연가죽 </label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 패브릭
+												type="checkbox" value="fabric" id="meterialcheck16" /> <label
+												class="form-check-label" for="meterialcheck16"> 패브릭
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="flexCheckDefault" /> <label
-												class="form-check-label" for="flexCheckDefault"> 매쉬
+												type="checkbox" value="mash" id="meterialcheck17" /> <label
+												class="form-check-label" for="meterialcheck17"> 매쉬
 											</label>
 										</div>
 									</div>
@@ -542,11 +565,11 @@
 									<div class="col-10 color_options bottomline2">
 										<div class="form-check form-check-display rightline">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="self-option" /> <label
-												class="form-check-label" for="self-option"> 직접입력 </label>
+												type="checkbox" value="" id="size-check" /> <label
+												class="form-check-label" for="size-check"> 직접입력 </label>
 										</div>
 										<div class="size_input">
-											<input class="form-control size-option-input" type="text"
+											<input class="form-control size-option-input" name="size" type="text"
 												id="self-option-size" />
 										</div>
 									</div>
@@ -560,7 +583,7 @@
 												<p style="margin-left: 1rem">원</p>
 											</div>
 											<p style="margin-left: 1rem; color: #ff778e; font-size: 11px">*실제
-												판매가를 적어주세요.</p>
+												판매가를 적어주세요.(할인가 x)</p>
 										</div>
 									</div>
 								</div>
@@ -574,7 +597,7 @@
 					<div class="row optionGroup1">
 						<div class="col-2 status-name-600">재고 수량</div>
 						<div class="col-10 search-input flex_custom">
-							<input type="text" class="form-control quantity_option"
+							<input type="text" class="form-control quantity_option" name="count"
 								placeholder="추후에 수정 가능합니다." />
 							<p>개</p>
 						</div>
@@ -590,65 +613,65 @@
 									<th scope="row" style="width: 5%">1</th>
 									<td style="width: 35%">품명</td>
 									<td style="width: 60%"><input
-										class="form-control input-custom" /></td>
+										class="form-control input-custom" name="table-productTitle"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">2</th>
 									<td>KC 인증 필 유무</td>
-									<td><input class="form-control input-custom" /></td>
+									<td><input class="form-control input-custom" name="table-kc"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">3</th>
 									<td>색상</td>
 									<td><input class="form-control input-custom"
-										placeholder="상단에 선택한 option값을 적어주세요." /></td>
+										placeholder="상단에 선택한 option값을 적어주세요." name="table-color"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">4</th>
 									<td>구성품</td>
 									<td><input class="form-control input-custom"
-										placeholder="ex.상세페이지 참조" /></td>
+										placeholder="ex.상세페이지 참조" name="table-component"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">5</th>
 									<td>주요 소재</td>
 									<td><input class="form-control input-custom"
-										placeholder="ex.상세페이지 참조" /></td>
+										placeholder="ex.상세페이지 참조" name="table-material"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">6</th>
 									<td>제조사,수입품의 경우 수입자를 함께 표시</td>
 									<td><input class="form-control input-custom"
-										placeholder="ex.상세페이지 참조" /></td>
+										placeholder="ex.상세페이지 참조" name="table-manufacturer"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">7</th>
 									<td>제조국</td>
 									<td><input class="form-control input-custom"
-										placeholder="ex.한국" /></td>
+										placeholder="ex.한국" name="table-country"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">8</th>
 									<td>크기</td>
 									<td><input class="form-control input-custom"
-										placeholder="ex.상세페이지 참조" /></td>
+										placeholder="ex.상세페이지 참조" name="table-size"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">9</th>
 									<td>배송, 설치비용</td>
 									<td><input class="form-control input-custom"
-										placeholder="ex.상세페이지 참조" /></td>
+										placeholder="ex.상세페이지 참조" name="table-delivery" /></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">10</th>
 									<td>품질보증기준</td>
 									<td><input class="form-control input-custom"
-										placeholder="ex.상세페이지 참조" /></td>
+										placeholder="ex.상세페이지 참조" name="table-qa"/></td>
 								</tr>
 								<tr class="verticalAlignCenter notBorder">
 									<th scope="row">11</th>
 									<td>A/S 책임자와 전화번호</td>
-									<td><input class="form-control input-custom" /></td>
+									<td><input class="form-control input-custom" name="table-cstel"/></td>
 								</tr>
 							</tbody>
 						</table>
@@ -860,7 +883,8 @@
 
 				<div class="text-end mb-5">
 					<button class="btn btn-outline-secondary btn-size" type="reset">취소</button>
-					<button class="btn btn-secondary btn-size">등록하기</button>
+					<!-- type="button" 없애야함 -->
+					<button type="button" class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
 				</div>
 			</form>
 		</div>
@@ -878,18 +902,10 @@
 	</footer>
 </div>
 </div>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-	crossorigin="anonymous"></script>
-<script src="resources/js/sellercss/scripts.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
-	crossorigin="anonymous"></script>
-<script src="resources/assets/demo/chart-area-demo.js"></script>
-<script src="resources/assets/demo/chart-bar-demo.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
-	crossorigin="anonymous"></script>
-<script src="resources/js/sellercss/datatables-simple-demo.js"></script>
-<script src="resources/js/sellercss/insertProduct.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="resources/js/sellerjs/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="resources/js/sellerjs/insertProduct.js"></script>
 </body>
 </html>
