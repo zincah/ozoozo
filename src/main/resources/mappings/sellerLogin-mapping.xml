@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="SellerDAO">
+
+	<!-- 관리자 인증 -->
+	<select id="checkAdmin" resultType="admin">
+		SELECT * FROM seller_table WHERE seller_code = #{seller_code}
+	</select>
+	
+	<!-- 관리자 생성 -->
+	<insert id="insertAdmin" parameterType="admin">
+		INSERT INTO seller_table VALUES (#{seller_code}, #{seller_password})
+	</insert>
+
+</mapper>
