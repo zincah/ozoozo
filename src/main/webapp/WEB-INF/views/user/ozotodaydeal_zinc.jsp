@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="resources/css/user_css/zinc/ozotodaydeal.css" rel="stylesheet"/>
-    <link href="resources/css/user_css/zinc/ozoper_photo_todeal.css" rel="stylesheet"/>
+    <link href="resources/css/user_css/zinc/ozotodaydeal.css?var=1" rel="stylesheet"/>
+    <link href="resources/css/user_css/zinc/ozoper_photo_todeal.css?var=1" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
 	integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
 	crossorigin="anonymous"></script>
@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="deals_item_review">
                                         <div class="review_icon">
-                                            <i class="fa-solid fa-star" style="color:#6AC8FE"></i>
+                                            <i class="fa-solid fa-star" style=""></i>
                                         </div>
                                         <div class="review_score">4.6</div>
                                         <div class="review_count">3,641</div>
@@ -98,7 +98,7 @@
                                     </div>
                                     <div class="deals_item_review">
                                         <div class="review_icon">
-                                            <i class="fa-solid fa-star" style="color:#6AC8FE"></i>
+                                            <i class="fa-solid fa-star" style=""></i>
                                         </div>
                                         <div class="review_score">4.6</div>
                                         <div class="review_count">리뷰 3,641</div>
@@ -140,7 +140,7 @@
                                     </div>
                                     <div class="deals_item_review">
                                         <div class="review_icon">
-                                            <i class="fa-solid fa-star" style="color:#6AC8FE"></i>
+                                            <i class="fa-solid fa-star" style=""></i>
                                         </div>
                                         <div class="review_score">4.6</div>
                                         <div class="review_count">리뷰 3,641</div>
@@ -182,7 +182,7 @@
                                     </div>
                                     <div class="deals_item_review">
                                         <div class="review_icon">
-                                            <i class="fa-solid fa-star" style="color:#6AC8FE"></i>
+                                            <i class="fa-solid fa-star" style=""></i>
                                         </div>
                                         <div class="review_score">4.6</div>
                                         <div class="review_count">3,641</div>
@@ -224,7 +224,7 @@
                                     </div>
                                     <div class="deals_item_review">
                                         <div class="review_icon">
-                                            <i class="fa-solid fa-star" style="color:#6AC8FE"></i>
+                                            <i class="fa-solid fa-star" style=""></i>
                                         </div>
                                         <div class="review_score">4.6</div>
                                         <div class="review_count">3,641</div>
@@ -266,7 +266,7 @@
                                     </div>
                                     <div class="deals_item_review">
                                         <div class="review_icon">
-                                            <i class="fa-solid fa-star" style="color:#6AC8FE"></i>
+                                            <i class="fa-solid fa-star" style=""></i>
                                         </div>
                                         <div class="review_score">4.6</div>
                                         <div class="review_count">3,641</div>
@@ -308,7 +308,7 @@
                                     </div>
                                     <div class="deals_item_review">
                                         <div class="review_icon">
-                                            <i class="fa-solid fa-star" style="color:#6AC8FE"></i>
+                                            <i class="fa-solid fa-star" style=""></i>
                                         </div>
                                         <div class="review_score">4.6</div>
                                         <div class="review_count">3,641</div>
@@ -350,7 +350,7 @@
                                     </div>
                                     <div class="deals_item_review">
                                         <div class="review_icon">
-                                            <i class="fa-solid fa-star" style="color:#6AC8FE"></i>
+                                            <i class="fa-solid fa-star" style=""></i>
                                         </div>
                                         <div class="review_score">4.6</div>
                                         <div class="review_count">3,641</div>

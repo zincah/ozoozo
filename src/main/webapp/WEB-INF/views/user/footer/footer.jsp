@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="resources/css/user_css/inha/footer-style.css" />
+<link rel="stylesheet" href="resources/css/user_css/inha/footer-style.css?var=1" />
 <link rel="stylesheet" href="resources/css/user_css/inha/myPage-nav-style.css?var=1" />
  <style type="text/css">
       address {
@@ -298,7 +298,7 @@
             <a
               class="layout-footer__shortcut__item"
               rel="noopener"
-              href="https://partners.ohou.se/partner/applications/new"
+              href="/house/shopApply.com"
               target="_blank"
               >입점신청 문의</a
             >

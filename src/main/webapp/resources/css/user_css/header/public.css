@@ -10,3 +10,26 @@ blockquote, body, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6,
 div {
     display: block;
 }
+
+*{
+    margin: 0px;
+    font-family: "S-Core", sans-serif;
+}
+
+@font-face {
+	font-family: 'S-Core';
+	font-weight:400;
+	src: url('../font/S-CoreDream-4Regular.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'S-Core';
+	font-weight:600;
+	src: url('../font/S-CoreDream-6Bold.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'S-Core';
+	font-weight:800;
+	src: url('../font/S-CoreDream-8Heavy.woff') format('woff');
+}

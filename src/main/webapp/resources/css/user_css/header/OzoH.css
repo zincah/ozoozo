@@ -116,6 +116,7 @@ button, input, select, textarea {
     left: 6px;
     transition: color .1s;
     color: #757575;
+    
 }
 .layout-navigation-bar-drawer-button.layout-navigation-bar-icon>.icon:hover{
     color: #ff778e;
@@ -684,7 +685,9 @@ a {
         padding-top: 10px;
         padding-bottom:0px;
         max-width: 1256px;
+        
     }
+    
 }
 
 @media (min-width: 768px) {

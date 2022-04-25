@@ -40,7 +40,7 @@
 
                 <button class="login_btn_area login_btn login_btn_shape">로그인</button>
                 <div class="login_info">
-                    <a href="/house//password_m.com">비밀번호 재설정</a>
+                    <a href="/house/passwordReset.com">비밀번호 재설정</a>
                     <a href="/house/signUp.com">회원가입</a>
                 </div>
                 <div class="social_text">SNS계정으로 간편 로그인/회원가입</div>
