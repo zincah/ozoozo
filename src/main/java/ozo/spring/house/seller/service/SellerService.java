@@ -1,5 +1,8 @@
 package ozo.spring.house.seller.service;
 
-public interface SellerService {
+import ozo.spring.house.seller.vo.SellerVO;
 
+public interface SellerService {
+	public SellerVO checkSeller(SellerVO vo);
+	public void insertSeller(SellerVO vo);
 }
