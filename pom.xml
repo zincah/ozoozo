@@ -205,7 +205,7 @@
 			<version>1.18.22</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- security -->
 		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
 		<dependency>
@@ -232,7 +232,13 @@
 			<version>5.6.0</version>
 		</dependency>
 
-
+		<!-- json 데이터 변환 -->
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.13.2.2</version>
+		</dependency>
 
 	</dependencies>
 
