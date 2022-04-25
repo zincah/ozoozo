@@ -28,5 +28,11 @@ public class UserDAO {
 		System.out.println("--> insert success");
 	}
 	
+	public void loginUser(UserVO vo) {
+		System.out.println("--> mybatis in userdao loginuser");
+		
+		
+		System.out.println("--> insert success");
+	}
 	
 }
