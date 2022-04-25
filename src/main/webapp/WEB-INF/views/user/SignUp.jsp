@@ -58,14 +58,16 @@
                     </ul>
                 </div>
                 <!-- 입력 창 -->
-                <form>
+                <form action="signUpProc.com" method="post">
                     <div class="email_div">
                         <label class="emailLogo">이메일</label>
                         <div class="input_email">
-                            <span class="emailSpan"><input class="email_1" placeholder="이메일" ></span>
+                            <span class="emailSpan">
+                            	<input class="email_1" placeholder="이메일" name="user_email1">
+                            </span>
                             <span class="golbang">@</span>
                             <span class="emailSpan">
-                                <select class="emailSelect">
+                                <select class="emailSelect" name="user_email2">
                                     <option value disabled>선택해주세요</option>
                                     <option value="naver.com">naver.com</option> 
                                     <option value="hanmail.com">hanmail.com</option> 
@@ -91,14 +93,14 @@
                     <div class="password_div">
                         <label class="passwordLogo">비밀번호</label>
                         <div class="passwordInform">영문,숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</div>
-                        <input class="passwordInput" name="password" type="password" placeholder="비밀번호" value>
+                        <input class="passwordInput" name="user_pw" type="password" placeholder="비밀번호" value>
                     </div><!-- 비밀번호 end-->
 
                 <!-- 비밀번호 확인 -->
                     <div class="confirmPassword_div">
                         <label class="passwordLogo">비밀번호 확인</label>
                         <div class="passwordInform">영문,숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</div>
-                        <input class="passwordInput" name="confirmPassword" type="password" placeholder="비밀번호 확인" value>
+                        <input class="passwordInput" name="confirm_pw" type="password" placeholder="비밀번호 확인" value>
                     </div><!-- 비밀번호 확인 end-->
                 <!-- 닉네임 입력란-->
                     <div class="nickname_div">
@@ -113,7 +115,7 @@
                             <div class="agree1_div"><!-- 전체 동의 div -->
                                 <lable class="agreeOption">
                                     <div class="agreecheck_div">
-                                        <input type="checkbox" class="agreeCheck" name="agreeAll" value>
+                                        <input type="checkbox" class="agreeCheck" name="agreeAll">
                                     </div>
                                     <span class="agreeSpan">
                                         <div class="agree1Logo">전체동의</div>
@@ -148,7 +150,7 @@
                             </label>
                             <label class="agreeOption"><!-- 이벤트 프로모션 동의 label -->
                                 <div class="agreecheck_div">
-                                    <input type="checkbox" class="" name="agreePromotion" value="">
+                                    <input type="checkbox" class="" name="agreePromotion" name="agree" value="agree">
                                 </div>
                                 <div class="agreeBottom_div">
                                     <a target="_blank" class="" href="">이벤트, 프로모션 알림 메일 및 SMS 수신</a>

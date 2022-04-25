@@ -1,9 +1,13 @@
 package ozo.spring.house.user.controller;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import ozo.spring.house.user.vo.UserVO;
 @Controller
 public class UserController {
+	
 	@RequestMapping(value = "/main.com")
 	public String user_main() {
 		return "ozomain_zinc";
@@ -25,9 +29,10 @@ public class UserController {
 	public String user_login() {
 		return "ozoLogin_zinc";
 	}
+	
 	//회원가입 페이지
 	@RequestMapping(value = "/signUp.com")
-	public String user_signUp() {
+	public String user_signUp(UserVO vo) {
 		return "SignUp";
 	}
 	
