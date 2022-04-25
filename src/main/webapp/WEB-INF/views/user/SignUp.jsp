@@ -160,7 +160,7 @@
                     <button class="SginUpBtn" type="submit">회원가입하기</button>
                 </form>
                 <p class="areadyId">이미 아이디가 있으신가요?
-                    <a href="" class="LoginBtn">로그인</a>
+                    <a href="/house/login.com" class="LoginBtn">로그인</a>
                 </p>
             </div>
         </div>

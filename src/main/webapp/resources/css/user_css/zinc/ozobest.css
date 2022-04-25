@@ -71,20 +71,20 @@ a{
 }
 
 .ranking_type_filter_left_active{
-    background-color: rgb(53, 197, 240);
+    background-color: #ff778e;
     color: rgb(255, 255, 255);
     border-width: 1px 0px 1px 1px;
     border-style: solid;
-    border-color: rgb(53, 197, 240);
+    border-color:#ff778e;
     border-image: initial;
 }
 
 .ranking_type_filter_right_active{
-    background-color: rgb(53, 197, 240);
+    background-color: #ff778e;
     color: rgb(255, 255, 255);
     border-width: 1px 1px 1px 0px;
     border-style: solid;
-    border-color: rgb(53, 197, 240);
+    border-color: #ff778e;
     border-image: initial;
 }
 
@@ -119,11 +119,11 @@ a{
 }
 
 .ranking_category_list a:hover{
-    color: #6AC8FE;
+    color: #ff778e;
 }
 
 .ranking_category_list a:focus{
-    color: #6AC8FE;
+    color: #ff778e;
 }
 
 
@@ -232,7 +232,7 @@ a{
 
 .sale_percent{
     font-size: 18px;
-    color: #6AC8FE;
+    color: #ff778e;
     font-weight: 800;
 }
 
@@ -252,7 +252,7 @@ a{
 
 .review_icon{
     margin-right: 3px;
-    color: #6AC8FE;
+    color: #ffb0bd;
 
 }
 

@@ -99,4 +99,14 @@ public class UserController {
 	public String user_myReview_write() {
 		return "myReview-write";
 	}
+	//입점신청
+	@RequestMapping(value = "/shopApply.com")
+	public String user_shopApply() {
+		return "ShopApply";
+	}
+	//로그인 화면에서 비밀번호 재설정
+	@RequestMapping(value = "/passwordReset.com")
+	public String user_passwordReset() {
+		return "passwordReset";
+	}
 }

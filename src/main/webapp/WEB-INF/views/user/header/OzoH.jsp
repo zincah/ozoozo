@@ -8,9 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/css/user_css/header/OzoH.css?var=1">
-    <link rel="stylesheet" href="resources/css/user_css/header/category.css">
-    <link rel="stylesheet" href="resources/css/user_css/header/sidebar.css">
-<!--     <link rel="stylesheet" href="resources/css/user_css/header/sidebar_search.css"> -->
+    <link rel="stylesheet" href="resources/css/user_css/header/category.css?var=1">
+    <link rel="stylesheet" href="resources/css/user_css/header/sidebar.css?var=1">
+<!--     <link rel="stylesheet" href="resources/css/user_css/header/sidebar_search.css?var=1"> -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/58c5618a7b.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100&display=swap" rel="stylesheet">
@@ -128,7 +128,7 @@
                             </div>
                         </div>
                         <button class="layout-navigation-bar-icon layout-navigation-bar-search-button" title="검색"
-                            aria-label="검색" type="button"><svg class="icon" width="24" height="24" viewBox="0 0 24 24"
+                            aria-label="검색" type="button"><svg id="s_icon" class="icon" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" preserveAspectRatio="xMidYMid meet">
                                 <path d="M22 22l-5-5"></path>
                                 <circle id="search_btn" cx="11" cy="11" r="8"></circle>

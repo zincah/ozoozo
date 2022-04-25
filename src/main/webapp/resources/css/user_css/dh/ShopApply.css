@@ -472,8 +472,8 @@ input[type='number'], input[type='text'], input[type='password'], input[type='fi
     opacity: 1;
 }
 .form-radio>.form-radio-label .form-check:not(:disabled):checked+.check-img, .form-radio .form-check-label .form-check:not(:disabled):checked+.check-img, .form-check>.form-radio-label .form-check:not(:disabled):checked+.check-img, .form-check .form-check-label .form-check:not(:disabled):checked+.check-img {
-    background-color: #35c5f0;
-    border-color: #35c5f0;
+    background-color: #ff778e;
+    border-color: #ff778e;
 }
 textarea.form-control {
     resize: none;
@@ -506,8 +506,8 @@ textarea.form-control {
     user-select: none;
 }
 .btn-priority {
-    background-color: #35c5f0;
-    border-color: #35c5f0;
+    background-color:#ff778e;
+    border-color: #ff778e;
     color: #ffffff;
 }
 .btn {
@@ -573,7 +573,7 @@ textarea.form-control {
     display: inline-block;
 }
 .sales-form__private-policy__agree__require {
-    color: #35c5f0;
+    color: #ff778e;
     font-weight: 700;
 }
 /* 맨 마지막 버튼 */

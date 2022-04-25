@@ -7,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-<link href="resources/css/user_css/zinc/ozobest.css" rel="stylesheet" type="text/css" />
+<link href="resources/css/user_css/zinc/ozobest.css?var=1" rel="stylesheet" type="text/css" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
@@ -141,7 +141,7 @@
 										</div>
 										<div class="deals_item_review">
 											<div class="review_icon">
-												<i class="fa-solid fa-star" style="color: #6AC8FE"></i>
+												<i class="fa-solid fa-star" style=""></i>
 											</div>
 											<div class="review_score">4.6</div>
 											<div class="review_count">리뷰 3,641</div>
@@ -229,7 +229,7 @@
 										</div>
 										<div class="deals_item_review">
 											<div class="review_icon">
-												<i class="fa-solid fa-star" style="color: #6AC8FE"></i>
+												<i class="fa-solid fa-star" style=""></i>
 											</div>
 											<div class="review_score">4.6</div>
 											<div class="review_count">리뷰 3,641</div>
@@ -317,7 +317,7 @@
 										</div>
 										<div class="deals_item_review">
 											<div class="review_icon">
-												<i class="fa-solid fa-star" style="color: #6AC8FE"></i>
+												<i class="fa-solid fa-star" style=""></i>
 											</div>
 											<div class="review_score">4.6</div>
 											<div class="review_count">리뷰 3,641</div>
@@ -405,7 +405,7 @@
 										</div>
 										<div class="deals_item_review">
 											<div class="review_icon">
-												<i class="fa-solid fa-star" style="color: #6AC8FE"></i>
+												<i class="fa-solid fa-star" style=""></i>
 											</div>
 											<div class="review_score">4.6</div>
 											<div class="review_count">리뷰 3,641</div>
@@ -493,7 +493,7 @@
 										</div>
 										<div class="deals_item_review">
 											<div class="review_icon">
-												<i class="fa-solid fa-star" style="color: #6AC8FE"></i>
+												<i class="fa-solid fa-star" style=""></i>
 											</div>
 											<div class="review_score">4.6</div>
 											<div class="review_count">리뷰 3,641</div>
@@ -581,7 +581,7 @@
 										</div>
 										<div class="deals_item_review">
 											<div class="review_icon">
-												<i class="fa-solid fa-star" style="color: #6AC8FE"></i>
+												<i class="fa-solid fa-star" style=""></i>
 											</div>
 											<div class="review_score">4.6</div>
 											<div class="review_count">리뷰 3,641</div>
@@ -669,7 +669,7 @@
 										</div>
 										<div class="deals_item_review">
 											<div class="review_icon">
-												<i class="fa-solid fa-star" style="color: #6AC8FE"></i>
+												<i class="fa-solid fa-star" style=""></i>
 											</div>
 											<div class="review_score">4.6</div>
 											<div class="review_count">리뷰 3,641</div>
@@ -757,7 +757,7 @@
 										</div>
 										<div class="deals_item_review">
 											<div class="review_icon">
-												<i class="fa-solid fa-star" style="color: #6AC8FE"></i>
+												<i class="fa-solid fa-star" style=""></i>
 											</div>
 											<div class="review_score">4.6</div>
 											<div class="review_count">리뷰 3,641</div>
@@ -845,7 +845,7 @@
 										</div>
 										<div class="deals_item_review">
 											<div class="review_icon">
-												<i class="fa-solid fa-star" style="color: #6AC8FE"></i>
+												<i class="fa-solid fa-star" style=""></i>
 											</div>
 											<div class="review_score">4.6</div>
 											<div class="review_count">리뷰 3,641</div>
