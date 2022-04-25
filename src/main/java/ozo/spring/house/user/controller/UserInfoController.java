@@ -23,6 +23,7 @@ public class UserInfoController {
 		return "redirect:login.com";
 		
 		// return "redirect:signUp.com";
+		
 	}
 	
 	
