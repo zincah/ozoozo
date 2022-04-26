@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +18,9 @@
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
 <link href="resources/css/sellercss/insertProduct.css?var=1" rel="stylesheet" />
 <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
-<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
-	crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="resources/js/sellerjs/plus_photo.js"></script>
+<script type="text/javascript" src="resources/js/sellerjs/option_clone.js"></script>
 <script>
       $(document).ready(function () {
         $(".sale_price_layer").hide();
@@ -141,25 +143,53 @@
         var container = document.getElementById("image-show");
         container.appendChild(newImage);
         $(".image-show").show();
+        
       }
       
-      function gatherData(){
-    	  
-    	  if($(".optionGroup1").is("#using_people") == true) {
-				alert("hi");
-    		}else{
-    			alert("no");
-    		}
-    	  
-    	  var hi = $(".optionGroup1");
-    	  console.log(hi);
+      	// 데이터모으기
+	    function gatherData(){
+			var x; 
 
-      }
-      
-      
+			// 옵션
+			var option_total = option_count + 1;
+			var optionArray = [];
+			for(x=0; x<option_total; x++){
+				
+				var option = {
+						"using_people" : $("#option_input"+x+"").find("#using_people").val(),
+						"place" : $("#option_input"+x+"").find("#place").val(),
+						"rental" : $("#option_input"+x+"").find("#rental").val(),
+						"refurbish" : $("#option_input"+x+"").find("#refurbish").val()
+						
+					}
+				
+				optionArray.push(option);
+			}
+
+			var wholeText = {
+					"options" : optionArray
+			}
+			
+			console.log(JSON.stringify(wholeText));
+
+			// ajax로 데이터 넘기기
+		  	$.ajax({
+	  		url:'getJsonArray.seller',
+	  		method:'post',
+	  		data: JSON.stringify(wholeText),
+	  		contentType : 'application/json; charset=UTF-8',
+	  		dataType : 'json',
+	  		success : function(resp){}
+	  		});
+
+	    }
+      	
+      	function changeOption(){
+      		alert("hi");
+      	}
+    
     </script>
-	<script type="text/javascript" src="resources/js/sellerjs/plus_photo.js"></script>
-	<script type="text/javascript" src="resources/js/sellerjs/option_clone.js"></script>
+
 </head>
 
 <jsp:include page="header/header.jsp"></jsp:include>
@@ -211,15 +241,11 @@
 								<div class="btn-group" role="group"
 									aria-label="Basic radio toggle button group">
 									<select class="form-select selectState" id="large-select" name="category_name"
-										aria-label="Default select example">
+										aria-label="Default select example" onchange=changeOption()>
 										<option selected>대분류</option>
+										
 										<option value="1">가구</option>
-										<option value="2">패브릭</option>
-										<option value="3">조명</option>
-										<option value="4">가전</option>
-										<option value="5">주방용품</option>
-										<option value="6">데코/식물</option>
-										<option value="7">수납/정리</option>
+
 									</select>
 								</div>
 								<div class="btn-group" role="group"
@@ -227,13 +253,8 @@
 									<select class="form-select selectState" id="middle-select" name="subcategory1"
 										disabled="" aria-label="Default select example">
 										<option selected>중분류</option>
+										
 										<option value="1">메트리스</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
-										<option value="7">7</option>
 									</select>
 								</div>
 								<div class="btn-group" role="group"
@@ -242,12 +263,6 @@
 										disabled="" aria-label="Default select example">
 										<option selected>소분류</option>
 										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
-										<option value="7">7</option>
 									</select>
 								</div>
 							</div>
@@ -281,7 +296,7 @@
 									</div>
 									<div class="btn-group" role="group"
 										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState" name="place"
+										<select class="form-select selectState" id="place" name="place"
 											aria-label="Default select example">
 											<option selected>사용공간</option>
 											<option value="living room">거실</option>
@@ -294,7 +309,7 @@
 									</div>
 									<div class="btn-group" role="group"
 										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState" name="rental"
+										<select class="form-select selectState" id="rental" name="rental"
 											aria-label="Default select example">
 											<option selected>상품유형</option>
 											<option value="y">렌탈상품</option>
@@ -303,7 +318,7 @@
 									</div>
 									<div class="btn-group" role="group"
 										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState" name="refurbish"
+										<select class="form-select selectState" name="refurbish" id="refurbish"
 											aria-label="Default select example">
 											<option selected>리퍼상품 유무</option>
 											<option value="y">리퍼상품</option>
@@ -883,8 +898,7 @@
 
 				<div class="text-end mb-5">
 					<button class="btn btn-outline-secondary btn-size" type="reset">취소</button>
-					<!-- type="button" 없애야함 -->
-					<button type="button" class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
+					<button class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
 				</div>
 			</form>
 		</div>
