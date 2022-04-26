@@ -4,6 +4,7 @@ import ozo.spring.house.user.vo.UserVO;
 
 public interface UserService {
 	
+	
 	public void insertUser(UserVO vo);
 	public UserVO checkUser(UserVO vo);
 }
