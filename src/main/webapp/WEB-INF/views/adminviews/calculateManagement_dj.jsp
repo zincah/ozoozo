@@ -28,21 +28,23 @@
             <li class="breadcrumb-item active">Manager settlement details</li>
           </ol>
           <div class="container container-option bottomline">
-              <div class="row optionGroup1">
-                <div class="col-2 category-header-content">
+          <div class="col-12 category-header-content">
                   <a href="#">정산예정 내역</a><span>0</span>
                 </div>
-                <div class="col-2 category-header-content">
+                <div class="col-12 category-header-content">
                   <a href="#">정산완료 내역</a><span>0</span>
                 </div>
-                <div class="col-2 category-header-content">
+                <div class="col-12 category-header-content">
                   <a href="#">나의 수수료</a><span>0</span>
                 </div>
               </div>
+              <div class="row optionGroup1">
+                
           </div>
           <div class="container container-option bottomline container-option-topPadding">
 
             <div class="row optionGroup1">
+            
 
 
               <div class="col-1 option-name">기간</div>
