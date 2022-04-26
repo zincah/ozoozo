@@ -9,6 +9,10 @@
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/block.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/font.css'>
     <script src='main.js'></script>
+    <script
+  src="https://code.jquery.com/jquery-3.6.0.slim.js"
+  integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
+  crossorigin="anonymous"></script>
 </head>
 <body>
          <!-- 전체 창 -->
@@ -86,43 +90,52 @@
                             </span>
                         </div>
                     </div>
-                    <div class="css-1thr4j euhjq6q0" style="display : none">이메일 형식이 올바르지 않습니다.</div>  
+                    <div class="css-1thr4j euhjq6q0 false_email" style="display : none">이메일 형식이 올바르지 않습니다.</div>  
                     <div class="emailBtn_div">
                         <button class="emailBtn" name="">이메일 인증하기</button>
                     </div><!-- email end -->
                 <!-- 비밀번호 -->
                     <div class="password_div">
                         <label class="passwordLogo">비밀번호</label>
-                        <div class="passwordInform">영문,숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</div>
-                        <input class="passwordInput input-dh" name="user_pw" type="password" placeholder="비밀번호" value>
+                        <div class="passwordInform">영문,숫자,특수 문자를 포함한 8자 이상의 비밀번호를 입력해주세요.</div>
+                        <input class="passwordInput input-dh" name="user_pw" type="password" placeholder="비밀번호" value oninput="checkPass()">
+                        <div class="css-1thr4j euhjq6q0 false_pass" style="display : none"></div>
                     </div><!-- 비밀번호 end-->
 
                 <!-- 비밀번호 확인 -->
                     <div class="confirmPassword_div">
-                        <label class="passwordLogo">비밀번호 확인</label>
-                        <div class="passwordInform">영문,숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</div>
-                        <input class="passwordInput input-dh" name="confirm_pw" type="password" placeholder="비밀번호 확인" value>
+                        <label class="repasswordLogo">비밀번호 확인</label>
+                        <div class="passwordInform">영문,숫자,특수 문자를 포함한 8자 이상의 비밀번호를 입력해주세요.</div>
+                        <input class="repasswordInput input-dh" name="confirm_pw" type="password" placeholder="비밀번호 확인" value oninput="checkRePass()">
+                        <div class="css-1thr4j euhjq6q0 false_repass" style="display : none">비밀번호가 일치하지 않습니다.</div>
                     </div><!-- 비밀번호 확인 end-->
                 <!-- 닉네임 입력란-->
                     <div class="nickname_div">
                         <label class="nicknameLogo">닉네임</label>
                         <div class="nicknameInform">다른 유저와 겹치지 않는 별명을 입력해주세요. (2~15자)</div>
-                        <input class="nicknameInput input-dh"  name="nickname" placeholder="별명 (2~15자)" value="">
+                        <input class="nicknameInput input-dh"  name="nickname" placeholder="별명 (2~15자)" value="" oninput="checkNick()">
+                        <div class="css-20k7wq euhjq6q0 false_nick"></div>
                     </div><!-- 닉네임 end -->
                 <!-- 약관 동의 -->
                     <div class="agree_div">
                         <label class="agreeLogo">약관동의</label>
                         <div class="agreeBox">
-                            <div class="agree1_div"><!-- 전체 동의 div -->
-                                <lable class="agreeOption">
-                                    <div class="agreecheck_div">
-                                        <input type="checkbox" class="agreeCheck" name="agreeAll">
-                                    </div>
-                                    <span class="agreeSpan">
-                                        <div class="agree1Logo">전체동의</div>
-                                    </span>
-                                </lable>
-                            </div>
+                        <!-- 전체 동의 div -->
+                            <div class="agree1_div">
+							<label class="_3xqzr _4VN_z">
+								<div class="_3zqA8">
+									<input type="checkbox" class="_3UImz" name="agreeAll" value="">
+										<span class="_2mDYR">
+											<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR">
+												<path fill="currentColor"
+													d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path>
+											</svg>
+										</span>
+								</div>
+								<span class="_1aN3J"><div class="css-gekkos e1hy3kq3">전체동의</div>
+								</span>
+							</label>
+						</div>
                             <label class="agreeOption"><!-- 만 14세 div -->
                                 <div class="agreecheck_div">
                                     <input type="checkbox" class="" name="agree1" value="">
@@ -172,20 +185,80 @@
       		var email = document.querySelector(".email_1").value;
       		var email_S = document.querySelector(".emailSelect").value;
       		if(email.length > 0 && email_S.length > 0){
-      			document.querySelector(".css-1thr4j").style.display = "none";
-      			document.querySelector(".emailLogo").classList.remove('css-1azo586');
-      			document.querySelector(".email_1").classList.remove('error');
-      			document.querySelector(".emailSelect").classList.remove('error');
-      			document.querySelector(".emailBtn").classList.add('EmailBtn_true');
+      			$(".false_email").css("display", "none")
+      			$(".emailLogo").removeClass('css-1azo586');
+      			$(".email_1").removeClass('error');
+      			$(".emailSelect").removeClass('error');
+      			$(".emailBtn").addClass('EmailBtn_true');
       		}else {
-      			document.querySelector(".css-1thr4j").style.display = "block";
-      			document.querySelector(".emailLogo").classList.add('css-1azo586');
-      			document.querySelector(".email_1").classList.add('error');
-      			document.querySelector(".emailSelect").classList.add('error');
-      			document.querySelector(".emailBtn").classList.remove('EmailBtn_true');
+      			$(".false_email").css("display", "block")
+      			$(".emailLogo").addClass('css-1azo586');
+      			$(".email_1").addClass('error');
+      			$(".emailSelect").addClass('error');
+      			$(".emailBtn").removeClass('EmailBtn_true');
       		}
       	}
-      
+    	function checkPass(){
+    		var pass = document.querySelector(".passwordInput").value;
+    		var reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    		var msg = $(".false_pass");
+    		var Logo = $('.passwordLogo');
+    		var passInput = $('.passwordInput');
+    		if(pass.length == 0){	
+    			$('.false_pass').text("필수 입력 항목입니다.");
+    			$(Logo).addClass("css-1azo586");
+    			$(passInput).addClass("error");
+    			$(msg).css("display", "block");
+    		}else if(!reg.test(pass)){
+    			$('.false_pass').text("비밀번호는 영문, 숫자 ,특수 문자를 포함하여 8자 이상이어야 합니다.");
+    			$(Logo).addClass("css-1azo586");
+    			$(passInput).addClass("error");
+    			$(msg).css("display", "block");
+    		}else{
+    			$(Logo).removeClass("css-1azo586");
+    			$(passInput).removeClass("error");
+    			$(msg).css("display", "none");
+    		}
+        }
+		function checkRePass(){
+			var pass = $(".passwordInput").val();
+			var repass = $(".repasswordInput").val();
+			console.log("pass = " + pass + "\n repass = " + repass)
+			console.log(pass != repass);
+			if(pass != repass){
+				$('.repasswordLogo').addClass("css-1azo586");
+    			$('.repasswordInput').addClass("error");
+    			$('.false_repass').css("display", "block")
+			}else{
+				$('.repasswordLogo').removeClass("css-1azo586");
+    			$('.repasswordInput').removeClass("error");
+    			$('.false_repass').css("display", "none")
+			}
+        }
+		function checkNick(){
+			var nick = $('.nicknameInput');
+			var nickVal = $(nick).val();
+			var nickLogo = $('.nicknameLogo');
+			var falseMsg = $('.false_nick');
+			if(nickVal.length == 0 ){
+				$(nick).addClass("error");
+				$(nickLogo).addClass("css-1azo586");
+				$(falseMsg).text("필수 입력 항목입니다.");
+			}else if(nickVal.length == 1){
+				$(nick).addClass("error");
+				$(nickLogo).addClass("css-1azo586");
+				$(falseMsg).text("2자 이상 입력해주세요.");
+			}else if(nickVal.length > 15){
+				$(nick).addClass("error");
+				$(nickLogo).addClass("css-1azo586");
+				$(falseMsg).text("15자 이하로 입력해주세요.");
+			}else{
+				$(nick).removeClass("error");
+				$(nickLogo).removeClass("css-1azo586");
+				$(falseMsg).text("");
+			}
+			
+		}
       </script>
         
 </body>
