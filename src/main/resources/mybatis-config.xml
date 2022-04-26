@@ -8,7 +8,9 @@
 		<!-- 원하는 클래스 여러개 가능 -->
 		<typeAlias type="ozo.spring.house.admin.vo.MemberVO" alias="admin"/>
 		<typeAlias type="ozo.spring.house.user.vo.UserVO" alias="user"/>
+		<typeAlias type="ozo.spring.house.user.vo.CScenterVO" alias="cscenter"/>
 		<typeAlias type="ozo.spring.house.seller.vo.SellerVO" alias="seller"/>
+		<typeAlias type="ozo.spring.house.seller.vo.CategoryVO" alias="cate"/>
 	</typeAliases>
 	<!-- 원래 여기에 datasource를 넣어줘야하는데 applicationContext에서 넣었음 -->
 	<mappers>
@@ -16,5 +18,7 @@
 		<mapper resource="mappings/adminLogin-mapping.xml"/>
 		<mapper resource="mappings/userManage-mapping.xml"/>
 		<mapper resource="mappings/sellerLogin-mapping.xml"/>
+		<mapper resource="mappings/userCScenter-mapping.xml"/>
+		<mapper resource="mappings/sellerCategory-mapping.xml"/>
 	</mappers>
 </configuration>

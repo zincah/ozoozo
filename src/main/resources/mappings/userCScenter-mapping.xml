@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="CScenterDAO">
+    
+    <!-- 전체목록 -->
+    <select id="csall" resultType="cscenter" >
+       SELECT *FROM CSCENTER
+    </select>
+    
+    <!-- 주문/배송 -->
+    <select id="cskeyword" resultType="cscenter">
+    SELECT * FROM CSCENTER where customer_keyword=#{customer_keyword}
+    </select>
+    
+    
+    
+ </mapper>
