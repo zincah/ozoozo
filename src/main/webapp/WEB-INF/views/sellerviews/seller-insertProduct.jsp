@@ -142,24 +142,93 @@
         container.appendChild(newImage);
         $(".image-show").show();
       }
-      
-      function gatherData(){
-    	  
-    	  if($(".optionGroup1").is("#using_people") == true) {
-				alert("hi");
-    		}else{
-    			alert("no");
-    		}
-    	  
-    	  var hi = $(".optionGroup1");
-    	  console.log(hi);
 
-      }
-      
-      
+           
     </script>
 	<script type="text/javascript" src="resources/js/sellerjs/plus_photo.js"></script>
 	<script type="text/javascript" src="resources/js/sellerjs/option_clone.js"></script>
+	
+	<script>
+	
+    
+	    function gatherData(){
+	  	  
+			var option_total = option_count + 1;
+			
+			var arrayJson = {
+					"options" : [
+						{"using_people" : $("#option_input0").find("#using_people").val(),
+							"place" : $("#option_input0").find("#place").val(),
+							"rental" : $("#option_input0").find("#rental").val(),
+							"refurbish" : $("#option_input0").find("#refurbish").val()
+						},
+						
+						{"using_people" : $("#option_input1").find("#using_people").val(),
+							"place" : $("#option_input1").find("#place").val(),
+							"rental" : $("#option_input1").find("#rental").val(),
+							"refurbish" : $("#option_input1").find("#refurbish").val()
+						}
+					]
+			}
+			
+			var changeJson = {		
+					"option1" : 
+						{"using_people" : $("#option_input0").find("#using_people").val(),
+						"place" : $("#option_input0").find("#place").val(),
+						"rental" : $("#option_input0").find("#rental").val(),
+						"refurbish" : $("#option_input0").find("#refurbish").val()
+						},
+					"option2" : 
+						{"using_people" : $("#option_input1").find("#using_people").val(),
+							"place" : $("#option_input1").find("#place").val(),
+							"rental" : $("#option_input1").find("#rental").val(),
+							"refurbish" : $("#option_input1").find("#refurbish").val()
+						}
+			}
+			
+			/*
+			var k=1;
+			var text = {"hi" : "hi", "hello" : "hello"}
+			var name = "option"+k;
+			
+			var strong = { name : text }
+			console.log(JSON.stringify(strong));
+			*/
+			
+			/*
+			var x; 
+			
+			for(x=0; x<option_total; x++){
+				
+				var text = {
+						"using_people" : $("#option_input"+x+"").find("#using_people").val(),
+						"place" : $("#option_input"+x+"").find("#place").val(),
+						"rental" : $("#option_input"+x+"").find("#rental").val(),
+						"refurbish" : $("#option_input"+x+"").find("#refurbish").val()
+					}
+
+				
+			}*/
+
+
+		  	$.ajax({
+	  		url:'getJsonArray.seller',
+	  		method:'post',
+	  		data: JSON.stringify(arrayJson),
+	  		contentType : 'application/json; charset=UTF-8',
+	  		dataType : 'json',
+	  		success : function(resp){}
+	  		});
+
+	    }
+    
+
+	
+	
+	
+	
+	
+	</script>
 </head>
 
 <jsp:include page="header/header.jsp"></jsp:include>
@@ -281,7 +350,7 @@
 									</div>
 									<div class="btn-group" role="group"
 										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState" name="place"
+										<select class="form-select selectState" id="place" name="place"
 											aria-label="Default select example">
 											<option selected>사용공간</option>
 											<option value="living room">거실</option>
@@ -294,7 +363,7 @@
 									</div>
 									<div class="btn-group" role="group"
 										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState" name="rental"
+										<select class="form-select selectState" id="rental" name="rental"
 											aria-label="Default select example">
 											<option selected>상품유형</option>
 											<option value="y">렌탈상품</option>
@@ -303,7 +372,7 @@
 									</div>
 									<div class="btn-group" role="group"
 										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState" name="refurbish"
+										<select class="form-select selectState" name="refurbish" id="refurbish"
 											aria-label="Default select example">
 											<option selected>리퍼상품 유무</option>
 											<option value="y">리퍼상품</option>
@@ -883,7 +952,6 @@
 
 				<div class="text-end mb-5">
 					<button class="btn btn-outline-secondary btn-size" type="reset">취소</button>
-					<!-- type="button" 없애야함 -->
 					<button type="button" class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
 				</div>
 			</form>
