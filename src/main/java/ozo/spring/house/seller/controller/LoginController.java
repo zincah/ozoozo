@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ozo.spring.house.seller.service.SellerService;
 import ozo.spring.house.seller.vo.SellerVO;
+import ozo.spring.house.user.vo.UserVO;
 
 @Controller
 public class LoginController {
@@ -23,12 +24,12 @@ public class LoginController {
 		if(session.getAttribute("sellercode")!=null) {
 			return "index";
 		}else {
-			return "seller-Login";
+			return "seller-login";
 		}
 	}
 
 	@RequestMapping(value="/login.seller", method=RequestMethod.POST)
-	public String login(SellerVO vo, Model model, HttpSession session) {
+	public String login(UserVO vo, Model model, HttpSession session) {
 
 		// log 처리
 		System.out.println("login controller");
@@ -36,13 +37,13 @@ public class LoginController {
 		
 		if(seller != null) {
 			session.setAttribute("sellerid", seller.getSeller_id());
-			model.addAttribute("sellerid", vo.getSeller_id());
+			model.addAttribute("usernum", vo.getUser_num());
 			model.addAttribute("seller", vo); // member 정보
 			return "index";
 		}else {
 			String msg = "입력하신 정보가 잘못 되었습니다.";
 			model.addAttribute("msg", msg);
-			return "seller-Login";
+			return "seller-login";
 		}
 	}
 	

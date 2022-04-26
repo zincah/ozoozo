@@ -11,7 +11,7 @@ import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:applicationContext.xml" })
+@ContextConfiguration(locations = { "classpath:applicationContext.xml", "file:src/main/webapp/WEB-INF/config/seller-management.xml" })
 public class PasswordEncodingSeller {
 
 	@Autowired
@@ -26,15 +26,7 @@ public class PasswordEncodingSeller {
 		SellerVO vo = new SellerVO();
 		
 		UserVO uvo = sellerService.userDataSeller(100002);
-		
-//		String rawPass = "seller";
-//		String encodePass;
-//		
-//		encodePass = passwordEncoder.encode(rawPass);
-//		
-//		System.out.println("encoding : " + encodePass);
-//		System.out.println("verify : " + passwordEncoder.matches(rawPass, encodePass));
-		
+			
 		vo.setUser_id(uvo.getUser_num());
 		vo.setEmail(uvo.getUser_email());
 		

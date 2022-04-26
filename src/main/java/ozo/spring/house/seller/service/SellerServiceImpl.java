@@ -18,8 +18,13 @@ public class SellerServiceImpl implements SellerService{
 	}
 	
 	@Override
-	public SellerVO checkSeller(SellerVO vo) {
+	public SellerVO checkSeller(UserVO vo) {
 		return sellerDAO.checkSeller(vo);
+	}
+	
+	@Override
+	public UserVO checkSellerUser(UserVO vo) {
+		return sellerDAO.checkSellerUser(vo);
 	}
 	
 	@Override

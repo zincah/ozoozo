@@ -18,7 +18,7 @@
 <link href="resources/css/sellercss/insertProduct.css" rel="stylesheet" />
 <link href="resources/css/sellercss/seller-order.css" rel="stylesheet" />
 <link href="resources/css/sellercss/seller-order2.css" rel="stylesheet" />
-<script type="text/javascript" src="resources/js/sellercss/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
@@ -1028,7 +1028,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	crossorigin="anonymous"></script>
-<script src="js/sellercss/scripts.js"></script>
+<script src="js/sellerjs/scripts.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
 	crossorigin="anonymous"></script>
@@ -1036,8 +1036,8 @@
 <script src="resources/assets/demo/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
 	crossorigin="anonymous"></script>
-<script src="resources/js/sellercss/datatables-simple-demo.js"></script>
-<script src="resources/js/sellercss/seller-customerInquiry.js"></script>
-<script src="resources/js/sellercss/seller-order.js"></script>
+<script src="resources/js/sellerjs/datatables-simple-demo.js"></script>
+<script src="resources/js/sellerjs/seller-customerInquiry.js"></script>
+<script src="resources/js/sellerjs/seller-order.js"></script>
 </body>
 </html>
