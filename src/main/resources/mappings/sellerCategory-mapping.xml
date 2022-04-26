@@ -4,6 +4,20 @@
  
 <mapper namespace="CategoryDAO">
 
+	<resultMap type="cate" id="cateJoin">
+		<id property="cate_code" column="CATE_CODE"/>
+		<result property="cate_name" column="CATE_NAME"/>
+	
+	</resultMap>
+	
+	
+	<!-- TOP_CATEGORY LIST -->
+    <select id="getCategoryList" resultType="cate" >
+       SELECT * FROM CATEGORY ORDER BY cate_code ASC;
+    </select>
+
+
+
 	
 
 </mapper>

@@ -243,8 +243,9 @@
 									<select class="form-select selectState" id="large-select" name="category_name"
 										aria-label="Default select example" onchange=changeOption()>
 										<option selected>대분류</option>
-										
-										<option value="1">가구</option>
+										<c:forEach items="${cateList }" var="cate">
+											<option value="${cate.cate_code}">${cate.cate_name}</option>
+										</c:forEach>
 
 									</select>
 								</div>
