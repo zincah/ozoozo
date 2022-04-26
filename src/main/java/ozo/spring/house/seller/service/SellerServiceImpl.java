@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import ozo.spring.house.seller.dao.SellerDAO;
 import ozo.spring.house.seller.vo.SellerVO;
+import ozo.spring.house.user.vo.UserVO;
 
 @Service("sellerService")
 public class SellerServiceImpl implements SellerService{
@@ -17,12 +18,22 @@ public class SellerServiceImpl implements SellerService{
 	}
 	
 	@Override
-	public SellerVO checkSeller(SellerVO vo) {
+	public SellerVO checkSeller(UserVO vo) {
 		return sellerDAO.checkSeller(vo);
+	}
+	
+	@Override
+	public UserVO checkSellerUser(UserVO vo) {
+		return sellerDAO.checkSellerUser(vo);
 	}
 	
 	@Override
 	public void insertSeller(SellerVO vo) {
 		sellerDAO.insertSeller(vo);
+	}
+	
+	@Override
+	public UserVO userDataSeller(int user_id) {
+		return sellerDAO.userDataSeller(user_id);
 	}
 }

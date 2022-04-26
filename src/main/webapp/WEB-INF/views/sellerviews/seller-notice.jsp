@@ -13,7 +13,7 @@
     <link href="resources/css/sellercss/fonts.css?after" rel="stylesheet" />
     <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
     <link href="resources/css/sellercss/seller-notice.css" rel="stylesheet" />
-    <script type="text/javascript" src="resources/js/sellercss/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css" />
   </head>
@@ -136,11 +136,11 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="resources/js/sellercss/scripts.js"></script>
+    <script src="resources/js/sellerjs/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="resources/assets/demo/chart-area-demo.js"></script>
     <script src="resources/assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="resources/js/sellercss/datatables-simple-demo.js"></script>
+    <script src="resources/js/sellerjs/datatables-simple-demo.js"></script>
   </body>
 </html>

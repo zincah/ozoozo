@@ -6,12 +6,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import ozo.spring.house.admin.service.MemberService;
 import ozo.spring.house.seller.service.SellerService;
 import ozo.spring.house.seller.vo.SellerVO;
+import ozo.spring.house.user.vo.UserVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:applicationContext.xml" })
+@ContextConfiguration(locations = { "classpath:applicationContext.xml", "file:src/main/webapp/WEB-INF/config/seller-management.xml" })
 public class PasswordEncodingSeller {
 
 	@Autowired
@@ -25,16 +25,17 @@ public class PasswordEncodingSeller {
 
 		SellerVO vo = new SellerVO();
 		
-		String rawPass = "seller";
-		String encodePass;
+		UserVO uvo = sellerService.userDataSeller(100002);
+			
+		vo.setUser_id(uvo.getUser_num());
+		vo.setEmail(uvo.getUser_email());
 		
-		encodePass = passwordEncoder.encode(rawPass);
-		
-		System.out.println("encoding : " + encodePass);
-		System.out.println("verify : " + passwordEncoder.matches(rawPass, encodePass));
-		
-		vo.setSeller_code("inha");
-		vo.setSeller_password(encodePass);
+		vo.setSeller_id(500001);
+		vo.setCompany_name("½Ò±¹¼ö¿ùµå");
+		vo.setRepresentative("½Ò±¹¼ö¸Ç");
+		vo.setAddress("¾îÂ¼±¸ ÀúÂ¼±¸");
+		vo.setShop_tell("010-1010-0101");
+		vo.setRegistration_num(12345);;
 		
 		sellerService.insertSeller(vo);
 		

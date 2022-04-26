@@ -17,7 +17,7 @@
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
 <link href="resources/css/sellercss/insertProduct.css" rel="stylesheet" />
 <link href="resources/css/sellercss/seller-salesManagement.css" rel="stylesheet" />
-<script type="text/javascript" src="resources/js/sellercss/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
@@ -653,113 +653,271 @@
 				</div>
 			</div>
 		</div>
-		<table class="table table-hover table-box-style">
+		<table class="table table-box-style">
 			<thead>
 				<tr class="content-table-title">
-					<td class="content-table-title-text option-line"><input
-						class="form-check-input" type="checkbox" value="" id="allCheck" />
-					</td>
-					<td class="content-table-title-text option-line">주문날짜</td>
-					<td class="content-table-title-text option-line">주문번호</td>
-					<td class="content-table-title-text option-line">처리상태</td>
-					<td class="content-table-title-text option-line">판매자 상품코드</td>
-					<td class="content-table-title-text option-line">상품명</td>
-					<td class="content-table-title-text option-line">옵션정보</td>
-					<td class="content-table-title-text option-line">수량</td>
-					<td class="content-table-title-text option-line">수취인명</td>
-					<td class="content-table-title-text option-line">수취인연락처</td>
-					<td class="content-table-title-text option-line">우편번호</td>
-					<td class="content-table-title-text option-line">배송지</td>
+					<td class="content-table-title-text option-line">날짜</td>
+					<td class="content-table-title-text option-line">구분</td>
+					<td class="content-table-title-text option-line">결제금액</td>
+					<td class="content-table-title-text option-line">결제건수</td>
+					<td class="content-table-title-text option-line">취소금액</td>
+					<td class="content-table-title-text option-line">취소건수</td>
+					<td class="content-table-title-text option-line">정상금액(판매-취소)</td>
+					<td class="content-table-title-text option-line">정상건수</td>
+					<td class="content-table-title-text option-line">할인</td>
+					<td class="content-table-title-text option-line">쿠폰</td>
+					<td class="content-table-title-text option-line">배송비</td>
+					<td class="content-table-title-text option-line">판매이익(정상금액-(할인,쿠폰,배송비))</td>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody class="content-table-content content-hover table-hover-self">
 				<!-- for -->
-				<tr class="content-table-content content-hover">
-					<td class="content-table-content-text option-line"><input
-						class="form-check-input check" type="checkbox" value="" /></td>
+				<tr>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">2022-04-19
-						14:25</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view" rowspan="5">2022-04-26</td>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">1583921</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">신용카드</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">결제완료</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">300,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">001</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">3</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">동준이의 핫핑크
-						미니스커트</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">S</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">200,000</td>
 					<td class="content-table-content-text option-line"
 						data-bs-toggle="modal" data-bs-target="#modal-view">2</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">이영</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">10,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">010-1323-1234</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">12345</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">5,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">경기도 어쩌구
-						저쩌구</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">185,000</td>
 				</tr>
-				<tr class="content-table-content content-hover">
-					<td class="content-table-content-text option-line"><input
-						class="form-check-input check" type="checkbox" value="" /></td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">2022-04-19
-						14:25</td>
+				<tr>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">1583921</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">휴대폰결제</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">결제완료</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">001</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">동준이의 핫핑크
-						미니스커트</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">S</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">2</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">이영</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">010-1323-1234</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">5,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">12345</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">경기도 어쩌구
-						저쩌구</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">2,500</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">92,500</td>
 				</tr>
-				<tr class="content-table-content content-hover">
-					<td class="content-table-content-text option-line"><input
-						class="form-check-input check" type="checkbox" value="" /></td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">2022-04-19
-						14:25</td>
+				<tr>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">1583921</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">안심계좌</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">결제완료</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">001</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">동준이의 핫핑크
-						미니스커트</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">S</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+				</tr>
+				<tr>
+					<td class="content-table-content-text option-line state0"
+						data-bs-toggle="modal" data-bs-target="#modal-view">무통장입금</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+				</tr>
+				<tr>
+					<td class="content-table-content-text option-line state0"
+						data-bs-toggle="modal" data-bs-target="#modal-view">소계</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">400,000</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">4</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">300,000</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">3</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">15,000</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">7,500</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">277,500</td>
+				</tr>
+				</tbody>
+				
+				<tbody class="content-table-content content-hover">
+				<tr style="border-top: inherit;">
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view" rowspan="5">2022-04-25</td>
+					<td class="content-table-content-text option-line state0"
+						data-bs-toggle="modal" data-bs-target="#modal-view">신용카드</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">300,000</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">3</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">200,000</td>
 					<td class="content-table-content-text option-line"
 						data-bs-toggle="modal" data-bs-target="#modal-view">2</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">이영</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">10,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">010-1323-1234</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">12345</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">5,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">경기도 어쩌구
-						저쩌구</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view">185,000</td>
+				</tr>
+				<tr>
+					<td class="content-table-content-text option-line state0"
+						data-bs-toggle="modal" data-bs-target="#modal-view">휴대폰결제</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">5,000</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">2,500</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">92,500</td>
+				</tr>
+				<tr>
+					<td class="content-table-content-text option-line state0"
+						data-bs-toggle="modal" data-bs-target="#modal-view">안심계좌</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+				</tr>
+				<tr>
+					<td class="content-table-content-text option-line state0"
+						data-bs-toggle="modal" data-bs-target="#modal-view">무통장입금</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+				</tr>
+				<tr>
+					<td class="content-table-content-text option-line state0"
+						data-bs-toggle="modal" data-bs-target="#modal-view">소계</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">400,000</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">4</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">300,000</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">3</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">15,000</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">7,500</td>
+					<td class="content-table-content-text option-line"
+						data-bs-toggle="modal" data-bs-target="#modal-view">277,500</td>
 				</tr>
 			</tbody>
 		</table>
@@ -891,7 +1049,7 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	crossorigin="anonymous"></script>
-<script src="resources/js/sellercss/scripts.js"></script>
+<script src="resources/js/sellerjs/scripts.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
 	crossorigin="anonymous"></script>
@@ -899,8 +1057,8 @@
 <script src="resources/assets/demo/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
 	crossorigin="anonymous"></script>
-<script src="resources/js/sellercss/datatables-simple-demo.js"></script>
-<script src="resources/js/sellercss/seller-customerInquiry.js"></script>
-<script src="resources/js/sellercss/seller-salesManagement.js"></script>
+<script src="resources/js/sellerjs/datatables-simple-demo.js"></script>
+<script src="resources/js/sellerjs/seller-customerInquiry.js"></script>
+<script src="resources/js/sellerjs/seller-salesManagement.js"></script>
 </body>
 </html>

@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.table-hover-self:hover {
+	background-color: rgba(0, 0, 0, 0.075);
+}
+
 .option-name {
 	font-size: 13px;
 	font-weight: 600;
@@ -515,8 +519,8 @@ input[type="date"] {
 .answer-area {
 	display: flex;
 	align-items: flex-start;
-	padding-bottom: 2rem; -
-	-bs-gutter-x: 0;
+	padding-bottom: 2rem;
+	--bs-gutter-x: 0;
 }
 
 .submitBtn {

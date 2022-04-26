@@ -4,14 +4,24 @@
  
 <mapper namespace="SellerDAO">
 
+	<!-- 유저 리스트 -->
+	<select id="userDataSeller" resultType="user">
+		SELECT * FROM user_table WHERE user_num = #{user_id}
+	</select>
+
 	<!-- 관리자 인증 -->
-	<select id="checkAdmin" resultType="admin">
-		SELECT * FROM seller_table WHERE seller_code = #{seller_code}
+	<select id="checkSeller" resultType="seller">
+		SELECT * FROM seller WHERE email = #{user_email}
+	</select>
+	
+	<!-- 관리자 인증 후 유저 데이터 인증 -->
+	<select id="checkSellerUser" resultType="user">
+		SELECT * FROM user_table WHERE user_email = #{email}
 	</select>
 	
 	<!-- 관리자 생성 -->
-	<insert id="insertAdmin" parameterType="admin">
-		INSERT INTO seller_table VALUES (#{seller_code}, #{seller_password})
+	<insert id="insertSeller" parameterType="seller">
+		INSERT INTO seller VALUES (#{seller_id}, #{user_id}, #{company_name}, #{representative}, #{address}, #{shop_tell}, #{email}, #{registration_num}) 
 	</insert>
 
 </mapper>
