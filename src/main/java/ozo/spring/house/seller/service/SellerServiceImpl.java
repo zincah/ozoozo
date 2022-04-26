@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import ozo.spring.house.seller.dao.SellerDAO;
 import ozo.spring.house.seller.vo.SellerVO;
+import ozo.spring.house.user.vo.UserVO;
 
 @Service("sellerService")
 public class SellerServiceImpl implements SellerService{
@@ -24,5 +25,10 @@ public class SellerServiceImpl implements SellerService{
 	@Override
 	public void insertSeller(SellerVO vo) {
 		sellerDAO.insertSeller(vo);
+	}
+	
+	@Override
+	public UserVO userDataSeller(int user_id) {
+		return sellerDAO.userDataSeller(user_id);
 	}
 }

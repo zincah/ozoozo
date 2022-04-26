@@ -35,8 +35,8 @@ public class LoginController {
 		SellerVO seller = sellerService.checkSeller(vo);
 		
 		if(seller != null) {
-			session.setAttribute("sellercode", seller.getSeller_code());
-			model.addAttribute("sellercode", vo.getSeller_code());
+			session.setAttribute("sellerid", seller.getSeller_id());
+			model.addAttribute("sellerid", vo.getSeller_id());
 			model.addAttribute("seller", vo); // member Á¤º¸
 			return "index";
 		}else {
