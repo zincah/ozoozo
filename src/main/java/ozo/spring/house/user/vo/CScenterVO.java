@@ -14,4 +14,5 @@ public class CScenterVO {
 	String customer_question;
 	String customer_answer;
 	
+	
 }

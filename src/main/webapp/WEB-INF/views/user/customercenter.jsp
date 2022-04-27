@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +11,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="resources/css/user_css/header/public.css?var=1">
     <link rel="stylesheet" href="resources/css/user_css/header/customer.css?var=1">
-    
-    <title>Document</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.js"
+	integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
+	crossorigin="anonymous"></script>
+<title>Document</title>
 </head>
 <body>
 <header>
@@ -51,6 +56,7 @@
                         </section>
                     </div>
                 </article>
+                
                 <section class="col-12 customer-center__contact--mobile">
                     <p class="customer-center__contact--mobile__operating">운영시간 : 평일 09:00 ~ 18:00 (주말 &amp; 공휴일 제외)</p>
                     <div class="customer-center__contact--mobile__buttons"><button
@@ -61,7 +67,7 @@
                 </section>
             </div>
         </div>
-
+        
         <!--자주하는 질문 -->
         <article id="faq" class="faq">
             <nav class="faq__nav">
@@ -76,38 +82,38 @@
                     <li class="faq__nav__item"><a id="customer_keyword" href="/customer_center#서비스+기타">서비스/기타</a></li>
                 </ul>
             </nav>
+            
             <article class="faq__contents">
+            
                 <section id="faq__contents__group" class="faq__contents__group">
-                    <section id="주문+결제__주문+내역은+어떻게+확인할+수+있나요" class="faq__contents__item">
-                        <div class="faq__contents__item__question">${question}<svg width="1em" height="1em"
-                                viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet"
+                <c:forEach items="${list}" var="CS">
+                    <section class="faq__contents__item">
+                        <div class="faq__contents__item__question" onclick="click21()">${CS.customer_question}
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet"
                                 style="position: absolute; right: 0px; width: 12px; height: 12px; top: 50%; transition: transform 0.2s ease 0s; transform: translateY(-50%);">
                                 <path fill="currentColor" fill-rule="evenodd" d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z">
                                 </path>
-                            </svg></div>
-                        <div class="faq__contents__item__answer" style="max-height: 0px; opacity: 0; padding-top: 0px;">
-                            <p>${answer}</p>
-                        </div>
+                            </svg><div>                    
+                            <div  class="faq__contents__item__answer" style="max-height: 0; opacity: 0; padding-top: 0px;"><p>${CS.customer_answer}</p></div>
                     </section>
+                    
                     <!-- 원래자리 -->
                     <script>
-                        $(document).ready(function () {
-
-                            /* 카테고리 토글 */
-                            $(".faq__contents__item__answer").hide();
-                            /* 토글 다운 밑의 메뉴를 우선 숨기고 */
-                            $(".faq__contents__item__question", this).click(function () {
-                                var open = $(this).parents(".faq__contents__item__answer").siblings(".faq__contents__item__answer").slide;
-                                /* 위의 구문은 열고 싶어하는 토글 하단 메뉴까지 움직이는 걸 나타냄 */
-                                /* 예를 들어 버튼의 부모중의 div 그 부분에서 형제중의 div */
-                                console.log(open[0]);
-                                /* 형제 중의 div에서 첫번째를 찍어보기 저는 근접해서 이렇게 찍었습니다. */
-                                $(open[0]).slideToggle();
-                                /* 클릭시 토글 하단 메뉴가 왔다갔다 켜지는 부분 */
-                            });
-                        });
-                    </script>
                     
+                   function click21(){
+                	   console.log(document.getElementsByClassName('faq__contents__item__answer').style);
+                	   if(document.getElementsByClassName('faq__contents__item__answer').style ){
+                		   
+                	   $('.faq__contents__item__answer').css({"max-height":"", "opacity":"", "padding-top":""});
+                	   
+                	   }else if(document.getElementsByClassName('faq__contents__item__answer').style){
+                		   
+                		   $('.faq__contents__item__answer').css({"max-height":0, "opacity":0, "padding-top":0});
+                	   }
+                   }
+
+                    </script>
+                    </c:forEach>
                 </section>
                 
             </article>
