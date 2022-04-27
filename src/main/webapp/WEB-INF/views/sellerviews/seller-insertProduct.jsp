@@ -185,9 +185,72 @@
 
 	    }
       	
-      	function changeOption(){
-      		alert("hi");
-      	}
+      	// category 뽑기
+      	function changeFirstOption(){
+			var category = {"cate_code" : $("#category").val()}
+
+			
+		  	$.ajax({
+		  		url:'getMiddleCategory.seller',
+		  		method:'post',
+		  		data: JSON.stringify(category),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'json',
+		  		success : function(resp){
+		  			$("#middle-select").html("<option selected>중분류</option>");
+		  			
+		  			$("#middle-select").removeAttr("disabled");
+		  			var midcate = ""
+		  			//console.log(resp);
+					
+		  			$.each(resp,function(index,item){
+		  				//console.log(item["subcate_code"]);
+		  				midcate += '<option value="'+item["subcate_code"]+'">'+item["subcate_name"]+'</option>';
+		  			})
+		  			
+		  			$("#middle-select").append(midcate);
+		  		    
+		  			}
+		  			
+		  			// 성공시 실패시 예외처리 해줘야함
+		  		})
+  		}
+
+      	
+      	// 소분류 카테고리 뽑기
+      	function changeSecondOption(){
+			var midcategory = {"subcate_code" : $("#middle-select").val()}
+			
+			
+		  	$.ajax({
+		  		url:'getBottomCategory.seller',
+		  		method:'post',
+		  		data: JSON.stringify(midcategory),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'json',
+		  		success : function(resp){
+		  			$("#small-select").html("<option selected>소분류</option>");
+		  			$("#small-select").removeAttr("disabled");
+		  			
+		  			console.log(resp);
+		  			var botcate = ""
+					
+		  			$.each(resp,function(index,item){
+		  				//console.log(item["subcate_code"]);
+		  				botcate += '<option value="'+item["subcate_code"]+'">'+item["subcate_name"]+'</option>';
+		  			})
+		  			
+		  			$("#small-select").append(botcate);
+		  		    	
+		  			
+		  		
+		  			}
+      			});
+      		}
+      	
+      	
+	
+      	
     
     </script>
 
@@ -241,21 +304,22 @@
 							<div class="radio-productCode">
 								<div class="btn-group" role="group"
 									aria-label="Basic radio toggle button group">
-									<select class="form-select selectState" id="large-select" name="category_name"
-										aria-label="Default select example" onchange=changeOption()>
+									<select class="form-select selectState" id="category" name="category_name"
+										aria-label="Default select example" onchange="changeFirstOption()">
 										<option selected>대분류</option>
-										
-										<option value="1">가구</option>
+										<c:forEach items="${cateList }" var="cate">
+											<option value="${cate.cate_code}">${cate.cate_name}</option>
+										</c:forEach>
 
 									</select>
 								</div>
 								<div class="btn-group" role="group"
 									aria-label="Basic radio toggle button group">
 									<select class="form-select selectState" id="middle-select" name="subcategory1"
-										disabled="" aria-label="Default select example">
+										disabled="" aria-label="Default select example" onchange="changeSecondOption()">
 										<option selected>중분류</option>
 										
-										<option value="1">메트리스</option>
+
 									</select>
 								</div>
 								<div class="btn-group" role="group"
@@ -263,7 +327,7 @@
 									<select class="form-select selectState" id="small-select" name="subcategory2"
 										disabled="" aria-label="Default select example">
 										<option selected>소분류</option>
-										<option value="1">1</option>
+										<div id="bot-layer"></div>
 									</select>
 								</div>
 							</div>
@@ -917,10 +981,14 @@
 	</footer>
 </div>
 </div>
+<script>
+
+
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="resources/js/sellerjs/scripts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-<script src="resources/js/sellerjs/insertProduct.js"></script>
+
 </body>
 </html>
