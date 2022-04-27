@@ -56,7 +56,7 @@ a * {
     border-radius: 4px;
     box-sizing: border-box;
     font-family: Noto Sans KR,Noto Sans CJK KR,맑은 고딕,Malgun Gothic,sans-serif;
-    font-size: 15px;
+    font-size: 13px;
     line-height: 21px;
     transition: border-color .1s,background-color .1s;
     resize: none;
@@ -206,4 +206,9 @@ header, footer, main {
 
     display: flex;
     text-align: center;
+}
+
+.e5voaya1 {
+	font-size: 13px;
+	color: #999999;
 }

@@ -16,7 +16,7 @@
 	
 	<!-- 관리자 인증 후 유저 데이터 인증 -->
 	<select id="checkSellerUser" resultType="user">
-		SELECT * FROM user_table WHERE user_email = #{email}
+		SELECT * FROM user_table WHERE user_email = #{user_email}
 	</select>
 	
 	<!-- 관리자 생성 -->

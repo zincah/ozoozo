@@ -16,8 +16,11 @@
 <link href="resources/css/sellercss/fonts.css?after" rel="stylesheet" />
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
 <link href="resources/css/sellercss/insertProduct.css" rel="stylesheet" />
-<link href="resources/css/sellercss/seller-salesManagement.css" rel="stylesheet" />
-<script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
+<link href="resources/css/sellercss/seller-salesManagement.css"
+	rel="stylesheet" />
+<jsp:include page="header/headerModalView.jsp"></jsp:include>
+<script type="text/javascript"
+	src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
@@ -150,13 +153,14 @@
 					<select class="form-select selectAlign"
 						aria-label="Default select example">
 						<!-- <option selected>대분류</option> -->
-						<option value="1">주문날짜순</option>
-						<option value="2">주문번호순</option>
+						<option value="1">최근순</option>
+						<option value="2">오래된순</option>
 					</select>
 				</div>
 				<div class="d-grid gap-2">
 					<button class="btn btn-secondary excelDownBtn" type="button">엑셀다운</button>
 				</div>
+				<!-- 
 				<div class="dropdown setting-button">
 					<button class="settingBtn" type="button" id="dropdownMenuButton1"
 						data-bs-toggle="dropdown" aria-expanded="false">
@@ -179,6 +183,7 @@
 							data-bs-target="#modal-delete">주문취소</a></li>
 					</ul>
 				</div>
+				 -->
 			</div>
 		</div>
 		<!-- 발주확인 Modal -->
@@ -794,10 +799,11 @@
 					<td class="content-table-content-text option-line"
 						data-bs-toggle="modal" data-bs-target="#modal-view">277,500</td>
 				</tr>
-				</tbody>
-				
-				<tbody class="content-table-content content-hover">
-				<tr style="border-top: inherit;">
+			</tbody>
+
+			<tbody class="content-table-content content-hover table-hover-self">
+				<!-- for -->
+				<tr>
 					<td class="content-table-content-text option-line"
 						data-bs-toggle="modal" data-bs-target="#modal-view" rowspan="5">2022-04-25</td>
 					<td class="content-table-content-text option-line state0"
@@ -921,6 +927,40 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="row mt-4">
+			<div class="col-xl-6 col-md-6 mb-4">
+				<div class="card h-100">
+					<div class="card-body">
+						<div class="d-flex title-text bottom-line">
+							<p class="margin-zero">
+								<i class="fas fa-chart-area me-1 icon-margin-right"></i>매출 통계
+							</p>
+						</div>
+						<div class="d-flex justify-content-between sub-text">
+							<div class="card-body padding-zero">
+								<canvas id="myAreaChart" width="100%" height="40"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xl-6 col-md-6 mb-4">
+				<div class="card h-100">
+					<div class="card-body">
+						<div class="d-flex title-text bottom-line">
+							<p class="margin-zero">
+								<i class="fas fa-chart-bar me-1 icon-margin-right"></i>상품별 판매 건수
+							</p>
+						</div>
+						<div class="d-flex justify-content-between sub-text">
+							<div class="card-body padding-zero">
+								<canvas id="myBarChart" width="100%" height="40"></canvas>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- 주문상세 Modal -->
 	<div class="modal fade" id="modal-view" tabindex="-1"
@@ -928,103 +968,61 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">주문 상세조회</h5>
+					<h5 class="modal-title" id="exampleModalLabel">매출 상세조회</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body modal-status-select-product">
 					<div>
-						<span class="content-view-title-text">주문 정보</span>
+						<span class="content-view-title-text">건별 매출 리스트</span>
 					</div>
 					<div class="modal-delete-select-product">
 						<div class="product-list-group">
 							<table class="table table-box-style">
 								<thead>
 									<tr class="content-table-title">
-										<td class="content-table-title-text option-line">주문날짜</td>
+										<td class="content-table-title-text option-line">날짜</td>
 										<td class="content-table-title-text option-line">주문번호</td>
-										<td class="content-table-title-text option-line">판매자 상품코드</td>
-										<td class="content-table-title-text option-line">상품명</td>
-										<td class="content-table-title-text option-line">옵션정보</td>
-										<td class="content-table-title-text option-line">판매가</td>
-										<td class="content-table-title-text option-line">수량</td>
+										<td class="content-table-title-text option-line">구분</td>
+										<td class="content-table-title-text option-line">상태</td>
+										<td class="content-table-title-text option-line">결제금액</td>
+										<td class="content-table-title-text option-line">결제건수</td>
+										<td class="content-table-title-text option-line">할인</td>
+										<td class="content-table-title-text option-line">쿠폰</td>
+										<td class="content-table-title-text option-line">배송비</td>
+										<td class="content-table-title-text option-line">판매이익</td>
 									</tr>
 								</thead>
 								<tbody>
 									<!-- for -->
 									<tr class="content-table-content">
-										<td class="content-table-content-text option-line">2022-04-19
+										<td class="content-table-content-text option-line">2022-04-26
 											14:25</td>
 										<td class="content-table-content-text option-line state0">1583921</td>
-										<td class="content-table-content-text option-line">001</td>
-										<td class="content-table-content-text option-line">동준이의
-											핫핑크 미니스커트</td>
-										<td class="content-table-content-text option-line">S</td>
+										<td class="content-table-content-text option-line">신용카드</td>
+										<td class="content-table-content-text option-line">취소</td>
+										<td class="content-table-content-text option-line">-20,000</td>
+										<td class="content-table-content-text option-line">-1</td>
+										<td class="content-table-content-text option-line">0</td>
+										<td class="content-table-content-text option-line">0</td>
+										<td class="content-table-content-text option-line">-2,500</td>
+										<td class="content-table-content-text option-line">0</td>
+									</tr>
+									<tr class="content-table-content">
+										<td class="content-table-content-text option-line">2022-04-26
+											13:55</td>
+										<td class="content-table-content-text option-line state0">1583921</td>
+										<td class="content-table-content-text option-line">신용카드</td>
+										<td class="content-table-content-text option-line">결제</td>
 										<td class="content-table-content-text option-line">20,000</td>
-										<td class="content-table-content-text option-line">2</td>
+										<td class="content-table-content-text option-line">1</td>
+										<td class="content-table-content-text option-line">0</td>
+										<td class="content-table-content-text option-line">0</td>
+										<td class="content-table-content-text option-line">2,500</td>
+										<td class="content-table-content-text option-line">17,500</td>
 									</tr>
 								</tbody>
 							</table>
-						</div>
-					</div>
-					<div class="marginTop">
-						<span class="content-view-title-text">결제/배송 정보</span>
-					</div>
-					<div class="modal-delete-select-product marginTop1">
-						<div class="product-list-group">
-							<div
-								class="container container-option container-option-topPadding bottomline topline">
-								<div class="row optionGroup1">
-									<div class="col-2 view-title">주문자</div>
-									<div class="col">이영</div>
-									<div class="col-2 view-title-last">결제금액</div>
-									<div class="col">42,500</div>
-								</div>
-							</div>
-						</div>
-						<div class="product-list-group">
-							<div
-								class="container container-option container-option-topPadding bottomline">
-								<div class="row optionGroup1">
-									<div class="col-2 view-title">결제방법</div>
-									<div class="col">카드결제</div>
-									<div class="col-2 view-title-last">결제정보</div>
-									<div class="col">신한카드 0113-23-****</div>
-								</div>
-							</div>
-						</div>
-						<div class="product-list-group">
-							<div
-								class="container container-option container-option-topPadding bottomline">
-								<div class="row optionGroup1">
-									<div class="col-2 view-title">배송방법</div>
-									<div class="col">택배</div>
-									<div class="col-2 view-title-last">배송금액</div>
-									<div class="col">2,500</div>
-								</div>
-							</div>
-						</div>
-						<div class="product-list-group">
-							<div
-								class="container container-option container-option-topPadding bottomline">
-								<div class="row optionGroup1">
-									<div class="col-2 view-title">배송지</div>
-									<div class="col">[12345] 경기도 어쩌구 저쩌구 125-21</div>
-									<div class="col-2 view-title-last">배송메세지</div>
-									<div class="col">던지지 마세요.</div>
-								</div>
-							</div>
-						</div>
-						<div class="product-list-group">
-							<div
-								class="container container-option container-option-topPadding bottomline">
-								<div class="row optionGroup1">
-									<div class="col-2 view-title">택배회사</div>
-									<div class="col">CJ대한통운</div>
-									<div class="col-2 view-title-last">송장번호</div>
-									<div class="col">12387589317</div>
-								</div>
-							</div>
 						</div>
 					</div>
 					<div class="modal-footer"></div>

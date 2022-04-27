@@ -3802,7 +3802,7 @@ textarea.form-control-lg {
 .dropdown-item.active, .dropdown-item:active {
   color: #fff;
   text-decoration: none;
-  background-color: #0d6efd;
+  background-color: #ff778e;
 }
 .dropdown-item.disabled, .dropdown-item:disabled {
   color: #adb5bd;
@@ -11705,4 +11705,19 @@ body {
   width: 20px !important;
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
+}
+
+/* nav */
+.dropdown-style {
+	font-size: 13px;
+}
+
+.signDate {
+	font-size: 11px;
+	color: #777777;
+}
+
+.shopName {
+	font-size: 17px;
+	color: #ffffff;
 }

@@ -18,31 +18,57 @@ public class SellerController {
 		}
 	}
 	@RequestMapping(value = "/insertProduct.seller")
-	public String sellerInsertProduct() {
-		return "seller-insertProduct";
+	public String sellerInsertProduct(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("sellerid")!=null) {
+			return "seller-insertProduct";
+		}else {
+			return "seller-login";
+		}
 	}
 	@RequestMapping(value = "/productManagement.seller")
-	public String sellerProductManagement() {
-		return "seller-productManagement";
+	public String sellerProductManagement(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("sellerid")!=null) {
+			return "seller-productManagement";
+		}else {
+			return "seller-login";
+		}
 	}
 	@RequestMapping(value = "/order.seller")
-	public String sellerOrder() {
-		return "seller-order";
+	public String sellerOrder(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("sellerid")!=null) {
+			return "seller-order";
+		}else {
+			return "seller-login";
+		}
 	}
 	@RequestMapping(value = "/salesManagement.seller")
-	public String sellerSalesManagement() {
-		return "seller-salesManagement";
+	public String sellerSalesManagement(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("sellerid")!=null) {
+			return "seller-salesManagement";
+		}else {
+			return "seller-login";
+		}
 	}
 	@RequestMapping(value = "/review.seller")
-	public String sellerReview() {
-		return "seller-review";
+	public String sellerReview(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("sellerid")!=null) {
+			return "seller-review";
+		}else {
+			return "seller-login";
+		}
 	}
 	@RequestMapping(value = "/notice.seller")
-	public String sellerNotice() {
-		return "seller-notice";
-	}
-	@RequestMapping(value = "/login.seller")
-	public String sellerLogin() {
-		return "seller-login";
+	public String sellerNotice(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("sellerid")!=null) {
+			return "seller-notice";
+		}else {
+			return "seller-login";
+		}
 	}
 }
