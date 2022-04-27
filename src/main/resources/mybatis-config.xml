@@ -11,6 +11,7 @@
 		<typeAlias type="ozo.spring.house.user.vo.CScenterVO" alias="cscenter"/>
 		<typeAlias type="ozo.spring.house.seller.vo.SellerVO" alias="seller"/>
 		<typeAlias type="ozo.spring.house.seller.vo.CategoryVO" alias="cate"/>
+		<!-- <typeAlias type="ozo.spring.house.user.vo.ReviewVO" alias="review"/> -->
 	</typeAliases>
 	<!-- 원래 여기에 datasource를 넣어줘야하는데 applicationContext에서 넣었음 -->
 	<mappers>
@@ -20,5 +21,6 @@
 		<mapper resource="mappings/sellerLogin-mapping.xml"/>
 		<mapper resource="mappings/userCScenter-mapping.xml"/>
 		<mapper resource="mappings/sellerCategory-mapping.xml"/>
+		<mapper resource="mappings/userReview-mapping.xml"/>
 	</mappers>
 </configuration>

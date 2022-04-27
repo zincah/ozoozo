@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.seller.service.CategoryService;
 import ozo.spring.house.seller.vo.CategoryVO;
@@ -23,5 +25,24 @@ public class CategoryController {
 		model.addAttribute("cateList", cateList);		
 		return "seller-insertProduct";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getMiddleCategory.seller", method=RequestMethod.POST)
+	public List<CategoryVO> midcate(@RequestBody CategoryVO vo) {
+		vo.setTop_catecode(vo.getCate_code());
+		vo.setDepth(1);
+		List<CategoryVO> midList = categoryService.getMidCategoryList(vo);
+		return midList;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/getBottomCategory.seller", method=RequestMethod.POST)
+	public List<CategoryVO> botcate(@RequestBody CategoryVO vo) {
+		vo.setDepth(2);
+		List<CategoryVO> botList = categoryService.getBotCategoryList(vo);
+		return botList;
+	}
+
 
 }

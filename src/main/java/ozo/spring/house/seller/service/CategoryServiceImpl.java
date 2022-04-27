@@ -19,4 +19,14 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryDAO.getCategoryList(vo);
 	}
 
+	@Override
+	public List<CategoryVO> getMidCategoryList(CategoryVO vo) {
+		return categoryDAO.getMidCategoryList(vo);
+	}
+
+	@Override
+	public List<CategoryVO> getBotCategoryList(CategoryVO vo) {
+		return categoryDAO.getBotCategoryList(vo);
+	}
+
 }

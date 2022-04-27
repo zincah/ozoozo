@@ -19,6 +19,16 @@ public class CategoryDAO {
 		return sqlSessionTemplate.selectList("CategoryDAO.getCategoryList", vo);
 	}
 	
+	public List<CategoryVO> getMidCategoryList(CategoryVO vo) {
+		System.out.println("--> mybatis in categorydao getmidcategorylist");
+		return sqlSessionTemplate.selectList("CategoryDAO.getMidCategoryList", vo);
+	}
+	
+	public List<CategoryVO> getBotCategoryList(CategoryVO vo) {
+		System.out.println("--> mybatis in categorydao getbotcategorylist");
+		return sqlSessionTemplate.selectList("CategoryDAO.getBotCategoryList", vo);
+	}
+	
 	
 
 }

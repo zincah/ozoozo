@@ -7,16 +7,27 @@
 	<resultMap type="cate" id="cateJoin">
 		<id property="cate_code" column="CATE_CODE"/>
 		<result property="cate_name" column="CATE_NAME"/>
-	
+		<result property="subcate_code" column="SUBCATE_CODE"/>
+		<result property="depth" column="DEPTH"/>
+		<result property="subcate_name" column="SUBCATE_NAME"/>
+		<result property="top_catecode" column="TOP_CATECODE"/>
 	</resultMap>
 	
 	
 	<!-- TOP_CATEGORY LIST -->
     <select id="getCategoryList" resultType="cate" >
-       SELECT * FROM CATEGORY ORDER BY cate_code ASC;
+       SELECT * FROM category ORDER BY cate_code ASC;
     </select>
 
-
+	<!-- MIDDLE_CATEGORY LIST -->
+    <select id="getMidCategoryList" resultType="cate" >
+       SELECT * FROM sub_category WHERE depth = #{depth} and top_catecode = #{top_catecode};
+    </select>
+    
+	<!-- BOTTOM_CATEGORY LIST -->
+    <select id="getBotCategoryList" resultType="cate" >
+       SELECT * FROM sub_category WHERE depth = #{depth} and subcate_code BETWEEN #{subcate_code} and (#{subcate_code} + 100);
+    </select>
 
 	
 
