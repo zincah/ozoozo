@@ -1,20 +1,30 @@
 package ozo.spring.house.user.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ozo.spring.house.user.service.CScenterService;
 import ozo.spring.house.user.vo.CScenterVO;
 
 @Controller
 public class CSController {
 
+	@Autowired
+	CScenterService csservice;
+	
 	
 	@RequestMapping(value = "/CScenter.com")
-	public String user_CSceneter(CScenterVO vo,Model model ) {
+	public String user_CSceneter(Model model,CScenterVO vo) {
+		List<CScenterVO> list;
+		list =csservice.csall(vo);
+		model.addAttribute("list",list);
 		
-		model.addAttribute("question",vo.getCustomer_question());
-		model.addAttribute("answer",vo.getCustomer_answer());
+		
+		
 		return "customercenter";
 	}
 }

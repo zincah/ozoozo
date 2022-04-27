@@ -4,11 +4,12 @@ import java.util.List;
 
 import ozo.spring.house.user.vo.CScenterVO;
 
-public interface CScenterService {
 
+public interface CScenterService {
 	
-	public CScenterVO getCScustomer(CScenterVO vo);
-	public List<CScenterVO> getCSList(CScenterVO vo);
+	
+	public List<CScenterVO> csall(CScenterVO vo);
+	public List<CScenterVO> cskeyword(CScenterVO vo);
 	
 }
 
