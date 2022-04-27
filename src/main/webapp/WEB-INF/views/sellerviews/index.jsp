@@ -18,6 +18,7 @@
 <link href="resources/css/sellercss/styles2.css" rel="stylesheet" />
 <link href="resources/css/sellercss/insertProduct.css" rel="stylesheet" />
 <link href="resources/css/sellercss/indexSeller.css" rel="stylesheet" />
+<jsp:include page="header/headerModalView.jsp"></jsp:include>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"

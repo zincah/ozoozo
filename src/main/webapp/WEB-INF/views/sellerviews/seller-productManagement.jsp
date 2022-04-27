@@ -17,6 +17,7 @@
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
 <link href="resources/css/sellercss/insertProduct.css" rel="stylesheet" />
 <link href="resources/css/sellercss/seller-productManagement.css" rel="stylesheet" />
+<jsp:include page="header/headerModalView.jsp"></jsp:include>
 <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>

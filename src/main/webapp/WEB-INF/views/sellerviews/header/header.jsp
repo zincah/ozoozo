@@ -13,7 +13,7 @@
 		<!-- Navbar Search-->
 		<form
 			class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-			<div class="input-group">
+			<div class="input-group" style="display: none;">
 				<input class="form-control" type="text" placeholder="Search for..."
 					aria-label="Search for..." aria-describedby="btnNavbarSearch" />
 				<button class="btn btn-primary" id="btnNavbarSearch" type="button">
@@ -27,14 +27,14 @@
 				class="nav-link dropdown-toggle" id="navbarDropdown" href="#"
 				role="button" data-bs-toggle="dropdown" aria-expanded="false"><i
 					class="fas fa-user fa-fw"></i></a>
-				<ul class="dropdown-menu dropdown-menu-end"
+				<ul class="dropdown-menu dropdown-menu-end dropdown-style"
 					aria-labelledby="navbarDropdown">
-					<li><a class="dropdown-item" href="#!">Settings</a></li>
-					<li><a class="dropdown-item" href="#!">Activity Log</a></li>
+					<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+						data-bs-target="#modal-view">쇼핑몰 정보</a></li>
 					<li>
 						<hr class="dropdown-divider" />
 					</li>
-					<li><a class="dropdown-item" href="#!">Logout</a></li>
+					<li><a class="dropdown-item" href="logout.seller">로그아웃</a></li>
 				</ul></li>
 		</ul>
 	</nav>
@@ -107,8 +107,69 @@
 				</div>
 
 				<div class="sb-sidenav-footer">
-					<div class="small">Logged in as:</div>
-					Start Bootstrap
+					<div class="shopName">${companyname}</div>
+					<div class="signDate">
+						입점일 : ${entrydate}</div>
 				</div>
 			</nav>
+		</div>
+		<!-- 주문상세 Modal -->
+		<div class="modal fade" id="modal-view" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">쇼핑몰 정보</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body modal-status-select-product">
+						<div class="modal-delete-select-product marginTop1">
+							<div class="product-list-group">
+								<div
+									class="container container-option container-option-topPadding bottomline">
+									<div class="row optionGroup1">
+										<div class="col-3 view-title">상호명</div>
+										<div class="col">${companyname}</div>
+										<div class="col-3 view-title-last">대표이사</div>
+										<div class="col">${representative}</div>
+									</div>
+								</div>
+							</div>
+							<div class="product-list-group">
+								<div
+									class="container container-option container-option-topPadding bottomline">
+									<div class="row optionGroup1">
+										<div class="col-3 view-title">주소</div>
+										<div class="col">
+											[${registration_num}]
+											${address}</div>
+									</div>
+								</div>
+							</div>
+							<div class="product-list-group">
+								<div
+									class="container container-option container-option-topPadding bottomline">
+									<div class="row optionGroup1">
+										<div class="col-3 view-title">대표 전화번호</div>
+										<div class="col">${shoptell}</div>
+										<div class="col-3 view-title-last">대표 이메일</div>
+										<div class="col">${email}</div>
+									</div>
+								</div>
+							</div>
+							<div class="product-list-group">
+								<div
+									class="container container-option container-option-topPadding notbottomline">
+									<div class="row optionGroup1">
+										<div class="col-3 view-title">입점일</div>
+										<div class="col">${entrydate}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer"></div>
+					</div>
+				</div>
+			</div>
 		</div>
