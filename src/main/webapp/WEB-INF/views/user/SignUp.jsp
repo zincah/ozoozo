@@ -7,12 +7,34 @@
     <title>SignUp Page</title>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/DivSignUp.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/block.css?var=1'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/font.css'>
+    <link rel="stylesheet" href="resources/css/admincss/fonts.css?var=1">
     <script src='main.js'></script>
-    <script
-  src="https://code.jquery.com/jquery-3.6.0.slim.js"
-  integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
-  crossorigin="anonymous"></script>
+    <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
+  
+  	<script>
+  		
+  		function sendEmail(){
+  			
+  			var email = {"email" : $("#email1").val() + "@" + $("#email2").val()}
+  			console.log(JSON.stringify(email));
+  			
+  			$.ajax({
+  		  		url:'sendEmail.com',
+  		  		method:'post',
+  		  		data: JSON.stringify(email),
+  		  		contentType : 'application/json; charset=UTF-8',
+  		  		dataType : 'json',
+  		  		success : function(resp){
+  		  			
+  		  			console.log(resp);
+  		  		}
+  		  	})
+  		  	
+  		  	alert("이메일을 발송하였습니다. 발송된 코드를 적어주세요.");
+  			
+  		}  	
+  	
+  	</script>
 </head>
 <body>
          <!-- 전체 창 -->
@@ -67,11 +89,11 @@
                         <label class="emailLogo">이메일</label>
                         <div class="input_email">
                             <span class="emailSpan">
-                            	<input class="email_1 input-dh" placeholder="이메일" name="user_email1" oninput="checkEmail()">
+                            	<input id="email1" class="email_1 input-dh" placeholder="이메일" name="user_email1" oninput="checkEmail()">
                             </span>
                             <span class="golbang">@</span>
                             <span class="emailSpan">
-                                <select class="emailSelect" name="user_email2" onclick="checkEmail()">
+                                <select id="email2" class="emailSelect" name="user_email2" onclick="checkEmail()">
                                     <option value disabled selected>선택해주세요</option>
                                     <option value="naver.com">naver.com</option> 
                                     <option value="hanmail.com">hanmail.com</option> 
@@ -92,7 +114,7 @@
                     </div>
                     <div class="css-1thr4j euhjq6q0 false_email" style="display : none">이메일 형식이 올바르지 않습니다.</div>  
                     <div class="emailBtn_div">
-                        <button class="emailBtn" name="">이메일 인증하기</button>
+                        <button type="button" class="emailBtn" onclick="sendEmail()">이메일 인증하기</button>
                     </div><!-- email end -->
                 <!-- 비밀번호 -->
                     <div class="password_div">
