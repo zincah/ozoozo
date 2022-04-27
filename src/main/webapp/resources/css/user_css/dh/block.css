@@ -190,9 +190,27 @@
     width: 1em;
     height: 1em;
 }
-
-
-
+._3UImz:checked+._2mDYR {
+    border-color: #35c5f0;
+    background-color: #35c5f0;
+    color: #fff;
+}
+._4VN_z {
+    flex-direction: row;
+    padding-right: 6px;
+}
+._3xqzr {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    width: 100%;
+}
+.css-gekkos {
+    font-size: 14px;
+    color: #424242;
+    line-height: 18px;
+    font-weight: bold;
+}
 .agreeP{
     color: #35c5f0;
     font-size: 12px;

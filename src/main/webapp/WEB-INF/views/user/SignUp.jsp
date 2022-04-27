@@ -124,7 +124,7 @@
                             <div class="agree1_div">
 							<label class="_3xqzr _4VN_z">
 								<div class="_3zqA8">
-									<input type="checkbox" class="_3UImz" name="agreeAll" value="">
+									<input type="checkbox" class="_3UImz A_A" name="agreeAll" value="" onClick="allAgree()">
 										<span class="_2mDYR">
 											<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR">
 												<path fill="currentColor"
@@ -136,44 +136,72 @@
 								</span>
 							</label>
 						</div>
-                            <label class="agreeOption"><!-- 만 14세 div -->
-                                <div class="agreecheck_div">
-                                    <input type="checkbox" class="" name="agree1" value="">
-                                </div>
-                                <div class="agreeBottom_div">만 14세 이상입니다.
-                                    <span class="agreeP">(필수)</span>
-                                </div>
+                            <label class="_3xqzr _4VN_z"><!-- 만 14세 div -->
+                                <div class="_3zqA8">
+									<input type="checkbox" class="_3UImz" name="agree1" value="" onClick="Checked()">
+									<span class="_2mDYR">
+										<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR">
+											<path fill="currentColor"
+												d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z">
+											</path>
+										</svg>
+									</span>
+								</div>
+								<div class="agreeBottom_div">만 14세 이상입니다.
+                               		 <span class="agreeP">(필수)</span>
+                          	  </div>
                             </label>
-                            <label class="agreeOption"><!-- 이용약관 label -->
-                                <div class="agreecheck_div">
-                                    <input type="checkbox" class="" name="agree2" value="">
-                                </div>
-                                <div class="agreeBottom_div">
+                            <label class="_3xqzr _4VN_z"><!-- 이용약관 label -->
+                                <div class="_3zqA8">
+								<input type="checkbox" class="_3UImz" name="agree2" value="" onClick="Checked()">
+								<span class="_2mDYR">
+									<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR">
+										<path fill="currentColor"
+											d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z">
+										</path>
+									</svg>
+								</span>
+							</div>
+							<div class="agreeBottom_div">
                                     <a target="_blank" class="" href="">이용약관</a>
                                     <span class="agreeP">(필수)</span>
                                 </div>
                             </label>
-                            <label class="agreeOption"><!-- 개인정보 동의 label -->
-                                <div class="agreecheck_div">
-                                    <input type="checkbox" class="" name="agree3" value="">
-                                </div>
-                                <div class="agreeBottom_div">
+                            <label class="_3xqzr _4VN_z"><!-- 개인정보 동의 label -->
+                               <div class="_3zqA8">
+								<input type="checkbox" class="_3UImz" name="agree3" value="" onClick="Checked()">
+								<span class="_2mDYR">
+									<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR">
+										<path fill="currentColor"
+											d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z">
+										</path>
+									</svg>
+								</span>
+							</div>
+							<div class="agreeBottom_div">
                                     <a target="_blank" class="" href="">개인정보수집 및 이용동의</a>
                                     <span class="agreeP">(필수)</span>
                                 </div>
                             </label>
-                            <label class="agreeOption"><!-- 이벤트 프로모션 동의 label -->
-                                <div class="agreecheck_div">
-                                    <input type="checkbox" class="" name="agreePromotion" name="agree" value="agree">
-                                </div>
-                                <div class="agreeBottom_div">
+                            <label class="_3xqzr _4VN_z"><!-- 이벤트 프로모션 동의 label -->
+                                <div class="_3zqA8">
+								<input type="checkbox" class="_3UImz" name="agree4" value="" onClick="Checked()">
+								<span class="_2mDYR">
+									<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR">
+										<path fill="currentColor"
+											d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z">
+										</path>
+									</svg>
+								</span>
+							</div>
+							<div class="agreeBottom_div">
                                     <a target="_blank" class="" href="">이벤트, 프로모션 알림 메일 및 SMS 수신</a>
                                     <span class="agreeP_Choice">(선택)</span>
                                 </div>
                             </label>
                         </div>
                     </div>
-                    <button class="SignUpBtn" type="submit">회원가입하기</button>
+                    <button class="SignUpBtn" action="" method="post" onClick="return SignUpBtn();" >회원가입하기</button>
                 </form>
                 <p class="areadyId">이미 아이디가 있으신가요?
                     <a href="/house/login.com" class="LoginBtn">로그인</a>
@@ -182,9 +210,12 @@
         </div>
       <script>
       	function checkEmail(){
-      		var email = document.querySelector(".email_1").value;
-      		var email_S = document.querySelector(".emailSelect").value;
-      		if(email.length > 0 && email_S.length > 0){
+      		var email = $(".email_1").val();
+      		var email_S = $(".emailSelect").val();
+      		
+      		var blank_pattern = /[\s]/g;
+      		
+      		if(email.length > 0 && email_S != null){
       			$(".false_email").css("display", "none")
       			$(".emailLogo").removeClass('css-1azo586');
       			$(".email_1").removeClass('error');
@@ -201,9 +232,15 @@
     	function checkPass(){
     		var pass = document.querySelector(".passwordInput").value;
     		var reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    		var blank_pattern = /^\s+|\s+$/g;(/\s/g;
     		var msg = $(".false_pass");
     		var Logo = $('.passwordLogo');
     		var passInput = $('.passwordInput');
+    		if(blank_pattern.test(pass)){
+    			$('.false_pass').text("공백 사용금지.");
+    			$(msg).css("display", "block")
+    		}
+    		
     		if(pass.length == 0){	
     			$('.false_pass').text("필수 입력 항목입니다.");
     			$(Logo).addClass("css-1azo586");
@@ -223,8 +260,6 @@
 		function checkRePass(){
 			var pass = $(".passwordInput").val();
 			var repass = $(".repasswordInput").val();
-			console.log("pass = " + pass + "\n repass = " + repass)
-			console.log(pass != repass);
 			if(pass != repass){
 				$('.repasswordLogo').addClass("css-1azo586");
     			$('.repasswordInput').addClass("error");
@@ -257,7 +292,58 @@
 				$(nickLogo).removeClass("css-1azo586");
 				$(falseMsg).text("");
 			}
+		}
+		
+		function allAgree(){
+			if($('.A_A').is(':checked')){
+				$('input:checkbox[name="agree1"]').prop('checked',true);
+				$('input:checkbox[name="agree2"]').prop('checked',true);
+				$('input:checkbox[name="agree3"]').prop('checked',true);
+				$('input:checkbox[name="agree4"]').prop('checked',true);
+			}else{
+				$('input:checkbox[name="agree1"]').prop('checked',false);
+				$('input:checkbox[name="agree2"]').prop('checked',false);
+				$('input:checkbox[name="agree3"]').prop('checked',false);
+				$('input:checkbox[name="agree4"]').prop('checked',false);
+			}
+		}
+		
+		function Checked(){
+			if($('.A_A').is(':checked')){
+				$('.A_A').prop('checked',false);
+			}
+		}
+		
+		function SignUpBtn(){
 			
+			var email = $(".email_1").val();
+      		var email_S = $(".emailSelect").val();
+      		
+      		var pass = $(".passwordInput").val();
+      		var repass = $(".repasswordInput").val();
+    		var reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    		
+    		var nick = $('.nicknameInput').val();
+    		
+    		var check1 = $('input:checkbox[name="agree1"]').is(':checked')
+    		var check2 = $('input:checkbox[name="agree2"]').is(':checked')
+    		var check3 = $('input:checkbox[name="agree3"]').is(':checked')
+    		
+      		if(email.length == 0 || email_S.length == null){
+      			return false;
+      		}else if(pass.length == 0){
+      			return false;
+      		}else if(!reg.test(pass)){
+      			return false;
+      		}else if(pass != repass){
+      			return false;
+      		}else if(nick.length < 2 || nick.length > 15){
+      			return false;
+      		}else if( !check1 || !check2 || !check3){
+      			console.log("true");
+      			alert('hi');
+      			return false;
+      		}	
 		}
       </script>
         
