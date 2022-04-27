@@ -13,7 +13,7 @@ import ozo.spring.house.admin.service.MemberService;
 import ozo.spring.house.admin.vo.MemberVO;
 
 @Controller
-public class LoginController {
+public class AdminLoginController {
 
 	@Autowired
 	MemberService memberService;

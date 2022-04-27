@@ -7,7 +7,7 @@ import java.util.List;
 
 import ozo.spring.house.user.vo.ReviewVO;
 
-@Repository("ReviewDAO")
+@Repository("reviewDAO")
 public class ReviewDAO {
 
     @Autowired
@@ -18,7 +18,7 @@ public class ReviewDAO {
         return sqlSessionTemplate.selectList("ReviewDAO.getReviewList", vo);
     }
 
-    public Li
+    
 
 
 }
