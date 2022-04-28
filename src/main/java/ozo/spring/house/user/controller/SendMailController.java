@@ -17,16 +17,27 @@ public class SendMailController {
 	@Autowired
 	MailSendService mailSendService;
 	
+	private String key; // 이메일로 보내진 난수
+	
 	@ResponseBody
 	@RequestMapping(value = "/sendEmail.com", method=RequestMethod.POST)
 	public String sendEmail(@RequestBody Map<String, String> map) {
 		System.out.println(map.get("email"));
 		String email = map.get("email");
-		String key = mailSendService.sendAuthEmail(email);
+		key = mailSendService.sendAuthEmail(email);
+		System.out.println(key);
 		return key;
 	}
 	
-	
-
-
+	@ResponseBody
+	@RequestMapping(value = "/email_code_check.com", method=RequestMethod.POST)
+	public Boolean checkCode(@RequestBody String Code) {
+		String code = Code.replace("\"", "");
+		System.out.println("사용자가 입력한 Code : "+code + "\n원래 코드 : " + key);
+		if(key.equals(code)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }
