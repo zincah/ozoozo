@@ -155,12 +155,14 @@
 			var optionArray = [];
 			for(x=0; x<option_total; x++){
 				
+				// if 문을 써서 어떤 옵션인지 검증이 필요해.....
+				
 				var option = {
 						"using_people" : $("#option_input"+x+"").find("#using_people").val(),
 						"place" : $("#option_input"+x+"").find("#place").val(),
 						"rental" : $("#option_input"+x+"").find("#rental").val(),
-						"refurbish" : $("#option_input"+x+"").find("#refurbish").val()
-						
+						"refurbish" : $("#option_input"+x+"").find("#refurbish").val(),
+						"option-title" : $("#option_input"+x+"").find("option-title").val()
 					}
 				
 				optionArray.push(option);
@@ -370,7 +372,7 @@
 										aria-label="Basic radio toggle button group">
 										<select class="form-select selectState" id="using_people" name="using_people"
 											aria-label="Default select example">
-											<option selected>사용인원</option>
+											<option selected value="">사용인원</option>
 											<option value="1">1인</option>
 											<option value="2">2인</option>
 											<option value="3">3인</option>
@@ -418,7 +420,7 @@
 										<div class="col-10 color_options bottomline2">
 											<div class="price-layer">
 												<input class="form-control option-title-input" type="text" 
-												id="price-per-option" name="title"/>
+												id="optionTitle" name="optionTitle"/>
 											</div>
 										</div>
 								</div>
@@ -730,7 +732,7 @@
 										<div class="col-10 color_options bottomline2">
 											<div class="price-layer">
 												<input class="form-control option-title-input" type="text" 
-												id="price-per-option" name="title"/>
+												id="optionTitle" name="optionTitle"/>
 											</div>
 										</div>
 								</div>
@@ -739,7 +741,7 @@
 									<div class="col-10 color_options bottomline2">
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="white" id="colorcheck1" /> <label
+												type="checkbox" name="colorcheck" value="white" id="colorcheck1" /> <label
 												class="form-check-label" for="colorcheck1"> 화이트
 											</label>
 										</div>
