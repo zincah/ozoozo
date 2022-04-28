@@ -53,7 +53,7 @@ public class UserInfoController {
 				model.addAttribute("member", vo); // member 정보
 				return "ozomain_zinc";
 			}else {
-				String msg = "입력하신 정보가 잘못 되었습니다.";
+				String msg = "입력하신 m  a정보가 잘못 되었습니다.";
 				model.addAttribute("msg", msg);
 				return "ozoLogin_zinc";
 			}
