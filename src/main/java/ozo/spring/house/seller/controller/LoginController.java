@@ -23,7 +23,7 @@ public class LoginController {
 	// login
 	@RequestMapping(value = "/login.seller", method=RequestMethod.GET)
 	public String loginView(HttpSession session) {
-		if(session.getAttribute("sellercode")!=null) {
+		if(session.getAttribute("seller")!=null) {
 			return "index";
 		}else {
 			return "seller-login";
@@ -38,16 +38,17 @@ public class LoginController {
 		SellerVO seller = sellerService.checkSeller(vo);
 		
 		if(seller != null) {
-			session.setAttribute("sellerid", seller.getSeller_id()); // 판매자 아이디
-			model.addAttribute("usernum", vo.getUser_num()); // 유저 아이디
-			model.addAttribute("seller", vo); // member 정보
-			model.addAttribute("companyname", seller.getCompany_name()); // 상호명
-			model.addAttribute("representative", seller.getRepresentative()); // 대표명
-			model.addAttribute("address", seller.getAddress()); // 주소
-			model.addAttribute("shoptell", seller.getShop_tell()); // 전화번호
-			model.addAttribute("email", seller.getEmail()); // 이메일
-			model.addAttribute("registration_num", seller.getRegistration_num()); // 우편번호
-			model.addAttribute("entrydate", new SimpleDateFormat("yyyy-MM-dd").format(seller.getEntry_date())); // 입점일(날짜만)
+			session.setAttribute("seller", seller); // 판매자 아이디
+			session.setAttribute("entrydate", new SimpleDateFormat("yyyy-MM-dd").format(seller.getEntry_date())); // 판매자 아이디
+//			model.addAttribute("usernum", vo.getUser_num()); // 유저 아이디
+//			model.addAttribute("seller", vo); // member 정보
+//			model.addAttribute("companyname", seller.getCompany_name()); // 상호명
+//			model.addAttribute("representative", seller.getRepresentative()); // 대표명
+//			model.addAttribute("address", seller.getAddress()); // 주소
+//			model.addAttribute("shoptell", seller.getShop_tell()); // 전화번호
+//			model.addAttribute("email", seller.getEmail()); // 이메일
+//			model.addAttribute("registration_num", seller.getRegistration_num()); // 우편번호
+//			model.addAttribute("entrydate", new SimpleDateFormat("yyyy-MM-dd").format(seller.getEntry_date())); // 입점일(날짜만)
 			return "index";
 		}else {
 			String msg = "입력하신 정보가 잘못 되었습니다.";
