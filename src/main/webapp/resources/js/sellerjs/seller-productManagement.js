@@ -17,17 +17,17 @@ window.open = slideinit();
 
 // Function
 function slideinit() {
-  $(slideToggle).slideUp(0);
+	$(slideToggle).slideUp(0);
 }
 function searchBtnEvent() {
-  $(slideToggle).slideToggle();
-  if (searchBtnStatus == 1) {
-    searchBtnIcon.style.transform = "rotateX(0deg)";
-    searchBtnStatus = 0;
-  } else {
-    searchBtnIcon.style.transform = "rotateX(180deg)";
-    searchBtnStatus = 1;
-  }
+	$(slideToggle).slideToggle();
+	if (searchBtnStatus == 1) {
+		searchBtnIcon.style.transform = "rotateX(0deg)";
+		searchBtnStatus = 0;
+	} else {
+		searchBtnIcon.style.transform = "rotateX(180deg)";
+		searchBtnStatus = 1;
+	}
 }
 
 /* search-category JS */
@@ -46,26 +46,27 @@ middle.addEventListener("click", selectDisabled_middle);
 
 // Function
 function selectDisabled_large() {
-  selectValue_large = parseInt(large.options[large.selectedIndex].value); //옵션 값을 얻어와서 숫자로 형변환
-  //옵션 값이 숫자라면 true, 아니라면 false
-  if (selectValue_large > 0) {
-    middle.disabled = false;
-  } else {
-    middle.disabled = true;
-    small.disabled = true;
-  }
+	selectValue_large = parseInt(large.options[large.selectedIndex].value); //옵션 값을 얻어와서 숫자로 형변환
+	//옵션 값이 숫자라면 true, 아니라면 false
+	if (selectValue_large > 0) {
+		middle.disabled = false;
+	} else {
+		middle.disabled = true;
+		small.disabled = true;
+	}
 }
 function selectDisabled_middle() {
-  selectValue_middle = parseInt(middle.options[middle.selectedIndex].value); //옵션 값을 얻어와서 숫자로 형변환
-  //옵션 값이 숫자라면 true, 아니라면 false
-  if (selectValue_middle > 0) {
-    small.disabled = false;
-  } else {
-    small.disabled = true;
-  }
+	selectValue_middle = parseInt(middle.options[middle.selectedIndex].value); //옵션 값을 얻어와서 숫자로 형변환
+	//옵션 값이 숫자라면 true, 아니라면 false
+	if (selectValue_middle > 0) {
+		small.disabled = false;
+	} else {
+		small.disabled = true;
+	}
 }
 
 /* input Date JS */
+/*
 // Get dateBtn
 var dateBtn1 = document.getElementsByClassName("dateBtn-1")[0];
 var dateBtn2 = document.getElementsByClassName("dateBtn-2")[0];
@@ -142,7 +143,7 @@ function dateBtn8Event() {
   calculationDate.setMonth(today.getMonth() - 60);
   startDate.valueAsDate = calculationDate;
   endDate.valueAsDate = today;
-}
+}*/
 
 /* 상세검색 초기화 클릭 JS */
 // Get initBtn
@@ -153,32 +154,32 @@ initBtn.addEventListener("click", initBtnEvent);
 
 // Function
 function initBtnEvent() {
-  //검색어 초기화
-  document.getElementById("exampleFormControlInput1").value = "";
-  document.getElementById("flexRadioDefault1").checked = true;
+	//검색어 초기화
+	document.getElementById("exampleFormControlInput1").value = "";
+	document.getElementById("flexRadioDefault1").checked = true;
 
-  //판매상태 초기화
-  document.getElementById("statusCheck1").checked = false;
-  document.getElementById("statusCheck2").checked = false;
-  document.getElementById("statusCheck3").checked = false;
-  document.getElementById("statusCheck4").checked = false;
-  document.getElementById("statusCheck5").checked = false;
-  document.getElementById("statusCheck6").checked = false;
-  document.getElementById("statusCheck7").checked = false;
-  document.getElementById("statusCheck8").checked = false;
+	//판매상태 초기화
+	document.getElementById("statusCheck1").checked = false;
+	document.getElementById("statusCheck2").checked = false;
+	document.getElementById("statusCheck3").checked = false;
+	document.getElementById("statusCheck4").checked = false;
+	document.getElementById("statusCheck5").checked = false;
+	document.getElementById("statusCheck6").checked = false;
+	document.getElementById("statusCheck7").checked = false;
+	document.getElementById("statusCheck8").checked = false;
 
-  //카테고리 초기화
-  document.getElementById("large-select").value = "0";
-  document.getElementById("middle-select").value = "0";
-  document.getElementById("small-select").value = "0";
-  middle.disabled = true;
-  small.disabled = true;
+	//카테고리 초기화
+	document.getElementById("category").value = "0";
+	document.getElementById("middle-select").value = "0";
+	document.getElementById("small-select").value = "0";
+	middle.disabled = true;
+	small.disabled = true;
 
-  //기간 초기화
-  document.getElementById("selectDate").value = "1";
-  document.getElementById("btnradio1").checked = true;
-  startDate.valueAsDate = today;
-  endDate.valueAsDate = today;
+	//기간 초기화
+	document.getElementById("selectDate").value = "1";
+	document.getElementById("btnradio1").checked = true;
+	startDate.valueAsDate = today;
+	endDate.valueAsDate = today;
 }
 
 /* 상품목록 JS */
@@ -188,17 +189,17 @@ var productAllCheckStatus = 0;
 productAllCheck.addEventListener("click", productAllCheckEvent);
 
 function productAllCheckEvent() {
-  if (productAllCheckStatus == 0) {
-    document.getElementById("productCheck1").checked = true;
-    document.getElementById("productCheck2").checked = true;
-    document.getElementById("productCheck3").checked = true;
-    productAllCheckStatus = 1;
-  } else {
-    document.getElementById("productCheck1").checked = false;
-    document.getElementById("productCheck2").checked = false;
-    document.getElementById("productCheck3").checked = false;
-    productAllCheckStatus = 0;
-  }
+	if (productAllCheckStatus == 0) {
+		document.getElementById("productCheck1").checked = true;
+		document.getElementById("productCheck2").checked = true;
+		document.getElementById("productCheck3").checked = true;
+		productAllCheckStatus = 1;
+	} else {
+		document.getElementById("productCheck1").checked = false;
+		document.getElementById("productCheck2").checked = false;
+		document.getElementById("productCheck3").checked = false;
+		productAllCheckStatus = 0;
+	}
 }
 
 /* 상품목록 설정 버튼 이벤트 */
@@ -219,11 +220,11 @@ var modalDelListBtnStatus = 0;
 modalDelListBtn.addEventListener("click", modalDelListBtnEvent);
 
 function modalDelListBtnEvent() {
-  if (modalDelListBtnStatus == 1) {
-    modalDelListBtnIcon.style.transform = "rotateX(0deg)";
-    modalDelListBtnStatus = 0;
-  } else {
-    modalDelListBtnIcon.style.transform = "rotateX(180deg)";
-    modalDelListBtnStatus = 1;
-  }
+	if (modalDelListBtnStatus == 1) {
+		modalDelListBtnIcon.style.transform = "rotateX(0deg)";
+		modalDelListBtnStatus = 0;
+	} else {
+		modalDelListBtnIcon.style.transform = "rotateX(180deg)";
+		modalDelListBtnStatus = 1;
+	}
 }

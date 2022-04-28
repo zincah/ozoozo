@@ -16,9 +16,10 @@
 <link href="resources/css/sellercss/fonts.css?after" rel="stylesheet" />
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
 <link href="resources/css/sellercss/insertProduct.css" rel="stylesheet" />
+<jsp:include page="header/headerModalView.jsp"></jsp:include>
 <link href="resources/css/sellercss/seller-salesManagement.css"
 	rel="stylesheet" />
-<jsp:include page="header/headerModalView.jsp"></jsp:include>
+
 <script type="text/javascript"
 	src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
@@ -152,509 +153,12 @@
 					aria-label="Basic radio toggle button group">
 					<select class="form-select selectAlign"
 						aria-label="Default select example">
-						<!-- <option selected>대분류</option> -->
 						<option value="1">최근순</option>
 						<option value="2">오래된순</option>
 					</select>
 				</div>
 				<div class="d-grid gap-2">
 					<button class="btn btn-secondary excelDownBtn" type="button">엑셀다운</button>
-				</div>
-				<!-- 
-				<div class="dropdown setting-button">
-					<button class="settingBtn" type="button" id="dropdownMenuButton1"
-						data-bs-toggle="dropdown" aria-expanded="false">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-							fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                    <path
-								d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                  </svg>
-					</button>
-					<ul class="dropdown-menu settingBtnDropdown"
-						aria-labelledby="dropdownMenuButton1">
-						<li><h6 class="dropdown-header">주문건 일괄 설정</h6></li>
-						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-							data-bs-target="#modal-check">발주확인</a></li>
-						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-							data-bs-target="#modal-send">발송처리</a></li>
-						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-							data-bs-target="#modal-modify">송장수정</a></li>
-						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-							data-bs-target="#modal-delete">주문취소</a></li>
-					</ul>
-				</div>
-				 -->
-			</div>
-		</div>
-		<!-- 발주확인 Modal -->
-		<div class="modal fade" id="modal-check" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">발주확인처리</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body modal-status-select-product">
-						<div class="modal-delete-product-notice">
-							<span class="modal-delete-product-num-value"><i
-								class="bi bi-dot"></i>단일 혹은 일괄로 발주확인처리를 하여 처리상태를 배송준비중으로 변경합니다.</span>
-						</div>
-						<div class="modal-delete-product-num">
-							<span>선택된 상품 수 : </span> <span
-								class="modal-delete-product-num-value">0</span> <span>개</span>
-						</div>
-						<div class="modal-delete-select-product">
-							<div class="accordion accordion-flush" id="accordionFlushExample">
-								<div class="accordion-item">
-									<h2 class="accordion-header" id="flush-headingOne">
-										<button class="accordion-button collapsed modal-product-list"
-											type="button" data-bs-toggle="collapse"
-											data-bs-target="#flush-collapseOne" aria-expanded="false"
-											aria-controls="flush-collapseOne">
-											선택된 상품 리스트
-											<svg class="accordion-button-arrow"
-												xmlns="http://www.w3.org/2000/svg" width="13" height="13"
-												fill="currentColor" class="bi bi-chevron-down"
-												viewBox="0 0 16 16">
-                              <path fill-rule="evenodd"
-													d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                            </svg>
-										</button>
-									</h2>
-									<div id="flush-collapseOne" class="accordion-collapse collapse"
-										aria-labelledby="flush-headingOne"
-										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">
-											<!-- for -->
-											<div class="product-list-group">
-												<table class="table table-box-style">
-													<thead>
-														<tr class="content-table-title">
-															<td class="content-table-title-text option-line">No.</td>
-															<td class="content-table-title-text option-line">주문날짜</td>
-															<td class="content-table-title-text option-line">주문번호</td>
-															<td class="content-table-title-text option-line">판매자
-																상품코드</td>
-															<td class="content-table-title-text option-line">상풍명</td>
-															<td class="content-table-title-text option-line">옵션정보</td>
-															<td class="content-table-title-text option-line">수량</td>
-														</tr>
-													</thead>
-													<tbody>
-														<!-- for -->
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">1</td>
-															<td class="content-table-content-text option-line">2022-04-19
-																14:25</td>
-															<td class="content-table-content-text option-line state0">1583921</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">S</td>
-															<td class="content-table-content-text option-line">2</td>
-														</tr>
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">2</td>
-															<td class="content-table-content-text option-line">2022-04-19
-																14:25</td>
-															<td class="content-table-content-text option-line state0">1583921</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">S</td>
-															<td class="content-table-content-text option-line">2</td>
-														</tr>
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">3</td>
-															<td class="content-table-content-text option-line">2022-04-19
-																14:25</td>
-															<td class="content-table-content-text option-line state0">1583921</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">S</td>
-															<td class="content-table-content-text option-line">2</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">취소</button>
-						<button type="button"
-							class="btn btn-primary modal-status-select-submit-button">확인</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 발송처리 Modal -->
-		<div class="modal fade" id="modal-send" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">발송처리</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body modal-status-select-product">
-						<div class="modal-delete-product-notice">
-							<span class="modal-delete-product-num-value"><i
-								class="bi bi-dot"></i>송장번호를 입력하여 선택된 주문건을 일괄 발송처리 합니다.</span>
-						</div>
-						<div class="col search-input invoice-box">
-							<div class="btn-group" role="group"
-								aria-label="Basic radio toggle button group">
-								<select class="form-select selectState parcelservice-select"
-									aria-label="Default select example">
-									<option value="0">CJ대한통운</option>
-									<option value="1">롯데택배</option>
-									<option value="2">한진택배</option>
-									<option value="3">로젠택배</option>
-									<option value="4">우체국택배</option>
-								</select>
-							</div>
-							<div class="invoice-number">
-								<input type="text"
-									class="form-control form-control-sm input-font"
-									id="exampleFormControlInput1" placeholder="송장번호 입력" />
-							</div>
-						</div>
-						<div class="modal-delete-product-num">
-							<span>선택된 상품 수 : </span> <span
-								class="modal-delete-product-num-value">0</span> <span>개</span>
-						</div>
-						<div class="modal-delete-select-product">
-							<div class="accordion accordion-flush" id="accordionFlushExample">
-								<div class="accordion-item">
-									<h2 class="accordion-header" id="flush-headingOne">
-										<button class="accordion-button collapsed modal-product-list"
-											type="button" data-bs-toggle="collapse"
-											data-bs-target="#flush-collapseOne" aria-expanded="false"
-											aria-controls="flush-collapseOne">
-											선택된 상품 리스트
-											<svg class="accordion-button-arrow"
-												xmlns="http://www.w3.org/2000/svg" width="13" height="13"
-												fill="currentColor" class="bi bi-chevron-down"
-												viewBox="0 0 16 16">
-                              <path fill-rule="evenodd"
-													d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                            </svg>
-										</button>
-									</h2>
-									<div id="flush-collapseOne" class="accordion-collapse collapse"
-										aria-labelledby="flush-headingOne"
-										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">
-											<!-- for -->
-											<div class="product-list-group">
-												<table class="table table-box-style">
-													<thead>
-														<tr class="content-table-title">
-															<td class="content-table-title-text option-line">No.</td>
-															<td class="content-table-title-text option-line">주문날짜</td>
-															<td class="content-table-title-text option-line">주문번호</td>
-															<td class="content-table-title-text option-line">판매자
-																상품코드</td>
-															<td class="content-table-title-text option-line">상풍명</td>
-															<td class="content-table-title-text option-line">옵션정보</td>
-															<td class="content-table-title-text option-line">수량</td>
-														</tr>
-													</thead>
-													<tbody>
-														<!-- for -->
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">1</td>
-															<td class="content-table-content-text option-line">2022-04-19
-																14:25</td>
-															<td class="content-table-content-text option-line state0">1583921</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">S</td>
-															<td class="content-table-content-text option-line">2</td>
-														</tr>
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">2</td>
-															<td class="content-table-content-text option-line">2022-04-19
-																14:25</td>
-															<td class="content-table-content-text option-line state0">1583921</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">S</td>
-															<td class="content-table-content-text option-line">2</td>
-														</tr>
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">3</td>
-															<td class="content-table-content-text option-line">2022-04-19
-																14:25</td>
-															<td class="content-table-content-text option-line state0">1583921</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">S</td>
-															<td class="content-table-content-text option-line">2</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">취소</button>
-						<button type="button"
-							class="btn btn-primary modal-status-select-submit-button">확인</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 송장수정 Modal -->
-		<div class="modal fade" id="modal-modify" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">송장수정</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body modal-status-select-product">
-						<div class="modal-delete-product-notice">
-							<span class="modal-delete-product-num-value"><i
-								class="bi bi-dot"></i>수정할 송장번호를 입력하여 선택된 주문건의 송장번호를 일괄 변경 합니다.</span>
-						</div>
-						<div class="col search-input invoice-box">
-							<div class="btn-group" role="group"
-								aria-label="Basic radio toggle button group">
-								<select class="form-select selectState parcelservice-select"
-									aria-label="Default select example">
-									<option value="0">CJ대한통운</option>
-									<option value="1">롯데택배</option>
-									<option value="2">한진택배</option>
-									<option value="3">로젠택배</option>
-									<option value="4">우체국택배</option>
-								</select>
-							</div>
-							<div class="invoice-number">
-								<input type="text"
-									class="form-control form-control-sm input-font"
-									id="exampleFormControlInput1" placeholder="송장번호 입력" />
-							</div>
-						</div>
-						<div class="modal-delete-product-num">
-							<span>선택된 상품 수 : </span> <span
-								class="modal-delete-product-num-value">0</span> <span>개</span>
-						</div>
-						<div class="modal-delete-select-product">
-							<div class="accordion accordion-flush" id="accordionFlushExample">
-								<div class="accordion-item">
-									<h2 class="accordion-header" id="flush-headingOne">
-										<button class="accordion-button collapsed modal-product-list"
-											type="button" data-bs-toggle="collapse"
-											data-bs-target="#flush-collapseOne" aria-expanded="false"
-											aria-controls="flush-collapseOne">
-											선택된 상품 리스트
-											<svg class="accordion-button-arrow"
-												xmlns="http://www.w3.org/2000/svg" width="13" height="13"
-												fill="currentColor" class="bi bi-chevron-down"
-												viewBox="0 0 16 16">
-                              <path fill-rule="evenodd"
-													d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                            </svg>
-										</button>
-									</h2>
-									<div id="flush-collapseOne" class="accordion-collapse collapse"
-										aria-labelledby="flush-headingOne"
-										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">
-											<!-- for -->
-											<div class="product-list-group">
-												<table class="table table-box-style">
-													<thead>
-														<tr class="content-table-title">
-															<td class="content-table-title-text option-line">No.</td>
-															<td class="content-table-title-text option-line">주문날짜</td>
-															<td class="content-table-title-text option-line">주문번호</td>
-															<td class="content-table-title-text option-line">판매자
-																상품코드</td>
-															<td class="content-table-title-text option-line">상풍명</td>
-															<td class="content-table-title-text option-line">옵션정보</td>
-															<td class="content-table-title-text option-line">수량</td>
-														</tr>
-													</thead>
-													<tbody>
-														<!-- for -->
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">1</td>
-															<td class="content-table-content-text option-line">2022-04-19
-																14:25</td>
-															<td class="content-table-content-text option-line state0">1583921</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">S</td>
-															<td class="content-table-content-text option-line">2</td>
-														</tr>
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">2</td>
-															<td class="content-table-content-text option-line">2022-04-19
-																14:25</td>
-															<td class="content-table-content-text option-line state0">1583921</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">S</td>
-															<td class="content-table-content-text option-line">2</td>
-														</tr>
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">3</td>
-															<td class="content-table-content-text option-line">2022-04-19
-																14:25</td>
-															<td class="content-table-content-text option-line state0">1583921</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">S</td>
-															<td class="content-table-content-text option-line">2</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">취소</button>
-						<button type="button"
-							class="btn btn-primary modal-status-select-submit-button">확인</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 주문취소 Modal -->
-		<div class="modal fade" id="modal-delete" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">주문취소처리</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body modal-status-select-product">
-						<div class="modal-delete-product-notice">
-							<span class="modal-delete-product-num-value"><i
-								class="bi bi-dot"></i>선택된 주문건의 주문을 일괄 취소 처리합니다.</span>
-						</div>
-						<div class="modal-delete-product-num">
-							<span>선택된 상품 수 : </span> <span
-								class="modal-delete-product-num-value">0</span> <span>개</span>
-						</div>
-						<div class="modal-delete-select-product">
-							<div class="accordion accordion-flush" id="accordionFlushExample">
-								<div class="accordion-item">
-									<h2 class="accordion-header" id="flush-headingOne">
-										<button class="accordion-button collapsed modal-product-list"
-											type="button" data-bs-toggle="collapse"
-											data-bs-target="#flush-collapseOne" aria-expanded="false"
-											aria-controls="flush-collapseOne">
-											선택된 상품 리스트
-											<svg class="accordion-button-arrow"
-												xmlns="http://www.w3.org/2000/svg" width="13" height="13"
-												fill="currentColor" class="bi bi-chevron-down"
-												viewBox="0 0 16 16">
-                              <path fill-rule="evenodd"
-													d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                            </svg>
-										</button>
-									</h2>
-									<div id="flush-collapseOne" class="accordion-collapse collapse"
-										aria-labelledby="flush-headingOne"
-										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">
-											<!-- for -->
-											<div class="product-list-group">
-												<table class="table table-box-style">
-													<thead>
-														<tr class="content-table-title">
-															<td class="content-table-title-text option-line">No.</td>
-															<td class="content-table-title-text option-line">주문날짜</td>
-															<td class="content-table-title-text option-line">주문번호</td>
-															<td class="content-table-title-text option-line">판매자
-																상품코드</td>
-															<td class="content-table-title-text option-line">상풍명</td>
-															<td class="content-table-title-text option-line">옵션정보</td>
-															<td class="content-table-title-text option-line">수량</td>
-														</tr>
-													</thead>
-													<tbody>
-														<!-- for -->
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">1</td>
-															<td class="content-table-content-text option-line">2022-04-19
-																14:25</td>
-															<td class="content-table-content-text option-line state0">1583921</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">S</td>
-															<td class="content-table-content-text option-line">2</td>
-														</tr>
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">2</td>
-															<td class="content-table-content-text option-line">2022-04-19
-																14:25</td>
-															<td class="content-table-content-text option-line state0">1583921</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">S</td>
-															<td class="content-table-content-text option-line">2</td>
-														</tr>
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">3</td>
-															<td class="content-table-content-text option-line">2022-04-19
-																14:25</td>
-															<td class="content-table-content-text option-line state0">1583921</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">S</td>
-															<td class="content-table-content-text option-line">2</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">취소</button>
-						<button type="button"
-							class="btn btn-primary modal-status-select-submit-button">확인</button>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -679,125 +183,125 @@
 				<!-- for -->
 				<tr>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view" rowspan="5">2022-04-26</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales" rowspan="5">2022-04-26</td>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">신용카드</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">신용카드</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">300,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">300,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">3</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">3</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">200,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">200,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">2</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">2</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">10,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">10,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">5,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">5,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">185,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">185,000</td>
 				</tr>
 				<tr>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">휴대폰결제</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">휴대폰결제</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">5,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">5,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">2,500</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">2,500</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">92,500</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">92,500</td>
 				</tr>
 				<tr>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">안심계좌</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">안심계좌</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 				</tr>
 				<tr>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">무통장입금</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">무통장입금</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 				</tr>
 				<tr>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">소계</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">소계</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">400,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">400,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">4</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">4</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">300,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">300,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">3</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">3</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">15,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">15,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">7,500</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">7,500</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">277,500</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">277,500</td>
 				</tr>
 			</tbody>
 
@@ -805,125 +309,125 @@
 				<!-- for -->
 				<tr>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view" rowspan="5">2022-04-25</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales" rowspan="5">2022-04-25</td>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">신용카드</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">신용카드</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">300,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">300,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">3</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">3</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">200,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">200,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">2</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">2</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">10,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">10,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">5,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">5,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">185,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">185,000</td>
 				</tr>
 				<tr>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">휴대폰결제</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">휴대폰결제</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">5,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">5,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">2,500</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">2,500</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">92,500</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">92,500</td>
 				</tr>
 				<tr>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">안심계좌</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">안심계좌</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 				</tr>
 				<tr>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">무통장입금</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">무통장입금</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 				</tr>
 				<tr>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">소계</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">소계</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">400,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">400,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">4</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">4</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">100,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">1</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">300,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">300,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">3</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">3</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">15,000</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">15,000</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">0</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">7,500</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">7,500</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">277,500</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales">277,500</td>
 				</tr>
 			</tbody>
 		</table>
@@ -963,9 +467,9 @@
 		</div>
 	</div>
 	<!-- 주문상세 Modal -->
-	<div class="modal fade" id="modal-view" tabindex="-1"
+	<div class="modal fade" id="modal-view-sales" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-sales">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">매출 상세조회</h5>
