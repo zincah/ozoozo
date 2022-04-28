@@ -14,8 +14,22 @@
   	<script>
   		
   		function sendEmail(){
+  			$(".emailBtn").removeClass('EmailBtn_true');
+  			$(".emailBtn").prop("disabled", true);
   			
-  			var email = {"email" : $("#email1").val() + "@" + $("#email2").val()}
+  			var codeDiv = $(".eqepphp7");
+  			codeDiv.css("display" , "block");
+  			
+  			
+  			var email = $(".email_1").val();
+      		var email_S = $(".emailSelect");
+      		var email_I = $(".emailInput");
+      		
+  			if($(email_S).val() == "manual") {
+  				var email = {"email" : $("#email1").val() + "@" + $(email_I).val()}
+  			}else if($(email_S).val() != null){
+  				var email = {"email" : $("#email1").val() + "@" + $("#email2").val()}
+  			}
   			console.log(JSON.stringify(email));
   			
   			$.ajax({
@@ -25,15 +39,68 @@
   		  		contentType : 'application/json; charset=UTF-8',
   		  		dataType : 'json',
   		  		success : function(resp){
-  		  			
-  		  			console.log(resp);
   		  		}
   		  	})
   		  	
+  		  	var min = 3;
+  			var second = 0;
+  		  	
+  		  	var time = setInterval(function() {
+  		  		if (second < 10){
+  		  		$(".eqepphp2").text(min + ":0"+ second);
+  		  		}else{
+  		  		$(".eqepphp2").text(min + ":"+ second);
+  		  		}
+  		  		if ( second == 0){
+  		  			if(min == 0){
+  		  			 	clearInterval(time);
+  		  				$(".eqepphp1").css("display","block");
+  		  				$(".css-6iq7la").removeClass("eqepphp5");
+  		  				$(".css-6iq7la").addClass("css-1fyq8cc");
+  		  			}
+  		  			min--;
+  		  			second = 60;
+  		  		}
+  		  		second--;
+  		  	},1000);
   		  	alert("이메일을 발송하였습니다. 발송된 코드를 적어주세요.");
-  			
   		}  	
-  	
+  		
+  		function codeCheck(){
+  			if($(".eqepphp3").val().length > 0 ){
+  				$(".edfw59v0").prop("disabled", false);
+  			}else{
+  				$(".edfw59v0").prop("disabled", true);
+  			}
+  		}
+  		
+  		function email_Code_Check(){
+  			var code = $(".eqepphp3").val();
+  			$.ajax({
+  		  		url:'email_code_check.com',
+  		  		method:'post',
+  		  		data: JSON.stringify(code),
+  		  		contentType : 'application/json; charset=UTF-8',
+  		  		dataType : 'json',
+  		  		success : function(CodeAccess){
+  		  			if(CodeAccess){
+  		  				$(".email_1").attr("disabled", true);
+  		  				$(".form-control").attr("disabled", true);
+  		  				$(".emailBtn").text("이메일 인증 완료");
+  		  				var codeDiv = $(".eqepphp7");
+  		  				codeDiv.css("display" , "none");
+  		  			alert("이메일 인증 완료.");
+  		  				console.log("불린 값을 보낼건데.. " +CodeAccess);
+  		  				ready_SignUp(CodeAccess);
+  		  			}else{
+  		  			$(".eqepphp1").css("display","block");
+  		  				$(".eqepphp1").text("올바른 인증 코드가 아닙니다.");
+  		  				$(".css-6iq7la").removeClass("eqepphp5");
+		  				$(".css-6iq7la").addClass("css-1fyq8cc");
+  		  			}
+  		  		}
+  		  	})
+  		}
   	</script>
 </head>
 <body>
@@ -125,22 +192,23 @@
                             </span>
                         </div>
                     </div>
-                    <div class="css-1thr4j euhjq6q0 false_email" style="display : none">이메일 형식이 올바르지 않습니다.</div>  
+                    <div class="css-1thr4j euhjq6q0 false_email" style="display:none">이메일 형식이 올바르지 않습니다.</div>  
                     <div class="emailBtn_div">
-                        <button type="button" class="emailBtn" onclick="sendEmail()">이메일 인증하기</button>
+                        <button type="button" class="emailBtn" onclick="sendEmail()" disabled>이메일 인증하기</button>
                     </div>
 				<div class="open expanded"
-					style="overflow: hidden; margin-bottom: 20px;">
-					<div class="css-g8had9 eqepphp7">
+					style="overflow: hidden; margin-bottom: 20px;" >
+					<div class="css-g8had9 eqepphp7" style="display:none">
 						<div class="css-epwnf3 eqepphp6">이메일로 전송된 인증코드를 입력해주세요.</div>
 						<div class="css-6iq7la eqepphp5">
 							<div class="css-1cvdtkt eqepphp4">
 								<input type="text" placeholder="인증코드 6자리 입력"
-									class="css-jh3u7 eqepphp3" value=""><span
-									class="css-2ofpti eqepphp2">02:54</span>
+									class="css-jh3u7 eqepphp3" value="" oninput="codeCheck()"><span
+									class="css-2ofpti eqepphp2"></span>
 								<button class="_3Z6oR _3AsCW _2tsrJ css-1gabnbc edfw59v0"
-									type="button" disabled="">확인</button>
+									type="button" disabled onClick="email_Code_Check()">확인</button>
 							</div>
+							<div class="css-bxn4wb eqepphp1" style="display:none">인증코드가 만료되었습니다.</div>
 						</div>
 						<div class="css-1r0yqr6 eqepphp0">
 							<div class="css-1vor8y5 ejevacd2">
@@ -270,6 +338,7 @@
                 </p>
             </div>
         </div>
+        <button onClick="ready_SignUp()">테스트</button>
       <script>
       	function checkEmail(){
       		var email = $(".email_1").val();
@@ -279,41 +348,40 @@
       		
       		var blank_pattern = /\s/g;
       	  	var em = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-      		console.log($(email_S).val());
       		if(blank_pattern.test(email) == true){
-      			console.log("1");
       			$(".false_email").text("공백 사용 금지.");
       			$(".false_email").css("display", "block");
       			$(".emailLogo").addClass('css-1azo586');
       			$(".email_1").addClass('error');
       			$(".form-control").addClass('error');
       			$(".emailBtn").removeClass('EmailBtn_true');
+      			$(".emailBtn").prop("disabled", true);
       			return;
       		}else if(email.length == 0){
-      			console.log("2");
       			$(".false_email").text("이메일 형식이 올바르지 않습니다.");
       			$(".false_email").css("display", "block");
       			$(".emailLogo").addClass('css-1azo586');
       			$(".email_1").addClass('error');
       			$(".form-control").addClass('error');
       			$(".emailBtn").removeClass('EmailBtn_true');
+      			$(".emailBtn").prop("disabled", true);
       			return;
       		}else if($(email_S).val() == null || $(email_S).val() == "manual" && !em.test(email_ex)){
-      			console.log("3");
       			$(".false_email").text("이메일2 형식이 올바르지 않습니다.");
       			$(".false_email").css("display", "block");
       			$(".emailLogo").addClass('css-1azo586');
       			$(".email_1").addClass('error');
       			$(".form-control").addClass('error');
       			$(".emailBtn").removeClass('EmailBtn_true');
+      			$(".emailBtn").prop("disabled", true);
       			return;
       		}else if(em.test(email_ex)  && $(email_S).val() == "manual" || $(email_S).val() != null){
-      			console.log("4");
       			$(".false_email").css("display", "none");
       			$(".emailLogo").removeClass('css-1azo586');
       			$(".email_1").removeClass('error');
       			$(".form-control").removeClass('error');
       			$(".emailBtn").addClass('EmailBtn_true');
+      			$(".emailBtn").prop("disabled", false);
       		}
       		
       		
@@ -444,7 +512,25 @@
 			}
 		}
 		
+		function ready_SignUp(Email_match){
+			var email_check = Email_match;
+			console.log(email_check)
+		}
+		
+		
 		function SignUpBtn(){
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			var email = $(".email_1").val();
       		var email_S = $(".emailSelect").val();
@@ -470,7 +556,6 @@
       		}else if(nick.length < 2 || nick.length > 15){
       			return false;
       		}else if( !check1 || !check2 || !check3){
-      			console.log("true");
       			alert('hi');
       			return false;
       		}	
