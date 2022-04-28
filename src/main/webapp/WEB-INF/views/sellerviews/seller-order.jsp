@@ -16,9 +16,9 @@
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
 <link href="resources/css/sellercss/fonts.css?after" rel="stylesheet" />
 <link href="resources/css/sellercss/insertProduct.css" rel="stylesheet" />
+<jsp:include page="header/headerModalView.jsp"></jsp:include>
 <link href="resources/css/sellercss/seller-order.css" rel="stylesheet" />
 <link href="resources/css/sellercss/seller-order2.css" rel="stylesheet" />
-<jsp:include page="header/headerModalView.jsp"></jsp:include>
 <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
@@ -816,96 +816,96 @@
 					<td class="content-table-content-text option-line"><input
 						class="form-check-input check" type="checkbox" value="" /></td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">2022-04-19
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">2022-04-19
 						14:25</td>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">1583921</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">1583921</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">결제완료</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">결제완료</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">001</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">001</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">동준이의 핫핑크
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">동준이의 핫핑크
 						미니스커트</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">S</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">S</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">2</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">2</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">이영</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">이영</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">010-1323-1234</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">010-1323-1234</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">12345</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">12345</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">경기도 어쩌구
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">경기도 어쩌구
 						저쩌구</td>
 				</tr>
 				<tr class="content-table-content content-hover">
 					<td class="content-table-content-text option-line"><input
 						class="form-check-input check" type="checkbox" value="" /></td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">2022-04-19
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">2022-04-19
 						14:25</td>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">1583921</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">1583921</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">결제완료</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">결제완료</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">001</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">001</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">동준이의 핫핑크
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">동준이의 핫핑크
 						미니스커트</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">S</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">S</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">2</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">2</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">이영</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">이영</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">010-1323-1234</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">010-1323-1234</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">12345</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">12345</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">경기도 어쩌구
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">경기도 어쩌구
 						저쩌구</td>
 				</tr>
 				<tr class="content-table-content content-hover">
 					<td class="content-table-content-text option-line"><input
 						class="form-check-input check" type="checkbox" value="" /></td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">2022-04-19
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">2022-04-19
 						14:25</td>
 					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view">1583921</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">1583921</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">결제완료</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">결제완료</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">001</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">001</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">동준이의 핫핑크
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">동준이의 핫핑크
 						미니스커트</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">S</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">S</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">2</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">2</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">이영</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">이영</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">010-1323-1234</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">010-1323-1234</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">12345</td>
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">12345</td>
 					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view">경기도 어쩌구
+						data-bs-toggle="modal" data-bs-target="#modal-view-order">경기도 어쩌구
 						저쩌구</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	<!-- 주문상세 Modal -->
-	<div class="modal fade" id="modal-view" tabindex="-1"
+	<div class="modal fade" id="modal-view-order" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-order">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">주문 상세조회</h5>

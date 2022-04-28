@@ -440,8 +440,8 @@ input[type="date"] {
 .answer-area {
 	display: flex;
 	align-items: flex-start;
-	padding-bottom: 2rem; -
-	-bs-gutter-x: 0;
+	padding-bottom: 2rem;
+	--bs-gutter-x: 0;
 }
 
 .submitBtn {
