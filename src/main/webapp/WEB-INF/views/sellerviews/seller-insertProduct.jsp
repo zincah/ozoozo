@@ -16,7 +16,7 @@
 	rel="stylesheet" />
 <link href="resources/css/sellercss/fonts.css?var=1" rel="stylesheet" />
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
-<link href="resources/css/sellercss/insertProduct.css?var=1" rel="stylesheet" />
+<link href="resources/css/sellercss/insertProduct.css?var=12" rel="stylesheet" />
 <jsp:include page="header/headerModalView.jsp"></jsp:include>
 <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -254,24 +254,23 @@
       		}
       	
       	// option clone
-      	var option_count = 0;
+      	var pro_count = 0;
 
 		function option_plus(){
 		
-		    var cloneElements = $("#option_whole_wrap").clone();
-		    cloneElements.appendTo(".plus_layer");
-		    var opname = $("#option-layer-name").text();
+		    var cloneElements = $("#product_plus").clone();
+		    cloneElements.appendTo(".plus-layer");
 		
-		    $(".option_container").each(function(option_count, option_container){
-		        $(this).attr("id", "option_input"+(option_count));
-		        $(this).siblings().text(opname + (option_count+1));
+		    
+		    $(".product_wrap").each(function(pro_count, product_wrap){
+		        $(this).attr("id", "product_wrap"+(pro_count));
+		        $(this).siblings().text("상품 " + (pro_count+1));
 		    });
 		
-		    option_count++;
+		    pro_count++;
 
 		};
 
-      	
       	
 	
       	
@@ -285,14 +284,14 @@
 <div id="layoutSidenav_content">
 	<main style="background-color: #f5f5f5">
 		<div class="container-fluid px-4">
-			<h1 class="mt-4 insert_title">상품등록</h1>
+			<h1 class="mt-4 insert_title">상품등록(판매게시글)</h1>
 			<ol class="breadcrumb bottomline header-custom">
 				<li class="breadcrumb-item active">Product registration</li>
 				<li>
 					<div class="option-plus-btn">
 						<button class="btn btn-secondary" type="button"
 							onclick="option_plus()">
-							옵션추가 <i class="fa-solid fa-plus"></i>
+							상품추가 <i class="fa-solid fa-plus"></i>
 						</button>
 					</div>
 				</li>
@@ -414,15 +413,6 @@
 											<option value="n">리퍼상품 x</option>
 										</select>
 									</div>
-								</div>
-								<div class="color_option mt-3 row mb-1">
-										<div class="col-2 option_title" style="font-size: 13px">옵션명</div>
-										<div class="col-10 color_options bottomline2">
-											<div class="price-layer">
-												<input class="form-control option-title-input" type="text" 
-												id="optionTitle" name="optionTitle"/>
-											</div>
-										</div>
 								</div>
 								<div class="color_option mt-3 row">
 									<div class="col-2 option_title" style="font-size: 13px">색상</div>
@@ -558,7 +548,7 @@
 
 								<div class="color_option mt-3 row">
 									<div class="col-2 option_title" style="font-size: 13px">소재</div>
-									<div class="col-10 color_options bottomline2">
+									<div class="col-10 color_options">
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
 												type="checkbox" value="wood" id="meterialcheck1" /> <label
@@ -664,33 +654,7 @@
 									</div>
 								</div>
 
-								<div class="color_option mt-3 row">
-									<div class="col-2 option_title" style="font-size: 13px">사이즈</div>
-									<div class="col-10 color_options bottomline2">
-										<div class="form-check form-check-display rightline">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="" id="size-check" /> <label
-												class="form-check-label" for="size-check"> 직접입력 </label>
-										</div>
-										<div class="size_input">
-											<input class="form-control size-option-input" name="size" type="text"
-												id="self-option-size" />
-										</div>
-									</div>
 
-									<div class="color_option mt-3 row mb-1">
-										<div class="col-2 option_title" style="font-size: 13px">가격</div>
-										<div class="col-10 color_options">
-											<div class="price-layer">
-												<input class="form-control price-option-input" type="text"
-													id="price-per-option" />
-												<p style="margin-left: 1rem">원</p>
-											</div>
-											<p style="margin-left: 1rem; color: #ff778e; font-size: 11px">*실제
-												판매가를 적어주세요.(할인가 x)</p>
-										</div>
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -1093,14 +1057,51 @@
 					</div>
 				</div>
 				<!-- 옵션2 끝 -->
+				
 				<div
 					class="container container-option container-option-topPadding bottomline">
 					<div class="row optionGroup1">
-						<div class="col-2 status-name-600">재고 수량</div>
-						<div class="col-10 search-input flex_custom">
-							<input type="text" class="form-control quantity_option" name="count"
-								placeholder="추후에 수정 가능합니다." />
-							<p>개</p>
+						<div class="col-2 status-name-600 point_col">상품 추가</div>
+						<div class="col-10 search-input option_container">
+						
+							<div class="color_option row">
+									<div class="col-2 option_title verti" style="font-size: 13px">첫번째 옵션</div>
+									<div class="col-4 color_options" style="border-right: 1px solid #dbdbdb;">
+										<input type="text" class="form-control option_name_input" name="option1_name"
+										placeholder="옵션명 ex.색상" />
+									</div>
+									<div class="col-2 option_title verti" style="font-size: 13px">두번째 옵션</div>
+									<div class="col-4 color_options">
+										<input type="text" class="form-control option_name_input" name="option1_name" placeholder="옵션명 ex.사이즈" />
+									</div>
+							</div>
+							<div class="plus-layer">
+								<div id="product_plus" class="color_option mt-4 row" style="width: 100%;">
+										<div id="product_plus_count" class="col-2 option_title" style="font-size: 13px">상품</div>
+										<div class="col-10 color_options row product_wrap">
+											<input type="text" class="form-control option_name_input" style="width:300px" name="product_name"
+											placeholder="상품명" />
+											<div class="pro_option_flex row">
+												<p class="col-2">첫번째 옵션 값</p>
+												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" name="product_name"
+												placeholder="ex. 바이올렛" />
+												<p class="col-2">두번째 옵션 값</p>
+												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" name="product_name"
+												placeholder="ex. SS" />
+											</div>
+											<div class="pro_option_flex row">
+												<p class="col-2">가격</p>
+												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" name="product_name"
+												placeholder="(원)" />
+												<p class="col-2">수량</p>
+												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" name="product_name"
+												placeholder="(개)" />
+											</div>
+										</div>
+								</div>
+							</div>
+
+							
 						</div>
 					</div>
 				</div>
