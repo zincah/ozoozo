@@ -104,7 +104,7 @@
                    
                     
                      <script>
-                    /* function onclick22() {
+                      function onclick22() {
                     	console.log($('.faq__contents__item__answer').css)
                     if($('.faq__contents__item__answer').css=0 === 0){
                     	$('.faq__contents__item__answer').css({"max-height":"","opacity":"","padding-top":""});
@@ -114,10 +114,11 @@
                     	$('.faq__contents__item__answer').css({"max-height": "0px","opacity":"0","padding-top":"0px"});
                     
                     }
-                    } */
+                    } 
                     
                     	
-                    }
+                    
+                   
                 	</script>
                   
 
