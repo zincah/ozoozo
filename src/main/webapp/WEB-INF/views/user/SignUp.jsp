@@ -93,8 +93,8 @@
                             </span>
                             <span class="golbang">@</span>
                             <span class="emailSpan">
-                                <select id="email2" class="emailSelect" name="user_email2" onclick="checkEmail()">
-                                    <option value disabled selected>선택해주세요</option>
+                                <select id="email2" class="emailSelect form-control" name="user_email2"  onchange="emailWrite()" onclick="checkEmail()">
+                                    <option value="" disabled selected>선택해주세요</option>
                                     <option value="naver.com">naver.com</option> 
                                     <option value="hanmail.com">hanmail.com</option> 
                                     <option value="daum.com">daum.com</option> 
@@ -103,7 +103,20 @@
                                     <option value="hotmail.com">hotmail.com</option> 
                                     <option value="outlook.com">outlook.com</option> 
                                     <option value="manual">직접입력</option> 
-                                </select>
+                                </select> 
+                                <button class="email-input__domain__expand1" aria-label="초기화" type="button" tabindex="-1">
+                                	<svg class="icon" width="10" height="10" preserveAspectRatio="xMidYMid meet" style="fill: currentcolor;">
+                                		<path fill-rule="evenodd" d="M0 3l5 5 5-5z">
+                                		</path>
+                                	</svg>
+                                </button>
+                                <input class="form-control emailInput" placeholder="입력해주세요" size="1" value="" style="display:none" onInput="checkEmail()">
+                                <button class="email-input__domain__expand2 active" aria-label="초기화" type="button" tabindex="-1" style="display:none" onclick="emailBtn()">
+                               		 <svg class="icon" width="10" height="10" preserveAspectRatio="xMidYMid meet" style="fill: currentcolor;">
+                               		 <path fill-rule="evenodd" d="M5 4L8.5.3l1 1.1L6.2 5l3.5 3.6-1 1L5 6.1 1.4 9.6l-1-1L3.9 5 .4 1.5l1.1-1L5 3.8z">
+                               		 </path>
+                                	</svg>
+                                </button>
                                 <!--<button>
                                     <svg>
                                         <!-- v 자 이미지 넣기
@@ -115,7 +128,34 @@
                     <div class="css-1thr4j euhjq6q0 false_email" style="display : none">이메일 형식이 올바르지 않습니다.</div>  
                     <div class="emailBtn_div">
                         <button type="button" class="emailBtn" onclick="sendEmail()">이메일 인증하기</button>
-                    </div><!-- email end -->
+                    </div>
+				<div class="open expanded"
+					style="overflow: hidden; margin-bottom: 20px;">
+					<div class="css-g8had9 eqepphp7">
+						<div class="css-epwnf3 eqepphp6">이메일로 전송된 인증코드를 입력해주세요.</div>
+						<div class="css-6iq7la eqepphp5">
+							<div class="css-1cvdtkt eqepphp4">
+								<input type="text" placeholder="인증코드 6자리 입력"
+									class="css-jh3u7 eqepphp3" value=""><span
+									class="css-2ofpti eqepphp2">02:54</span>
+								<button class="_3Z6oR _3AsCW _2tsrJ css-1gabnbc edfw59v0"
+									type="button" disabled="">확인</button>
+							</div>
+						</div>
+						<div class="css-1r0yqr6 eqepphp0">
+							<div class="css-1vor8y5 ejevacd2">
+								<svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+									preserveAspectRatio="xMidYMid meet" class="css-qamjgr ejevacd0">
+									<path fill-rule="evenodd" clip-rule="evenodd"
+										d="M0.25 7C0.25 10.7279 3.27208 13.75 7 13.75C10.7279 13.75 13.75 10.7279 13.75 7C13.75 3.27208 10.7279 0.25 7 0.25C3.27208 0.25 0.25 3.27208 0.25 7ZM13 7C13 10.3137 10.3137 13 7 13C3.68629 13 1 10.3137 1 7C1 3.68629 3.68629 1 7 1C10.3137 1 13 3.68629 13 7ZM7.125 3.75C7.47018 3.75 7.75 4.02982 7.75 4.375C7.75 4.72018 7.47018 5 7.125 5C6.77982 5 6.5 4.72018 6.5 4.375C6.5 4.02982 6.77982 3.75 7.125 3.75ZM6.65 10.5H7.58333V5.83333H6.65V10.5Z"
+										fill="#828C94"></path></svg>
+								이메일을 받지 못하셨나요?<a class="css-3b6ywl ejevacd1">이메일 재전송하기</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- email end -->
+                    
                 <!-- 비밀번호 -->
                     <div class="password_div">
                         <label class="passwordLogo">비밀번호</label>
@@ -233,12 +273,54 @@
       <script>
       	function checkEmail(){
       		var email = $(".email_1").val();
-      		var email_S = $(".emailSelect").val();
+      		var email_S = $(".emailSelect");
+      		var email_I = $(".emailInput");
+      		var email_ex = $(".emailInput").val();
       		
-      		var blank_pattern = /[\s]/g;
+      		var blank_pattern = /\s/g;
+      	  	var em = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+      		console.log($(email_S).val());
+      		if(blank_pattern.test(email) == true){
+      			console.log("1");
+      			$(".false_email").text("공백 사용 금지.");
+      			$(".false_email").css("display", "block");
+      			$(".emailLogo").addClass('css-1azo586');
+      			$(".email_1").addClass('error');
+      			$(".form-control").addClass('error');
+      			$(".emailBtn").removeClass('EmailBtn_true');
+      			return;
+      		}else if(email.length == 0){
+      			console.log("2");
+      			$(".false_email").text("이메일 형식이 올바르지 않습니다.");
+      			$(".false_email").css("display", "block");
+      			$(".emailLogo").addClass('css-1azo586');
+      			$(".email_1").addClass('error');
+      			$(".form-control").addClass('error');
+      			$(".emailBtn").removeClass('EmailBtn_true');
+      			return;
+      		}else if($(email_S).val() == null || $(email_S).val() == "manual" && !em.test(email_ex)){
+      			console.log("3");
+      			$(".false_email").text("이메일2 형식이 올바르지 않습니다.");
+      			$(".false_email").css("display", "block");
+      			$(".emailLogo").addClass('css-1azo586');
+      			$(".email_1").addClass('error');
+      			$(".form-control").addClass('error');
+      			$(".emailBtn").removeClass('EmailBtn_true');
+      			return;
+      		}else if(em.test(email_ex)  && $(email_S).val() == "manual" || $(email_S).val() != null){
+      			console.log("4");
+      			$(".false_email").css("display", "none");
+      			$(".emailLogo").removeClass('css-1azo586');
+      			$(".email_1").removeClass('error');
+      			$(".form-control").removeClass('error');
+      			$(".emailBtn").addClass('EmailBtn_true');
+      		}
       		
-      		if(email.length > 0 && email_S != null){
-      			$(".false_email").css("display", "none")
+      		
+      		
+      		
+      		/* if(email.length > 0 && email_S != null){
+      			$(".false_email").css("display", "none");
       			$(".emailLogo").removeClass('css-1azo586');
       			$(".email_1").removeClass('error');
       			$(".emailSelect").removeClass('error');
@@ -249,21 +331,41 @@
       			$(".email_1").addClass('error');
       			$(".emailSelect").addClass('error');
       			$(".emailBtn").removeClass('EmailBtn_true');
+      		} */
+      	}
+      	
+      	
+      	function emailWrite(){
+      		var email_S = $(".emailSelect").val();
+      		if(email_S == "manual"){
+      			$(".emailSelect").css("display", "none");
+      			$(".emailInput").css("display", "block");
+      			$(".email-input__domain__expand2").css("display", "block");
+      			$(".email-input__domain__expand1").css("display", "none");
       		}
+      	}
+      	function emailBtn(){
+      		$(".emailInput").val("");
+      		$(".emailSelect").css("display", "block");
+  			$(".emailInput").css("display", "none");
+  			$(".email-input__domain__expand2").css("display", "none");
+  			$(".email-input__domain__expand1").css("display", "block");
       	}
     	function checkPass(){
     		var pass = document.querySelector(".passwordInput").value;
     		var reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    		var blank_pattern = /^\s+|\s+$/g;(/\s/g;
+    		var repass = $(".repasswordInput").val();
+    		
     		var msg = $(".false_pass");
     		var Logo = $('.passwordLogo');
     		var passInput = $('.passwordInput');
-    		if(blank_pattern.test(pass)){
+    		var blank_pattern = /\s/g;
+    		if(blank_pattern.test(pass) == true){
     			$('.false_pass').text("공백 사용금지.");
+    			$(Logo).addClass("css-1azo586");
+    			$(passInput).addClass("error");
     			$(msg).css("display", "block")
-    		}
-    		
-    		if(pass.length == 0){	
+    		}else if(pass.length == 0){	
     			$('.false_pass').text("필수 입력 항목입니다.");
     			$(Logo).addClass("css-1azo586");
     			$(passInput).addClass("error");
@@ -277,6 +379,12 @@
     			$(Logo).removeClass("css-1azo586");
     			$(passInput).removeClass("error");
     			$(msg).css("display", "none");
+    		}
+    		if(pass == repass){
+    			$('.repasswordLogo').removeClass("css-1azo586");
+    			$('.repasswordInput').removeClass("error");
+    			$('.false_repass').css("display", "none")
+    			
     		}
         }
 		function checkRePass(){
