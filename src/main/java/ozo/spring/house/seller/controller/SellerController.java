@@ -11,7 +11,7 @@ public class SellerController {
 	@RequestMapping(value = "/index.seller")
 	public String sellerIndex(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("sellerid")!=null) {
+		if(session.getAttribute("seller")!=null) {
 			return "index";
 		}else {
 			return "seller-login";
@@ -20,7 +20,7 @@ public class SellerController {
 	@RequestMapping(value = "/insertProduct.seller")
 	public String sellerInsertProduct(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("sellerid")!=null) {
+		if(session.getAttribute("seller")!=null) {
 			return "seller-insertProduct";
 		}else {
 			return "seller-login";
@@ -29,7 +29,7 @@ public class SellerController {
 	@RequestMapping(value = "/productManagement.seller")
 	public String sellerProductManagement(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("sellerid")!=null) {
+		if(session.getAttribute("seller")!=null) {
 			return "seller-productManagement";
 		}else {
 			return "seller-login";
@@ -38,7 +38,7 @@ public class SellerController {
 	@RequestMapping(value = "/order.seller")
 	public String sellerOrder(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("sellerid")!=null) {
+		if(session.getAttribute("seller")!=null) {
 			return "seller-order";
 		}else {
 			return "seller-login";
@@ -47,7 +47,7 @@ public class SellerController {
 	@RequestMapping(value = "/salesManagement.seller")
 	public String sellerSalesManagement(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("sellerid")!=null) {
+		if(session.getAttribute("seller")!=null) {
 			return "seller-salesManagement";
 		}else {
 			return "seller-login";
@@ -56,7 +56,7 @@ public class SellerController {
 	@RequestMapping(value = "/review.seller")
 	public String sellerReview(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("sellerid")!=null) {
+		if(session.getAttribute("seller")!=null) {
 			return "seller-review";
 		}else {
 			return "seller-login";
@@ -65,7 +65,7 @@ public class SellerController {
 	@RequestMapping(value = "/notice.seller")
 	public String sellerNotice(HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("sellerid")!=null) {
+		if(session.getAttribute("seller")!=null) {
 			return "seller-notice";
 		}else {
 			return "seller-login";

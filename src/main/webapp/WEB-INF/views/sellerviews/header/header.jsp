@@ -107,7 +107,7 @@
 				</div>
 
 				<div class="sb-sidenav-footer">
-					<div class="shopName">${companyname}</div>
+					<div class="shopName">${seller.getCompany_name()}</div>
 					<div class="signDate">
 						입점일 : ${entrydate}</div>
 				</div>
@@ -130,9 +130,9 @@
 									class="container container-option container-option-topPadding bottomline">
 									<div class="row optionGroup1">
 										<div class="col-3 view-title">상호명</div>
-										<div class="col">${companyname}</div>
+										<div class="col">${seller.getCompany_name()}</div>
 										<div class="col-3 view-title-last">대표이사</div>
-										<div class="col">${representative}</div>
+										<div class="col">${seller.getRepresentative()}</div>
 									</div>
 								</div>
 							</div>
@@ -142,8 +142,8 @@
 									<div class="row optionGroup1">
 										<div class="col-3 view-title">주소</div>
 										<div class="col">
-											[${registration_num}]
-											${address}</div>
+											[${seller.getRegistration_num()}]
+											${seller.getAddress()}</div>
 									</div>
 								</div>
 							</div>
@@ -152,9 +152,9 @@
 									class="container container-option container-option-topPadding bottomline">
 									<div class="row optionGroup1">
 										<div class="col-3 view-title">대표 전화번호</div>
-										<div class="col">${shoptell}</div>
+										<div class="col">${seller.getShop_tell()}</div>
 										<div class="col-3 view-title-last">대표 이메일</div>
-										<div class="col">${email}</div>
+										<div class="col">${seller.getEmail()}</div>
 									</div>
 								</div>
 							</div>
