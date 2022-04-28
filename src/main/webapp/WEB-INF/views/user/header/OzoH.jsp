@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+ 
+ 
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -133,14 +137,18 @@
                                 <path d="M22 22l-5-5"></path>
                                 <circle id="search_btn" cx="11" cy="11" r="8"></circle>
                             </svg></button>
-                        <!-- <a class="layout-navigation-bar-icon layout-navigation-bar-icon--hide-mobile"
+                            
+                       <c:if test="${Usercode ne null}">
+                        
+                        
+                        <a class="layout-navigation-bar-icon layout-navigation-bar-icon--hide-mobile"
                             title="스크랩북" aria-label="스크랩북" href="/users/17136427/collections"><svg class="icon"
                                 width="24" height="24" stroke="currentColor" viewBox="0 0 24 24"
                                 preserveAspectRatio="xMidYMid meet">
                                 <path fill="none" stroke-width="2"
                                     d="M3 20.967zm0 0V2.5a.5.5 0 01.5-.5h17a.5.5 0 01.5.5v18.467l-8.057-4.309a2 2 0 00-1.886 0L3 20.968z">
                                 </path>
-                            </svg></a> -->
+                            </svg></a>
                         <a class="layout-navigation-bar-icon layout-navigation-bar-icon--hide-mobile"
                             title="알림" aria-label="알림" href="/notifications/feed"><svg class="icon" width="24"
                                 height="24" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
@@ -149,7 +157,7 @@
                                     d="M10.04 4.19C10.16 3.16 10.6 2 12.05 2c1.35 0 1.78 1.11 1.9 2.13C21.05 5.25 21 13.43 21 19H3c0-5.48-.05-13.48 7.04-14.81zM10 19c0 1.66.9 3 2 3s2-1.34 2-3">
                                 </path>
                             </svg></a>
-                        <!-- <a class="layout-navigation-bar-icon" title="장바구니" aria-label="장바구니"
+                        <a class="layout-navigation-bar-icon" title="장바구니" aria-label="장바구니"
                             href="/cart"><svg class="icon" width="24" height="24" viewBox="0 0 24 24"
                                 stroke="currentColor" fill="none" stroke-linejoin="round" stroke-width="2"
                                 preserveAspectRatio="xMidYMid meet">
@@ -159,8 +167,8 @@
                                 <path d="M1 2h3v3"></path>
                             </svg>
 
-                            <span class="layout-navigation-bar-icon__ticker">1</span></a>-->
-                        <!-- <div class="drop-down layout-navigation-bar-user-section"><button
+                            <span class="layout-navigation-bar-icon__ticker">1</span></a>
+                        <div class="drop-down layout-navigation-bar-user-section"><button
                                 class="layout-navigation-bar-user-button" type="button" aria-label="우동이형님">
                                 <div class="layout-navigation-bar-user-button__image"><img class="image"
                                         src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36&amp;h=36&amp;c=c"
@@ -169,17 +177,17 @@
                                     viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet">
                                     <path d="M0 2l4 4 4-4z"></path>
                                 </svg>
-                            </button></div> -->
+                            </button></div>
+						</c:if>
 
 
-
-
+						<c:if test="${Usercode eq null}">
                         <list  class="end_word_pre"><a id="wordtree" class="end_word" href="/house/login.com">로그인</a></list>
                         
                         <list class="end_word_pre"><a  id="wordtree" class="end_word" href="/house/signUp.com">회원가입</a></list>
                         
                         <list class="end_word_pre"><a class="end_word" href="/house/customercenter.com">고객센터</a></list>
-
+						</c:if>
 
                     </div>
                 </div>
@@ -398,8 +406,8 @@
                                             class="layout-navigation-drawer-user-menu__item"
                                             href="/house/customercenter.com">고객센터</a></li>
                                 </ul>
-                                <ul
-                                    class="layout-navigation-drawer-user-menu layout-navigation-drawer-user-menu--footer">
+                                
+                                  <ul class="layout-navigation-drawer-user-menu layout-navigation-drawer-user-menu--footer">
                                     <li class="layout-navigation-drawer-user-menu__item-wrap"><a
                                             class="layout-navigation-drawer-user-menu__item"
                                             href="https://partners.ohou.se/partner/applications/new">입점 신청</a></li>

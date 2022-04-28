@@ -646,6 +646,10 @@ a {
     .layout-navigation-bar-search {
         display: block;
     }
+    #s_icon{
+    	display:none;
+   
+	}
 }
 @media (min-width: 1024px){
 .layout-navigation-bar-upload-button__button {
@@ -1078,6 +1082,7 @@ a {
     line-height: 21px;
     color: #bdbdbd;
 }
+
 @media (min-width: 768px){
 .layout-navigation-search-modal__search__close {
     display: none;

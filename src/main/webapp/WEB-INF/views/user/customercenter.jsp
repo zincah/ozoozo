@@ -86,33 +86,42 @@
             <article class="faq__contents">
             
                 <section id="faq__contents__group" class="faq__contents__group">
-                <c:forEach items="${list}" var="CS">
-                    <section class="faq__contents__item">
-                        <div class="faq__contents__item__question" onclick="click21()">${CS.customer_question}
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet"
+               
+                    <c:forEach items="${list}" var="CS">
+                    <section id="" class="faq__contents__item">
+                        <div class="faq__contents__item__question" onclick=onclick22() >${CS.customer_question}<svg width="1em" height="1em"
+                                viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet"
                                 style="position: absolute; right: 0px; width: 12px; height: 12px; top: 50%; transition: transform 0.2s ease 0s; transform: translateY(-50%);">
                                 <path fill="currentColor" fill-rule="evenodd" d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z">
                                 </path>
-                            </svg><div>                    
-                            <div  class="faq__contents__item__answer" style="max-height: 0; opacity: 0; padding-top: 0px;"><p>${CS.customer_answer}</p></div>
+                            </svg></div>
+                        <div  class="faq__contents__item__answer" style="max-height: 0px; opacity: 0; padding-top: 0px;">
+                            <p>${CS.customer_answer} </p>
+                        </div>
+                        
                     </section>
-                    
                     <!-- 원래자리 -->
-                    <script>
+                   
                     
-                   function click21(){
-                	   console.log(document.getElementsByClassName('faq__contents__item__answer').style);
-                	   if(document.getElementsByClassName('faq__contents__item__answer').style ){
-                		   
-                	   $('.faq__contents__item__answer').css({"max-height":"", "opacity":"", "padding-top":""});
-                	   
-                	   }else if(document.getElementsByClassName('faq__contents__item__answer').style){
-                		   
-                		   $('.faq__contents__item__answer').css({"max-height":0, "opacity":0, "padding-top":0});
-                	   }
-                   }
+                     <script>
+                    /* function onclick22() {
+                    	console.log($('.faq__contents__item__answer').css)
+                    if($('.faq__contents__item__answer').css=0 === 0){
+                    	$('.faq__contents__item__answer').css({"max-height":"","opacity":"","padding-top":""});
+                    	console.log($('.faq__contents__item__answer').css=1)
+                    }else if($('.faq__contents__item__answer').length === 57 ){
+                    	console.log($('.faq__contents__item__answer').length)
+                    	$('.faq__contents__item__answer').css({"max-height": "0px","opacity":"0","padding-top":"0px"});
+                    
+                    }
+                    } */
+                    
+                    	
+                    }
+                	</script>
+                  
 
-                    </script>
+                   
                     </c:forEach>
                 </section>
                 
