@@ -9,6 +9,7 @@ blockquote, body, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6,
     -webkit-tap-highlight-color: transparent;
    
 }
+
 body, html {
     line-height: 1;
     font-family: OhouseSans, "Noto Sans KR", "Apple SD Gothic Neo", "맑은 고딕", "Malgun Gothic", sans-serif;
