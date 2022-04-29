@@ -101,27 +101,7 @@
                         
                     </section>
                     <!-- 원래자리 -->
-                   
-                    
-                     <script>
-                    /* function onclick22() {
-                    	console.log($('.faq__contents__item__answer').css)
-                    if($('.faq__contents__item__answer').css=0 === 0){
-                    	$('.faq__contents__item__answer').css({"max-height":"","opacity":"","padding-top":""});
-                    	console.log($('.faq__contents__item__answer').css=1)
-                    }else if($('.faq__contents__item__answer').length === 57 ){
-                    	console.log($('.faq__contents__item__answer').length)
-                    	$('.faq__contents__item__answer').css({"max-height": "0px","opacity":"0","padding-top":"0px"});
-                    
-                    }
-                    } */
-                    
-                    	
-                    }
-                	</script>
-                  
 
-                   
                     </c:forEach>
                 </section>
                 
