@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -65,34 +66,37 @@
           transform: translateY(0px);
         "
       >
-        <div>
-          <div class="my-review-list__list__item">
-            <div class="my-review-list__list__item__wrap">
-              <div class="my-review-list__list__item__product">
-                <a
-                  class="my-review-list__list__item__product__name"
-                  href="/productions/388323/selling"
+
+
+        <c:forEach items="${list }" var="review">
+          <div>
+            <div class="my-review-list__list__item">
+              <div class="my-review-list__list__item__wrap">
+                <div class="my-review-list__list__item__product">
+                  <a
+                          class="my-review-list__list__item__product__name"
+                          href="/productions/388323/selling"
                   >[가구레시피] 국내생산/후기인증 튼튼한 조립식 3단 전자렌지대
-                  다용도수납장 주방선반</a
-                >
-                <div class="my-review-list__list__item__product__explain">
-                  화이트 (슬라이드돼요!)
-                </div>
-                <div class="my-review-list__list__item__product__info">
+                    다용도수납장 주방선반</a
+                  >
+                  <div class="my-review-list__list__item__product__explain">
+                    화이트 (슬라이드돼요!)
+                  </div>
+                  <div class="my-review-list__list__item__product__info">
                   <span
-                    class="my-review-list__list__item__product__info__star"
-                    aria-label="별점 5.0점"
-                    ><svg
-                      fill="#ff778e"
-                      width="1em"
-                      height="1em"
-                      preserveAspectRatio="xMidYMid meet"
-                      viewBox="0 0 24 24"
-                    >
+                          class="my-review-list__list__item__product__info__star"
+                          aria-label="별점 5.0점"
+                  ><svg
+                          fill="#ff778e"
+                          width="1em"
+                          height="1em"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 24 24"
+                  >
                       <defs>
                         <path
-                          id="star-path-250"
-                          d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"
+                                id="star-path-250"
+                                d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"
                         ></path>
                         <clipPath id="star-clip-250">
                           <rect x="0" y="0" width="24" height="24"></rect>
@@ -100,20 +104,20 @@
                       </defs>
                       <use xlink:href="#star-path-250" fill="#DBDBDB"></use>
                       <use
-                        clip-path="url(#star-clip-250)"
-                        xlink:href="#star-path-250"
+                              clip-path="url(#star-clip-250)"
+                              xlink:href="#star-path-250"
                       ></use></svg
-                    ><svg
-                      fill="#ff778e"
-                      width="1em"
-                      height="1em"
-                      preserveAspectRatio="xMidYMid meet"
-                      viewBox="0 0 24 24"
-                    >
+                  ><svg
+                          fill="#ff778e"
+                          width="1em"
+                          height="1em"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 24 24"
+                  >
                       <defs>
                         <path
-                          id="star-path-251"
-                          d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"
+                                id="star-path-251"
+                                d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"
                         ></path>
                         <clipPath id="star-clip-251">
                           <rect x="0" y="0" width="24" height="24"></rect>
@@ -121,20 +125,20 @@
                       </defs>
                       <use xlink:href="#star-path-251" fill="#DBDBDB"></use>
                       <use
-                        clip-path="url(#star-clip-251)"
-                        xlink:href="#star-path-251"
+                              clip-path="url(#star-clip-251)"
+                              xlink:href="#star-path-251"
                       ></use></svg
-                    ><svg
-                      fill="#ff778e"
-                      width="1em"
-                      height="1em"
-                      preserveAspectRatio="xMidYMid meet"
-                      viewBox="0 0 24 24"
-                    >
+                  ><svg
+                          fill="#ff778e"
+                          width="1em"
+                          height="1em"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 24 24"
+                  >
                       <defs>
                         <path
-                          id="star-path-252"
-                          d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"
+                                id="star-path-252"
+                                d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"
                         ></path>
                         <clipPath id="star-clip-252">
                           <rect x="0" y="0" width="24" height="24"></rect>
@@ -142,20 +146,20 @@
                       </defs>
                       <use xlink:href="#star-path-252" fill="#DBDBDB"></use>
                       <use
-                        clip-path="url(#star-clip-252)"
-                        xlink:href="#star-path-252"
+                              clip-path="url(#star-clip-252)"
+                              xlink:href="#star-path-252"
                       ></use></svg
-                    ><svg
-                      fill="#ff778e"
-                      width="1em"
-                      height="1em"
-                      preserveAspectRatio="xMidYMid meet"
-                      viewBox="0 0 24 24"
-                    >
+                  ><svg
+                          fill="#ff778e"
+                          width="1em"
+                          height="1em"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 24 24"
+                  >
                       <defs>
                         <path
-                          id="star-path-253"
-                          d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"
+                                id="star-path-253"
+                                d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"
                         ></path>
                         <clipPath id="star-clip-253">
                           <rect x="0" y="0" width="24" height="24"></rect>
@@ -163,20 +167,20 @@
                       </defs>
                       <use xlink:href="#star-path-253" fill="#DBDBDB"></use>
                       <use
-                        clip-path="url(#star-clip-253)"
-                        xlink:href="#star-path-253"
+                              clip-path="url(#star-clip-253)"
+                              xlink:href="#star-path-253"
                       ></use></svg
-                    ><svg
-                      fill="#ff778e"
-                      width="1em"
-                      height="1em"
-                      preserveAspectRatio="xMidYMid meet"
-                      viewBox="0 0 24 24"
-                    >
+                  ><svg
+                          fill="#ff778e"
+                          width="1em"
+                          height="1em"
+                          preserveAspectRatio="xMidYMid meet"
+                          viewBox="0 0 24 24"
+                  >
                       <defs>
                         <path
-                          id="star-path-254"
-                          d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"
+                                id="star-path-254"
+                                d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"
                         ></path>
                         <clipPath id="star-clip-254">
                           <rect x="0" y="0" width="24" height="24"></rect>
@@ -184,34 +188,36 @@
                       </defs>
                       <use xlink:href="#star-path-254" fill="#DBDBDB"></use>
                       <use
-                        clip-path="url(#star-clip-254)"
-                        xlink:href="#star-path-254"
+                              clip-path="url(#star-clip-254)"
+                              xlink:href="#star-path-254"
                       ></use></svg
                   ></span>
-                  <div class="my-review-list__list__item__product__info__text">
-                    매운쌀국수 | 2022.03.14 | 오늘의집 리뷰
+                    <div class="my-review-list__list__item__product__info__text">
+                      ${review.user_num} | ${review.created_at} | 오늘의집 리뷰
+                    </div>
+                  </div>
+                  <div class="my-review-list__list__item__product__content">
+                    ${review.content}
                   </div>
                 </div>
-                <div class="my-review-list__list__item__product__content">
-                  깔끔해~~ 조립도 쉬워 ~~ 근데 오지게 무거워~~~ 중간 선반은
-                  절반까지만 빠져~~
-                </div>
-              </div>
-              <div>
-                <div class="my-review-list__list__item__insert">수정</div>
-                <img
-                  class="my-review-list__list__item__image"
-                  src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164722267554286432.jpeg?gif=1&amp;w=144&amp;h=144&amp;c=c&amp;webp=1"
-                  srcset="
+                <div>
+                  <div class="my-review-list__list__item__insert">수정</div>
+                  <img
+                          class="my-review-list__list__item__image"
+                          src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164722267554286432.jpeg?gif=1&amp;w=144&amp;h=144&amp;c=c&amp;webp=1"
+                          srcset="
                     https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164722267554286432.jpeg?gif=1&amp;w=160&amp;h=160&amp;c=c&amp;webp=1 1.5x,
                     https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164722267554286432.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c&amp;webp=1 2x,
                     https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164722267554286432.jpeg?gif=1&amp;w=320&amp;h=320&amp;c=c&amp;webp=1 3x
                   "
-                />
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </c:forEach>
+
+
         <div>
           <div class="my-review-list__list__item">
             <div class="my-review-list__list__item__wrap">

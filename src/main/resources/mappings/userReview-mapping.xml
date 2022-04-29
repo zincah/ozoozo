@@ -4,7 +4,26 @@
 
 <mapper namespace="ReviewDAO">
 
+    <!-- 전체목록 -->
+    <select id="selectReviewList" resultType="review" >
+        SELECT *FROM review
+    </select>
 
+    <!-- 베스트리뷰 -->
+    <select id="topReviewList" resultType="review">
+        SELECT * FROM review where product_id = #{product_id} order by liked desc
+    </select>
+
+    <!-- 나의 리뷰 -->
+    <select id="myReviewList" resultType="review">
+        select * FROM review where user_num = #{user_num} order by created_at desc
+    </select>
+
+    <!-- test -->
+    <insert id="insertreview" parameterType="review">
+        insert into review (user_num, product_id, seller_id, rating, content, rv_catecode, rv_subcatecode)
+        values (#{user_num}, #{product_id}, #{seller_id}, #{rating}, #{content}, #{rv_catecode}, #{rv_subcatecode});
+    </insert>
 
 </mapper>
 
