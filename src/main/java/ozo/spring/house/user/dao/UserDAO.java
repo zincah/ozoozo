@@ -25,17 +25,17 @@ public class UserDAO {
 	private String encodePass;
 	
 	public void insertUser(UserVO vo) {
-		System.out.println("--> mybatis in userdao insertuser");
+		System.out.println("[LOGO] : mybatis in userdao insertuser");
 		
 		encodePass = passwordEncoder.encode(vo.getUser_pw());
 		vo.setUser_pw(encodePass);
 		sqlSessionTemplate.insert("UserDAO.insertUser", vo);
 		
-		System.out.println("--> insert success");
+		System.out.println("[LOGO] : insert success");
 	}
 	
 	public UserVO checkUser(UserVO vo) {
-		System.out.println("--> mybatis in UserDAO checkUser");
+		System.out.println("[LOGO] : mybatis in UserDAO checkUser");
 		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.checkUser", vo);
 		
 		if(passwordEncoder.matches(vo.getUser_pw(), user.getUser_pw())) {
@@ -45,6 +45,25 @@ public class UserDAO {
 			// 예외처리
 		}
 	}
-	
+	public Boolean Duplicate_Check_Email(UserVO vo) {
+		System.out.println("[LOGO] : mybatis in UserDAO Duplicate_Check_Email");
+		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.Duplicate_Check_Email",vo);
+		//System.out.println(user);
+		if (user == null) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+	public Boolean Duplicate_Check_Nickname(UserVO vo) {
+		System.out.println("[LOGO] : mybatis in UserDAO Duplicate_Check_Nickname");
+		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.Duplicate_Check_Nickname",vo);
+		//System.out.println("select 검색 결과 " + user);
+		if (user == null) {
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 }

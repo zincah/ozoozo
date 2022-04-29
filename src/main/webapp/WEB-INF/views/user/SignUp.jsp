@@ -44,7 +44,7 @@
   		  	
   		  	var min = 3;
   			var second = 0;
-  		  	
+  		  	clearInterval(time);
   		  	var time = setInterval(function() {
   		  		if (second < 10){
   		  		$(".eqepphp2").text(min + ":0"+ second);
@@ -84,14 +84,14 @@
   		  		dataType : 'json',
   		  		success : function(CodeAccess){
   		  			if(CodeAccess){
-  		  				$(".email_1").attr("disabled", true);
-  		  				$(".form-control").attr("disabled", true);
+  		  				//$(".email_1").attr("disabled", true);
+  		  				//$(".form-control").attr("disabled", true);
   		  				$(".emailBtn").text("이메일 인증 완료");
   		  				var codeDiv = $(".eqepphp7");
   		  				codeDiv.css("display" , "none");
   		  			alert("이메일 인증 완료.");
   		  				console.log("불린 값을 보낼건데.. " +CodeAccess);
-  		  				ready_SignUp(CodeAccess);
+  		  				ready_SignUp_email(CodeAccess);
   		  			}else{
   		  			$(".eqepphp1").css("display","block");
   		  				$(".eqepphp1").text("올바른 인증 코드가 아닙니다.");
@@ -177,7 +177,7 @@
                                 		</path>
                                 	</svg>
                                 </button>
-                                <input class="form-control emailInput" placeholder="입력해주세요" size="1" value="" style="display:none" onInput="checkEmail()">
+                                <input class="form-control emailInput" placeholder="입력해주세요" name="user_email3" size="1" value="" style="display:none" onInput="checkEmail()">
                                 <button class="email-input__domain__expand2 active" aria-label="초기화" type="button" tabindex="-1" style="display:none" onclick="emailBtn()">
                                		 <svg class="icon" width="10" height="10" preserveAspectRatio="xMidYMid meet" style="fill: currentcolor;">
                                		 <path fill-rule="evenodd" d="M5 4L8.5.3l1 1.1L6.2 5l3.5 3.6-1 1L5 6.1 1.4 9.6l-1-1L3.9 5 .4 1.5l1.1-1L5 3.8z">
@@ -217,7 +217,7 @@
 									<path fill-rule="evenodd" clip-rule="evenodd"
 										d="M0.25 7C0.25 10.7279 3.27208 13.75 7 13.75C10.7279 13.75 13.75 10.7279 13.75 7C13.75 3.27208 10.7279 0.25 7 0.25C3.27208 0.25 0.25 3.27208 0.25 7ZM13 7C13 10.3137 10.3137 13 7 13C3.68629 13 1 10.3137 1 7C1 3.68629 3.68629 1 7 1C10.3137 1 13 3.68629 13 7ZM7.125 3.75C7.47018 3.75 7.75 4.02982 7.75 4.375C7.75 4.72018 7.47018 5 7.125 5C6.77982 5 6.5 4.72018 6.5 4.375C6.5 4.02982 6.77982 3.75 7.125 3.75ZM6.65 10.5H7.58333V5.83333H6.65V10.5Z"
 										fill="#828C94"></path></svg>
-								이메일을 받지 못하셨나요?<a class="css-3b6ywl ejevacd1">이메일 재전송하기</a>
+								이메일을 받지 못하셨나요?<a class="css-3b6ywl ejevacd1" onClick="sendEmail()">이메일 재전송하기</a>
 							</div>
 						</div>
 					</div>
@@ -338,7 +338,6 @@
                 </p>
             </div>
         </div>
-        <button onClick="ready_SignUp()">테스트</button>
       <script>
       	function checkEmail(){
       		var email = $(".email_1").val();
@@ -367,7 +366,7 @@
       			$(".emailBtn").prop("disabled", true);
       			return;
       		}else if($(email_S).val() == null || $(email_S).val() == "manual" && !em.test(email_ex)){
-      			$(".false_email").text("이메일2 형식이 올바르지 않습니다.");
+      			$(".false_email").text("이메일 형식이 올바르지 않습니다.");
       			$(".false_email").css("display", "block");
       			$(".emailLogo").addClass('css-1azo586');
       			$(".email_1").addClass('error');
@@ -382,8 +381,37 @@
       			$(".form-control").removeClass('error');
       			$(".emailBtn").addClass('EmailBtn_true');
       			$(".emailBtn").prop("disabled", false);
+      			if ($(email_S).val() == "manual"){
+      				var email = ($("#email1").val() + "@" + $(email_I).val());
+      			}else{
+      				var email = ($("#email1").val() + "@" + $("#email2").val());
+      			}
       		}
-      		
+      		$.ajax({
+  		  		url:'Duplicate_Check_Email.com',
+  		  		method:'post',
+  		  		data: JSON.stringify(email),
+  		  		contentType : 'application/json; charset=UTF-8',
+  		  		dataType : 'json',
+  		  		success : function(check_email){
+  		  			if(check_email){
+	  		  			$(".false_email").css("display", "none");
+	  	      			$(".emailLogo").removeClass('css-1azo586');
+	  	      			$(".email_1").removeClass('error');
+	  	      			$(".form-control").removeClass('error');
+	  	      			$(".emailBtn").addClass('EmailBtn_true');
+	  	      			$(".emailBtn").prop("disabled", false);
+  		  			}else{
+	  		  			$(".false_email").text("이미 가입한 이메일입니다. '이메일 로그인'으로 로그인해주세요.");
+		  		  		$(".false_email").css("display", "block");
+			  		  	$(".emailLogo").addClass('css-1azo586');
+			  			$(".email_1").addClass('error');
+			  			$(".form-control").addClass('error');
+			  			$(".emailBtn").removeClass('EmailBtn_true');
+			  			$(".emailBtn").prop("disabled", true);
+  		  			}
+  		  		}
+  		  	})
       		
       		
       		
@@ -423,11 +451,12 @@
     		var pass = document.querySelector(".passwordInput").value;
     		var reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
     		var repass = $(".repasswordInput").val();
+    		var blank_pattern = /\s/g;
     		
     		var msg = $(".false_pass");
     		var Logo = $('.passwordLogo');
     		var passInput = $('.passwordInput');
-    		var blank_pattern = /\s/g;
+    		
     		if(blank_pattern.test(pass) == true){
     			$('.false_pass').text("공백 사용금지.");
     			$(Logo).addClass("css-1azo586");
@@ -477,19 +506,41 @@
 				$(nick).addClass("error");
 				$(nickLogo).addClass("css-1azo586");
 				$(falseMsg).text("필수 입력 항목입니다.");
+				return;
 			}else if(nickVal.length == 1){
 				$(nick).addClass("error");
 				$(nickLogo).addClass("css-1azo586");
 				$(falseMsg).text("2자 이상 입력해주세요.");
+				return;
 			}else if(nickVal.length > 15){
 				$(nick).addClass("error");
 				$(nickLogo).addClass("css-1azo586");
 				$(falseMsg).text("15자 이하로 입력해주세요.");
+				return;
 			}else{
 				$(nick).removeClass("error");
 				$(nickLogo).removeClass("css-1azo586");
 				$(falseMsg).text("");
+				
 			}
+			$.ajax({
+  		  		url:'Duplicate_Check_Nickname.com',
+  		  		method:'post',
+  		  		data: JSON.stringify(nickVal),
+  		  		contentType : 'application/json; charset=UTF-8',
+  		  		dataType : 'json',
+  		  		success : function(check_Nickname){
+  		  			if(check_Nickname){
+	  		  			$(nick).removeClass("error");
+	  					$(nickLogo).removeClass("css-1azo586");
+	  					ready_SignUp_nickname(check_Nickname);
+  		  			}else{
+	  		  			$(nick).addClass("error");
+	  					$(nickLogo).addClass("css-1azo586");
+	  					$(falseMsg).text("사용 중인 별명입니다.");
+	  		  		}
+  		  		}
+  		  	})
 		}
 		
 		function allAgree(){
@@ -512,13 +563,50 @@
 			}
 		}
 		
-		function ready_SignUp(Email_match){
-			var email_check = Email_match;
-			console.log(email_check)
+		/* 회원가입 버튼 전체 총 검사 */
+		var email_check = null;
+		var nick_check = null;
+		
+		
+		
+		function ready_SignUp_email(Email_match){
+			email_check = Email_match;
 		}
 		
+		function ready_SignUp_nickname(nick_match){
+			nick_check = nick_match;
+		}
 		
 		function SignUpBtn(){
+			var pass = document.querySelector(".passwordInput").value;
+			var reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+			var repass = $(".repasswordInput").val();
+			var blank_pattern = /\s/g;
+			
+			var check1 = $('input:checkbox[name="agree1"]').is(':checked');
+			var check2 = $('input:checkbox[name="agree2"]').is(':checked');
+			var check3 = $('input:checkbox[name="agree3"]').is(':checked');
+			
+			
+			if(!email_check){
+				alert("이메일 인증을 해주세요.");
+				return false;
+			}else if(blank_pattern.test(pass) == true || pass.length == 0 || !reg.test(pass)){
+				console.log(pass.length);
+				alert("비밀번호가 올바르지 않습니다.");
+				return false;
+			}else if(pass != repass){
+				alert("비밀번호가 일치하지 않습니다.");
+				return false;
+			}else if(!nick_check){
+				alert("별명이 올바르지 않습니다.");
+				return false;
+			}else if( !check1 || !check2 || !check3){
+      			alert('필수 사항을 체크해주세요.');
+      			return false;
+      		}
+			
+			return true;
 			
 			
 			
@@ -529,10 +617,7 @@
 			
 			
 			
-			
-			
-			
-			var email = $(".email_1").val();
+	/* 		var email = $(".email_1").val();
       		var email_S = $(".emailSelect").val();
       		
       		var pass = $(".passwordInput").val();
@@ -558,7 +643,7 @@
       		}else if( !check1 || !check2 || !check3){
       			alert('hi');
       			return false;
-      		}	
+      		}	 */
 		}
       </script>
         
