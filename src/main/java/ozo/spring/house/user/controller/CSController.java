@@ -22,9 +22,7 @@ public class CSController {
 		List<CScenterVO> list;
 		list =csservice.csall(vo);
 		model.addAttribute("list",list);
-		
-		
-		
 		return "customercenter";
 	}
+	
 }

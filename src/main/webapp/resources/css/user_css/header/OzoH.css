@@ -627,8 +627,117 @@ a {
     transition: background-color .1s;
 
 }
+/* ----------스마일박스-------- */
 
 
+.animated-popout{
+	visibility: visible;
+    
+    transform: none;
+    transition: opacity .2s,transform .2s;
+}
+.popout--axis-1.popout--dir-2 .animated-popout {
+    transform: translateY(-10px);
+}
+.animated-popout.open-active {
+    pointer-events: auto;
+}
+.layout-navigation-bar-user-section__content {
+    position: relative;
+    margin-top: 17px;
+}
+  .drop-down__content {
+    z-index: 1000;
+}  
+
+ .animated-popout.open.open.open {
+    visibility: visible;
+    opacity: 0;
+    transform-origin: 50% 0;
+    box-sizing: border-box;
+    pointer-events: none;
+} 
+.layout-navigation-bar-user-section__content:before {
+    margin: 0 0 0 -4px;
+    border-width: 0 5px 10px;
+    border-color: transparent transparent #dbdbdb;
+    transform: translateX(0.5px);
+}
+.layout-navigation-bar-user-section__content:after, .layout-navigation-bar-user-section__content:before {
+    content: "";
+    position: absolute;
+    display: block;
+    right: 25px;
+    bottom: 100%;
+    border-style: solid;
+}
+.layout-navigation-bar-user-menu {
+    width: 200px;
+    margin: 0 -1px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0 4px 6px 0 rgb(0 0 0 / 18%);
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.layout-navigation-bar-user-section__content:after {
+    margin: 0 0 -1px -4px;
+    border-width: 0 4.5px 9px;
+    border-color: transparent transparent #fff;
+}
+
+.layout-navigation-bar-user-section__content:after, .layout-navigation-bar-user-section__content:before {
+    content: "";
+    position: absolute;
+    display: block;
+    right: 25px;
+    bottom: 100%;
+    border-style: solid;
+}
+.layout-navigation-bar-user-menu__item {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 10px 14px 11px;
+    box-sizing: border-box;
+    border: none;
+    background: #fff;
+    color: #424242;
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 21px;
+    text-decoration: none;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 2px;
+}
+.layout-navigation-bar-user-menu {
+    width: 200px;
+    margin: 0 -1px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0 4px 6px 0 rgb(0 0 0 / 18%);
+    border: 1px solid #dbdbdb;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+.popout popout--prepared popout--axis-1 popout--dir-2 popout--cross-dir-2{
+	display:none
+}
+.layout-navigation-bar-user-button{
+	cursor: pointer;
+}
 
 
 
@@ -651,6 +760,7 @@ a {
    
 	}
 }
+
 @media (min-width: 1024px){
 .layout-navigation-bar-upload-button__button {
     width: 100px;
@@ -861,7 +971,8 @@ a {
     top: 0;
     width: 100%;
     height: 100%;
-    z-index: 100000;
+    z-index: 10000;
+    
     background-color: transparent;
 }
 .react-modal.open {
@@ -1102,3 +1213,4 @@ a {
     border-radius: 0;
     box-shadow: none;
 }}
+
