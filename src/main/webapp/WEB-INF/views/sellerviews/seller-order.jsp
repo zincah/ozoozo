@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>주문 관리</title>
+<title>주문관리</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
 	rel="stylesheet" />
@@ -167,44 +168,27 @@
 							<div class="radio-productCode">
 								<div class="btn-group" role="group"
 									aria-label="Basic radio toggle button group">
-									<select class="form-select selectState" id="large-select"
-										aria-label="Default select example">
-										<option value="0">대분류</option>
-										<option value="1">가구</option>
-										<option value="2">패브릭</option>
-										<option value="3">조명</option>
-										<option value="4">가전</option>
-										<option value="5">주방용품</option>
-										<option value="6">데코/식물</option>
-										<option value="7">수납/정리</option>
+									<select class="form-select selectState" id="category" name="category_name"
+										aria-label="Default select example" onchange="changeFirstOption()">
+										<option selected>대분류</option>
+										<c:forEach items="${cateList }" var="cate">
+											<option value="${cate.cate_code}">${cate.cate_name}</option>
+										</c:forEach>
 									</select>
 								</div>
 								<div class="btn-group" role="group"
 									aria-label="Basic radio toggle button group">
-									<select class="form-select selectState" id="middle-select"
-										disabled="" aria-label="Default select example">
-										<option value="0">중분류</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
-										<option value="7">7</option>
+									<select class="form-select selectState" id="middle-select" name="subcategory1"
+										disabled="" aria-label="Default select example" onchange="changeSecondOption()">
+										<option selected>중분류</option>
 									</select>
 								</div>
 								<div class="btn-group" role="group"
 									aria-label="Basic radio toggle button group">
-									<select class="form-select selectState" id="small-select"
+									<select class="form-select selectState" id="small-select"  name="subcategory2"
 										disabled="" aria-label="Default select example">
-										<option value="0">소분류</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
-										<option value="7">7</option>
+										<option selected>소분류</option>
+										<div id="bot-layer"></div>
 									</select>
 								</div>
 							</div>
@@ -1039,6 +1023,7 @@
 	crossorigin="anonymous"></script>
 <script src="resources/js/sellerjs/datatables-simple-demo.js"></script>
 <script src="resources/js/sellerjs/seller-customerInquiry.js"></script>
-<script src="resources/js/sellerjs/seller-order.js"></script>
+<script src="resources/js/sellerjs/seller-order.js?t=<%=System.currentTimeMillis() %>"></script>
+<script src="resources/js/sellerjs/category.js"></script>
 </body>
 </html>

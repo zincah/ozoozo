@@ -266,9 +266,9 @@
 	<div class="content-table">
 		<div class="content-view-title">
 			<div>
-				<span class="content-view-title-text">상품목록 (총 </span> <span
-					class="content-view-title-value">0</span> <span
-					class="content-view-title-text2">개)</span>
+				<span class="content-view-title-text">상품목록 (선택 </span> <span
+					class="content-view-title-value" id="select-num">0</span> <span
+					class="content-view-title-text2">건)</span>
 			</div>
 			<div class="content-view-title-right">
 				<div class="btn-group" role="group"
@@ -447,8 +447,7 @@
 			<thead>
 				<tr class="content-table-title">
 					<td class="content-table-title-text option-line"><input
-						class="form-check-input" type="checkbox" value=""
-						id="productAllCheck" /></td>
+						class="form-check-input" type="checkbox" value="" id="allCheck" /></td>
 					<td class="content-table-title-text option-line">상품고유번호</td>
 					<td class="content-table-title-text option-line">판매자상품코드</td>
 					<td class="content-table-title-text option-line">상품명</td>
@@ -464,8 +463,7 @@
 				<!-- for -->
 				<tr class="content-table-content content-hover">
 					<td class="content-table-content-text option-line"><input
-						class="form-check-input" type="checkbox" value=""
-						id="productCheck1" /></td>
+						class="form-check-input check" type="checkbox" value="" /></td>
 					<td class="content-table-content-text option-line state0">0654367</td>
 					<td class="content-table-content-text option-line">001</td>
 					<td class="content-table-content-text option-line">동준이의 핫핑크
@@ -479,8 +477,7 @@
 				</tr>
 				<tr class="content-table-content content-hover">
 					<td class="content-table-content-text option-line"><input
-						class="form-check-input" type="checkbox" value=""
-						id="productCheck2" /></td>
+						class="form-check-input check" type="checkbox" value="" /></td>
 					<td class="content-table-content-text option-line state0">0654367</td>
 					<td class="content-table-content-text option-line">001</td>
 					<td class="content-table-content-text option-line">동준이의 핫핑크
@@ -494,8 +491,7 @@
 				</tr>
 				<tr class="content-table-content content-hover">
 					<td class="content-table-content-text option-line"><input
-						class="form-check-input" type="checkbox" value=""
-						id="productCheck3" /></td>
+						class="form-check-input check" type="checkbox" value="" /></td>
 					<td class="content-table-content-text option-line state0">0654367</td>
 					<td class="content-table-content-text option-line">001</td>
 					<td class="content-table-content-text option-line">동준이의 핫핑크
@@ -528,7 +524,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="resources/js/sellerjs/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-<script src="resources/js/sellerjs/seller-productManagement.js"></script>
+<script src="resources/js/sellerjs/seller-productManagement.js?t=<%=System.currentTimeMillis() %>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script src="resources/js/sellerjs/category.js"></script>
 </body>
