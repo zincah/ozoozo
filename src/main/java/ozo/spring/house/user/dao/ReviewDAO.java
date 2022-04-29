@@ -13,12 +13,23 @@ public class ReviewDAO {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
-    public List<ReviewVO> getReviewList(ReviewVO vo){
-        System.out.println("--> mybatis in reviewdao getreviewlist");
-        return sqlSessionTemplate.selectList("ReviewDAO.getReviewList", vo);
+    public List<ReviewVO> selectReviewList(ReviewVO vo){
+        System.out.println("--> mybatis in reviewdao selectReviewList");
+        return sqlSessionTemplate.selectList("ReviewDAO.selectReviewList", vo);
     }
 
-    
+    public List<ReviewVO> topReviewList(ReviewVO vo){
+        System.out.println("--> mybatis in reviewdao topReviewList");
+        return sqlSessionTemplate.selectList("ReviewDAO.topReviewList", vo);
+    }
 
+    public List<ReviewVO> myReviewList(ReviewVO vo){
+        System.out.println("--> mybatis in reviewdao myReviewList");
+        return sqlSessionTemplate.selectList("ReviewDAO.myReviewList", vo);
+    }
 
+    public void insertreview(ReviewVO vo){
+        System.out.println("ok");
+        sqlSessionTemplate.insert("ReviewDAO.insertreview", vo);
+    }
 }

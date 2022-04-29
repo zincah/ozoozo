@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,8 +16,8 @@
 <link href="resources/css/sellercss/fonts.css?after" rel="stylesheet" />
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
 <link href="resources/css/sellercss/insertProduct.css" rel="stylesheet" />
-<link href="resources/css/sellercss/seller-productManagement.css" rel="stylesheet" />
 <jsp:include page="header/headerModalView.jsp"></jsp:include>
+<link href="resources/css/sellercss/seller-productManagement.css" rel="stylesheet" />
 <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
@@ -162,44 +162,27 @@
 							<div class="radio-productCode">
 								<div class="btn-group" role="group"
 									aria-label="Basic radio toggle button group">
-									<select class="form-select selectState" id="large-select"
-										aria-label="Default select example">
-										<option value="0">대분류</option>
-										<option value="1">가구</option>
-										<option value="2">패브릭</option>
-										<option value="3">조명</option>
-										<option value="4">가전</option>
-										<option value="5">주방용품</option>
-										<option value="6">데코/식물</option>
-										<option value="7">수납/정리</option>
+									<select class="form-select selectState" id="category" name="category_name"
+										aria-label="Default select example" onchange="changeFirstOption()">
+										<option selected>대분류</option>
+										<c:forEach items="${cateList }" var="cate">
+											<option value="${cate.cate_code}">${cate.cate_name}</option>
+										</c:forEach>
 									</select>
 								</div>
 								<div class="btn-group" role="group"
 									aria-label="Basic radio toggle button group">
-									<select class="form-select selectState" id="middle-select"
-										disabled="" aria-label="Default select example">
-										<option value="0">중분류</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
-										<option value="7">7</option>
+									<select class="form-select selectState" id="middle-select" name="subcategory1"
+										disabled="" aria-label="Default select example" onchange="changeSecondOption()">
+										<option selected>중분류</option>
 									</select>
 								</div>
 								<div class="btn-group" role="group"
 									aria-label="Basic radio toggle button group">
-									<select class="form-select selectState" id="small-select"
+									<select class="form-select selectState" id="small-select"  name="subcategory2"
 										disabled="" aria-label="Default select example">
-										<option value="0">소분류</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option value="5">5</option>
-										<option value="6">6</option>
-										<option value="7">7</option>
+										<option selected>소분류</option>
+										<div id="bot-layer"></div>
 									</select>
 								</div>
 							</div>
@@ -283,9 +266,9 @@
 	<div class="content-table">
 		<div class="content-view-title">
 			<div>
-				<span class="content-view-title-text">상품목록 (총 </span> <span
-					class="content-view-title-value">0</span> <span
-					class="content-view-title-text2">개)</span>
+				<span class="content-view-title-text">상품목록 (선택 </span> <span
+					class="content-view-title-value" id="select-num">0</span> <span
+					class="content-view-title-text2">건)</span>
 			</div>
 			<div class="content-view-title-right">
 				<div class="btn-group" role="group"
@@ -464,8 +447,7 @@
 			<thead>
 				<tr class="content-table-title">
 					<td class="content-table-title-text option-line"><input
-						class="form-check-input" type="checkbox" value=""
-						id="productAllCheck" /></td>
+						class="form-check-input" type="checkbox" value="" id="allCheck" /></td>
 					<td class="content-table-title-text option-line">상품고유번호</td>
 					<td class="content-table-title-text option-line">판매자상품코드</td>
 					<td class="content-table-title-text option-line">상품명</td>
@@ -481,8 +463,7 @@
 				<!-- for -->
 				<tr class="content-table-content content-hover">
 					<td class="content-table-content-text option-line"><input
-						class="form-check-input" type="checkbox" value=""
-						id="productCheck1" /></td>
+						class="form-check-input check" type="checkbox" value="" /></td>
 					<td class="content-table-content-text option-line state0">0654367</td>
 					<td class="content-table-content-text option-line">001</td>
 					<td class="content-table-content-text option-line">동준이의 핫핑크
@@ -496,8 +477,7 @@
 				</tr>
 				<tr class="content-table-content content-hover">
 					<td class="content-table-content-text option-line"><input
-						class="form-check-input" type="checkbox" value=""
-						id="productCheck2" /></td>
+						class="form-check-input check" type="checkbox" value="" /></td>
 					<td class="content-table-content-text option-line state0">0654367</td>
 					<td class="content-table-content-text option-line">001</td>
 					<td class="content-table-content-text option-line">동준이의 핫핑크
@@ -511,8 +491,7 @@
 				</tr>
 				<tr class="content-table-content content-hover">
 					<td class="content-table-content-text option-line"><input
-						class="form-check-input" type="checkbox" value=""
-						id="productCheck3" /></td>
+						class="form-check-input check" type="checkbox" value="" /></td>
 					<td class="content-table-content-text option-line state0">0654367</td>
 					<td class="content-table-content-text option-line">001</td>
 					<td class="content-table-content-text option-line">동준이의 핫핑크
@@ -545,6 +524,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="resources/js/sellerjs/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-<script src="resources/js/sellerjs/seller-productManagement.js"></script>
+<script src="resources/js/sellerjs/seller-productManagement.js?t=<%=System.currentTimeMillis() %>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="resources/js/sellerjs/category.js"></script>
 </body>
 </html>

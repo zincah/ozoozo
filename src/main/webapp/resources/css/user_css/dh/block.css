@@ -3,6 +3,11 @@ button, input[type=email], input[type=file], input[type=number], input[type=pass
     -webkit-appearance: none;
     -moz-appearance: textfield;
 }
+[role=button], a, button, input[type=button], input[type=reset], input[type=submit] {
+    cursor: pointer;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
 .snsLogo{
     font-size: 12px;
     text-align: center;
@@ -385,6 +390,23 @@ button, input[type=email], input[type=file], input[type=number], input[type=pass
 input[type=text]:focus {
     outline:none;
 }
+._3AsCW {
+    background-color: #35c5f0;
+    border-color: #35c5f0;
+    color: #fff;
+}
+.css-bxn4wb {
+    color: rgb(255, 119, 119);
+    font-size: 12px;
+    padding-bottom: 15px;
+}
+.css-1fyq8cc {
+    border: 1px solid rgb(255, 119, 119);
+    min-height: 45px;
+    padding: 0px 16px;
+    background: rgb(255, 255, 255);
+    margin-bottom: 10px;
+}
 /*입력란 효과 */
 .css-1azo586 {
     display: block;
@@ -408,6 +430,17 @@ input[type=text]:focus {
     line-height: 21px;
     color: rgb(255, 119, 119);
 }
+
+.form-control:disabled, .email_1:disabled {
+    background-color: #ededed;
+    border-color: #dbdbdb;
+    color: #bdbdbd;
+}
+.email_1:disabled, .form-control:disabled {
+    color: #757575;
+    -webkit-text-fill-color: #757575;
+    opacity: 1;
+ } 
 /* 마우스 포인터 효과 */
 
 .input-dh:focus{

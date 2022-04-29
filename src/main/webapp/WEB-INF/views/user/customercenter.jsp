@@ -104,11 +104,12 @@
                    
                     
                      <script>
-                     function onclick22() {
+                       
+                  function onclick22() {
                     	$('.faq__contents__item__answer').css({"max-height":"","opacity":"","padding-top":""});
                     	
                      }
-                    
+
                 	</script>
                   
 

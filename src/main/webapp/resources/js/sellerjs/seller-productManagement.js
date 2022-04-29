@@ -17,52 +17,17 @@ window.open = slideinit();
 
 // Function
 function slideinit() {
-  $(slideToggle).slideUp(0);
+	$(slideToggle).slideUp(0);
 }
 function searchBtnEvent() {
-  $(slideToggle).slideToggle();
-  if (searchBtnStatus == 1) {
-    searchBtnIcon.style.transform = "rotateX(0deg)";
-    searchBtnStatus = 0;
-  } else {
-    searchBtnIcon.style.transform = "rotateX(180deg)";
-    searchBtnStatus = 1;
-  }
-}
-
-/* search-category JS */
-// Get select
-var large = document.getElementById("large-select");
-var middle = document.getElementById("middle-select");
-var small = document.getElementById("small-select");
-
-var selectValue_large;
-var selectValue_middle;
-var selectValue_small;
-
-// Listen for click
-large.addEventListener("click", selectDisabled_large);
-middle.addEventListener("click", selectDisabled_middle);
-
-// Function
-function selectDisabled_large() {
-  selectValue_large = parseInt(large.options[large.selectedIndex].value); //옵션 값을 얻어와서 숫자로 형변환
-  //옵션 값이 숫자라면 true, 아니라면 false
-  if (selectValue_large > 0) {
-    middle.disabled = false;
-  } else {
-    middle.disabled = true;
-    small.disabled = true;
-  }
-}
-function selectDisabled_middle() {
-  selectValue_middle = parseInt(middle.options[middle.selectedIndex].value); //옵션 값을 얻어와서 숫자로 형변환
-  //옵션 값이 숫자라면 true, 아니라면 false
-  if (selectValue_middle > 0) {
-    small.disabled = false;
-  } else {
-    small.disabled = true;
-  }
+	$(slideToggle).slideToggle();
+	if (searchBtnStatus == 1) {
+		searchBtnIcon.style.transform = "rotateX(0deg)";
+		searchBtnStatus = 0;
+	} else {
+		searchBtnIcon.style.transform = "rotateX(180deg)";
+		searchBtnStatus = 1;
+	}
 }
 
 /* input Date JS */
@@ -153,63 +118,33 @@ initBtn.addEventListener("click", initBtnEvent);
 
 // Function
 function initBtnEvent() {
-  //검색어 초기화
-  document.getElementById("exampleFormControlInput1").value = "";
-  document.getElementById("flexRadioDefault1").checked = true;
+	//검색어 초기화
+	document.getElementById("exampleFormControlInput1").value = "";
+	document.getElementById("flexRadioDefault1").checked = true;
 
-  //판매상태 초기화
-  document.getElementById("statusCheck1").checked = false;
-  document.getElementById("statusCheck2").checked = false;
-  document.getElementById("statusCheck3").checked = false;
-  document.getElementById("statusCheck4").checked = false;
-  document.getElementById("statusCheck5").checked = false;
-  document.getElementById("statusCheck6").checked = false;
-  document.getElementById("statusCheck7").checked = false;
-  document.getElementById("statusCheck8").checked = false;
+	//판매상태 초기화
+	document.getElementById("statusCheck1").checked = false;
+	document.getElementById("statusCheck2").checked = false;
+	document.getElementById("statusCheck3").checked = false;
+	document.getElementById("statusCheck4").checked = false;
+	document.getElementById("statusCheck5").checked = false;
+	document.getElementById("statusCheck6").checked = false;
+	document.getElementById("statusCheck7").checked = false;
+	document.getElementById("statusCheck8").checked = false;
 
-  //카테고리 초기화
-  document.getElementById("large-select").value = "0";
-  document.getElementById("middle-select").value = "0";
-  document.getElementById("small-select").value = "0";
-  middle.disabled = true;
-  small.disabled = true;
+	//카테고리 초기화
+	$("#category").val("대분류").attr("selected", "selected");
+	$("#middle-select").html("<option selected>중분류</option>");
+	$("#middle-select").attr("disabled", true);
+	$("#small-select").html("<option selected>소분류</option>");
+	$("#small-select").attr("disabled", true);
 
-  //기간 초기화
-  document.getElementById("selectDate").value = "1";
-  document.getElementById("btnradio1").checked = true;
-  startDate.valueAsDate = today;
-  endDate.valueAsDate = today;
+	//기간 초기화
+	document.getElementById("selectDate").value = "1";
+	document.getElementById("btnradio1").checked = true;
+	startDate.valueAsDate = today;
+	endDate.valueAsDate = today;
 }
-
-/* 상품목록 JS */
-var productAllCheck = document.getElementById("productAllCheck");
-var productAllCheckStatus = 0;
-
-productAllCheck.addEventListener("click", productAllCheckEvent);
-
-function productAllCheckEvent() {
-  if (productAllCheckStatus == 0) {
-    document.getElementById("productCheck1").checked = true;
-    document.getElementById("productCheck2").checked = true;
-    document.getElementById("productCheck3").checked = true;
-    productAllCheckStatus = 1;
-  } else {
-    document.getElementById("productCheck1").checked = false;
-    document.getElementById("productCheck2").checked = false;
-    document.getElementById("productCheck3").checked = false;
-    productAllCheckStatus = 0;
-  }
-}
-
-/* 상품목록 설정 버튼 이벤트 */
-// var settingBtn = document.getElementsByClassName("settingBtn")[0];
-// var settingBtnDropdown = document.getElementsByClassName("settingBtnDropdown")[0];
-
-// settingBtn.addEventListener("click", settingBtnEvent);
-
-// function settingBtnEvent() {
-//   $(settingBtnDropdown).slideToggle();
-// }
 
 /* 상품 삭제 모달 이벤트 */
 var modalDelListBtn = document.getElementsByClassName("modal-product-list")[0];
@@ -219,11 +154,39 @@ var modalDelListBtnStatus = 0;
 modalDelListBtn.addEventListener("click", modalDelListBtnEvent);
 
 function modalDelListBtnEvent() {
-  if (modalDelListBtnStatus == 1) {
-    modalDelListBtnIcon.style.transform = "rotateX(0deg)";
-    modalDelListBtnStatus = 0;
-  } else {
-    modalDelListBtnIcon.style.transform = "rotateX(180deg)";
-    modalDelListBtnStatus = 1;
-  }
+	if (modalDelListBtnStatus == 1) {
+		modalDelListBtnIcon.style.transform = "rotateX(0deg)";
+		modalDelListBtnStatus = 0;
+	} else {
+		modalDelListBtnIcon.style.transform = "rotateX(180deg)";
+		modalDelListBtnStatus = 1;
+	}
 }
+
+/* 체크박스 관련 */
+// 전체 체크박스 체크 여부에 따른 하위 체크박스들 상태 변경
+$("#allCheck").change(function () {
+  if ($("#allCheck").is(":checked")) {
+    $(".check").prop("checked", true);
+    // 선택된 체크박스 개수에 따른 숫자값 변경
+    $("#select-num").text($(".check:checked").length);
+  } else {
+    $(".check").prop("checked", false);
+    // 선택된 체크박스 개수에 따른 숫자값 변경
+    $("#select-num").text($(".check:checked").length);
+  }
+});
+
+// 하위 체크박스 체크 여부에 따른 전체 체크박스 상태 변경
+// 하위 체크박스 체크 개수와 전체 개수를 비교
+$(".check").change(function () {
+  if ($(".check:checked").length == $(".check").length) {
+    $("#allCheck").prop("checked", true);
+    // 선택된 체크박스 개수에 따른 숫자값 변경
+    $("#select-num").text($(".check:checked").length);
+  } else {
+    $("#allCheck").prop("checked", false);
+    // 선택된 체크박스 개수에 따른 숫자값 변경
+    $("#select-num").text($(".check:checked").length);
+  }
+});

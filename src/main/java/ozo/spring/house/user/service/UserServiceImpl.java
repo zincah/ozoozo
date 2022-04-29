@@ -25,4 +25,16 @@ public class UserServiceImpl implements UserService {
 	public UserVO checkUser(UserVO vo) {
 		return userDAO.checkUser(vo);
 	}
+
+	@Override
+	public Boolean Duplicate_Check_Email(UserVO vo) {
+		// TODO Auto-generated method stub
+		return userDAO.Duplicate_Check_Email(vo);
+	}
+
+	@Override
+	public Boolean Duplicate_Check_Nickname(UserVO vo) {
+		// TODO Auto-generated method stub
+		return userDAO.Duplicate_Check_Nickname(vo);
+	}
 }

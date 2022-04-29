@@ -4,6 +4,7 @@ package ozo.spring.house.seller.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ public class JsonController {
 	
 	@ResponseBody
 	@RequestMapping(value="/getJson.seller", method=RequestMethod.POST)
-	public Map<String, Map<String, String>> getJson(@RequestBody Map<String, Map<String, String>> jsondata) {
+	public String getJson(@RequestBody String jsondata) {
 		System.out.println(jsondata);
 		return jsondata;
 	}

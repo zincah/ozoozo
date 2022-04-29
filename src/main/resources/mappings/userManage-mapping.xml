@@ -16,5 +16,14 @@
 		WHERE user_email = #{user_email}
 	</select>
 	
+	<!-- 이메일 중복체크 -->
+	<select id="Duplicate_Check_Email" resultType="user">
+		SELECT user_email FROM user_table WHERE user_email = #{user_email}
+	</select>
+	
+	<!-- 닉네임 중복체크 -->
+	<select id="Duplicate_Check_Nickname" resultType="user">
+		SELECT nickname FROM user_table WHERE nickname = #{nickname}
+	</select>
 
 </mapper>

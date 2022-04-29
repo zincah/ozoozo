@@ -6,9 +6,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.admin.vo.MemberVO;
 import ozo.spring.house.user.service.UserService;
@@ -21,9 +23,16 @@ public class UserInfoController {
 	UserService userService;
 	
 	@RequestMapping(value="/signUpProc.com", method=RequestMethod.POST)
-	public String signUpProc(UserVO vo, @RequestParam(value="user_email1") String email1, @RequestParam(value="user_email2")String email2) {
-		
-		vo.setUser_email(email1 + "@" + email2);
+	public String signUpProc(UserVO vo, 
+			@RequestParam(value="user_email1")String email1, 
+			@RequestParam(value="user_email2")String email2,
+			@RequestParam(value="user_email3")String email3) {
+		if(email2.equals("manual")) {
+			vo.setUser_email(email1 + "@" + email3);
+		}else {
+			vo.setUser_email(email1 + "@" + email2);
+		}
+		//System.out.println("이메일 저장 정보" +vo.getUser_email());
 		userService.insertUser(vo);
 		return "redirect:login.com";
 		
@@ -78,7 +87,24 @@ public class UserInfoController {
 			}
 		}
 		
-	
+		@ResponseBody
+		@RequestMapping(value = "/Duplicate_Check_Email.com", method=RequestMethod.POST)
+		public Boolean checkEmail(@RequestBody String Email, UserVO vo) {
+			String email = Email.replace("\"", "");
+			System.out.println("사용자가 입력한 E-mail : "+ email);
+			vo.setUser_email(email);
+			return userService.Duplicate_Check_Email(vo);
+		}
+		
+		@ResponseBody
+		@RequestMapping(value = "/Duplicate_Check_Nickname.com", method=RequestMethod.POST)
+		public Boolean checkNickname(@RequestBody String Nickname, UserVO vo) {
+			String nickname = Nickname.replace("\"", "");
+			System.out.println("사용자가 입력한 nickname : "+ nickname);
+			vo.setNickname(nickname);
+			return userService.Duplicate_Check_Nickname(vo);
+		}
+		
 	
 
 }
