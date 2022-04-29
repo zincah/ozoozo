@@ -101,7 +101,18 @@
                         
                     </section>
                     <!-- 원래자리 -->
+                   
+                    
+                     <script>
+                     function onclick22() {
+                    	$('.faq__contents__item__answer').css({"max-height":"","opacity":"","padding-top":""});
+                    	
+                     }
+                    
+                	</script>
+                  
 
+                   
                     </c:forEach>
                 </section>
                 

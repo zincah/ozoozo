@@ -24,4 +24,5 @@ public class CSController {
 		model.addAttribute("list",list);
 		return "customercenter";
 	}
+	
 }
