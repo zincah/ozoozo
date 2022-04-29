@@ -50,10 +50,12 @@ public class SellerController {
 			return "seller-login";
 		}
 	}
-	@RequestMapping(value = "/order.seller")
-	public String sellerOrder(HttpServletRequest request) {
+	@RequestMapping(value = "/order.seller", method=RequestMethod.GET)
+	public String sellerOrder(HttpServletRequest request, CategoryVO vo, Model model) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
+			List<CategoryVO> cateList = categoryService.getCategoryList(vo);
+			model.addAttribute("cateList", cateList);
 			return "seller-order";
 		}else {
 			return "seller-login";
