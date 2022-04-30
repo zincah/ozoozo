@@ -6,16 +6,21 @@
 <mapper namespace="ProductDAO">
 
 	<!-- selectkey 찾아보기 -->
-
-	<!-- product insert -->
-	<insert id="insertProduct" parameterType="product">
-		INSERT INTO product(product_id, seller_id, product_title, pro_catecode, pro_subcatecode, product_price, product_quantity) VALUES 
-		((SELECT COALESCE(MAX(product_id), 1000)+1 FROM product), #{seller_id}, #{product_title}, #{pro_catecode}, #{pro_subcatecode}, #{product_price}, #{product_quantity})
-	</insert>
 	
 	<!-- insert product_posting -->
 	<insert id="insertPostId" parameterType="product">
 		insert into product_posting (post_id) values ((SELECT COALESCE(MAX(post_id), 50000)+1 from product_posting));
+	</insert>
+	
+	<!-- select product_posting id -->
+	<select id="selectPostIdOne" resultType="Integer">
+		SELECT MAX(post_id) FROM product_posting
+	</select>
+
+	<!-- product insert -->
+	<insert id="insertProduct" parameterType="product">
+		INSERT INTO product(product_id, seller_id, product_title, pro_catecode, pro_subcatecode, product_price, product_quantity, product_postid) VALUES 
+		((SELECT COALESCE(MAX(product_id), 1000)+1 FROM product), #{seller_id}, #{product_title}, #{pro_catecode}, #{pro_subcatecode}, #{product_price}, #{product_quantity}, #{product_postid})
 	</insert>
 	
 	<!-- option insert -->
@@ -28,8 +33,16 @@
 	
 	
 	<!-- product posting insert -->
-	<insert id="insertPosting" parameterType="product">
-	</insert>
+	<update id="updatePost" parameterType="product">
+		UPDATE product_posting SET  
+		post_name = #{post_name}, 
+		sale_ratio = #{sale_ratio}, 
+		whole_price = #{whole_price}, 
+		shipping_info1 = #{shipping_info1}, 
+		shipping_info2 = #{shipping_info2}, 
+		post_sellerid = #{post_sellerid} 
+		WHERE post_id = #{post_id}
+	</update>
 
 
 

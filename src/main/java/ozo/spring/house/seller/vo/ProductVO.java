@@ -23,10 +23,10 @@ public class ProductVO {
 	private int pro_subcatecode;
 	private int product_seller_code;
 	private int product_quantity;
+	private int product_postid; //postid¿Í ¿¬°á
 	
 	// product_posting table
 	private int post_id;
-	private int post_product_id;
 	private boolean today_deal;
 	private boolean best_product;
 	private float star_ratio;
@@ -37,6 +37,7 @@ public class ProductVO {
 	private String shipping_info1;
 	private String shipping_info2;
 	private String refund_content;
+	private int post_sellerid;
 	
 	// option table
 	private int option_id;

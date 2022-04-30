@@ -183,6 +183,7 @@
       		});
 
 			var option = {
+					"post_id" : $("#post_id").val(),
 					"using_people" : $("#option_input").find("#using_people").val(),
 					"place" : $("#option_input").find("#place").val(),
 					"rental" : $("#option_input").find("#rental").val(),
@@ -201,8 +202,13 @@
 	  		data: JSON.stringify(option),
 	  		contentType : 'application/json; charset=UTF-8',
 	  		dataType : 'json',
-	  		success : function(resp){}
+	  		success : function(resp){
+
+	  			
+	  			}
 	  		});
+			
+		  	
 
 	    }
       	
@@ -324,7 +330,16 @@
 		  		data: JSON.stringify(product_list),
 		  		contentType : 'application/json; charset=UTF-8',
 		  		dataType : 'json',
-		  		success : function(resp){}
+		  		async: false, // ajax 동기식 처리
+		  		success : function(resp){
+		  			$("#post_id").attr('value',resp);
+		  			console.log($("#post_id").val());
+		  			
+		  			
+		  			alert("form전송");
+		  			$("form").submit();
+		  			
+		  		}
 		  	});
 			
 		}
@@ -357,7 +372,7 @@
 				</li>
 			</ol>
 
-			<form method="post" action="putProduct.seller" enctype="multipart/form-data">
+			<form method="post" action="putProduct.seller">
 				<div
 					class="container container-option container-option-topPadding bottomline">
 					<div class="row optionGroup1">
@@ -368,7 +383,8 @@
 						<div class="col-4 search-input status-name-400">이영</div>
 					</div>
 				</div>
-				<input type="hidden" value="브랜드" name="brand_name">
+				<input type="hidden" value="500001" name="post_sellerid">
+				<input type="hidden" value="" name="post_id" id="post_id">
 				<div
 					class="container container-option container-option-topPadding bottomline">
 					<div class="row optionGroup1">
@@ -402,7 +418,6 @@
 										disabled="" aria-label="Default select example" onchange="changeSecondOption()">
 										<option selected>중분류</option>
 										
-
 									</select>
 								</div>
 								<div class="btn-group" role="group"
@@ -852,7 +867,7 @@
 							<div class="col-2 col-lg-2 status-name-600">판매가</div>
 							<div class="col-10 col-lg-6">
 								<div class="input-group">
-									<input type="text" name="represent_price" id="represent_price"
+									<input type="text" name="whole_price" id="represent_price"
 										class="product_input form-control input-custom"
 										placeholder="판매가" aria-label="whole_price"
 										aria-describedby="basic-addon2" /> 
@@ -887,7 +902,7 @@
 								<div class="col-6 mt-2">
 									<div class="input-group input-group-sm">
 										<input type="text" class="sale_percent_input form-control"
-											style="font-size: 11px" placeholder="할인율" name="sale_percent"
+											style="font-size: 11px" placeholder="할인율" name="sale_ratio"
 											aria-label="sale_ratio" aria-describedby="basic-addon2" />
 										<span class="input-group-text" id="basic-addon2"
 											style="font-size: 11px">%</span>
@@ -999,19 +1014,19 @@
 									<div class="col-6 vert_line">
 										<div class="form-check">
 											<input class="form-check-input" type="radio"
-												name="shipping_info" id="flexRadioDefault1" checked /> <label
+												name="shipping_info1" value="free" id="flexRadioDefault1" checked /> <label
 												class="form-check-label" for="flexRadioDefault1">
 												무료배송 </label>
 										</div>
 										<div class="form-check">
 											<input class="form-check-input" type="radio"
-												name="shipping_info" id="flexRadioDefault2" /> <label
+												name="shipping_info1" value="original" id="flexRadioDefault2" /> <label
 												class="form-check-label" for="flexRadioDefault2">
 												일반배송 </label>
 										</div>
 										<div class="form-check">
 											<input class="form-check-input" type="radio"
-												name="shipping_info" id="flexRadioDefault3" /> <label
+												name="shipping_info1" value="cargo" id="flexRadioDefault3" /> <label
 												class="form-check-label" for="flexRadioDefault3">
 												화물배송 </label>
 										</div>
@@ -1019,13 +1034,13 @@
 									<div class="col-6">
 										<div class="form-check">
 											<input class="form-check-input" type="radio"
-												name="shipping_info2" id="ship_package2_1" checked /> <label
+												name="shipping_info2" value="package" id="ship_package2_1" checked /> <label
 												class="form-check-label" for="ship_package2_1"> 묶음
 												배송 가능 </label>
 										</div>
 										<div class="form-check">
 											<input class="form-check-input" type="radio"
-												name="shipping_info2" id="ship_package2_2" /> <label
+												name="shipping_info2" value="not package" id="ship_package2_2" /> <label
 												class="form-check-label" for="ship_package2_2"> 묶음
 												배송 불가능 </label>
 										</div>
@@ -1054,7 +1069,7 @@
 
 				<div class="text-end mb-5">
 					<button class="btn btn-outline-secondary btn-size" type="reset">취소</button>
-					<button type="submit" class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
+					<button class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
 				</div>
 			</form>
 		</div>

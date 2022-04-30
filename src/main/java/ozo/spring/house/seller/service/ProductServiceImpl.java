@@ -19,4 +19,14 @@ public class ProductServiceImpl implements ProductService {
 		productDAO.insertProduct(vo);
 	}
 
+	@Override
+	public int insertPostIdAndGet(ProductVO vo) {
+		return productDAO.insertPostIdAndGet(vo);
+	}
+
+	@Override
+	public void updatePost(ProductVO vo) {
+		productDAO.updatePost(vo);
+	}
+
 }

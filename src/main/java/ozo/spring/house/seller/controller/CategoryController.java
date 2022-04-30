@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import ozo.spring.house.seller.service.CategoryService;
+import ozo.spring.house.seller.service.ProductService;
 import ozo.spring.house.seller.vo.CategoryVO;
 import ozo.spring.house.seller.vo.ProductVO;
 
@@ -22,6 +23,9 @@ public class CategoryController {
 	
 	@Autowired
 	CategoryService categoryService;
+	
+	@Autowired
+	ProductService productService;
 	
 	@RequestMapping(value = "/insertProductCate.seller", method=RequestMethod.GET)
 	public String test(CategoryVO vo, Model model) {
@@ -50,8 +54,10 @@ public class CategoryController {
 
 	// 상품등록시
 	@RequestMapping(value = "/putProduct.seller", method=RequestMethod.POST)
-	public String putProduct(ProductVO vo) {
-		
+	public String insertPost(ProductVO vo) {
+		System.out.println("update 전");
+		productService.updatePost(vo);
+		System.out.println("update 후");
 		return "index";
 	}
 

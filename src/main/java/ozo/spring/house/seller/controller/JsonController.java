@@ -42,10 +42,11 @@ public class JsonController {
 	
 	@ResponseBody
 	@RequestMapping(value="/insertProduct.seller", method=RequestMethod.POST)
-	public List<Map<String, String>> insertProduct(@RequestBody List<Map<String, String>> jsondata, ProductVO vo) {
+	public int insertProduct(@RequestBody List<Map<String, String>> jsondata, ProductVO vo) {
 		System.out.println(jsondata);
 		
-		//
+		int postingCode = productService.insertPostIdAndGet(vo);
+		System.out.println(postingCode);
 				
 		for(Map<String, String> jmap : jsondata) {
 			vo.setPro_catecode(Integer.parseInt(jmap.get("pro_catecode")));
@@ -58,12 +59,13 @@ public class JsonController {
 			vo.setOption2(jmap.get("option2"));
 			vo.setProduct_price(Integer.parseInt(jmap.get("product_price")));
 			vo.setProduct_quantity(Integer.parseInt(jmap.get("product_quantity")));
+			vo.setProduct_postid(postingCode);
 
 			productService.insertProduct(vo);
 		}
 
 
-		return jsondata;
+		return postingCode;
 	}
 	
 
