@@ -23,13 +23,22 @@
 <script type="text/javascript" src="resources/js/sellerjs/plus_photo.js"></script>
 <script>
       $(document).ready(function () {
+    	  
         $(".sale_price_layer").hide();
-
+        // 68%
         $(".sale_percent_input").keydown(function (key) {
           if (key.keyCode == 13) {
+        	var pri = $("#represent_price").val();
+        	var per = $(".sale_percent_input").val();
+        	var rper = 100 - per;
+        	var fpri = (pri/100*rper); // 할인된 금액
+        	var mi = pri - fpri; // 차액
+        	$(".sale_price").text(fpri + "원");
+        	$(".mi_saleprice").text("("+mi+"원 할인)");
             $(".sale_price_layer").show();
             event.preventDefault();
           } else if ($(".sale_percent_input").text() == "") {
+        	$(".sale_price").text("");
             $(".sale_price_layer").hide();
           }
         });
@@ -149,25 +158,38 @@
       	// 데이터모으기
 	    function gatherData(){
       		
-      		var colorList = []
+      		checkProduct();
       		
-      		// 체크박스 값 가져오기
+      		var colorList = []
+      		var woodtone = []
+      		var materials = []
+      		
+      		// color 체크박스 값 가져오기
       		$("input:checkbox[name=colorcheck]:checked").each(function(){
       			var checkit = $(this).val();
       			colorList.push(checkit);
       		});
       		
-      		console.log(colorList);
+      		// woodtone 체크박스 값 가져오기
+      		$("input:checkbox[name=woodtone]:checked").each(function(){
+      			var checkit = $(this).val();
+      			woodtone.push(checkit);
+      		});
       		
+      		// material 체크박스 값 가져오기
+      		$("input:checkbox[name=f_material]:checked").each(function(){
+      			var checkit = $(this).val();
+      			f_material.push(checkit);
+      		});
 
 			var option = {
 					"using_people" : $("#option_input").find("#using_people").val(),
 					"place" : $("#option_input").find("#place").val(),
 					"rental" : $("#option_input").find("#rental").val(),
 					"refurbish" : $("#option_input").find("#refurbish").val(),
-					"color" : colorList
-					
-					
+					"color" : colorList,
+					"woodtone" : woodtone,
+					"material" : materials
 				}
 			
 			console.log(JSON.stringify(option));
@@ -251,7 +273,7 @@
       			});
       		}
       	
-      	// option clone
+      	// 상품 clone
       	var pro_count = 0;
 
 		function option_plus(){
@@ -268,6 +290,46 @@
 		    pro_count++;
 
 		};
+		
+		// product check	
+		function checkProduct(){$
+			
+			var product_list = []
+			
+			for(var i=0; i<pro_count+1; i++){
+				
+				per_product = {
+						"pro_catecode" : $("#category").val(),
+						"pro_subcatecode" : $("#small-select").val(),
+						"option1_name" : $("#option1_name").val(),
+						"option2_name" : $("#option2_name").val(),
+						"seller_id" : 500001,
+						"product_title" : $("#product_wrap"+i+"").find("#product_title").val(),
+						"option1" : $("#product_wrap"+i+"").find("#option1").val(),
+						"option2" : $("#product_wrap"+i+"").find("#option2").val(),
+						"product_price" : $("#product_wrap"+i+"").find("#product_price").val(),
+						"product_quantity" : $("#product_wrap"+i+"").find("#product_quantity").val()
+				}
+
+				
+				product_list.push(per_product);
+				
+			}
+			
+			console.log(JSON.stringify(product_list));
+
+		  	$.ajax({
+		  		url:'insertProduct.seller',
+		  		method:'post',
+		  		data: JSON.stringify(product_list),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'json',
+		  		success : function(resp){}
+		  	});
+			
+		}
+		
+
 
       	
 	
@@ -670,34 +732,34 @@
 							<div class="color_option row bottomline2" style="padding-bottom:0.7rem;">
 									<div class="col-2 option_title verti" style="font-size: 13px">첫번째 옵션</div>
 									<div class="col-4 color_options" style="border-right: 1px solid #dbdbdb;">
-										<input type="text" class="form-control option_name_input" name="option1_name"
+										<input type="text" class="form-control option_name_input" id="option1_name" name="option1_name"
 										placeholder="옵션명 ex.색상" />
 									</div>
 									<div class="col-2 option_title verti" style="font-size: 13px">두번째 옵션</div>
 									<div class="col-4 color_options">
-										<input type="text" class="form-control option_name_input" name="option2_name" placeholder="옵션명 ex.사이즈" />
+										<input type="text" class="form-control option_name_input" id="option2_name" name="option2_name" placeholder="옵션명 ex.사이즈" />
 									</div>
 							</div>
 							<div class="plus-layer">
 								<div id="product_plus" class="color_option mt-3 row" style="width: 100%;">
 										<div id="product_plus_count" class="col-2 option_title" style="font-size: 13px">상품</div>
-										<div class="col-10 color_options row product_wrap">
-											<input type="text" class="form-control option_name_input" style="width:300px" name="product_title"
+										<div class="col-10 color_options row product_wrap" id="product_wrap0">
+											<input type="text" class="form-control option_name_input" style="width:300px" id="product_title" name="product_title"
 											placeholder="상품명" />
 											<div class="pro_option_flex row">
 												<p class="col-2">첫번째 옵션 값</p>
-												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" name="option1"
+												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" id="option1" name="option1"
 												placeholder="ex. 바이올렛" />
 												<p class="col-2">두번째 옵션 값</p>
-												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" name="option2"
+												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" id="option2" name="option2"
 												placeholder="ex. SS" />
 											</div>
 											<div class="pro_option_flex row">
 												<p class="col-2">가격</p>
-												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" name="product_price"
+												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" id="product_price" name="product_price"
 												placeholder="(원)" />
 												<p class="col-2">수량</p>
-												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" name="product_quantity"
+												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" id="product_quantity" name="product_quantity"
 												placeholder="(개)" />
 											</div>
 										</div>
@@ -718,65 +780,65 @@
 									<th scope="row" style="width: 5%">1</th>
 									<td style="width: 35%">품명</td>
 									<td style="width: 60%"><input
-										class="form-control input-custom" name="table-productTitle"/></td>
+										class="form-control input-custom" name="table-productTitle" id="table-productTitle"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">2</th>
 									<td>KC 인증 필 유무</td>
-									<td><input class="form-control input-custom" name="table-kc"/></td>
+									<td><input class="form-control input-custom" name="table-kc" id="table-kc"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">3</th>
 									<td>색상</td>
 									<td><input class="form-control input-custom"
-										placeholder="상단에 선택한 option값을 적어주세요." name="table-color"/></td>
+										placeholder="상단에 선택한 option값을 적어주세요." name="table-color" id="table-color"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">4</th>
 									<td>구성품</td>
 									<td><input class="form-control input-custom"
-										placeholder="ex.상세페이지 참조" name="table-component"/></td>
+										placeholder="ex.상세페이지 참조" name="table-component" id="table-component"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">5</th>
 									<td>주요 소재</td>
 									<td><input class="form-control input-custom"
-										placeholder="ex.상세페이지 참조" name="table-material"/></td>
+										placeholder="ex.상세페이지 참조" name="table-material" id="table-material"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">6</th>
 									<td>제조사,수입품의 경우 수입자를 함께 표시</td>
 									<td><input class="form-control input-custom"
-										placeholder="ex.상세페이지 참조" name="table-manufacturer"/></td>
+										placeholder="ex.상세페이지 참조" name="table-manufacturer" id="table-manufacturer"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">7</th>
 									<td>제조국</td>
 									<td><input class="form-control input-custom"
-										placeholder="ex.한국" name="table-country"/></td>
+										placeholder="ex.한국" name="table-country" id="table-country"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">8</th>
 									<td>크기</td>
 									<td><input class="form-control input-custom"
-										placeholder="ex.상세페이지 참조" name="table-size"/></td>
+										placeholder="ex.상세페이지 참조" name="table-size" id="table-size"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">9</th>
 									<td>배송, 설치비용</td>
 									<td><input class="form-control input-custom"
-										placeholder="ex.상세페이지 참조" name="table-delivery" /></td>
+										placeholder="ex.상세페이지 참조" name="table-delivery" id="table-delivery"/></td>
 								</tr>
 								<tr class="verticalAlignCenter">
 									<th scope="row">10</th>
 									<td>품질보증기준</td>
 									<td><input class="form-control input-custom"
-										placeholder="ex.상세페이지 참조" name="table-qa"/></td>
+										placeholder="ex.상세페이지 참조" name="table-qa" id="table-qa"/></td>
 								</tr>
 								<tr class="verticalAlignCenter notBorder">
 									<th scope="row">11</th>
 									<td>A/S 책임자와 전화번호</td>
-									<td><input class="form-control input-custom" name="table-cstel"/></td>
+									<td><input class="form-control input-custom" name="table-cstel" id="table-cstel"/></td>
 								</tr>
 							</tbody>
 						</table>
@@ -790,11 +852,11 @@
 							<div class="col-2 col-lg-2 status-name-600">판매가</div>
 							<div class="col-10 col-lg-6">
 								<div class="input-group">
-									<input type="text"
+									<input type="text" name="represent_price" id="represent_price"
 										class="product_input form-control input-custom"
 										placeholder="판매가" aria-label="whole_price"
-										aria-describedby="basic-addon2" /> <span
-										class="input-group-text input-custom" id="basic-addon2">원</span>
+										aria-describedby="basic-addon2" /> 
+									<span class="input-group-text input-custom" id="basic-addon2">원</span>
 								</div>
 								<div class="mt-3 mb-2">
 									<span class="price_sub_title">* 오조의집 쇼핑을 통한 주문일 경우 오조의집
@@ -825,7 +887,7 @@
 								<div class="col-6 mt-2">
 									<div class="input-group input-group-sm">
 										<input type="text" class="sale_percent_input form-control"
-											style="font-size: 11px" placeholder="할인율"
+											style="font-size: 11px" placeholder="할인율" name="sale_percent"
 											aria-label="sale_ratio" aria-describedby="basic-addon2" />
 										<span class="input-group-text" id="basic-addon2"
 											style="font-size: 11px">%</span>
@@ -834,10 +896,11 @@
 								
 								<!--enter event 가격 받아서 계산하기-->
 								<div class="sale_price_layer mt-4">
-									<span style="font-size: 12px">할인가</span> <span
-										class="sale_price">15,300원
-										<span style="font-size: 12px">(2,700원할인)</span>
-									</span>
+									<span style="font-size: 12px">할인가</span> 
+									<div>
+										<span class="sale_price">15,300원</span>
+										<span class="mi_saleprice" style="font-size: 12px">(2,700원할인)</span>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -915,7 +978,7 @@
 					<div class="card-header card-header-text">상세설명</div>
 					<div class="card-body">
 						<div class="form-floating">
-							<textarea class="form-control write-textarea"
+							<textarea class="form-control write-textarea" name="post_content"
 								placeholder="Leave a comment here" id="floatingTextarea"
 								style="height: 10rem"></textarea>
 							<label for="floatingTextarea"
@@ -936,19 +999,19 @@
 									<div class="col-6 vert_line">
 										<div class="form-check">
 											<input class="form-check-input" type="radio"
-												name="ship_package1" id="flexRadioDefault1" checked /> <label
+												name="shipping_info" id="flexRadioDefault1" checked /> <label
 												class="form-check-label" for="flexRadioDefault1">
 												무료배송 </label>
 										</div>
 										<div class="form-check">
 											<input class="form-check-input" type="radio"
-												name="ship_package1" id="flexRadioDefault2" /> <label
+												name="shipping_info" id="flexRadioDefault2" /> <label
 												class="form-check-label" for="flexRadioDefault2">
 												일반배송 </label>
 										</div>
 										<div class="form-check">
 											<input class="form-check-input" type="radio"
-												name="ship_package1" id="flexRadioDefault3" /> <label
+												name="shipping_info" id="flexRadioDefault3" /> <label
 												class="form-check-label" for="flexRadioDefault3">
 												화물배송 </label>
 										</div>
@@ -956,13 +1019,13 @@
 									<div class="col-6">
 										<div class="form-check">
 											<input class="form-check-input" type="radio"
-												name="ship_package2" id="ship_package2_1" checked /> <label
+												name="shipping_info2" id="ship_package2_1" checked /> <label
 												class="form-check-label" for="ship_package2_1"> 묶음
 												배송 가능 </label>
 										</div>
 										<div class="form-check">
 											<input class="form-check-input" type="radio"
-												name="ship_package2" id="ship_package2_2" /> <label
+												name="shipping_info2" id="ship_package2_2" /> <label
 												class="form-check-label" for="ship_package2_2"> 묶음
 												배송 불가능 </label>
 										</div>
@@ -976,7 +1039,7 @@
 							<div class="card-header card-header-text">반품,교환</div>
 							<div class="card-body">
 								<div class="form-floating">
-									<textarea class="form-control write-textarea"
+									<textarea class="form-control write-textarea" name="refund_content"
 										placeholder="Leave a comment here" id="floatingTextarea"></textarea>
 									<label for="floatingTextarea"
 										style="color: #828282; font-size: 11px">: 반품 정책 상세 설명</label>

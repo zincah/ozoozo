@@ -52,8 +52,6 @@ public class CategoryController {
 	@RequestMapping(value = "/putProduct.seller", method=RequestMethod.POST)
 	public String putProduct(ProductVO vo) {
 		
-		System.out.println(vo.getPost_name());
-		
 		return "index";
 	}
 

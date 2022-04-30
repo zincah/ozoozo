@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ 
+<mapper namespace="ProductDAO">
+
+	<!-- selectkey 찾아보기 -->
+
+	<!-- product insert -->
+	<insert id="insertProduct" parameterType="product">
+		INSERT INTO product(product_id, seller_id, product_title, pro_catecode, pro_subcatecode, product_price, product_quantity) VALUES 
+		((SELECT COALESCE(MAX(product_id), 1000)+1 FROM product), #{seller_id}, #{product_title}, #{pro_catecode}, #{pro_subcatecode}, #{product_price}, #{product_quantity})
+	</insert>
+	
+	<!-- insert product_posting -->
+	<insert id="insertPostId" parameterType="product">
+		insert into product_posting (post_id) values ((SELECT COALESCE(MAX(post_id), 50000)+1 from product_posting));
+	</insert>
+	
+	<!-- option insert -->
+	<insert id="insertOption" parameterType="product">
+		INSERT INTO product_option(op_productid, option1_name, option1, option2_name, option2) VALUES 
+		((SELECT MAX(product_id) FROM product), #{option1_name}, #{option1}, #{option2_name}, #{option2})
+	</insert>
+	
+	<!-- product detail insert -->
+	
+	
+	<!-- product posting insert -->
+	<insert id="insertPosting" parameterType="product">
+	</insert>
+
+
+
+	
+
+</mapper>

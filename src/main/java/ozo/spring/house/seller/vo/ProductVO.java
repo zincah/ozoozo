@@ -33,10 +33,14 @@ public class ProductVO {
 	private String post_name;
 	private int sale_ratio;
 	private int whole_price;
+	private String post_content;
+	private String shipping_info1;
+	private String shipping_info2;
+	private String refund_content;
 	
 	// option table
 	private int option_id;
-	// product_id 
+	private int op_productid;
 	private String option1_name;
 	private String option1;
 	private String option2_name;
