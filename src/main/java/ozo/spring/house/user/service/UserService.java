@@ -7,4 +7,5 @@ public interface UserService {
 	public Boolean Duplicate_Check_Email(UserVO vo);
 	public void insertUser(UserVO vo);
 	public UserVO checkUser(UserVO vo);
+	public UserVO change_pass(UserVO vo);
 }

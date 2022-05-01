@@ -25,5 +25,8 @@
 	<select id="Duplicate_Check_Nickname" resultType="user">
 		SELECT nickname FROM user_table WHERE nickname = #{nickname}
 	</select>
-
+	<!-- 비밀번호 변경 -->
+	<select id="change_pass" resultType="user">
+		UPDATE user_table SET user_pw = #{user_pw} WHERE user_email = #{user_email}
+	</select>
 </mapper>

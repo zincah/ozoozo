@@ -1,6 +1,7 @@
 package ozo.spring.house.user.controller;
 
 import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class UserInfoController {
 	// login
 		@RequestMapping(value = "/login.com", method=RequestMethod.GET)
 		public String loginView(HttpSession session) {
-			if(session.getAttribute("usercode")!=null) {
+			if(session.getAttribute("Usercode")!=null) {
 				return "ozomain_zinc";
 			}else {
 				return "ozoLogin_zinc";
@@ -105,6 +106,18 @@ public class UserInfoController {
 			return userService.Duplicate_Check_Nickname(vo);
 		}
 		
-	
+		@ResponseBody
+		@RequestMapping(value = "/userPassword_change.com", method=RequestMethod.POST)
+		public String changePassword(@RequestParam("change_pass") String change_pass, UserVO vo, HttpSession session) {
+			String pass = change_pass.replace("\"", "");
+			System.out.println("바꾸고자 하는 비밀번호 : "+ pass +"\n");
+			String email = (String) session.getAttribute("Usercode");
+			System.out.println(email);
+			vo.setUser_pw(pass);
+			vo.setUser_email(email);
+			userService.change_pass(vo);
+			return "redirect:mypage.com";
+		}
+		
 
 }

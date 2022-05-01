@@ -65,5 +65,9 @@ public class UserDAO {
 			return false;
 		}
 	}
-	
+	public void change_pass(UserVO vo) {
+		System.out.println("[LOGO] : Mybatis in UserDAO change_pass");
+		sqlSessionTemplate.update("UserDAO.change_pass", vo);
+		System.out.println("비밀번호 변경 성공");
+	}
 }

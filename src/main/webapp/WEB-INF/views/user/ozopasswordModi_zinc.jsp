@@ -61,7 +61,7 @@
                 비밀번호 변경
             </div>
 
-            <form>
+            <form action="userPassword_change.com" method="post">
                 <div class="update_password_section">
                     <div class="update_password_section_title">
                         새 비밀번호
@@ -71,7 +71,7 @@
                     </div>
                     <div class="input_group">
                         <div class="input_group_form">
-                            <input id="pass_check" type="password" class="form_control">
+                            <input id="pass_check" type="password" class="form_control" name="change_pass">
                         </div>
                         <div class="expert-form-group__error error_first" id="error1">
                             <svg width="20" height="20" viewBox="0 0 20 20" preserveAspectRatio="xMidYMid meet"><circle cx="10" cy="10" r="10" fill="#F77"></circle><path fill="#FFF" d="M9.42 11.98l-.25-4.43-.06-1.67h1.78l-.06 1.67-.25 4.43H9.42zm.58 3.19c-.62 0-1.1-.5-1.1-1.15 0-.65.48-1.16 1.1-1.16.62 0 1.1.5 1.1 1.16 0 .64-.48 1.15-1.1 1.15z"></path></svg>
@@ -87,7 +87,7 @@
                     </div>
                     <div class="input_group">
                         <div class="input_group_form">
-                            <input type="password" class="form_control" id="repass_check">
+                            <input type="password" class="form_control" id="repass_check" name="change_repass">
                         </div>
                         <div class="expert-form-group__error error_second" id="error2">
                             <svg width="20" height="20" viewBox="0 0 20 20" preserveAspectRatio="xMidYMid meet"><circle cx="10" cy="10" r="10" fill="#F77"></circle><path fill="#FFF" d="M9.42 11.98l-.25-4.43-.06-1.67h1.78l-.06 1.67-.25 4.43H9.42zm.58 3.19c-.62 0-1.1-.5-1.1-1.15 0-.65.48-1.16 1.1-1.16.62 0 1.1.5 1.1 1.16 0 .64-.48 1.15-1.1 1.15z"></path></svg>

@@ -37,4 +37,10 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return userDAO.Duplicate_Check_Nickname(vo);
 	}
+
+	@Override
+	public UserVO change_pass(UserVO vo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
