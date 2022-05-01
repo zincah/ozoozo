@@ -1,6 +1,8 @@
 package ozo.spring.house.user.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -83,8 +85,12 @@ public class UserController {
 	//-	비밀번호 변경
 	
 	@RequestMapping(value = "/password_m.com")
-	public String user_P_M() {
-		return "ozopasswordModi_zinc";
+	public String user_P_M(HttpSession session) {
+		if(session.getAttribute("Usercode")!=null) {
+			return "ozopasswordModi_zinc";
+		}else {
+			return "ozoLogin_zinc";
+		}
 	}
 	//-회원정보 변경
 	@RequestMapping(value = "/edit.com")

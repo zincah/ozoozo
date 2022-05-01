@@ -8,7 +8,6 @@
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/DivSignUp.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/block.css?var=1'>
     <link rel="stylesheet" href="resources/css/admincss/fonts.css?var=1">
-    <script src='main.js'></script>
     <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
   
   	<script>
@@ -41,11 +40,15 @@
   		  		success : function(resp){
   		  		}
   		  	})
-  		  	
-  		  	var min = 3;
+  		  	timer();
+  		  	alert("이메일을 발송하였습니다. 발송된 코드를 적어주세요.");
+  		}
+  		var time = null;
+  		function timer(){
+  			var min = 3;
   			var second = 0;
   		  	clearInterval(time);
-  		  	var time = setInterval(function() {
+  		  	time = setInterval(function() {
   		  		if (second < 10){
   		  		$(".eqepphp2").text(min + ":0"+ second);
   		  		}else{
@@ -63,8 +66,7 @@
   		  		}
   		  		second--;
   		  	},1000);
-  		  	alert("이메일을 발송하였습니다. 발송된 코드를 적어주세요.");
-  		}  	
+  		}
   		
   		function codeCheck(){
   			if($(".eqepphp3").val().length > 0 ){
