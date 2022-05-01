@@ -1,6 +1,7 @@
 package ozo.spring.house.seller.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,10 +24,22 @@ public class JsonController {
 	
 	private int postingCode;
 	
+	// detail 내용 전달받는 부분
 	@ResponseBody
 	@RequestMapping(value="/getJson.seller", method=RequestMethod.POST)
-	public String getJson(@RequestBody String jsondata) {
+	public List<Map<String, Object>> getJson(@RequestBody List<Map<String, Object>> jsondata, ProductVO vo) {
 		System.out.println(jsondata);
+		
+		List<String> change = new ArrayList<String>();
+
+		for(Map<String, Object> jmap : jsondata) {
+			change.add(jmap.toString());
+		}
+		
+		vo.setDetail_content(change.get(0));
+		vo.setDetail_table(change.get(1));
+		
+		productService.insertDetail(vo);
 		return jsondata;
 	}
 	

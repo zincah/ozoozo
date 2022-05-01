@@ -33,6 +33,12 @@ public class ProductDAO {
 		System.out.println("--> mybatis in productDAO post update");
 		sqlSessionTemplate.update("ProductDAO.updatePost", vo);
 	}
+	
+	public void insertDetail(ProductVO vo) {
+		vo.setProdetail_postid(sqlSessionTemplate.selectOne("ProductDAO.selectPostIdOne", vo));
+		System.out.println("--> mybatis in productDAO detail insert");
+		sqlSessionTemplate.insert("ProductDAO.insertDetail", vo);
+	}
 
 
 }

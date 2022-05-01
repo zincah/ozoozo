@@ -19,8 +19,8 @@
 <link href="resources/css/sellercss/insertProduct.css?var=12" rel="stylesheet" />
 <jsp:include page="header/headerModalView.jsp"></jsp:include>
 <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="resources/js/sellerjs/plus_photo.js?var=1"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="resources/js/sellerjs/plus_photo.js"></script>
 <script>
       $(document).ready(function () {
     	  
@@ -154,15 +154,19 @@
         $(".image-show").show();
         
       }
-      
+
+      /*
       	// 데이터모으기
 	    function gatherData(){
       		
       		checkProduct();
+      		photoUpload();
       		
       		var colorList = []
       		var woodtone = []
       		var materials = []
+      		
+      		var jsonmove = []
       		
       		// color 체크박스 값 가져오기
       		$("input:checkbox[name=colorcheck]:checked").each(function(){
@@ -179,11 +183,10 @@
       		// material 체크박스 값 가져오기
       		$("input:checkbox[name=f_material]:checked").each(function(){
       			var checkit = $(this).val();
-      			f_material.push(checkit);
+      			materials.push(checkit);
       		});
 
 			var option = {
-					"post_id" : $("#post_id").val(),
 					"using_people" : $("#option_input").find("#using_people").val(),
 					"place" : $("#option_input").find("#place").val(),
 					"rental" : $("#option_input").find("#rental").val(),
@@ -193,24 +196,41 @@
 					"material" : materials
 				}
 			
-			console.log(JSON.stringify(option));
+			var table = {
+					"table-productTitle" : $("#table-productTitle").val(),
+					"table-kc" : $("#table-kc").val(),
+					"table-color" : $("#table-color").val(),
+					"table-component" : $("#table-component").val(),
+					"table-material" : $("#table-material").val(),
+					"table-manufacturer" : $("#table-manufacturer").val(),
+					"table-country" : $("#table-country").val(),
+					"table-size" : $("#table-size").val(),
+					"table-delivery" : $("#table-delivery").val(),
+					"table-qa" : $("#table-qa").val(),
+					"table-cstel" : $("#table-cstel").val()
+			}
+
+			jsonmove.push(option);
+			jsonmove.push(table)
+			
+			console.log(JSON.stringify(jsonmove));
 
 			// ajax로 데이터 넘기기
 		  	$.ajax({
 	  		url:'getJson.seller',
 	  		method:'post',
-	  		data: JSON.stringify(option),
+	  		data: JSON.stringify(jsonmove),
 	  		contentType : 'application/json; charset=UTF-8',
 	  		dataType : 'json',
+	  		async: false,
 	  		success : function(resp){
 
 	  			
 	  			}
 	  		});
-			
-		  	
 
 	    }
+      */
       	
       	// category 뽑기
       	function changeFirstOption(){
@@ -260,7 +280,7 @@
 		  		contentType : 'application/json; charset=UTF-8',
 		  		dataType : 'json',
 		  		success : function(resp){
-		  			$("#small-select").html("<option selected>소분류</option>");
+		  			$("#small-select").html("<option selected value=''>소분류</option>");
 		  			$("#small-select").removeAttr("disabled");
 		  			
 		  			console.log(resp);
@@ -297,16 +317,29 @@
 
 		};
 		
+
+    	
+
+    		
+		/*
 		// product check	
-		function checkProduct(){$
+		function checkProduct(){
 			
 			var product_list = []
+		
+			if($("#small-select").val()==""){
+				var subcate = $("#middle-select").val();
+				console.log(subcate);
+			}else{
+				var subcate = $("#small-select").val();
+				console.log(subcate);
+			}
 			
 			for(var i=0; i<pro_count+1; i++){
 				
 				per_product = {
 						"pro_catecode" : $("#category").val(),
-						"pro_subcatecode" : $("#small-select").val(),
+						"pro_subcatecode" : subcate,
 						"option1_name" : $("#option1_name").val(),
 						"option2_name" : $("#option2_name").val(),
 						"seller_id" : 500001,
@@ -339,10 +372,58 @@
 		  			alert("form전송");
 		  			$("form").submit();
 		  			
+		  		},
+		  		error : function(request,status,error){
+		  			alert("code:"+request.status+"\nmessage:" + request.responseTest+"\nerror:"+error);
 		  		}
+		  		
 		  	});
 			
+		}*/
+		
+		// 사진업로드 기능
+		function photoUpload(){
+			
+			var formData = new FormData();
+			
+			var fileInput = $(".thisisfile");
+			
+			for (var i = 0; i < fileInput.length; i++) {
+				if (fileInput[i].files.length > 0) {
+					for (var j = 0; j < fileInput[i].files.length; j++) {
+						console.log(" fileInput[i].files[j] :::"+ fileInput[i].files[j]);
+						
+						// formData에 'file'이라는 키값으로 fileInput 값을 append 시킨다.  
+						formData.append('file', $('.thisisfile')[i].files[j]);
+					}
+				}
+			}
+			
+
+			
+			$.ajax({
+			      url: 'uploadPhotos.seller',
+			      method:'post',
+			      data: formData,
+			      contentType: false,             
+			      processData: false,              
+			      async: false, 
+			      success: function(resp) {
+					alert("성공!");
+					console.log(resp);
+			      },
+			      error: function(jqXHR){
+			    	  alert(jqXHR.responseText);
+			      }
+			});
+			
+			
+		
 		}
+			
+			
+			
+		
 		
 
 
@@ -384,7 +465,7 @@
 					</div>
 				</div>
 				<input type="hidden" value="500001" name="post_sellerid">
-				<input type="hidden" value="" name="post_id" id="post_id">
+				<input type="hidden" value="0" name="post_id" id="post_id">
 				<div
 					class="container container-option container-option-topPadding bottomline">
 					<div class="row optionGroup1">
@@ -424,7 +505,7 @@
 									aria-label="Basic radio toggle button group">
 									<select class="form-select selectState" id="small-select" name="subcate_code"
 										disabled="" aria-label="Default select example">
-										<option selected>소분류</option>
+										<option selected value="">소분류</option>
 										<div id="bot-layer"></div>
 									</select>
 								</div>
@@ -462,7 +543,7 @@
 										aria-label="Basic radio toggle button group">
 										<select class="form-select selectState" id="place" name="place"
 											aria-label="Default select example">
-											<option selected>사용공간</option>
+											<option selected value="">사용공간</option>
 											<option value="living room">거실</option>
 											<option value="bed room">침실</option>
 											<option value="kitchen">주방</option>
@@ -475,7 +556,7 @@
 										aria-label="Basic radio toggle button group">
 										<select class="form-select selectState" id="rental" name="rental"
 											aria-label="Default select example">
-											<option selected>상품유형</option>
+											<option selected value="">상품유형</option>
 											<option value="y">렌탈상품</option>
 											<option value="n">렌탈상품 x</option>
 										</select>
@@ -484,7 +565,7 @@
 										aria-label="Basic radio toggle button group">
 										<select class="form-select selectState" name="refurbish" id="refurbish"
 											aria-label="Default select example">
-											<option selected>리퍼상품 유무</option>
+											<option selected value="">리퍼상품 유무</option>
 											<option value="y">리퍼상품</option>
 											<option value="n">리퍼상품 x</option>
 										</select>
@@ -964,13 +1045,13 @@
 								</div>
 							</div>
 						</div>
+						
 						<!-- 상품 상세 이미지-->
 						<div class="mt-3">
 							<div class="detail_img_header">
 								<p style="font-size: 12px">[상세이미지] 권장크기 : 1000 x 1000(윈도 대상
 									750 x 1000) *최대 10개까지만 가능합니다.</p>
-								<button type="button" class="btn btn-custom"
-									onclick="plus_list()">
+								<button type="button" class="btn btn-custom" onclick="plus_list()">
 									<i class="fa-solid fa-plus"></i> 이미지 추가
 								</button>
 							</div>
@@ -982,7 +1063,9 @@
 											<td class="option-line" style="width: 20%">처리</td>
 										</tr>
 									</thead>
-									<tbody id="table-content-plus" class="table_body_style"></tbody>
+									<tbody class="table_body_style" id="table-content-plus">
+
+									</tbody>
 								</table>
 							</div>
 						</div>
@@ -1069,7 +1152,7 @@
 
 				<div class="text-end mb-5">
 					<button class="btn btn-outline-secondary btn-size" type="reset">취소</button>
-					<button class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
+					<button type="button" class="btn btn-secondary btn-size" onclick="photoUpload()">등록하기</button>
 				</div>
 			</form>
 		</div>

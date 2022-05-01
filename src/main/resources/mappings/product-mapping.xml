@@ -30,6 +30,10 @@
 	</insert>
 	
 	<!-- product detail insert -->
+	<insert id="insertDetail" parameterType="product">
+		INSERT INTO product_detail values 
+		((SELECT COALESCE(MAX(detail_id), 0)+1 FROM product_detail), #{detail_content}, #{detail_table}, #{prodetail_postid})
+	</insert>
 	
 	
 	<!-- product posting insert -->

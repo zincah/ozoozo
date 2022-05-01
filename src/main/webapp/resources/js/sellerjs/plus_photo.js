@@ -12,7 +12,8 @@ function plus_list(){
     
     '<tr class="content-table-content countcheck" id="detail_list'+list_count+'">\
         <td class="content-table-content-text option-line" id="fileName'+list_count+'">\
-            <input type="file" name="detail-img'+list_count+'" id="detail-img'+list_count+'" style="display: none;" onchange="photo_name'+list_count+'(this)" multiple="multiple">\
+        	<span></span>\
+            <input type="file" class="thisisfile" name="detail-img'+list_count+'" id="detail-img'+list_count+'" style="display: none;">\
         </td>\
         <td class="content-table-content-text option-line">\
             <button type="button" class="btn btn-custom" id="detail-file-del-btn'+list_count+'" onclick="detail_file_del'+list_count+'()">삭제</button>\
@@ -24,11 +25,14 @@ function plus_list(){
         var upload_value = $("#detail-img'+list_count+'");\
         $("#detail-img'+list_count+'").click();\
     }\
-    function photo_name'+list_count+'(input){\
+    $("#detail-img'+list_count+'").on("change",(e)=>{photo_name(e.target)});\
+    function photo_name(input){\
+    	var classname = $(input).parent();\
+    	console.log(classname);\
         var name = input.value;\
         var names = name.split("\\\\");\
         var trueName = names[names.length-1];\
-        document.getElementById("fileName'+list_count+'").textContent = trueName;\
+        classname.find("span").text(trueName);\
     }\
     function detail_file_del'+list_count+'(){\
         $("tr").remove("#detail_list'+list_count+'");\

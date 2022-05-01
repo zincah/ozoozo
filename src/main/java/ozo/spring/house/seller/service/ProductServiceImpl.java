@@ -29,4 +29,9 @@ public class ProductServiceImpl implements ProductService {
 		productDAO.updatePost(vo);
 	}
 
+	@Override
+	public void insertDetail(ProductVO vo) {
+		productDAO.insertDetail(vo);
+	}
+
 }

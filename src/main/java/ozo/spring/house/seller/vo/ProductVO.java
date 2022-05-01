@@ -47,6 +47,12 @@ public class ProductVO {
 	private String option2_name;
 	private String option2;
 	
+	// product_detail
+	private int detail_id;
+	private String detail_content;
+	private String detail_table;
+	private int prodetail_postid;
+	
 	
 
 }
