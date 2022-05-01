@@ -116,7 +116,7 @@
 		<!-- 주문상세 Modal -->
 		<div class="modal fade" id="modal-view" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-shopinfo">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">쇼핑몰 정보</h5>
@@ -142,7 +142,7 @@
 									<div class="row optionGroup1">
 										<div class="col-3 view-title">주소</div>
 										<div class="col">
-											[${seller.getRegistration_num()}]
+											[우편번호 들어가는곳]
 											${seller.getAddress()}</div>
 									</div>
 								</div>
@@ -164,6 +164,8 @@
 									<div class="row optionGroup1">
 										<div class="col-3 view-title">입점일</div>
 										<div class="col">${entrydate}</div>
+										<div class="col-3 view-title-last">사업자등록번호</div>
+										<div class="col">${seller.getRegistration_num()}</div>
 									</div>
 								</div>
 							</div>
