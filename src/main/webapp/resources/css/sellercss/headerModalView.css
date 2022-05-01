@@ -13,7 +13,7 @@
 }
 
 @media ( min-width : 576px) {
-	.modal-dialog {
+	.modal-dialog-shopinfo {
 		max-width: 650px;
 		margin: 1.75rem auto;
 	}
