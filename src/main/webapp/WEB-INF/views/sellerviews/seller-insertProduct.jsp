@@ -155,7 +155,7 @@
         
       }
 
-      /*
+      
       	// 데이터모으기
 	    function gatherData(){
       		
@@ -230,7 +230,7 @@
 	  		});
 
 	    }
-      */
+      
       	
       	// category 뽑기
       	function changeFirstOption(){
@@ -316,12 +316,7 @@
 		    pro_count++;
 
 		};
-		
 
-    	
-
-    		
-		/*
 		// product check	
 		function checkProduct(){
 			
@@ -379,7 +374,7 @@
 		  		
 		  	});
 			
-		}*/
+		}
 		
 		// 사진업로드 기능
 		function photoUpload(){
@@ -1152,7 +1147,7 @@
 
 				<div class="text-end mb-5">
 					<button class="btn btn-outline-secondary btn-size" type="reset">취소</button>
-					<button type="button" class="btn btn-secondary btn-size" onclick="photoUpload()">등록하기</button>
+					<button class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
 				</div>
 			</form>
 		</div>

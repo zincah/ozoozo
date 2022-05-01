@@ -4,6 +4,8 @@
 
 # aws
 awss3.properties
+email.properties
+awsdb.properties
 
 
 ### Eclipse ###

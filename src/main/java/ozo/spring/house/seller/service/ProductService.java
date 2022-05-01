@@ -8,4 +8,5 @@ public interface ProductService {
 	public void insertProduct(ProductVO vo);
 	public void updatePost(ProductVO vo);
 	public void insertDetail(ProductVO vo);
+	public void insertPhoto(ProductVO vo);
 }

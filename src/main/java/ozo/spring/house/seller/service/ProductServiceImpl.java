@@ -34,4 +34,9 @@ public class ProductServiceImpl implements ProductService {
 		productDAO.insertDetail(vo);
 	}
 
+	@Override
+	public void insertPhoto(ProductVO vo) {
+		productDAO.insertPhoto(vo);
+	}
+
 }

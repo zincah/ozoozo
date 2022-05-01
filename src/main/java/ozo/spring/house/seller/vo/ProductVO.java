@@ -53,6 +53,14 @@ public class ProductVO {
 	private String detail_table;
 	private int prodetail_postid;
 	
+	// product_photo
+	private int photo_id;
+	private String photo_url;
+	private Timestamp photo_uploaddate;
+	private int photo_seq;
+	private boolean photo_separate;
+	private int photo_postid;
+	
 	
 
 }

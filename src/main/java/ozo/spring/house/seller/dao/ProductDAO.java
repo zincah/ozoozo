@@ -39,6 +39,12 @@ public class ProductDAO {
 		System.out.println("--> mybatis in productDAO detail insert");
 		sqlSessionTemplate.insert("ProductDAO.insertDetail", vo);
 	}
+	
+	public void insertPhoto(ProductVO vo) {
+		vo.setPhoto_postid(sqlSessionTemplate.selectOne("ProductDAO.selectPostIdOne", vo));
+		System.out.println("--> mybatis in productDAO photo insert");
+		sqlSessionTemplate.insert("ProductDAO.insertPhoto", vo);
+	}
 
 
 }

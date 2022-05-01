@@ -2,6 +2,7 @@ package ozo.spring.house.seller.service;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -39,6 +40,9 @@ public class AwsS3 {
 	
 	@Value("${bucket_name}")
 	private String bucket;
+	
+	@Value("${uploadurl}")
+	private String uploadUrl;
 
 	
 	//aws s3 client 생성
@@ -57,12 +61,18 @@ public class AwsS3 {
 	}
 	
 	// multipartfile 사용할 경우
-	public void upload(InputStream is, String key, String contentType, long contentLength) {
+	public String upload(InputStream is, String key, String contentType, long contentLength, String dirName) {
+		
+		String fileName = dirName + "/" + UUID.randomUUID() + key;
+		String wholeurl = uploadUrl + fileName;
+		
 		ObjectMetadata objectMetadata = new ObjectMetadata();
 		objectMetadata.setContentType(contentType);
 		objectMetadata.setContentLength(contentLength);
 		
-		uploadToS3(new PutObjectRequest(this.bucket, key, is, objectMetadata));
+		uploadToS3(new PutObjectRequest(this.bucket, fileName, is, objectMetadata));
+
+		return wholeurl;
 	}
 	
 	private void uploadToS3(PutObjectRequest putObjectRequest) {
