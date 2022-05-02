@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ozo.spring.house.seller.dao.ProductDAO;
 import ozo.spring.house.seller.vo.ProductVO;
+import ozo.spring.house.seller.vo.SellerVO;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
@@ -37,6 +38,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void insertPhoto(ProductVO vo) {
 		productDAO.insertPhoto(vo);
+	}
+	
+	@Override
+	public List<ProductVO> selectProduct(SellerVO vo) {
+		return productDAO.selectProduct(vo);
 	}
 
 }

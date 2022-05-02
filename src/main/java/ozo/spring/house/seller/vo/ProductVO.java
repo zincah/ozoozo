@@ -25,6 +25,12 @@ public class ProductVO {
 	private int product_quantity;
 	private int product_postid; //postid¿Í ¿¬°á
 	
+	// product_status table
+	private int status_id;
+	private int st_product_id;
+	private String status;
+	private boolean product_del;
+	
 	// product_posting table
 	private int post_id;
 	private boolean today_deal;

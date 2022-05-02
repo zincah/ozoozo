@@ -10,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import ozo.spring.house.seller.service.ProductService;
 import ozo.spring.house.seller.service.SellerService;
+import ozo.spring.house.seller.vo.ProductVO;
 import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.vo.UserVO;
 
@@ -19,6 +21,8 @@ public class LoginController {
 
 	@Autowired
 	SellerService sellerService;
+	@Autowired
+	ProductService productService;
 	
 	// login
 	@RequestMapping(value = "/login.seller", method=RequestMethod.GET)
@@ -40,7 +44,7 @@ public class LoginController {
 		if(seller != null) {
 			session.setAttribute("seller", seller); // 판매자 아이디
 			session.setAttribute("entrydate", new SimpleDateFormat("yyyy-MM-dd").format(seller.getEntry_date())); // 판매자 아이디
-//			model.addAttribute("entrydate", new SimpleDateFormat("yyyy-MM-dd").format(seller.getEntry_date())); // 입점일(날짜만)
+			
 			return "index";
 		}else {
 			String msg = "입력하신 정보가 잘못 되었습니다.";

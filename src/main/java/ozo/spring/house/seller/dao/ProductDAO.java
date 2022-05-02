@@ -1,11 +1,14 @@
 package ozo.spring.house.seller.dao;
 
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ozo.spring.house.seller.vo.ProductVO;
+import ozo.spring.house.seller.vo.SellerVO;
 
 @Repository("productDAO")
 public class ProductDAO {
@@ -45,6 +48,10 @@ public class ProductDAO {
 		System.out.println("--> mybatis in productDAO photo insert");
 		sqlSessionTemplate.insert("ProductDAO.insertPhoto", vo);
 	}
-
+	
+	public List<ProductVO> selectProduct(SellerVO vo) {
+		System.out.println("--> mybatis in productDAO product select");
+		return sqlSessionTemplate.selectList("ProductDAO.selectProduct", vo);
+	}
 
 }
