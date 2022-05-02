@@ -83,10 +83,11 @@
         });
 
         /* file plus */
-        var i = 0;
+        /*
+        var photo_count = 0;
 
         $(".photo_plus").click(function () {
-          i++;
+        	photo_count++;
 
           var html = '<div class="photo_layer mt-4" id="photo_layer">\
                         <input type="file" name="main_file" id="main_file" style="display:none" onchange="changeValue(this)"/>\
@@ -104,12 +105,13 @@
                         <div class="image-show" id="image-show"></div>\
                     </div>';
 
-          if (i < 5) {
+                    
+          if (photo_count < 5) {
             $(".photos").append(html);
           } else {
             alert("더이상 추가 되지 않습니다.");
           }
-        });
+        });*/
 
         /* 세일 설정 jquery */
         $("#sale_notset").click(function () {
@@ -118,13 +120,32 @@
           $(".sale_percent_input").attr("disabled", "true");
         });
 
-        /* 여기 안됨 */
         $("#sale_set").click(function () {
           $("#sale_set").removeClass("btn-outline-secondary").addClass("btn-secondary");
           $("#sale_notset").removeClass("btn-secondary").addClass("btn-outline-secondary");
           $(".sale_percent_input").removeAttr("disabled");
         });
       });
+      
+   	// 대표사진 clone
+   	var photo_count = 0;
+
+	function mainPhotoplus(){
+		
+		if(photo_count >= 4){
+			alert("5개를 초과할 수 없습니다.");
+		}else{
+			var cloneElements = $("#thisphoto").clone();
+		    cloneElements.appendTo(".photos");
+		}
+
+	    $(".photo_layer").each(function(photo_count, photo_layer){
+	        $(this).attr("id", "photo_layer"+(photo_count));
+	    });
+	    
+	    photo_count++;
+	    
+	};
 
       function fileupload() {
         $("#main_file").click();
@@ -1007,21 +1028,25 @@
 								<h1 style="font-size: 12px">[대표이미지] 권장크기 : 1000 x 1000(윈도
 									대상 750 x 1000)</h1>
 								<div class="photos">
-									<div class="photo_layer mt-4" id="photo_layer">
-										<!-- input tag를 숨긴다음에 button을 눌렀을 때 file 업로드 창 열리게-->
-										<input type="file" name="main_file" id="main_file"
-											style="display: none" onchange="changeValue(this)"
-											accept="image/*" />
-										<button type="button" class="main_photo_btn photo_upload">
-											<div class="photo_upload_layer">
-												<i class="fa-solid fa-camera upload_icon"></i> <span
-													class="upload_title"> 사진올리기 </span> <span
-													class="upload_sub_title"> (*최대 5장까지) </span>
-											</div>
-										</button>
-
-										<div class="image-show" id="image-show"></div>
+									<!-- 대표사진 -->
+									<div id="thisphoto">
+										<div class="photo_layer mt-4" id="photo_layer">
+											<!-- input tag를 숨긴다음에 button을 눌렀을 때 file 업로드 창 열리게-->
+											<input type="file" name="main_file" id="main_file"
+												style="display: none" onchange="changeValue(this)"
+												accept="image/*" />
+											<button type="button" class="main_photo_btn photo_upload">
+												<div class="photo_upload_layer">
+													<i class="fa-solid fa-camera upload_icon"></i> <span
+														class="upload_title"> 사진올리기 </span> <span
+														class="upload_sub_title"> (*최대 5장까지) </span>
+												</div>
+											</button>
+	
+											<div class="image-show" id="image-show"></div>
+										</div>
 									</div>
+									<!--  -->
 								</div>
 
 								<!--사진 추가 버튼-->
@@ -1029,7 +1054,7 @@
 									<!-- input tag를 숨긴다음에 button을 눌렀을 때 file 업로드 창 열리게-->
 									<input type="file" name="main_file" id="main_file"
 										style="display: none" />
-									<button type="button" class="main_photo_btn photo_plus">
+									<button type="button" class="main_photo_btn photo_plus" onclick="mainPhotoplus()">
 										<div class="photo_plus_upload_layer">
 											<i class="fa-solid fa-plus"></i>
 										</div>
