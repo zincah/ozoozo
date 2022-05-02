@@ -54,7 +54,9 @@
 		VALUES (#{photo_url}, #{photo_separate}, #{photo_postid})
 	</insert>
 
-
+	<select id="selectProduct" parameterType="product">
+		SELECT * FROM product JOIN product_status ON seller_id=#{seller_id};
+	</select>
 
 	
 

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,28 +37,28 @@
 			<div class="container container-option bottomline">
 				<div class="row optionGroup1">
 					<div class="col status-name">
-						<span>전체</span> <span class="status-value">0</span>
+						<span>전체</span> <span class="status-value"><fmt:formatNumber value="${fn:length(productList)}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
-						<span>판매대기</span> <span class="status-value">0</span>
+						<span>판매대기</span> <span class="status-value">${productStatus0}</span>
 					</div>
 					<div class="col status-name">
-						<span>판매중</span> <span class="status-value">0</span>
+						<span>판매중</span> <span class="status-value">${productStatus1}</span>
 					</div>
 					<div class="col status-name">
-						<span>품절</span> <span class="status-value">0</span>
+						<span>품절</span> <span class="status-value">${productStatus2}</span>
 					</div>
 					<div class="col status-name">
-						<span>승인대기</span> <span class="status-value">0</span>
+						<span>승인대기</span> <span class="status-value">${productStatus3}</span>
 					</div>
 					<div class="col status-name">
-						<span>판매중지</span> <span class="status-value">0</span>
+						<span>판매중지</span> <span class="status-value">${productStatus4}</span>
 					</div>
 					<div class="col status-name">
-						<span>판매종료</span> <span class="status-value">0</span>
+						<span>판매종료</span> <span class="status-value">${productStatus5}</span>
 					</div>
 					<div class="col status-name-last">
-						<span>판매금지</span> <span class="status-value">0</span>
+						<span>판매금지</span> <span class="status-value">${productStatus6}</span>
 					</div>
 					<div class="col-4 search-button-area">
 						<button class="search-button" id="searchBtn">
@@ -251,7 +253,7 @@
 					<div class="row optionGroup1">
 						<div class="col search-submitBtn">
 							<div class="d-grid gap-2">
-								<button class="btn btn-secondary submitBtn" type="button">검색</button>
+								<button class="btn btn-secondary submitBtn" type="button" id="submitBtn">검색</button>
 							</div>
 							<div class="d-grid gap-2">
 								<button class="btn btn-outline-secondary initBtn" type="button">초기화</button>
