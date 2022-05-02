@@ -72,9 +72,9 @@
         <article id="faq" class="faq">
             <nav class="faq__nav">
                 <ul class="faq__nav__list">
-                    <li class="faq__nav__item faq__nav__item--active"><a href="/customer_center#전체">전체</a></li>
-                    <li class="faq__nav__item"><a href="/customer_center#주문+결제">주문/결제</a></li>
-                    <li class="faq__nav__item"><a id="customer_keyword" href="/customer_center#배송관련">배송관련</a></li>
+                    <li class="faq__nav__item faq__nav__item--active"><a href="/CScenter.com">전체</a></li>
+                    <li class="faq__nav__item"><a href="/CScenter.com/order">주문/결제</a></li>
+                    <li class="faq__nav__item"><a id="customer_keyword" href="/house/customer_center#배송관련">배송관련</a></li>
                     <li class="faq__nav__item"><a id="customer_keyword" href="/customer_center#취소+환불">취소/환불</a></li>
                     <li class="faq__nav__item"><a id="customer_keyword" href="/customer_center#반품+교환">반품/교환</a></li>
                     <li class="faq__nav__item"><a id="customer_keyword" href="/customer_center#증빙서류발급">증빙서류발급</a></li>
@@ -88,14 +88,14 @@
                 <section id="faq__contents__group" class="faq__contents__group">
                
                     <c:forEach items="${list}" var="CS">
-                    <section id="" class="faq__contents__item">
-                        <div class="faq__contents__item__question" onclick=onclick22() >${CS.customer_question}<svg width="1em" height="1em"
+                    <section id="" class="faq__contents__item box_${CS.customer_no}">
+                        <div class="faq__contents__item__question cs_${CS.customer_no}" >${CS.customer_question}<svg width="1em" height="1em"
                                 viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet"
                                 style="position: absolute; right: 0px; width: 12px; height: 12px; top: 50%; transition: transform 0.2s ease 0s; transform: translateY(-50%);">
                                 <path fill="currentColor" fill-rule="evenodd" d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z">
                                 </path>
                             </svg></div>
-                        <div  class="faq__contents__item__answer" style="max-height: 0px; opacity: 0; padding-top: 0px;">
+                        <div  class="faq__contents__item__answer css_${CS.customer_no}" >
                             <p>${CS.customer_answer} </p>
                         </div>
                         
@@ -104,19 +104,32 @@
                    
                     
                      <script>
-                       
-                  function onclick22() {
-                    	$('.faq__contents__item__answer').css({"max-height":"","opacity":"","padding-top":""});
-                    	
-                     }
+                     
+                     $(document).ready(function(){
 
+                        
+
+                         /* 카테고리 토글 */
+                         $(".faq__contents__item__answer").hide();
+                         $(".cs_${CS.customer_no}", this).click(function(){
+                             var open = $(this).siblings("div");
+                             
+                             $(open[0]).slideToggle();
+                         });
+
+                        
+
+
+                     });
+                 
+                 
                 	</script>
                   
 
                    
                     </c:forEach>
                 </section>
-                
+                 
             </article>
         </article>
         

@@ -262,6 +262,7 @@ ol, ul {
     line-height: 28px;
 }
 .faq__contents__item__answer, .faq__contents__item__question {
+	
     padding-left: 20px;
     
 }
@@ -297,7 +298,7 @@ element.style {
     position: relative;
     line-height: 28px;
     padding-top: 30px;
-    transition: .2s ease;
+    
     box-sizing: content-box;
 
 }
