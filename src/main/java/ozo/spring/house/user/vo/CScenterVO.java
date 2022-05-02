@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class CScenterVO {
 
-	String customer_seq;
+	String customer_no;
 	String customer_keyword;
 	String customer_question;
 	String customer_answer;

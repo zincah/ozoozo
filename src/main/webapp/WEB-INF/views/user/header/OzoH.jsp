@@ -239,6 +239,93 @@
 
 					</div>
 				</div>
+								<!-- ----------여기는 스마일 클릭 박스 ----------- -->
+	<c:if test="${Usercode ne null}">
+	<div>
+		<div
+			class="popout popout--prepared popout--axis-1 popout--dir-2 popout--cross-dir-2"
+			data-popout="true"
+			style="position: absolute; ">
+			<div id="user_popout"
+				class="animated-popout drop-down__content layout-navigation-bar-user-section__content open open-active">
+				<ul class="layout-navigation-bar-user-menu">
+					<li class="layout-navigation-bar-user-menu__item-wrap"><a
+						class="layout-navigation-bar-user-menu__item"
+						href="/house/myPage.com">마이페이지</a></li>
+					<li class="layout-navigation-bar-user-menu__item-wrap"><a
+						class="layout-navigation-bar-user-menu__item"
+						href="/house/myshopping.com">나의 쇼핑</a></li>
+					<li class="layout-navigation-bar-user-menu__item-wrap"><a
+						class="layout-navigation-bar-user-menu__item"
+						href="/house/competitions/feed">이벤트</a></li>
+					<li class="layout-navigation-bar-user-menu__item-wrap"><a
+						class="layout-navigation-bar-user-menu__item"
+						href="/house/shopApply.com">판매자
+							신청</a></li>
+					<li class="layout-navigation-bar-user-menu__item-wrap"><a
+						class="layout-navigation-bar-user-menu__item"
+						href="/house/CScenter.com">고객센터</a></li>
+					<li class="layout-navigation-bar-user-menu__item-wrap"><button
+							class="layout-navigation-bar-user-menu__item" type="button">로그아웃</button></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script>
+    
+
+    	
+    	$(function(){
+    		
+    		
+    		/* 클릭 클릭시 클릭을 클릭한 위치 근처에 레이어가 나타난다. */
+    		$('.layout-navigation-bar-user-button').click(function(e)
+    		{
+    			
+    			var sWidth = window.innerWidth;
+    			var sHeight = window.innerHeight;
+
+    			var oWidth = $('.popout').width();
+    			var oHeight = $('.popout').height();
+
+    			// 레이어가 나타날 위치를 셋팅한다.
+    			var divLeft = e.clientX - 165;
+    			var divTop = e.clientY - 100;
+
+    			// 레이어가 화면 크기를 벗어나면 위치를 바꾸어 배치한다.
+    			if( divLeft + oWidth > sWidth ) divLeft -= oWidth;
+    			if( divTop + oHeight > sHeight ) divTop -= oHeight;
+
+    			// 레이어 위치를 바꾸었더니 상단기준점(0,0) 밖으로 벗어난다면 상단기준점(0,0)에 배치하자.
+    			if( divLeft < 0 ) divLeft = 0;
+    			if( divTop < 0 ) divTop = 0;
+
+    			$('.animated-popout').css({
+    				"top": divTop,
+    				"left": divLeft,
+    				"position":"absolute",
+    				"opacity": 1,
+    				"z-index":1000,
+    				"display":"block"
+
+    			}).show();
+    			
+    			
+    		});
+    		 var target = $('.animated-popout');
+    		$(document).mouseup(function (e){
+                if(target.has(e.target).length==0) {
+                    target.hide();
+                    target.removeClass('emphasized');
+                } 
+            });
+
+
+    	});
+	
+
+    </script>
+	</c:if>
 
 				<!-- --클론상 메뉴 정리가 어려워 메뉴 하나더 추가 접두어에 mobile- 붙임------------------- -->
 				<nav class="mobile-layout-navigation-primary__menu">
@@ -252,6 +339,8 @@
 						class="layout-navigation-primary__menu__item"
 						href="/house/todaydeal.com">오늘의딜</a>
 				</nav>
+				
+
 				<!-- -----------------------------------사이드바------------------------------------- -->
 				<div id="bg_menu"></div>
 				<!--  <div id="sidebar_site"
@@ -299,6 +388,7 @@
 									srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144&amp;h=144&amp;c=c 3x"></span><span
 								class="layout-navigation-drawer-user__nickname">여기에jstl</span></a>
 						</c:if>
+						
 						<c:if test="${Usercode eq null}">
 							<div class="sidebar2">
 								<a class="sidebar_login" href="/house/login.com">로그인</a> <a
@@ -526,100 +616,10 @@
 		</div>
 
 
-		</div>
 
-		</div>
-		</div>
 
 	</header>
-<!-- ----------여기는 스마일 클릭 박스 ----------- -->
-	<c:if test="${Usercode ne null}">
-	<div>
-		<div
-			class="popout popout--prepared popout--axis-1 popout--dir-2 popout--cross-dir-2"
-			data-popout="true"
-			style="position: absolute; ">
-			<div id="user_popout"
-				class="animated-popout drop-down__content layout-navigation-bar-user-section__content open open-active">
-				<ul class="layout-navigation-bar-user-menu">
-					<li class="layout-navigation-bar-user-menu__item-wrap"><a
-						class="layout-navigation-bar-user-menu__item"
-						href="/myPage.com">마이페이지</a></li>
-					<li class="layout-navigation-bar-user-menu__item-wrap"><a
-						class="layout-navigation-bar-user-menu__item"
-						href="/myshopping.com">나의 쇼핑</a></li>
-					<li class="layout-navigation-bar-user-menu__item-wrap"><a
-						class="layout-navigation-bar-user-menu__item"
-						href="/competitions/feed">이벤트</a></li>
-					<li class="layout-navigation-bar-user-menu__item-wrap"><a
-						class="layout-navigation-bar-user-menu__item"
-						href="/shopApply.com">판매자
-							신청</a></li>
-					<li class="layout-navigation-bar-user-menu__item-wrap"><a
-						class="layout-navigation-bar-user-menu__item"
-						href="/CScenter.com">고객센터</a></li>
-					<li class="layout-navigation-bar-user-menu__item-wrap"><button
-							class="layout-navigation-bar-user-menu__item" type="button">로그아웃</button></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<script>
-    
-/*     	function onclick33(){
-    		 $(".animated-popout").css({"opacity":"1"});
-    		
-    		 $(".animated-popout").css({"opacity":"0"}); 
-    	} */
-    	
-    	$(function(){
-    		
-    		
-    		/* 클릭 클릭시 클릭을 클릭한 위치 근처에 레이어가 나타난다. */
-    		$('.layout-navigation-bar-user-button').click(function(e)
-    		{
-    			
-    			var sWidth = window.innerWidth;
-    			var sHeight = window.innerHeight;
 
-    			var oWidth = $('.animated-popout').width();
-    			var oHeight = $('.animated-popout').height();
-
-    			// 레이어가 나타날 위치를 셋팅한다.
-    			var divLeft = e.clientX - 175;
-    			var divTop = e.clientY - 105;
-
-    			// 레이어가 화면 크기를 벗어나면 위치를 바꾸어 배치한다.
-    			if( divLeft + oWidth > sWidth ) divLeft -= oWidth;
-    			if( divTop + oHeight > sHeight ) divTop -= oHeight;
-
-    			// 레이어 위치를 바꾸었더니 상단기준점(0,0) 밖으로 벗어난다면 상단기준점(0,0)에 배치하자.
-    			if( divLeft < 0 ) divLeft = 0;
-    			if( divTop < 0 ) divTop = 0;
-
-    			$('.drop-down__content').css({
-    				"top": divTop,
-    				"left": divLeft,
-    				"position":"absolute",
-    				"opacity": 1
-    				
-    				
-    			}).show();
-    		});
-    		 var target = $('.animated-popout');
-    		$(document).mouseup(function (e){
-                if(target.has(e.target).length==0) {
-                    target.hide();
-                    /* target.removeClass('emphasized'); */
-                } 
-            });
-
-
-    	});
-	
-
-    </script>
-	</c:if>
 
 
 
@@ -844,6 +844,7 @@
 
         
 </script>
+
 	
 </body>
 
