@@ -77,42 +77,7 @@
           $(this).css("background-color", "#828282");
         });
 
-        /* file upload */
-        $(".photo_upload").click(function () {
-          $("#main_file").click();
-        });
-
-        /* file plus */
-        /*
-        var photo_count = 0;
-
-        $(".photo_plus").click(function () {
-        	photo_count++;
-
-          var html = '<div class="photo_layer mt-4" id="photo_layer">\
-                        <input type="file" name="main_file" id="main_file" style="display:none" onchange="changeValue(this)"/>\
-                        <button type="button" class="main_photo_btn photo_upload" onclick="fileupload()">\
-                            <div class="photo_upload_layer">\
-                                <i class="fa-solid fa-camera upload_icon"></i>\
-                                <span class="upload_title">\
-                                    사진올리기\
-                                </span>\
-                                <span class="upload_sub_title">\
-                                    (*최대 5장까지)\
-                                </span>\
-                            </div>\
-                        </button>\
-                        <div class="image-show" id="image-show"></div>\
-                    </div>';
-
-                    
-          if (photo_count < 5) {
-            $(".photos").append(html);
-          } else {
-            alert("더이상 추가 되지 않습니다.");
-          }
-        });*/
-
+        
         /* 세일 설정 jquery */
         $("#sale_notset").click(function () {
           $("#sale_notset").removeClass("btn-outline-secondary").addClass("btn-secondary");
@@ -147,7 +112,9 @@
 	    
 	};
 
-      function fileupload() {
+      function mainFileUpload() {
+    	var id = $(this).parent().attr('id');
+    	console.log(id);
         $("#main_file").click();
       }
 
@@ -1035,7 +1002,7 @@
 											<input type="file" name="main_file" id="main_file"
 												style="display: none" onchange="changeValue(this)"
 												accept="image/*" />
-											<button type="button" class="main_photo_btn photo_upload">
+											<button type="button" class="main_photo_btn photo_upload" onclick="mainFileUpload()">
 												<div class="photo_upload_layer">
 													<i class="fa-solid fa-camera upload_icon"></i> <span
 														class="upload_title"> 사진올리기 </span> <span
