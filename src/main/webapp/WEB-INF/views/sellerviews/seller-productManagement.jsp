@@ -352,8 +352,8 @@
 									<option value="1">판매중</option>
 									<option value="2">판매대기</option>
 									<option value="3">품절</option>
-									<option value="3">판매중지</option>
-									<option value="3">판매종료</option>
+									<option value="4">판매중지</option>
+									<option value="5">판매종료</option>
 								</select>
 							</div>
 						</div>
@@ -362,7 +362,7 @@
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">취소</button>
 						<button type="button"
-							class="btn btn-primary modal-status-select-submit-button">변경</button>
+							class="btn btn-primary modal-status-select-submit-button" id="pscSubmitBtn">변경</button>
 					</div>
 				</div>
 			</div>

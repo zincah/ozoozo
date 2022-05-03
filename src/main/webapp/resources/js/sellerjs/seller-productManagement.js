@@ -157,7 +157,7 @@ function modalDelListBtnEvent() {
 	}
 }
 
-/* 검색-상품상태 체크박스 */
+/* 검색-판매상태 체크박스 */
 // 전체 체크박스 체크 여부에 따른 하위 체크박스들 상태 변경
 $("#statusCheckAll").change(function () {
   if ($("#statusCheckAll").is(":checked")) {
@@ -206,6 +206,11 @@ $(".check").change(function () {
 });
 
 /* 판매상태 변경 기능 */
+// 모달 내 선택된 상품 수 변경
 $("#productStatusChange").click(function () {
 	$(".productNum").text($(".check:checked").length);
+});
+// 판매상태 변경 처리
+$("#pscSubmitBtn").click(function () {
+	
 });
