@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,9 +19,11 @@
 <link href="resources/css/sellercss/fonts.css?after" rel="stylesheet" />
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
 <link href="resources/css/sellercss/insertProduct.css" rel="stylesheet" />
-<link href="resources/css/sellercss/seller-productManagement.css" rel="stylesheet" />
+<link href="resources/css/sellercss/seller-productManagement.css"
+	rel="stylesheet" />
 <jsp:include page="header/headerModalView.jsp"></jsp:include>
-<script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
+<script type="text/javascript"
+	src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
 </head>
@@ -37,28 +40,36 @@
 			<div class="container container-option bottomline">
 				<div class="row optionGroup1">
 					<div class="col status-name">
-						<span>전체</span> <span class="status-value"><fmt:formatNumber value="${fn:length(productList)}" pattern="#,###" /></span>
+						<span>전체</span> <span class="status-value"><fmt:formatNumber
+								value="${fn:length(productList)}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
-						<span>판매대기</span> <span class="status-value">${productStatus0}</span>
+						<span>판매대기</span> <span class="status-value"><fmt:formatNumber
+								value="${productStatus0}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
-						<span>판매중</span> <span class="status-value">${productStatus1}</span>
+						<span>판매중</span> <span class="status-value"><fmt:formatNumber
+								value="${productStatus1}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
-						<span>품절</span> <span class="status-value">${productStatus2}</span>
+						<span>품절</span> <span class="status-value"><fmt:formatNumber
+								value="${productStatus2}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
-						<span>승인대기</span> <span class="status-value">${productStatus3}</span>
+						<span>승인대기</span> <span class="status-value"><fmt:formatNumber
+								value="${productStatus3}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
-						<span>판매중지</span> <span class="status-value">${productStatus4}</span>
+						<span>판매중지</span> <span class="status-value"><fmt:formatNumber
+								value="${productStatus4}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
-						<span>판매종료</span> <span class="status-value">${productStatus5}</span>
+						<span>판매종료</span> <span class="status-value"><fmt:formatNumber
+								value="${productStatus5}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name-last">
-						<span>판매금지</span> <span class="status-value">${productStatus6}</span>
+						<span>판매금지</span> <span class="status-value"><fmt:formatNumber
+								value="${productStatus6}" pattern="#,###" /></span>
 					</div>
 					<div class="col-4 search-button-area">
 						<button class="search-button" id="searchBtn">
@@ -115,43 +126,50 @@
 						<div class="col search-check-group">
 							<div class="form-check form-check-display">
 								<input class="form-check-input form-check-input-margin"
-									type="checkbox" value="" id="statusCheck1" /> <label
+									type="checkbox" value="" id="statusCheckAll" /> <label
 									class="form-check-label" for="statusCheck1"> 전체 </label>
 							</div>
 							<div class="form-check form-check-display">
-								<input class="form-check-input form-check-input-margin"
+								<input
+									class="form-check-input form-check-input-margin statusCheck"
+									type="checkbox" value="" id="statusCheck1" /> <label
+									class="form-check-label" for="statusCheck1"> 판매대기 </label>
+							</div>
+							<div class="form-check form-check-display">
+								<input
+									class="form-check-input form-check-input-margin statusCheck"
 									type="checkbox" value="" id="statusCheck2" /> <label
-									class="form-check-label" for="statusCheck2"> 판매대기 </label>
+									class="form-check-label" for="statusCheck2"> 판매중 </label>
 							</div>
 							<div class="form-check form-check-display">
-								<input class="form-check-input form-check-input-margin"
+								<input
+									class="form-check-input form-check-input-margin statusCheck"
 									type="checkbox" value="" id="statusCheck3" /> <label
-									class="form-check-label" for="statusCheck3"> 판매중 </label>
+									class="form-check-label" for="statusCheck3"> 품절 </label>
 							</div>
 							<div class="form-check form-check-display">
-								<input class="form-check-input form-check-input-margin"
+								<input
+									class="form-check-input form-check-input-margin statusCheck"
 									type="checkbox" value="" id="statusCheck4" /> <label
-									class="form-check-label" for="statusCheck4"> 품절 </label>
+									class="form-check-label" for="statusCheck4"> 승인대기 </label>
 							</div>
 							<div class="form-check form-check-display">
-								<input class="form-check-input form-check-input-margin"
+								<input
+									class="form-check-input form-check-input-margin statusCheck"
 									type="checkbox" value="" id="statusCheck5" /> <label
-									class="form-check-label" for="statusCheck5"> 승인대기 </label>
+									class="form-check-label" for="statusCheck5"> 판매중지 </label>
 							</div>
 							<div class="form-check form-check-display">
-								<input class="form-check-input form-check-input-margin"
+								<input
+									class="form-check-input form-check-input-margin statusCheck"
 									type="checkbox" value="" id="statusCheck6" /> <label
-									class="form-check-label" for="statusCheck6"> 판매중지 </label>
+									class="form-check-label" for="statusCheck6"> 판매종료 </label>
 							</div>
 							<div class="form-check form-check-display">
-								<input class="form-check-input form-check-input-margin"
+								<input
+									class="form-check-input form-check-input-margin statusCheck"
 									type="checkbox" value="" id="statusCheck7" /> <label
-									class="form-check-label" for="statusCheck7"> 판매종료 </label>
-							</div>
-							<div class="form-check form-check-display">
-								<input class="form-check-input form-check-input-margin"
-									type="checkbox" value="" id="statusCheck8" /> <label
-									class="form-check-label" for="statusCheck8"> 판매금지 </label>
+									class="form-check-label" for="statusCheck7"> 판매금지 </label>
 							</div>
 						</div>
 					</div>
@@ -164,8 +182,9 @@
 							<div class="radio-productCode">
 								<div class="btn-group" role="group"
 									aria-label="Basic radio toggle button group">
-									<select class="form-select selectState" id="category" name="category_name"
-										aria-label="Default select example" onchange="changeFirstOption()">
+									<select class="form-select selectState" id="category"
+										name="category_name" aria-label="Default select example"
+										onchange="changeFirstOption()">
 										<option selected>대분류</option>
 										<c:forEach items="${cateList }" var="cate">
 											<option value="${cate.cate_code}">${cate.cate_name}</option>
@@ -174,15 +193,18 @@
 								</div>
 								<div class="btn-group" role="group"
 									aria-label="Basic radio toggle button group">
-									<select class="form-select selectState" id="middle-select" name="subcategory1"
-										disabled="" aria-label="Default select example" onchange="changeSecondOption()">
+									<select class="form-select selectState" id="middle-select"
+										name="subcategory1" disabled=""
+										aria-label="Default select example"
+										onchange="changeSecondOption()">
 										<option selected>중분류</option>
 									</select>
 								</div>
 								<div class="btn-group" role="group"
 									aria-label="Basic radio toggle button group">
-									<select class="form-select selectState" id="small-select"  name="subcategory2"
-										disabled="" aria-label="Default select example">
+									<select class="form-select selectState" id="small-select"
+										name="subcategory2" disabled=""
+										aria-label="Default select example">
 										<option selected>소분류</option>
 										<div id="bot-layer"></div>
 									</select>
@@ -253,7 +275,8 @@
 					<div class="row optionGroup1">
 						<div class="col search-submitBtn">
 							<div class="d-grid gap-2">
-								<button class="btn btn-secondary submitBtn" type="button" id="submitBtn">검색</button>
+								<button class="btn btn-secondary submitBtn" type="button"
+									id="submitBtn">검색</button>
 							</div>
 							<div class="d-grid gap-2">
 								<button class="btn btn-outline-secondary initBtn" type="button">초기화</button>
@@ -299,7 +322,7 @@
 						aria-labelledby="dropdownMenuButton1">
 						<li><h6 class="dropdown-header">상품 설정 일괄 변경</h6></li>
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-							data-bs-target="#modal-status-select">판매상태 변경</a></li>
+							data-bs-target="#modal-status-select" id="productStatusChange">판매상태 변경</a></li>
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
 							data-bs-target="#modal-delete">상품 삭제</a></li>
 					</ul>
@@ -319,7 +342,7 @@
 					<div class="modal-body modal-status-select-product">
 						<div class="modal-status-select-product-num">
 							<span>선택된 상품 수 : </span> <span
-								class="modal-status-select-product-num-value">0</span> <span>개</span>
+								class="modal-status-select-product-num-value productNum">0</span> <span>개</span>
 						</div>
 						<div class="modal-status-select">
 							<div class="btn-group modal-status-select-btn-group" role="group"
@@ -407,26 +430,6 @@
 															<td class="content-table-content-text option-line">가구</td>
 															<td class="content-table-content-text option-line">판매중</td>
 														</tr>
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">2</td>
-															<td class="content-table-content-text option-line state0">0654367</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">12,000</td>
-															<td class="content-table-content-text option-line">가구</td>
-															<td class="content-table-content-text option-line">판매중</td>
-														</tr>
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">3</td>
-															<td class="content-table-content-text option-line state0">0654367</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">12,000</td>
-															<td class="content-table-content-text option-line">가구</td>
-															<td class="content-table-content-text option-line">판매중</td>
-														</tr>
 													</tbody>
 												</table>
 											</div>
@@ -462,49 +465,26 @@
 				</tr>
 			</thead>
 			<tbody>
-				<!-- for -->
-				<tr class="content-table-content content-hover">
-					<td class="content-table-content-text option-line"><input
-						class="form-check-input check" type="checkbox" value="" /></td>
-					<td class="content-table-content-text option-line state0">0654367</td>
-					<td class="content-table-content-text option-line">001</td>
-					<td class="content-table-content-text option-line">동준이의 핫핑크
-						미니스커트</td>
-					<td class="content-table-content-text option-line">12,000</td>
-					<td class="content-table-content-text option-line">가구</td>
-					<td class="content-table-content-text option-line">판매중</td>
-					<td class="content-table-content-text option-line">1</td>
-					<td class="content-table-content-text option-line">2022-04-14</td>
-					<td class="content-table-content-text option-line">2022-04-15</td>
-				</tr>
-				<tr class="content-table-content content-hover">
-					<td class="content-table-content-text option-line"><input
-						class="form-check-input check" type="checkbox" value="" /></td>
-					<td class="content-table-content-text option-line state0">0654367</td>
-					<td class="content-table-content-text option-line">001</td>
-					<td class="content-table-content-text option-line">동준이의 핫핑크
-						미니스커트</td>
-					<td class="content-table-content-text option-line">12,000</td>
-					<td class="content-table-content-text option-line">가구</td>
-					<td class="content-table-content-text option-line">판매중</td>
-					<td class="content-table-content-text option-line">1</td>
-					<td class="content-table-content-text option-line">2022-04-14</td>
-					<td class="content-table-content-text option-line">2022-04-15</td>
-				</tr>
-				<tr class="content-table-content content-hover">
-					<td class="content-table-content-text option-line"><input
-						class="form-check-input check" type="checkbox" value="" /></td>
-					<td class="content-table-content-text option-line state0">0654367</td>
-					<td class="content-table-content-text option-line">001</td>
-					<td class="content-table-content-text option-line">동준이의 핫핑크
-						미니스커트</td>
-					<td class="content-table-content-text option-line">12,000</td>
-					<td class="content-table-content-text option-line">가구</td>
-					<td class="content-table-content-text option-line">판매중</td>
-					<td class="content-table-content-text option-line">1</td>
-					<td class="content-table-content-text option-line">2022-04-14</td>
-					<td class="content-table-content-text option-line">2022-04-15</td>
-				</tr>
+				<c:forEach var="productListView" items="${productListView}">
+					<tr class="content-table-content content-hover">
+						<td class="content-table-content-text option-line"><input
+							class="form-check-input check" type="checkbox" value="" /></td>
+						<td class="content-table-content-text option-line state0">${productListView.getProduct_id()}</td>
+						<td class="content-table-content-text option-line">${productListView.getProduct_seller_code()}</td>
+						<td class="content-table-content-text option-line">${productListView.getProduct_title()}</td>
+						<td class="content-table-content-text option-line"><fmt:formatNumber
+								value="${productListView.getProduct_price()}" type="currency" /></td>
+						<td class="content-table-content-text option-line">${productListView.getCategory_name()}</td>
+						<td class="content-table-content-text option-line">${productListView.getStatus()}</td>
+						<td class="content-table-content-text option-line">${productListView.getProduct_quantity()}</td>
+						<td class="content-table-content-text option-line"><fmt:formatDate
+								value="${productListView.getProduct_created()}"
+								pattern="yyyy-MM-dd HH:mm" /></td>
+						<td class="content-table-content-text option-line"><fmt:formatDate
+								value="${productListView.getProduct_updated()}"
+								pattern="yyyy-MM-dd HH:mm" /></td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>
@@ -523,11 +503,17 @@
 </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+	crossorigin="anonymous"></script>
 <script src="resources/js/sellerjs/scripts.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-<script src="resources/js/sellerjs/seller-productManagement.js?t=<%=System.currentTimeMillis() %>"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
+	crossorigin="anonymous"></script>
+<script
+	src="resources/js/sellerjs/seller-productManagement.js?t=<%=System.currentTimeMillis() %>"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
+	crossorigin="anonymous"></script>
 <script src="resources/js/sellerjs/category.js"></script>
 </body>
 </html>

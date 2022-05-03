@@ -21,7 +21,7 @@ public class ProductVO {
 	private Timestamp product_created;
 	private Timestamp product_updated;
 	private int pro_subcatecode;
-	private int product_seller_code;
+	private String product_seller_code;
 	private int product_quantity;
 	private int product_postid; //postid¿Í ¿¬°á
 	
@@ -67,6 +67,6 @@ public class ProductVO {
 	private boolean photo_separate;
 	private int photo_postid;
 	
-	
+	private String category_name;
 
 }

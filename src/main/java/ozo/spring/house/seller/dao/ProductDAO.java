@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ozo.spring.house.seller.vo.ProductVO;
-import ozo.spring.house.seller.vo.SellerVO;
 
 @Repository("productDAO")
 public class ProductDAO {
@@ -49,9 +48,14 @@ public class ProductDAO {
 		sqlSessionTemplate.insert("ProductDAO.insertPhoto", vo);
 	}
 	
-	public List<ProductVO> selectProduct(SellerVO vo) {
+	public List<ProductVO> selectProduct(int vo) {
 		System.out.println("--> mybatis in productDAO product select");
 		return sqlSessionTemplate.selectList("ProductDAO.selectProduct", vo);
+	}
+	
+	public List<ProductVO> selectProductView(int vo) {
+		System.out.println("--> mybatis in productDAO productView select");
+		return sqlSessionTemplate.selectList("ProductDAO.selectProductView", vo);
 	}
 
 }

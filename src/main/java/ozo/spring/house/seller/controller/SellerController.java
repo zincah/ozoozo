@@ -1,5 +1,6 @@
 package ozo.spring.house.seller.controller;
 
+import java.io.Console;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,6 @@ import ozo.spring.house.seller.service.CategoryService;
 import ozo.spring.house.seller.service.ProductService;
 import ozo.spring.house.seller.vo.CategoryVO;
 import ozo.spring.house.seller.vo.ProductVO;
-import ozo.spring.house.seller.vo.SellerVO;
 
 @Controller
 public class SellerController {
@@ -52,15 +52,28 @@ public class SellerController {
 			model.addAttribute("cateList", cateList);
 			
 			// 상품 목록 불러오기
-			List<ProductVO> productList = productService.selectProduct((SellerVO) session.getAttribute("seller"));
+			List<ProductVO> productList = productService.selectProduct((int) session.getAttribute("seller_id"));
+			// 상품 목록(테이블 출력용) 불러오기
+			List<ProductVO> productListView = productService.selectProductView((int) session.getAttribute("seller_id"));
+			
+			System.out.println("============## productList ##============");
+			for(ProductVO list : productList) {
+				System.out.println(list);
+			}
+			System.out.println("============## productListView ##============");
+			for(ProductVO list : productListView) {
+				System.out.println(list);
+			}
+			
 			model.addAttribute("productList", productList);
-			model.addAttribute("productStatus0", productList.stream().filter(str -> "판매대기".equals(str)).count());
-			model.addAttribute("productStatus1", productList.stream().filter(str -> "판매중".equals(str)).count());
-			model.addAttribute("productStatus2", productList.stream().filter(str -> "품절".equals(str)).count());
-			model.addAttribute("productStatus3", productList.stream().filter(str -> "승인대기".equals(str)).count());
-			model.addAttribute("productStatus4", productList.stream().filter(str -> "판매중지".equals(str)).count());
-			model.addAttribute("productStatus5", productList.stream().filter(str -> "판매종료".equals(str)).count());
-			model.addAttribute("productStatus6", productList.stream().filter(str -> "판매금지".equals(str)).count());
+			model.addAttribute("productStatus0", productList.stream().filter(list -> list.getStatus().equals("판매대기")).count());
+			model.addAttribute("productStatus1", productList.stream().filter(list -> list.getStatus().equals("판매중")).count());
+			model.addAttribute("productStatus2", productList.stream().filter(list -> list.getStatus().equals("품절")).count());
+			model.addAttribute("productStatus3", productList.stream().filter(list -> list.getStatus().equals("승인대기")).count());
+			model.addAttribute("productStatus4", productList.stream().filter(list -> list.getStatus().equals("판매중지")).count());
+			model.addAttribute("productStatus5", productList.stream().filter(list -> list.getStatus().equals("판매종료")).count());
+			model.addAttribute("productStatus6", productList.stream().filter(list -> list.getStatus().equals("판매금지")).count());
+			model.addAttribute("productListView", productListView);
 			return "seller-productManagement";
 		}else {
 			return "seller-login";
