@@ -29,13 +29,37 @@ public class UploadController {
 	
 	@ResponseBody
 	@RequestMapping(value="/uploadPhotos.seller", method=RequestMethod.POST)
-	public String uploadPhotos(@RequestParam("file") List<MultipartFile> multi, ProductVO vo) {
+	public String uploadPhotos(@RequestParam(value="mainfile") List<MultipartFile> main, @RequestParam(value="file", required=false) List<MultipartFile> multi, ProductVO vo) {
+		
+		// 넘어온 file list 가 없을 때 인식해주기
 		
 		System.out.println("file upload ready");
 		String dirName = "product";
 
 		try {
-			System.out.println(multi.size());
+			System.out.println(main.size());
+			System.out.println(multi.size()); 
+			// 사이즈 잘 넘어옴
+			
+			for(int i=0; i<main.size(); i++) {
+				MultipartFile mainfile = main.get(i);
+				String key = mainfile.getOriginalFilename();
+				System.out.println("filename --> " +key);
+				InputStream is = mainfile.getInputStream();
+				String contentType = mainfile.getContentType();
+				long contentLength = mainfile.getSize();
+				
+				String url = awss3Client.upload(is, key, contentType, contentLength, dirName);
+				System.out.println(url);
+				System.out.println("aws main file upload complete");
+				
+				vo.setPhoto_url(url);
+				vo.setPhoto_separate(true);
+				productService.insertPhoto(vo);
+				System.out.println("mybatis main photo ok");
+			}
+			
+			
 			for(int i=0; i<multi.size(); i++) {
 				MultipartFile file = multi.get(i);
 				String key = file.getOriginalFilename();
@@ -47,12 +71,12 @@ public class UploadController {
 				//aws upload 메소드
 				String url = awss3Client.upload(is, key, contentType, contentLength, dirName);
 				System.out.println(url);
-				System.out.println("aws upload complete");
+				System.out.println("aws detail file upload complete");
 				
 				vo.setPhoto_url(url);
 				vo.setPhoto_separate(false);
 				productService.insertPhoto(vo);
-				System.out.println("mybatis photo ok");
+				System.out.println("mybatis detail photo ok");
 				
 
 			}
