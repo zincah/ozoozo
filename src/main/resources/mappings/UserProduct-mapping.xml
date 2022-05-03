@@ -1,1 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<mapper namespace="UserDAO">
+	<!-- 상품 상세 페이지 가져오기 -->
+	<select id="product_get" resultType="user">
+		select * from product_posting where post_id = 50001 <!-- 여기다가 id 값 넣어주면 됨 -->
+	</select>
+
+</mapper>

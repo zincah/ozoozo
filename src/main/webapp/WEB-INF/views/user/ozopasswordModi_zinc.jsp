@@ -11,8 +11,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
 	integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
 	crossorigin="anonymous"></script>
-    <link href="resources/css/user_css/zinc/ozopassword.css" rel="stylesheet"/>
-    <link href="resources/css/user_css/zinc/ozomypageheader.css" rel="stylesheet"/>
+    <link href="resources/css/user_css/zinc/ozopassword.css?var=1" rel="stylesheet"/>
+    <link href="resources/css/user_css/zinc/ozomypageheader.css?var=1" rel="stylesheet"/>
 </head>
 <body>
 <header>
@@ -71,11 +71,11 @@
                     </div>
                     <div class="input_group">
                         <div class="input_group_form">
-                            <input id="pass_check" type="password" class="form_control" name="change_pass">
+                            <input id="pass_check" type="password" class="form_control input-dh" name="change_pass">
                         </div>
                         <div class="expert-form-group__error error_first" id="error1">
                             <svg width="20" height="20" viewBox="0 0 20 20" preserveAspectRatio="xMidYMid meet"><circle cx="10" cy="10" r="10" fill="#F77"></circle><path fill="#FFF" d="M9.42 11.98l-.25-4.43-.06-1.67h1.78l-.06 1.67-.25 4.43H9.42zm.58 3.19c-.62 0-1.1-.5-1.1-1.15 0-.65.48-1.16 1.1-1.16.62 0 1.1.5 1.1 1.16 0 .64-.48 1.15-1.1 1.15z"></path></svg>
-                            비밀번호는 영문, 숫자를 포함하여 8자 이상이어야 합니다.
+                            비밀번호는 영문, 숫자, 특수문자를 포함하여 8자 이상이어야 합니다.
                         </div>
                     </div>
                     
@@ -87,7 +87,7 @@
                     </div>
                     <div class="input_group">
                         <div class="input_group_form">
-                            <input type="password" class="form_control" id="repass_check" name="change_repass">
+                            <input type="password" class="form_control input-dh" id="repass_check" name="change_repass">
                         </div>
                         <div class="expert-form-group__error error_second" id="error2">
                             <svg width="20" height="20" viewBox="0 0 20 20" preserveAspectRatio="xMidYMid meet"><circle cx="10" cy="10" r="10" fill="#F77"></circle><path fill="#FFF" d="M9.42 11.98l-.25-4.43-.06-1.67h1.78l-.06 1.67-.25 4.43H9.42zm.58 3.19c-.62 0-1.1-.5-1.1-1.15 0-.65.48-1.16 1.1-1.16.62 0 1.1.5 1.1 1.16 0 .64-.48 1.15-1.1 1.15z"></path></svg>
@@ -103,26 +103,43 @@
 
                     var check = document.getElementById("pass_check");
                     var recheck = document.getElementById("repass_check");
-                    let regPass = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
+                    let regPass = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
                     var error1 = document.getElementById('error1');
                     var error2 = document.getElementById('error2');
 
                     check.addEventListener('keyup', function(){
-                        if(!regPass.test(check.value)){
+                    if(check.value.length == 0){
+                    	$(".error_first").text("필수 입력 사항입니다.");		
+                    	error1.style.display = 'block';
+                    	$(".update_password_btn").prop("disabled",true);
+                        $(check).addClass('error');
+                    }else if(!regPass.test(check.value)){
+                    	$(".error_first").text("비밀번호는 영문, 숫자, 특수문자를 포함하여 8자 이상이어야 합니다.");	
                             error1.style.display = 'block';
+                            $(".update_password_btn").prop("disabled",true);
+                            $(check).addClass('error');
                         }else{
                             error1.style.display = 'none';
+                            $(".update_password_btn").prop("disabled",false);
+                            $(check).removeClass('error');
                         }
+                        repass();
                     });
 
                     recheck.addEventListener('keyup', function(){
-
+                    	repass();
+                    });
+                    function repass(){
                         if(recheck.value != check.value){
                             error2.style.display = 'block';
+                            $(".update_password_btn").prop("disabled",true);
+                            $(recheck).addClass('error');
                         }else{
                             error2.style.display = 'none';
+                            $(".update_password_btn").prop("disabled",false);
+                            $(recheck).removeClass('error');
                         }
-                    });
+					}
                 </script>
             </form>
         </div>
