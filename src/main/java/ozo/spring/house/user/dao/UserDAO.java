@@ -1,16 +1,11 @@
 package ozo.spring.house.user.dao;
 
-import javax.servlet.http.HttpSession;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import ozo.spring.house.admin.vo.MemberVO;
+import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Repository("userDAO")
@@ -37,7 +32,6 @@ public class UserDAO {
 	public UserVO checkUser(UserVO vo) {
 		System.out.println("[LOGO] : mybatis in UserDAO checkUser");
 		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.checkUser", vo);
-		
 		if(passwordEncoder.matches(vo.getUser_pw(), user.getUser_pw())) {
 			return user;
 		}else {
@@ -67,7 +61,14 @@ public class UserDAO {
 	}
 	public void change_pass(UserVO vo) {
 		System.out.println("[LOGO] : Mybatis in UserDAO change_pass");
+		encodePass = passwordEncoder.encode(vo.getUser_pw());
+		vo.setUser_pw(encodePass);
 		sqlSessionTemplate.update("UserDAO.change_pass", vo);
 		System.out.println("비밀번호 변경 성공");
+	}
+	public UserProductVO product_Get(UserProductVO vo) {
+		System.out.println("[LOGO] : Mybatis in UserDAO product_Get");
+		UserProductVO posting = sqlSessionTemplate.selectOne("UserDAO.product_get");
+		return posting;
 	}
 }

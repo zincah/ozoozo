@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ozo.spring.house.user.dao.UserDAO;
+import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Service("userService")
@@ -39,8 +40,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserVO change_pass(UserVO vo) {
-		// TODO Auto-generated method stub
-		return null;
+	public void change_pass(UserVO vo) {
+		userDAO.change_pass(vo);
+	}
+
+	@Override
+	public UserProductVO productGet(UserProductVO vo) {
+		return userDAO.product_Get(vo);
 	}
 }
