@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.seller.service.ProductService;
+import ozo.spring.house.seller.vo.ProductDetailVO;
 import ozo.spring.house.seller.vo.ProductVO;
 
 @Controller
@@ -27,9 +28,16 @@ public class JsonController {
 	// detail 내용 전달받는 부분
 	@ResponseBody
 	@RequestMapping(value="/getJson.seller", method=RequestMethod.POST)
-	public List<Map<String, Object>> getJson(@RequestBody List<Map<String, Object>> jsondata, ProductVO vo) {
+	public List<Map<String, Object>> getJson(@RequestBody List<Map<String, Object>> jsondata, ProductVO vo, ProductDetailVO dvo) {
 		System.out.println(jsondata);
 		
+		Map<String, Object> optionMap = jsondata.get(0);
+		System.out.println(optionMap);
+		
+		Map<String, Object> tableMap = jsondata.get(1);
+		System.out.println(tableMap);
+		
+		/*
 		List<String> change = new ArrayList<String>();
 
 		for(Map<String, Object> jmap : jsondata) {
@@ -39,7 +47,7 @@ public class JsonController {
 		vo.setDetail_content(change.get(0));
 		vo.setDetail_table(change.get(1));
 		
-		productService.insertDetail(vo);
+		productService.insertDetail(vo);*/
 		return jsondata;
 	}
 	

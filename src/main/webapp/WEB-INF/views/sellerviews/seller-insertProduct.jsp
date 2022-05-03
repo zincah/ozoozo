@@ -24,6 +24,13 @@
 <script>
       $(document).ready(function () {
     	  
+    	  // enter event 제거
+    	  $('form').keydown(function() {
+			    if (event.keyCode === 13) {
+			        event.preventDefault();
+			    }
+			});
+			    	  
         $(".sale_price_layer").hide();
         // 68%
         $(".sale_percent_input").keydown(function (key) {
@@ -183,8 +190,8 @@
       	
 	    function gatherData(){
       		
-      		checkProduct();
-      		photoUpload();
+      		//checkProduct();
+      		//photoUpload();
       		
       		var colorList = []
       		var woodtone = []
@@ -1188,7 +1195,7 @@
 
 				<div class="text-end mb-5">
 					<button class="btn btn-outline-secondary btn-size" type="reset">취소</button>
-					<button class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
+					<button type="button" class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
 				</div>
 			</form>
 		</div>
