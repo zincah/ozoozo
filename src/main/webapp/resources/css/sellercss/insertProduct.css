@@ -486,7 +486,7 @@ p{
     max-width: 300px;
 }
 
-.image-show{
+.image_show{
     display: none;
     position: absolute;
     top: 0;
@@ -494,6 +494,7 @@ p{
     height: 200px;
     z-index: 100;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .upload_img{
@@ -563,6 +564,16 @@ p{
     padding: 0.15rem 0.5rem;
     background-color: #dbdbdb;
 }
+
+/* 삭제 버튼 */
+.photo_del_btn{
+	color: black;
+	position: absolute;
+	z-index:10000;
+	top: 0.2rem;
+	right: 0.2rem;
+}
+
 
 /* 상세 설명 */
 .write-textarea{

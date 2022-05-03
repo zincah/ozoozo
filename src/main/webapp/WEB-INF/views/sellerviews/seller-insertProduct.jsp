@@ -16,7 +16,7 @@
 	rel="stylesheet" />
 <link href="resources/css/sellercss/fonts.css?var=1" rel="stylesheet" />
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
-<link href="resources/css/sellercss/insertProduct.css?var=12" rel="stylesheet" />
+<link href="resources/css/sellercss/insertProduct.css?var=1" rel="stylesheet" />
 <jsp:include page="header/headerModalView.jsp"></jsp:include>
 <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="resources/js/sellerjs/plus_photo.js?var=1"></script>
@@ -24,6 +24,13 @@
 <script>
       $(document).ready(function () {
     	  
+    	  // enter event 제거
+    	  $('form').keydown(function() {
+			    if (event.keyCode === 13) {
+			        event.preventDefault();
+			    }
+			});
+			    	  
         $(".sale_price_layer").hide();
         // 68%
         $(".sale_percent_input").keydown(function (key) {
@@ -77,42 +84,7 @@
           $(this).css("background-color", "#828282");
         });
 
-        /* file upload */
-        $(".photo_upload").click(function () {
-          $("#main_file").click();
-        });
-
-        /* file plus */
-        /*
-        var photo_count = 0;
-
-        $(".photo_plus").click(function () {
-        	photo_count++;
-
-          var html = '<div class="photo_layer mt-4" id="photo_layer">\
-                        <input type="file" name="main_file" id="main_file" style="display:none" onchange="changeValue(this)"/>\
-                        <button type="button" class="main_photo_btn photo_upload" onclick="fileupload()">\
-                            <div class="photo_upload_layer">\
-                                <i class="fa-solid fa-camera upload_icon"></i>\
-                                <span class="upload_title">\
-                                    사진올리기\
-                                </span>\
-                                <span class="upload_sub_title">\
-                                    (*최대 5장까지)\
-                                </span>\
-                            </div>\
-                        </button>\
-                        <div class="image-show" id="image-show"></div>\
-                    </div>';
-
-                    
-          if (photo_count < 5) {
-            $(".photos").append(html);
-          } else {
-            alert("더이상 추가 되지 않습니다.");
-          }
-        });*/
-
+        
         /* 세일 설정 jquery */
         $("#sale_notset").click(function () {
           $("#sale_notset").removeClass("btn-outline-secondary").addClass("btn-secondary");
@@ -125,6 +97,10 @@
           $("#sale_notset").removeClass("btn-secondary").addClass("btn-outline-secondary");
           $(".sale_percent_input").removeAttr("disabled");
         });
+        
+
+        
+
       });
       
    	// 대표사진 clone
@@ -143,16 +119,49 @@
 	        $(this).attr("id", "photo_layer"+(photo_count));
 	    });
 	    
+	    $(".photo_upload").each(function(photo_count, photo_upload){
+	    	$(this).attr("id", "photo_upload"+(photo_count));
+	    });
+	    
+	    $(".main_photo").each(function(photo_count, main_photo){
+	    	$(this).attr("id", "main_photo"+(photo_count));
+	    });
+	    
+	    $(".image_show").each(function(photo_count, image_show){
+	    	$(this).attr("id", "image_show"+(photo_count));
+	    });
+	    
 	    photo_count++;
 	    
 	};
 
-      function fileupload() {
-        $("#main_file").click();
+      function mainFileUpload(event) {
+		
+    	  var checkId = event.id;
+    	  var checkSu = checkId.substr(-1);
+    	  
+    	  $('#main_photo'+checkSu).click();
+
+      }
+      
+      function delPhoto(delit){
+    	  var parentId = delit.parentNode.id;
+    	  var checkSu = parentId.substr(-1);
+    	  
+    	  var container = document.getElementById('image_show'+checkSu);
+    	  if(container.hasChildNodes()){
+    		  container.removeChild(container.firstChild);
+    		  $('#image_show'+checkSu).hide();
+    	  }
+    	  
+    	  
       }
 
       /* file 이름 나옴 */
       function changeValue(input) {
+    	  var checkId = input.id;
+    	  var checkSu = checkId.substr(-1);
+    	  
         var file = input.files[0]; //선택된 파일 가져오기
 
         //미리 만들어 놓은 div에 text(파일 이름) 추가
@@ -170,18 +179,19 @@
         alert(URL.createObjectURL(file));
 
         //이미지를 image-show div에 추가
-        var container = document.getElementById("image-show");
+        var container = document.getElementById('image_show'+checkSu);
         container.appendChild(newImage);
-        $(".image-show").show();
+        $('#image_show'+checkSu).show();
         
       }
 
       
       	// 데이터모으기
+      	
 	    function gatherData(){
       		
-      		checkProduct();
-      		photoUpload();
+      		//checkProduct();
+      		//photoUpload();
       		
       		var colorList = []
       		var woodtone = []
@@ -338,6 +348,7 @@
 
 		};
 
+		
 		// product check	
 		function checkProduct(){
 			
@@ -394,15 +405,27 @@
 		  		}
 		  		
 		  	});
-			
 		}
+		
 		
 		// 사진업로드 기능
 		function photoUpload(){
 			
 			var formData = new FormData();
 			
+			var mainFileInput = $(".main_photo");
 			var fileInput = $(".thisisfile");
+			
+			for (var i = 0; i < mainFileInput.length; i++) {
+				if (mainFileInput[i].files.length > 0) {
+					for (var j = 0; j < mainFileInput[i].files.length; j++) {
+						console.log(" mainFileInput[i].files[j] :::"+ mainFileInput[i].files[j]);
+						
+						// formData에 'file'이라는 키값으로 fileInput 값을 append 시킨다.  
+						formData.append('mainfile', $('.main_photo')[i].files[j]);
+					}
+				}
+			}
 			
 			for (var i = 0; i < fileInput.length; i++) {
 				if (fileInput[i].files.length > 0) {
@@ -1030,20 +1053,26 @@
 								<div class="photos">
 									<!-- 대표사진 -->
 									<div id="thisphoto">
-										<div class="photo_layer mt-4" id="photo_layer">
+										<div class="photo_layer mt-4" id="photo_layer0">
+											<button type="button" class="btn photo_del_btn" onclick="delPhoto(this)">
+												<i class="fa-regular fa-circle-xmark"></i>
+											</button>
 											<!-- input tag를 숨긴다음에 button을 눌렀을 때 file 업로드 창 열리게-->
-											<input type="file" name="main_file" id="main_file"
+											<input type="file" name="main_photo" id="main_photo0" class="main_photo"
 												style="display: none" onchange="changeValue(this)"
 												accept="image/*" />
-											<button type="button" class="main_photo_btn photo_upload">
+											<button type="button" class="main_photo_btn photo_upload" id="photo_upload0" onclick="mainFileUpload(this)">
 												<div class="photo_upload_layer">
 													<i class="fa-solid fa-camera upload_icon"></i> <span
 														class="upload_title"> 사진올리기 </span> <span
 														class="upload_sub_title"> (*최대 5장까지) </span>
 												</div>
+												
 											</button>
+
+											
 	
-											<div class="image-show" id="image-show"></div>
+											<div class="image_show" id="image_show0"></div>
 										</div>
 									</div>
 									<!--  -->
@@ -1051,17 +1080,11 @@
 
 								<!--사진 추가 버튼-->
 								<div class="photo_plus_layer mt-2">
-									<!-- input tag를 숨긴다음에 button을 눌렀을 때 file 업로드 창 열리게-->
-									<input type="file" name="main_file" id="main_file"
-										style="display: none" />
 									<button type="button" class="main_photo_btn photo_plus" onclick="mainPhotoplus()">
 										<div class="photo_plus_upload_layer">
 											<i class="fa-solid fa-plus"></i>
 										</div>
 									</button>
-									<div class="photo_wrap">
-										<img src="sources/best1.jpg" />
-									</div>
 								</div>
 							</div>
 						</div>
@@ -1172,7 +1195,7 @@
 
 				<div class="text-end mb-5">
 					<button class="btn btn-outline-secondary btn-size" type="reset">취소</button>
-					<button class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
+					<button type="button" class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
 				</div>
 			</form>
 		</div>
