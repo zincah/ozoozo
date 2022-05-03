@@ -3,7 +3,6 @@ package ozo.spring.house.seller.service;
 import java.util.List;
 
 import ozo.spring.house.seller.vo.ProductVO;
-import ozo.spring.house.seller.vo.SellerVO;
 
 public interface ProductService {
 	
@@ -12,5 +11,6 @@ public interface ProductService {
 	public void updatePost(ProductVO vo);
 	public void insertDetail(ProductVO vo);
 	public void insertPhoto(ProductVO vo);
-	public List<ProductVO> selectProduct(SellerVO vo);
+	public List<ProductVO> selectProduct(int vo);
+	public List<ProductVO> selectProductView(int vo);
 }

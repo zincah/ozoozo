@@ -44,6 +44,7 @@ public class LoginController {
 		if(seller != null) {
 			session.setAttribute("seller", seller); // 판매자 아이디
 			session.setAttribute("entrydate", new SimpleDateFormat("yyyy-MM-dd").format(seller.getEntry_date())); // 판매자 아이디
+			session.setAttribute("seller_id", seller.getSeller_id());
 			
 			return "index";
 		}else {

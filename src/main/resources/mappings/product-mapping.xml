@@ -54,8 +54,24 @@
 		VALUES (#{photo_url}, #{photo_separate}, #{photo_postid})
 	</insert>
 
-	<select id="selectProduct" parameterType="product">
-		SELECT * FROM product JOIN product_status ON seller_id=#{seller_id};
+	<!-- 상품+상품상태 테이블 -->
+	<select id="selectProduct" resultType="product">
+		SELECT * FROM product p JOIN product_status ps ON p.product_id = ps.st_product_id WHERE seller_id = #{seller_id};
+	</select>
+	
+	<!-- jsp 테이블에 뿌릴 상품목록 -->
+	<select id="selectProductView" resultType="product">
+		SELECT p.product_id, 
+		p.product_seller_code, 
+		p.product_title, 
+		p.product_price, 
+		(SELECT cate_name FROM category c WHERE p.pro_catecode = c.cate_code) AS category_name, 
+		ps.status, 
+		p.product_quantity, 
+		p.product_created, 
+		p.product_updated FROM product p 
+		JOIN product_status ps ON p.product_id = ps.st_product_id 
+		WHERE seller_id = #{seller_id};
 	</select>
 
 	
