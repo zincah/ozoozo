@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.seller.vo.CategoryVO;
@@ -29,13 +30,25 @@ public class CSController {
 		return "customercenter";
 	}
 	
+
+//	@RequestMapping(value = "/CS_order.com")
+//	public String order( CScenterVO vo,Model model) {
+//		
+//		vo.setCustomer_keyword("order");
+//		List<CScenterVO> list = csservice.cskeyword(vo);
+//		
+//		model.addAttribute("list",list);
+//		return "customercenter";
+//	}
+
+	
+	
 	@ResponseBody
-	@RequestMapping(value = "/CScenter.com/order")
-	public List<CScenterVO> midcate(@RequestBody CScenterVO vo,Model model) {
-		
-		vo.setCustomer_keyword("order");
+	@RequestMapping(value = "/getCS.com", method=RequestMethod.GET)
+	public List<CScenterVO> getCSList(String key,CScenterVO vo) {
+		vo.setCustomer_keyword(key);
 		List<CScenterVO> list = csservice.cskeyword(vo);
-		model.addAttribute("list",list);
+		
 		return list;
 	}
 	

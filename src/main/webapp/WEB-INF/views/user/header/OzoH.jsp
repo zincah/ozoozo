@@ -234,7 +234,7 @@
 								class="end_word" href="/house/signUp.com">회원가입</a></list>
 
 							<list class="end_word_pre"> <a class="end_word"
-								href="/house/customercenter.com">고객센터</a></list>
+								href="/house/CScenter.com">고객센터</a></list>
 						</c:if>
 
 					</div>
@@ -570,7 +570,7 @@
 
 								<li class="layout-navigation-drawer-user-menu__item-wrap"><a
 									class="layout-navigation-drawer-user-menu__item"
-									href="/house/customercenter.com">고객센터</a></li>
+									href="/house/CScenter.com">고객센터</a></li>
 							</ul>
 
 							<ul
