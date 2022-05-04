@@ -15,6 +15,82 @@
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
 	integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
 	crossorigin="anonymous"></script>
+	<script>
+		
+		$(document).ready(function(){
+			
+			$(".getKey").click(function(){
+				var item = $(this).attr('id');
+				
+				var gourl = "getCS.com?key="+item;
+				console.log(gourl);
+				
+				
+				$.ajax({
+			  		url: gourl,
+			  		type:'get',
+			  		contentType : 'application/json; charset=UTF-8',
+			  		dataType : 'json',
+			  		success : function(resp){
+			  			$(".faq__contents__group").html("");
+			  			var qna = ""
+			  			
+			  			$.each(resp,function(index,item){
+			  				
+			  				qna += '<section  class="faq__contents__item">'+
+		                       ' <div class="faq__contents__item__question cs_'+item["customer_no"]+'" >'+item["customer_question"]+
+		                       '<svg width="1em" height="1em" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet" style="position: absolute; right: 0px; width: 12px; height: 12px; top: 50%; transition: transform 0.2s ease 0s; transform: translateY(-50%);">'+
+		                       ' <path fill="currentColor" fill-rule="evenodd" d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z"></path></svg></div>'+
+		                       '<div class="faq__contents__item__answer" ><p>'+item["customer_answer"]+'</p></div></section>'+
+		                       '<script>'+
+		                     '$(document).ready(function(){'+
+		                         '$(".faq__contents__item__answer").hide();'+
+		                         '$(".cs_'+item["customer_no"]+'", this).click(function(){'+
+		                             'var open = $(this).siblings("div");'+
+		                             '$(open[0]).slideToggle();'+
+		                         '});'+
+		                     '});'+
+		                	'<'+'/'+'script>'
+			  			})
+			  				$(".faq__contents__group").append(qna);	
+			  			
+			  			
+			  			
+			  			
+			  			
+							
+			  			
+			  			
+			  		}
+			  		
+			  		})
+			})
+			
+
+
+			/*
+			// ajax로 데이터 넘기기
+		  	$.ajax({
+	  		url:'',
+	  		method:'post',
+	  		data: JSON.stringify(item),
+	  		contentType : 'application/json; charset=UTF-8',
+	  		dataType : 'json',
+	  		async: false,
+	  		success : function(resp){
+
+	  			
+	  			}
+	  		});
+			*/
+			
+		});
+	
+	
+	</script>
+	
+	
+	
 <title>Document</title>
 </head>
 <body>
@@ -72,14 +148,14 @@
         <article id="faq" class="faq">
             <nav class="faq__nav">
                 <ul class="faq__nav__list">
-                    <li class="faq__nav__item faq__nav__item--active"><a href="/CScenter.com">전체</a></li>
-                    <li class="faq__nav__item"><a href="/CScenter.com/order">주문/결제</a></li>
-                    <li class="faq__nav__item"><a id="customer_keyword" href="/house/customer_center#배송관련">배송관련</a></li>
-                    <li class="faq__nav__item"><a id="customer_keyword" href="/customer_center#취소+환불">취소/환불</a></li>
-                    <li class="faq__nav__item"><a id="customer_keyword" href="/customer_center#반품+교환">반품/교환</a></li>
-                    <li class="faq__nav__item"><a id="customer_keyword" href="/customer_center#증빙서류발급">증빙서류발급</a></li>
-                    <li class="faq__nav__item"><a id="customer_keyword" href="/customer_center#로그인+회원정보">로그인/회원정보</a></li>
-                    <li class="faq__nav__item"><a id="customer_keyword" href="/customer_center#서비스+기타">서비스/기타</a></li>
+                    <li class="faq__nav__item faq__nav__item--active"><a href="/house/CScenter.com">전체</a></li>
+                    <li class="faq__nav__item"><a class="getKey" id="order">주문/결제</a></li>
+                    <li class="faq__nav__item"><a class="getKey" id="transport" >배송관련</a></li>
+                    <li class="faq__nav__item"><a class="getKey" id="cancel" >취소/환불</a></li>
+                    <li class="faq__nav__item"><a class="getKey" id="refund" >반품/교환</a></li>
+                    <li class="faq__nav__item"><a class="getKey" id="document" >증빙서류발급</a></li>
+                    <li class="faq__nav__item"><a class="getKey" id="login" >로그인/회원정보</a></li>
+                    <li class="faq__nav__item"><a class="getKey" id="service" >서비스/기타</a></li>
                 </ul>
             </nav>
             
@@ -88,7 +164,7 @@
                 <section id="faq__contents__group" class="faq__contents__group">
                
                     <c:forEach items="${list}" var="CS">
-                    <section id="" class="faq__contents__item box_${CS.customer_no}">
+                    <section id="${CS.customer_keyword}" class="faq__contents__item box_${CS.customer_no}">
                         <div class="faq__contents__item__question cs_${CS.customer_no}" >${CS.customer_question}<svg width="1em" height="1em"
                                 viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet"
                                 style="position: absolute; right: 0px; width: 12px; height: 12px; top: 50%; transition: transform 0.2s ease 0s; transform: translateY(-50%);">
@@ -104,29 +180,16 @@
                    
                     
                      <script>
-                     
                      $(document).ready(function(){
-
-                        
-
-                         /* 카테고리 토글 */
+				           /* 카테고리 토글 */
                          $(".faq__contents__item__answer").hide();
                          $(".cs_${CS.customer_no}", this).click(function(){
                              var open = $(this).siblings("div");
                              
                              $(open[0]).slideToggle();
                          });
-
-                        
-
-
                      });
-                 
-                 
                 	</script>
-                  
-
-                   
                     </c:forEach>
                 </section>
                  
