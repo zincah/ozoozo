@@ -5,7 +5,7 @@
  <mapper namespace="UserCategoryDAO">
     
     
-    <select id="c_category" resultType="" >
+    <select id="c_category" resultType="ucate" >
     
     </select>
     

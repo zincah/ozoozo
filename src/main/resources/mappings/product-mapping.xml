@@ -60,7 +60,7 @@
 	</select>
 	
 	<!-- jsp 테이블에 뿌릴 상품목록 -->
-	<select id="selectProductView" resultType="product">
+	<select id="selectProductView1" resultType="product">
 		SELECT p.product_id, 
 		p.product_seller_code, 
 		p.product_title, 
