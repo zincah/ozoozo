@@ -37,9 +37,6 @@ public class UploadController {
 		String dirName = "product";
 
 		try {
-			System.out.println(main.size());
-			System.out.println(multi.size()); 
-			// 사이즈 잘 넘어옴
 			
 			for(int i=0; i<main.size(); i++) {
 				MultipartFile mainfile = main.get(i);
@@ -59,27 +56,30 @@ public class UploadController {
 				System.out.println("mybatis main photo ok");
 			}
 			
-			
-			for(int i=0; i<multi.size(); i++) {
-				MultipartFile file = multi.get(i);
-				String key = file.getOriginalFilename();
-				System.out.println("filename --> " +key);
-				InputStream is = file.getInputStream();
-				String contentType = file.getContentType();
-				long contentLength = file.getSize();
+			if(multi!=null) {
 				
-				//aws upload 메소드
-				String url = awss3Client.upload(is, key, contentType, contentLength, dirName);
-				System.out.println(url);
-				System.out.println("aws detail file upload complete");
-				
-				vo.setPhoto_url(url);
-				vo.setPhoto_separate(false);
-				productService.insertPhoto(vo);
-				System.out.println("mybatis detail photo ok");
-				
+				for(int i=0; i<multi.size(); i++) {
+					MultipartFile file = multi.get(i);
+					String key = file.getOriginalFilename();
+					System.out.println("filename --> " +key);
+					InputStream is = file.getInputStream();
+					String contentType = file.getContentType();
+					long contentLength = file.getSize();
+					
+					//aws upload 메소드
+					String url = awss3Client.upload(is, key, contentType, contentLength, dirName);
+					System.out.println(url);
+					System.out.println("aws detail file upload complete");
+					
+					vo.setPhoto_url(url);
+					vo.setPhoto_separate(false);
+					productService.insertPhoto(vo);
+					System.out.println("mybatis detail photo ok");
 
+				}
 			}
+			
+
 			
 		}catch(Exception e) {
 			e.printStackTrace();
