@@ -322,9 +322,10 @@
 						aria-labelledby="dropdownMenuButton1">
 						<li><h6 class="dropdown-header">상품 설정 일괄 변경</h6></li>
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-							data-bs-target="#modal-status-select" id="productStatusChange">판매상태 변경</a></li>
+							data-bs-target="#modal-status-select" id="productStatusChange">판매상태
+								변경</a></li>
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-							data-bs-target="#modal-delete">상품 삭제</a></li>
+							data-bs-target="#modal-delete" id="productDelete">상품 삭제</a></li>
 					</ul>
 				</div>
 			</div>
@@ -342,15 +343,16 @@
 					<div class="modal-body modal-status-select-product">
 						<div class="modal-status-select-product-num">
 							<span>선택된 상품 수 : </span> <span
-								class="modal-status-select-product-num-value productNum">0</span> <span>개</span>
+								class="modal-status-select-product-num-value productNum">0</span>
+							<span>개</span>
 						</div>
 						<div class="modal-status-select">
 							<div class="btn-group modal-status-select-btn-group" role="group"
 								aria-label="Basic radio toggle button group">
 								<select class="form-select modal-status-select-option"
-									aria-label="Default select example">
-									<option value="1">판매중</option>
-									<option value="2">판매대기</option>
+									aria-label="Default select example" id="statusOption">
+									<option value="1">판매대기</option>
+									<option value="2">판매중</option>
 									<option value="3">품절</option>
 									<option value="4">판매중지</option>
 									<option value="5">판매종료</option>
@@ -362,7 +364,8 @@
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">취소</button>
 						<button type="button"
-							class="btn btn-primary modal-status-select-submit-button" id="pscSubmitBtn">변경</button>
+							class="btn btn-primary modal-status-select-submit-button"
+							id="pscSubmitBtn">변경</button>
 					</div>
 				</div>
 			</div>
@@ -380,7 +383,7 @@
 					<div class="modal-body modal-status-select-product">
 						<div class="modal-delete-product-num">
 							<span>선택된 상품 수 : </span> <span
-								class="modal-delete-product-num-value">0</span> <span>개</span>
+								class="modal-delete-product-num-value productNum">0</span> <span>개</span>
 						</div>
 						<div class="modal-delete-select-product">
 							<div class="accordion accordion-flush" id="accordionFlushExample">
@@ -409,27 +412,41 @@
 												<table class="table table-box-style">
 													<thead>
 														<tr class="content-table-title">
-															<td class="content-table-title-text option-line">No.</td>
 															<td class="content-table-title-text option-line">상품고유번호</td>
 															<td class="content-table-title-text option-line">판매자상품코드</td>
 															<td class="content-table-title-text option-line">상품명</td>
 															<td class="content-table-title-text option-line">판매가</td>
 															<td class="content-table-title-text option-line">카테고리</td>
 															<td class="content-table-title-text option-line">판매상태</td>
+															<td class="content-table-title-text option-line">재고</td>
+															<td class="content-table-title-text option-line">등록일</td>
+															<td class="content-table-title-text option-line">수정일</td>
 														</tr>
 													</thead>
-													<tbody>
-														<!-- for -->
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">1</td>
-															<td class="content-table-content-text option-line state0">0654367</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">12,000</td>
-															<td class="content-table-content-text option-line">가구</td>
-															<td class="content-table-content-text option-line">판매중</td>
-														</tr>
+													<tbody id="productDeleteView">
+														<c:forEach var="productListView"
+															items="${productListView}">
+															<tr class="content-table-content content-hover">
+																<td class="content-table-content-text option-line"><input
+																	class="form-check-input check" type="checkbox" value="" /></td>
+																<td
+																	class="content-table-content-text option-line state0">${productListView.getProduct_id()}</td>
+																<td class="content-table-content-text option-line">${productListView.getProduct_seller_code()}</td>
+																<td class="content-table-content-text option-line">${productListView.getProduct_title()}</td>
+																<td class="content-table-content-text option-line"><fmt:formatNumber
+																		value="${productListView.getProduct_price()}"
+																		type="currency" /></td>
+																<td class="content-table-content-text option-line">${productListView.getCategory_name()}</td>
+																<td class="content-table-content-text option-line">${productListView.getStatus()}</td>
+																<td class="content-table-content-text option-line">${productListView.getProduct_quantity()}</td>
+																<td class="content-table-content-text option-line"><fmt:formatDate
+																		value="${productListView.getProduct_created()}"
+																		pattern="yyyy-MM-dd HH:mm" /></td>
+																<td class="content-table-content-text option-line"><fmt:formatDate
+																		value="${productListView.getProduct_updated()}"
+																		pattern="yyyy-MM-dd HH:mm" /></td>
+															</tr>
+														</c:forEach>
 													</tbody>
 												</table>
 											</div>
@@ -443,12 +460,13 @@
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">취소</button>
 						<button type="button"
-							class="btn btn-primary modal-status-select-submit-button">삭제</button>
+							class="btn btn-primary modal-status-select-submit-button"
+							id="pdSubmitBtn">삭제</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<table class="table table-hover table-box-style">
+		<table class="table table-hover table-box-style" id="productListTable">
 			<thead>
 				<tr class="content-table-title">
 					<td class="content-table-title-text option-line"><input
@@ -510,7 +528,7 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
 	crossorigin="anonymous"></script>
 <script
-	src="resources/js/sellerjs/seller-productManagement.js?t=<%=System.currentTimeMillis() %>"></script>
+	src="resources/js/sellerjs/seller-productManagement.js?t=<%=System.currentTimeMillis()%>"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
 	crossorigin="anonymous"></script>

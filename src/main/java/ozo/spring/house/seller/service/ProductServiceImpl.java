@@ -48,5 +48,20 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> selectProductView(int vo) {
 		return productDAO.selectProductView(vo);
 	}
+	
+	@Override
+	public void updateProductStatus(ProductVO vo) {
+		productDAO.updateProductStatus(vo);
+	}
+	
+	@Override
+	public void updateProductUpdated(ProductVO vo) {
+		productDAO.updateProductUpdated(vo);
+	}
+
+	@Override
+	public List<ProductVO> selectSelectProductList(ProductVO vo) {
+		return productDAO.selectSelectProductList(vo);
+	}
 
 }
