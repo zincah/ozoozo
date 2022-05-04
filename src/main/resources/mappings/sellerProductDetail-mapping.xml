@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="ProductDetailDAO">
+
+	<!-- insert table -->
+	<insert id="insertTables" parameterType="productdetail">
+		INSERT INTO product_tables (table_title, table_kc, table_color, table_component, table_material, table_manufacturer, table_country, table_size, table_delivery, table_qa, table_cstel, protable_postid) 
+		VALUES (#{table_title}, #{table_kc}, #{table_color}, #{table_component}, #{table_material}, #{table_manufacturer}, #{table_country}, #{table_size}, #{table_delivery}, #{table_qa}, #{table_cstel}, #{protable_postid});
+	</insert>
+	
+	<!-- select filtering -->
+	<select id="selectFilter" resultType="productdetail">
+		SELECT * FROM filter_element WHERE ftop_catecode = 1;
+	</select>
+	
+	
+	
+
+</mapper>

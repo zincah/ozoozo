@@ -8,7 +8,7 @@
 		<id property="cate_code" column="CATE_CODE"/>
 		<result property="cate_name" column="CATE_NAME"/>
 		<result property="subcate_code" column="SUBCATE_CODE"/>
-		<result property="depth" column="DEPTH"/>
+		<result property="sub_depth" column="SUB_DEPTH"/>
 		<result property="subcate_name" column="SUBCATE_NAME"/>
 		<result property="top_catecode" column="TOP_CATECODE"/>
 	</resultMap>
@@ -21,12 +21,12 @@
 
 	<!-- MIDDLE_CATEGORY LIST -->
     <select id="getMidCategoryList" resultType="cate" >
-       SELECT * FROM sub_category WHERE depth = #{depth} and top_catecode = #{top_catecode};
+       SELECT * FROM sub_category WHERE sub_depth = #{depth} and top_catecode = #{top_catecode};
     </select>
     
 	<!-- BOTTOM_CATEGORY LIST -->
     <select id="getBotCategoryList" resultType="cate" >
-       SELECT * FROM sub_category WHERE depth = #{depth} and subcate_code BETWEEN #{subcate_code} and (#{subcate_code} + 100);
+       SELECT * FROM sub_category WHERE sub_depth = #{depth} and subcate_code BETWEEN #{subcate_code} and (#{subcate_code} + 100);
     </select>
 
 	
