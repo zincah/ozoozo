@@ -1,5 +1,7 @@
 package ozo.spring.house.user.service;
 
+import java.util.List;
+
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserVO;
 
@@ -9,5 +11,6 @@ public interface UserService {
 	public void insertUser(UserVO vo);
 	public UserVO checkUser(UserVO vo);
 	public void change_pass(UserVO vo);
-	public UserProductVO productGet(UserProductVO vo);
+	public List<UserProductVO> productGet(UserProductVO vo);
+	public List<UserProductVO> productGet_option(UserProductVO vo);
 }

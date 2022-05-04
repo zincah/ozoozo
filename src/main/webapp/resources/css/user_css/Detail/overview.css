@@ -868,17 +868,6 @@ img {
 .production-selling-header__price__price-wrap {
     display: inline-block;
 }
-
-@media (min-width: 768px) {
-    .production-selling-header__price__discount {
-        color: #656e75;
-        font-size: 16px;
-        line-height: 19px;
-        padding-right: 6px;
-        vertical-align: top;
-    }
-}
-
 .production-selling-header__price__discount {
     display: inline-block;
     color: #757575;
@@ -886,6 +875,19 @@ img {
     line-height: 17px;
     padding-right: 2px;
     font-family: Tahoma, sans-serif;
+}
+
+@media (min-width: 768px) {
+    .production-selling-header__price__discount {
+        color: #656e75;
+        font-size: 16px;
+        line-height: 22px;
+        padding-right: 6px;
+        vertical-align: top;
+    }
+}
+.production-selling-header__price__original>.number {
+    font-family: Tahoma,sans-serif;
 }
 
 .production-selling-header__price__original {

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,14 +11,14 @@
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="resources/js/userjs/productDetail.js?var=1"></script>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/public.css'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/overview.css'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/overview.css?var='>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/inform.css'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/review.css'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/addInform.css?var=1'>
-    <link rel='stylesheet' type='text/css'  href='../../font/font.css'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/smallOption.css'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/detailScript.css'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/smallOption.css?var=1'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/detailScript.css?var=1'>
 
     <script>
         
@@ -135,11 +137,11 @@
                             <h1 class="production-selling-header__title">
                                 <p class="production-selling-header__title__brand-wrap">
                                     <!-- 업체 명 -->
-                                    <a class="production-selling-header__title__brand" href="">휴도 </a>
+                                    <a class="production-selling-header__title__brand" href="">${product[0].company_name } </a>
                                 </p>
                                 <div class="production-selling-header__title__name-wrap">
                                     <!-- 상품 이름 -->
-                                    <span class="production-selling-header__title__name"> [5천원쿠폰] 편안한 제주 필로우탑 본넬스프링 침대 매트리스 (싱글/슈퍼싱글/퀸/킹)</span>
+                                    <span class="production-selling-header__title__name"> ${product[0].post_name}</span>
                                     <!-- 공유하기, 스크랩 -->
                                     <div class="production-selling-header__action">
                                         <button class="production-selling-header__action__button production-selling-header__action__button-scrap" type="button">
@@ -226,19 +228,19 @@
                                 <div class="production-selling-header__price">
                                     <span class="production-selling-header__price__price-wrap">
                                         <span class="production-selling-header__price__discount">
-                                            <span class="number">57</span>
+                                            <span class="number">${product[0].sale_ratio}</span>
                                             <span class="percent">%</span>
                                         </span>
                                         <del class="production-selling-header__price__original">
-                                            <span class="number">249,000</span>
+                                            <span class="number">${price}</span>
                                             <span class="won">원</span>
                                         </del>
                                         <span class="production-selling-header__price__separator"></span>
                                         <span class="production-selling-header__price__price">
-                                            <span class="number">104,900</span>
+                                            <span class="number">${price_sale}</span>
                                             <span class="won">원</span>
                                             <span class="production-selling-header__price__badge">
-                                                <svg class="icon" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
+                                                <svg class="icons" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
                                                     <rect width="30" height="20" fill="#F77" rx="4"></rect>
                                                     <path fill="#fff" d="M12.83 7.93v-.97H7.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path>
                                                 </svg>
@@ -246,7 +248,7 @@
                                         </span>
                                     </span>
                                     <span class="production-selling-header__price__coupon">
-                                        <span class="number">89,900</span>
+                                        <span class="number">${price_first }</span>
                                         <span class="won">원</span>
                                         <a class="production-selling-header__price__coupon__reason" href="#">첫구매할인가 (앱 전용)<!-- --> 
                                             <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" preserveAspectRatio="xMidYMid meet">
@@ -338,7 +340,7 @@
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M17.51 5.5H6.492a1 1 0 00-.93.632l-.99 2.5A1 1 0 005.498 10h13.004a1 1 0 00.927-1.368l-.99-2.5a1 1 0 00-.93-.632zM3.642 8.263a2.002 2.002 0 001.397 2.684V17.5a2.5 2.5 0 002.5 2.5H16.474a2.5 2.5 0 002.487-2.5v-6.553a2.002 2.002 0 001.398-2.684l-.99-2.5a2 2 0 00-1.86-1.263H6.493a2 2 0 00-1.86 1.263l-.99 2.5zM6.04 17.5V11h11.921v6.5a1.5 1.5 0 01-1.487 1.5v-4a2 2 0 00-2-2h-.97a2 2 0 00-2 2v4H7.54a1.5 1.5 0 01-1.5-1.5zm6.464 1.5h2.97v-4a1 1 0 00-1-1h-.97a1 1 0 00-1 1v1h.847a.5.5 0 110 1h-.847v2zM8 13h1.5v1.5H8V13zm-1 0a1 1 0 011-1h1.5a1 1 0 011 1v1.5a1 1 0 01-1 1H8a1 1 0 01-1-1V13z" fill="#3F474D"></path>
                                     </svg>
                                     <div class="css-158icaa e3xbt9p5">
-                                        <span class="css-16kia55 e3xbt9p4">휴도</span>
+                                        <span class="css-16kia55 e3xbt9p4">${product[0].company_name }</span>
                                     </div>
                                 </div>
                                 <div class="css-xq185e e3xbt9p0">
@@ -354,22 +356,23 @@
                             <section class="selling-option-form-content production-selling-option-form__form">
                                 <div class="selling-option-form-content__form">
                                     <div class="selling-option-select-input">
-                                        <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-1 focused">
-                                            <select class="form-control empty">
-                                                <option selected="" value="" disabled="">사이즈</option>
-                                                <option value="0">제주 25cm 필로우탑 본넬스프링 _S 싱글(104,900원)</option>
-                                                <option value="1">제주 25cm 필로우탑 본넬스프링 _SS 슈퍼싱글(114,900원)</option>
-                                                <option value="2">제주 25cm 필로우탑 본넬스프링 _Q 퀸(154,900원)</option>
-                                                <option value="3">제주 25cm 필로우탑 본넬스프링 _K 킹(164,900원)</option>
+                                        <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-1">
+                                            <select class="form-control empty" onchange="selected(this)" id="selectOne">
+                                                <option selected="" value="" disabled="" >${product[0].option1_name }</option>
+                                                <c:forEach  var="i" begin="0" end="${fn:length(product)-1}">
+                                                <option>${product[i].option1 }</option>
+                                                </c:forEach>
                                             </select><span class="select-input__icon">
                                                 <svg class="icon" width="10" height="10" style="fill:currentColor" preserveAspectRatio="xMidYMid meet">
                                                     <path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path>
                                                 </svg>
                                             </span>
                                         </div>
+                                      <c:if test="${product[0].option2_name ne ''}">
                                         <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-2">
-                                            <select class="form-control empty" id="subOption">
-                                                <option selected="" value="" disabled="">색상</option>
+                                            <select class="form-control empty selectOne" >
+                                                <option selected="" value="" disabled="">${product[0].option2_name }</option>
+                                                
                                             </select>
                                             <span class="select-input__icon">
                                                 <svg class="icon" width="10" height="10" style="fill:currentColor" preserveAspectRatio="xMidYMid meet">
@@ -377,7 +380,34 @@
                                                 </svg>
                                             </span>
                                         </div>
-                                        <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-extra">
+                                        <script>var select1 = false</script>
+                                        </c:if>
+                                        <script>
+                                        	function selected(select_n){
+                                        		$(select_n).parent().addClass("focused");
+                                        		select_n.classList.remove('empty');
+                                        		if(!select1){
+                                        			add_div(select_n.value, select_n.id);
+                                        		}
+                                        	}
+                                        	function add_div(option, thisClass){
+                                        		$.ajax({
+                                        			url:'option_send.com',	
+                                      		  		method:'post',
+                                      		  		data: JSON.stringify(option),
+                                      		  		contentType : 'application/json; charset=UTF-8',
+                                      		  		dataType : 'json',
+                                      		  		success : function(option_list){
+                                      		  			$("."+thisClass).html("<option selected='' value='' disabled=''>${product[0].option2_name }</option>");
+                                      		  			 $.each(option_list,function(index,item){
+                                      		  				var op = '<option>'+item["option2"]+'</option>';
+                                      		  				$("."+thisClass).append(op);
+                                      		  			}) 
+                                      		  		}	
+                                        		})
+                                        	}
+                                        </script>
+                                        <!-- <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-extra">
                                             <select class="form-control empty" id="subOption">
                                                 <option selected="" value="" disabled="">추가상품 (선택)</option>
                                                 <option value="0">방수커버 S 싱글_화이트 (HS01101) (14,000원)</option>
@@ -396,10 +426,52 @@
                                                     <path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path>
                                                 </svg>
                                             </span>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
-                                <ul class="selling-option-form-content__list"></ul>
+                                <ul class="selling-option-form-content__list">
+                                	<script>
+                                		function buy_item(){
+                                			/* var html = 
+                                				'<li>
+                                					<article class="selling-option-item">
+                                					<h2 class="selling-option-item__name">
+                                						사이즈: 제주 25cm 필로우탑 본넬스프링 _Q 퀸 / 색상: 실버그레이 (HL01040)
+                                					</h2>
+                                					<button class="selling-option-item__delete" type="button" aria-label="삭제">
+                                					<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet">
+                                					<path fill-rule="nonzero" d="M6 4.6L10.3.3l1.4 1.4L7.4 6l4.3 4.3-1.4 1.4L6 7.4l-4.3 4.3-1.4-1.4L4.6 6 .3 1.7 1.7.3 6 4.6z">
+                                					</path>
+                                					</svg>
+                                					</button>
+                                					<div class="selling-option-item__controls">
+                                					<div class="selling-option-item__quantity">
+                                					<div class="input-group select-input option-count-input">
+                                					<select class="form-control">
+                                					<option value="0">1</option>
+                                					<option value="1">2</option>
+                                					<option value="2">3</option>
+                                					<option value="3">4</option>
+                                					<option value="4">5</option>
+                                					<option value="5">6</option>
+                                					<option value="6">7</option>
+                                					<option value="7">8</option>
+                                					<option value="8">9</option>
+                                					<option value="9">10+</option>
+                                					</select><span class="select-input__icon">
+                                					<svg class="icon" width="10" height="10" preserveAspectRatio="xMidYMid meet" style="fill: currentcolor;">
+                                					<path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path></svg></span></div></div><p class="selling-option-item__price">
+                                					<span class="selling-option-item__price__number">
+                                					159,000
+                                					</span>
+                                					원
+                                					</p>
+                                					</div>
+                                					</article>
+                                					</li>'; */
+                                		}
+                                	</script>
+                                </ul>
                             </section>
                             <!-- 주문 금액 -->
                             <p class="selling-option-form-content__price">
@@ -1674,13 +1746,12 @@
                                         <section class="selling-option-form-content production-selling-option-form__form">
                                             <div class="selling-option-form-content__form">
                                                 <div class="selling-option-select-input">
-                                                    <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-1 focused">
-                                                        <select class="form-control empty">
-                                                            <option selected="" value="" disabled="">사이즈</option>
-                                                            <option value="0">제주 25cm 필로우탑 본넬스프링 _S 싱글(104,900원)</option>
-                                                            <option value="1">제주 25cm 필로우탑 본넬스프링 _SS 슈퍼싱글(114,900원)</option>
-                                                            <option value="2">제주 25cm 필로우탑 본넬스프링 _Q 퀸(154,900원)</option>
-                                                            <option value="3">제주 25cm 필로우탑 본넬스프링 _K 킹(164,900원)</option>
+                                                    <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-1 ">
+                                                        <select class="form-control empty" onchange="selected(this)" id="selectTwo">
+                                                            <option selected="" value="" disabled="" >${product[0].option1_name }</option>
+                                                            <c:forEach  var="i" begin="0" end="${fn:length(product)-1}">
+                                                			<option>${product[i].option1 }</option>
+                                           				     </c:forEach>
                                                         </select>
                                                         <span class="select-input__icon">
                                                             <svg class="icon" width="10" height="10" style="fill:currentColor" preserveAspectRatio="xMidYMid meet">
@@ -1689,15 +1760,15 @@
                                                         </span>
                                                     </div>
                                                     <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-2">
-                                                        <select class="form-control empty">
-                                                            <option selected="" value="" disabled="">색상</option>
+                                                        <select class="form-control empty selectTwo">
+                                                            <option selected="" value="" disabled="">${product[0].option2_name }</option>
                                                         </select><span class="select-input__icon"><svg class="icon" width="10" height="10"
                                                                 style="fill:currentColor" preserveAspectRatio="xMidYMid meet">
                                                                 <path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path>
                                                             </svg>
                                                         </span>
                                                     </div>
-                                                    <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-extra">
+                                                    <!-- <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-extra">
                                                         <select class="form-control empty">
                                                             <option selected="" value="" disabled="">추가상품 (선택)</option>
                                                             <option value="0">방수커버 S 싱글_화이트 (HS01101) (14,000원)</option>
@@ -1716,7 +1787,7 @@
                                                                 <path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path>
                                                             </svg>
                                                         </span>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                             <ul class="selling-option-form-content__list"></ul>
@@ -1790,7 +1861,7 @@
 <!-- Script -->
 <!-- 쿠폰 div -->
 <div class="react-modal-dh react-modal--bottom coupon-modal open open-active" id="coupon" style="display: none;">
-    <div class="react-modal__content-wrap-dh">
+    <div class="react-modal__content-wrap-dhp">
         <div class="react-modal__content-dh coupon-modal__content-dh">
             <header class="coupon-modal__header">
                 <h1 class="coupon-modal__title"></h1><button class="coupon-modal__close" type="button" id="couponOff" onclick="closeCoupon()"
@@ -1831,7 +1902,7 @@
             </svg>
         </button>
     </div>
-    <div class="react-modal__content-wrap-dh">
+    <div class="react-modal__content-wrap-dhp">
         <div class="react-modal__content-dh large-close-modal__content css-j3o0no">
             <div>
                 <div class="css-14zdccb e117nz2q0">
@@ -2012,32 +2083,31 @@
 </div>
 <!-- 작은 창 구매하기 버튼 눌렀을 때 나오는 다이얼 로그-->
 <div class="react-modal-dh react-modal--bottom production-selling-select-modal open open-active" id="smallbuy" style="display: none;">
-    <div class="react-modal__content-wrap-dh">
+    <div class="react-modal__content-wrap-dhp">
         <div class="react-modal__content-dh production-selling-select-modal__content" id="closesmallbuy">
             <span class="production-selling-select-modal__handle"></span>
             <section class="selling-option-form-content production-selling-select-modal__form">
                 <div class="selling-option-form-content__form">
                     <div class="selling-option-select-input">
-                        <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-1 focused">
-                            <select class="form-control empty">
-                                <option value="" disabled="">사이즈</option>
-                                <option value="0">제주 25cm 필로우탑 본넬스프링 _S 싱글(104,900원)</option>
-                                <option value="1">제주 25cm 필로우탑 본넬스프링 _SS 슈퍼싱글(114,900원)</option>
-                                <option value="2">제주 25cm 필로우탑 본넬스프링 _Q 퀸(154,900원)</option>
-                                <option value="3">제주 25cm 필로우탑 본넬스프링 _K 킹(164,900원)</option>
+                        <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-1">
+                            <select class="form-control empty" onchange="selected(this)" id="selectThree">
+                                <option value="" disabled=""selected=""  >${product[0].option1_name }</option>
+                                	<c:forEach  var="i" begin="0" end="${fn:length(product)-1}">
+                                    <option >${product[i].option1 }</option>
+                                    </c:forEach>
                             </select><span class="select-input__icon"><svg class="icon" width="10" height="10"
                                     preserveAspectRatio="xMidYMid meet" style="fill: currentcolor;">
                                     <path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path>
                                 </svg></span></div>
                         <div
                             class="input-group select-input selling-option-select-input__option selling-option-select-input__option-2">
-                            <select class="form-control empty">
-                                <option value="" disabled="">색상</option>
+                            <select class="form-control empty selectThree">
+                                <option value="" disabled="" selected>${product[0].option2_name }</option>
                             </select><span class="select-input__icon"><svg class="icon" width="10" height="10"
                                     preserveAspectRatio="xMidYMid meet" style="fill: currentcolor;">
                                     <path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path>
                                 </svg></span></div>
-                        <div
+                        <!-- <div
                             class="input-group select-input selling-option-select-input__option selling-option-select-input__option-extra">
                             <select class="form-control empty">
                                 <option value="" disabled="">추가상품 (선택)</option>
@@ -2054,7 +2124,9 @@
                             </select><span class="select-input__icon"><svg class="icon" width="10" height="10"
                                     preserveAspectRatio="xMidYMid meet" style="fill: currentcolor;">
                                     <path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path>
-                                </svg></span></div>
+                                </svg>
+                                </span>
+                                </div> -->
                     </div>
                 </div>
                 <ul class="selling-option-form-content__list"></ul>
@@ -2071,108 +2143,6 @@
         </div>
     </div>
 </div>
-<script>
-   function openCoupon() {
-        document.getElementById("coupon").style.display = "";
-    }
-    function closeCoupon() {
-        document.getElementById("coupon").style.display = "none";
-    }
 
-    function openCard(){
-        document.getElementById("card").style.display = "";
-    }
-    function closeCard() {
-        document.getElementById("card").style.display = "none";
-    }
-    function openSmallbuy(){
-        document.getElementById("smallbuy").style.display = "";
-    }
-    
-        
-        $('.production-selling-select-modal').click(function(e) { 
-        if($(e.target).hasClass("react-modal__content-wrap-dh")) {
-            $('#smallbuy').css("display","none");
-
-            } 
-        });
-        $('.production-selling-select-modal').click(function(e) { 
-        if($(e.target).hasClass("production-selling-select-modal")) {
-             $('#smallbuy').css("display","none");
-            } 
-        });
-//제일 어려운 스크롤바..
-
-$(function() {
- 	var exlocation = $("#sidebar_js").offset().top;
-    plus = $('.sticky-container').outerHeight() + 80;
-    $banner = $('.production-selling-sidebar');
-$(window).scroll(function(){
-	size=$('.layout-footer').outerHeight();
-    var location = $(window).scrollTop();
-    var val = $(document).height() - $(window).height() - size;
-    var grayBar = location-exlocation;
-   if (location >= val){
-        $('#sidebar_move').css('position', 'absolute');
-        $('#sidebar_move').css('top', '');
-            $('#sidebar_move').css('bottom', '0');
-        
-        }else if((grayBar+plus) > 0 ){
-            $('#sidebar_move').css({'position': 'fixed', 'height': '589px', 'transition': 'top 0.1s ease 0s', 'top': '133px', 'width': '313.75px'});
-            $('#sidebar_js1').css('height' , '589px');
-        } else{
-        $('#sidebar_move').css('position', 'relative');
-        $('#sidebar_move').css('top', '0');
-        $('#sidebar_move').css('bottom', '');
-    }
-    
-    var pointer1 = $("#production-selling-review").offset().top;
-    var pointer2 = $("#production-selling-question").offset().top;
-    var pointer3 = $("#production-selling-delivery").offset().top;
-    //console.log(location-pointer3);
-    if((location - pointer3) > -1){
-        var notchangeColor = $("#QuickBtn4");
-        reset(notchangeColor);
-    }else if((location - pointer2) > -1){
-        var notchangeColor = $("#QuickBtn3");
-        reset(notchangeColor);
-    }else if((location - pointer1) > -1){
-        var notchangeColor = $("#QuickBtn2");
-        reset(notchangeColor);
-    }else{
-        var notchangeColor = $("#QuickBtn1");
-        reset(notchangeColor);
-    }
-});
-});
-function reset(notchangeColor){
-    $("#QuickBtn1").removeClass("production-selling-navigation__item--active");
-    $("#QuickBtn2").removeClass("production-selling-navigation__item--active");
-    $("#QuickBtn3").removeClass("production-selling-navigation__item--active");
-    $("#QuickBtn4").removeClass("production-selling-navigation__item--active");
-    $(notchangeColor).addClass("production-selling-navigation__item--active");
-}
-
-var img = $(".production-selling-cover-image__list__btn");
-$(img).hover(function(){
-    //console.log($(this).attr('aria-label'));
-    var choice = $(this).attr('aria-label');
-    var value = (choice*100-100)*-1;
-    var target = $(".carousel_list");
-    //target.css("transform" , 'translateX(-100%)');
-    if(1 == choice){
-        target.css("transform" , 'translateX(0%)');
-    }else if(2 == choice){
-        target.css("transform" , 'translateX(-100%)');
-    }else if(3 == choice){
-        target.css("transform" , 'translateX(-200%)');
-    }else if(4 == choice){
-        target.css("transform" , 'translateX(-300%)');
-    }else if(5 == choice){
-        target.css("transform" , 'translateX(-400%)');
-    }
-});
-
-</script>
 </body>
 </html>

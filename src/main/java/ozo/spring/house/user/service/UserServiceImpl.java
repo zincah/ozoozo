@@ -1,5 +1,7 @@
 package ozo.spring.house.user.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +47,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserProductVO productGet(UserProductVO vo) {
+	public List<UserProductVO> productGet(UserProductVO vo) {
 		return userDAO.product_Get(vo);
 	}
+
+	@Override
+	public List<UserProductVO> productGet_option(UserProductVO vo) {
+		// TODO Auto-generated method stub
+		return userDAO.product_Get_option(vo);
+	}
+	
 }

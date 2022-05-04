@@ -123,8 +123,59 @@
     justify-content: flex-end;
     height: 100%;
 }
+.react-modal__content-wrap-dhp {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    z-index: 504;
+    opacity: 0;
+    box-sizing: border-box;
+    transform: translateY(-50px);
+    -webkit-overflow-scrolling: touch;
+}
 @media (min-width: 768px){
 .production-selling-select-modal .react-modal__content-wrap {
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    -moz-justify-content: flex-start;
+    justify-content: flex-start;
+    height: auto;
+    max-height: 100%;
+}
+}
+.react-modal__content-wrap-dhp {
+    
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    -webkit-justify-content: flex-end;
+    -moz-justify-content: flex-end;
+    justify-content: flex-end;
+    height: 100%;
+}
+.open>.react-modal__content-wrap-dhp {
+    opacity: 1;
+    transform: none;
+}
+@media (min-width: 768px){
+.react-modal__content-wrap-dhp {
     -webkit-box-pack: start;
     -ms-flex-pack: start;
     -webkit-justify-content: flex-start;
@@ -221,4 +272,25 @@
     background-color: #ededed;
     border-color: #ededed;
     color: #757575;
+}
+@media (max-width: 767px){
+.production-selling-select-modal__content.react-modal__content-dh {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    min-height: 1px;
+    max-height: 100%;
+    padding: 20px 15px;
+    margin-top: 25px;
+    border-radius: 16px 16px 0 0;
+}
 }

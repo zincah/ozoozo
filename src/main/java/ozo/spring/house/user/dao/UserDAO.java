@@ -1,5 +1,7 @@
 package ozo.spring.house.user.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -66,9 +68,17 @@ public class UserDAO {
 		sqlSessionTemplate.update("UserDAO.change_pass", vo);
 		System.out.println("비밀번호 변경 성공");
 	}
-	public UserProductVO product_Get(UserProductVO vo) {
+	public List<UserProductVO> product_Get(UserProductVO vo) {
 		System.out.println("[LOGO] : Mybatis in UserDAO product_Get");
-		UserProductVO posting = sqlSessionTemplate.selectOne("UserDAO.product_get");
+		List<UserProductVO> posting = sqlSessionTemplate.selectList("UserProduct.product_get",vo);
+		//System.out.println(posting);
 		return posting;
 	}
+	//product_detail
+	public List<UserProductVO> product_Get_option(UserProductVO vo){
+		System.out.println("[LOGO] : Mybatis in UserDAO product_Get_option2");
+		List<UserProductVO> option_list = sqlSessionTemplate.selectList("UserProduct.product_option2_get", vo);
+		return option_list;
+	}
+	
 }
