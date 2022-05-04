@@ -1,19 +1,25 @@
 package ozo.spring.house.user.controller;
 
 
+import java.text.DecimalFormat;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.user.service.UserService;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserVO;
 @Controller
 public class UserController {
+	
+	@Autowired
 	UserService userservice;
+	
 	@RequestMapping(value = "/main.com")
 	public String user_main() {
 		return "ozomain_zinc";
@@ -47,13 +53,8 @@ public class UserController {
 		return "ozotodaydeal_zinc";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "/productPage.com")
-	public String user_product(Model model, UserProductVO vo) {
-		UserProductVO product = userservice.productGet(vo);
-		model.addAttribute("product", product);
-		return "ProductDetail";
-	}
+	
+	
 	@RequestMapping(value = "/myReview_view.com")
 	public String user_Review_V() {
 		return "myReview-view";

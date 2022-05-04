@@ -331,3 +331,19 @@
 .css-1w25a88 {
     display: flex;
 }
+
+.production-selling-select-modal__content.react-modal__content-dh {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 1 auto;
+    -moz-box-flex: 0;
+    -moz-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    possition: relative;
+}
+@media (min-width: 768px){
+.production-selling-select-modal__content.react-modal__content-dh {
+    width: 405px;
+    padding: 30px;
+}
+}

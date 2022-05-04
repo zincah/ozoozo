@@ -8,7 +8,19 @@ import lombok.ToString;
 @Setter
 @ToString
 public class UserProductVO {
+	//posting culum
+	private int post_id;
+	private boolean today_deal;
+	private boolean best_product;
+	private float star_ratio;
+	private String post_name;
+	private int sale_ratio;
+	private int whole_price;
 	private int product_id;
+	
+	
+	private String company_name;
+	
 	private int seller_id;
 	private int product_catecode;
 	private int product_subcatecode;

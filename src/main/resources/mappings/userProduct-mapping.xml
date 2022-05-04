@@ -2,11 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="UserDAO">
+<mapper namespace="UserProduct">
 
 	<!-- 상품 상세 페이지 가져오기 -->
 	<select id="product_get" resultType="userproduct">
-		select * from product_posting where post_id=50001 <!-- 여기다가 id 값 넣어주면 됨 -->
+		SELECT DISTINCT ON(option1) po.option1, s.company_name,ps.post_name, ps.sale_ratio, ps.whole_price, p.product_id, po.option1_name, po.option2_name  FROM seller s 
+		INNER JOIN product_posting ps ON ps.post_sellerid = s.seller_id 
+		inner join product p on p.product_postid =  ps.post_id 
+		inner join product_option po on p.product_id = po.op_productid
+		WHERE post_id=50003 <!-- 여기다가 id 값 넣어주면 됨 -->
 	</select>
-
+	<!-- 2번 옵션 겁색 셀렉트	 -->
+	<select id="product_option2_get" resultType="userproduct">
+		SELECT  s.company_name,ps.post_name, ps.sale_ratio, ps.whole_price, p.product_id, po.option1_name , po.option1, po.option2_name , po.option2  FROM seller s 
+			INNER JOIN product_posting ps ON ps.post_sellerid = s.seller_id 
+			INNER JOIN product p ON p.product_postid =  ps.post_id 
+			INNER JOIN product_option po ON p.product_id = po.op_productid	
+			WHERE po.option1 = #{option1} AND post_id=50003;
+	</select>
 </mapper>
