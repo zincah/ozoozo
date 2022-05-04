@@ -71,9 +71,31 @@
 		p.product_created, 
 		p.product_updated FROM product p 
 		JOIN product_status ps ON p.product_id = ps.st_product_id 
-		WHERE seller_id = #{seller_id};
+		WHERE seller_id = #{seller_id} ORDER BY p.product_id DESC;
 	</select>
 
+	<!-- 선택한 상품 판매상태 업데이트 -->
+	<update id="updateProductStatus" parameterType="product">
+		UPDATE product_status SET status = #{status} WHERE st_product_id = #{product_id};
+	</update>
 	
-
+	<!-- 상품 수정일 업데이트 -->
+	<update id="updateProductUpdated" parameterType="product">
+		UPDATE product SET product_updated = now() WHERE product_id = #{product_id};
+	</update>
+	
+	<!-- 선택한 상품 목록의 데이터 -->
+	<select id="selectProductView" resultType="product">
+		SELECT p.product_id, 
+		p.product_seller_code, 
+		p.product_title, 
+		p.product_price, 
+		(SELECT cate_name FROM category c WHERE p.pro_catecode = c.cate_code) AS category_name, 
+		ps.status, 
+		p.product_quantity, 
+		p.product_created, 
+		p.product_updated FROM product p 
+		JOIN product_status ps ON p.product_id = ps.st_product_id 
+		WHERE product_id = #{product_id} ORDER BY p.product_id DESC;
+	</select>
 </mapper>

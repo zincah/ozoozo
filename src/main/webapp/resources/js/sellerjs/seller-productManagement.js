@@ -30,6 +30,8 @@ function searchBtnEvent() {
 	}
 }
 
+
+
 /* input Date JS */
 // Get dateBtn
 var dateBtn1 = document.getElementsByClassName("dateBtn-1")[0];
@@ -109,6 +111,8 @@ function dateBtn8Event() {
   endDate.valueAsDate = today;
 }
 
+
+
 /* 상세검색 초기화 클릭 JS */
 // Get initBtn
 var initBtn = document.getElementsByClassName("initBtn")[0];
@@ -140,6 +144,8 @@ function initBtnEvent() {
 	endDate.valueAsDate = today;
 }
 
+
+
 /* 상품 삭제 모달 이벤트 */
 var modalDelListBtn = document.getElementsByClassName("modal-product-list")[0];
 var modalDelListBtnIcon = document.getElementsByClassName("accordion-button-arrow")[0];
@@ -156,6 +162,8 @@ function modalDelListBtnEvent() {
 		modalDelListBtnStatus = 1;
 	}
 }
+
+
 
 /* 검색-판매상태 체크박스 */
 // 전체 체크박스 체크 여부에 따른 하위 체크박스들 상태 변경
@@ -176,6 +184,8 @@ $(".statusCheck").change(function () {
     $("#statusCheckAll").prop("checked", false);
   }
 });
+
+
 
 /* 상품 선택 체크박스 */
 // 전체 체크박스 체크 여부에 따른 하위 체크박스들 상태 변경
@@ -205,12 +215,88 @@ $(".check").change(function () {
   }
 });
 
+
+
 /* 판매상태 변경 기능 */
-// 모달 내 선택된 상품 수 변경
+// 모달 내 선택된 상품 수 표시
 $("#productStatusChange").click(function () {
 	$(".productNum").text($(".check:checked").length);
 });
+
 // 판매상태 변경 처리
 $("#pscSubmitBtn").click(function () {
+
+	// 선택된 상품의 product_id 값 배열로 받아오기
+	var pscList = new Array();
+	var index = 0;
+	$(".check:checked").each(function () {
+		pscList[index] = $(this).parent().next().text();
+		++index;
+	});
+	
+	// 상태 옵션값 받아오기
+	var statusOption = $("#statusOption option:selected").text();
+	
+	// 데이터 모으기
+	var allData = {"pscList":pscList, "statusOption":statusOption};
+	
+	// ajax 통신
+	$.ajax({
+		url : "productStatusUpdate.seller",
+		type : "POST",
+		data : allData,
+		success : function(res) {
+			alert("판매상태 변경 완료");
+			document.location.reload(); // 페이지 새로고침
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("판매상태 변경 실패");
+		}
+	});
+});
+
+
+
+/* 상품삭제 기능 */
+// 모달 내 선택된 상품 수 표시 & 선택된 상품 리스트 띄우기
+$("#productDelete").click(function () {
+	$(".productNum").text($(".check:checked").length);
+	
+	// 선택된 상품의 product_id 값 배열로 받아오기 (DB 처리용)
+	var pdList = new Array();
+	var index = 0;
+	$(".check:checked").each(function () {
+		pdList[index] = $(this).parent().next().text();
+		++index;
+	});
+	console.log(pdList);
+	
+	// ajax 통신
+	$.ajax({
+		url : "selectProductList.seller",
+		type : "POST",
+		data : pdList,
+		success : function(res) {
+	
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("오류 발생");
+		}
+	});
+	
+});
+
+// 삭제버튼 클릭 후 상품 삭제 처리
+$("#pdSubmitBtn").click(function () {
+
+	// 선택된 상품의 product_id 값 배열로 받아오기 (DB 처리용)
+	var pdList = new Array();
+	var index = 0;
+	$(".check:checked").each(function () {
+		pdList[index] = $(this).parent().next().text();
+		++index;
+	});
+	console.log(pdList);
+	
 	
 });

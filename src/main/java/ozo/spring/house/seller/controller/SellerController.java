@@ -1,6 +1,5 @@
 package ozo.spring.house.seller.controller;
 
-import java.io.Console;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
