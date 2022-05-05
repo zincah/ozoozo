@@ -368,7 +368,7 @@
                                                 </svg>
                                             </span>
                                         </div>
-                                      <c:if test="${product[0].option2_name ne ''}">
+                                      <c:if test="${product[0].option2_name ne ''}" var="select1">
                                         <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-2">
                                             <select class="form-control empty selectOne" >
                                                 <option selected="" value="" disabled="">${product[0].option2_name }</option>
@@ -380,6 +380,9 @@
                                                 </svg>
                                             </span>
                                         </div>
+                                        <c:if test="${select1 }">
+                                        <h1>안녕하세요</h1>
+                                        </c:if>
                                         <script>var select1 = false</script>
                                         </c:if>
                                         <script>
@@ -1759,6 +1762,7 @@
                                                             </svg>
                                                         </span>
                                                     </div>
+                                                    <c:if test="${product[0].option2_name ne ''}">
                                                     <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-2">
                                                         <select class="form-control empty selectTwo">
                                                             <option selected="" value="" disabled="">${product[0].option2_name }</option>
@@ -1767,7 +1771,7 @@
                                                                 <path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path>
                                                             </svg>
                                                         </span>
-                                                    </div>
+                                                    </div></c:if>
                                                     <!-- <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-extra">
                                                         <select class="form-control empty">
                                                             <option selected="" value="" disabled="">추가상품 (선택)</option>
@@ -2099,6 +2103,7 @@
                                     preserveAspectRatio="xMidYMid meet" style="fill: currentcolor;">
                                     <path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path>
                                 </svg></span></div>
+                                <c:if test="${product[0].option2_name ne ''}">
                         <div
                             class="input-group select-input selling-option-select-input__option selling-option-select-input__option-2">
                             <select class="form-control empty selectThree">
@@ -2106,7 +2111,7 @@
                             </select><span class="select-input__icon"><svg class="icon" width="10" height="10"
                                     preserveAspectRatio="xMidYMid meet" style="fill: currentcolor;">
                                     <path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path>
-                                </svg></span></div>
+                                </svg></span></div></c:if>
                         <!-- <div
                             class="input-group select-input selling-option-select-input__option selling-option-select-input__option-extra">
                             <select class="form-control empty">
