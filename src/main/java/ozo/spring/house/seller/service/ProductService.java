@@ -15,5 +15,5 @@ public interface ProductService {
 	public List<ProductVO> selectProductView(int vo);
 	public void updateProductStatus(ProductVO vo);
 	public void updateProductUpdated(ProductVO vo);
-	public List<ProductVO> selectSelectProductList(ProductVO vo);
+	public ProductVO selectSelectProduct(ProductVO vo);
 }
