@@ -3,6 +3,7 @@ package ozo.spring.house.user.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.mybatis.spring.SqlSessionTemplate;
+
 import java.util.List;
 
 import ozo.spring.house.user.vo.ReviewVO;
@@ -27,6 +28,13 @@ public class ReviewDAO {
         System.out.println("--> mybatis in reviewdao myReviewList");
         return sqlSessionTemplate.selectList("ReviewDAO.myReviewList", vo);
     }
+
+    public List<Object> deleteReview(ReviewVO vo){
+        System.out.println("r u sure?");
+        return sqlSessionTemplate.selectList("ReviewDAO.deleteReview", vo);
+
+    }
+
 
     public void insertreview(ReviewVO vo){
         System.out.println("ok");
