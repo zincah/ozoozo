@@ -68,9 +68,9 @@ public class ProductDAO {
 		sqlSessionTemplate.update("ProductDAO.updateProductUpdated", vo);
 	}
 
-	public List<ProductVO> selectSelectProductList(ProductVO vo) {
+	public ProductVO selectSelectProduct(ProductVO vo) {
 		System.out.println("--> mybatis in productDAO select product select");
-		return sqlSessionTemplate.selectList("ProductDAO.selectSelectProductList", vo);
+		return sqlSessionTemplate.selectOne("ProductDAO.selectSelectProduct", vo);
 	}
 
 }
