@@ -10,7 +10,7 @@ import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
 
 @Repository
-public class CategoryDAO {
+public class UserCategoryDAO {
 	@Autowired
 	private SqlSessionTemplate sqlsessiontemplate;
 	
