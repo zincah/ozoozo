@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.seller.service.ProductService;
+import ozo.spring.house.seller.service.SellerFilteringService;
 import ozo.spring.house.seller.service.SellerProductDetailService;
 import ozo.spring.house.seller.vo.ProductDetailVO;
 import ozo.spring.house.seller.vo.ProductVO;
@@ -28,6 +29,9 @@ public class JsonController {
 	ProductService productService;
 	
 	@Autowired
+	SellerFilteringService filter;
+	
+	@Autowired
 	SellerProductDetailService productDetailService;
 	
 	private int postingCode;
@@ -37,58 +41,26 @@ public class JsonController {
 	@RequestMapping(value="/getJson.seller", method=RequestMethod.POST)
 	public List<Map<String, Object>> getJson(@RequestBody List<Map<String, Object>> jsondata, ProductDetailVO dvo, HttpServletRequest request) {
 		System.out.println(jsondata);
-		
+		/*
 		HttpSession session = request.getSession();
 		int postingCode = Integer.valueOf((String)session.getAttribute("postingCode"));
-		System.out.println(postingCode);
+		System.out.println(postingCode);*/
 	
 		Map<String, Object> optionMap = jsondata.get(0);
 		System.out.println(optionMap);
 		
-		// option mapping
-		if((String)optionMap.get("using_people")!="") {
-			int su = Integer.valueOf((String)optionMap.get("using_people"));
-			dvo.setDusing_people(su);
-		}
-		dvo.setDplace((String)optionMap.get("place"));
+		filter.setFilter(optionMap, 1, 50002);
 
-		if(((String)optionMap.get("rental")).equals("n")) {
-			dvo.setDrental(false);
-		}else if(((String)optionMap.get("rental")).equals("y")) {
-			dvo.setDrental(true);
-		}
-		
-		if(((String)optionMap.get("refurbish")).equals("n")) {
-			dvo.setDrefurbish(false);
-		}else if(((String)optionMap.get("refurbish")).equals("y")) {
-			dvo.setDrefurbish(true);
-		}
-
-		List<String> colorList = (List<String>)optionMap.get("color");
-		String colors = "";
-		for(int i=0; i<colorList.size(); i++) {
-			String color = colorList.get(i) + "/";
-			colors += color;
-		}
+//		List<String> colorList = (List<String>)optionMap.get("color");
+//		String colors = "";
+//		for(int i=0; i<colorList.size(); i++) {
+//			String color = colorList.get(i) + "/";
+//			colors += color;
+//		}
 //		dvo.setDcolor(colors);
-//
-//		List<String> woodtoneList = (List<String>)optionMap.get("woodtone");
-//		String woods = "";
-//		for(int i=0; i<woodtoneList.size(); i++) {
-//			String wood = woodtoneList.get(i) + "/";
-//			woods += wood;
-//		}
-//		dvo.setDwoodtone(woods);
-//		
-//		List<String> materialList = (List<String>)optionMap.get("material");
-//		String mates = "";
-//		for(int i=0; i<materialList.size(); i++) {
-//			String mate = materialList.get(i) + "/";
-//			mates += mate;
-//		}
-//		dvo.setDmaterial(mates);
-//		// postid ´Ù½Ã ¹Ù²ã
-		dvo.setDprodetails_postid(postingCode);
+
+		
+		//dvo.setDprodetails_postid(postingCode);
 		
 		Map<String, Object> tableMap = jsondata.get(1);
 		System.out.println(tableMap);
@@ -105,22 +77,12 @@ public class JsonController {
 		dvo.setTable_delivery((String)tableMap.get("table_delivery"));
 		dvo.setTable_qa((String)tableMap.get("table_qa"));
 		dvo.setTable_cstel((String)tableMap.get("table_cstel"));
-		dvo.setProtable_postid(postingCode);
+		//dvo.setProtable_postid(postingCode);
 		
 		//productDetailService.insertDetails(dvo);
-		productDetailService.insertTables(dvo);
+		//productDetailService.insertTables(dvo);
 		
-		/*
-		List<String> change = new ArrayList<String>();
 
-		for(Map<String, Object> jmap : jsondata) {
-			change.add(jmap.toString());
-		}
-		
-		vo.setDetail_content(change.get(0));
-		vo.setDetail_table(change.get(1));
-		
-		productService.insertDetail(vo);*/
 		return jsondata;
 	}
 	

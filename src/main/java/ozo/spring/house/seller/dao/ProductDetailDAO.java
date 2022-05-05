@@ -25,5 +25,11 @@ public class ProductDetailDAO {
 		return sqlSessionTemplate.selectList("ProductDetailDAO.selectFilter", vo);
 	}
 	
+	public void insertDetails(ProductDetailVO vo) {
+		System.out.println("--> mybatis in productDetailDAO detail insert");
+		sqlSessionTemplate.insert("ProductDetailDAO.insertDetails", vo);
+	}
+	
+	
 	
 }

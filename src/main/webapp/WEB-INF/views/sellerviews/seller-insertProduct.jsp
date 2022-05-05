@@ -194,11 +194,25 @@
       		//checkProduct();
       		//photoUpload();
       		
+      		var usingpeopleList = []
+      		var usingplaceList = []
       		var colorList = []
       		var woodtone = []
       		var materials = []
       		
       		var jsonmove = []
+      		
+      		// usingpeople 체크박스 값 가져오기
+      		$("input:checkbox[name=usingpeople]:checked").each(function(){
+      			var checkit = $(this).val();
+      			usingpeopleList.push(checkit);
+      		});
+      		
+      		// usingplace 체크박스 값 가져오기
+      		$("input:checkbox[name=usingplace]:checked").each(function(){
+      			var checkit = $(this).val();
+      			usingplaceList.push(checkit);
+      		});
       		
       		// color 체크박스 값 가져오기
       		$("input:checkbox[name=colorcheck]:checked").each(function(){
@@ -219,13 +233,13 @@
       		});
 
 			var option = {
-					"using_people" : $("#option_input").find("#using_people").val(),
-					"place" : $("#option_input").find("#place").val(),
-					"rental" : $("#option_input").find("#rental").val(),
-					"refurbish" : $("#option_input").find("#refurbish").val(),
-					"color" : colorList,
-					"woodtone" : woodtone,
-					"material" : materials
+					"사용인원" : usingpeopleList,
+					"사용공간" : usingplaceList,
+					"상품유형" : [$("#option_input").find("#rental").val()],
+					"리퍼상품유무" : [$("#option_input").find("#refurbish").val()],
+					"색상" : colorList,
+					"우드톤" : woodtone,
+					"소재" : materials
 				}
 			
 			var table = {
@@ -567,34 +581,6 @@
 								<div class="radio-productCode">
 									<div class="btn-group" role="group"
 										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState" id="using_people" name="using_people"
-											aria-label="Default select example">
-											<option selected value="10400">사용인원</option>
-											<option value="10401">1인</option>
-											<option value="10402">2인</option>
-											<option value="10403">3인</option>
-											<option value="10404">4인</option>
-											<option value="10405">5인</option>
-											<option value="10406">6인</option>
-											<option value="10407">7인</option>
-											<option value="10408">8인이상</option>
-										</select>
-									</div>
-									<div class="btn-group" role="group"
-										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState" id="place" name="place"
-											aria-label="Default select example">
-											<option selected value="10500">사용공간</option>
-											<option value="10501">거실</option>
-											<option value="10502">침실</option>
-											<option value="10503">주방</option>
-											<option value="10504">옷방</option>
-											<option value="10505">서재/공부방</option>
-											<option value="10506">아이방</option>
-										</select>
-									</div>
-									<div class="btn-group" role="group"
-										aria-label="Basic radio toggle button group">
 										<select class="form-select selectState" id="rental" name="rental"
 											aria-label="Default select example">
 											<option selected value="10600">상품유형</option>
@@ -612,6 +598,104 @@
 										</select>
 									</div>
 								</div>
+								
+								<div class="color_option mt-3 row">
+									<div class="col-2 option_title" style="font-size: 13px" id="10400">사용인원</div>
+									<div class="col-10 color_options bottomline2">
+										<div class="form-check form-check-display">
+											<input class="form-check-input form-check-input-margin"
+												type="checkbox" value="10401" id="people1" name="usingpeople"/> <label
+												class="form-check-label" for="people1"> 1인
+											</label>
+										</div>
+										<div class="form-check form-check-display">
+											<input class="form-check-input form-check-input-margin"
+												type="checkbox" value="10402" id="people2" name="usingpeople"/> <label
+												class="form-check-label" for="people2"> 2인
+											</label>
+										</div>
+										<div class="form-check form-check-display">
+											<input class="form-check-input form-check-input-margin"
+												type="checkbox" value="10403" id="people3" name="usingpeople"/> <label
+												class="form-check-label" for="people3"> 3인
+											</label>
+										</div>
+										<div class="form-check form-check-display">
+											<input class="form-check-input form-check-input-margin"
+												type="checkbox" value="10404" id="people4" name="usingpeople"/> <label
+												class="form-check-label" for="people4"> 4인
+											</label>
+										</div>
+										<div class="form-check form-check-display">
+											<input class="form-check-input form-check-input-margin"
+												type="checkbox" value="10405" id="people5" name="usingpeople"/> <label
+												class="form-check-label" for="people5"> 5인
+											</label>
+										</div>
+										<div class="form-check form-check-display">
+											<input class="form-check-input form-check-input-margin"
+												type="checkbox" value="10406" id="people6" name="usingpeople"/> <label
+												class="form-check-label" for="people6"> 6인
+											</label>
+										</div>
+										<div class="form-check form-check-display">
+											<input class="form-check-input form-check-input-margin"
+												type="checkbox" value="10407" id="people7" name="usingpeople"/> <label
+												class="form-check-label" for="people7"> 7인
+											</label>
+										</div>
+										<div class="form-check form-check-display">
+											<input class="form-check-input form-check-input-margin"
+												type="checkbox" value="10408" id="people8" name="usingpeople"/> <label
+												class="form-check-label" for="people8"> 8인이상
+											</label>
+										</div>
+									</div>
+								</div>
+								
+								<div class="color_option mt-3 row">
+									<div class="col-2 option_title" style="font-size: 13px" id="10500">사용공간</div>
+									<div class="col-10 color_options bottomline2">
+										<div class="form-check form-check-display">
+											<input class="form-check-input form-check-input-margin"
+												type="checkbox" value="10401" id="place1" name="usingplace"/> <label
+												class="form-check-label" for="place1"> 거실
+											</label>
+										</div>
+										<div class="form-check form-check-display">
+											<input class="form-check-input form-check-input-margin"
+												type="checkbox" value="10401" id="place1" name="usingplace"/> <label
+												class="form-check-label" for="place1"> 침실
+											</label>
+										</div>
+										<div class="form-check form-check-display">
+											<input class="form-check-input form-check-input-margin"
+												type="checkbox" value="10401" id="place1" name="usingplace"/> <label
+												class="form-check-label" for="place1"> 주방
+											</label>
+										</div>
+										<div class="form-check form-check-display">
+											<input class="form-check-input form-check-input-margin"
+												type="checkbox" value="10401" id="place1" name="usingplace"/> <label
+												class="form-check-label" for="place1"> 옷방
+											</label>
+										</div>
+										<div class="form-check form-check-display">
+											<input class="form-check-input form-check-input-margin"
+												type="checkbox" value="10401" id="place1" name="usingplace"/> <label
+												class="form-check-label" for="place1"> 서재/공부방
+											</label>
+										</div>
+										<div class="form-check form-check-display">
+											<input class="form-check-input form-check-input-margin"
+												type="checkbox" value="10401" id="place1" name="usingplace"/> <label
+												class="form-check-label" for="place1"> 아이방
+											</label>
+										</div>
+
+									</div>
+								</div>
+
 								<div class="color_option mt-3 row">
 									<div class="col-2 option_title" style="font-size: 13px" id="10100">색상</div>
 									<div class="col-10 color_options bottomline2">

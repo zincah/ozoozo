@@ -22,4 +22,9 @@ public class SellerProductDetailServiceImpl implements SellerProductDetailServic
 		productDetailDAO.selectFilter(vo);
 	}
 
+	@Override
+	public void insertDetails(ProductDetailVO vo) {
+		productDetailDAO.insertDetails(vo);
+	}
+
 }
