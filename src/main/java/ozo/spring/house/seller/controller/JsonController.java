@@ -41,31 +41,22 @@ public class JsonController {
 	@RequestMapping(value="/getJson.seller", method=RequestMethod.POST)
 	public List<Map<String, Object>> getJson(@RequestBody List<Map<String, Object>> jsondata, ProductDetailVO dvo, HttpServletRequest request) {
 		System.out.println(jsondata);
-		/*
+		// get 방식으로 카테고리 받기
+		
 		HttpSession session = request.getSession();
-		int postingCode = Integer.valueOf((String)session.getAttribute("postingCode"));
-		System.out.println(postingCode);*/
-	
+		int postingCode = (Integer)session.getAttribute("postingCode");
+		System.out.println(postingCode);
+		
 		Map<String, Object> optionMap = jsondata.get(0);
 		System.out.println(optionMap);
 		
-		filter.setFilter(optionMap, 1, 50002);
+		filter.setFilter(optionMap, 1, postingCode);
 
-//		List<String> colorList = (List<String>)optionMap.get("color");
-//		String colors = "";
-//		for(int i=0; i<colorList.size(); i++) {
-//			String color = colorList.get(i) + "/";
-//			colors += color;
-//		}
-//		dvo.setDcolor(colors);
-
-		
-		//dvo.setDprodetails_postid(postingCode);
 		
 		Map<String, Object> tableMap = jsondata.get(1);
 		System.out.println(tableMap);
+
 		
-		//postid 다시 바꿔놔야해 ㅅㅂ
 		dvo.setTable_title((String)tableMap.get("table_productTitle"));
 		dvo.setTable_kc((String)tableMap.get("table_kc"));
 		dvo.setTable_color((String)tableMap.get("table_color"));
@@ -77,12 +68,12 @@ public class JsonController {
 		dvo.setTable_delivery((String)tableMap.get("table_delivery"));
 		dvo.setTable_qa((String)tableMap.get("table_qa"));
 		dvo.setTable_cstel((String)tableMap.get("table_cstel"));
-		//dvo.setProtable_postid(postingCode);
+		dvo.setProtable_postid(postingCode);
+		// postid 다시 제대로 세팅하기
 		
-		//productDetailService.insertDetails(dvo);
-		//productDetailService.insertTables(dvo);
+		productDetailService.insertTables(dvo);
 		
-
+		
 		return jsondata;
 	}
 	
@@ -106,7 +97,7 @@ public class JsonController {
 		session.setAttribute("postingCode", postingCode);
 		
 		System.out.println(postingCode);
-				
+		
 		for(Map<String, String> jmap : jsondata) {
 			vo.setPro_catecode(Integer.parseInt(jmap.get("pro_catecode")));
 			vo.setPro_subcatecode(Integer.parseInt(jmap.get("pro_subcatecode")));
@@ -122,6 +113,7 @@ public class JsonController {
 
 			productService.insertProduct(vo);
 		}
+		
 
 
 		return postingCode;

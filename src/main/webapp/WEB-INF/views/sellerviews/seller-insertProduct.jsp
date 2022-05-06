@@ -191,8 +191,8 @@
       	
 	    function gatherData(){
       		
-      		//checkProduct();
-      		//photoUpload();
+      		checkProduct();
+      		photoUpload();
       		
       		var usingpeopleList = []
       		var usingplaceList = []
@@ -270,7 +270,8 @@
 	  		dataType : 'json',
 	  		async: false,
 	  		success : function(resp){
-
+					
+	  				alert("filter data");
 	  			
 	  			}
 	  		});
@@ -385,7 +386,7 @@
 						"pro_subcatecode" : subcate,
 						"option1_name" : $("#option1_name").val(),
 						"option2_name" : $("#option2_name").val(),
-						"seller_id" : 500001,
+						"seller_id" : ${seller.seller_id},
 						"product_title" : $("#product_wrap"+i+"").find("#product_title").val(),
 						"option1" : $("#product_wrap"+i+"").find("#option1").val(),
 						"option2" : $("#product_wrap"+i+"").find("#option2").val(),
@@ -513,13 +514,12 @@
 					class="container container-option container-option-topPadding bottomline">
 					<div class="row optionGroup1">
 						<div class="col-2 status-name-600" id="option-name">브랜드명(상호명)</div>
-						<div class="col-4 search-input status-name-400">ozo
-							chair(ozo)</div>
+						<div class="col-4 search-input status-name-400">${seller.company_name}</div>
 						<div class="col-2 status-name-600">대표명</div>
-						<div class="col-4 search-input status-name-400">이영</div>
+						<div class="col-4 search-input status-name-400">${seller.representative}</div>
 					</div>
 				</div>
-				<input type="hidden" value="500001" name="post_sellerid">
+				<input type="hidden" value="${seller.seller_id}" name="post_sellerid">
 				<input type="hidden" value="0" name="post_id" id="post_id">
 				<div
 					class="container container-option container-option-topPadding bottomline">
@@ -1281,7 +1281,7 @@
 
 				<div class="text-end mb-5">
 					<button class="btn btn-outline-secondary btn-size" type="reset">취소</button>
-					<button type="button" class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
+					<button class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
 				</div>
 			</form>
 		</div>
