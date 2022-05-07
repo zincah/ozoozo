@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import ozo.spring.house.user.dao.UserCategoryDAO;
 import ozo.spring.house.user.vo.UserCategoryVO;
 
-@Service("UserCategoryService")
-public class userCategoryServiceImpl implements UserCategoryService{
+@Service("userCategoryService")
+public class UserCategoryServiceImpl implements UserCategoryService{
 	
 	@Autowired
 	UserCategoryDAO UserCategoryDAO;
