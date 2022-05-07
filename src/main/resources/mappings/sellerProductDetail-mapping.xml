@@ -15,6 +15,12 @@
 		SELECT * FROM filter_element WHERE ftop_catecode = 1;
 	</select>
 	
+	<!-- insert detail -->
+	<insert id="insertDetails" parameterType="productdetail">
+		INSERT INTO product_details (detail_id, detail_name, detail_value, dtop_catecode, dprodetails_postid) 
+		VALUES ((SELECT COALESCE(MAX(detail_id), 0)+1 from product_details), #{detail_name}, #{detail_value}, #{dtop_catecode}, #{dprodetails_postid});
+	</insert>
+	
 	
 	
 

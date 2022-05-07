@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.seller.service.ProductService;
+import ozo.spring.house.seller.service.SellerFilteringService;
 import ozo.spring.house.seller.service.SellerProductDetailService;
 import ozo.spring.house.seller.vo.ProductDetailVO;
 import ozo.spring.house.seller.vo.ProductVO;
@@ -28,6 +29,9 @@ public class JsonController {
 	ProductService productService;
 	
 	@Autowired
+	SellerFilteringService filter;
+	
+	@Autowired
 	SellerProductDetailService productDetailService;
 	
 	private int postingCode;
@@ -37,63 +41,22 @@ public class JsonController {
 	@RequestMapping(value="/getJson.seller", method=RequestMethod.POST)
 	public List<Map<String, Object>> getJson(@RequestBody List<Map<String, Object>> jsondata, ProductDetailVO dvo, HttpServletRequest request) {
 		System.out.println(jsondata);
+		// get 방식으로 카테고리 받기
 		
 		HttpSession session = request.getSession();
-		int postingCode = Integer.valueOf((String)session.getAttribute("postingCode"));
+		int postingCode = (Integer)session.getAttribute("postingCode");
 		System.out.println(postingCode);
-	
+		
 		Map<String, Object> optionMap = jsondata.get(0);
 		System.out.println(optionMap);
 		
-		// option mapping
-		if((String)optionMap.get("using_people")!="") {
-			int su = Integer.valueOf((String)optionMap.get("using_people"));
-			dvo.setDusing_people(su);
-		}
-		dvo.setDplace((String)optionMap.get("place"));
+		filter.setFilter(optionMap, 1, postingCode);
 
-		if(((String)optionMap.get("rental")).equals("n")) {
-			dvo.setDrental(false);
-		}else if(((String)optionMap.get("rental")).equals("y")) {
-			dvo.setDrental(true);
-		}
-		
-		if(((String)optionMap.get("refurbish")).equals("n")) {
-			dvo.setDrefurbish(false);
-		}else if(((String)optionMap.get("refurbish")).equals("y")) {
-			dvo.setDrefurbish(true);
-		}
-
-		List<String> colorList = (List<String>)optionMap.get("color");
-		String colors = "";
-		for(int i=0; i<colorList.size(); i++) {
-			String color = colorList.get(i) + "/";
-			colors += color;
-		}
-//		dvo.setDcolor(colors);
-//
-//		List<String> woodtoneList = (List<String>)optionMap.get("woodtone");
-//		String woods = "";
-//		for(int i=0; i<woodtoneList.size(); i++) {
-//			String wood = woodtoneList.get(i) + "/";
-//			woods += wood;
-//		}
-//		dvo.setDwoodtone(woods);
-//		
-//		List<String> materialList = (List<String>)optionMap.get("material");
-//		String mates = "";
-//		for(int i=0; i<materialList.size(); i++) {
-//			String mate = materialList.get(i) + "/";
-//			mates += mate;
-//		}
-//		dvo.setDmaterial(mates);
-//		// postid 다시 바꿔
-		dvo.setDprodetails_postid(postingCode);
 		
 		Map<String, Object> tableMap = jsondata.get(1);
 		System.out.println(tableMap);
+
 		
-		//postid 다시 바꿔놔야해 ㅅㅂ
 		dvo.setTable_title((String)tableMap.get("table_productTitle"));
 		dvo.setTable_kc((String)tableMap.get("table_kc"));
 		dvo.setTable_color((String)tableMap.get("table_color"));
@@ -106,21 +69,11 @@ public class JsonController {
 		dvo.setTable_qa((String)tableMap.get("table_qa"));
 		dvo.setTable_cstel((String)tableMap.get("table_cstel"));
 		dvo.setProtable_postid(postingCode);
+		// postid 다시 제대로 세팅하기
 		
-		//productDetailService.insertDetails(dvo);
 		productDetailService.insertTables(dvo);
 		
-		/*
-		List<String> change = new ArrayList<String>();
-
-		for(Map<String, Object> jmap : jsondata) {
-			change.add(jmap.toString());
-		}
 		
-		vo.setDetail_content(change.get(0));
-		vo.setDetail_table(change.get(1));
-		
-		productService.insertDetail(vo);*/
 		return jsondata;
 	}
 	
@@ -144,7 +97,7 @@ public class JsonController {
 		session.setAttribute("postingCode", postingCode);
 		
 		System.out.println(postingCode);
-				
+		
 		for(Map<String, String> jmap : jsondata) {
 			vo.setPro_catecode(Integer.parseInt(jmap.get("pro_catecode")));
 			vo.setPro_subcatecode(Integer.parseInt(jmap.get("pro_subcatecode")));
@@ -160,6 +113,7 @@ public class JsonController {
 
 			productService.insertProduct(vo);
 		}
+		
 
 
 		return postingCode;

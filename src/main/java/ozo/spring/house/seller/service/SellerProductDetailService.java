@@ -6,5 +6,6 @@ public interface SellerProductDetailService {
 	
 	public void insertTables(ProductDetailVO vo);
 	public void selectFilter(ProductDetailVO vo);
+	public void insertDetails(ProductDetailVO vo);
 
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="AdminManageDAO">
+
+	<!-- 회원관리 -->
+	<select id="selectUser" resultType="user">
+		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table ORDER BY user_num DESC;
+	</select>
+	
+	<select id="selectUserType" resultType="user">
+		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table WHERE user_type = #{user_type} ORDER BY user_num DESC;
+	</select>
+
+</mapper>
