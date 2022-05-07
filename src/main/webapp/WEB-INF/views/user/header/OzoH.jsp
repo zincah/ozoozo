@@ -330,7 +330,7 @@
 				<!-- --클론상 메뉴 정리가 어려워 메뉴 하나더 추가 접두어에 mobile- 붙임------------------- -->
 				<nav class="mobile-layout-navigation-primary__menu">
 					<a class="layout-navigation-primary__menu__item"
-						href="/house/main.com">스토어홈</a> <a
+						href="/house/main.com">스토어홈</a> <a id= "1"
 						class="layout-navigation-primary__menu__item layout-navigation-primary__menu__item--active 
                         layout-navigation-primary__menu__item--open"
 						href="/house/category.com">카테고리</a> <a

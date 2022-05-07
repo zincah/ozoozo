@@ -31,15 +31,6 @@ public class CSController {
 	}
 	
 
-//	@RequestMapping(value = "/CS_order.com")
-//	public String order( CScenterVO vo,Model model) {
-//		
-//		vo.setCustomer_keyword("order");
-//		List<CScenterVO> list = csservice.cskeyword(vo);
-//		
-//		model.addAttribute("list",list);
-//		return "customercenter";
-//	}
 
 	
 	
@@ -47,6 +38,7 @@ public class CSController {
 	@RequestMapping(value = "/getCS.com", method=RequestMethod.GET)
 	public List<CScenterVO> getCSList(String key,CScenterVO vo) {
 		vo.setCustomer_keyword(key);
+		System.out.println(key);
 		List<CScenterVO> list = csservice.cskeyword(vo);
 		
 		return list;

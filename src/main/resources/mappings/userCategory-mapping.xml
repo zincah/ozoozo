@@ -5,12 +5,19 @@
  <mapper namespace="UserCategoryDAO">
     
     
-    <select id="c_category" resultType="ucate" >
+    <select id="m_category" resultType="ucate" >
+    SELECT * FROM CATEGORY ORDER BY CATE_CODE ASC
     
     </select>
     
+    <select id="s_category" resultType="ucate">
+    SELECT * FROM SUB_CATEGORY WHERE TOP_CATECODE = #{TOP_CATECODE} ;
+    </select>
     
+    <select id="b_category" resultType="ucate">
     
+    SELECT * FROM SUB_CATEGORY WHERE TOP_CATECODE = 1 and SUB_DEPTH = 2 and SUBCATE_CODE/100 = 100;
+    </select>
     
     
  </mapper>
