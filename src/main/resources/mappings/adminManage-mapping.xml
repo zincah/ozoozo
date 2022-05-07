@@ -21,7 +21,7 @@
 	</select>
 	
 	<!-- 회원 가입날짜로 select -->
-	<select id="selectUserStatus" resultType="user">
+	<select id="selectUserDate" resultType="user">
 		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table 
 		WHERE join_date BETWEEN #{startdate} AND #{enddate} ORDER BY user_num DESC;
 	</select>
