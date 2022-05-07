@@ -34,6 +34,7 @@ public class UserProductController {
 		int price = product_list.get(0).getWhole_price();
 		// 기본적인거 설정
 		model.addAttribute("product", product_list);
+		model.addAttribute("int_price_sale", price/100*70);
 		model.addAttribute("price",decFormat.format(price));
 		model.addAttribute("price_sale", decFormat.format(price/100*70));
 		model.addAttribute("price_first", decFormat.format(price/100*70-15000));
@@ -47,7 +48,18 @@ public class UserProductController {
 		System.out.println("사용자가 보낸 옵션 값 : "+ option +"\n");
 		vo.setOption1(option);
 		List<UserProductVO> option_list = userservice.productGet_option(vo);
-		System.out.println(option_list.get(0).getOption2());
 		return option_list;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/option_toString.com", method=RequestMethod.POST)
+	public String[] itemBuy(@RequestBody String option_String, Model model) {
+		option_String = option_String.replace("\"", "");
+		String[] option_toString = option_String.split(",");
+		
+		if(option_toString.length == 1) {
+			option_toString[1] = null;
+		}
+		return option_toString;
 	}
 }
