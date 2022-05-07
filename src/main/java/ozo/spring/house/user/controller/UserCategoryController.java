@@ -17,7 +17,7 @@ import ozo.spring.house.user.vo.UserCategoryVO;
 public class UserCategoryController {
 	
 	@Autowired
-	UserCategoryService UserCategoryService;
+	UserCategoryService userCategoryService;
 	
 	@RequestMapping(value = "/m_category.com")
 	public String firstpage(UserCategoryVO vo,Model model) {
@@ -40,7 +40,7 @@ public class UserCategoryController {
 		
 		vo.setTop_catecode(Integer.parseInt(key));
 		System.out.println(key);
-		List<UserCategoryVO> s_list = UserCategoryService.s_category(vo);
+		List<UserCategoryVO> s_list = userCategoryService.s_category(vo);
 		
 		return s_list;
 	}
