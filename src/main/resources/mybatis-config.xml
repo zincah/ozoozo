@@ -21,6 +21,7 @@
 	<mappers>
 		<!-- 원하는 mapping xml 여러개 가능 -->
 		<mapper resource="mappings/adminLogin-mapping.xml"/>
+		<mapper resource="mappings/adminManage-mapping.xml"/>
 		<mapper resource="mappings/userManage-mapping.xml"/>
 		<mapper resource="mappings/sellerLogin-mapping.xml"/>
 		<mapper resource="mappings/userCScenter-mapping.xml"/>

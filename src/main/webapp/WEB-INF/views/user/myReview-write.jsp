@@ -11,12 +11,103 @@
     <link rel="stylesheet" href="resources/css/user_css/inha/myPage-nav-style.css?var=1" />
     <link rel="stylesheet" href="resources/css/user_css/inha/myReview-write-style.css" />
     <link rel="stylesheet" href="resources/css/user_css/inha/footer-style.css" />
+    <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
     <style type="text/css">
       address {
         font-style: normal;
       }
     </style>
+
+    <style>
+      .upload_img{
+        width: 30px;
+        height: 30px;
+        border-radius: 4%;
+        overflow: hidden;
+
+      }
+    </style>
+
     <title>리뷰 쓰기</title>
+
+    <script>
+      function upload_photo(){
+        $("#review_photo").click();
+      }
+
+      function changeValue(input) {
+        var checkId = input.id;
+        var checkSu = checkId.substr(-1);
+
+        var file = input.files[0]; //선택된 파일 가져오기
+
+        //미리 만들어 놓은 div에 text(파일 이름) 추가
+        //var name = document.getElementById('fileName');
+        //name.textContent = file.name;
+
+        //새로운 이미지 div 추가
+        var newImage = document.createElement("img");
+        newImage.setAttribute("class", "upload_img");
+
+        //이미지 source 가져오기
+        newImage.src = URL.createObjectURL(file);
+        newImage.style.visibility = "visible";
+        newImage.style.objectFit = "contain";
+        alert(URL.createObjectURL(file));
+
+        //이미지를 image-show div에 추가
+        var container = document.getElementById('input-photo');
+        container.appendChild(newImage);
+
+      }
+
+      // 사진업로드 기능
+      function photoUpload(){
+
+        alert("hihihi");
+
+        var formData = new FormData();
+
+        var data = {
+          "user_num": $("#user_num").val(),
+          "product_id": $("#product_id").val(),
+          "content": $("#content").val(),
+        }
+
+        var fileInput = $("#review_photo");
+
+        for (var i = 0; i < fileInput.length; i++) {
+          if (fileInput[i].files.length > 0) {
+            for (var j = 0; j < fileInput[i].files.length; j++) {
+              console.log(" mainFileInput[i].files[j] :::"+ fileInput[i].files[j]);
+
+              // formData에 'file'이라는 키값으로 fileInput 값을 append 시킨다.
+              formData.append('reviewphoto', $('#review_photo')[i].files[j]);
+            }
+          }
+        }
+
+
+
+
+        $.ajax({
+          url: 'uploadReview.com',
+          method:'post',
+          data: formData,
+          contentType: false,
+          processData: false,
+          async: false,
+          success: function(resp) {
+            alert("성공!");
+            console.log(resp);
+          },
+          error: function(jqXHR){
+            alert(jqXHR.responseText);
+          }
+        });
+
+      }
+    </script>
   </head>
   <body class="modalScroll">
   <header>
@@ -260,101 +351,29 @@
                 </div>
               </div>
               <div class="review-modal__section">
-                <div class="review-modal__section__title">사진 첨부 (선택) <img class="review-modal__form__photo-point" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/157654714042406347.png?gif=1&amp;w=240&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/157654714042406347.png?gif=1&amp;w=360&amp;webp=1 1.5x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/157654714042406347.png?gif=1&amp;w=480&amp;webp=1 2x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/157654714042406347.png?gif=1&amp;w=720&amp;webp=1 3x" /></div>
-                <div class="review-modal__section__explain">오늘의집에 올렸던 사진에서 고르거나 새로운 사진을 첨부해주세요. (최대 1장)</div>
-                <div class="select-my-card">
-                  <div class="select-my-card__content">
-                    <img class="select-my-card__content__image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164722267554286432.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164722267554286432.jpeg?gif=1&amp;w=360&amp;h=360&amp;c=c&amp;webp=1 1.5x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164722267554286432.jpeg?gif=1&amp;w=480&amp;h=480&amp;c=c&amp;webp=1 2x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164722267554286432.jpeg?gif=1&amp;w=720&amp;h=720&amp;c=c&amp;webp=1 3x" />
-                    <div class="round-checkbox-input round-checkbox-input--blue">
-                      <label class="round-checkbox-input__label"
-                        ><input class="round-checkbox-input__input" type="checkbox" /><span class="round-checkbox-input__icon"
-                          ><svg class="check" width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><path fill="#FFF" d="M9.9 14.6l7-7.3 1.5 1.4-8.4 8.7-5-4.6 1.4-1.5z"></path></svg></span
-                      ></label>
-                    </div>
-                  </div>
-                  <div class="select-my-card__content">
-                    <img class="select-my-card__content__image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164722261566583531.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164722261566583531.jpeg?gif=1&amp;w=360&amp;h=360&amp;c=c&amp;webp=1 1.5x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164722261566583531.jpeg?gif=1&amp;w=480&amp;h=480&amp;c=c&amp;webp=1 2x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164722261566583531.jpeg?gif=1&amp;w=720&amp;h=720&amp;c=c&amp;webp=1 3x" />
-                    <div class="round-checkbox-input round-checkbox-input--blue">
-                      <label class="round-checkbox-input__label"
-                        ><input class="round-checkbox-input__input" type="checkbox" /><span class="round-checkbox-input__icon"
-                          ><svg class="check" width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><path fill="#FFF" d="M9.9 14.6l7-7.3 1.5 1.4-8.4 8.7-5-4.6 1.4-1.5z"></path></svg></span
-                      ></label>
-                    </div>
-                  </div>
-                  <div class="select-my-card__content">
-                    <img class="select-my-card__content__image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164718289353676538.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164718289353676538.jpeg?gif=1&amp;w=360&amp;h=360&amp;c=c&amp;webp=1 1.5x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164718289353676538.jpeg?gif=1&amp;w=480&amp;h=480&amp;c=c&amp;webp=1 2x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164718289353676538.jpeg?gif=1&amp;w=720&amp;h=720&amp;c=c&amp;webp=1 3x" />
-                    <div class="round-checkbox-input round-checkbox-input--blue">
-                      <label class="round-checkbox-input__label"
-                        ><input class="round-checkbox-input__input" type="checkbox" /><span class="round-checkbox-input__icon"
-                          ><svg class="check" width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><path fill="#FFF" d="M9.9 14.6l7-7.3 1.5 1.4-8.4 8.7-5-4.6 1.4-1.5z"></path></svg></span
-                      ></label>
-                    </div>
-                  </div>
-                  <div class="select-my-card__content">
-                    <img class="select-my-card__content__image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164718282905658625.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164718282905658625.jpeg?gif=1&amp;w=360&amp;h=360&amp;c=c&amp;webp=1 1.5x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164718282905658625.jpeg?gif=1&amp;w=480&amp;h=480&amp;c=c&amp;webp=1 2x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164718282905658625.jpeg?gif=1&amp;w=720&amp;h=720&amp;c=c&amp;webp=1 3x" />
-                    <div class="round-checkbox-input round-checkbox-input--blue">
-                      <label class="round-checkbox-input__label"
-                        ><input class="round-checkbox-input__input" type="checkbox" /><span class="round-checkbox-input__icon"
-                          ><svg class="check" width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><path fill="#FFF" d="M9.9 14.6l7-7.3 1.5 1.4-8.4 8.7-5-4.6 1.4-1.5z"></path></svg></span
-                      ></label>
-                    </div>
-                  </div>
-                  <div class="select-my-card__content">
-                    <img class="select-my-card__content__image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164718275300352895.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164718275300352895.jpeg?gif=1&amp;w=360&amp;h=360&amp;c=c&amp;webp=1 1.5x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164718275300352895.jpeg?gif=1&amp;w=480&amp;h=480&amp;c=c&amp;webp=1 2x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164718275300352895.jpeg?gif=1&amp;w=720&amp;h=720&amp;c=c&amp;webp=1 3x" />
-                    <div class="round-checkbox-input round-checkbox-input--blue">
-                      <label class="round-checkbox-input__label"
-                        ><input class="round-checkbox-input__input" type="checkbox" /><span class="round-checkbox-input__icon"
-                          ><svg class="check" width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><path fill="#FFF" d="M9.9 14.6l7-7.3 1.5 1.4-8.4 8.7-5-4.6 1.4-1.5z"></path></svg></span
-                      ></label>
-                    </div>
-                  </div>
-                  <div class="select-my-card__content">
-                    <img class="select-my-card__content__image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027751_hZAfT.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027751_hZAfT.jpeg?gif=1&amp;w=360&amp;h=360&amp;c=c&amp;webp=1 1.5x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027751_hZAfT.jpeg?gif=1&amp;w=480&amp;h=480&amp;c=c&amp;webp=1 2x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027751_hZAfT.jpeg?gif=1&amp;w=720&amp;h=720&amp;c=c&amp;webp=1 3x" />
-                    <div class="round-checkbox-input round-checkbox-input--blue">
-                      <label class="round-checkbox-input__label"
-                        ><input class="round-checkbox-input__input" type="checkbox" /><span class="round-checkbox-input__icon"
-                          ><svg class="check" width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><path fill="#FFF" d="M9.9 14.6l7-7.3 1.5 1.4-8.4 8.7-5-4.6 1.4-1.5z"></path></svg></span
-                      ></label>
-                    </div>
-                  </div>
-                  <div class="select-my-card__content">
-                    <img class="select-my-card__content__image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027720_2ehFh.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027720_2ehFh.jpeg?gif=1&amp;w=360&amp;h=360&amp;c=c&amp;webp=1 1.5x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027720_2ehFh.jpeg?gif=1&amp;w=480&amp;h=480&amp;c=c&amp;webp=1 2x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027720_2ehFh.jpeg?gif=1&amp;w=720&amp;h=720&amp;c=c&amp;webp=1 3x" />
-                    <div class="round-checkbox-input round-checkbox-input--blue">
-                      <label class="round-checkbox-input__label"
-                        ><input class="round-checkbox-input__input" type="checkbox" /><span class="round-checkbox-input__icon"
-                          ><svg class="check" width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><path fill="#FFF" d="M9.9 14.6l7-7.3 1.5 1.4-8.4 8.7-5-4.6 1.4-1.5z"></path></svg></span
-                      ></label>
-                    </div>
-                  </div>
-                  <div class="select-my-card__content">
-                    <img class="select-my-card__content__image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027625_dlj1YXyC.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027625_dlj1YXyC.jpeg?gif=1&amp;w=360&amp;h=360&amp;c=c&amp;webp=1 1.5x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027625_dlj1YXyC.jpeg?gif=1&amp;w=480&amp;h=480&amp;c=c&amp;webp=1 2x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027625_dlj1YXyC.jpeg?gif=1&amp;w=720&amp;h=720&amp;c=c&amp;webp=1 3x" />
-                    <div class="round-checkbox-input round-checkbox-input--blue">
-                      <label class="round-checkbox-input__label"
-                        ><input class="round-checkbox-input__input" type="checkbox" /><span class="round-checkbox-input__icon"
-                          ><svg class="check" width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><path fill="#FFF" d="M9.9 14.6l7-7.3 1.5 1.4-8.4 8.7-5-4.6 1.4-1.5z"></path></svg></span
-                      ></label>
-                    </div>
-                  </div>
-                  <div class="select-my-card__content">
-                    <img class="select-my-card__content__image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027477_X8mXb.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027477_X8mXb.jpeg?gif=1&amp;w=360&amp;h=360&amp;c=c&amp;webp=1 1.5x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027477_X8mXb.jpeg?gif=1&amp;w=480&amp;h=480&amp;c=c&amp;webp=1 2x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/1606027477_X8mXb.jpeg?gif=1&amp;w=720&amp;h=720&amp;c=c&amp;webp=1 3x" />
-                    <div class="round-checkbox-input round-checkbox-input--blue">
-                      <label class="round-checkbox-input__label"
-                        ><input class="round-checkbox-input__input" type="checkbox" /><span class="round-checkbox-input__icon"
-                          ><svg class="check" width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><path fill="#FFF" d="M9.9 14.6l7-7.3 1.5 1.4-8.4 8.7-5-4.6 1.4-1.5z"></path></svg></span
-                      ></label>
-                    </div>
-                  </div>
-                </div>
-                <button class="button button--color-blue-inverted button--size-50 button--shape-4 upload-button" type="button">
+                <div class="review-modal__section__title">사진 첨부 (선택) <img class="대" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/157654714042406347.png?gif=1&amp;w=240&amp;webp=1" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/157654714042406347.png?gif=1&amp;w=360&amp;webp=1 1.5x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/157654714042406347.png?gif=1&amp;w=480&amp;webp=1 2x, https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/157654714042406347.png?gif=1&amp;w=720&amp;webp=1 3x" /></div>
+                <div class="review-modal__section__explain">새로운 사진을 첨부해주세요. (최대 1장)</div>
+                <div class="select-picture"><img class="select-picture__contents" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/165165056972727001.png?gif=1&amp;w=240" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/165165056972727001.png?gif=1&amp;w=360 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/165165056972727001.png?gif=1&amp;w=480 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/165165056972727001.png?gif=1&amp;w=720 3x"><button class="button button--color-blue button--size-50 button--shape-4 select-picture__delete" type="button"><svg viewBox="0 0 20 20" preserveAspectRatio="xMidYMid meet"><defs><filter id="delete-a" width="134.3%" height="175%" x="-17.1%" y="-37.5%" filterUnits="objectBoundingBox"><feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset><feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="3"></feGaussianBlur><feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0.182857143 0 0 0 0 0.205714286 0 0 0 0 0.22 0 0 0 0.2 0"></feColorMatrix><feMerge><feMergeNode in="shadowMatrixOuter1"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter><path id="delete-b" d="M11 3.83v10c0 .92-.75 1.67-1.67 1.67H2.67c-.92 0-1.67-.75-1.67-1.67v-10h10zM8.08.5l.84.83h2.91V3H.17V1.33h2.91L3.92.5h4.16z"></path></defs><g fill="none" fill-rule="evenodd" filter="url(#delete-a)" transform="translate(4 2)"><mask id="delete-c" fill="#fff"><use xlink:href="#delete-b"></use></mask><g fill="#FFF" mask="url(#delete-c)"><path d="M-4-2h20v20H-4z"></path></g></g></svg>삭제</button></div>
+                <button class="button button--color-blue-inverted button--size-50 button--shape-4 upload-button" type="button" onclick="upload_photo()">
                   <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><path d="M21.1 4c.5 0 .9.4.9.9v14.2c0 .5-.4.9-.9.9H2.9a.9.9 0 01-.9-.9V4.9c0-.5.4-.9.9-.9h18.2zm-.91 1.8H3.8v10.85l5.54-6.27c.12-.17.38-.17.52 0l3.1 3.54c.06.06.08.14.06.2l-.4 1.84c-.02.14.15.23.23.12l3.16-3.43a.27.27 0 01.38 0l3.79 4.12V5.8zm-3.37 4.8a1.47 1.47 0 01-1.47-1.45c0-.81.66-1.46 1.47-1.46s1.48.65 1.48 1.46c0 .8-.66 1.45-1.48 1.45z"></path></svg> 사진 첨부하기
+
                 </button>
+
+                <input type="file" name="main_photo" id="review_photo" class="main_photo"
+                       style="display: none" onchange="changeValue(this)"
+                       accept="image/*" />
+
               </div>
+
+
+
+
               <div class="review-modal__section">
                 <div class="review-modal__section__title">리뷰 작성</div>
                 <textarea placeholder="자세하고 솔직한 리뷰는 다른 고객에게 큰 도움이 됩니다. (최소 20자 이상)" class="form-control text-area-input review-modal__form__review-input" style="height: 56px"></textarea>
                 <div class="review-modal__form__review-input__length"><span class="review-modal__form__review-input__length__value">0</span></div>
               </div>
-              <button class="button button--color-blue button--size-50 button--shape-4 review-modal__form__submit" type="submit">완료</button>
+              <button class="button button--color-blue button--size-50 button--shape-4 review-modal__form__submit" type="button" onclick="photoUpload()">완료</button>
             </form>
             <div class="review-modal__policy">
               <div class="review-modal__policy__button">

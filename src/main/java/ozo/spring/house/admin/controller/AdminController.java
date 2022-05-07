@@ -107,17 +107,7 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping(value = "/memberManagement.admin")
-	public String memberManagementView(HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		
-		if(session.getAttribute("admincode")!=null) {
-			return "memberManagement_dh";
-		}else {
-			return "adminLogin_dj";
-		}
-	}
+
 
 	@RequestMapping(value = "/couponManagement.admin")
 	public String couponManagementView(HttpServletRequest request) {

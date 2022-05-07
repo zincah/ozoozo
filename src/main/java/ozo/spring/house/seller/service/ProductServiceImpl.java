@@ -60,8 +60,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductVO> selectSelectProductList(ProductVO vo) {
-		return productDAO.selectSelectProductList(vo);
+	public ProductVO selectSelectProduct(ProductVO vo) {
+		return productDAO.selectSelectProduct(vo);
 	}
 
 }

@@ -23,4 +23,8 @@ public class ReviewVO {
     private int rv_catecode;
     private int rv_subcatecode;
 
+    public ReviewVO(){
+
+    }
+
 }

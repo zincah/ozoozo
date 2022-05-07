@@ -21,7 +21,7 @@
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/detailScript.css?var=1'>
 
     <script>
-        
+    var select = false
     </script>
 </head>
 <body>
@@ -357,7 +357,7 @@
                                 <div class="selling-option-form-content__form">
                                     <div class="selling-option-select-input">
                                         <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-1">
-                                            <select class="form-control empty" onchange="selected(this)" id="selectOne">
+                                            <select class="form-control empty selectOne_ dh_S" onchange="selected_fun(this)" id="selectOne">
                                                 <option selected="" value="" disabled="" >${product[0].option1_name }</option>
                                                 <c:forEach  var="i" begin="0" end="${fn:length(product)-1}">
                                                 <option>${product[i].option1 }</option>
@@ -368,9 +368,9 @@
                                                 </svg>
                                             </span>
                                         </div>
-                                      <c:if test="${product[0].option2_name ne ''}">
+                                      <c:if test="${product[0].option2_name ne ''}" var="select1">
                                         <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-2">
-                                            <select class="form-control empty selectOne" >
+                                            <select class="form-control empty selectOne dh_S" onchange="add_div(this,this)" id="selectOne_">
                                                 <option selected="" value="" disabled="">${product[0].option2_name }</option>
                                                 
                                             </select>
@@ -380,17 +380,18 @@
                                                 </svg>
                                             </span>
                                         </div>
-                                        <script>var select1 = false</script>
+                                        <script>select = true</script>
                                         </c:if>
                                         <script>
-                                        	function selected(select_n){
-                                        		$(select_n).parent().addClass("focused");
-                                        		select_n.classList.remove('empty');
-                                        		if(!select1){
-                                        			add_div(select_n.value, select_n.id);
+                                        
+                                        	function selected_fun(select_n){
+                                        		if(select){
+                                        			option_select(select_n.value, select_n.id);
+                                        		}else{
+                                        			add_div(select_n.value);
                                         		}
                                         	}
-                                        	function add_div(option, thisClass){
+                                        	function option_select(option, thisClass){
                                         		$.ajax({
                                         			url:'option_send.com',	
                                       		  		method:'post',
@@ -400,11 +401,34 @@
                                       		  		success : function(option_list){
                                       		  			$("."+thisClass).html("<option selected='' value='' disabled=''>${product[0].option2_name }</option>");
                                       		  			 $.each(option_list,function(index,item){
-                                      		  				var op = '<option>'+item["option2"]+'</option>';
+                                      		  				var op = '<option value='+index+'>'+item["option2"]+'</option>';
                                       		  				$("."+thisClass).append(op);
                                       		  			}) 
                                       		  		}	
                                         		})
+                                        	}
+                                        	var option_val = null;
+                                        	function add_div(S1,S2){
+                                        		if(S2 == null){
+                                        			option_val = S1;
+                                        		}else {
+                                        			option_val = $("."+S1.id).val() + "," + S2.options[S2.selectedIndex].text;
+                                        		}
+                                        		//console.log($("#"+S1).val());
+                                        		console.log(option_val);
+                                        		$.ajax({
+                                        			url:'option_toString.com',
+                                        			method:'post',
+                                        			data: JSON.stringify(option_val),
+                                        			contentType : 'application/json; charset=UTF-8',
+                                      		  		dataType : 'json',
+                                      		  		success : function(option_toString_list){
+                                      		  			buy_item(option_toString_list);
+                                      		  		}
+                                        		})
+                                        		if(S2 != null){
+                                        			$(S2).children('option:not(:first)').remove();
+                                        		} 
                                         	}
                                         </script>
                                         <!-- <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-extra">
@@ -431,44 +455,77 @@
                                 </div>
                                 <ul class="selling-option-form-content__list">
                                 	<script>
-                                		function buy_item(){
-                                			/* var html = 
-                                				'<li>
-                                					<article class="selling-option-item">
-                                					<h2 class="selling-option-item__name">
-                                						사이즈: 제주 25cm 필로우탑 본넬스프링 _Q 퀸 / 색상: 실버그레이 (HL01040)
-                                					</h2>
-                                					<button class="selling-option-item__delete" type="button" aria-label="삭제">
-                                					<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet">
-                                					<path fill-rule="nonzero" d="M6 4.6L10.3.3l1.4 1.4L7.4 6l4.3 4.3-1.4 1.4L6 7.4l-4.3 4.3-1.4-1.4L4.6 6 .3 1.7 1.7.3 6 4.6z">
-                                					</path>
-                                					</svg>
-                                					</button>
-                                					<div class="selling-option-item__controls">
-                                					<div class="selling-option-item__quantity">
-                                					<div class="input-group select-input option-count-input">
-                                					<select class="form-control">
-                                					<option value="0">1</option>
-                                					<option value="1">2</option>
-                                					<option value="2">3</option>
-                                					<option value="3">4</option>
-                                					<option value="4">5</option>
-                                					<option value="5">6</option>
-                                					<option value="6">7</option>
-                                					<option value="7">8</option>
-                                					<option value="8">9</option>
-                                					<option value="9">10+</option>
-                                					</select><span class="select-input__icon">
-                                					<svg class="icon" width="10" height="10" preserveAspectRatio="xMidYMid meet" style="fill: currentcolor;">
-                                					<path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path></svg></span></div></div><p class="selling-option-item__price">
-                                					<span class="selling-option-item__price__number">
-                                					159,000
-                                					</span>
-                                					원
-                                					</p>
-                                					</div>
-                                					</article>
-                                					</li>'; */
+                                		var  count = 0;
+                                		function buy_item(option_toString){
+                                			var html =	'<li id="'+ count +'_">\
+                                					<article class="selling-option-item">\
+                                					<h2 class="selling-option-item__name h1_'+count+'">\
+                                						${product[0].option1_name}: '+ option_toString[0] +'\
+                                					</h2>\
+                                					<button class="selling-option-item__delete" id="'+count+'" type="button" aria-label="삭제" onclick="remove_div(this)">\
+                                					<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet">\
+                                					<path fill-rule="nonzero" d="M6 4.6L10.3.3l1.4 1.4L7.4 6l4.3 4.3-1.4 1.4L6 7.4l-4.3 4.3-1.4-1.4L4.6 6 .3 1.7 1.7.3 6 4.6z">\
+                                					</path>\
+                                					</svg>\
+                                					</button>\
+                                					<div class="selling-option-item__controls">\
+                                					<div class="selling-option-item__quantity">\
+                                					<div class="input-group select-input option-count-input">\
+                                					<select class="form-control" onchange="div_price(this)" id="_'+count+'">\
+                                					<option value="0">1</option>\
+                                					<option value="1">2</option>\
+                                					<option value="2">3</option>\
+                                					<option value="3">4</option>\
+                                					<option value="4">5</option>\
+                                					<option value="5">6</option>\
+                                					<option value="6">7</option>\
+                                					<option value="7">8</option>\
+                                					<option value="8">9</option>\
+                                					<option value="9">10+</option>\
+                                					</select><span class="select-input__icon">\
+                                					<svg class="icon" width="10" height="10" preserveAspectRatio="xMidYMid meet" style="fill: currentcolor;">\
+                                					<path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path></svg></span></div></div>\
+                                					<p class="selling-option-item__price">\
+                                					${price_sale}\
+                                					</span>\
+                                					원\
+                                					</p>\
+                                					</div>\
+                                					</article>\
+                                					</li>';
+                                			$(".selling-option-form-content__list").append(html);
+                                			if(option_toString[1] != null){
+                                				var html2 = null;
+                   						 		 html2 = '/ ${product[0].option2_name}: ' + option_toString[1] +'';
+                   						 		$(".h1_"+count+"").append(html2);
+                   							}
+                                			count++;
+                                			 try{
+                                			$(".dh_S").val(null).prop("selected", true);
+                                			}catch(e){
+                                				console.log('에러 나 이상하게');
+                                			} 
+                                		}
+                                		function remove_div(div_index){ // 회색 div 개별 제거
+                                			$("#"+div_index.id+"_").remove();
+                                			$("#"+div_index.id+"_").remove();
+                                			$("#"+div_index.id+"_").remove();
+                                		}
+                                		function div_price(select_Class){ //회색 div 상품 개별 가격 등록
+                                			momy = $(".h1"+select_Class.id);
+                                			mm = $(momy).next().next();
+                                			son = $(mm).children('.selling-option-item__price');
+                                			var EA = parseInt($(select_Class).val())+1;
+                                			index_price = int_comma(parseInt(${int_price_sale})*EA);
+                                			$(son).text(index_price + " 원");
+                                			// 같은 회색 div 3개 select 갯수 바꿔주는거
+                                			div_id = select_Class.id;
+                                			console.log(div_id);
+                                			$("#"+div_id).val($(select_Class).val()).prop("selected",  true);
+                                		}
+                                		function int_comma(Int_val){ // 숫자 콤마 찍는 function
+                                			int_val = Int_val;
+                                			return int_val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                                 		}
                                 	</script>
                                 </ul>
@@ -1747,7 +1804,7 @@
                                             <div class="selling-option-form-content__form">
                                                 <div class="selling-option-select-input">
                                                     <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-1 ">
-                                                        <select class="form-control empty" onchange="selected(this)" id="selectTwo">
+                                                        <select class="form-control empty selectTwo_ dh_S" onchange="selected_fun(this)" id="selectTwo">
                                                             <option selected="" value="" disabled="" >${product[0].option1_name }</option>
                                                             <c:forEach  var="i" begin="0" end="${fn:length(product)-1}">
                                                 			<option>${product[i].option1 }</option>
@@ -1759,15 +1816,16 @@
                                                             </svg>
                                                         </span>
                                                     </div>
+                                                    <c:if test="${product[0].option2_name ne ''}">
                                                     <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-2">
-                                                        <select class="form-control empty selectTwo">
+                                                        <select class="form-control empty selectTwo dh_S" onchange="add_div(this,this)" id="selectTwo_">
                                                             <option selected="" value="" disabled="">${product[0].option2_name }</option>
                                                         </select><span class="select-input__icon"><svg class="icon" width="10" height="10"
                                                                 style="fill:currentColor" preserveAspectRatio="xMidYMid meet">
                                                                 <path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path>
                                                             </svg>
                                                         </span>
-                                                    </div>
+                                                    </div></c:if>
                                                     <!-- <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-extra">
                                                         <select class="form-control empty">
                                                             <option selected="" value="" disabled="">추가상품 (선택)</option>
@@ -2090,7 +2148,7 @@
                 <div class="selling-option-form-content__form">
                     <div class="selling-option-select-input">
                         <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-1">
-                            <select class="form-control empty" onchange="selected(this)" id="selectThree">
+                            <select class="form-control empty selectThree_ dh_S" onchange="selected_fun(this)" id="selectThree">
                                 <option value="" disabled=""selected=""  >${product[0].option1_name }</option>
                                 	<c:forEach  var="i" begin="0" end="${fn:length(product)-1}">
                                     <option >${product[i].option1 }</option>
@@ -2099,14 +2157,15 @@
                                     preserveAspectRatio="xMidYMid meet" style="fill: currentcolor;">
                                     <path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path>
                                 </svg></span></div>
+                                <c:if test="${product[0].option2_name ne ''}">
                         <div
                             class="input-group select-input selling-option-select-input__option selling-option-select-input__option-2">
-                            <select class="form-control empty selectThree">
+                            <select class="form-control empty selectThree dh_S" onchange="add_div(this,this)" id="selectThree_">
                                 <option value="" disabled="" selected>${product[0].option2_name }</option>
                             </select><span class="select-input__icon"><svg class="icon" width="10" height="10"
                                     preserveAspectRatio="xMidYMid meet" style="fill: currentcolor;">
                                     <path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path>
-                                </svg></span></div>
+                                </svg></span></div></c:if>
                         <!-- <div
                             class="input-group select-input selling-option-select-input__option selling-option-select-input__option-extra">
                             <select class="form-control empty">
@@ -2143,6 +2202,18 @@
         </div>
     </div>
 </div>
+<script>
+$('.production-selling-select-modal').click(function(e) { 
+    if($(e.target).hasClass("react-modal__content-wrap-dhp")) {
+        $('#smallbuy').css("display","none");
 
+        } 
+    });
+    $('.production-selling-select-modal').click(function(e) { 
+    if($(e.target).hasClass("production-selling-select-modal")) {
+         $('#smallbuy').css("display","none");
+        } 
+    });
+    </script>
 </body>
 </html>

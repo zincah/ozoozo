@@ -277,7 +277,7 @@ $("#productDelete").click(function () {
 		type : "POST",
 		data : pdList,
 		success : function(res) {
-	
+			$("#productDeleteView").load(location.href + " #productDeleteView");
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
 			alert("오류 발생");

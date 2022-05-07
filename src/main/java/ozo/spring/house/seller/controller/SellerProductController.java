@@ -45,14 +45,14 @@ public class SellerProductController {
 	@RequestMapping(value = "/selectProductList.seller", method=RequestMethod.POST)
 	public String selectProductList(HttpServletRequest request, Model model, ProductVO vo, @RequestBody ArrayList<String> listProductId) {
 		HttpSession session = request.getSession();
-		List<ProductVO> productListView = new ArrayList<>();
+		List<ProductVO> selectProductListView = new ArrayList<ProductVO>();
 		if(session.getAttribute("seller")!=null) {
 			for(String productId : listProductId) {
 				vo.setProduct_id(Integer.parseInt(productId));
-				productListView.add((ProductVO) productService.selectSelectProductList(vo));
+				selectProductListView.add(productService.selectSelectProduct(vo));
 			}
-			model.addAttribute("productListView", productListView);
-			return "seller-productManagement";
+			model.addAttribute("selectProductListView", selectProductListView);
+			return null;
 		}else {
 			return "seller-login";
 		}

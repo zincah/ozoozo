@@ -11,10 +11,9 @@ public class ProductDetailVO {
 	
 	// option filtering
 	private int detail_id;
-	private int dusing_people = 0;
-	private String dplace;
-	private boolean drental;
-	private boolean drefurbish;
+	private String detail_name;
+	private int detail_value;
+	private int dtop_catecode;
 	private int dprodetails_postid;
 	
 	// productdetail_table

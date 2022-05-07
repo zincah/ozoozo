@@ -15,20 +15,21 @@ public class UserCategoryDAO {
 	private SqlSessionTemplate sqlsessiontemplate;
 	
 	
-	public List<UserCategoryVO> m_category(UserCategoryVO vo) {
-		
-		System.out.println("¸ŞÀÎ ¸Ş´º ");
-		return sqlsessiontemplate.selectList("UserCategoryDAO.m_category",vo);
-	}
-	public List<UserCategoryVO> s_category(UserCategoryVO vo) {
-		
-		System.out.println("¼­ºê ¸Ş´º ");
-		return sqlsessiontemplate.selectList("UserCategoryDAO.s_category",vo);
-	}
-	public List<UserCategoryVO> b_category(UserCategoryVO vo) {
-		
-		System.out.println("¸¶Áö¸· ¸Ş´º  ");
-		return sqlsessiontemplate.selectList("UserCategoryDAO.b_category",vo);
-	}
+   public List<UserCategoryVO> m_category(UserCategoryVO vo) {
+      
+      System.out.println("ë©”ì¸ ë©”ë‰´ ");
+      return sqlsessiontemplate.selectList("UserCategoryDAO.m_category",vo);
+   }
+   public List<UserCategoryVO> s_category(UserCategoryVO vo) {
+      
+      System.out.println("ì„œë¸Œ ë©”ë‰´ ");
+      return sqlsessiontemplate.selectList("UserCategoryDAO.s_category",vo);
+   }
+   public List<UserCategoryVO> b_category(UserCategoryVO vo) {
+      
+      System.out.println("ë§ˆì§€ë§‰ ë©”ë‰´  ");
+      return sqlsessiontemplate.selectList("UserCategoryDAO.b_category",vo);
+   }
+
 
 }

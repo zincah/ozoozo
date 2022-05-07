@@ -3,6 +3,7 @@ package ozo.spring.house.seller.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,8 @@ public class CategoryController {
 	ProductService productService;
 	
 	@RequestMapping(value = "/insertProductCate.seller", method=RequestMethod.GET)
-	public String test(CategoryVO vo, Model model) {
+	public String test(CategoryVO vo, Model model, HttpServletRequest request) {
+
 		List<CategoryVO> cateList = categoryService.getCategoryList(vo);
 		model.addAttribute("cateList", cateList);		
 		return "seller-insertProduct";
