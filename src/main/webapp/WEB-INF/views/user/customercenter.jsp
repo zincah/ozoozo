@@ -53,16 +53,7 @@
 		                	'<'+'/'+'script>'
 			  			})
 			  				$(".faq__contents__group").append(qna);	
-			  			
-			  			
-			  			
-			  			
-			  			
-							
-			  			
-			  			
 			  		}
-			  		
 			  		})
 			})
 			
