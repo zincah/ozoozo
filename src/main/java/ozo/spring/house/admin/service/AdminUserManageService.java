@@ -8,5 +8,6 @@ public interface AdminUserManageService {
 	
 	public List<UserVO> selectUser(UserVO vo);
 	public List<UserVO> selectUserType(UserVO vo);
-
+	public List<UserVO> selectUserStatus(UserVO vo);
+	public List<UserVO> selectUserDate(UserVO vo);
 }

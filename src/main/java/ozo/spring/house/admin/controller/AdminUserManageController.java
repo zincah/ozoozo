@@ -23,6 +23,7 @@ public class AdminUserManageController {
 	@Autowired
 	AdminUserManageService userManage;
 	
+	// 회원관리 로딩시 처음으로 정보를 가지고 오는 mapping
 	@RequestMapping(value = "/memberManagement.admin")
 	public String memberManagementView(HttpServletRequest request, UserVO vo, Model model) {
 		
@@ -40,7 +41,7 @@ public class AdminUserManageController {
 		}
 	}
 	
-
+	// 회원 타입 선택시 정보를 가지고 오는 mapping
 	@ResponseBody
 	@RequestMapping(value = "/getUserList.admin", method=RequestMethod.POST)
 	public List<UserVO> getUserList(@RequestBody String check, UserVO vo) {
@@ -58,5 +59,20 @@ public class AdminUserManageController {
 		}
 		
 	}
+	
+	// 회원 상태 선택시 정보를 가지고 오는 mapping
+	@ResponseBody
+	@RequestMapping(value = "/getUserListByStatus.admin", method=RequestMethod.POST)
+	public List<UserVO> getUserListByStatus(@RequestBody String selectit, UserVO vo) {
+		
+		selectit = selectit.replaceAll("\"", "");
+		List<UserVO> userList = new ArrayList<UserVO>();
+		
+		vo.setUser_status(selectit);
+		userList = userManage.selectUserStatus(vo);
+		
+		return userList;
+	}
+
 
 }

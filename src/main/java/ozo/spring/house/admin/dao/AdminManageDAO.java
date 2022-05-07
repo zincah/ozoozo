@@ -25,6 +25,16 @@ public class AdminManageDAO {
 		return sqlSessionTemplate.selectList("AdminManageDAO.selectUserType", vo);
 	}
 	
+	public List<UserVO> selectUserStatus(UserVO vo) {
+		System.out.println("--> mybatis in adminmanagedao select user status");
+		return sqlSessionTemplate.selectList("AdminManageDAO.selectUserStatus", vo);
+	}
+	
+	public List<UserVO> selectUserDate(UserVO vo) {
+		System.out.println("--> mybatis in adminmanagedao select user joindate");
+		return sqlSessionTemplate.selectList("AdminManageDAO.selectUserDate", vo);
+	}
+	
 	
 
 }
