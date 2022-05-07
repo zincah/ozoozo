@@ -14,12 +14,83 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="resources/css/admincss/fonts.css" rel="stylesheet" />
     <link href="resources/css/admincss/styles.css" rel="stylesheet" />
-    <link href="resources/css/admincss/membermanagement_dh.css" rel="stylesheet" />
+    <link href="resources/css/admincss/membermanagement_dh.css?var=1" rel="stylesheet" />
     <link href="resources/css/admincss/insertProduct_dh.css?var=1" rel="stylesheet" />
     <link href="resources/css/admincss/seller-productManagement_dh.css?var=1" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <script>
+    
+    	$(document).ready(function(){
+       		$("input[name=member]").change(function(){
+       			
+       			var check = $("input[name=member]:checked").val();
+       			getUserData(check);
+       			
+       			
+       		});
+
+    	});
+    	
+    	// user data filtering
+    	function getUserData(check){
+    		
+    		
+		  	$.ajax({
+		  		url:'getUserList.admin',
+		  		method:'post',
+		  		data: JSON.stringify(check),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'json',
+		  		success : function(resp){
+						
+		  				$("#listTableBody").html("");
+		  				var result = ""
+							
+			  			$.each(resp,function(index,item){
+			  				
+							var gen = "-";
+			  				
+			  				if(item["gender"]==true){
+			  					gen = "남성";
+			  				}else if(item["gender"]==false){
+			  					gen = "여성";
+			  				}else{
+			  					gen = "-";
+			  				}
+			  				
+			  				var join_date = new Date(item["join_date"]).toISOString().split("T")[0];
+
+			  				result += 
+			  					'<tr class="content-table-content content-hover">\
+								  <td class="content-table-content-text option-line"><input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" /></td>\
+								  <td class="content-table-content-text option-line state0">'+item["user_num"]+'</td>\
+								<td class="content-table-content-text option-line">'+item["nickname"]+'</td>\
+								<td class="content-table-content-text option-line">'+item["user_email"]+'</td>\
+								<td class="content-table-content-text option-line">'+item["user_type"]+'</td>\
+								<td class="content-table-content-text option-line">0</td>\
+								<td class="content-table-content-text option-line">'+gen+'</td>\
+								<td class="content-table-content-text option-line">'+join_date+'</td>\
+								<td class="content-table-content-text option-line">2022-04-12 16:44</td>\
+								<td class="content-table-content-text option-line">0</td>\
+								<td class="content-table-content-text option-line">'+item["user_status"]+'</td>';
+			  			})
+			  			
+			  			$("#listTableBody").append(result);
+			  			
+		  			}
+		  		});
+				
+    		
+    	}
+    		
+
+    
+    	
+    
+    
+    </script>
   </head>
  
  		<jsp:include page="header/header.jsp"></jsp:include>
@@ -54,18 +125,24 @@
                 <div class="row optionGroup1">
                   <div class="col-1 status-name">회원 구분</div>
                   <div class="col search-check-group">
-                    <div class="form-check form-check-display">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
-                      <label class="form-check-label" for="flexCheckDefault1"> 전체 </label>
-                    </div>
-                    <div class="form-check form-check-display">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault2" />
-                      <label class="form-check-label" for="flexCheckDefault2"> 일반회원 </label>
-                    </div>
-                    <div class="form-check form-check-display">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault3" />
-                      <label class="form-check-label" for="flexCheckDefault3"> 판매회원 </label>
-                    </div>
+                    <div class="form-check form-custom-ay">
+					  <input class="form-check-input" type="radio" name="member" id="wholemember" value="" checked>
+					  <label class="form-check-label" for="wholemember">
+					   	전체
+					  </label>
+					</div>
+					<div class="form-check form-custom-ay">
+					  <input class="form-check-input" type="radio" name="member" id="origin" value="일반회원">
+					  <label class="form-check-label" for="origin">
+					   	일반회원
+					  </label>
+					</div>
+					<div class="form-check form-custom-ay">
+					  <input class="form-check-input" type="radio" name="member" id="seller" value="판매회원">
+					  <label class="form-check-label" for="seller">
+					   	판매회원
+					  </label>
+					</div>
                   </div>
                 </div>
               </div>
@@ -115,6 +192,21 @@
         </main>
         <!-- content -->
         <div class="content-table">
+
+	        <div class="dropdown setting-button text-end">
+				<button class="settingBtn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                   <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
+                 </svg>
+				</button>
+				<ul class="dropdown-menu settingBtnDropdown" aria-labelledby="dropdownMenuButton1" style="">
+					<li><h6 class="dropdown-header">고객 설정 일괄 변경</h6></li>
+					<li>
+						<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-status-select" id="productStatusChange">회원상태변경</a>
+					</li>
+				</ul>
+			</div>
+
           <table class="table table-hover table-box-style">
             <thead>
               <tr class="content-table-title">
@@ -133,7 +225,7 @@
                 <td class="content-table-title-text ">현재 상태</td>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="listTableBody">
               <!-- for -->
               <c:forEach items="${userList }" var="user">
               <tr class="content-table-content content-hover">
@@ -152,7 +244,8 @@
 
                 </td>
                 <td class="content-table-content-text option-line">
-                	<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${user.join_date}"/>
+                	<!--<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${user.join_date}"/>-->
+                	<fmt:formatDate pattern="yyyy-MM-dd" value="${user.join_date}"/>
                 </td>
                 <td class="content-table-content-text option-line">2022-04-12 16:44</td>
                 <td class="content-table-content-text option-line">0</td>
@@ -177,6 +270,11 @@
         </footer>
       </div>
     </div>
+    
+	<!-- modal 추가 -->
+    
+    
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="resources/js/adminjs/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

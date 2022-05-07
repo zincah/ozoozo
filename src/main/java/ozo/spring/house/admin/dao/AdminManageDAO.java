@@ -20,6 +20,11 @@ public class AdminManageDAO {
 		return sqlSessionTemplate.selectList("AdminManageDAO.selectUser", vo);
 	}
 	
+	public List<UserVO> selectUserType(UserVO vo) {
+		System.out.println("--> mybatis in adminmanagedao select user type");
+		return sqlSessionTemplate.selectList("AdminManageDAO.selectUserType", vo);
+	}
+	
 	
 
 }

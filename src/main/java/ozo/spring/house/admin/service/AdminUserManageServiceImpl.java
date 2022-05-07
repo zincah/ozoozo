@@ -19,4 +19,9 @@ public class AdminUserManageServiceImpl implements AdminUserManageService {
 		return adminManageDAO.selectUser(vo);
 	}
 
+	@Override
+	public List<UserVO> selectUserType(UserVO vo) {
+		return adminManageDAO.selectUserType(vo);
+	}
+
 }

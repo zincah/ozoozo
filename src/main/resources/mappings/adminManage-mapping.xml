@@ -6,7 +6,11 @@
 
 	<!-- 회원관리 -->
 	<select id="selectUser" resultType="user">
-		SELECT * FROM user_table ORDER BY user_num DESC;
+		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table ORDER BY user_num DESC;
+	</select>
+	
+	<select id="selectUserType" resultType="user">
+		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table WHERE user_type = #{user_type} ORDER BY user_num DESC;
 	</select>
 
 </mapper>
