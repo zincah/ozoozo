@@ -14,6 +14,10 @@ public class UserCategoryServiceImpl implements UserCategoryService{
 	@Autowired
 	UserCategoryDAO UserCategoryDAO;
 	
+	//setter
+	public void setUserCategoryDAO(UserCategoryDAO userCategoryDAO) {
+		UserCategoryDAO = userCategoryDAO;
+	}
 
 	@Override
 	public List<UserCategoryVO> m_category(UserCategoryVO vo) {

@@ -6,17 +6,17 @@
     
     
     <select id="m_category" resultType="ucate" >
-    SELECT * FROM CATEGORY ORDER BY CATE_CODE ASC
+    SELECT * FROM category ORDER BY cate_code ASC
     
     </select>
     
     <select id="s_category" resultType="ucate">
-    SELECT * FROM SUB_CATEGORY WHERE TOP_CATECODE = #{TOP_CATECODE} ;
+    select * from sub_category where top_catecode = 1 and subcate_code/100 = 100
     </select>
     
     <select id="b_category" resultType="ucate">
     
-    SELECT * FROM SUB_CATEGORY WHERE TOP_CATECODE = 1 and SUB_DEPTH = 2 and SUBCATE_CODE/100 = 100;
+    SELECT * FROM sub_category WHERE top_catecode = 1 and sub_depth = 2 and subcate_code/100 = 100;
     </select>
     
     
