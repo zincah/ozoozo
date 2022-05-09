@@ -14,7 +14,7 @@
 	rel="stylesheet" />
 <link href="resources/css/user_css/zinc/ozoper_photo_cate.css?var=1"
 	rel="stylesheet" />
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
 	integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
 	crossorigin="anonymous"></script>
@@ -51,8 +51,9 @@
 			
 			$(".category_list_others_item").click(function(){
 				var item = $(this).attr('id');
+				alert(item);
+				/* var go = "gocategory.com?category="+item;
 				
-				var go = "gocategory.com?category="+item;
 				
 				
 				$.ajax({
@@ -61,13 +62,36 @@
 			  		contentType : 'application/json; charset=UTF-8',
 			  		dataType : 'json',
 			  		success : function(resp){
-			  			console.log(item);
-			  			 } 
-			  			
-			  		 })  
+			  			$(".category_tree").html("");
+			  			var qna = ""
+			  			var qna1 = ""
+			  			$.each(resp,function(index,item){
+			  				if(index==0){
+			  				qna += '<li class="category_entry">'+
+							'<div class="category_entry_header">'+
+							'<a id="10000" href="#" class="category_entry_move">'+item["subcate_name"]+'</a>'+
+							'<button class="category_entry_expand">'+
+								'<svg class="icon" width="12" height="12" fill="currentColor"'+
+									'viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">'+
+									'<path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z">'+'<'+'/'+'path>'+'</svg>'+
+							'</button>'+
+						'</div>'+
+						'<div class="category_tree_child_layer" style="overflow: hidden;">'+
+							'<ul class="category_tree_children">'+
+							'</ul>'+
+						'</div>'+
+					'</li>'
+			  				}else if(index!=0){
+			  					qna1 += '<li class="category_tree_children_entry"><a id="'+item["subcate_code"]+'" href="#">'+item["subcate_name"]+'</a></li>'
+			  				}
+			  				})
+			  				$(".category_tree").append(qna);
+			  				$(".category_tree_children").append(qna1);	
+			  				
+			  			}
+			  		 })   */
 			  		})
-				
-			});
+				});
 	
 	</script>
 

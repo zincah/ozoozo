@@ -17,17 +17,17 @@ public class UserCategoryDAO {
 	
    public List<UserCategoryVO> m_category(UserCategoryVO vo) {
       
-      System.out.println("ë©”ì¸ ë©”ë‰´ ");
+      System.out.println("¸ŞÀÎ ");
       return sqlsessiontemplate.selectList("UserCategoryDAO.m_category",vo);
    }
    public List<UserCategoryVO> s_category(UserCategoryVO vo) {
       
-      System.out.println("ì„œë¸Œ ë©”ë‰´ ");
+      System.out.println("¼­ºê ");
       return sqlsessiontemplate.selectList("UserCategoryDAO.s_category",vo);
    }
    public List<UserCategoryVO> b_category(UserCategoryVO vo) {
       
-      System.out.println("ë§ˆì§€ë§‰ ë©”ë‰´  ");
+      System.out.println("ÇÏÀ§  ");
       return sqlsessiontemplate.selectList("UserCategoryDAO.b_category",vo);
    }
 
