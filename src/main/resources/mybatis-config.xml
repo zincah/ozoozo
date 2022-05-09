@@ -31,5 +31,6 @@
 		<mapper resource="mappings/userProduct-mapping.xml"/>
 		<mapper resource="mappings/sellerProductDetail-mapping.xml"/>
 		<mapper resource="mappings/userCategory-mapping.xml"/>
+		<mapper resource="mappings/userMain-mapping.xml"/>
 	</mappers>
 </configuration>
