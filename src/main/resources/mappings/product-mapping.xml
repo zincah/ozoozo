@@ -56,7 +56,7 @@
 
 	<!-- 상품+상품상태 테이블 -->
 	<select id="selectProduct" resultType="product">
-		SELECT * FROM product p JOIN product_status ps ON p.product_id = ps.st_product_id WHERE seller_id = #{seller_id};
+		SELECT * FROM product p JOIN product_status ps ON p.product_id = ps.st_product_id WHERE seller_id = #{seller_id} ORDER BY p.product_id DESC;
 	</select>
 	
 	<!-- jsp 테이블에 뿌릴 상품목록 -->

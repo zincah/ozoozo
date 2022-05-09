@@ -262,7 +262,7 @@ $("#pscSubmitBtn").click(function () {
 $("#productDelete").click(function () {
 	$(".productNum").text($(".check:checked").length);
 	
-	// 선택된 상품의 product_id 값 배열로 받아오기 (DB 처리용)
+	// 선택<된 상품의 product_id 값 배열로 받아오기 (DB 처리용)
 	var pdList = new Array();
 	var index = 0;
 	$(".check:checked").each(function () {
@@ -275,12 +275,14 @@ $("#productDelete").click(function () {
 	$.ajax({
 		url : "selectProductList.seller",
 		type : "POST",
-		data : pdList,
-		success : function(res) {
-			$("#productDeleteView").load(location.href + " #productDeleteView");
+		dataType : "text",
+		data : JSON.stringify(pdList),
+		contentType : "application/json",
+		success : function(result) {
+			$("#productDeleteView").load("seller-productManagement-selectList.seller", result);
 		},
-		error : function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("오류 발생");
+		error : function(request, status, error) {
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		}
 	});
 	
