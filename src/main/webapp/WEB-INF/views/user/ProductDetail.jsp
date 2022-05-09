@@ -289,11 +289,17 @@
                                     </div>
                                     <div class="production-selling-header__promotion__content-wrap">
                                         <p class="production-selling-header__promotion__entry">
-                                            <b>315<!-- -->P</b> 적립 (<!-- -->WELCOME <!-- -->0.3<!-- -->% 적립)
+                                            <b class="point_"></b> 적립 (<!-- -->WELCOME <!-- -->0.3<!-- -->% 적립)
                                         </p>
                                         <p class="production-selling-header__promotion__entry">
                                             <button class="production-selling-header__promotion__entry__button" type="button" onclick="openCard()">
-                                                월 14,986원 (7개월) 무이자할부
+                                                <script>
+                                                window.onload = function() {
+                                                	$(".point_").text(Math.floor(${int_price_sale}*0.003) + "P");
+                                                	MIP_price = int_comma(Math.floor(${int_price_sale}/7));
+                                                	$('.production-selling-header__promotion__entry__button').text("월 " + MIP_price + "원 (7개월) 무이자할부");
+                                                }
+                                                </script>
                                                 <svg class="icon" width="10" height="10" viewBox="0 0 10 10" fill="currentColor" preserveAspectRatio="xMidYMid meet">
                                                     <path d="M2.5 8.2L5.63 5 2.5 1.8l.94-.97L7.5 5 3.44 9.17z"></path>
                                                 </svg>
@@ -415,7 +421,7 @@
                                         			option_val = $("."+S1.id).val() + "," + S2.options[S2.selectedIndex].text;
                                         		}
                                         		//console.log($("#"+S1).val());
-                                        		console.log(option_val);
+                                        		//console.log(option_val);
                                         		$.ajax({
                                         			url:'option_toString.com',
                                         			method:'post',
@@ -428,7 +434,7 @@
                                         		})
                                         		if(S2 != null){
                                         			$(S2).children('option:not(:first)').remove();
-                                        		} 
+                                        		}
                                         	}
                                         </script>
                                         <!-- <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-extra">
@@ -471,7 +477,7 @@
                                 					<div class="selling-option-item__controls">\
                                 					<div class="selling-option-item__quantity">\
                                 					<div class="input-group select-input option-count-input">\
-                                					<select class="form-control" onchange="div_price(this)" id="_'+count+'">\
+                                					<select class="form-control _'+count+'" onchange="div_price(this)" id="_'+count+'">\
                                 					<option value="0">1</option>\
                                 					<option value="1">2</option>\
                                 					<option value="2">3</option>\
@@ -485,11 +491,7 @@
                                 					</select><span class="select-input__icon">\
                                 					<svg class="icon" width="10" height="10" preserveAspectRatio="xMidYMid meet" style="fill: currentcolor;">\
                                 					<path fill-rule="evenodd" d="M0 3l5 5 5-5z"></path></svg></span></div></div>\
-                                					<p class="selling-option-item__price">\
-                                					${price_sale}\
-                                					</span>\
-                                					원\
-                                					</p>\
+                                					<p class="selling-option-item__price">${price_sale} 원</p>\
                                 					</div>\
                                 					</article>\
                                 					</li>';
@@ -505,8 +507,10 @@
                                 			}catch(e){
                                 				console.log('에러 나 이상하게');
                                 			} 
+                                			all_price();
                                 		}
                                 		function remove_div(div_index){ // 회색 div 개별 제거
+                                			count--;
                                 			$("#"+div_index.id+"_").remove();
                                 			$("#"+div_index.id+"_").remove();
                                 			$("#"+div_index.id+"_").remove();
@@ -517,15 +521,29 @@
                                 			son = $(mm).children('.selling-option-item__price');
                                 			var EA = parseInt($(select_Class).val())+1;
                                 			index_price = int_comma(parseInt(${int_price_sale})*EA);
-                                			$(son).text(index_price + " 원");
+                                			$(son).text(""+index_price + " 원");
                                 			// 같은 회색 div 3개 select 갯수 바꿔주는거
                                 			div_id = select_Class.id;
-                                			console.log(div_id);
-                                			$("#"+div_id).val($(select_Class).val()).prop("selected",  true);
+                                			$("."+div_id).val($(select_Class).val()).prop("selected",  true);
+                                			
+                                			all_price();
                                 		}
                                 		function int_comma(Int_val){ // 숫자 콤마 찍는 function
                                 			int_val = Int_val;
                                 			return int_val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                                		}
+                                		
+                                		function all_price(){
+                                			all = 0;
+                                			ex = $(".selling-option-item__price").text();
+                                			var price_array = ex.replace(/ /gi,'').split("원");
+                                			for(i=0; i < count; i++){
+                                				console.log(price_array[i]);
+                                				ex_num = price_array[i].replace(/,/gi , "");
+                                				ex_num *= 1; //형 변환
+                                				all += ex_num;
+                                			}
+                                			$(".selling-option-form-content__price__number").text(int_comma(all));
                                 		}
                                 	</script>
                                 </ul>
@@ -2213,6 +2231,26 @@ $('.production-selling-select-modal').click(function(e) {
     if($(e.target).hasClass("production-selling-select-modal")) {
          $('#smallbuy').css("display","none");
         } 
+    });
+    
+    var img = $(".production-selling-cover-image__list__btn");
+    $(img).hover(function(){
+        //console.log($(this).attr('aria-label'));
+        var choice = $(this).attr('aria-label');
+        var value = (choice*100-100)*-1;
+        var target = $(".carousel_list");
+        //target.css("transform" , 'translateX(-100%)');
+        if(1 == choice){
+            target.css("transform" , 'translateX(0%)');
+        }else if(2 == choice){
+            target.css("transform" , 'translateX(-100%)');
+        }else if(3 == choice){
+            target.css("transform" , 'translateX(-200%)');
+        }else if(4 == choice){
+            target.css("transform" , 'translateX(-300%)');
+        }else if(5 == choice){
+            target.css("transform" , 'translateX(-400%)');
+        }
     });
     </script>
 </body>
