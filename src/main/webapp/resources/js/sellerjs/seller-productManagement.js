@@ -275,11 +275,11 @@ $("#productDelete").click(function () {
 	$.ajax({
 		url : "selectProductList.seller",
 		type : "POST",
-		dataType : "text",
+		dataType : "html",
 		data : JSON.stringify(pdList),
 		contentType : "application/json",
-		success : function(result) {
-			$("#productDeleteView").load("seller-productManagement-selectList.seller", result);
+		success : function(res) {
+			$("#productDeleteView").html(res);
 		},
 		error : function(request, status, error) {
 			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

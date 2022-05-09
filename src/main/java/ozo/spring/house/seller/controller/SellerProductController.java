@@ -41,26 +41,19 @@ public class SellerProductController {
 		}
 	}
 	
-	@ResponseBody
 	@RequestMapping(value = "/selectProductList.seller", method=RequestMethod.POST)
-	public List<ProductVO> selectProductList(Model model, ProductVO vo, @RequestBody ArrayList<String> listProductId) {
-//		HttpSession session = request.getSession();
+	public String selectProductList(HttpServletRequest request, Model model, ProductVO vo, @RequestBody ArrayList<String> listProductId) {
+		HttpSession session = request.getSession();
 		List<ProductVO> selectProductListView = new ArrayList<ProductVO>();
-//		if(session.getAttribute("seller")!=null) {
+		if(session.getAttribute("seller")!=null) {
 			for(String productId : listProductId) {
 				vo.setProduct_id(Integer.parseInt(productId));
 				selectProductListView.add(productService.selectSelectProduct(vo));
 			}
 			model.addAttribute("selectProductListView", selectProductListView);
-			return selectProductListView;
-//		}else {
-//			return "seller-login";
-//		}
-	}
-	
-	@RequestMapping(value = "/seller-productManagement-selectList.seller", method=RequestMethod.POST)
-	public String selectProductList2(Model model, List<ProductVO> selectProductListView) {
-		model.addAttribute("selectProductListView", selectProductListView);
-		return "seller-productManagement";
+			return "seller-productManagement-selectList";
+		}else {
+			return "seller-login";
+		}
 	}
 }
