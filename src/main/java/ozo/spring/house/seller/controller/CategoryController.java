@@ -58,7 +58,10 @@ public class CategoryController {
 	@RequestMapping(value = "/putProduct.seller", method=RequestMethod.POST)
 	public String insertPost(ProductVO vo) {
 		System.out.println("update Àü");
+		System.out.println(vo.getPo_category());
+		System.out.println(vo.getPo_subcate());
 		productService.updatePost(vo);
+		
 		System.out.println("update ÈÄ");
 		return "index";
 	}

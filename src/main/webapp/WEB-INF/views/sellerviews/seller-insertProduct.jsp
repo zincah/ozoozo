@@ -366,7 +366,6 @@
 
 		
 		// product check	
-		
 		function checkProduct(){
 			
 			var product_list = []
@@ -410,8 +409,10 @@
 		  		async: false, // ajax 동기식 처리
 		  		success : function(resp){
 		  			$("#post_id").attr('value',resp);
-		  			console.log($("#post_id").val());
+		  			var cate = $("#category").val();
 		  			
+		  			$("#po_category").attr('value', cate);
+		  			$("#po_subcate").attr('value', subcate);
 		  			
 		  			alert("form전송");
 		  			$("form").submit();
@@ -521,6 +522,8 @@
 				</div>
 				<input type="hidden" value="${seller.seller_id}" name="post_sellerid">
 				<input type="hidden" value="0" name="post_id" id="post_id">
+				<input type="hidden" value="0" name="po_category" id="po_category">
+				<input type="hidden" value="0" name="po_subcate" id="po_subcate">
 				<div
 					class="container container-option container-option-topPadding bottomline">
 					<div class="row optionGroup1">
