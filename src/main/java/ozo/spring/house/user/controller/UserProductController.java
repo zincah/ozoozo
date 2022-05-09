@@ -27,17 +27,18 @@ public class UserProductController {
 	public String user_product(Model model, UserProductVO vo) {
 		List<UserProductVO> product_list;
 		
-		
 		DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
 		
 		product_list = userservice.productGet(vo);
 		int price = product_list.get(0).getWhole_price();
 		// 기본적인거 설정
+		int sale = product_list.get(0).getSale_ratio();
+		System.out.println(sale);
 		model.addAttribute("product", product_list);
-		model.addAttribute("int_price_sale", price/100*70);
+		model.addAttribute("int_price_sale", price/100*sale);
 		model.addAttribute("price",decFormat.format(price));
-		model.addAttribute("price_sale", decFormat.format(price/100*70));
-		model.addAttribute("price_first", decFormat.format(price/100*70-15000));
+		model.addAttribute("price_sale", decFormat.format(price/100*sale));
+		model.addAttribute("price_first", decFormat.format(price/100*sale-15000));
 		return "ProductDetail";
 	}
 	

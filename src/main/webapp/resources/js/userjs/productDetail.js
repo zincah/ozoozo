@@ -79,25 +79,7 @@ function reset(notchangeColor){
     $(notchangeColor).addClass("production-selling-navigation__item--active");
 }
 
-var img = $(".production-selling-cover-image__list__btn");
-$(img).hover(function(){
-    //console.log($(this).attr('aria-label'));
-    var choice = $(this).attr('aria-label');
-    var value = (choice*100-100)*-1;
-    var target = $(".carousel_list");
-    //target.css("transform" , 'translateX(-100%)');
-    if(1 == choice){
-        target.css("transform" , 'translateX(0%)');
-    }else if(2 == choice){
-        target.css("transform" , 'translateX(-100%)');
-    }else if(3 == choice){
-        target.css("transform" , 'translateX(-200%)');
-    }else if(4 == choice){
-        target.css("transform" , 'translateX(-300%)');
-    }else if(5 == choice){
-        target.css("transform" , 'translateX(-400%)');
-    }
-});
+
 
 //상품 select 구문
 
