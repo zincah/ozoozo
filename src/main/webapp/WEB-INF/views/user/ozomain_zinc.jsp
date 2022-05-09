@@ -433,7 +433,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate1.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate1.webp">
 								<div class="category_item_title">가구</div>
 							</div>
 						</a>
@@ -441,7 +441,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate2.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate2.webp">
 								<div class="category_item_title">패브릭</div>
 							</div>
 						</a>
@@ -449,7 +449,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate3.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate3.webp">
 								<div class="category_item_title">조명</div>
 							</div>
 						</a>
@@ -457,7 +457,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate4.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate4.webp">
 								<div class="category_item_title">가전</div>
 							</div>
 						</a>
@@ -465,7 +465,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate5.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate5.webp">
 								<div class="category_item_title">주방용품</div>
 							</div>
 						</a>
@@ -473,7 +473,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate6.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate6.webp">
 								<div class="category_item_title">데코/식물</div>
 							</div>
 						</a>
@@ -481,7 +481,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate7.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate7.webp">
 								<div class="category_item_title">수납정리</div>
 							</div>
 						</a>
@@ -489,7 +489,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate8.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate8.webp">
 								<div class="category_item_title">생활용품</div>
 							</div>
 						</a>
@@ -497,7 +497,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate9.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate9.webp">
 								<div class="category_item_title">서랍/수납장</div>
 							</div>
 						</a>
@@ -505,7 +505,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate10.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate10.webp">
 								<div class="category_item_title">생필품</div>
 							</div>
 						</a>
@@ -513,7 +513,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate11.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate11.webp">
 								<div class="category_item_title">공구DIY</div>
 							</div>
 						</a>
@@ -521,7 +521,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate12.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate12.webp">
 								<div class="category_item_title">인테리어시공</div>
 							</div>
 						</a>
@@ -529,7 +529,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate13.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate13.webp">
 								<div class="category_item_title">반려동물</div>
 							</div>
 						</a>
@@ -537,7 +537,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate14.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate14.webp">
 								<div class="category_item_title">캠핑용품</div>
 							</div>
 						</a>
@@ -545,7 +545,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate15.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate15.webp">
 								<div class="category_item_title">실내운동</div>
 							</div>
 						</a>
@@ -553,7 +553,7 @@
 					<div class="category_item_wrap">
 						<a href="#">
 							<div class="category_item">
-								<img class="category_item_image" src="sources/cate16.webp">
+								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate16.webp">
 								<div class="category_item_title">렌탈</div>
 							</div>
 						</a>

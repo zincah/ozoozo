@@ -27,13 +27,14 @@ dateBtn7.addEventListener("click", dateBtn7Event);
 dateBtn8.addEventListener("click", dateBtn8Event);
 
 // Window open function
-window.open = dateBtn1Event();
+window.open = dateBtn8Event();
 
 // Function
-function dateBtn1Event() {
-  startDate.valueAsDate = today;
-  endDate.valueAsDate = today;
+function dateBtn1Event() {	
+  	startDate.valueAsDate = today;
+	endDate.valueAsDate = today;
 }
+
 function dateBtn2Event() {
   var calculationDate = new Date();
   calculationDate.setDate(today.getDate() - 3);

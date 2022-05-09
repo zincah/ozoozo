@@ -20,20 +20,19 @@ public class AdminManageDAO {
 		return sqlSessionTemplate.selectList("AdminManageDAO.selectUser", vo);
 	}
 	
-	public List<UserVO> selectUserType(UserVO vo) {
-		System.out.println("--> mybatis in adminmanagedao select user type");
-		return sqlSessionTemplate.selectList("AdminManageDAO.selectUserType", vo);
+	public List<UserVO> getUserList(UserVO vo) {
+		System.out.println("--> mybatis in adminmanagedao getuselist");
+		return sqlSessionTemplate.selectList("AdminManageDAO.getUserList", vo);
 	}
 	
-	public List<UserVO> selectUserStatus(UserVO vo) {
-		System.out.println("--> mybatis in adminmanagedao select user status");
-		return sqlSessionTemplate.selectList("AdminManageDAO.selectUserStatus", vo);
+	public void updateUserStatus(UserVO vo) {
+		System.out.println("--> mybatis in adminmanagedao update user status");
+		sqlSessionTemplate.update("AdminManageDAO.updateUserStatus", vo);
 	}
 	
-	public List<UserVO> selectUserDate(UserVO vo) {
-		System.out.println("--> mybatis in adminmanagedao select user joindate");
-		return sqlSessionTemplate.selectList("AdminManageDAO.selectUserDate", vo);
-	}
+
+	
+	
 	
 	
 

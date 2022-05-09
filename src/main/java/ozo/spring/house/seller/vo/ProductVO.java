@@ -44,6 +44,8 @@ public class ProductVO {
 	private String shipping_info2;
 	private String refund_content;
 	private int post_sellerid;
+	private int po_category;
+	private int po_subcate;
 	
 	// option table
 	private int option_id;

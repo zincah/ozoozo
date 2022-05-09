@@ -12,6 +12,7 @@
 	<!-- 회원 타입으로 select -->
 	<select id="selectUserType" resultType="user">
 		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table WHERE user_type = #{user_type} ORDER BY user_num DESC;
+		
 	</select>
 
 	<!-- 회원 상태로 select -->
@@ -21,9 +22,62 @@
 	</select>
 	
 	<!-- 회원 가입날짜로 select -->
+	<!-- 날짜 다른 vo로 만들어도 되긴함 -->
 	<select id="selectUserDate" resultType="user">
 		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table 
 		WHERE join_date BETWEEN #{startdate} AND #{enddate} ORDER BY user_num DESC;
+	</select>
+	
+	<!-- 회원상태 변경 -->
+	<update id="updateUserStatus" parameterType="user">
+		UPDATE user_table SET user_status=#{user_status} WHERE user_num = #{user_num};
+	</update>
+	
+	<!-- 실시간 검색 -->
+	<select id="useSearchBox" parameterType="user" resultType="user">
+		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table 
+		<where>
+			<if test="pack=='nickname'.toString()">
+				nickname LIKE '%'||#{keyword}||'%' ORDER BY user_num DESC
+			</if>
+			<if test="pack=='email'.toString()">
+				user_email LIKE '%'||#{keyword}||'%' ORDER BY user_num DESC
+			</if>
+		</where>
+	</select>
+	
+	<!-- 총 검색 -->
+	<select id="getUserList" parameterType="user" resultType="user">
+		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table 
+		<where>
+			<if test="user_type != ''">
+				user_type = #{user_type}
+			</if>
+			<if test="user_status != null">
+				<trim prefix="and">
+					user_status = #{user_status}
+				</trim>
+			</if>
+			<if test="enddate != null and startdate != null">
+				<trim prefix="and">
+					join_date BETWEEN #{startdate} AND #{enddate}
+				</trim>
+			</if>
+			<if test="pack != null">
+				<trim prefix="and">
+					<if test="pack=='nickname'.toString()">
+						nickname LIKE '%'||#{keyword}||'%'
+					</if>
+					<if test="pack=='email'.toString()">
+						user_email LIKE '%'||#{keyword}||'%'
+					</if>
+				</trim>
+			</if>
+		</where>
+		<trim prefix="order by">
+			user_num DESC
+		</trim>
+		
 	</select>
 	
 </mapper>

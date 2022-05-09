@@ -23,145 +23,252 @@
     <script>
     
     	$(document).ready(function(){
+
     		// 사용자 type에 따라 list 받아오는 부분
        		$("input[name=member]").change(function(){
-       			var check = $("input[name=member]:checked").val();
-       			getUserDataType(check);
+       			getUserData();
        		});
     		
     		// 사용자 status에 따라 list 받아오는 부분
     		$("#status_select").change(function(){
-    			var selectit = $("#status_select").val();
-    			getUserDataStatus(selectit);
+    			getUserData();
     		});
     		
+    		// 초기화 버튼
     		$("#resetBtn").click(function(){
-    			getUserDataType("");
+    			
     			$("input[name=datepick2]").attr("disabled", true);
-    			// 날짜 오늘날짜로 돌리는 것도~
-    			// 초기화 처리 작성해줘야함.
+    			$("#status_select option:eq(0)").prop("selected", true);
+    			$('input[name="member"]')[0].checked = true;
+    			$("#search_input").prop("disabled", true);
+    			$("#search_input").val("");
+    			$("#search_select option:eq(0)").prop("selected", true);
+    			dateBtn8Event(); // 날짜 전체로 돌리기
+    			$("#btnradio8").prop("checked", true);
+    			
+    			getUserData();
+    			
+    			// 날짜 오늘날짜로 돌리는 것도
     		});
     		
     		// 날짜
+    		var datepick1;
+    		var datepick2;
+    		
+    		$("input[name=datepick1]").click(function(){
+    			$("input[name=datepick2]").attr("disabled", true);
+    		})
+    		
     		$("input[name=datepick1]").change(function(){
-    			var datepick1 = $("input[name=datepick1]").val();
-    			alert("End Date를 선택해주세요.");
+    			datepick1 = $("input[name=datepick1]").val();
     			$("input[name=datepick2]").attr("disabled", false);
-    			
-    			getUserDataDate() // 날짜 넘기기
     		})
     		
     		$("input[name=datepick2]").change(function(){
-    			var datepick2 = $("input[name=datepick2]").val();
-    			alert(datepick2);
+    			getUserData();
+    		})
+    		
+    		// 날짜 버튼 눌렀을 때 리스트 받아오기
+    		$("input[name=btnradio]").click(function(){
+    			getUserData();
+    		})
+
+    		/* 상품 선택 체크박스 */
+    		// 전체 체크박스 체크 여부에 따른 하위 체크박스들 상태 변경
+    		$("#allCheck").on('change', function(){
+    			if ($("#allCheck").is(":checked")) {
+        		    $(".check").prop("checked", true);
+        		    // 선택된 체크박스 개수에 따른 숫자값 변경
+        		    $("#select-num").text($(".check:checked").length);
+        		  } else {
+        		    $(".check").prop("checked", false);
+        		    // 선택된 체크박스 개수에 따른 숫자값 변경
+        		    $("#select-num").text($(".check:checked").length);
+        		  }
+    		});
+    		
+    		// 검색기능
+    		$("#search_select").change(function(){
+    			$("#search_input").prop("disabled", false);
+
+    			searching();
     		})
 
     	});
     	
-    	// user data filtering by status
-    	// 사용자 상태에 따라 list 받아오는 부분
-    	function getUserDataStatus(selectit){
-    		
-    		$.ajax({
-		  		url:'getUserListByStatus.admin',
-		  		method:'post',
-		  		data: JSON.stringify(selectit),
-		  		contentType : 'application/json; charset=UTF-8',
-		  		dataType : 'json',
-		  		success : function(resp){
-		  			
-		  			$("#listTableBody").html("");
-	  				var result = ""
-	  				
-					$.each(resp,function(index,item){
-			  				
-						var gen = "-";
-		  				
-		  				if(item["gender"]==true){
-		  					gen = "남성";
-		  				}else if(item["gender"]==false){
-		  					gen = "여성";
-		  				}else{
-		  					gen = "-";
-		  				}
-		  				
-		  				var join_date = new Date(item["join_date"]).toISOString().split("T")[0];
+    	// 검색 시 실행되는 메소드
+    	function searching(){
 
-		  				result += 
-		  					'<tr class="content-table-content content-hover">\
-							  <td class="content-table-content-text option-line"><input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" /></td>\
-							  <td class="content-table-content-text option-line state0">'+item["user_num"]+'</td>\
-							<td class="content-table-content-text option-line">'+item["nickname"]+'</td>\
-							<td class="content-table-content-text option-line">'+item["user_email"]+'</td>\
-							<td class="content-table-content-text option-line">'+item["user_type"]+'</td>\
-							<td class="content-table-content-text option-line">0</td>\
-							<td class="content-table-content-text option-line">'+gen+'</td>\
-							<td class="content-table-content-text option-line">'+join_date+'</td>\
-							<td class="content-table-content-text option-line">2022-04-12 16:44</td>\
-							<td class="content-table-content-text option-line">0</td>\
-							<td class="content-table-content-text option-line">'+item["user_status"]+'</td>';
-			  		})
-			  			
-			  		$("#listTableBody").append(result);
-		  		}
+    		$("#search_input").keyup(function(){
+    			
+    			// checkbox 초기화
+        		$("#allCheck").prop("checked", false);
+        		
+        		//조건들 받아오기
+        		var type = $("input[name=member]:checked").val();
+        		var status = $("#status_select").val();
+        		var startdate = $("input[name=datepick1]").val();
+        		var enddate = $("input[name=datepick2]").val();
+
+    			var pack = $("#search_select option:selected").val();
+    			var keyword = $("#search_input").val();
+
+    			var searchMap = {
+        				"user_type" : type,
+        				"user_status" : status,
+        				"startdate" : startdate,
+        				"enddate" : enddate,
+        				"pack" : pack,
+        				"keyword" : keyword
+        		}
+
+    			
+    			$.ajax({
+    		  		url:'useSearchBox.admin',
+    		  		method:'post',
+    		  		data: JSON.stringify(searchMap),
+    		  		contentType : 'application/json; charset=UTF-8',
+    		  		dataType : 'json',
+    		  		success : function(resp){
+    		  			
+    		  			printList(resp);
+
+    		  		}
+        		});
 
     		});
-						
-    		
     	}
     	
-    	// user data filtering by type
-    	// 사용자 type에 따라 list 받아오는 부분
-    	function getUserDataType(check){
+    	function checkfunction(){
+    		// 하위 체크박스 체크 여부에 따른 전체 체크박스 상태 변경
+    		// 하위 체크박스 체크 개수와 전체 개수를 비교
+			
+			if ($(".check:checked").length == $(".check").length) {
+    		    $("#allCheck").prop("checked", true);
+    		    // 선택된 체크박스 개수에 따른 숫자값 변경
+    		    $("#select-num").text($(".check:checked").length);
+    		} else {
+    		    $("#allCheck").prop("checked", false);
+    		    // 선택된 체크박스 개수에 따른 숫자값 변경
+    		    $("#select-num").text($(".check:checked").length);
+    		  }
+    	}
+
+    	
+    	// 검색 조건 filtering
+    	function getUserData(){
+    		
+    		// checkbox 초기화
+    		$("#allCheck").prop("checked", false);
+    		
+    		//조건들 받아오기
+    		var type = $("input[name=member]:checked").val();
+    		var status = $("#status_select").val();
+    		var startdate = $("input[name=datepick1]").val();
+    		var enddate = $("input[name=datepick2]").val();
+    		
+    		// 검색 조건
+    		var pack = $("#search_select").val();
+    		var keyword = $("#search_input").val();
+    		
+    		var searchMap = {
+    				"user_type" : type,
+    				"user_status" : status,
+    				"startdate" : startdate,
+    				"enddate" : enddate,
+    				"pack" : pack,
+    				"keyword" : keyword
+    		}
 
 		  	$.ajax({
 		  		url:'getUserList.admin',
 		  		method:'post',
-		  		data: JSON.stringify(check),
+		  		data: JSON.stringify(searchMap),
 		  		contentType : 'application/json; charset=UTF-8',
 		  		dataType : 'json',
 		  		success : function(resp){
 						
-		  				$("#listTableBody").html("");
-		  				var result = ""
-							
-			  			$.each(resp,function(index,item){
-			  				
-							var gen = "-";
-			  				
-			  				if(item["gender"]==true){
-			  					gen = "남성";
-			  				}else if(item["gender"]==false){
-			  					gen = "여성";
-			  				}else{
-			  					gen = "-";
-			  				}
-			  				
-			  				var join_date = new Date(item["join_date"]).toISOString().split("T")[0];
-
-			  				result += 
-			  					'<tr class="content-table-content content-hover">\
-								  <td class="content-table-content-text option-line"><input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" /></td>\
-								  <td class="content-table-content-text option-line state0">'+item["user_num"]+'</td>\
-								<td class="content-table-content-text option-line">'+item["nickname"]+'</td>\
-								<td class="content-table-content-text option-line">'+item["user_email"]+'</td>\
-								<td class="content-table-content-text option-line">'+item["user_type"]+'</td>\
-								<td class="content-table-content-text option-line">0</td>\
-								<td class="content-table-content-text option-line">'+gen+'</td>\
-								<td class="content-table-content-text option-line">'+join_date+'</td>\
-								<td class="content-table-content-text option-line">2022-04-12 16:44</td>\
-								<td class="content-table-content-text option-line">0</td>\
-								<td class="content-table-content-text option-line">'+item["user_status"]+'</td>';
-			  			})
-			  			
-			  			$("#listTableBody").append(result);
-			  			
+		  				printList(resp);
 		  			}
+		  		
 		  		});
 				
     		
     	}
     		
+    	// list 뽑는 메소드 : 반환값만 넣어주면 됨
+    	function printList(resp){
+    		$("#listTableBody").html("");
+				
+    		var result = ""
+				
+			$.each(resp,function(index,item){
+
+				var gen = "-";
+  				
+  				if(item["gender"]==true){
+  					gen = "남성";
+  				}else if(item["gender"]==false){
+  					gen = "여성";
+  				}else{
+  					gen = "-";
+  				}
+  				
+  				var join_date = new Date(item["join_date"]).toISOString().split("T")[0];
+
+  				result += 
+  					'<tr class="content-table-content content-hover">\
+					  <td class="content-table-content-text option-line"><input class="form-check-input form-check-input-margin check" type="checkbox" value="" id="flexCheckDefault1" name="usercheckbox" onchange="checkfunction()"/></td>\
+					  <td class="content-table-content-text option-line state0" id="usernum">'+item["user_num"]+'</td>\
+					<td class="content-table-content-text option-line">'+item["nickname"]+'</td>\
+					<td class="content-table-content-text option-line">'+item["user_email"]+'</td>\
+					<td class="content-table-content-text option-line">'+item["user_type"]+'</td>\
+					<td class="content-table-content-text option-line">0</td>\
+					<td class="content-table-content-text option-line">'+gen+'</td>\
+					<td class="content-table-content-text option-line">'+join_date+'</td>\
+					<td class="content-table-content-text option-line">2022-04-12 16:44</td>\
+					<td class="content-table-content-text option-line">0</td>\
+					<td class="content-table-content-text option-line">'+item["user_status"]+'</td>\
+					</tr>';
+	  		})
+	  			
+	  		$("#listTableBody").append(result);
+    	}
+    	
+    	// 유저 상태 변경
+    	function updateUserStatus(){
+    		// checkbox 값 한개씩 가져오기
+    		var usernumList = []
+    		
+    		$("input:checkbox[name=usercheckbox]:checked").each(function(){
+      			var checkit = $(this).parent().next().text();
+      			usernumList.push(checkit);
+      		});
+    		
+    		usernumList.push($("#statusOption").val());
+    		
+    		console.log(usernumList);
+    		
+    		$.ajax({
+		  		url:'updateUserStatus.admin',
+		  		method:'post',
+		  		data: JSON.stringify(usernumList),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'json',
+		  		success : function(resp){
+					
+		  			$(".modal").modal('hide')
+		  			$(".modal-status-select-option option:eq(0)").prop("selected", true);
+		  			$("#select-num").text("0");
+		  			printList(resp);
+		  			
+		  			
+		  			}
+		  		
+		  		});
+				
+    		
+    	}
 
     
     	
@@ -190,14 +297,12 @@
                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                       <select class="form-select selectState" id="search_select" aria-label="Default select example">
                         <option selected disabled value="0">분류</option>
-                        <option value="1">UID</option>
-                        <option value="2">닉네임</option>
-                        <option value="3">E-Mail</option>
+                        <option value="nickname">닉네임</option>
+                        <option value="email">E-Mail</option>
                       </select>
                     </div>
                     <div class="search-input-box">
-                        
-                      <input type="text" class="form-control form-control-sm input-font" id="exampleFormControlInput1" placeholder="" />
+                      <input type="text" class="form-control form-control-sm input-font" id="search_input" placeholder="" disabled/>
                     </div>
                     
                   </div>
@@ -208,7 +313,7 @@
                   <div class="col-1 status-name">회원 구분</div>
                   <div class="col search-check-group">
                     <div class="form-check form-custom-ay">
-					  <input class="form-check-input" type="radio" name="member" id="wholemember" value="" checked>
+					  <input class="form-check-input" type="radio" name="member" id="wholemember" checked value="">
 					  <label class="form-check-label" for="wholemember">
 					   	전체
 					  </label>
@@ -263,8 +368,8 @@
 						</div>
 					</div>
                     <div class="paddingLeft1">
-                      <input class="startDate" type="date" name="datepick1" id="date" value="" />
-                      <input class="endDate" type="date" name="datepick2" id="date" value="" disabled/>
+                      <input class="startDate" type="date" name="datepick1" value="" />
+                      <input class="endDate" type="date" name="datepick2" value="" disabled/>
                     </div>
                   </div>
                 </div>
@@ -294,7 +399,7 @@
             <thead>
               <tr class="content-table-title">
                 <td class="content-table-title-text option-line">
-                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="allCheck" />
+                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="allCheck"/>
                 </td>
                 <td class="content-table-title-text option-line">UID</td>
                 <td class="content-table-title-text option-line">닉네임</td>
@@ -313,9 +418,9 @@
               <c:forEach items="${userList }" var="user">
               <tr class="content-table-content content-hover">
                 <td class="content-table-content-text option-line">
-                	<input class="form-check-input form-check-input-margin check" type="checkbox" value=""/>
+                	<input class="form-check-input form-check-input-margin check" type="checkbox" value="" name="usercheckbox" onchange="checkfunction()"/>
                 </td>
-                <td class="content-table-content-text option-line state0">${user.user_num }</td>
+                <td class="content-table-content-text option-line state0" id="usernum">${user.user_num }</td>
                 <td class="content-table-content-text option-line">${user.nickname }</td>
                 <td class="content-table-content-text option-line">${user.user_email }</td>
                 <td class="content-table-content-text option-line">${user.user_type }</td>
@@ -373,16 +478,16 @@
 				<div class="modal-status-select">
 					<div class="btn-group modal-status-select-btn-group" role="group" aria-label="Basic radio toggle button group">
 						<select class="form-select modal-status-select-option" aria-label="Default select example" id="statusOption">
-							<option value="1">활동중</option>
-							<option value="2">휴면상태</option>
-							<option value="3">활동정지</option>
+							<option value="활동중">활동중</option>
+							<option value="휴면상태">휴면상태</option>
+							<option value="활동정지">활동정지</option>
 						</select>
 					</div>
 				</div>
 			</div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-	        <button type="button" class="btn modal-status-select-submit-button">변경</button>
+	        <button type="button" class="btn modal-status-select-submit-button" onclick="updateUserStatus()">변경</button>
 	      </div>
 	    </div>
 	  </div>
@@ -395,7 +500,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="resources/js/adminjs/admin-productManagement_ih.js"></script>
-    <script src="resources/js/adminjs/checkbox_admin.js"></script>
     <script src="resources/js/adminjs/date_admin.js"></script>
   </body>
 </html>
