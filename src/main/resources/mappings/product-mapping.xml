@@ -44,7 +44,9 @@
 		whole_price = #{whole_price}, 
 		shipping_info1 = #{shipping_info1}, 
 		shipping_info2 = #{shipping_info2}, 
-		post_sellerid = #{post_sellerid} 
+		post_sellerid = #{post_sellerid},
+		po_category = #{po_category},
+		po_subcate = #{po_subcate}
 		WHERE post_id = #{post_id}
 	</update>
 	
