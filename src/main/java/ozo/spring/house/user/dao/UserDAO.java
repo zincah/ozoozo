@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import ozo.spring.house.user.vo.UserProductVO;
+import ozo.spring.house.user.vo.UserProduct_tableVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Repository("userDAO")
@@ -84,9 +85,9 @@ public class UserDAO {
 		List<UserProductVO> img_list = sqlSessionTemplate.selectList("UserProduct.product_Get_img", vo);
 		return img_list;
 	}
-	public UserProductVO product_Get_table(UserProductVO vo){
+	public UserProduct_tableVO product_Get_table(UserProduct_tableVO tvo){
 		System.out.println("[LOGO] : Mybatis in UserDAO product_Get_table");
-		UserProductVO table_list = sqlSessionTemplate.selectOne("UserProduct.product_get_table", vo);
+		UserProduct_tableVO table_list = sqlSessionTemplate.selectOne("UserProduct.product_Get_table", tvo);
 		return table_list;
 	}
 }

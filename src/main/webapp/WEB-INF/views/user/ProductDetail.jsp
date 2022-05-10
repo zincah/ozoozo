@@ -384,6 +384,7 @@
                                         		})
                                         	}
                                         	var option_val = null;
+                                        	var option_arr = [];
                                         	function add_div(S1,S2){
                                         		if(S2 == null){
                                         			option_val = S1;
@@ -392,6 +393,16 @@
                                         		}
                                         		//console.log($("#"+S1).val());
                                         		//console.log(option_val);
+                                        		
+                                        		
+                                        		for(var i in option_arr){
+                                        			if(option_arr[i] == option_val){
+                                        				alert("이미 포함된 옵션입니다.");
+                                        				return;
+                                        			}
+                                        		}
+                                        		option_arr.push(option_val);
+                                        		console.log(option_arr);
                                         		$.ajax({
                                         			url:'option_toString.com',
                                         			method:'post',
@@ -468,7 +479,7 @@
                                 			$(".selling-option-form-content__list").append(html);
                                 			if(option_toString[1] != null){
                                 				var html2 = null;
-                   						 		 html2 = '/ ${product[0].option2_name}: ' + option_toString[1] +'';
+                   						 		 html2 = '/ ${product[0].option2_name}: ' + option_toString[1] +'\n';
                    						 		$(".h1_"+count+"").append(html2);
                    							}
                                 			count++;
@@ -480,10 +491,30 @@
                                 			all_price();
                                 		}
                                 		function remove_div(div_index){ // 회색 div 개별 제거
+                                			console.log($(".h1_" + div_index.id).text());
+                                			Str = $(".h1_" + div_index.id).text();
+                                			Str = Str.replace(/ /gi,'').replace(/\t/gi,'').split("\n");
+                                			
+                                			if(select){
+                                				option = Str[0].split("/")
+                                				option1 = option[0].split(":");
+                                				option2 = option[1].split(":");
+                                				toStr = option1[1] + "," + option2[1];
+                                			}else{
+                                				Str = Str[0].split(":");
+                                				toStr = Str[1];
+                                			}
+                                			for(var i in option_arr){
+                                				if(toStr == option_arr[i]){
+                                					delete option_arr[i];
+                                				}
+                                			}
+                                			console.log(option_arr);
                                 			count--;
                                 			$("#"+div_index.id+"_").remove();
                                 			$("#"+div_index.id+"_").remove();
                                 			$("#"+div_index.id+"_").remove();
+                                			all_price();
                                 		}
                                 		function div_price(select_Class){ //회색 div 상품 개별 가격 등록
                                 			momy = $(".h1"+select_Class.id);
@@ -508,7 +539,6 @@
                                 			ex = $(".selling-option-item__price").text();
                                 			var price_array = ex.replace(/ /gi,'').split("원");
                                 			for(i=0; i < count; i++){
-                                				console.log(price_array[i]);
                                 				ex_num = price_array[i].replace(/,/gi , "");
                                 				ex_num *= 1; //형 변환
                                 				all += ex_num;
@@ -648,47 +678,47 @@
                                 <tbody>
                                     <tr>
                                         <th>품명</th>
-                                        <td>편안한 제주 필로우탑 본넬스프링 침대 매트리스 (싱글/슈퍼싱글/퀸/킹)</td>
+                                        <td>${table.table_title }</td>
                                     </tr>
                                     <tr>
                                         <th>KC 인증 필 유무</th>
-                                        <td>인증유</td>
+                                        <td>${table.table_kc }</td>
                                     </tr>
                                     <tr>
                                         <th>색상</th>
-                                        <td>그레이,베이지,블랙</td>
+                                        <td>${table.table_color }</td>
                                     </tr>
                                     <tr>
                                         <th>구성품</th>
-                                        <td>상세페이지 참조</td>
+                                        <td>${table.table_component }</td>
                                     </tr>
                                     <tr>
                                         <th>주요 소재</th>
-                                        <td>상세페이지 참조</td>
+                                        <td>${table.table_material }</td>
                                     </tr>
                                     <tr>
                                         <th>제조자, 수입품의 경우 수입자를 함께 표기</th>
-                                        <td>휴도</td>
+                                        <td>${table.table_manufacturer }</td>
                                     </tr>
                                     <tr>
                                         <th>제조국</th>
-                                        <td>한국</td>
+                                        <td>${table.table_country }</td>
                                     </tr>
                                     <tr>
                                         <th>크기</th>
-                                        <td>상세페이지 참조</td>
+                                        <td>${table.table_size }</td>
                                     </tr>
                                     <tr>
                                         <th>배송, 설치비용</th>
-                                        <td>상세페이지 참조</td>
+                                        <td>${table.table_delivery }</td>
                                     </tr>
                                     <tr>
                                         <th>품질보증기준</th>
-                                        <td>상세페이지 참조</td>
+                                        <td>${table.table_qa }</td>
                                     </tr>
                                     <tr>
                                         <th>A/S 책임자와 전화번호</th>
-                                        <td>1644-5213</td>
+                                        <td>${table.table_cstel }</td>
                                     </tr>
                                 </tbody>
                             </table>

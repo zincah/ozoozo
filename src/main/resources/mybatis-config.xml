@@ -16,6 +16,7 @@
 		<typeAlias type="ozo.spring.house.seller.vo.ProductDetailVO" alias="productdetail"/>
 		<typeAlias type="ozo.spring.house.user.vo.UserProductVO" alias="userproduct"/>
 		<typeAlias type="ozo.spring.house.user.vo.UserCategoryVO" alias="ucate"/>
+		<typeAlias type="ozo.spring.house.user.vo.UserProduct_tableVO" alias="user_P_table"/>
 	</typeAliases>
 	<!-- 원래 여기에 datasource를 넣어줘야하는데 applicationContext에서 넣었음 -->
 	<mappers>

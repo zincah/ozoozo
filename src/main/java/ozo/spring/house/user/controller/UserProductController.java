@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.user.service.UserService;
 import ozo.spring.house.user.vo.UserProductVO;
+import ozo.spring.house.user.vo.UserProduct_tableVO;
 
 @Controller
 public class UserProductController {
@@ -23,7 +24,7 @@ public class UserProductController {
 	UserService userservice;
 	
 	@RequestMapping(value = "/productPage.com")
-	public String user_product(Model model, UserProductVO vo) {
+	public String user_product(Model model, UserProductVO vo, UserProduct_tableVO tvo) {
 		List<UserProductVO> product_list;
 		List<UserProductVO> product_img_list;
 		
@@ -55,8 +56,8 @@ public class UserProductController {
 		model.addAttribute("img_false", img_false);
 		
 		// 테이블 값 넣기
-		UserProductVO product_table;
-		product_table = userservice.productGet_table(vo);
+		UserProduct_tableVO product_table;
+		product_table = userservice.productGet_table(tvo);
 		model.addAttribute("table", product_table);
 		return "ProductDetail";
 	}
@@ -77,9 +78,6 @@ public class UserProductController {
 		option_String = option_String.replace("\"", "");
 		String[] option_toString = option_String.split(",");
 		
-		if(option_toString.length == 1) {
-			option_toString[1] = null;
-		}
 		return option_toString;
 	}
 }
