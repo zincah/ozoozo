@@ -105,4 +105,96 @@
 	<update id="deleteSelectProduct" parameterType="product">
 		UPDATE product_status SET product_del = 'true' WHERE st_product_id = #{product_id};
 	</update>
+	
+	<!-- jsp 테이블에 뿌릴 상품목록 -->
+	<select id="selectSearchProduct" resultType="product">
+		SELECT p.product_id, 
+		p.product_seller_code, 
+		p.product_title, 
+		p.product_price, 
+		(SELECT cate_name FROM category c WHERE p.pro_catecode = c.cate_code) AS category_name, 
+		ps.status, 
+		p.product_quantity, 
+		p.product_created, 
+		p.product_updated FROM product p 
+		JOIN product_status ps ON p.product_id = ps.st_product_id 
+		<where>
+			<if test="seller_id != null">
+				p.seller_id = #{seller_id} AND ps.product_del = 'false'
+			</if>
+			<if test="sc_searchName != null or sc_searchName != ''">
+				<if test="sc_searchNameStatus == 1">
+					<trim prefix="and">
+						CONVERT(VARCHAR(50),p.product_id) LIKE <trim prefix="'" suffix="%'">#{sc_searchName}</trim>
+					</trim>
+				</if>
+				<if test="sc_searchNameStatus == 2">
+					<trim prefix="and">
+						p.product_seller_code LIKE <trim prefix="'" suffix="%'">#{sc_searchName}</trim>
+					</trim>
+				</if>
+				<if test="sc_searchNameStatus == 3">
+					<trim prefix="and">
+						p.product_title LIKE <trim prefix="'" suffix="%'">#{sc_searchName}</trim>
+					</trim>
+				</if>
+			</if>
+			<if test="sc_searchStatus != null">
+				<trim prefix="and">
+					<if test="sc_searchStatus.size != 8">
+						<foreach collection="sc_searchStatus" item="arr" separator="or">
+							<if test="arr == 2">
+								ps.status = '판매대기'
+							</if>
+							<if test="arr == 3">
+								ps.status = '판매중'
+							</if>
+							<if test="arr == 4">
+								ps.status = '품절'
+							</if>
+							<if test="arr == 5">
+								ps.status = '승인대기'
+							</if>
+							<if test="arr == 6">
+								ps.status = '판매중지'
+							</if>
+							<if test="arr == 7">
+								ps.status = '판매종료'
+							</if>
+							<if test="arr == 8">
+								ps.status = '판매금지'
+							</if>
+						</foreach>
+					</if>
+				</trim>
+			</if>
+			<if test="sc_category != '대분류'">
+				<trim prefix="and">
+					c.cate_code = #{sc_category} 
+				</trim>
+			</if>
+			<if test="sc_middleSelect != '중분류'">
+				<trim prefix="and">
+					(SELECT subcate_code FROM sub_category sc WHERE sc.subcate_code = #{sc_middleSelect}) 
+				</trim>
+			</if>
+			<if test="sc_smallSelect != '소분류'">
+				<trim prefix="and">
+					(SELECT subcate_code FROM sub_category sc WHERE sc.subcate_code = #{sc_smallSelect}) 
+				</trim>
+			</if>
+			<if test="sc_selectDate == 1">
+				<trim prefix="and">
+					p.product_created BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD');
+				</trim>
+			</if>
+			<if test="sc_selectDate == 2">
+				<trim prefix="and">
+					p.product_updated BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD');
+				</trim>
+			</if>
+			AND ps.product_del = 'false'
+			ORDER BY p.product_id DESC;
+		</where>
+	</select>
 </mapper>

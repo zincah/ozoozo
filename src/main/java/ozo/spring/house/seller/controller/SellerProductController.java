@@ -75,12 +75,27 @@ public class SellerProductController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getSearchProductList.seller", method=RequestMethod.POST)
-	public String getSearchProductList(Model model, ProductVO vo, @RequestParam(value="searchMap") Map<String, String> searchMap,  @RequestParam(value="searchStatus") ArrayList<String> searchStatus) {
-		List<ProductVO> searchProductList = new ArrayList<ProductVO>();
+	public String getSearchProductList(HttpServletRequest request, Model model, ProductVO vo, @RequestParam(value="searchMap") Map<String, Object> searchMap,  @RequestParam(value="searchStatus") ArrayList<String> searchStatus) {	
+		HttpSession session = request.getSession();
 		
-		vo.setSc_searchName(searchMap.get("searchName"));
+		// productVO에 데이터 추가
+		vo.setSc_searchName(String.valueOf(searchMap.get("searchName")).trim());
+		vo.setSc_searchNameStatus(String.valueOf(searchMap.get("searchNameStatus")));
+		vo.setSc_searchStatus(searchStatus);
+		vo.setSc_category(String.valueOf(searchMap.get("category")));
+		vo.setSc_middleSelect(String.valueOf(searchMap.get("middleSelect")));
+		vo.setSc_smallSelect(String.valueOf(searchMap.get("smallSelect")));
+		vo.setSc_selectDate(String.valueOf(searchMap.get("selectDate")));
+		vo.setSc_startDate(String.valueOf(searchMap.get("startDate")));
+		vo.setSc_endDate(String.valueOf(searchMap.get("endDate")));
+		vo.setSeller_id((int) session.getAttribute("seller_id"));
 		
+		// DB를 통해 리스트 추출 후 배열에 저장
+		List<ProductVO> searchProductList = (productService.selectSearchProduct(vo));
+		// model에 값 저장
 		model.addAttribute("searchProductList", searchProductList);
+		
+		// ajax로 부분만 띄워줄 jsp 주소 리턴
 		return "seller-productManagement-List";
 	}
 }

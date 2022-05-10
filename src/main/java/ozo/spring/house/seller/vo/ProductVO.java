@@ -79,6 +79,7 @@ public class ProductVO {
 	private String sc_category; // 대분류
 	private String sc_middleSelect; // 중분류
 	private String sc_smallSelect; // 소분류
+	private String sc_selectDate; // 기간 조건 셀렉트박스 값
 	private String sc_startDate; // 시작날짜
 	private String sc_endDate; // 종료날짜
 }

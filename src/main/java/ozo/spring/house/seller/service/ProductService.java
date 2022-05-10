@@ -17,4 +17,5 @@ public interface ProductService {
 	public void updateProductUpdated(ProductVO vo);
 	public ProductVO selectSelectProduct(ProductVO vo);
 	public void deleteSelectProduct(ProductVO vo);
+	public List<ProductVO> selectSearchProduct(ProductVO vo);
 }
