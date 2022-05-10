@@ -44,9 +44,6 @@
                     </li>
                     <li class="commerce-category-breadcrumb__entry">
                         <a class="link" href="">${product[0].subcate_name }</a>
-                        <svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet">
-                            <path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path>
-                        </svg>
                     </li>
                    <!--  <li class="commerce-category-breadcrumb__entry">
                         <a class="link" href="">매트리스</a>
@@ -592,11 +589,6 @@
                             <li>
                                 <a class="production-selling-navigation__item" href="#production-selling-delivery" id="QuickBtn4">
                                     배송/환불
-                                </a>
-                            </li>
-                            <li>
-                                <a class="production-selling-navigation__item" href="#">
-                                    추천
                                 </a>
                             </li>
                         </ol>
