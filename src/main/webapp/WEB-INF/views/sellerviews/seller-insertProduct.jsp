@@ -231,7 +231,7 @@
       			var checkit = $(this).val();
       			materials.push(checkit);
       		});
-
+			
 			var option = {
 					"사용인원" : usingpeopleList,
 					"사용공간" : usingplaceList,

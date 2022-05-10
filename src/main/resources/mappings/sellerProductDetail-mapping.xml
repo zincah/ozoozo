@@ -6,10 +6,20 @@
 
 	<!-- insert table -->
 	<insert id="insertTables" parameterType="productdetail">
-		INSERT INTO product_tables (table_title, table_kc, table_color, table_component, table_material, table_manufacturer, table_country, table_size, table_delivery, table_qa, table_cstel, protable_postid,
-		shiptable_info, shiptable_fee, shiptable_plusfee, shiptable_unable, shiptable_propotionalfee, refundtable_fee, exchangetable_fee, refundtable_address) 
-		VALUES (#{table_title}, #{table_kc}, #{table_color}, #{table_component}, #{table_material}, #{table_manufacturer}, #{table_country}, #{table_size}, #{table_delivery}, #{table_qa}, #{table_cstel}, #{protable_postid},
-		#{shiptable_info}, #{shiptable_fee}, #{shiptable_plusfee}, #{shiptable_unable}, #{shiptable_propotionalfee}, #{refundtable_fee}, #{exchangetable_fee}, #{refundtable_address});
+		INSERT INTO product_tables 
+		(table_title, table_kc, table_color, table_component, 
+		table_material, table_manufacturer, table_country, table_size, 
+		table_delivery, table_qa, table_cstel, protable_postid, 
+		shiptable_info, shiptable_fee, shiptable_plusfee, 
+		shiptable_unable, shiptable_propotionalfee, refundtable_fee, 
+		exchangetable_fee, refundtable_address) 
+		VALUES (#{table_title}, #{table_kc}, #{table_color}, 
+		#{table_component}, #{table_material}, #{table_manufacturer}, 
+		#{table_country}, #{table_size}, #{table_delivery}, #{table_qa}, 
+		#{table_cstel}, #{protable_postid}, #{shiptable_info}, 
+		#{shiptable_fee}, #{shiptable_plusfee}, #{shiptable_unable}, 
+		#{shiptable_propotionalfee}, #{refundtable_fee}, 
+		#{exchangetable_fee}, #{refundtable_address});
 	</insert>
 	
 	<!-- select filtering -->

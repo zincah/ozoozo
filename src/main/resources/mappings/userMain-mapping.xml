@@ -17,7 +17,8 @@
 				GROUP BY photo_postid 
 			)
 		) pimg ON po.post_id = pimg.photo_postid
-		ORDER BY po.post_id DESC;
+		ORDER BY po.post_id DESC
+		limit 4 offset 0 * 4;
 	</select>
 	
 	<select id="mainDealProductList" resultType="userproduct">
@@ -37,6 +38,22 @@
 		ORDER BY di.deal_id DESC FETCH FIRST 4 ROWS ONLY;
 	</select>
 	
+	<!-- main화면에 상품 뿌리기 -->
+	<select id="plusProductList" resultType="userproduct">
+		SELECT po.post_id, po.star_ratio, po.post_name, po.sale_ratio, po.whole_price, po.shipping_info1, po.po_category, po.po_subcate, s.company_name, pimg.photo_url 
+		FROM product_posting po INNER JOIN seller s ON po.post_sellerid = s.seller_id
+		INNER JOIN (
+			SELECT photo_id, photo_postid, photo_url FROM product_image 
+			WHERE (photo_id, photo_postid) 
+			IN (
+				SELECT MIN(photo_id) AS photo_id, photo_postid
+				FROM product_image 
+				GROUP BY photo_postid 
+			)
+		) pimg ON po.post_id = pimg.photo_postid
+		ORDER BY po.post_id DESC
+		limit 4 offset #{thispage} * 4;
+	</select>
 	
 
 </mapper>
