@@ -101,13 +101,13 @@
 
 			<div class="store_index_header">
 				<p class="store_index_header_text" style="color: black;">오늘의딜</p>
-				<a href="todaydeal.html" class="move_deals"
-					style="text-decoration: none;">더보기</a>
+				<a href="todaydeal.com" class="move_deals" style="text-decoration: none;">더보기</a>
 			</div>
 
 			<div class="row store_index_deals_container">
 
 				<!-- for 문 -->
+				<c:forEach items="${todayDealList }" var="deal">
 				<div class="col-12 col-md-4 col-lg-3">
 					<div class="deals_list_wrap">
 						<article class="deals_item">
@@ -116,7 +116,7 @@
 									<div class="deals_item_pic_out">
 										<div class="deals_item_pic">
 											<div class="item_ani">
-												<img class="images" src="sources/deal1.webp">
+												<img class="images" src="${deal.photo_url }">
 											</div>
 										</div>
 										<div class="item_timer">
@@ -160,19 +160,18 @@
 									</div>
 									<div class="deals_item_content">
 										<div class="deals_item_header">
-											<span class="deals_item_header_brand">브랜드</span> <span
-												class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될 듯
-												어쩌구저쩌구 블라블라 안녕 안녕</span>
+											<span class="deals_item_header_brand">${deal.company_name }</span> 
+											<span class="deals_item_header_name">${deal.post_name }</span>
 										</div>
 										<div class="deals_item_body_price">
-											<span class="sale_percent">50%</span> <span class="price">10,000</span>
+											<span class="sale_percent">${deal.deal_saleratio}%</span> 
+											<span class="price">${deal.deal_saleprice }</span>
 										</div>
 										<div class="deals_item_review">
 											<div class="review_icon">
 												<i class="fa-solid fa-star" style=""></i>
 											</div>
-											<div class="review_score">4.6</div>
-											<div class="review_count">3,641</div>
+											<div class="review_score">${deal.star_ratio }</div>
 										</div>
 									</div>
 								</div>
@@ -180,225 +179,8 @@
 						</article>
 					</div>
 				</div>
+				</c:forEach>
 
-				<div class="col-12 col-md-4 col-lg-3">
-					<div class="deals_list_wrap">
-						<article class="deals_item">
-							<a href="#" style="text-decoration: none;">
-								<div class="deals_item_wrap">
-									<div class="deals_item_pic_out">
-										<div class="deals_item_pic">
-											<div class="item_ani">
-												<img class="images" src="sources/deal2.webp">
-											</div>
-										</div>
-										<div class="item_timer">
-											<div>1일 남음</div>
-										</div>
-										<button class="item_bookmark">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24"
-												height="24" viewBox="0 0 24 24" class="inactive-icon">
-												<defs>
-												<path id="scrap-icon-3-b"
-													d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path>
-												<filter id="scrap-icon-3-a" width="150%" height="150%"
-													x="-25%" y="-25%" filterUnits="objectBoundingBox">
-												<feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-												<feGaussianBlur in="shadowOffsetOuter1"
-													result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur>
-												<feComposite in="shadowBlurOuter1" in2="SourceAlpha"
-													operator="out" result="shadowBlurOuter1"></feComposite>
-												<feColorMatrix in="shadowBlurOuter1"
-													values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter>
-												<filter id="scrap-icon-3-c" width="150%" height="150%"
-													x="-25%" y="-25%" filterUnits="objectBoundingBox">
-												<feGaussianBlur in="SourceAlpha" result="shadowBlurInner1"
-													stdDeviation="1.5"></feGaussianBlur>
-												<feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
-												<feComposite in="shadowOffsetInner1" in2="SourceAlpha"
-													k2="-1" k3="1" operator="arithmetic"
-													result="shadowInnerInner1"></feComposite>
-												<feColorMatrix in="shadowInnerInner1"
-													values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs>
-												<g fill="none" fill-rule="nonzero"
-													transform="matrix(1 0 0 -1 0 24)">
-												<use fill="#000" filter="url(#scrap-icon-3-a)"
-													href="#scrap-icon-3-b"></use>
-												<use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use>
-												<use fill="#000" filter="url(#scrap-icon-3-c)"
-													href="#scrap-icon-3-b"></use>
-												<path stroke="#FFF"
-													d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-										</button>
-									</div>
-									<div class="deals_item_content">
-										<div class="deals_item_header">
-											<span class="deals_item_header_brand">브랜드</span> <span
-												class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될 듯
-												어쩌구저쩌구 블라블라 안녕 안녕</span>
-										</div>
-										<div class="deals_item_body_price">
-											<span class="sale_percent">50%</span> <span class="price">10,000</span>
-										</div>
-										<div class="deals_item_review">
-											<div class="review_icon">
-												<i class="fa-solid fa-star" style=""></i>
-											</div>
-											<div class="review_score">4.6</div>
-											<div class="review_count">3,641</div>
-										</div>
-									</div>
-								</div>
-							</a>
-						</article>
-					</div>
-				</div>
-
-				<div class="col-12 col-md-4 col-lg-3">
-					<div class="deals_list_wrap">
-						<article class="deals_item">
-							<a href="#" style="text-decoration: none;">
-								<div class="deals_item_wrap">
-									<div class="deals_item_pic_out">
-										<div class="deals_item_pic">
-											<div class="item_ani">
-												<img class="images" src="sources/deal3.webp">
-											</div>
-										</div>
-										<div class="item_timer">
-											<div>1일 남음</div>
-										</div>
-										<button class="item_bookmark">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24"
-												height="24" viewBox="0 0 24 24" class="inactive-icon">
-												<defs>
-												<path id="scrap-icon-3-b"
-													d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path>
-												<filter id="scrap-icon-3-a" width="150%" height="150%"
-													x="-25%" y="-25%" filterUnits="objectBoundingBox">
-												<feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-												<feGaussianBlur in="shadowOffsetOuter1"
-													result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur>
-												<feComposite in="shadowBlurOuter1" in2="SourceAlpha"
-													operator="out" result="shadowBlurOuter1"></feComposite>
-												<feColorMatrix in="shadowBlurOuter1"
-													values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter>
-												<filter id="scrap-icon-3-c" width="150%" height="150%"
-													x="-25%" y="-25%" filterUnits="objectBoundingBox">
-												<feGaussianBlur in="SourceAlpha" result="shadowBlurInner1"
-													stdDeviation="1.5"></feGaussianBlur>
-												<feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
-												<feComposite in="shadowOffsetInner1" in2="SourceAlpha"
-													k2="-1" k3="1" operator="arithmetic"
-													result="shadowInnerInner1"></feComposite>
-												<feColorMatrix in="shadowInnerInner1"
-													values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs>
-												<g fill="none" fill-rule="nonzero"
-													transform="matrix(1 0 0 -1 0 24)">
-												<use fill="#000" filter="url(#scrap-icon-3-a)"
-													href="#scrap-icon-3-b"></use>
-												<use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use>
-												<use fill="#000" filter="url(#scrap-icon-3-c)"
-													href="#scrap-icon-3-b"></use>
-												<path stroke="#FFF"
-													d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-										</button>
-									</div>
-									<div class="deals_item_content">
-										<div class="deals_item_header">
-											<span class="deals_item_header_brand">브랜드</span> <span
-												class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될 듯
-												어쩌구저쩌구 블라블라 안녕 안녕</span>
-										</div>
-										<div class="deals_item_body_price">
-											<span class="sale_percent">50%</span> <span class="price">10,000</span>
-										</div>
-										<div class="deals_item_review">
-											<div class="review_icon">
-												<i class="fa-solid fa-star" style=""></i>
-											</div>
-											<div class="review_score">4.6</div>
-											<div class="review_count">3,641</div>
-										</div>
-									</div>
-								</div>
-							</a>
-						</article>
-					</div>
-				</div>
-				<!-- 여기 수정 -->
-				<div class="col-12 col-md-4 col-lg-3">
-					<div class="deals_list_wrap">
-						<article class="deals_item">
-							<a href="#" style="text-decoration: none;">
-								<div class="deals_item_wrap">
-									<div class="deals_item_pic_out">
-										<div class="deals_item_pic">
-											<div class="item_ani">
-												<img class="images" src="sources/deal4.webp">
-											</div>
-										</div>
-										<div class="item_timer">
-											<div>1일 남음</div>
-										</div>
-										<button class="item_bookmark">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24"
-												height="24" viewBox="0 0 24 24" class="inactive-icon">
-												<defs>
-												<path id="scrap-icon-3-b"
-													d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path>
-												<filter id="scrap-icon-3-a" width="150%" height="150%"
-													x="-25%" y="-25%" filterUnits="objectBoundingBox">
-												<feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-												<feGaussianBlur in="shadowOffsetOuter1"
-													result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur>
-												<feComposite in="shadowBlurOuter1" in2="SourceAlpha"
-													operator="out" result="shadowBlurOuter1"></feComposite>
-												<feColorMatrix in="shadowBlurOuter1"
-													values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter>
-												<filter id="scrap-icon-3-c" width="150%" height="150%"
-													x="-25%" y="-25%" filterUnits="objectBoundingBox">
-												<feGaussianBlur in="SourceAlpha" result="shadowBlurInner1"
-													stdDeviation="1.5"></feGaussianBlur>
-												<feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
-												<feComposite in="shadowOffsetInner1" in2="SourceAlpha"
-													k2="-1" k3="1" operator="arithmetic"
-													result="shadowInnerInner1"></feComposite>
-												<feColorMatrix in="shadowInnerInner1"
-													values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs>
-												<g fill="none" fill-rule="nonzero"
-													transform="matrix(1 0 0 -1 0 24)">
-												<use fill="#000" filter="url(#scrap-icon-3-a)"
-													href="#scrap-icon-3-b"></use>
-												<use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use>
-												<use fill="#000" filter="url(#scrap-icon-3-c)"
-													href="#scrap-icon-3-b"></use>
-												<path stroke="#FFF"
-													d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-										</button>
-									</div>
-									<div class="deals_item_content">
-										<div class="deals_item_header">
-											<span class="deals_item_header_brand">브랜드</span> <span
-												class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될 듯
-												어쩌구저쩌구 블라블라 안녕 안녕</span>
-										</div>
-										<div class="deals_item_body_price">
-											<span class="sale_percent">50%</span> <span class="price">10,000</span>
-										</div>
-										<div class="deals_item_review">
-											<div class="review_icon">
-												<i class="fa-solid fa-star" style=""></i>
-											</div>
-											<div class="review_score">4.6</div>
-											<div class="review_count">3,641</div>
-										</div>
-									</div>
-								</div>
-							</a>
-						</article>
-					</div>
-				</div>
 			</div>
 
 			<!-- 반응형 오늘의 딜 버튼 -->

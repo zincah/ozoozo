@@ -7,5 +7,6 @@ import ozo.spring.house.user.vo.UserProductVO;
 public interface UserMainService {
 	
 	public List<UserProductVO> mainProductList(UserProductVO vo);
+	public List<UserProductVO> mainDealProductList(UserProductVO vo);
 
 }

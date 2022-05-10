@@ -19,4 +19,9 @@ public class UserMainServiceImpl implements UserMainService {
 		return userMainDAO.mainProductList(vo);
 	}
 
+	@Override
+	public List<UserProductVO> mainDealProductList(UserProductVO vo) {
+		return userMainDAO.mainDealProductList(vo);
+	}
+
 }

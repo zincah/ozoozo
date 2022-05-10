@@ -21,7 +21,8 @@
 	</select>
 	
 	<select id="mainDealProductList" resultType="userproduct">
-		SELECT po.post_id, po.star_ratio, po.post_name, po.sale_ratio, po.whole_price, po.shipping_info1, po.po_category, po.po_subcate, s.company_name, pimg.photo_url 
+		SELECT po.post_id, po.star_ratio, po.post_name, po.whole_price, di.deal_saleratio, di.deal_saleprice, 
+		po.shipping_info1, po.po_category, po.po_subcate, s.company_name, pimg.photo_url 
 		FROM (SELECT * FROM product_posting WHERE today_deal=true) po INNER JOIN seller s ON po.post_sellerid = s.seller_id
 		INNER JOIN (
 			SELECT photo_id, photo_postid, photo_url FROM product_image 
@@ -32,7 +33,8 @@
 				GROUP BY photo_postid 
 			)
 		) pimg ON po.post_id = pimg.photo_postid
-		ORDER BY po.post_id DESC;
+		INNER JOIN deal_info di ON po.post_id = di.deal_postid 
+		ORDER BY di.deal_id DESC FETCH FIRST 4 ROWS ONLY;
 	</select>
 	
 	

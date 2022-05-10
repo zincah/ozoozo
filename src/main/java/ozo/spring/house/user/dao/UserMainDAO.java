@@ -23,6 +23,5 @@ public class UserMainDAO {
 		System.out.println("mybatis in usermaindao maindealproductlist");
 		return sqlSessionTemplate.selectList("UserMainDAO.mainDealProductList", vo);
 	}
-	// todal deal price
 
 }
