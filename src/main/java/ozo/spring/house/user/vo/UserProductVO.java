@@ -21,6 +21,10 @@ public class UserProductVO {
 	private int po_category;
 	private int po_subcate;
 	
+	private boolean photo_separate;
+	private String photo_url;
+	private String cate_name;
+	private String subcate_name;
 	// seller
 	private String company_name;
 	private int seller_id;

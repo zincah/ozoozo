@@ -23,5 +23,9 @@
 			WHERE po.option1 = #{option1} AND post_id=50003;
 	</select>
 	
-	
+	<select id="product_post_getimg" resultType="userproduct">
+	select pi2.photo_url, pi2.photo_separate  from product_posting pp 
+		inner join product_image pi2 on pi2.photo_postid = pp.post_id 
+		where pp.post_id = 50003 order by pi2.photo_id asc;
+	</select>
 </mapper>

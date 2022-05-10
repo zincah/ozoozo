@@ -71,7 +71,6 @@ public class UserDAO {
 	public List<UserProductVO> product_Get(UserProductVO vo) {
 		System.out.println("[LOGO] : Mybatis in UserDAO product_Get");
 		List<UserProductVO> posting = sqlSessionTemplate.selectList("UserProduct.product_get",vo);
-		//System.out.println(posting);
 		return posting;
 	}
 	//product_detail
@@ -79,6 +78,11 @@ public class UserDAO {
 		System.out.println("[LOGO] : Mybatis in UserDAO product_Get_option2");
 		List<UserProductVO> option_list = sqlSessionTemplate.selectList("UserProduct.product_option2_get", vo);
 		return option_list;
+	}
+	public List<UserProductVO> product_imgGet(UserProductVO vo){
+		System.out.println("[LOGO] : Mybatis in UserDAO product_cateGet");
+		List<UserProductVO> img_list = sqlSessionTemplate.selectList("UserProduct.product_post_getimg", vo);
+		return img_list;
 	}
 	
 }

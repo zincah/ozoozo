@@ -56,5 +56,11 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return userDAO.product_Get_option(vo);
 	}
+
+	@Override
+	public List<UserProductVO> product_imgGet(UserProductVO vo) {
+		// TODO Auto-generated method stub
+		return userDAO.product_imgGet(vo);
+	}
 	
 }
