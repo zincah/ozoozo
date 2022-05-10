@@ -11,20 +11,14 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="resources/css/user_css/header/OzoH.css?var=1">
-<link rel="stylesheet"
-	href="resources/css/user_css/header/category.css?var=1">
-<link rel="stylesheet"
-	href="resources/css/user_css/header/sidebar.css?var=1">
+<link rel="stylesheet" href="resources/css/user_css/header/OzoH.css?var=1">
+<link rel="stylesheet" href="resources/css/user_css/header/category.css?var=1">
+<link rel="stylesheet" href="resources/css/user_css/header/sidebar.css?var=1">
 <!--     <link rel="stylesheet" href="resources/css/user_css/header/sidebar_search.css?var=1"> -->
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://kit.fontawesome.com/58c5618a7b.js"
-	crossorigin="anonymous"></script>
-<link
-	href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100&display=swap"
-	rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/58c5618a7b.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100&display=swap" rel="stylesheet">
+<link href="resources/css/admincss/fonts.css?var=1" rel="stylesheet" />
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-----카테고리js------->
 <script>

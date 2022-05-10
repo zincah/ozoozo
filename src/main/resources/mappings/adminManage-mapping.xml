@@ -4,6 +4,8 @@
  
 <mapper namespace="AdminManageDAO">
 
+	<!-- 현재 사용하는거 회원관리, 총 검색, 회원정보 수정 -->
+
 	<!-- 회원관리 -->
 	<select id="selectUser" resultType="user">
 		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table ORDER BY user_num DESC;
