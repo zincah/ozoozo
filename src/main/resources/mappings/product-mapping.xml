@@ -23,6 +23,12 @@
 		((SELECT COALESCE(MAX(product_id), 1000)+1 FROM product), #{seller_id}, #{product_title}, #{pro_catecode}, #{pro_subcatecode}, #{product_price}, #{product_quantity}, #{product_postid})
 	</insert>
 	
+	<!-- product status insert -->
+	<insert id="insertProductStatus" parameterType="product">
+		INSERT INTO product_status(status_id, st_product_id)
+		VALUES ((SELECT COALESCE(MAX(status_id), 1000)+1 FROM product_status), (SELECT MAX(product_id) FROM product));
+	</insert>
+	
 	<!-- option insert -->
 	<insert id="insertOption" parameterType="product">
 		INSERT INTO product_option(op_productid, option1_name, option1, option2_name, option2) VALUES 

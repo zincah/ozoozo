@@ -29,6 +29,9 @@ public class ProductDAO {
 		
 		System.out.println("--> mybatis in productDAO option insert");
 		sqlSessionTemplate.insert("ProductDAO.insertOption", vo);
+		
+		System.out.println("--> mybatis in productDAO status insert");
+		sqlSessionTemplate.insert("ProductDAO.insertProductStatus", vo);
 	}
 	
 	public void updatePost(ProductVO vo) {
