@@ -101,7 +101,6 @@
 			<tr class="content-table-title">
 				<td class="content-table-title-text option-line">등록일</td>
 				<td class="content-table-title-text option-line">상태</td>
-				<td class="content-table-title-text option-line">공지유형</td>
 				<td class="content-table-title-text option-line">제목</td>
 				<td class="content-table-title-text option-line">담당자</td>
 				<td class="content-table-title-text"></td>
@@ -113,7 +112,6 @@
 				<td class="content-table-content-text option-line">2022-04-13
 					18:40</td>
 				<td class="content-table-content-text option-line state0">중지</td>
-				<td class="content-table-content-text option-line">배송</td>
 				<td class="content-table-content-text option-line"><a href="#">타임쿠폰
 				</a></td>
 				<td class="content-table-content-text option-line">정대현</td>
@@ -125,7 +123,6 @@
 				<td class="content-table-content-text option-line">2022-04-12
 					13:11</td>
 				<td class="content-table-content-text option-line state1">게시</td>
-				<td class="content-table-content-text option-line">상품</td>
 				<td class="content-table-content-text option-line"><a href="#">타임세일</a>
 				</td>
 				<td class="content-table-content-text option-line">이인하</td>
@@ -137,7 +134,6 @@
 				<td class="content-table-content-text option-line">2022-04-11
 					17:35</td>
 				<td class="content-table-content-text option-line state1">게시</td>
-				<td class="content-table-content-text option-line">입점</td>
 				<td class="content-table-content-text option-line"><a href="#">리뷰추첨
 						이벤트!!!</a></td>
 				<td class="content-table-content-text option-line">황동준</td>
@@ -149,7 +145,6 @@
 				<td class="content-table-content-text option-line">2022-04-11
 					17:35</td>
 				<td class="content-table-content-text option-line state1">게시</td>
-				<td class="content-table-content-text option-line">입점</td>
 				<td class="content-table-content-text option-line"><a href="#">판매자
 						입점 신청 방법!</a></td>
 				<td class="content-table-content-text option-line">황동준</td>
@@ -161,7 +156,6 @@
 				<td class="content-table-content-text option-line">2022-04-11
 					17:35</td>
 				<td class="content-table-content-text option-line state1">게시</td>
-				<td class="content-table-content-text option-line">입점</td>
 				<td class="content-table-content-text option-line"><a href="#">판매자
 						입점 신청 완료 후 공지</a></td>
 				<td class="content-table-content-text option-line">황동준</td>

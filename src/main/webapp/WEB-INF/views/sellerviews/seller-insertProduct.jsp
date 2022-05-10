@@ -430,6 +430,7 @@
 		function photoUpload(){
 			
 			var formData = new FormData();
+		
 			
 			var mainFileInput = $(".main_photo");
 			var fileInput = $(".thisisfile");
