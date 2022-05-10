@@ -17,14 +17,23 @@ public class UserProductVO {
 	private String post_name;
 	private int sale_ratio;
 	private int whole_price;
-	private int product_id;
+	private String post_content;
+	private String shipping_info1;
+	private String shipping_info2;
+	private String refund_content;
+	
+	private int post_sellerid;
 	private int po_category;
 	private int po_subcate;
+	
+	// «“¿Œ¿≤
+	private String sale_price;
 	
 	private boolean photo_separate;
 	private String photo_url;
 	private String cate_name;
 	private String subcate_name;
+	
 	// seller
 	private String company_name;
 	private int seller_id;
@@ -48,5 +57,14 @@ public class UserProductVO {
 	private String option1;
 	private String option2_name;
 	private String option2;
+	
+	private int product_id;
+	
+	// ø¿¥√¿« µÙ table
+	private int deal_id;
+	private int deal_postid;
+	private int deal_originprice;
+	private int deal_saleratio;
+	private int deal_saleprice;
 
 }
