@@ -442,14 +442,23 @@
                                 </div>
                                 <ul class="selling-option-form-content__list">
                                 	<script>
-                                		var  count = 0;
+                                		var count = 0;
+                                		var empty = 0;
+                                		var div_arr = new Array();
                                 		function buy_item(option_toString){
-                                			var html =	'<li id="'+ count +'_">\
+                                			count++;
+                                			for(i=0; i < count; i++){
+                                				if(div_arr[i] == null){
+                                					empty = i;
+                                				}
+                                			}
+                                			div_arr[empty] = 1;
+                                			var html =	'<li id="'+ empty +'_">\
                                 					<article class="selling-option-item">\
-                                					<h2 class="selling-option-item__name h1_'+count+'">\
+                                					<h2 class="selling-option-item__name h1_'+empty+'">\
                                 						${product[0].option1_name}: '+ option_toString[0] +'\
                                 					</h2>\
-                                					<button class="selling-option-item__delete" id="'+count+'" type="button" aria-label="삭제" onclick="remove_div(this)">\
+                                					<button class="selling-option-item__delete" id="'+empty+'" type="button" aria-label="삭제" onclick="remove_div(this)">\
                                 					<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet">\
                                 					<path fill-rule="nonzero" d="M6 4.6L10.3.3l1.4 1.4L7.4 6l4.3 4.3-1.4 1.4L6 7.4l-4.3 4.3-1.4-1.4L4.6 6 .3 1.7 1.7.3 6 4.6z">\
                                 					</path>\
@@ -458,7 +467,7 @@
                                 					<div class="selling-option-item__controls">\
                                 					<div class="selling-option-item__quantity">\
                                 					<div class="input-group select-input option-count-input">\
-                                					<select class="form-control _'+count+'" onchange="div_price(this)" id="_'+count+'">\
+                                					<select class="form-control _'+empty+'" onchange="div_price(this)" id="_'+empty+'">\
                                 					<option value="0">1</option>\
                                 					<option value="1">2</option>\
                                 					<option value="2">3</option>\
@@ -480,18 +489,13 @@
                                 			if(option_toString[1] != null){
                                 				var html2 = null;
                    						 		 html2 = '/ ${product[0].option2_name}: ' + option_toString[1] +'\n';
-                   						 		$(".h1_"+count+"").append(html2);
+                   						 		$(".h1_"+empty+"").append(html2);	
                    							}
-                                			count++;
-                                			 try{
                                 			$(".dh_S").val(null).prop("selected", true);
-                                			}catch(e){
-                                				console.log('에러 나 이상하게');
-                                			} 
                                 			all_price();
                                 		}
                                 		function remove_div(div_index){ // 회색 div 개별 제거
-                                			console.log($(".h1_" + div_index.id).text());
+                                			//console.log($(".h1_" + div_index.id).text());
                                 			Str = $(".h1_" + div_index.id).text();
                                 			Str = Str.replace(/ /gi,'').replace(/\t/gi,'').split("\n");
                                 			
@@ -504,13 +508,13 @@
                                 				Str = Str[0].split(":");
                                 				toStr = Str[1];
                                 			}
-                                			for(var i in option_arr){
+                                			for(i = 0; i < option_arr.length; i++){
                                 				if(toStr == option_arr[i]){
-                                					delete option_arr[i];
+                                					option_arr.splice(i, 1);
                                 				}
                                 			}
-                                			console.log(option_arr);
-                                			count--;
+                                			div_arr[div_index.id] = null;
+                                			//console.log(option_arr);
                                 			$("#"+div_index.id+"_").remove();
                                 			$("#"+div_index.id+"_").remove();
                                 			$("#"+div_index.id+"_").remove();
@@ -537,8 +541,15 @@
                                 		function all_price(){
                                 			all = 0;
                                 			ex = $(".selling-option-item__price").text();
+                                			
                                 			var price_array = ex.replace(/ /gi,'').split("원");
-                                			for(i=0; i < count; i++){
+                                			Exnum = 0;
+                                			for(i=0; i < div_arr.length; i++){
+                                				if(div_arr[i] == 1){
+                                					Exnum++;
+                                				}
+                                			}
+                                			for(i=0; i < Exnum; i++){
                                 				ex_num = price_array[i].replace(/,/gi , "");
                                 				ex_num *= 1; //형 변환
                                 				all += ex_num;
