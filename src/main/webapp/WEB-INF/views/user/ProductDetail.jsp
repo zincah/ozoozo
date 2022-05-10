@@ -37,18 +37,18 @@
             <nav class="commerce-category-breadcrumb-wrap production-selling-overview__category">
                 <ol class="commerce-category-breadcrumb">
                     <li class="commerce-category-breadcrumb__entry">
-                        <a class="link" href="">가구</a>
+                        <a class="link" href="">${product[0].cate_name }</a>
                         <svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet">
                             <path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path>
                         </svg>
                     </li>
                     <li class="commerce-category-breadcrumb__entry">
-                        <a class="link" href="">매트리스·토퍼</a>
+                        <a class="link" href="">${product[0].subcate_name }</a>
                         <svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet">
                             <path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path>
                         </svg>
                     </li>
-                    <li class="commerce-category-breadcrumb__entry">
+                   <!--  <li class="commerce-category-breadcrumb__entry">
                         <a class="link" href="">매트리스</a>
                         <svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet">
                             <path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path>
@@ -56,7 +56,7 @@
                     </li>
                     <li class="commerce-category-breadcrumb__entry">
                         <a class="link" href="">스프링매트리스</a>
-                    </li>
+                    </li> -->
                 </ol>
             </nav>
             <div class="product-selling-container row">
@@ -65,48 +65,21 @@
                         <div class="carousel product-selling-cover-image product-selling-overview-image" role="region" aria-roledescription="carousel">
                             <div class="carousel_list-wrap product-selling-cover-image_carousel-wrap">
                                 <div class="carousel_list" aria-live="polite" style="transform: translateX(0%); transition: transform 0s ease 0s;">
-                                    <div class="carousel__list__entry production-selling-cover-image__entry" role="group" aria-roledescription="slide" aria-label="1 of 5" style="width: 100%;">
-                                        <img class="production-selling-cover-image__entry__image" tabindex="0" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/163997985235838465.jpg?gif=1&amp;w=480&amp;h=480&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/163997985235838465.jpg?gif=1&amp;w=720&amp;h=720&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/163997985235838465.jpg?gif=1&amp;w=960&amp;h=960&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/163997985235838465.jpg?gif=1&amp;w=1440&amp;h=1440&amp;c=c 3x">
-                                    </div>
-                                    <div class="carousel__list__entry production-selling-cover-image__entry" role="group" aria-roledescription="slide" aria-label="2 of 5" style="width: 100%;">
-                                        <img class="production-selling-cover-image__entry__image" tabindex="0" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/163997985653244696.jpg?gif=1&amp;w=480&amp;h=480&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/163997985653244696.jpg?gif=1&amp;w=720&amp;h=720&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/163997985653244696.jpg?gif=1&amp;w=960&amp;h=960&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/163997985653244696.jpg?gif=1&amp;w=1440&amp;h=1440&amp;c=c 3x">
-                                    </div>
-                                    <div class="carousel__list__entry production-selling-cover-image__entry" role="group" aria-roledescription="slide" aria-label="3 of 5" style="width: 100%;">
-                                        <img class="production-selling-cover-image__entry__image" tabindex="0" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259520834557213.jpg?gif=1&amp;w=480&amp;h=480&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259520834557213.jpg?gif=1&amp;w=720&amp;h=720&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259520834557213.jpg?gif=1&amp;w=960&amp;h=960&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259520834557213.jpg?gif=1&amp;w=1440&amp;h=1440&amp;c=c 3x">
-                                    </div>
-                                    <div class="carousel__list__entry production-selling-cover-image__entry" role="group" aria-roledescription="slide" aria-label="4 of 5" style="width: 100%;">
-                                        <img class="production-selling-cover-image__entry__image" tabindex="0" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259521659085234.jpg?gif=1&amp;w=480&amp;h=480&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259521659085234.jpg?gif=1&amp;w=720&amp;h=720&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259521659085234.jpg?gif=1&amp;w=960&amp;h=960&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259521659085234.jpg?gif=1&amp;w=1440&amp;h=1440&amp;c=c 3x">
-                                    </div>
-                                    <div class="carousel__list__entry production-selling-cover-image__entry" role="group" aria-roledescription="slide" aria-label="5 of 5" style="width: 100%;">
-                                        <img class="production-selling-cover-image__entry__image" tabindex="0" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259522204449257.jpg?gif=1&amp;w=480&amp;h=480&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259522204449257.jpg?gif=1&amp;w=720&amp;h=720&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259522204449257.jpg?gif=1&amp;w=960&amp;h=960&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259522204449257.jpg?gif=1&amp;w=1440&amp;h=1440&amp;c=c 3x">
-                                    </div>
+                                <c:forEach var="i"  begin="0" end="${fn:length(img_true)-1 }">
+                                    	<div class="carousel__list__entry production-selling-cover-image__entry" role="group" aria-roledescription="slide" aria-label="${i } of ${fn:length(img_true)-1 }" style="width: 100%;">
+                                        	<img class="production-selling-cover-image__entry__image" tabindex="0" src="${img_true[i].photo_url }">
+                                   		 </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                             <ul class="production-selling-cover-image__list">
+                           		 <c:forEach var="i" begin="0" end="${fn:length(img_true)-1 }">
                                 <li class="production-selling-cover-image__list__item">
-                                    <button class="production-selling-cover-image__list__btn" type="button" aria-label="1">
-                                        <img class="image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/163997985235838465.jpg?gif=1&amp;w=72&amp;h=72&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/163997985235838465.jpg?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/163997985235838465.jpg?gif=1&amp;w=144&amp;h=144&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/163997985235838465.jpg?gif=1&amp;w=240&amp;h=240&amp;c=c 3x">
+                                    <button class="production-selling-cover-image__list__btn" type="button" aria-label="${i+1}">
+                                        <img class="image" src="${img_true[i].photo_url }">
                                     </button>
                                 </li>
-                                <li class="production-selling-cover-image__list__item">
-                                    <button class="production-selling-cover-image__list__btn" type="button" aria-label="2">
-                                    <img class="image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/163997985653244696.jpg?gif=1&amp;w=72&amp;h=72&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/163997985653244696.jpg?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/163997985653244696.jpg?gif=1&amp;w=144&amp;h=144&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/163997985653244696.jpg?gif=1&amp;w=240&amp;h=240&amp;c=c 3x">                                        </button>
-                                </li>
-                                <li class="production-selling-cover-image__list__item">
-                                    <button class="production-selling-cover-image__list__btn" type="button" aria-label="3">
-                                        <img class="image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259520834557213.jpg?gif=1&amp;w=72&amp;h=72&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259520834557213.jpg?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259520834557213.jpg?gif=1&amp;w=144&amp;h=144&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259520834557213.jpg?gif=1&amp;w=240&amp;h=240&amp;c=c 3x">
-                                    </button>
-                                </li>
-                                <li class="production-selling-cover-image__list__item">
-                                    <button class="production-selling-cover-image__list__btn" type="button" aria-label="4">
-                                        <img class="image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259521659085234.jpg?gif=1&amp;w=72&amp;h=72&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259521659085234.jpg?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259521659085234.jpg?gif=1&amp;w=144&amp;h=144&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259521659085234.jpg?gif=1&amp;w=240&amp;h=240&amp;c=c 3x">
-                                    </button>
-                                </li>
-                                <li class="production-selling-cover-image__list__item">
-                                    <button class="production-selling-cover-image__list__btn" type="button" aria-label="5">
-                                        <img class="image" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259522204449257.jpg?gif=1&amp;w=72&amp;h=72&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259522204449257.jpg?gif=1&amp;w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259522204449257.jpg?gif=1&amp;w=144&amp;h=144&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/images/162259522204449257.jpg?gif=1&amp;w=240&amp;h=240&amp;c=c 3x">
-                                    </button>
-                                </li>
+                                </c:forEach>
                             </ul>
                             <div class="production-selling-cover-image__paginator">
                                 <ul class="carousel-paginator">
@@ -128,7 +101,7 @@
                                 </ul>
                             </div>
                             <div class="production-selling-cover-image__timer--mobile"></div>
-                        </div>
+                        </div> 
                     </div>
                 </div>
                 <!-- 여기서 부터 overview 우측-->
@@ -672,8 +645,10 @@
                             </header>
                             <div class="production-selling-description production-selling-description--notice production-selling-description--open">
                                 <div class="production-selling-description__content">
+                                <c:forEach  var="i" begin="0" end="${fn:length(img_false)-1}">
+                               		<img src="${img_false[i].photo_url}">
+                                </c:forEach>
                                     <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/deals/descriptions/1_1591763902471_3h.jpg?gif=1&amp;w=720" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/deals/descriptions/1_1591763902471_3h.jpg?gif=1&amp;w=1080 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/deals/descriptions/1_1591763902471_3h.jpg?gif=1&amp;w=1440 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/deals/descriptions/1_1591763902471_3h.jpg?gif=1&amp;w=2560 3x">
-                                    <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/deals/descriptions/1_1592282612102_wFzgxFC8Yw.jpg?gif=1&amp;w=720" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/deals/descriptions/1_1592282612102_wFzgxFC8Yw.jpg?gif=1&amp;w=1080 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/deals/descriptions/1_1592282612102_wFzgxFC8Yw.jpg?gif=1&amp;w=1440 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/deals/descriptions/1_1592282612102_wFzgxFC8Yw.jpg?gif=1&amp;w=2560 3x">
                                     <img src="https://image.ohou.se/i/bucketplace-v2-development/uploads/deals/descriptions/1_1592282616067_Pp6O4.jpg?gif=1&amp;w=720" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/deals/descriptions/1_1592282616067_Pp6O4.jpg?gif=1&amp;w=1080 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/deals/descriptions/1_1592282616067_Pp6O4.jpg?gif=1&amp;w=1440 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/deals/descriptions/1_1592282616067_Pp6O4.jpg?gif=1&amp;w=2560 3x">
                                 </div>
                             </div>

@@ -13,4 +13,5 @@ public interface UserService {
 	public void change_pass(UserVO vo);
 	public List<UserProductVO> productGet(UserProductVO vo);
 	public List<UserProductVO> productGet_option(UserProductVO vo);
+	public List<UserProductVO> product_imgGet(UserProductVO vo);
 }
