@@ -31,16 +31,14 @@ public class UserController {
 		
 		List<UserProductVO> productList = userMainService.mainProductList(vo);
 		System.out.println(productList.size());
-		
-		List<Integer> priceList = new ArrayList<Integer>();
-		
+
 		for(int i=0; i<productList.size(); i++) {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			priceList.add(sale_price);
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
 			
-			// vo에 추가해서 리턴하는게 빠를듯
+			pro.setSale_price(decFormat.format(sale_price));
 		}
 
 		model.addAttribute("productList", productList);
