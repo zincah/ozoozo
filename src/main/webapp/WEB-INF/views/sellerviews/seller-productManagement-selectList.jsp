@@ -14,11 +14,5 @@
 		<td class="content-table-content-text option-line">${selectProductListView.getCategory_name()}</td>
 		<td class="content-table-content-text option-line">${selectProductListView.getStatus()}</td>
 		<td class="content-table-content-text option-line">${selectProductListView.getProduct_quantity()}</td>
-		<td class="content-table-content-text option-line"><fmt:formatDate
-				value="${selectProductListView.getProduct_created()}"
-				pattern="yyyy-MM-dd HH:mm" /></td>
-		<td class="content-table-content-text option-line"><fmt:formatDate
-				value="${selectProductListView.getProduct_updated()}"
-				pattern="yyyy-MM-dd HH:mm" /></td>
 	</tr>
 </c:forEach>

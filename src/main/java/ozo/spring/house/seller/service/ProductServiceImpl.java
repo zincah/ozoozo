@@ -64,4 +64,9 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.selectSelectProduct(vo);
 	}
 
+	@Override
+	public void deleteSelectProduct(ProductVO vo) {
+		productDAO.deleteSelectProduct(vo);
+	}
+
 }

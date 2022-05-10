@@ -73,7 +73,7 @@
 		p.product_created, 
 		p.product_updated FROM product p 
 		JOIN product_status ps ON p.product_id = ps.st_product_id 
-		WHERE seller_id = #{seller_id} ORDER BY p.product_id DESC;
+		WHERE seller_id = #{seller_id} AND ps.product_del = 'false' ORDER BY p.product_id DESC;
 	</select>
 
 	<!-- 선택한 상품 판매상태 업데이트 -->
@@ -100,4 +100,9 @@
 		JOIN product_status ps ON p.product_id = ps.st_product_id 
 		WHERE product_id = #{product_id};
 	</select>
+	
+	<!-- 상품 삭제처리 (삭제 상태를 'true'로 변경) -->
+	<update id="deleteSelectProduct" parameterType="product">
+		UPDATE product_status SET product_del = 'true' WHERE st_product_id = #{product_id};
+	</update>
 </mapper>

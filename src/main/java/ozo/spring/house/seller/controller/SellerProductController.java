@@ -2,6 +2,7 @@ package ozo.spring.house.seller.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -55,5 +56,31 @@ public class SellerProductController {
 		}else {
 			return "seller-login";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/selectProductDelete.seller", method=RequestMethod.POST)
+	public String selectProductDelete(HttpServletRequest request, ProductVO vo, @RequestBody ArrayList<String> listProductId) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("seller")!=null) {
+			for(String productId : listProductId) {
+				vo.setProduct_id(Integer.parseInt(productId));;
+				productService.deleteSelectProduct(vo);
+			}
+			return "seller-productManagement";
+		}else {
+			return "seller-login";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getSearchProductList.seller", method=RequestMethod.POST)
+	public String getSearchProductList(Model model, ProductVO vo, @RequestParam(value="searchMap") Map<String, String> searchMap,  @RequestParam(value="searchStatus") ArrayList<String> searchStatus) {
+		List<ProductVO> searchProductList = new ArrayList<ProductVO>();
+		
+		vo.setSc_searchName(searchMap.get("searchName"));
+		
+		model.addAttribute("searchProductList", searchProductList);
+		return "seller-productManagement-List";
 	}
 }
