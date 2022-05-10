@@ -31,13 +31,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Boolean Duplicate_Check_Email(UserVO vo) {
-		// TODO Auto-generated method stub
 		return userDAO.Duplicate_Check_Email(vo);
 	}
 
 	@Override
 	public Boolean Duplicate_Check_Nickname(UserVO vo) {
-		// TODO Auto-generated method stub
 		return userDAO.Duplicate_Check_Nickname(vo);
 	}
 
@@ -53,14 +51,17 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<UserProductVO> productGet_option(UserProductVO vo) {
-		// TODO Auto-generated method stub
 		return userDAO.product_Get_option(vo);
 	}
 
 	@Override
-	public List<UserProductVO> product_imgGet(UserProductVO vo) {
-		// TODO Auto-generated method stub
-		return userDAO.product_imgGet(vo);
+	public List<UserProductVO> productGet_img(UserProductVO vo) {
+		return userDAO.product_Get_img(vo);
+	}
+
+	@Override
+	public UserProductVO productGet_table(UserProductVO vo) {
+		return userDAO.product_Get_table(vo);
 	}
 	
 }

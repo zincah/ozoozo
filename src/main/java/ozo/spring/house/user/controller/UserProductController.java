@@ -41,7 +41,7 @@ public class UserProductController {
 		model.addAttribute("price_first", decFormat.format(price/100*sale-15000));
 		
 		// img list model 등록
-		product_img_list = userservice.product_imgGet(vo);
+		product_img_list = userservice.productGet_img(vo);
 		List<UserProductVO> img_true = new ArrayList<UserProductVO>();
 		List<UserProductVO> img_false = new ArrayList<UserProductVO>();
 		for(int i = 0; i < product_img_list.size(); i++) {
@@ -51,10 +51,13 @@ public class UserProductController {
 				img_false.add(product_img_list.get(i));
 			}
 		}
-		model.addAttribute("img_list", product_img_list);
 		model.addAttribute("img_true", img_true);
 		model.addAttribute("img_false", img_false);
 		
+		// 테이블 값 넣기
+		UserProductVO product_table;
+		product_table = userservice.productGet_table(vo);
+		model.addAttribute("table", product_table);
 		return "ProductDetail";
 	}
 	

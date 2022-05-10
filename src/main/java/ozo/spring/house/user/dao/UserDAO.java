@@ -79,10 +79,14 @@ public class UserDAO {
 		List<UserProductVO> option_list = sqlSessionTemplate.selectList("UserProduct.product_option2_get", vo);
 		return option_list;
 	}
-	public List<UserProductVO> product_imgGet(UserProductVO vo){
-		System.out.println("[LOGO] : Mybatis in UserDAO product_cateGet");
-		List<UserProductVO> img_list = sqlSessionTemplate.selectList("UserProduct.product_post_getimg", vo);
+	public List<UserProductVO> product_Get_img(UserProductVO vo){
+		System.out.println("[LOGO] : Mybatis in UserDAO product_Get_img");
+		List<UserProductVO> img_list = sqlSessionTemplate.selectList("UserProduct.product_Get_img", vo);
 		return img_list;
 	}
-	
+	public UserProductVO product_Get_table(UserProductVO vo){
+		System.out.println("[LOGO] : Mybatis in UserDAO product_Get_table");
+		UserProductVO table_list = sqlSessionTemplate.selectOne("UserProduct.product_get_table", vo);
+		return table_list;
+	}
 }
