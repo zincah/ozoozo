@@ -73,4 +73,9 @@ public class ProductDAO {
 		return sqlSessionTemplate.selectOne("ProductDAO.selectSelectProduct", vo);
 	}
 
+	public void deleteSelectProduct(ProductVO vo) {
+		System.out.println("--> mybatis in productDAO delete product select");
+		sqlSessionTemplate.update("ProductDAO.deleteSelectProduct", vo);
+	}
+
 }

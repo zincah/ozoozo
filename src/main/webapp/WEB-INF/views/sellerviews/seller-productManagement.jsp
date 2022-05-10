@@ -94,25 +94,25 @@
 							<div class="search-input-box">
 								<input type="text"
 									class="form-control form-control-sm input-font"
-									id="exampleFormControlInput1" placeholder="" />
+									id="searchName" placeholder="" />
 							</div>
 							<div class="radio-productCode paddingLeft1">
 								<div class="form-check">
-									<input class="form-check-input" type="radio"
-										name="flexRadioDefault" id="flexRadioDefault1" checked /> <label
-										class="form-check-label" for="flexRadioDefault1">
+									<input class="form-check-input searchNameStatusGroup" type="radio"
+										name="searchNameStatus" id="searchNameStatus1" value="1" checked /> <label
+										class="form-check-label" for="searchNameStatus1">
 										고유상품번호 </label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio"
-										name="flexRadioDefault" id="flexRadioDefault2" /> <label
-										class="form-check-label" for="flexRadioDefault2">
+									<input class="form-check-input searchNameStatusGroup" type="radio"
+										name="searchNameStatus" id="searchNameStatus2" value="2" /> <label
+										class="form-check-label" for="searchNameStatus2">
 										판매자상품번호 </label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio"
-										name="flexRadioDefault" id="flexRadioDefault3" /> <label
-										class="form-check-label" for="flexRadioDefault3"> 상품명
+									<input class="form-check-input searchNameStatusGroup" type="radio"
+										name="searchNameStatus" id="searchNameStatus3" value="3" /> <label
+										class="form-check-label" for="searchNameStatus3"> 상품명
 									</label>
 								</div>
 							</div>
@@ -125,50 +125,50 @@
 						<div class="col-1 status-name-400">판매 상태</div>
 						<div class="col search-check-group">
 							<div class="form-check form-check-display">
-								<input class="form-check-input form-check-input-margin"
-									type="checkbox" value="" id="statusCheckAll" /> <label
-									class="form-check-label" for="statusCheck1"> 전체 </label>
+								<input class="form-check-input form-check-input-margin searchStatusGroup"
+									type="checkbox" id="statusCheckAll" name="searchStatus" value="1" /> <label
+									class="form-check-label" for="statusCheckAll"> 전체 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
-									class="form-check-input form-check-input-margin statusCheck"
-									type="checkbox" value="" id="statusCheck1" /> <label
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck1" name="searchStatus" value="2" /> <label
 									class="form-check-label" for="statusCheck1"> 판매대기 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
-									class="form-check-input form-check-input-margin statusCheck"
-									type="checkbox" value="" id="statusCheck2" /> <label
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck2" name="searchStatus" value="3" /> <label
 									class="form-check-label" for="statusCheck2"> 판매중 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
-									class="form-check-input form-check-input-margin statusCheck"
-									type="checkbox" value="" id="statusCheck3" /> <label
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck3" name="searchStatus" value="4" /> <label
 									class="form-check-label" for="statusCheck3"> 품절 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
-									class="form-check-input form-check-input-margin statusCheck"
-									type="checkbox" value="" id="statusCheck4" /> <label
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck4" name="searchStatus" value="5" /> <label
 									class="form-check-label" for="statusCheck4"> 승인대기 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
-									class="form-check-input form-check-input-margin statusCheck"
-									type="checkbox" value="" id="statusCheck5" /> <label
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck5" name="searchStatus" value="6" /> <label
 									class="form-check-label" for="statusCheck5"> 판매중지 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
-									class="form-check-input form-check-input-margin statusCheck"
-									type="checkbox" value="" id="statusCheck6" /> <label
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck6" name="searchStatus" value="7" /> <label
 									class="form-check-label" for="statusCheck6"> 판매종료 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
-									class="form-check-input form-check-input-margin statusCheck"
-									type="checkbox" value="" id="statusCheck7" /> <label
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck7" name="searchStatus" value="8" /> <label
 									class="form-check-label" for="statusCheck7"> 판매금지 </label>
 							</div>
 						</div>
@@ -223,43 +223,42 @@
 								<select class="form-select selectDate"
 									aria-label="Default select example" id="selectDate">
 									<!-- <option selected>대분류</option> -->
-									<option value="1">상품 등록일1</option>
-									<option value="2">상품 등록일2</option>
-									<option value="3">상품 등록일3</option>
+									<option value="1">상품 등록일</option>
+									<option value="2">상품 수정일</option>
 								</select>
 							</div>
 							<div class="radio-productCode">
 								<div class="btn-group paddingLeft1" role="group"
 									aria-label="Basic radio toggle button group">
-									<input type="radio" class="btn-check dateBtn-1" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-1 searchDateBtn" name="btnradio"
 										id="btnradio1" autocomplete="off" checked /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio1">오늘</label>
 
-									<input type="radio" class="btn-check dateBtn-2" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-2 searchDateBtn" name="btnradio"
 										id="btnradio2" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio2">3일</label>
 
-									<input type="radio" class="btn-check dateBtn-3" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-3 searchDateBtn" name="btnradio"
 										id="btnradio3" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio3">1주일</label>
 
-									<input type="radio" class="btn-check dateBtn-4" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-4 searchDateBtn" name="btnradio"
 										id="btnradio4" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio4">1개월</label>
 
-									<input type="radio" class="btn-check dateBtn-5" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-5 searchDateBtn" name="btnradio"
 										id="btnradio5" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio5">3개월</label>
 
-									<input type="radio" class="btn-check dateBtn-6" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-6 searchDateBtn" name="btnradio"
 										id="btnradio6" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio6">6개월</label>
 
-									<input type="radio" class="btn-check dateBtn-7" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-7 searchDateBtn" name="btnradio"
 										id="btnradio7" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio7">1년</label>
 
-									<input type="radio" class="btn-check dateBtn-8" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-8 searchDateBtn" name="btnradio"
 										id="btnradio8" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio8">전체</label>
 								</div>
@@ -274,12 +273,12 @@
 				<div class="container container-option container-option-topPadding">
 					<div class="row optionGroup1">
 						<div class="col search-submitBtn">
-							<div class="d-grid gap-2">
+							<!-- <div class="d-grid gap-2">
 								<button class="btn btn-secondary submitBtn" type="button"
 									id="submitBtn">검색</button>
-							</div>
-							<div class="d-grid gap-2">
-								<button class="btn btn-outline-secondary initBtn" type="button">초기화</button>
+							</div> -->
+							<div class="d-grid gap-2"> <!-- 비강조 클래스 : btn-outline-secondary -->
+								<button class="btn btn-secondary initBtn" type="button">초기화</button>
 							</div>
 						</div>
 					</div>
@@ -296,16 +295,15 @@
 					class="content-view-title-text2">건)</span>
 			</div>
 			<div class="content-view-title-right">
-				<div class="btn-group" role="group"
+				<!-- <div class="btn-group" role="group"
 					aria-label="Basic radio toggle button group">
 					<select class="form-select selectAlign"
 						aria-label="Default select example">
-						<!-- <option selected>대분류</option> -->
 						<option value="1">상품등록일순</option>
 						<option value="2">상품명순</option>
 						<option value="3">상품번호순</option>
 					</select>
-				</div>
+				</div> -->
 				<div class="d-grid gap-2">
 					<button class="btn btn-secondary excelDownBtn" type="button">엑셀다운</button>
 				</div>
@@ -419,8 +417,6 @@
 															<td class="content-table-title-text option-line">카테고리</td>
 															<td class="content-table-title-text option-line">판매상태</td>
 															<td class="content-table-title-text option-line">재고</td>
-															<td class="content-table-title-text option-line">등록일</td>
-															<td class="content-table-title-text option-line">수정일</td>
 														</tr>
 													</thead>
 													<tbody id="productDeleteView">
