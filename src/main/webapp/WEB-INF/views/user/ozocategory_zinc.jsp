@@ -20,7 +20,7 @@
 	crossorigin="anonymous"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
-
+<script src="resources/js/userjs/category_menu.js"></script>
 <script>
 
         $(document).ready(function(){
@@ -46,55 +46,9 @@
 
 
         });
-        
-		$(document).ready(function(){
-			
-			$(".category_list_others_item").click(function(){
-				var item = $(this).attr('id');
-				alert(item);
-				/* var go = "gocategory.com?category="+item;
-				
-				
-				
-				$.ajax({
-					url: go,
-			  		type:'get',
-			  		contentType : 'application/json; charset=UTF-8',
-			  		dataType : 'json',
-			  		success : function(resp){
-			  			$(".category_tree").html("");
-			  			var qna = ""
-			  			var qna1 = ""
-			  			$.each(resp,function(index,item){
-			  				if(index==0){
-			  				qna += '<li class="category_entry">'+
-							'<div class="category_entry_header">'+
-							'<a id="10000" href="#" class="category_entry_move">'+item["subcate_name"]+'</a>'+
-							'<button class="category_entry_expand">'+
-								'<svg class="icon" width="12" height="12" fill="currentColor"'+
-									'viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">'+
-									'<path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z">'+'<'+'/'+'path>'+'</svg>'+
-							'</button>'+
-						'</div>'+
-						'<div class="category_tree_child_layer" style="overflow: hidden;">'+
-							'<ul class="category_tree_children">'+
-							'</ul>'+
-						'</div>'+
-					'</li>'
-			  				}else if(index!=0){
-			  					qna1 += '<li class="category_tree_children_entry"><a id="'+item["subcate_code"]+'" href="#">'+item["subcate_name"]+'</a></li>'
-			  				}
-			  				})
-			  				$(".category_tree").append(qna);
-			  				$(".category_tree_children").append(qna1);	
-			  				
-			  			}
-			  		 })   */
-			  		})
-				});
-	
-	</script>
-
+      
+		
+		</script>
 </head>
 <body>
 	<header>
@@ -118,21 +72,21 @@
 											<path
 												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
 									</button>
-								</div> <!--버튼 누르면 밑에 토글다운 생기게-->
-								<div class="category_tree_child_layer" style="overflow: hidden;">
+									<div class="category_tree_child_layer" style="overflow: hidden;">
 									<ul class="category_tree_children">
-										<li  class="category_tree_children_entry"><a id="10001" href="#">침대프레임</a>
+										<li class="category_tree_children_entry"><a id="10001" href="#">침대프레임</a>
 										</li>
-										<li  class="category_tree_children_entry"><a id="10002" href="#">침대+매트리스</a>
+										<li class="category_tree_children_entry"><a id="10002" href="#">침대+매트리스</a>
 										</li>
-										<li  class="category_tree_children_entry"><a id="10003" href="#">침대부속기구</a>
+										<li class="category_tree_children_entry"><a id="10003" href="#">침대부속가구</a>
 										</li>
 									</ul>
 								</div>
+								
 							</li>
 							<li class="category_entry">
 								<div class="category_entry_header">
-									<a id="10100" href="#" class="category_entry_move">매트리스.토퍼</a>
+									<a id="20100" href="#" class="category_entry_move">매트리스.토퍼</a>
 									<button class="category_entry_expand">
 										<svg class="icon" width="12" height="12" fill="currentColor"
 											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
@@ -1616,5 +1570,7 @@
 	</footer>
 </body>
 </html>
+
+
 
 

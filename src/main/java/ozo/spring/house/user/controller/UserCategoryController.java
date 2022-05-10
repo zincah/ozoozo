@@ -21,11 +21,12 @@ import ozo.spring.house.user.vo.UserCategoryVO;
 @Controller
 public class UserCategoryController {
 	
+	
 	@Autowired
 	UserCategoryService userCategoryService;
 	
 	@RequestMapping(value = "/m_category.com")
-	public String firstpage( @RequestParam String id, UserCategoryVO vo,Model model) {
+	public String firstpage( UserCategoryVO vo,Model model) {
 //		List<UserCategoryVO> m_list; 
 //		m_list = UserCategoryService.m_category(vo);
 //		List<UserCategoryVO> s_list; 
@@ -35,19 +36,20 @@ public class UserCategoryController {
 //		model.addAttribute("m_list", m_list);
 //		model.addAttribute("s_list", s_list);
 //		model.addAttribute("b_list", b_list);
-		model.addAttribute("id",id);
+		
 		
 		return "ozocategory_zinc";
 	}
 	@ResponseBody
 	@RequestMapping(value = "/gocategory.com", method=RequestMethod.GET)
-	public List<UserCategoryVO> catelist(UserCategoryVO vo) {
+	public List<UserCategoryVO> catelist(String category,UserCategoryVO vo) {
 		
+		System.out.println(category);
+		List<UserCategoryVO> s_list=null ;
 		
+			
+		s_list = userCategoryService.s_category(vo);
 		
-		
-		List<UserCategoryVO> s_list = userCategoryService.s_category(vo);
-				
 		
 		return s_list;
 	}
