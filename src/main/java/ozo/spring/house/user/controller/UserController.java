@@ -2,8 +2,10 @@ package ozo.spring.house.user.controller;
 
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ozo.spring.house.user.service.UserMainService;
 import ozo.spring.house.user.service.UserService;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserVO;
@@ -20,8 +23,28 @@ public class UserController {
 	@Autowired
 	UserService userservice;
 	
+	@Autowired
+	UserMainService userMainService;
+	
 	@RequestMapping(value = "/main.com")
-	public String user_main() {
+	public String user_main(UserProductVO vo, Model model) {
+		
+		List<UserProductVO> productList = userMainService.mainProductList(vo);
+		System.out.println(productList.size());
+		
+		List<Integer> priceList = new ArrayList<Integer>();
+		
+		for(int i=0; i<productList.size(); i++) {
+			UserProductVO pro = productList.get(i);
+			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
+			
+			priceList.add(sale_price);
+			
+			// vo에 추가해서 리턴하는게 빠를듯
+		}
+
+		model.addAttribute("productList", productList);
+		
 		return "ozomain_zinc";
 	}
 	@RequestMapping(value = "/best.com")
@@ -113,8 +136,16 @@ public class UserController {
 	}
 	//입점신청
 	@RequestMapping(value = "/shopApply.com")
-	public String user_shopApply() {
-		return "ShopApply";
+	public String user_shopApply(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("Usercode")!=null) {
+			return "ShopApply";
+		}else {
+			return "ozoLogin_zinc";
+		}
+		
+		
 	}
 	//로그인 화면에서 비밀번호 재설정
 	@RequestMapping(value = "/passwordReset.com")
