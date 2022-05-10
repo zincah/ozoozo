@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ozo.spring.house.user.dao.UserDAO;
 import ozo.spring.house.user.vo.UserProductVO;
+import ozo.spring.house.user.vo.UserProduct_tableVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Service("userService")
@@ -60,8 +61,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserProductVO productGet_table(UserProductVO vo) {
-		return userDAO.product_Get_table(vo);
+	public UserProduct_tableVO productGet_table(UserProduct_tableVO tvo) {
+		return userDAO.product_Get_table(tvo);
 	}
 	
 }

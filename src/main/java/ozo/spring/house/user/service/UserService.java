@@ -3,6 +3,7 @@ package ozo.spring.house.user.service;
 import java.util.List;
 
 import ozo.spring.house.user.vo.UserProductVO;
+import ozo.spring.house.user.vo.UserProduct_tableVO;
 import ozo.spring.house.user.vo.UserVO;
 
 public interface UserService {
@@ -14,5 +15,5 @@ public interface UserService {
 	public List<UserProductVO> productGet(UserProductVO vo);
 	public List<UserProductVO> productGet_option(UserProductVO vo);
 	public List<UserProductVO> productGet_img(UserProductVO vo);
-	public UserProductVO productGet_table(UserProductVO vo);
+	public UserProduct_tableVO productGet_table(UserProduct_tableVO tvo);
 }
