@@ -17,6 +17,7 @@
 		<typeAlias type="ozo.spring.house.user.vo.UserProductVO" alias="userproduct"/>
 		<typeAlias type="ozo.spring.house.user.vo.UserCategoryVO" alias="ucate"/>
 		<typeAlias type="ozo.spring.house.user.vo.UserProduct_tableVO" alias="user_P_table"/>
+		<typeAlias type="ozo.spring.house.admin.vo.BannerVO" alias="banner"/>
 	</typeAliases>
 	<!-- 원래 여기에 datasource를 넣어줘야하는데 applicationContext에서 넣었음 -->
 	<mappers>
@@ -33,5 +34,6 @@
 		<mapper resource="mappings/sellerProductDetail-mapping.xml"/>
 		<mapper resource="mappings/userCategory-mapping.xml"/>
 		<mapper resource="mappings/userMain-mapping.xml"/>
+		<mapper resource="mappings/adminBanner-mapping.xml"/>
 	</mappers>
 </configuration>
