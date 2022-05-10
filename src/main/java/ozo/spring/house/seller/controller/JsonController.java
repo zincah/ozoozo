@@ -43,6 +43,7 @@ public class JsonController {
 		System.out.println(jsondata);
 		// get 방식으로 카테고리 받기
 		
+		
 		HttpSession session = request.getSession();
 		int postingCode = (Integer)session.getAttribute("postingCode");
 		System.out.println(postingCode);
@@ -77,8 +78,7 @@ public class JsonController {
 		dvo.setRefundtable_fee((String)tableMap.get("refundtable_fee"));
 		dvo.setExchangetable_fee((String)tableMap.get("exchangetable_fee"));
 		dvo.setRefundtable_address((String)tableMap.get("refundtable_address"));
-		// postid 다시 제대로 세팅하기
-		
+
 		productDetailService.insertTables(dvo);
 		
 		

@@ -14,14 +14,67 @@
 <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
 <script>
 
-	$(document).ready(function(){
+	var firstscroll = 0;
+	var page = 0;
 	
+	$(window).on("scroll", function(event){
 		
-		var sale_price = origin_price*(1-(sale_percent/100));
+		//console.log("window.innerHeight : ${window.innerHeight}");
+	    //console.log("window.scrollY : ${window.scrollY}");
+	    //console.log("document.body.offsetHeight : ${document.body.offsetHeight}");
 		
-		$(".sale_price").text(sale_price);
+		var scrollTop = $(window).scrollTop();
+		console.log("scrollTop : " + scrollTop);
+
+		var windowHeight = $(window).height();
+		console.log("windowHeight : " + windowHeight);
 		
+		var documentHeight = $(document).height();
+		console.log("documentHeight : " + documentHeight);
+		
+		// scroll 위치...
+		var isBottom=scrollTop+windowHeight + 100 >= documentHeight;
+
+		if(isBottom){
+			/*
+			var st = $(this).scrollTop();
+			if(st > firstscroll){
+				console.log("down");
+			}else{
+				console.log("up");
+			}
+			firstscroll = st;*/
+			
+			if(page == 2){
+				return;
+			}
+			
+			page++;
+			getProductList(page);
+
+		}
 	});
+	
+	function getProductList(page){
+
+		console.log(page);
+		
+		$.ajax({
+	  		url:'getProductList.com',
+	  		method:'post',
+	  		data: JSON.stringify(page),
+	  		contentType : 'application/json; charset=UTF-8',
+	  		dataType : 'html',
+	  		success : function(resp){
+				$("#itemLayer").append(resp);
+	  				
+	  		},
+	  		error : function(request, status, error) {
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+	  		});
+		
+	}
 	
 </script>
 </head>
@@ -406,7 +459,7 @@
 			</script>
 
 			<!-- 인기 아이템 나열 -->
-			<div class="row best_production">
+			<div class="row best_production" id="itemLayer">
 				<!-- for 문 -->
 				<c:forEach items="${productList }" var="product">
 				<div class="col-12 col-md-4 col-lg-3">
@@ -497,11 +550,13 @@
 					</div>
 				</div>
 				</c:forEach>
-
-
 		</section>
-
 	</div>
+	
+	<div class="footer_topH" style="width:100%"></div>
+	<!-- paging -->
+	
+	
 	<footer>
 		<jsp:include page="./footer/footer.jsp"></jsp:include>
 	</footer>
