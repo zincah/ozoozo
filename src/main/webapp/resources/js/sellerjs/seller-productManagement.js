@@ -313,7 +313,7 @@ $("#pdSubmitBtn").click(function () {
 
 
 /* 상품 검색 기능 */
-$(document).ready(function () {
+$(document).ready(function () {	
 	// 검색어 값 받아오기
 	$("#searchName").keyup(function() {
 		getProductData();
@@ -392,17 +392,18 @@ function getProductData() {
 		"startDate" : startDate,
 		"endDate" : endDate,
 	};
-	var allData = {"searchMap" : searchMap, "searchStatus" : searchStatus};
 	
+	console.log(typeof(searchMap));
 	// 데이터 처리 요청
 	$.ajax({
   		url:'getSearchProductList.seller',
   		method:'post',
-  		data: JSON.stringify(allData),
+  		data: {"searchMap" : searchMap, "searchStatus" : searchStatus},
   		contentType : 'application/json; charset=UTF-8',
-  		dataType : 'json',
-  		success : function(resp){		
-  			printList(resp);
+  		dataType : 'html',
+  		success : function(resp){
+			$("#productList").empty();
+  			$("#productList").html(resp);
   		}	
   	});
 }

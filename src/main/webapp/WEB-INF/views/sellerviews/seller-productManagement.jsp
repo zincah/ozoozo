@@ -456,7 +456,7 @@
 					<td class="content-table-title-text option-line">수정일</td>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="productList">
 				<c:forEach var="productListView" items="${productListView}">
 					<tr class="content-table-content content-hover">
 						<td class="content-table-content-text option-line"><input

@@ -77,5 +77,10 @@ public class ProductDAO {
 		System.out.println("--> mybatis in productDAO delete product select");
 		sqlSessionTemplate.update("ProductDAO.deleteSelectProduct", vo);
 	}
+	
+	public List<ProductVO> selectSearchProduct(ProductVO vo) {
+		System.out.println("--> mybatis in productDAO searchProduct select");
+		return sqlSessionTemplate.selectList("ProductDAO.selectSearchProduct", vo);
+	}
 
 }
