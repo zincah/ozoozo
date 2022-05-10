@@ -29,8 +29,12 @@ public class UserController {
 	@RequestMapping(value = "/main.com")
 	public String user_main(UserProductVO vo, Model model) {
 		
+		// product list ªÃ±‚
 		List<UserProductVO> productList = userMainService.mainProductList(vo);
-		System.out.println(productList.size());
+		
+		// ø¿¥√¿« µÙ list ªÃ±‚
+		List<UserProductVO> todayDealList = userMainService.mainDealProductList(vo);
+		System.out.println(todayDealList.size());
 
 		for(int i=0; i<productList.size(); i++) {
 			UserProductVO pro = productList.get(i);
@@ -42,6 +46,7 @@ public class UserController {
 		}
 
 		model.addAttribute("productList", productList);
+		model.addAttribute("todayDealList", todayDealList);
 		
 		return "ozomain_zinc";
 	}

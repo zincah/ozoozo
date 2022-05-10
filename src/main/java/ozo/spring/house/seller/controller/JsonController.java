@@ -69,6 +69,14 @@ public class JsonController {
 		dvo.setTable_qa((String)tableMap.get("table_qa"));
 		dvo.setTable_cstel((String)tableMap.get("table_cstel"));
 		dvo.setProtable_postid(postingCode);
+		dvo.setShiptable_info((String)tableMap.get("shiptable_info"));
+		dvo.setShiptable_fee((String)tableMap.get("shiptable_fee"));
+		dvo.setShiptable_plusfee((String)tableMap.get("shiptable_pulsfee"));
+		dvo.setShiptable_unable((String)tableMap.get("shiptable_unable"));
+		dvo.setShiptable_propotionalfee((String)tableMap.get("shiptable_propotionalfee"));
+		dvo.setRefundtable_fee((String)tableMap.get("refundtable_fee"));
+		dvo.setExchangetable_fee((String)tableMap.get("exchangetable_fee"));
+		dvo.setRefundtable_address((String)tableMap.get("refundtable_address"));
 		// postid 다시 제대로 세팅하기
 		
 		productDetailService.insertTables(dvo);

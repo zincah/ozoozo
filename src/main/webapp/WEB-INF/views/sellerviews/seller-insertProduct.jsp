@@ -253,11 +253,19 @@
 					"table_size" : $("#table-size").val(),
 					"table_delivery" : $("#table-delivery").val(),
 					"table_qa" : $("#table-qa").val(),
-					"table_cstel" : $("#table-cstel").val()
+					"table_cstel" : $("#table-cstel").val(),
+					"shiptable_info" : $("#shiptable_info").val(),
+					"shiptable_fee" : $("#shiptable_fee").val(),
+					"shiptable_plusfee" : $("#shiptable_plusfee").val(),
+					"shiptable_unable" : $("#shiptable_unable").val(),
+					"shiptable_propotionalfee" : $("#shiptable_propotionalfee").val(),
+					"refundtable_fee" : $("#refundtable_fee").val(),
+					"exchangetable_fee" : $("#exchangetable_fee").val(),
+					"refundtable_address" : $("#refundtable_address").val()
 			}
 
 			jsonmove.push(option);
-			jsonmove.push(table)
+			jsonmove.push(table);
 			
 			console.log(JSON.stringify(jsonmove));
 
@@ -1281,6 +1289,78 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="row">
+					<div class="col-12 col-md-6">
+						<div class="card text-dark my-4 box-shadow">
+							<div class="card-header card-header-text">배송</div>
+							<div class="card-body">
+								<table class="table">
+									<tbody class="table_body">
+										<tr class="verticalAlignCenter">
+											<th scope="row" style="width: 5%">1</th>
+											<td style="width: 35%">배송</td>
+											<td style="width: 60%"><input
+												class="form-control input-custom" name="shiptable_info" id="shiptable_info"/></td>
+										</tr>
+										<tr class="verticalAlignCenter">
+											<th scope="row">2</th>
+											<td>배송비</td>
+											<td><input class="form-control input-custom" name="shiptable_fee" id="shiptable_fee"/></td>
+										</tr>
+										<tr class="verticalAlignCenter">
+											<th scope="row">3</th>
+											<td>도서산간 추가배송비</td>
+											<td>
+												<input class="form-control input-custom" name="shiptable_plusfee" id="shiptable_plusfee"/></td>
+										</tr>
+										<tr class="verticalAlignCenter">
+											<th scope="row">4</th>
+											<td>배송불가 지역</td>
+											<td><input class="form-control input-custom" name="shiptable_unable" id="shiptable_unable"/></td>
+										</tr>
+										<tr class="verticalAlignCenter">
+											<th scope="row">5</th>
+											<td>비례 배송비</td>
+											<td><input class="form-control input-custom" name="shiptable_propotionalfee" id="shiptable_propotionalfee"/></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-12 col-md-6">
+						<div class="card text-dark my-4 box-shadow">
+							<div class="card-header card-header-text">교환/환불</div>
+							<div class="card-body">
+								<table class="table">
+									<tbody class="table_body">
+										<tr class="verticalAlignCenter">
+											<th scope="row" style="width: 5%">1</th>
+											<td style="width: 35%">반품배송비</td>
+											<td style="width: 60%"><input
+												class="form-control input-custom" name="refundtable_fee" id="refundtable_fee"/></td>
+										</tr>
+										<tr class="verticalAlignCenter">
+											<th scope="row">2</th>
+											<td>교환배송비</td>
+											<td><input class="form-control input-custom" name="exchangetable_fee" id="exchangetable_fee"/></td>
+										</tr>
+										<tr class="verticalAlignCenter">
+											<th scope="row">3</th>
+											<td>보내실 곳</td>
+											<td>
+												<input class="form-control input-custom" name="refundtable_address" id="refundtable_address"/></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				
+				</div>
+				
 
 				<div class="text-end mb-5">
 					<button class="btn btn-outline-secondary btn-size" type="reset">취소</button>
