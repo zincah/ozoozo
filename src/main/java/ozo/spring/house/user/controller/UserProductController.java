@@ -77,7 +77,7 @@ public class UserProductController {
 	public String[] itemBuy(@RequestBody String option_String, Model model) {
 		option_String = option_String.replace("\"", "");
 		String[] option_toString = option_String.split(",");
-		
+		System.out.println(option_toString[1]);
 		return option_toString;
 	}
 }
