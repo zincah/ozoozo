@@ -187,9 +187,9 @@
                   </td>
                   <td class="content-table-title-text option-line" style="width: 4rem;">브랜드명</td>
                   <td class="content-table-title-text option-line" style="width: 10rem;">판매 게시글 명</td>
-                  <td class="content-table-title-text option-line" style="width: 4rem;">카테고리</td>
+                  <td class="content-table-title-text option-line" style="width: 3rem;">카테고리</td>
                   <td class="content-table-title-text option-line" style="width: 1rem;">건</td>
-                  <td class="content-table-title-text option-line" style="width: 3rem;">종류</td>
+                  <td class="content-table-title-text option-line" style="width: 4rem;">종류</td>
                   <td class="content-table-title-text option-line" style="width: 5rem;">쿠폰정보</td>
                   <td class="content-table-title-text option-line" style="width: 7rem;">신청일</td>
                   <td class="content-table-title-text option-line" style="width: 3rem;">오늘의딜</td>
@@ -199,24 +199,37 @@
               </thead>
               <tbody>
                 <!-- for -->
-                <tr class="content-table-content content-hover">
-                  <td class="content-table-content-text option-line">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" value="" name="productcheckbox" onchange="checkfunction()"/>
-                  </td>
-                  <td class="content-table-content-text option-line">퀵슬립</td>
-                  <td class="content-table-content-text option-line">
-                    <a href="insertProductList.html">Q4 유로탑 롤팩 매트리스 2size</a>
-                    </td>
-                  <td class="content-table-content-text option-line">가구</td>
-                  <td class="content-table-content-text option-line">2</td>
-                  <td class="content-table-content-text option-line">매트리스</td>
-                  <td class="content-table-content-text option-line">-</td>
-                  <td class="content-table-content-text option-line">2022-04-15 20:27</td>
-                  <td class="content-table-content-text option-line">-</td>
-                  <td class="content-table-content-text option-line">-</td>
-                  <td class="content-table-content-text option-line">승인완료</td>
-                </tr>
-
+                <c:forEach items="${postList }" var="post">
+	                <tr class="content-table-content content-hover">
+	                  <td class="content-table-content-text option-line">
+	                      <input class="check form-check-input form-check-input-margin" type="checkbox" value="" value="" name="productcheckbox" onchange="checkfunction()"/>
+	                  </td>
+	                  <td class="content-table-content-text option-line">${post.company_name }</td>
+	                  <td class="content-table-content-text option-line">
+	                    <a href="#">${post.post_name }</a>
+	                    </td>
+	                  <td class="content-table-content-text option-line">${post.cate_name }</td>
+	                  <td class="content-table-content-text option-line">${post.product_count }</td>
+	                  <td class="content-table-content-text option-line">${post.subcate_name }</td>
+	                  <td class="content-table-content-text option-line">-</td>
+	                  <td class="content-table-content-text option-line">${post.product_created }</td>
+	                  <td class="content-table-content-text option-line">
+	                  	<c:choose>
+							<c:when test="${post.today_deal == true}">o</c:when>
+							<c:when test="${post.today_deal == false}">x</c:when>
+							<c:otherwise>-</c:otherwise>
+						</c:choose>
+	                  </td>
+	                  <td class="content-table-content-text option-line">
+	                  	<c:choose>
+							<c:when test="${post.best_product == true}">o</c:when>
+							<c:when test="${post.best_product == false}">x</c:when>
+							<c:otherwise>-</c:otherwise>
+						</c:choose>
+	                  </td>
+	                  <td class="content-table-content-text option-line">${post.post_status }</td>
+	                </tr>
+				</c:forEach>
               </tbody>
             </table>
           </div>
@@ -229,11 +242,9 @@
                     <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                	<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage }">
+	                	<li class="page-item"><a class="page-link" href="#">${num }</a></li>
+               		</c:forEach>
                 <li class="page-item">
                   <a class="page-link" href="#" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>

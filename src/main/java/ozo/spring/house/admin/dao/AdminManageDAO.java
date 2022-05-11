@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import ozo.spring.house.admin.vo.AdminProductVO;
 import ozo.spring.house.admin.vo.MemberVO;
+import ozo.spring.house.common.Criteria;
 import ozo.spring.house.user.vo.UserVO;
 
 @Repository
@@ -31,9 +32,14 @@ public class AdminManageDAO {
 		sqlSessionTemplate.update("AdminManageDAO.updateUserStatus", vo);
 	}
 	
-	public List<AdminProductVO> selectPosting(AdminProductVO pvo) {
+	public List<AdminProductVO> selectPosting(Criteria cri) {
 		System.out.println("--> mybatis in adminmanagedao selectposting");
-		return sqlSessionTemplate.selectList("AdminManageDAO.selectPosting", pvo);
+		return sqlSessionTemplate.selectList("AdminManageDAO.selectPosting", cri);
+	}
+	
+	public int selectPostCount() {
+		System.out.println("--> mybatis in adminmanagedao selectpostCount");
+		return sqlSessionTemplate.selectOne("AdminManageDAO.selectPostCount");
 	}
 	
 

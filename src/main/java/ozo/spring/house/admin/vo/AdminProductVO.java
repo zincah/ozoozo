@@ -11,7 +11,9 @@ import lombok.ToString;
 @ToString
 public class AdminProductVO {
 	
+	// posting Á¤¸®
 	private int post_id;
+	private String company_name;
 	private boolean today_deal;
 	private boolean best_product;
 	private double star_ratio;
@@ -22,7 +24,6 @@ public class AdminProductVO {
 	private String subcate_name;
 	private String post_status;
 	private String post_couponid;
-	
 	
 	
 
