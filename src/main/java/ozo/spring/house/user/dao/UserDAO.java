@@ -1,5 +1,6 @@
 package ozo.spring.house.user.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserProduct_tableVO;
 import ozo.spring.house.user.vo.UserVO;
@@ -89,5 +91,14 @@ public class UserDAO {
 		System.out.println("[LOGO] : Mybatis in UserDAO product_Get_table");
 		UserProduct_tableVO table_list = sqlSessionTemplate.selectOne("UserProduct.product_Get_table", tvo);
 		return table_list;
+	}
+	public boolean basket_add(List<UserProductVO> vo, UserVO uvo) {
+		System.out.println("[LOGO] : Mybatis in UserDAO basket_add");
+		List<CartVO> cart_li = sqlSessionTemplate.selectList("UserProduct.basket_info", vo);
+		List<UserProductVO> test = new ArrayList<UserProductVO>();
+		for(int i = 0; i < vo.size(); i++) {
+			sqlSessionTemplate.insert("UserProduct.basket_test", vo.get(i));
+		}
+		return true;
 	}
 }

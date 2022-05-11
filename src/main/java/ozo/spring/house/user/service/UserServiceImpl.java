@@ -64,5 +64,10 @@ public class UserServiceImpl implements UserService {
 	public UserProduct_tableVO productGet_table(UserProduct_tableVO tvo) {
 		return userDAO.product_Get_table(tvo);
 	}
+
+	@Override
+	public boolean basket_add(List<UserProductVO> vo, UserVO uvo) {
+		return userDAO.basket_add(vo,uvo);
+	}
 	
 }

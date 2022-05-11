@@ -27,10 +27,22 @@
 	select pi2.photo_url, pi2.photo_separate  from product_posting pp 
 		inner join product_image pi2 on pi2.photo_postid = pp.post_id 
 		where pp.post_id = 50003 order by pi2.photo_id asc;
+	
 	</select>
 	
 	<select id="product_Get_table" resultType="user_P_table">
 	select * from product_tables 
 	where protable_postid = 50003;
+	</select>
+	
+	<select id="basket_info" resultType="userproduct">
+		select cart_product, cart_post, cart_quantity from cart c 
+	where cart_user = #{user_num};
+	</select>
+	
+	<select id="product_Get_id" resultType="userproduct">
+	SELECT p.product_id, po.option1 ,po.option2 FROM product p 
+		inner join product_option po on p.product_id = po.op_productid 
+		where po.option1 = #{option1} and po.option2 = #{option2};
 	</select>
 </mapper>

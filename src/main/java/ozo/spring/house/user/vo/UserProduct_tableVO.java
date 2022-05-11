@@ -22,4 +22,13 @@ public class UserProduct_tableVO {
 	
 	private int table_id;
 	private int protable_postid;
+	
+	private String shiptable_info;
+	private String shiptable_fee;
+	private String shiptable_plusfee;
+	private String shiptable_unable;
+	private String shiptable_propotionalfee;
+	private String refundtable_fee;
+	private String exchangetable_fee;
+	private String refundtable_address;
 }

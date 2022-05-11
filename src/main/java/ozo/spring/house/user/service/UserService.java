@@ -16,4 +16,5 @@ public interface UserService {
 	public List<UserProductVO> productGet_option(UserProductVO vo);
 	public List<UserProductVO> productGet_img(UserProductVO vo);
 	public UserProduct_tableVO productGet_table(UserProduct_tableVO tvo);
+	public boolean basket_add(List<UserProductVO> vo, UserVO uvo);
 }
