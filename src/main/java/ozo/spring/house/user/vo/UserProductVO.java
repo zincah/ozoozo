@@ -25,7 +25,8 @@ public class UserProductVO {
 	private int post_sellerid;
 	private int po_category;
 	private int po_subcate;
-	
+
+	private int product_EA;
 	// «“¿Œ¿≤
 	private String sale_price;
 	

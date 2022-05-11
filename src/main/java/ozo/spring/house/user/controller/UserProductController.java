@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ozo.spring.house.user.service.UserService;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserProduct_tableVO;
+import ozo.spring.house.user.vo.UserVO;
 
 @Controller
 public class UserProductController {
@@ -77,7 +78,30 @@ public class UserProductController {
 	public String[] itemBuy(@RequestBody String option_String, Model model) {
 		option_String = option_String.replace("\"", "");
 		String[] option_toString = option_String.split(",");
-		System.out.println(option_toString[1]);
 		return option_toString;
+	}
+	
+	// 장바구니 ajax
+	@ResponseBody
+	@RequestMapping(value = "/basket_ajax.com", method=RequestMethod.POST)
+	public boolean basket_add(@RequestBody String[] option_arr, HttpSession session) {
+		List<UserProductVO> option_li = new ArrayList<UserProductVO>();
+		UserVO U_vo = new UserVO();
+		
+		for(int i = 0; i < option_arr.length; i++) {
+			UserProductVO ex_li = new UserProductVO();
+			String[] Num = option_arr[i].split(":");
+			ex_li.setProduct_EA(Integer.parseInt(Num[1]));
+			String[] param_arr = Num[0].split(",");
+			if (param_arr.length == 2) {
+				ex_li.setOption2_name(param_arr[1]);
+			}
+			ex_li.setOption1_name(param_arr[0]);
+			option_li.add(ex_li);
+		}
+		
+		U_vo.setUser_num((int)session.getAttribute("Usercode"));
+		userservice.basket_add(option_li, U_vo);
+		return true;
 	}
 }

@@ -289,7 +289,7 @@
                                             </span>
                                         </span>
                                         <span class="production-selling-header__delivery__type">
-                                            <span>업체직접배송</span>
+                                            <span>${table.shiptable_info}</span>
                                         </span>
                                         <span class="production-selling-header__delivery__disclaimer-wrap">
                                             <span class="production-selling-header__delivery__disclaimer">
@@ -387,16 +387,16 @@
                                         	var option_arr = [];
                                         	function add_div(S1,S2){
                                         		if(S2 == null){
-                                        			option_val = S1;
+                                        			option_val = S1 + ":1" ;
                                         		}else {
-                                        			option_val = $("."+S1.id).val() + "," + S2.options[S2.selectedIndex].text;
+                                        			option_val = $("."+S1.id).val() + "," + S2.options[S2.selectedIndex].text + ":1";
                                         		}
                                         		//console.log($("#"+S1).val());
                                         		//console.log(option_val);
                                         		
-                                        		
+                                        		splitStr = option_val.split(":");
                                         		for(var i in option_arr){
-                                        			if(option_arr[i] == option_val){
+                                        			if(option_arr[i] == splitStr[0]){
                                         				alert("이미 포함된 옵션입니다.");
                                         				return;
                                         			}
@@ -509,7 +509,8 @@
                                 				toStr = Str[1];
                                 			}
                                 			for(i = 0; i < option_arr.length; i++){
-                                				if(toStr == option_arr[i]){
+                                				splitStr = option_arr[i].split(":");
+                                				if(toStr == splitStr[0]){
                                 					option_arr.splice(i, 1);
                                 				}
                                 			}
@@ -530,8 +531,8 @@
                                 			// 같은 회색 div 3개 select 갯수 바꿔주는거
                                 			div_id = select_Class.id;
                                 			$("."+div_id).val($(select_Class).val()).prop("selected",  true);
-                                			
                                 			all_price();
+                                			product_EA_change(momy, select_Class.val());
                                 		}
                                 		function int_comma(Int_val){ // 숫자 콤마 찍는 function
                                 			int_val = Int_val;
@@ -556,6 +557,26 @@
                                 			}
                                 			$(".selling-option-form-content__price__number").text(int_comma(all));
                                 		}
+                                		function product_EA_change(className, selectNum){
+                                			Str = $("." + className).text();
+											Str = Str.replace(/ /gi,'').replace(/\t/gi,'').split("\n");
+                                			
+                                			if(select){
+                                				option = Str[0].split("/")
+                                				option1 = option[0].split(":");
+                                				option2 = option[1].split(":");
+                                				toStr = option1[1] + "," + option2[1];
+                                			}else{
+                                				Str = Str[0].split(":");
+                                				toStr = Str[1];
+                                			}
+                                			for(i = 0; i < option_arr.length; i++){
+                                				splitStr = option_arr[i].split(":");
+                                				if(toStr == splitStr[0]){
+                                					option_arr.splice(i, 1);
+                                				}
+                                			}
+                                		}
                                 	</script>
                                 </ul>
                             </section>
@@ -571,7 +592,7 @@
                             </p>
                             <!-- 장바구니 바로 구매-->
                             <div class="production-selling-option-form__footer">
-                                <button class="button button--color-blue-inverted button--size-55 button--shape-4" type="button">
+                                <button class="button button--color-blue-inverted button--size-55 button--shape-4" type="button" onClick="basket()">
                                     장바구니
                                 </button>
                                 <button class="button button--color-blue button--size-55 button--shape-4" type="button">
@@ -1715,23 +1736,23 @@
                                     <tbody>
                                         <tr>
                                             <th>배송</th>
-                                            <td>업체직접배송</td>
+                                            <td>${table.shiptable_info }</td>
                                         </tr>
                                         <tr>
                                             <th>배송비</th>
-                                            <td>22,000원 </td>
+                                            <td>${table.shiptable_fee} </td>
                                         </tr>
                                         <tr>
                                             <th>도서산간 추가 배송비</th>
-                                            <td>55,000원 </td>
+                                            <td>${table.shiptable_plusfee} </td>
                                         </tr>
                                         <tr>
                                             <th>배송불가 지역</th>
-                                            <td>도서산간 지역</td>
+                                            <td>${table.shiptable_unable}</td>
                                         </tr>
                                         <tr>
                                             <th>비례 배송비</th>
-                                            <td>주문 상품 개수에 비례하여 배송비 부과</td>
+                                            <td>${table.shiptable_propotionalfee}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1747,15 +1768,15 @@
                                             <tbody>
                                                 <tr>
                                                     <th>반품배송비</th>
-                                                    <td>75,000원 (최초 배송비가 무료인 경우 150,000원 부과)</td>
+                                                    <td>${table.refundtable_fee}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>교환배송비</th>
-                                                    <td>75,000원</td>
+                                                    <td>${table.exchangetable_fee}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>보내실 곳</th>
-                                                    <td>(06236) 서울 강남구 역삼동 736-38 (역삼동) 스퀘어736 10층 돌고래아지트</td>
+                                                    <td>${table.refundtable_address}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -1898,7 +1919,7 @@
                                                 </svg>
                                             </button>
                                             <button class="button button--color-blue-inverted button--size-55 button--shape-4"
-                                                type="button">
+                                                type="button" onClick="basket()">
                                                 장바구니
                                             </button>
                                             <button class="button button--color-blue button--size-55 button--shape-4" type="button">
@@ -2222,13 +2243,26 @@
                         class="selling-option-form-content__price__number">0</span>원</span></p>
             <div class="production-selling-select-modal__footer"><button
                     class="button button--color-gray-7 button--size-50 button--shape-4 production-selling-select-modal__footer__button"
-                    type="button">장바구니</button><button
+                    type="button" onClick="basket()">장바구니</button><button
                     class="button button--color-blue button--size-50 button--shape-4 production-selling-select-modal__footer__button"
                     type="submit">바로구매</button></div>
         </div>
     </div>
 </div>
 <script>
+function basket(){
+	$.ajax({
+		url:'basket_ajax.com',
+		method:'post',
+		data: JSON.stringify(option_arr),
+		contentType : 'application/json; charset=UTF-8',
+		dataType : 'json',
+		success : function(after){
+			
+		}
+	})
+}
+
 $('.production-selling-select-modal').click(function(e) { 
     if($(e.target).hasClass("react-modal__content-wrap-dhp")) {
         $('#smallbuy').css("display","none");
@@ -2260,6 +2294,52 @@ $('.production-selling-select-modal').click(function(e) {
             target.css("transform" , 'translateX(-400%)');
         }
     });
+  //제일 어려운 스크롤바..
+    $(function() {
+     	var exlocation = $("#sidebar_js").offset().top; // 구매 스티키 상단 위치 값  1122.9625244140625
+        plus = $('.sticky-container').outerHeight() + 50; // 스티키 2개 값
+        $banner = $('.production-selling-sidebar');
+    $(window).scroll(function(){
+    	
+        //console.log(exlocation);
+    	size=$('.layout-footer').outerHeight();
+        var location = $(window).scrollTop();
+       // console.log(location + plus);
+        var val = $(document).height() - $(window).height() - size;
+        var grayBar = location-exlocation;
+       if (location >= val){
+            $('#sidebar_move').css('position', 'absolute');
+            $('#sidebar_move').css('top', '');
+                $('#sidebar_move').css('bottom', '0');
+            
+            }else if((grayBar+plus) > 0 ){
+                $('#sidebar_move').css({'position': 'fixed', 'height': '589px', 'transition': 'top 0.1s ease 0s', 'top': '133px', 'width': '313.75px'});
+                $('#sidebar_js1').css('height' , '589px');
+            } else{
+            $('#sidebar_move').css('position', 'relative');
+            $('#sidebar_move').css('top', '0');
+            $('#sidebar_move').css('bottom', '');
+        }
+        
+        var pointer1 = $("#production-selling-review").offset().top;
+        var pointer2 = $("#production-selling-question").offset().top;
+        var pointer3 = $("#production-selling-delivery").offset().top;
+        //console.log(location-pointer3);
+        if((location - pointer3) > -1){
+            var notchangeColor = $("#QuickBtn4");
+            reset(notchangeColor);
+        }else if((location - pointer2) > -1){
+            var notchangeColor = $("#QuickBtn3");
+            reset(notchangeColor);
+        }else if((location - pointer1) > -1){
+            var notchangeColor = $("#QuickBtn2");
+            reset(notchangeColor);
+        }else{
+            var notchangeColor = $("#QuickBtn1");
+            reset(notchangeColor);
+        }
+    });
+});
     </script>
 </body>
 </html>
