@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ozo.spring.house.admin.vo.AdminProductVO;
 import ozo.spring.house.admin.vo.MemberVO;
 import ozo.spring.house.user.vo.UserVO;
 
@@ -30,10 +31,11 @@ public class AdminManageDAO {
 		sqlSessionTemplate.update("AdminManageDAO.updateUserStatus", vo);
 	}
 	
+	public List<AdminProductVO> selectPosting(AdminProductVO pvo) {
+		System.out.println("--> mybatis in adminmanagedao selectposting");
+		return sqlSessionTemplate.selectList("AdminManageDAO.selectPosting", pvo);
+	}
+	
 
-	
-	
-	
-	
 
 }

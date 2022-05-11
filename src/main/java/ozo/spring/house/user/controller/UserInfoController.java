@@ -61,7 +61,7 @@ public class UserInfoController {
 				session.setAttribute("Usercode", user.getUser_email());
 				model.addAttribute("Usercode", vo.getUser_email());
 				model.addAttribute("member", vo); // member 정보
-				return "ozomain_zinc";
+				return "forward:main.com";
 			}else {
 				String msg = "입력하신 m  a정보가 잘못 되었습니다.";
 				model.addAttribute("msg", msg);
@@ -75,6 +75,7 @@ public class UserInfoController {
 			session.invalidate();
 			return "redirect:login.com";
 		}
+		
 		@RequestMapping(value = "/myPage.com")
 		public String mypageView(HttpServletRequest request, Model model) {
 			HttpSession session = request.getSession();

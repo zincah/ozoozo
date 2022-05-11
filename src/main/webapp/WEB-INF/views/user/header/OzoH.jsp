@@ -259,8 +259,10 @@
 					<li class="layout-navigation-bar-user-menu__item-wrap"><a
 						class="layout-navigation-bar-user-menu__item"
 						href="/house/CScenter.com">고객센터</a></li>
-					<li class="layout-navigation-bar-user-menu__item-wrap"><button
-							class="layout-navigation-bar-user-menu__item" type="button">로그아웃</button></li>
+					<li class="layout-navigation-bar-user-menu__item-wrap">
+					<a href="logout.com">
+						<button class="layout-navigation-bar-user-menu__item" type="button">로그아웃</button></li>
+					</a>
 				</ul>
 			</div>
 		</div>
