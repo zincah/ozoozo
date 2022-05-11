@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -8,36 +11,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - SB Admin</title>
+    <title>판매게시글 관리</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="resources/css/admincss/styles.css" rel="stylesheet" />
-    <link href="resources/css/admincss/productManagement.css?var=1" rel="stylesheet" />
+    <link href="resources/css/admincss/productManagement.css?var=13" rel="stylesheet" />
     <link href="resources/css/admincss/fonts.css?after" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <script>
-      $(document).ready(function(){
-
-        /* 새 공지사항 jquery */
-        $("#new_info").click(function(){
-
-          $(".insert_btn").show();
-          $(".reset_btn").show();
-          $(".modi_btn").hide();
-          $(".del_btn").hide();
-          $(".stop_btn").hide();
-
-          $("#info_newTitle").show();
-          $("#info_title").hide();
-
-          $("#info_content").text("");
-          $("#info_content").removeAttr("disabled");
-        });
-
-
-      });
     
+    	$(document).ready(function(){
+    		
+    		/* 상품 선택 체크박스 */
+    		// 전체 체크박스 체크 여부에 따른 하위 체크박스들 상태 변경
+    		$("#allCheck").on('change', function(){
+    			if ($("#allCheck").is(":checked")) {
+        		    $(".check").prop("checked", true);
+        		    // 선택된 체크박스 개수에 따른 숫자값 변경
+        		    $("#select-num").text($(".check:checked").length);
+        		  } else {
+        		    $(".check").prop("checked", false);
+        		    // 선택된 체크박스 개수에 따른 숫자값 변경
+        		    $("#select-num").text($(".check:checked").length);
+        		  }
+    		});
+    		
+    		
+    	});
+    	
+    	function checkfunction(){
+    		// 하위 체크박스 체크 여부에 따른 전체 체크박스 상태 변경
+    		// 하위 체크박스 체크 개수와 전체 개수를 비교
+			
+			if ($(".check:checked").length == $(".check").length) {
+    		    $("#allCheck").prop("checked", true);
+    		    // 선택된 체크박스 개수에 따른 숫자값 변경
+    		    $("#select-num").text($(".check:checked").length);
+    		} else {
+    		    $("#allCheck").prop("checked", false);
+    		    // 선택된 체크박스 개수에 따른 숫자값 변경
+    		    $("#select-num").text($(".check:checked").length);
+    		  }
+    	}
+    	
+		
     </script>
   </head>
   
@@ -55,33 +73,26 @@
             <div class="container container-option bottomline">
               <div class="row optionGroup1">
                 <div class="col-1 option-name">등록일</div>
-                <div class="col option-line">
-                  <div class="btn-group paddingLeft1" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check dateBtn-1" name="btnradio" id="btnradio1" autocomplete="off" checked />
-                    <label class="btn btn-outline-secondary dateBtn" for="btnradio1">오늘</label>
-
-                    <input type="radio" class="btn-check dateBtn-2" name="btnradio" id="btnradio2" autocomplete="off" />
-                    <label class="btn btn-outline-secondary dateBtn" for="btnradio2">3일</label>
-
-                    <input type="radio" class="btn-check dateBtn-3" name="btnradio" id="btnradio3" autocomplete="off" />
-                    <label class="btn btn-outline-secondary dateBtn" for="btnradio3">1주일</label>
-
-                    <input type="radio" class="btn-check dateBtn-4" name="btnradio" id="btnradio4" autocomplete="off" />
-                    <label class="btn btn-outline-secondary dateBtn" for="btnradio4">1개월</label>
-
-                    <input type="radio" class="btn-check dateBtn-5" name="btnradio" id="btnradio5" autocomplete="off" />
-                    <label class="btn btn-outline-secondary dateBtn" for="btnradio5">3개월</label>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="paddingLeft1">
-                    <input class="startDate" type="date" id="date" value="" />
-                    <input class="endDate" type="date" id="date" value="" />
-                  </div>
-                </div>
-                <div class="col-3">
-                  
-                </div>
+                <div class="col-10">
+	               	 <div class="paddingLeft1 search-input">
+	                  <div class="radio-productCode">
+							<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+								<input type="radio" class="btn-check dateBtn-1" name="btnradio" id="btnradio1" autocomplete="off"> <label class="btn btn-outline-secondary dateBtn" for="btnradio1">오늘</label>
+								<input type="radio" class="btn-check dateBtn-2" name="btnradio" id="btnradio2" autocomplete="off"> <label class="btn btn-outline-secondary dateBtn" for="btnradio2">3일</label>
+								<input type="radio" class="btn-check dateBtn-3" name="btnradio" id="btnradio3" autocomplete="off"> <label class="btn btn-outline-secondary dateBtn" for="btnradio3">1주일</label>
+								<input type="radio" class="btn-check dateBtn-4" name="btnradio" id="btnradio4" autocomplete="off"> <label class="btn btn-outline-secondary dateBtn" for="btnradio4">1개월</label>
+								<input type="radio" class="btn-check dateBtn-5" name="btnradio" id="btnradio5" autocomplete="off"> <label class="btn btn-outline-secondary dateBtn" for="btnradio5">3개월</label>
+								<input type="radio" class="btn-check dateBtn-6" name="btnradio" id="btnradio6" autocomplete="off"> <label class="btn btn-outline-secondary dateBtn" for="btnradio6">6개월</label>
+								<input type="radio" class="btn-check dateBtn-7" name="btnradio" id="btnradio7" autocomplete="off"> <label class="btn btn-outline-secondary dateBtn" for="btnradio7">1년</label>
+								<input type="radio" class="btn-check dateBtn-8" name="btnradio" id="btnradio8" autocomplete="off" checked=""> <label class="btn btn-outline-secondary dateBtn" for="btnradio8">전체</label>
+							</div>
+						</div>
+	                    <div class="paddingLeft1">
+	                      <input class="startDate" type="date" name="datepick1" value="" />
+	                      <input class="endDate" type="date" name="datepick2" value="" disabled/>
+	                    </div>
+	                    </div>
+	               </div>
               </div>
             </div>
 
@@ -104,19 +115,19 @@
                       </div>
                       <div class="radio_layer paddingLeft1">
                         <div class="form-check">
-                          <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                          <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked="">
                           <label class="form-check-label" for="flexRadioDefault1"> 전체 </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked="">
+                          <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
                           <label class="form-check-label" for="flexRadioDefault2"> 보류중 </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked="">
+                          <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
                           <label class="form-check-label" for="flexRadioDefault3"> 승인대기 </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked="">
+                          <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
                           <label class="form-check-label" for="flexRadioDefault3"> 승인완료 </label>
                         </div>
 
@@ -134,10 +145,8 @@
               <div class="row optionGroup1">
                 <div class="col-1 option-name">검색</div>
                 <div class="col-10 search-layer">
-                    
-                    <input class="form-control size-input" type="text">
-                    
-                    <div class="radio-productCode paddingLeft1 align-custom">
+                
+	                <div class="radio-productCode paddingLeft1 align-custom">
                       <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                         <select class="form-select selectState" id="large-select" aria-label="Default select example" style="width: 150px;">
                           <option selected value="0">검색 필터</option>
@@ -146,32 +155,45 @@
                           <option value="3">종류</option>
                         </select>
                       </div>
-                    </div>
+	                </div>
+                    
+                    <input class="form-control size-input" type="text">
                 </div>
-                
-
             </div>
             
         </main>
         <!-- content -->
         <div class="content-table">
-          <div class="filter-layer text-end mb-2">
-            <button type="button" class="btn btn-outline-secondary" style="width: 100px;" data-bs-toggle="modal" data-bs-target="#coupon_register">쿠폰 등록</button>
+          <div class="dropdown setting-button text-end">
+            <button class="settingBtn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                   <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
+                 </svg>
+			</button>
+			<ul class="dropdown-menu settingBtnDropdown" aria-labelledby="dropdownMenuButton1" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(1px, 28px, 0px);" data-popper-placement="bottom-end">
+				<li><h6 class="dropdown-header">판매 상품 관리</h6></li>
+				<li>
+					<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-status-select" id="productStatusChange">게시물상태변경</a>
+					<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#coupon_register" id="productStatusChange1">쿠폰등록</a>
+				</li>
+			</ul>
           </div>
           <div class="table_layer">
             <table class="table table-hover table-box-style">
               <thead>
                 <tr class="content-table-title">
                   <td class="content-table-title-text option-line" style="width: 1rem;">
-                    <input class="form-check-input form-check-input-margin" type="checkbox" id="flexCheckDefault" onclick="selectAll(this)"/>
+                    <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="allCheck"/>
                   </td>
                   <td class="content-table-title-text option-line" style="width: 4rem;">브랜드명</td>
-                  <td class="content-table-title-text option-line" style="width: 15rem;">판매 게시글 명</td>
+                  <td class="content-table-title-text option-line" style="width: 10rem;">판매 게시글 명</td>
                   <td class="content-table-title-text option-line" style="width: 4rem;">카테고리</td>
                   <td class="content-table-title-text option-line" style="width: 1rem;">건</td>
                   <td class="content-table-title-text option-line" style="width: 3rem;">종류</td>
                   <td class="content-table-title-text option-line" style="width: 5rem;">쿠폰정보</td>
                   <td class="content-table-title-text option-line" style="width: 7rem;">신청일</td>
+                  <td class="content-table-title-text option-line" style="width: 3rem;">오늘의딜</td>
+                  <td class="content-table-title-text option-line" style="width: 3rem;">베스트</td>
                   <td class="content-table-title-text option-line" style="width: 3rem;">상태</td>
                 </tr>
               </thead>
@@ -179,7 +201,7 @@
                 <!-- for -->
                 <tr class="content-table-content content-hover">
                   <td class="content-table-content-text option-line">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
+                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" value="" name="productcheckbox" onchange="checkfunction()"/>
                   </td>
                   <td class="content-table-content-text option-line">퀵슬립</td>
                   <td class="content-table-content-text option-line">
@@ -190,155 +212,10 @@
                   <td class="content-table-content-text option-line">매트리스</td>
                   <td class="content-table-content-text option-line">-</td>
                   <td class="content-table-content-text option-line">2022-04-15 20:27</td>
+                  <td class="content-table-content-text option-line">-</td>
+                  <td class="content-table-content-text option-line">-</td>
                   <td class="content-table-content-text option-line">승인완료</td>
                 </tr>
-
-                <tr class="content-table-content content-hover">
-                  <td class="content-table-content-text option-line">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                  </td>
-                  <td class="content-table-content-text option-line">이노하우스</td>
-                  <td class="content-table-content-text option-line">
-                    <a href="#">1+1 수압상승 3중 필터샤워기(+필터6개) 샤워기헤드</a>
-                  </td>
-                  <td class="content-table-content-text option-line">생활용품</td>
-                  <td class="content-table-content-text option-line">1</td>
-                  <td class="content-table-content-text option-line">샤워용품</td>
-                  <td class="content-table-content-text option-line">-</td>
-                  <td class="content-table-content-text option-line">2022-04-15 20:27</td>
-                  <td class="content-table-content-text option-line state0">판매신청</td>
-                </tr>
-
-                <tr class="content-table-content content-hover">
-                  <td class="content-table-content-text option-line">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                  </td>
-                  <td class="content-table-content-text option-line">스피아노</td>
-                  <td class="content-table-content-text option-line">
-                    <a href="#">스프링 플로어 장스탠드_4colors</a>
-                    </td>
-                  <td class="content-table-content-text option-line">조명</td>
-                  <td class="content-table-content-text option-line">4</td>
-                  <td class="content-table-content-text option-line">스탠드</td>
-                  <td class="content-table-content-text option-line">-</td>
-                  <td class="content-table-content-text option-line">2022-04-15 20:27</td>
-                  <td class="content-table-content-text option-line state0">판매신청</td>
-                </tr>
-
-                <tr class="content-table-content content-hover">
-                  <td class="content-table-content-text option-line">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                  </td>
-                  <td class="content-table-content-text option-line">퀵슬립</td>
-                  <td class="content-table-content-text option-line">
-                    <a href="#">Q4 유로탑 롤팩 매트리스 2size</a>
-                    </td>
-                  <td class="content-table-content-text option-line">가구</td>
-                  <td class="content-table-content-text option-line">2</td>
-                  <td class="content-table-content-text option-line">매트리스</td>
-                  <td class="content-table-content-text option-line">-</td>
-                  <td class="content-table-content-text option-line">2022-04-15 20:27</td>
-                  <td class="content-table-content-text option-line state0">판매신청</td>
-                </tr>
-
-                <tr class="content-table-content content-hover">
-                  <td class="content-table-content-text option-line">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                  </td>
-                  <td class="content-table-content-text option-line">이노하우스</td>
-                  <td class="content-table-content-text option-line">
-                    <a href="#">1+1 수압상승 3중 필터샤워기(+필터6개) 샤워기헤드</a>
-                  </td>
-                  <td class="content-table-content-text option-line">생활용품</td>
-                  <td class="content-table-content-text option-line">1</td>
-                  <td class="content-table-content-text option-line">샤워용품</td>
-                  <td class="content-table-content-text option-line">-</td>
-                  <td class="content-table-content-text option-line">2022-04-15 20:27</td>
-                  <td class="content-table-content-text option-line state0">판매신청</td>
-                </tr>
-
-                <tr class="content-table-content content-hover">
-                  <td class="content-table-content-text option-line">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                  </td>
-                  <td class="content-table-content-text option-line">스피아노</td>
-                  <td class="content-table-content-text option-line">
-                    <a href="#">스프링 플로어 장스탠드_4colors</a>
-                    </td>
-                  <td class="content-table-content-text option-line">조명</td>
-                  <td class="content-table-content-text option-line">4</td>
-                  <td class="content-table-content-text option-line">스탠드</td>
-                  <td class="content-table-content-text option-line">-</td>
-                  <td class="content-table-content-text option-line">2022-04-15 20:27</td>
-                  <td class="content-table-content-text option-line state0">판매신청</td>
-                </tr>
-
-                <tr class="content-table-content content-hover">
-                  <td class="content-table-content-text option-line">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                  </td>
-                  <td class="content-table-content-text option-line">퀵슬립</td>
-                  <td class="content-table-content-text option-line">
-                    <a href="#">Q4 유로탑 롤팩 매트리스 2size</a>
-                    </td>
-                  <td class="content-table-content-text option-line">가구</td>
-                  <td class="content-table-content-text option-line">2</td>
-                  <td class="content-table-content-text option-line">매트리스</td>
-                  <td class="content-table-content-text option-line">-</td>
-                  <td class="content-table-content-text option-line">2022-04-15 20:27</td>
-                  <td class="content-table-content-text option-line">보류중</td>
-                </tr>
-
-                <tr class="content-table-content content-hover">
-                  <td class="content-table-content-text option-line">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                  </td>
-                  <td class="content-table-content-text option-line">이노하우스</td>
-                  <td class="content-table-content-text option-line">
-                    <a href="#">1+1 수압상승 3중 필터샤워기(+필터6개) 샤워기헤드</a>
-                  </td>
-                  <td class="content-table-content-text option-line">생활용품</td>
-                  <td class="content-table-content-text option-line">1</td>
-                  <td class="content-table-content-text option-line">샤워용품</td>
-                  <td class="content-table-content-text option-line">-</td>
-                  <td class="content-table-content-text option-line">2022-04-15 20:27</td>
-                  <td class="content-table-content-text option-line state0">판매신청</td>
-                </tr>
-
-                <tr class="content-table-content content-hover">
-                  <td class="content-table-content-text option-line">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                  </td>
-                  <td class="content-table-content-text option-line">스피아노</td>
-                  <td class="content-table-content-text option-line">
-                    <a href="#">스프링 플로어 장스탠드_4colors</a>
-                    </td>
-                  <td class="content-table-content-text option-line">조명</td>
-                  <td class="content-table-content-text option-line">4</td>
-                  <td class="content-table-content-text option-line">스탠드</td>
-                  <td class="content-table-content-text option-line">-</td>
-                  <td class="content-table-content-text option-line">2022-04-15 20:27</td>
-                  <td class="content-table-content-text option-line state0">판매신청</td>
-                </tr>
-
-                <tr class="content-table-content content-hover">
-                  <td class="content-table-content-text option-line">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                  </td>
-                  <td class="content-table-content-text option-line">이노하우스</td>
-                  <td class="content-table-content-text option-line">
-                    <a href="#">1+1 수압상승 3중 필터샤워기(+필터6개) 샤워기헤드</a>
-                  </td>
-                  <td class="content-table-content-text option-line">생활용품</td>
-                  <td class="content-table-content-text option-line">1</td>
-                  <td class="content-table-content-text option-line">샤워용품</td>
-                  <td class="content-table-content-text option-line">-</td>
-                  <td class="content-table-content-text option-line">2022-04-15 20:27</td>
-                  <td class="content-table-content-text option-line">보류중</td>
-                </tr>
-
-
-
 
               </tbody>
             </table>
@@ -370,46 +247,69 @@
 
           <div class="my-5"></div>
 
-        <!--쿠폰등록modal-->
-
-        <div class="modal fade" id="coupon_register" tabindex="-1" aria-labelledby="couponmodallabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="couponmodallabel" style="font-size: 13px;">쿠폰 등록</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <form method="post" action="#">
-                <div class="modal-body" style="background-color: #f5f5f5;">
-                  <div class="container container-option container-option-topPadding">
-                    <div class="row optionGroup1">
-                      <div class="col-4 option-name">쿠폰명/사용 혜택</div>
-                      <div class="col-8 search-layer">
-                        <div class="radio-productCode paddingLeft1 align-custom">
-                          <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                            <select class="form-select selectState" id="large-select" aria-label="Default select example" style="width: 250px;">
-                              <option selected="" value="0">쿠폰 선택</option>
-                              <option value="1">오픈 기념 이벤트 축하쿠폰/2000원 할인 (10,000원 이상 구매 시)</option>
-                              <option value="2">가구 10% 할인쿠폰/30000원 이상 구매시 10% 할인</option>
-                              <option value="3">신규가입 감사쿠폰/1000원 할인 (5000원 이상 구매시)</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                      
-      
-                    </div>
-                  
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
-                  <button type="button" class="btn btn-secondary">저장</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+        <!--쿠폰등록modal-->        
+		<div class="modal fade" id="coupon_register" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <p class="modal-title" id="">쿠폰 등록</p>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body modal-status-select-product">
+					<div class="modal-status-select-product-num">
+						<span>선택된 게시물 수 : </span> 
+						<span class="modal-status-select-product-num-value productNum" id="select-num">0</span>
+						<span>개</span>
+					</div>
+					<div class="modal-status-select">
+						<div class="btn-group modal-status-select-btn-group" role="group" aria-label="Basic radio toggle button group">
+							<select class="form-select modal-status-select-option" aria-label="Default select example" id="statusOption">
+								<option value="1">오픈 기념 이벤트 축하쿠폰/2000원 할인 (10,000원 이상 구매 시)</option>
+								<option value="2">가구 10% 할인쿠폰/30000원 이상 구매시 10% 할인</option>
+								<option value="3">신규가입 감사쿠폰/1000원 할인 (5000원 이상 구매시)</option>
+							</select>
+						</div>
+					</div>
+				</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		        <button type="button" class="btn modal-status-select-submit-button" onclick="updateUserStatus()">변경</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+        
+        <!-- 상태변경 modal -->
+		<div class="modal fade" id="modal-status-select" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <p class="modal-title" id="">상품게시물 상태변경</p>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body modal-status-select-product">
+					<div class="modal-status-select-product-num">
+						<span>선택된 게시물 수 : </span> 
+						<span class="modal-status-select-product-num-value productNum" id="select-num">0</span>
+						<span>개</span>
+					</div>
+					<div class="modal-status-select">
+						<div class="btn-group modal-status-select-btn-group" role="group" aria-label="Basic radio toggle button group">
+							<select class="form-select modal-status-select-option" aria-label="Default select example" id="statusOption">
+								<option value="판매중">판매중</option>
+								<option value="판매대기">판매대기</option>
+								<option value="보류중">보류중</option>
+							</select>
+						</div>
+					</div>
+				</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		        <button type="button" class="btn modal-status-select-submit-button" onclick="updateUserStatus()">변경</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
           
 
         <!-- footer -->
@@ -431,7 +331,7 @@
     <script src="resources/js/adminjs/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="resources/js/adminjs/admin-customerInquiry_ih.js"></script>
+    <script src="resources/js/adminjs/date_admin.js"></script>
     <script src="resources/js/adminjs/checkbox.js"></script>
     
   </body>
