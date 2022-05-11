@@ -1,13 +1,25 @@
 package ozo.spring.house.admin.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import ozo.spring.house.admin.service.AdminProductManageService;
+import ozo.spring.house.admin.vo.AdminProductVO;
+import ozo.spring.house.common.Criteria;
+import ozo.spring.house.common.PageDTO;
 
 @Controller
 public class AdminController {
+	
+	@Autowired
+	AdminProductManageService productService;
 
 	@RequestMapping(value = "/index.admin")
 	public String adminIndex(HttpServletRequest request) {
@@ -48,11 +60,19 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/productManagementList.admin")
-	public String productManageView(HttpServletRequest request) {
+	public String productManageView(HttpServletRequest request, Model model, Criteria cri) {
 		
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("admincode")!=null) {
+			
+			List<AdminProductVO> postList = productService.selectPosting(cri);
+			int total = productService.selectPostCount();
+			
+			model.addAttribute("postList", postList);
+			model.addAttribute("pageMaker", new PageDTO(cri, total));
+			
+
 			return "productManagementList_zinc";
 		}else {
 			return "adminLogin_dj";

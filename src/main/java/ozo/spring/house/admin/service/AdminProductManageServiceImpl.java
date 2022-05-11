@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ozo.spring.house.admin.dao.AdminManageDAO;
 import ozo.spring.house.admin.vo.AdminProductVO;
+import ozo.spring.house.common.Criteria;
 
 @Service("adminProductManageService")
 public class AdminProductManageServiceImpl implements AdminProductManageService {
@@ -15,8 +16,13 @@ public class AdminProductManageServiceImpl implements AdminProductManageService 
 	AdminManageDAO adminManageDAO;
 
 	@Override
-	public List<AdminProductVO> selectPosting(AdminProductVO pvo) {
-		return adminManageDAO.selectPosting(pvo);
+	public List<AdminProductVO> selectPosting(Criteria cri) {
+		return adminManageDAO.selectPosting(cri);
+	}
+
+	@Override
+	public int selectPostCount() {
+		return adminManageDAO.selectPostCount();
 	}
 
 }
