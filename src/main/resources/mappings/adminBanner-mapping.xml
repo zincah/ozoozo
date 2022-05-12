@@ -3,19 +3,23 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="BannerDAO">
-
 	
-	<insert id="b_upload" parameterType="banner">
-		
+	<select id="b_select" resultType="banner">
+	SELECT * FROM banner order by banner_id asc
+	</select>
+	
+	<insert id="b_insert" parameterType="banner">
+INSERT INTO banner (banner_title,banner_bigname,banner_urlbig,banner_smname,banner_urlsm) VALUES (#{banner_title},#{banner_bigname},#{banner_urlbig},#{banner_smname},#{banner_urlsm})
 	</insert>
 	
-	<update id="b_update" parameterType="banner">
-		
-	</update>
 	
 	<delete id="b_delete" parameterType="banner">
-		
+	DELETE FROM banner WHERE  	
 	</delete>
 	
-
+	<update id="b_boolean" parameterType="banner">
+	UPDATE banner SET banner_status=#{banner_status} where banner_id=#{banner_id}
+	</update>
+	
+	
 </mapper>
