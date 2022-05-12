@@ -14,7 +14,7 @@ public class AdminProductVO {
 	// posting Á¤¸®
 	private int post_id;
 	private String company_name;
-	private boolean today_deal;
+	private String deal_status;
 	private boolean best_product;
 	private double star_ratio;
 	private String post_name;

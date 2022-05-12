@@ -70,8 +70,8 @@ public class AdminController {
 			int total = productService.selectPostCount();
 			
 			model.addAttribute("postList", postList);
-			model.addAttribute("pageMaker", new PageDTO(cri, total));
-			
+			model.addAttribute("pageMaker", cri);
+			model.addAttribute("totalcount", total);
 
 			return "productManagementList_zinc";
 		}else {
