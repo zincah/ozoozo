@@ -58,7 +58,7 @@
 							aria-controls="collapseLayouts">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-columns"></i>
-							</div> 상품관리
+							</div> 상품/판매글
 							<div class="sb-sidenav-collapse-arrow">
 								<i class="fas fa-angle-down"></i>
 							</div>
@@ -67,8 +67,9 @@
 						<div class="collapse" id="collapseLayouts"
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="insertProduct.seller">상품등록</a> <a
-									class="nav-link" href="productManagement.seller">상품관리</a>
+								<a class="nav-link" href="insertProduct.seller">상품등록</a>
+								<a class="nav-link" href="productManagement.seller">상품관리</a>
+								<a class="nav-link" href="productPostingManagement.seller">판매글관리</a>
 							</nav>
 						</div>
 
