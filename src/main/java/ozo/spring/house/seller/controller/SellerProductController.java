@@ -1,6 +1,8 @@
 package ozo.spring.house.seller.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -73,23 +75,40 @@ public class SellerProductController {
 		}
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "/getSearchProductList.seller", method=RequestMethod.POST)
-	public String getSearchProductList(HttpServletRequest request, Model model, ProductVO vo, @RequestParam(value="searchMap") Map<String, Object> searchMap,  @RequestParam(value="searchStatus") ArrayList<String> searchStatus) {	
+
+	@RequestMapping(value = "/getSearchProductList.seller", method=RequestMethod.POST) // @RequestParam(value="searchMap", required = false) Map<String, String> searchMap,  @RequestParam(value="searchStatus", required = false) ArrayList<String> searchStatus
+	public String getSearchProductList(HttpServletRequest request, Model model, ProductVO vo, @RequestBody Map<String, Object> datas) {	
 		HttpSession session = request.getSession();
 		
-		// productVO에 데이터 추가
-		vo.setSc_searchName(String.valueOf(searchMap.get("searchName")).trim());
-		vo.setSc_searchNameStatus(String.valueOf(searchMap.get("searchNameStatus")));
-		vo.setSc_searchStatus(searchStatus);
-		vo.setSc_category(String.valueOf(searchMap.get("category")));
-		vo.setSc_middleSelect(String.valueOf(searchMap.get("middleSelect")));
-		vo.setSc_smallSelect(String.valueOf(searchMap.get("smallSelect")));
-		vo.setSc_selectDate(String.valueOf(searchMap.get("selectDate")));
-		vo.setSc_startDate(String.valueOf(searchMap.get("startDate")));
-		vo.setSc_endDate(String.valueOf(searchMap.get("endDate")));
-		vo.setSeller_id((int) session.getAttribute("seller_id"));
+		@SuppressWarnings("unchecked")
+		Map<String,String> searchMap = (Map<String, String>) datas.get("searchMap");
+		@SuppressWarnings("unchecked")
+		ArrayList<String> searchStatus = (ArrayList<String>) datas.get("searchStatus");
 		
+		// productVO에 데이터 추가
+		vo.setSc_searchName(searchMap.get("searchName").trim());
+		vo.setSc_searchNameStatus(searchMap.get("searchNameStatus"));
+		vo.setSc_searchStatus(searchStatus);
+		if(searchMap.get("category").equals("대분류")) {
+			vo.setSc_category(0);
+		} else {
+			vo.setSc_category(Integer.parseInt(searchMap.get("category")));
+		}
+		if(searchMap.get("middleSelect").equals("중분류")) {
+			vo.setSc_middleSelect(0);
+		} else {
+			vo.setSc_middleSelect(Integer.parseInt(searchMap.get("middleSelect")));
+		}
+		if(searchMap.get("smallSelect").equals("소분류")) {
+			vo.setSc_smallSelect(0);
+		} else {
+			vo.setSc_smallSelect(Integer.parseInt(searchMap.get("smallSelect")));
+		}
+		vo.setSc_selectDate(searchMap.get("selectDate"));
+		vo.setSc_startDate(Date.valueOf(searchMap.get("startDate")));
+		vo.setSc_endDate(Date.valueOf(searchMap.get("endDate")));
+		vo.setSeller_id((int) session.getAttribute("seller_id"));
+
 		// DB를 통해 리스트 추출 후 배열에 저장
 		List<ProductVO> searchProductList = (productService.selectSearchProduct(vo));
 		// model에 값 저장

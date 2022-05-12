@@ -61,7 +61,7 @@ dateBtn7.addEventListener("click", dateBtn7Event);
 dateBtn8.addEventListener("click", dateBtn8Event);
 
 // Window open function
-window.open = dateBtn1Event();
+window.open = dateBtn8Event();
 
 // Function
 function dateBtn1Event() {
@@ -132,9 +132,8 @@ $(".initBtn").click(function () {
 
 	//기간 초기화
 	$("#selectDate").val("1");
-	$("#btnradio1").prop("checked", true);
-	startDate.valueAsDate = today;
-	endDate.valueAsDate = today;
+	$("#btnradio8").prop("checked", true);
+	dateBtn8Event();
 	
 	getProductData();
 });
@@ -393,17 +392,18 @@ function getProductData() {
 		"endDate" : endDate,
 	};
 	
-	console.log(typeof(searchMap));
+	var datas = {"searchMap" : searchMap, "searchStatus" : searchStatus};
+
 	// 데이터 처리 요청
 	$.ajax({
   		url:'getSearchProductList.seller',
-  		method:'post',
-  		data: {"searchMap" : searchMap, "searchStatus" : searchStatus},
+  		type:'post',
+  		data: JSON.stringify(datas),
   		contentType : 'application/json; charset=UTF-8',
   		dataType : 'html',
   		success : function(resp){
 			$("#productList").empty();
   			$("#productList").html(resp);
-  		}	
+  		}
   	});
 }

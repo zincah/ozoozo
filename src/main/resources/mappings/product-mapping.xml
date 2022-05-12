@@ -128,20 +128,20 @@
 			<if test="seller_id != null">
 				p.seller_id = #{seller_id} AND ps.product_del = 'false'
 			</if>
-			<if test="sc_searchName != null or sc_searchName != ''">
+			<if test="sc_searchName != ''">
 				<if test="sc_searchNameStatus == 1">
 					<trim prefix="and">
-						CONVERT(VARCHAR(50),p.product_id) LIKE <trim prefix="'" suffix="%'">#{sc_searchName}</trim>
+						cast(p.product_id as VARCHAR) LIKE <trim prefix="replace('" suffix="%',' ','')">${sc_searchName}</trim>
 					</trim>
 				</if>
 				<if test="sc_searchNameStatus == 2">
 					<trim prefix="and">
-						p.product_seller_code LIKE <trim prefix="'" suffix="%'">#{sc_searchName}</trim>
+						p.product_seller_code LIKE <trim prefix="replace('%" suffix="%',' ','')">${sc_searchName}</trim>
 					</trim>
 				</if>
 				<if test="sc_searchNameStatus == 3">
 					<trim prefix="and">
-						p.product_title LIKE <trim prefix="'" suffix="%'">#{sc_searchName}</trim>
+						p.product_title LIKE <trim prefix="replace('%" suffix="%',' ','')">#{sc_searchName}</trim>
 					</trim>
 				</if>
 			</if>
@@ -174,33 +174,35 @@
 					</if>
 				</trim>
 			</if>
-			<if test="sc_category != '대분류'">
+			<if test="sc_category != 0">
 				<trim prefix="and">
-					c.cate_code = #{sc_category} 
+					p.pro_catecode = #{sc_category}
 				</trim>
 			</if>
-			<if test="sc_middleSelect != '중분류'">
+			<if test="sc_middleSelect != 0">
 				<trim prefix="and">
-					(SELECT subcate_code FROM sub_category sc WHERE sc.subcate_code = #{sc_middleSelect}) 
+					p.pro_subcatecode = #{sc_middleSelect}
 				</trim>
 			</if>
-			<if test="sc_smallSelect != '소분류'">
+			<if test="sc_smallSelect != 0">
 				<trim prefix="and">
-					(SELECT subcate_code FROM sub_category sc WHERE sc.subcate_code = #{sc_smallSelect}) 
+					p.pro_subcatecode = #{sc_smallSelect}
 				</trim>
 			</if>
 			<if test="sc_selectDate == 1">
 				<trim prefix="and">
-					p.product_created BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD');
+					p.product_created BETWEEN TO_DATE(#{sc_startDate}, 'YYYY-MM-DD') AND TO_DATE(#{sc_endDate}, 'YYYY-MM-DD') + INTERVAL '1 DAY'
 				</trim>
 			</if>
 			<if test="sc_selectDate == 2">
 				<trim prefix="and">
-					p.product_updated BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD') AND TO_DATE(#{endDate}, 'YYYY-MM-DD');
+					p.product_updated BETWEEN TO_DATE(#{sc_startDate}, 'YYYY-MM-DD') AND TO_DATE(#{sc_endDate}, 'YYYY-MM-DD') + INTERVAL '1 DAY'
 				</trim>
 			</if>
-			AND ps.product_del = 'false'
-			ORDER BY p.product_id DESC;
+			<if test="true">
+				AND ps.product_del = 'false'
+				ORDER BY p.product_id DESC;
+			</if>
 		</where>
 	</select>
 </mapper>

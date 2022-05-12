@@ -231,7 +231,7 @@
 								<div class="btn-group paddingLeft1" role="group"
 									aria-label="Basic radio toggle button group">
 									<input type="radio" class="btn-check dateBtn-1 searchDateBtn" name="btnradio"
-										id="btnradio1" autocomplete="off" checked /> <label
+										id="btnradio1" autocomplete="off"  /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio1">오늘</label>
 
 									<input type="radio" class="btn-check dateBtn-2 searchDateBtn" name="btnradio"
@@ -259,7 +259,7 @@
 										class="btn btn-outline-secondary dateBtn" for="btnradio7">1년</label>
 
 									<input type="radio" class="btn-check dateBtn-8 searchDateBtn" name="btnradio"
-										id="btnradio8" autocomplete="off" /> <label
+										id="btnradio8" autocomplete="off" checked/> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio8">전체</label>
 								</div>
 							</div>
