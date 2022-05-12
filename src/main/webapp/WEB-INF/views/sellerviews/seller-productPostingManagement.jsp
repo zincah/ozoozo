@@ -12,14 +12,14 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>상품관리</title>
+<title>판매글관리</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
 	rel="stylesheet" />
 <link href="resources/css/sellercss/fonts.css?after" rel="stylesheet" />
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
 <link href="resources/css/sellercss/insertProduct.css" rel="stylesheet" />
-<link href="resources/css/sellercss/seller-productManagement.css"
+<link href="resources/css/sellercss/seller-productPostingManagement.css"
 	rel="stylesheet" />
 <jsp:include page="header/headerModalView.jsp"></jsp:include>
 <script type="text/javascript"
@@ -33,43 +33,31 @@
 <div id="layoutSidenav_content">
 	<main style="background-color: #f5f5f5">
 		<div class="container-fluid px-4">
-			<h1 class="mt-4 insert_title">상품관리</h1>
+			<h1 class="mt-4 insert_title">판매글관리</h1>
 			<ol class="breadcrumb mb-3 bottomline">
-				<li class="breadcrumb-item active">Product Management</li>
+				<li class="breadcrumb-item active">Product Posting Management</li>
 			</ol>
 			<div class="container container-option bottomline">
 				<div class="row optionGroup1">
 					<div class="col status-name">
 						<span>전체</span> <span class="status-value"><fmt:formatNumber
-								value="${fn:length(productList)}" pattern="#,###" /></span>
-					</div>
-					<div class="col status-name">
-						<span>판매대기</span> <span class="status-value"><fmt:formatNumber
-								value="${productStatus0}" pattern="#,###" /></span>
+								value="${fn:length(producPostingtList)}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
 						<span>판매중</span> <span class="status-value"><fmt:formatNumber
-								value="${productStatus1}" pattern="#,###" /></span>
-					</div>
-					<div class="col status-name">
-						<span>품절</span> <span class="status-value"><fmt:formatNumber
-								value="${productStatus2}" pattern="#,###" /></span>
-					</div>
-					<div class="col status-name">
-						<span>승인대기</span> <span class="status-value"><fmt:formatNumber
-								value="${productStatus3}" pattern="#,###" /></span>
-					</div>
-					<div class="col status-name">
-						<span>판매중지</span> <span class="status-value"><fmt:formatNumber
-								value="${productStatus4}" pattern="#,###" /></span>
+								value="${productPostingStatus0}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
 						<span>판매종료</span> <span class="status-value"><fmt:formatNumber
-								value="${productStatus5}" pattern="#,###" /></span>
+								value="${productPostingStatus1}" pattern="#,###" /></span>
 					</div>
-					<div class="col status-name-last">
-						<span>판매금지</span> <span class="status-value"><fmt:formatNumber
-								value="${productStatus6}" pattern="#,###" /></span>
+					<div class="col status-name">
+						<span>승인대기</span> <span class="status-value"><fmt:formatNumber
+								value="${productPostingStatus2}" pattern="#,###" /></span>
+					</div>
+					<div class="col status-name">
+						<span>보류</span> <span class="status-value"><fmt:formatNumber
+								value="${productPostingStatus3}" pattern="#,###" /></span>
 					</div>
 					<div class="col-4 search-button-area">
 						<button class="search-button" id="searchBtn">
@@ -101,19 +89,13 @@
 									<input class="form-check-input searchNameStatusGroup" type="radio"
 										name="searchNameStatus" id="searchNameStatus1" value="1" checked /> <label
 										class="form-check-label" for="searchNameStatus1">
-										고유상품번호 </label>
+										게시글번호 </label>
 								</div>
 								<div class="form-check">
 									<input class="form-check-input searchNameStatusGroup" type="radio"
 										name="searchNameStatus" id="searchNameStatus2" value="2" /> <label
 										class="form-check-label" for="searchNameStatus2">
-										판매자상품번호 </label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input searchNameStatusGroup" type="radio"
-										name="searchNameStatus" id="searchNameStatus3" value="3" /> <label
-										class="form-check-label" for="searchNameStatus3"> 상품명
-									</label>
+										판매글제목 </label>
 								</div>
 							</div>
 						</div>
@@ -122,7 +104,7 @@
 				<div
 					class="container container-option container-option-topPadding bottomline">
 					<div class="row optionGroup1">
-						<div class="col-1 status-name-400">판매 상태</div>
+						<div class="col-1 status-name-400">판매글 상태</div>
 						<div class="col search-check-group">
 							<div class="form-check form-check-display">
 								<input class="form-check-input form-check-input-margin searchStatusGroup"
@@ -133,43 +115,25 @@
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
 									type="checkbox" id="statusCheck1" name="searchStatus" value="2" /> <label
-									class="form-check-label" for="statusCheck1"> 판매대기 </label>
+									class="form-check-label" for="statusCheck1"> 판매중 </label>
+							</div>
+							<div class="form-check form-check-display">
+								<input
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck1" name="searchStatus" value="2" /> <label
+									class="form-check-label" for="statusCheck2"> 판매종료 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
 									type="checkbox" id="statusCheck2" name="searchStatus" value="3" /> <label
-									class="form-check-label" for="statusCheck2"> 판매중 </label>
+									class="form-check-label" for="statusCheck3"> 승인대기 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
 									type="checkbox" id="statusCheck3" name="searchStatus" value="4" /> <label
-									class="form-check-label" for="statusCheck3"> 품절 </label>
-							</div>
-							<div class="form-check form-check-display">
-								<input
-									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
-									type="checkbox" id="statusCheck4" name="searchStatus" value="5" /> <label
-									class="form-check-label" for="statusCheck4"> 승인대기 </label>
-							</div>
-							<div class="form-check form-check-display">
-								<input
-									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
-									type="checkbox" id="statusCheck5" name="searchStatus" value="6" /> <label
-									class="form-check-label" for="statusCheck5"> 판매중지 </label>
-							</div>
-							<div class="form-check form-check-display">
-								<input
-									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
-									type="checkbox" id="statusCheck6" name="searchStatus" value="7" /> <label
-									class="form-check-label" for="statusCheck6"> 판매종료 </label>
-							</div>
-							<div class="form-check form-check-display">
-								<input
-									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
-									type="checkbox" id="statusCheck7" name="searchStatus" value="8" /> <label
-									class="form-check-label" for="statusCheck7"> 판매금지 </label>
+									class="form-check-label" for="statusCheck4"> 보류 </label>
 							</div>
 						</div>
 					</div>
@@ -223,8 +187,8 @@
 								<select class="form-select selectDate"
 									aria-label="Default select example" id="selectDate">
 									<!-- <option selected>대분류</option> -->
-									<option value="1">상품 등록일</option>
-									<option value="2">상품 수정일</option>
+									<option value="1">판매글 등록일</option>
+									<option value="2">오늘의딜 마감일</option>
 								</select>
 							</div>
 							<div class="radio-productCode">
@@ -273,10 +237,6 @@
 				<div class="container container-option container-option-topPadding">
 					<div class="row optionGroup1">
 						<div class="col search-submitBtn">
-							<!-- <div class="d-grid gap-2">
-								<button class="btn btn-secondary submitBtn" type="button"
-									id="submitBtn">검색</button>
-							</div> -->
 							<div class="d-grid gap-2"> <!-- 비강조 클래스 : btn-outline-secondary -->
 								<button class="btn btn-secondary initBtn" type="button">초기화</button>
 							</div>
@@ -290,20 +250,11 @@
 	<div class="content-table">
 		<div class="content-view-title">
 			<div>
-				<span class="content-view-title-text">상품목록 (선택 </span> <span
+				<span class="content-view-title-text">판매글목록 (선택 </span> <span
 					class="content-view-title-value" id="select-num">0</span> <span
 					class="content-view-title-text2">건)</span>
 			</div>
 			<div class="content-view-title-right">
-				<!-- <div class="btn-group" role="group"
-					aria-label="Basic radio toggle button group">
-					<select class="form-select selectAlign"
-						aria-label="Default select example">
-						<option value="1">상품등록일순</option>
-						<option value="2">상품명순</option>
-						<option value="3">상품번호순</option>
-					</select>
-				</div> -->
 				<div class="d-grid gap-2">
 					<button class="btn btn-secondary excelDownBtn" type="button">엑셀다운</button>
 				</div>
@@ -318,12 +269,12 @@
 					</button>
 					<ul class="dropdown-menu settingBtnDropdown"
 						aria-labelledby="dropdownMenuButton1">
-						<li><h6 class="dropdown-header">상품 설정 일괄 변경</h6></li>
+						<li><h6 class="dropdown-header">판매글 설정 일괄 변경</h6></li>
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
 							data-bs-target="#modal-status-select" id="productStatusChange">판매상태
 								변경</a></li>
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-							data-bs-target="#modal-delete" id="productDelete">상품 삭제</a></li>
+							data-bs-target="#modal-delete" id="productDelete">오늘의딜 신청</a></li>
 					</ul>
 				</div>
 			</div>
@@ -340,7 +291,7 @@
 					</div>
 					<div class="modal-body modal-status-select-product">
 						<div class="modal-status-select-product-num">
-							<span>선택된 상품 수 : </span> <span
+							<span>선택된 판매글 수 : </span> <span
 								class="modal-status-select-product-num-value productNum">0</span>
 							<span>개</span>
 						</div>
@@ -349,11 +300,8 @@
 								aria-label="Basic radio toggle button group">
 								<select class="form-select modal-status-select-option"
 									aria-label="Default select example" id="statusOption">
-									<option value="1">판매대기</option>
-									<option value="2">판매중</option>
-									<option value="3">품절</option>
-									<option value="4">판매중지</option>
-									<option value="5">판매종료</option>
+									<option value="1">판매중</option>
+									<option value="2">판매종료</option>
 								</select>
 							</div>
 						</div>
@@ -374,13 +322,13 @@
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">상품 삭제</h5>
+						<h5 class="modal-title" id="exampleModalLabel">오늘의딜 신청</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body modal-status-select-product">
 						<div class="modal-delete-product-num">
-							<span>선택된 상품 수 : </span> <span
+							<span>선택된 판매글 수 : </span> <span
 								class="modal-delete-product-num-value productNum">0</span> <span>개</span>
 						</div>
 						<div class="modal-delete-select-product">
@@ -391,7 +339,7 @@
 											type="button" data-bs-toggle="collapse"
 											data-bs-target="#flush-collapseOne" aria-expanded="false"
 											aria-controls="flush-collapseOne">
-											선택된 상품 리스트
+											선택된 판매글 리스트
 											<svg class="accordion-button-arrow"
 												xmlns="http://www.w3.org/2000/svg" width="13" height="13"
 												fill="currentColor" class="bi bi-chevron-down"
@@ -435,7 +383,7 @@
 							data-bs-dismiss="modal">취소</button>
 						<button type="button"
 							class="btn btn-primary modal-status-select-submit-button"
-							id="pdSubmitBtn">삭제</button>
+							id="tdSubmitBtn">신청</button>
 					</div>
 				</div>
 			</div>
@@ -445,15 +393,15 @@
 				<tr class="content-table-title">
 					<td class="content-table-title-text option-line"><input
 						class="form-check-input" type="checkbox" value="" id="allCheck" /></td>
-					<td class="content-table-title-text option-line">상품고유번호</td>
-					<td class="content-table-title-text option-line">판매자상품코드</td>
-					<td class="content-table-title-text option-line">상품명</td>
-					<td class="content-table-title-text option-line">판매가</td>
+					<td class="content-table-title-text option-line">판매글번호</td>
+					<td class="content-table-title-text option-line">별점</td>
+					<td class="content-table-title-text option-line">제목</td>
+					<td class="content-table-title-text option-line">할인율</td>
+					<td class="content-table-title-text option-line">대표금액</td>
 					<td class="content-table-title-text option-line">카테고리</td>
 					<td class="content-table-title-text option-line">판매상태</td>
-					<td class="content-table-title-text option-line">재고</td>
 					<td class="content-table-title-text option-line">등록일</td>
-					<td class="content-table-title-text option-line">수정일</td>
+					<td class="content-table-title-text option-line">오늘의딜 기간</td>
 				</tr>
 			</thead>
 			<tbody id="productList">
@@ -476,6 +424,10 @@
 								value="${productListView.getProduct_created()}"
 								pattern="yyyy-MM-dd HH:mm" /></td>
 						<td class="content-table-content-text option-line"><fmt:formatDate
+								value="${productListView.getProduct_updated()}"
+								pattern="yyyy-MM-dd HH:mm" />
+								 ~ <!-- 등록된 쿠폰의 코드 표시해주는 부분도 추가 -->
+								<fmt:formatDate
 								value="${productListView.getProduct_updated()}"
 								pattern="yyyy-MM-dd HH:mm" /></td>
 					</tr>
@@ -505,7 +457,7 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
 	crossorigin="anonymous"></script>
 <script
-	src="resources/js/sellerjs/seller-productManagement.js?t=<%=System.currentTimeMillis()%>"></script>
+	src="resources/js/sellerjs/seller-productPostingManagement.js?t=<%=System.currentTimeMillis()%>"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
 	crossorigin="anonymous"></script>
