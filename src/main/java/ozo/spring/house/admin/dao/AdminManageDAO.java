@@ -42,6 +42,12 @@ public class AdminManageDAO {
 		return sqlSessionTemplate.selectOne("AdminManageDAO.selectPostCount");
 	}
 	
+	public void updateProductStatus(AdminProductVO pvo) {
+		System.out.println("--> mybatis in adminmanagedao updateproductstatus");
+		sqlSessionTemplate.update("AdminManageDAO.updateProductStatus1", pvo);
+		sqlSessionTemplate.update("AdminManageDAO.updateProductStatus2", pvo);
+	}
+	
 
 
 }

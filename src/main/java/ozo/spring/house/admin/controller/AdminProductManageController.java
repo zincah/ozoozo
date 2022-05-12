@@ -39,6 +39,27 @@ public class AdminProductManageController {
 
 		return "postList";
 	}
+
+	
+	@RequestMapping(value="/updateProductStatus.admin", method=RequestMethod.POST)
+	public String updateProductStatus(@RequestBody List<String> modifyInfo, AdminProductVO pvo, Model model, Criteria cri) {
+
+		System.out.println(modifyInfo);
+		
+		pvo.setPost_status(modifyInfo.get(modifyInfo.size()-1));
+		
+		for(int i=0; i<modifyInfo.size()-2; i++) {
+			pvo.setPost_id(Integer.parseInt(modifyInfo.get(i)));
+			productService.updateProductStatus(pvo);
+		}
+		
+		cri = new Criteria(Integer.parseInt(modifyInfo.get(modifyInfo.size()-2)), 10);
+		List<AdminProductVO> postList = productService.selectPosting(cri);
+		model.addAttribute("postList", postList);
+		model.addAttribute("pageMaker", cri);
+		
+		return "postList";
+	}
 	
 	
 

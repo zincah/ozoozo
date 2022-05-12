@@ -24,7 +24,6 @@ public class AdminProductVO {
 	private String subcate_name;
 	private String post_status;
 	private String post_couponid;
-	
-	
+
 
 }
