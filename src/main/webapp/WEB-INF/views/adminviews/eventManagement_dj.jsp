@@ -114,7 +114,6 @@
 		    }
 		    
 		    
-		    
 		});
 		/* 등록 버튼  */   
 		$(".insert_btn").click(function() {
@@ -191,7 +190,7 @@
 		
 		if ($(this).text()=='재개시'){
 			bool = "재개시";
-		 }else if(!($(this).text()=='재개시')){
+		 }else if($(this).text()!=='재개시'){
 			 bool = "중지";
 		 } 
 		
@@ -205,12 +204,64 @@
 			contentType: 'application/json; charset=UTF-8',
 			data:  JSON.stringify(bang),
 			dataType: 'json',
+			async: false,
 			success:function(data){
-				alert(data)
+				
+				
+				if(data.bool=='중지'){
+					$('.s_'+data.item).text("")
+					$('.s_'+data.item).text("중지")
+					$('.b_'+data.item).text("")
+					$('.b_'+data.item).text("재개시")
+				}else if(data.bool=='재개시'){
+				
+				
+				$('.s_'+data.item).text("")
+				$('.s_'+data.item).text("개시중")
+				$('.b_'+data.item).text("")
+				$('.b_'+data.item).text("중지")
+				}
+			},
+			error:function(res){
+				console.log('dddddddddddd')
 			}
 		}) 
 		
 	})
+	/* 내용뿌리기 */
+	$(".content-table-content-text").click(function(){
+	
+		var item = $(this).attr('id')
+		
+		$.ajax({
+			url:'view.admin',
+			method:'post',
+			contentType: 'application/json; charset=UTF-8',
+			data:  JSON.stringify(item),
+			dataType: 'json',
+			async: false,
+			success:function(data){
+				
+				$.each(data,function(item){
+					
+					alert('hi')
+					/* $("#info_date").text("")
+					$("#info_date").text(""+item["banner_uploaddate"])
+					$("#info_title").text("")
+					$("#info_title").text(""+item["banner_title"])
+					var classname = $("#banner_bigname").parent();
+				    classname.find("span").text(""+item["banner_urlbig"]);
+				    var classname = $("#banner_smname").parent();
+				    classname.find("span").text(""+item["banner_urlsm"]); */
+					
+				})
+				
+			}
+			})
+		
+		
+	
+	});
 	});
 </script>
 </head>
@@ -280,13 +331,13 @@
 			<td class="content-table-content-text option-line">${BB.banner_id}</td>
 				<td class="content-table-content-text option-line">${BB.banner_uploaddate}</td>
 				
-				<td class="content-table-content-text option-line"><a href="#">${BB.banner_title}
+				<td id="${BB.banner_id}" class="content-table-content-text option-line "><a href="">${BB.banner_title}
 				</a></td>
 				<td class="content-table-content-text option-line">쎄션</td>
 				
 				<c:set var="BB.banner_status" value="false" />
-				 <c:if test="${BB.banner_status eq 'false'}"><td class="content-table-content-text option-line state0" id="false">중지</td></c:if>
-				 <c:if test="${BB.banner_status eq 'true'}"><td class="content-table-content-text option-line state0" id="true">개시중</td></c:if>
+				 <c:if test="${BB.banner_status eq 'false'}"><td class="content-table-content-text option-line state0 s_${BB.banner_id}" id="false">중지</td></c:if>
+				 <c:if test="${BB.banner_status eq 'true'}"><td class="content-table-content-text option-line state0 s_${BB.banner_id}" id="true">개시중</td></c:if>
 				
 				<td class="content-table-content-text option-line">
 				<c:set var="BB.banner_status" value="false" />
@@ -332,16 +383,10 @@
 				<table class="table table-box-style content-view-table">
 					<tbody>
 						<tr class="content-table-content">
-							<td
-								class="content-table-content-text option-line content-table-title"
-								style="background-color: #f5f5f5; width: 20%;">등록일</td>
-							<td class="content-table-content-text option-line" id="info_date"
-								style="width: 50%;">2022-04-12 13:11</td>
-							<td
-								class="content-table-content-text option-line content-table-title"
-								style="background-color: #f5f5f5; width: 10%;">담당자</td>
-							<td class="content-table-content-text option-line"
-								id="info_charge" style="width: 20%;">쎄션</td>
+							<td class="content-table-content-text option-line content-table-title" style="background-color: #f5f5f5; width: 20%;">등록일</td>
+							<td class="content-table-content-text option-line" id="info_date" style="width: 50%;">2022-04-12 13:11</td>
+							<td class="content-table-content-text option-line content-table-title" style="background-color: #f5f5f5; width: 10%;">담당자</td>
+							<td class="content-table-content-text option-line" id="info_charge" style="width: 20%;">쎄션</td>
 						</tr>
 						<tr class="content-table-content">
 							<td

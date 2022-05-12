@@ -35,8 +35,14 @@ public class BannerDAO {
 	
 	public void b_boolean(BannerVO vo){
 		System.out.println("¼öÁ¤Çß¾û");
-		sessiontemplate.update("BannerDAO.b_update",vo);
+		sessiontemplate.update("BannerDAO.b_boolean",vo);
 		
+	}
+
+	public List<BannerVO> b_selectone(BannerVO vo) {
+		System.out.println("±ÛÃ£¾Ò¾û");
+		return sessiontemplate.selectList("BannerDAO.b_selectone",vo);
+		 
 	}
 
 	

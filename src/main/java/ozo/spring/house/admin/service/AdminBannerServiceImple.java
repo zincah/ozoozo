@@ -1,6 +1,8 @@
 package ozo.spring.house.admin.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,9 +35,16 @@ public class AdminBannerServiceImple implements AdminBannerService  {
 	}
 
 	@Override
-	public void b_boolean(BannerVO vo) {
+	public HashMap<String, String> b_boolean(BannerVO vo) {
 		
 		bannerDAO.b_boolean(vo);
+		return null;
+	}
+
+	@Override
+	public List<BannerVO> b_selectone(BannerVO vo) {
+		
+		return bannerDAO.b_selectone(vo);
 	}
 
 	

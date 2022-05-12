@@ -8,10 +8,13 @@
 	SELECT * FROM banner order by banner_id asc
 	</select>
 	
-	<insert id="b_insert" parameterType="banner">
-INSERT INTO banner (banner_title,banner_bigname,banner_urlbig,banner_smname,banner_urlsm) VALUES (#{banner_title},#{banner_bigname},#{banner_urlbig},#{banner_smname},#{banner_urlsm})
-	</insert>
+	<select id="b_selectone" resultType="banner">
+	SELECT * FROM banner where banner_id=#{banner_id} order by banner_id asc
+	</select>
 	
+	<insert id="b_insert" parameterType="banner">
+	INSERT INTO banner (banner_title,banner_bigname,banner_urlbig,banner_smname,banner_urlsm) VALUES (#{banner_title},#{banner_bigname},#{banner_urlbig},#{banner_smname},#{banner_urlsm})
+	</insert>
 	
 	<delete id="b_delete" parameterType="banner">
 	DELETE FROM banner WHERE  	
