@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.page-item.active .page-link{
+	background-color: #ff778e;
+	border-color: #ff778e;
+}
+
+.page-layer{
+	display: flex;
+}

@@ -84,13 +84,14 @@
 	
 	<!-- admin 상품 posting -->
 	<select id="selectPosting" resultType="adminproduct">
-		SELECT po.post_id, ss.company_name, po.today_deal, po.best_product, po.post_name, pp.product_created, pp.product_count, ca.cate_name, sc.subcate_name, po.post_status, po.post_couponid 
+		SELECT po.post_id, ss.company_name, di.deal_status, po.best_product, po.post_name, pp.product_created, pp.product_count, ca.cate_name, sc.subcate_name, po.post_status, po.post_couponid 
 		FROM product_posting po INNER JOIN (
 			SELECT MAX(product_created) AS product_created , count(product_postid) AS product_count, product_postid FROM product GROUP BY product_postid 
 		) pp ON po.post_id = pp.product_postid
 		INNER JOIN seller ss ON po.post_sellerid = ss.seller_id 
 		INNER JOIN category ca ON po.po_category = ca.cate_code
 		INNER JOIN sub_category sc ON po.po_subcate = sc.subcate_code
+		LEFT OUTER JOIN deal_info di ON po.post_id = di.deal_postid
 		ORDER BY po.post_id DESC limit #{amount} offset (#{pageNum}-1) * #{amount};
 	</select>
 	

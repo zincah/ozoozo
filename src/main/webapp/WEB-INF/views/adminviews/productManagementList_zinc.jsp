@@ -16,29 +16,104 @@
     <link href="resources/css/admincss/styles.css" rel="stylesheet" />
     <link href="resources/css/admincss/productManagement.css?var=13" rel="stylesheet" />
     <link href="resources/css/admincss/fonts.css?after" rel="stylesheet" />
+    <link href="resources/css/admincss/paging.css?var=12" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <script>
     
     	$(document).ready(function(){
-    		
+
     		/* 상품 선택 체크박스 */
     		// 전체 체크박스 체크 여부에 따른 하위 체크박스들 상태 변경
     		$("#allCheck").on('change', function(){
     			if ($("#allCheck").is(":checked")) {
         		    $(".check").prop("checked", true);
         		    // 선택된 체크박스 개수에 따른 숫자값 변경
-        		    $("#select-num").text($(".check:checked").length);
+        		    $(".select-num").text($(".check:checked").length);
         		  } else {
         		    $(".check").prop("checked", false);
         		    // 선택된 체크박스 개수에 따른 숫자값 변경
-        		    $("#select-num").text($(".check:checked").length);
+        		    $(".select-num").text($(".check:checked").length);
         		  }
     		});
-    		
-    		
+
+    		// setpage
+			var pageNum = ${pageMaker.getPageNum()};
+    		setPage(pageNum);
+
     	});
+    	
+    	function setPage(pageNum){
+    		
+    		var total = ${totalcount};
+    		console.log(pageNum);
+    		var amount = ${pageMaker.getAmount()};
+
+    		var endPage = Math.ceil(pageNum/10.0)*10;
+    		var startPage = endPage - 9;
+
+    	    var realEnd = Math.ceil((total*1.0)/amount);
+    	    
+    	    if(realEnd < endPage){
+    	    	endPage = realEnd;
+    	    }
+    	    
+    	    var prev = startPage > 1;
+    	    var next = endPage < realEnd;
+    	    
+    	    $(".page-layer").html("");
+    	    
+			for(var i=startPage; i<=endPage; i++){
+				
+				if(pageNum == i){
+					var li = '<li class="page-item active"><a class="page-link" href="'+i+'">'+i+'</a></li>';
+				}else{
+					var li = '<li class="page-item"><a class="page-link" href="'+i+'">'+i+'</a></li>';
+				}
+				
+				$(".page-layer").append(li);
+
+			}
+			
+			
+    		// paging a link click
+        	$(".page-item a").on("click", function(e){
+
+    			e.preventDefault();
+    			var pageNum = $(this).attr("href");
+    			movepage(pageNum, total);
+    		});
+
+    		
+    	}
+
+    	function movepage(pageNum){
+    		
+    		// 검색 조건을 같이 보내야 함
+    		var searchCondition = {
+    				"pageNum" : pageNum
+    		};
+    		
+
+    		$.ajax({
+		  		url:'movePaging.admin',
+		  		method:'post',
+		  		data: JSON.stringify(searchCondition),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'html',
+		  		success : function(resp){
+		  			
+		  			$("#postTableBody").html(resp);
+		  			setPage(pageNum);
+
+		  		},
+		  		error : function(request, status, error) {
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+    		});
+    		
+    	}
     	
     	function checkfunction(){
     		// 하위 체크박스 체크 여부에 따른 전체 체크박스 상태 변경
@@ -47,12 +122,48 @@
 			if ($(".check:checked").length == $(".check").length) {
     		    $("#allCheck").prop("checked", true);
     		    // 선택된 체크박스 개수에 따른 숫자값 변경
-    		    $("#select-num").text($(".check:checked").length);
+    		    $(".select-num").text($(".check:checked").length);
     		} else {
     		    $("#allCheck").prop("checked", false);
     		    // 선택된 체크박스 개수에 따른 숫자값 변경
-    		    $("#select-num").text($(".check:checked").length);
+    		    $(".select-num").text($(".check:checked").length);
     		  }
+    	}
+    	
+    	// 게시물 상태 변경
+    	function updatePostStatus(){
+    		// checkbox 값 한개씩 가져오기
+    		var postNumList = []
+    		
+    		$("input:checkbox[name=productcheckbox]:checked").each(function(){
+      			var checkit = $(this).prev().val();
+      			postNumList.push(checkit);
+      		});
+    		
+    		postNumList.push($("#productStatusOption").val());
+    		
+    		console.log(postNumList);
+    		
+    		/*
+    		$.ajax({
+		  		url:'updateUserStatus.admin',
+		  		method:'post',
+		  		data: JSON.stringify(usernumList),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'json',
+		  		success : function(resp){
+					
+		  			$(".modal").modal('hide')
+		  			$(".modal-status-select-option option:eq(0)").prop("selected", true);
+		  			$("#select-num").text("0");
+		  			printList(resp);
+		  			
+		  			
+		  			}
+		  		
+		  		});*/
+				
+    		
     	}
     	
 		
@@ -124,11 +235,11 @@
                         </div>
                         <div class="form-check">
                           <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                          <label class="form-check-label" for="flexRadioDefault3"> 승인대기 </label>
+                          <label class="form-check-label" for="flexRadioDefault3"> 판매대기 </label>
                         </div>
                         <div class="form-check">
                           <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                          <label class="form-check-label" for="flexRadioDefault3"> 승인완료 </label>
+                          <label class="form-check-label" for="flexRadioDefault3"> 판매중 </label>
                         </div>
 
                       </div>
@@ -174,7 +285,8 @@
 				<li><h6 class="dropdown-header">판매 상품 관리</h6></li>
 				<li>
 					<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-status-select" id="productStatusChange">게시물상태변경</a>
-					<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#coupon_register" id="productStatusChange1">쿠폰등록</a>
+					<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#coupon_register" id="couponStatusChange">쿠폰등록</a>
+					<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#today_deal_register" id="dealStatusChange">오늘의딜 승인</a>
 				</li>
 			</ul>
           </div>
@@ -197,12 +309,13 @@
                   <td class="content-table-title-text option-line" style="width: 3rem;">상태</td>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="postTableBody">
                 <!-- for -->
                 <c:forEach items="${postList }" var="post">
 	                <tr class="content-table-content content-hover">
 	                  <td class="content-table-content-text option-line">
-	                      <input class="check form-check-input form-check-input-margin" type="checkbox" value="" value="" name="productcheckbox" onchange="checkfunction()"/>
+	                      <input type="hidden" value="${post.post_id }"/>
+	                      <input class="check form-check-input form-check-input-margin" type="checkbox" value="" name="productcheckbox" onchange="checkfunction()"/>
 	                  </td>
 	                  <td class="content-table-content-text option-line">${post.company_name }</td>
 	                  <td class="content-table-content-text option-line">
@@ -214,10 +327,10 @@
 	                  <td class="content-table-content-text option-line">-</td>
 	                  <td class="content-table-content-text option-line">${post.product_created }</td>
 	                  <td class="content-table-content-text option-line">
-	                  	<c:choose>
-							<c:when test="${post.today_deal == true}">o</c:when>
-							<c:when test="${post.today_deal == false}">x</c:when>
-							<c:otherwise>-</c:otherwise>
+		                  <c:choose>
+								<c:when test="${post.deal_status != null}">${post.deal_status }</c:when>
+								<c:when test="${post.deal_status == null}">-</c:when>
+								<c:otherwise>-</c:otherwise>
 						</c:choose>
 	                  </td>
 	                  <td class="content-table-content-text option-line">
@@ -232,27 +345,37 @@
 				</c:forEach>
               </tbody>
             </table>
-          </div>
-
-          <div class="pagi mt-3">
+            
+            <div class="pagi mt-3">
             <nav aria-label="Page navigation example">
               <ul class="pagination">
                 <li class="page-item">
                   <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
+                    <span aria-hidden="true">
+                    	<i class="fa-solid fa-angle-left"></i>
+                    </span>
                   </a>
                 </li>
-                	<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage }">
-	                	<li class="page-item"><a class="page-link" href="#">${num }</a></li>
-               		</c:forEach>
+                <div class="page-layer">
+                
+                
+                
+                </div>
                 <li class="page-item">
                   <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
+                    <span aria-hidden="true">
+                    	<i class="fa-solid fa-angle-right"></i>
+                    </span>
                   </a>
                 </li>
               </ul>
             </nav>
           </div>
+            
+            
+          </div>
+
+          
         </div>
 
 
@@ -269,7 +392,7 @@
 		      <div class="modal-body modal-status-select-product">
 					<div class="modal-status-select-product-num">
 						<span>선택된 게시물 수 : </span> 
-						<span class="modal-status-select-product-num-value productNum" id="select-num">0</span>
+						<span class="modal-status-select-product-num-value productNum select-num">0</span>
 						<span>개</span>
 					</div>
 					<div class="modal-status-select">
@@ -284,7 +407,7 @@
 				</div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-		        <button type="button" class="btn modal-status-select-submit-button" onclick="updateUserStatus()">변경</button>
+		        <button type="button" class="btn modal-status-select-submit-button" onclick="updateCouponStatus()">변경</button>
 		      </div>
 		    </div>
 		  </div>
@@ -301,12 +424,12 @@
 		      <div class="modal-body modal-status-select-product">
 					<div class="modal-status-select-product-num">
 						<span>선택된 게시물 수 : </span> 
-						<span class="modal-status-select-product-num-value productNum" id="select-num">0</span>
+						<span class="modal-status-select-product-num-value productNum select-num">0</span>
 						<span>개</span>
 					</div>
 					<div class="modal-status-select">
 						<div class="btn-group modal-status-select-btn-group" role="group" aria-label="Basic radio toggle button group">
-							<select class="form-select modal-status-select-option" aria-label="Default select example" id="statusOption">
+							<select class="form-select modal-status-select-option" aria-label="Default select example" id="productStatusOption">
 								<option value="판매중">판매중</option>
 								<option value="판매대기">판매대기</option>
 								<option value="보류중">보류중</option>
@@ -316,11 +439,45 @@
 				</div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-		        <button type="button" class="btn modal-status-select-submit-button" onclick="updateUserStatus()">변경</button>
+		        <button type="button" class="btn modal-status-select-submit-button" onclick="updatePostStatus()">변경</button>
 		      </div>
 		    </div>
 		  </div>
 		</div>
+		
+		<!-- 상태변경 modal -->
+		<div class="modal fade" id="today_deal_register" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <p class="modal-title" id="">오늘의 딜 상태변경</p>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body modal-status-select-product">
+					<div class="modal-status-select-product-num">
+						<span>선택된 게시물 수 : </span> 
+						<span class="modal-status-select-product-num-value productNum select-num">0</span>
+						<span>개</span>
+					</div>
+					<div class="modal-status-select">
+						<div class="btn-group modal-status-select-btn-group" role="group" aria-label="Basic radio toggle button group">
+							<select class="form-select modal-status-select-option" aria-label="Default select example" id="statusOption">
+								<option value="게시">게시</option>
+								<option value="중지">중지</option>
+							</select>
+						</div>
+					</div>
+				</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		        <button type="button" class="btn modal-status-select-submit-button" onclick="updateDealStatus()">변경</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+		
+		
           
 
         <!-- footer -->
