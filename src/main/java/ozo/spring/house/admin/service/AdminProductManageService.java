@@ -10,5 +10,7 @@ public interface AdminProductManageService {
 	public List<AdminProductVO> selectPosting(Criteria cri);
 	public int selectPostCount();
 	public void updateProductStatus(AdminProductVO pvo);
+	public List<AdminProductVO> selectCouponList();
+	public void updateCouponStatus(AdminProductVO pvo);
 
 }

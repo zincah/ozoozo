@@ -138,6 +138,80 @@
     		  }
     	}
     	
+    	// 오늘의 딜 상태 변경
+    	function updateDealStatus(){
+    		
+    		// 게시면은 insert 중지면은 delete
+    		
+    		var postNumList = []
+    		
+    		$("input:checkbox[name=productcheckbox]:checked").each(function(){
+      			var checkit = $(this).prev().val();
+      			postNumList.push(checkit);
+      		});
+    		
+    		postNumList.push($("#findPage").val());
+    		postNumList.push($("#dealStatusOption").val());
+    		
+    		
+    		$.ajax({
+		  		url:'updateDealStatus.admin',
+		  		method:'post',
+		  		data: JSON.stringify(postNumList),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'html',
+		  		success : function(resp){
+					
+		  			$(".modal").modal('hide');
+		  			$(".modal-status-select-option option:eq(0)").prop("selected", true);
+		  			$("#select-num").text("0");
+		  			
+		  			/*
+		  			printTable(resp);
+		  			console.log($("#findPage").val());*/
+		  			
+		  			
+		  			}
+		  		
+		  		});
+    	}
+    	
+    	// 쿠폰 상태 변경
+    	function updateCouponStatus(){
+    		
+    		var postNumList = []
+    		
+    		$("input:checkbox[name=productcheckbox]:checked").each(function(){
+      			var checkit = $(this).prev().val();
+      			postNumList.push(checkit);
+      		});
+    		
+    		postNumList.push($("#findPage").val());
+    		postNumList.push($("#couponStatusOption").val());
+    		
+    		
+    		$.ajax({
+		  		url:'updateCouponStatus.admin',
+		  		method:'post',
+		  		data: JSON.stringify(postNumList),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'html',
+		  		success : function(resp){
+					
+		  			$(".modal").modal('hide');
+		  			$(".modal-status-select-option option:eq(0)").prop("selected", true);
+		  			$("#select-num").text("0");
+		  			
+		  			
+		  			printTable(resp);
+		  			console.log($("#findPage").val());
+		  			
+		  			
+		  			}
+		  		
+		  		});
+    	}
+    	
     	// 게시물 상태 변경
     	function updatePostStatus(){
     		// checkbox 값 한개씩 가져오기
@@ -151,9 +225,9 @@
     		postNumList.push($("#findPage").val());
     		postNumList.push($("#productStatusOption").val());
     		
+    		console.log($("#productStatusOption").val());
     		
 
-    		
     		$.ajax({
 		  		url:'updateProductStatus.admin',
 		  		method:'post',
@@ -344,7 +418,16 @@
 	                  <td class="content-table-content-text option-line">${post.cate_name }</td>
 	                  <td class="content-table-content-text option-line">${post.product_count }</td>
 	                  <td class="content-table-content-text option-line">${post.subcate_name }</td>
-	                  <td class="content-table-content-text option-line">-</td>
+	                  <td class="content-table-content-text option-line">
+	                   <c:choose>
+							<c:when test="${post.post_couponid != null}">
+								${post.coupon_title }
+								<input type="hidden" value="${post.post_couponid }">
+							</c:when>
+							<c:when test="${post.post_couponid != null}">-</c:when>
+							<c:otherwise>-</c:otherwise>
+						</c:choose>
+	                  </td>
 	                  <td class="content-table-content-text option-line">${post.product_created }</td>
 	                  <td class="content-table-content-text option-line">
 		                  <c:choose>
@@ -417,17 +500,17 @@
 					</div>
 					<div class="modal-status-select">
 						<div class="btn-group modal-status-select-btn-group" role="group" aria-label="Basic radio toggle button group">
-							<select class="form-select modal-status-select-option" aria-label="Default select example" id="statusOption">
-								<option value="1">오픈 기념 이벤트 축하쿠폰/2000원 할인 (10,000원 이상 구매 시)</option>
-								<option value="2">가구 10% 할인쿠폰/30000원 이상 구매시 10% 할인</option>
-								<option value="3">신규가입 감사쿠폰/1000원 할인 (5000원 이상 구매시)</option>
+							<select class="form-select modal-status-select-option" aria-label="Default select example" id="couponStatusOption">
+								<c:forEach items="${couponList }" var="coupon">
+									<option value="${coupon.coupon_id }">${coupon.coupon_title } / ${coupon.coupon_subtitle }</option>
+								</c:forEach>
 							</select>
 						</div>
 					</div>
 				</div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-		        <button type="button" class="btn modal-status-select-submit-button" onclick="updateCouponStatus()">변경</button>
+		        <button type="button" class="btn modal-status-select-submit-button" onclick="updateCouponStatus()">확인</button>
 		      </div>
 		    </div>
 		  </div>
@@ -481,7 +564,7 @@
 					</div>
 					<div class="modal-status-select">
 						<div class="btn-group modal-status-select-btn-group" role="group" aria-label="Basic radio toggle button group">
-							<select class="form-select modal-status-select-option" aria-label="Default select example" id="statusOption">
+							<select class="form-select modal-status-select-option" aria-label="Default select example" id="dealStatusOption">
 								<option value="게시">게시</option>
 								<option value="중지">중지</option>
 							</select>

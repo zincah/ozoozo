@@ -30,4 +30,14 @@ public class AdminProductManageServiceImpl implements AdminProductManageService 
 		adminManageDAO.updateProductStatus(pvo);
 	}
 
+	@Override
+	public List<AdminProductVO> selectCouponList() {
+		return adminManageDAO.selectCouponList();
+	}
+
+	@Override
+	public void updateCouponStatus(AdminProductVO pvo) {
+		adminManageDAO.updateCouponStatus(pvo);
+	}
+
 }

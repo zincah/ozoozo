@@ -48,6 +48,15 @@ public class AdminManageDAO {
 		sqlSessionTemplate.update("AdminManageDAO.updateProductStatus2", pvo);
 	}
 	
+	public List<AdminProductVO> selectCouponList(){
+		return sqlSessionTemplate.selectList("AdminManageDAO.selectCouponList");
+	}
+	
+	public void updateCouponStatus(AdminProductVO pvo) {
+		System.out.println("--> mybatis in adminmanagedao updatecouponstatus");
+		sqlSessionTemplate.update("AdminManageDAO.updateCouponStatus", pvo);
+	}
+	
 
 
 }

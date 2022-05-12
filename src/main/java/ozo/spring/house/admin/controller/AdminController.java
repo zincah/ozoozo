@@ -67,11 +67,15 @@ public class AdminController {
 		if(session.getAttribute("admincode")!=null) {
 			
 			List<AdminProductVO> postList = productService.selectPosting(cri);
+			List<AdminProductVO> couponList = productService.selectCouponList();
 			int total = productService.selectPostCount();
 			
 			model.addAttribute("postList", postList);
 			model.addAttribute("pageMaker", cri);
 			model.addAttribute("totalcount", total);
+			model.addAttribute("couponList", couponList);
+			
+			System.out.println(couponList.size());
 
 			return "productManagementList_zinc";
 		}else {
