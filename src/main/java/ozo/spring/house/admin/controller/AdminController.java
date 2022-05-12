@@ -141,17 +141,6 @@ public class AdminController {
 		}
 	}
 
-	@RequestMapping(value = "/eventManagement.admin")
-	public String eventManagementView(HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		
-		if(session.getAttribute("admincode")!=null) {
-			return "eventManagement_dj";
-		}else {
-			return "adminLogin_dj";
-		}
-	}
 	
 
 }

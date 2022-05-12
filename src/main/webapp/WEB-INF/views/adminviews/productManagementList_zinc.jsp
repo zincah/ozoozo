@@ -44,6 +44,7 @@
 
     	});
     	
+    	
     	function setPage(pageNum){
     		
     		var total = ${totalcount};
@@ -82,14 +83,17 @@
 
     			e.preventDefault();
     			var pageNum = $(this).attr("href");
-    			movepage(pageNum, total);
+    			$("#findPage").val(pageNum);
+    			console.log($("#findPage").val(pageNum));
+    			movepage(pageNum);
     		});
 
     		
     	}
 
+    	// page 이동
     	function movepage(pageNum){
-    		
+
     		// 검색 조건을 같이 보내야 함
     		var searchCondition = {
     				"pageNum" : pageNum
@@ -104,8 +108,10 @@
 		  		dataType : 'html',
 		  		success : function(resp){
 		  			
-		  			$("#postTableBody").html(resp);
+		  			printTable(resp);
 		  			setPage(pageNum);
+		  			
+
 
 		  		},
 		  		error : function(request, status, error) {
@@ -123,10 +129,12 @@
     		    $("#allCheck").prop("checked", true);
     		    // 선택된 체크박스 개수에 따른 숫자값 변경
     		    $(".select-num").text($(".check:checked").length);
+    		    console.log($(".check:checked").length);
     		} else {
     		    $("#allCheck").prop("checked", false);
     		    // 선택된 체크박스 개수에 따른 숫자값 변경
     		    $(".select-num").text($(".check:checked").length);
+    		    console.log($(".check:checked").length);
     		  }
     	}
     	
@@ -140,30 +148,41 @@
       			postNumList.push(checkit);
       		});
     		
+    		postNumList.push($("#findPage").val());
     		postNumList.push($("#productStatusOption").val());
     		
-    		console.log(postNumList);
     		
-    		/*
+
+    		
     		$.ajax({
-		  		url:'updateUserStatus.admin',
+		  		url:'updateProductStatus.admin',
 		  		method:'post',
-		  		data: JSON.stringify(usernumList),
+		  		data: JSON.stringify(postNumList),
 		  		contentType : 'application/json; charset=UTF-8',
-		  		dataType : 'json',
+		  		dataType : 'html',
 		  		success : function(resp){
 					
-		  			$(".modal").modal('hide')
+		  			$(".modal").modal('hide');
 		  			$(".modal-status-select-option option:eq(0)").prop("selected", true);
 		  			$("#select-num").text("0");
-		  			printList(resp);
+		  			
+		  			printTable(resp);
+		  			console.log($("#findPage").val());
 		  			
 		  			
 		  			}
 		  		
-		  		});*/
+		  		});
 				
     		
+    	}
+    	
+    	function printTable(resp){
+    		$("#postTableBody").html(resp);
+    		
+    		// checkbox 초기화
+    		$("#allCheck").prop("checked", false);
+    		checkfunction();
     	}
     	
 		
@@ -235,7 +254,7 @@
                         </div>
                         <div class="form-check">
                           <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                          <label class="form-check-label" for="flexRadioDefault3"> 판매대기 </label>
+                          <label class="form-check-label" for="flexRadioDefault3"> 승인대기 </label>
                         </div>
                         <div class="form-check">
                           <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
@@ -295,6 +314,7 @@
               <thead>
                 <tr class="content-table-title">
                   <td class="content-table-title-text option-line" style="width: 1rem;">
+                  	<input type="hidden" id="findPage" value=1>
                     <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="allCheck"/>
                   </td>
                   <td class="content-table-title-text option-line" style="width: 4rem;">브랜드명</td>
@@ -431,7 +451,7 @@
 						<div class="btn-group modal-status-select-btn-group" role="group" aria-label="Basic radio toggle button group">
 							<select class="form-select modal-status-select-option" aria-label="Default select example" id="productStatusOption">
 								<option value="판매중">판매중</option>
-								<option value="판매대기">판매대기</option>
+								<option value="승인대기">승인대기</option>
 								<option value="보류중">보류중</option>
 							</select>
 						</div>

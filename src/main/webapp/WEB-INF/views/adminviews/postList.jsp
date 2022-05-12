@@ -8,6 +8,7 @@
                 <c:forEach items="${postList }" var="post">
 	                <tr class="content-table-content content-hover">
 	                  <td class="content-table-content-text option-line">
+	                   	  <input type="hidden" value="${post.post_id }"/>
 	                      <input class="check form-check-input form-check-input-margin" type="checkbox" value="" name="productcheckbox" onchange="checkfunction()"/>
 	                  </td>
 	                  <td class="content-table-content-text option-line">${post.company_name }</td>

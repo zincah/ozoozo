@@ -25,4 +25,9 @@ public class AdminProductManageServiceImpl implements AdminProductManageService 
 		return adminManageDAO.selectPostCount();
 	}
 
+	@Override
+	public void updateProductStatus(AdminProductVO pvo) {
+		adminManageDAO.updateProductStatus(pvo);
+	}
+
 }
