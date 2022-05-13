@@ -35,14 +35,26 @@
 	where protable_postid = 50003;
 	</select>
 	
-	<select id="basket_info" resultType="userproduct">
+	<select id="basket_info" resultType="cart">
 		select cart_product, cart_post, cart_quantity from cart c 
 	where cart_user = #{user_num};
 	</select>
 	
-	<select id="product_Get_id" resultType="userproduct">
-	SELECT p.product_id, po.option1 ,po.option2 FROM product p 
+	<select id="product_Get_id" resultType="cart">
+	SELECT p.product_id,p.seller_id,p.product_price FROM product p 
 		inner join product_option po on p.product_id = po.op_productid 
-		where po.option1 = #{option1} and po.option2 = #{option2};
+		where po.option1 = #{option1} and po.option2 = #{option2} and p.product_postid = 50003
 	</select>
+	
+	<insert id="cart_add" >
+	insert into cart(cart_user,cart_post,cart_product,  cart_quantity,  cart_payment, cart_seller) 
+		values (#{cart_user},50003, #{product_id}, #{EA}, #{cart_payment}, #{seller_id} );
+	</insert>
+	
+	<update id="cart_update">
+	update cart set cart_quantity= #{cart_quantity}, cart_payment = #{cart_payment}
+		where cart_product = #{cart_product}
+	</update>
+	
+	
 </mapper>

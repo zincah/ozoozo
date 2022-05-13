@@ -74,10 +74,7 @@ public class UserController {
 	public String user_shop() {
 		return "ozoshop_main";
 	}
-	@RequestMapping(value = "/todaydeal.com")
-	public String user_todaydeal() {
-		return "ozotodaydeal_zinc";
-	}
+
 	
 	
 	
@@ -147,8 +144,6 @@ public class UserController {
 		}else {
 			return "ozoLogin_zinc";
 		}
-		
-		
 	}
 	//로그인 화면에서 비밀번호 재설정
 	@RequestMapping(value = "/passwordReset.com")

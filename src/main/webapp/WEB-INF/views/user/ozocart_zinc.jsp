@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="resources/css/user_css/zinc/ozocart.css" rel="stylesheet"/>
+    <link href="resources/css/user_css/zinc/ozocart.css?var=1" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
 	integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
 	crossorigin="anonymous"></script>
@@ -70,6 +70,15 @@
                                         <li class="cart_group_delivery_list_item">
                                             <article class="cart_group_delivery_list_item_wrap">
                                                 <div class="carted_product">
+                                                	<div class="carted-product__select">
+                                                		<div class="_3zqA8"><input type="checkbox" class="_3UImz" value="" checked="">
+                                                			<span class="_2mDYR">
+                                                				<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR">
+                                                					<path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path>
+                                                				</svg>
+                                                			</span>
+                                                		</div>
+                                                	</div>
                                                     <a href="#" class="carted_product_link">
                                                         <div class="product_image">
                                                             <img src="sources/product1.webp">

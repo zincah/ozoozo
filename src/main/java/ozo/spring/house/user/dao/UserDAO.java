@@ -94,10 +94,41 @@ public class UserDAO {
 	}
 	public boolean basket_add(List<UserProductVO> vo, UserVO uvo) {
 		System.out.println("[LOGO] : Mybatis in UserDAO basket_add");
-		List<CartVO> cart_li = sqlSessionTemplate.selectList("UserProduct.basket_info", vo);
-		List<UserProductVO> test = new ArrayList<UserProductVO>();
+		List<CartVO> cart_li = sqlSessionTemplate.selectList("UserProduct.basket_info", uvo); // 저장되어 있는 장바구니 체크
+		List<CartVO> test = new ArrayList<CartVO>(); // 방금 불러온 장바구니 (ID, EA) 리스트
+		
+		if(vo.get(0).getOption2() == null) {
+			for(UserProductVO i : vo) {
+				i.setOption2("");
+			}
+		}
 		for(int i = 0; i < vo.size(); i++) {
-			sqlSessionTemplate.insert("UserProduct.basket_test", vo.get(i));
+			test.add(sqlSessionTemplate.selectOne("UserProduct.product_Get_id",vo.get(i)));
+			test.get(i).setEA(vo.get(i).getProduct_EA());
+			test.get(i).setCart_user(uvo.getUser_num());
+			test.get(i).setCart_payment(test.get(i).getProduct_price()*test.get(i).getEA());
+		}
+		for(CartVO i : test) {
+			System.out.println("테스트 : " + i);
+		}
+		for(int i = 0 ; i < cart_li.size(); i++) {
+			System.out.println("실행 횟수" + i);
+			for(int j = 0 ; j < test.size(); j++) {
+				if(test.get(j).getProduct_id()== cart_li.get(i).getCart_product()){
+					cart_li.get(i).setCart_quantity(cart_li.get(i).getCart_quantity() + test.get(j).getEA());
+					cart_li.get(i).setCart_payment(test.get(j).getProduct_price()*cart_li.get(i).getCart_quantity());
+					System.out.println(test.get(j));
+					sqlSessionTemplate.update("UserProduct.cart_update",cart_li.get(i));
+					test.remove(j);
+					break;
+				}
+			}
+		}
+		for(CartVO i : test) {
+			System.out.println("테스트2 : " + i);
+		}
+		for(CartVO i : test) {
+			sqlSessionTemplate.insert("UserProduct.cart_add", i);
 		}
 		return true;
 	}
