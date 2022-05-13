@@ -18,6 +18,11 @@
       }
     </style>
     <title>내가 작성한 리뷰</title>
+    <script>
+      function writeReview(){
+        alert("hi");
+      }
+    </script>
   </head>
   <body>
   <header>
@@ -45,7 +50,7 @@
         <nav class="page-navigation mypage-nav-content">
           <ul style="transform: translateX(0px); margin: 0px">
             <li class="mypage-nav-item">
-              <a href="/house/myreview_write.com" target="self">리뷰쓰기</a>
+              <a onclick="writeReview()">리뷰쓰기</a>
             </li>
             <li class="mypage-nav-item">
               <a class="active select" href="/house/myreview.com" target="self"
