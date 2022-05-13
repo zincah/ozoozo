@@ -18,7 +18,16 @@
 	                  <td class="content-table-content-text option-line">${post.cate_name }</td>
 	                  <td class="content-table-content-text option-line">${post.product_count }</td>
 	                  <td class="content-table-content-text option-line">${post.subcate_name }</td>
-	                  <td class="content-table-content-text option-line">-</td>
+	                  <td class="content-table-content-text option-line">
+	                   <c:choose>
+							<c:when test="${post.post_couponid != null}">
+								${post.coupon_title }
+								<input type="hidden" value="${post.post_couponid }">
+							</c:when>
+							<c:when test="${post.post_couponid != null}">-</c:when>
+							<c:otherwise>-</c:otherwise>
+						</c:choose>
+	                  </td>
 	                  <td class="content-table-content-text option-line">${post.product_created }</td>
 					  <td class="content-table-content-text option-line">
 					  	<c:choose>

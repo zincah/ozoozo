@@ -84,13 +84,14 @@
 	
 	<!-- admin 상품 posting -->
 	<select id="selectPosting" resultType="adminproduct">
-		SELECT po.post_id, ss.company_name, di.deal_status, po.best_product, po.post_name, pp.product_created, pp.product_count, ca.cate_name, sc.subcate_name, po.post_status, po.post_couponid 
+		SELECT po.post_id, ss.company_name, di.deal_status, po.best_product, po.post_name, pp.product_created, pp.product_count, ca.cate_name, sc.subcate_name, po.post_status, po.post_couponid, pc.coupon_title 
 		FROM product_posting po INNER JOIN (
 			SELECT MAX(product_created) AS product_created , count(product_postid) AS product_count, product_postid FROM product GROUP BY product_postid 
 		) pp ON po.post_id = pp.product_postid
 		INNER JOIN seller ss ON po.post_sellerid = ss.seller_id 
 		INNER JOIN category ca ON po.po_category = ca.cate_code
 		INNER JOIN sub_category sc ON po.po_subcate = sc.subcate_code
+		LEFT OUTER JOIN product_coupon pc ON po.post_couponid = pc.coupon_id 
 		LEFT OUTER JOIN deal_info di ON po.post_id = di.deal_postid
 		ORDER BY po.post_id DESC limit #{amount} offset (#{pageNum}-1) * #{amount};
 	</select>
@@ -109,5 +110,29 @@
 	<update id="updateProductStatus2">
 		UPDATE product_status AS pos SET status=#{post_status} FROM product AS pp WHERE pos.st_product_id = pp.product_id AND pp.product_postid=#{post_id};
 	</update>
+	
+	<!-- admin 상품에서 쿠폰 검색 -->
+	<select id="selectCouponList" resultType="adminproduct">
+		SELECT coupon_id, coupon_title, coupon_subtitle FROM product_coupon WHERE coupon_status = '사용중';
+	</select>
+	
+	<!-- admin 쿠폰 상태 바꾸기 : coupon-status -->
+	<update id="updateCouponStatus">
+		UPDATE product_posting SET post_couponid=#{post_couponid} WHERE post_id=#{post_id};
+	</update>
+	
+	<!-- admin deal 상태 바꾸기 : deal-info, post -->
+	<update id="updateDealStatus">
+		UPDATE deal_info SET deal_status=#{deal_status} WHERE deal_postid=#{post_id};
+	</update>
+	
+	<update id="updateDealStatusOnPost">
+		UPDATE product_posting SET today_deal=#{today_deal} WHERE post_id=#{post_id};
+	</update>
+	
+	<delete id="deleteDeal">
+		DELETE FROM deal_info WHERE deal_postid=#{post_id}
+	</delete>
+	
 	
 </mapper>

@@ -23,7 +23,15 @@ public class AdminProductVO {
 	private String cate_name;
 	private String subcate_name;
 	private String post_status;
-	private String post_couponid;
+	private int post_couponid;
+	
+	// posting
+	private boolean today_deal;
+	
+	// coupon
+	private int coupon_id;
+	private String coupon_title;
+	private String coupon_subtitle;
 
 
 }

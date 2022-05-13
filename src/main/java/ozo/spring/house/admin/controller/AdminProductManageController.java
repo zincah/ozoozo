@@ -61,6 +61,59 @@ public class AdminProductManageController {
 		return "postList";
 	}
 	
+	@RequestMapping(value="/updateCouponStatus.admin", method=RequestMethod.POST)
+	public String updateCouponStatus(@RequestBody List<String> couponInfo, AdminProductVO pvo, Model model, Criteria cri) {
+
+		System.out.println(couponInfo);
+		
+		pvo.setPost_couponid(Integer.parseInt(couponInfo.get(couponInfo.size()-1)));
+		
+		for(int i=0; i<couponInfo.size()-2; i++) {
+			pvo.setPost_id(Integer.parseInt(couponInfo.get(i)));
+			productService.updateCouponStatus(pvo);
+		}
+		
+		cri = new Criteria(Integer.parseInt(couponInfo.get(couponInfo.size()-2)), 10);
+		List<AdminProductVO> postList = productService.selectPosting(cri);
+		model.addAttribute("postList", postList);
+		model.addAttribute("pageMaker", cri);
+		
+		return "postList";
+	}
+
+	
+	@RequestMapping(value="/updateDealStatus.admin", method=RequestMethod.POST)
+	public String updateDealStatus(@RequestBody List<String> dealInfo, AdminProductVO pvo, Model model, Criteria cri) {
+
+		System.out.println(dealInfo);
+
+		String deal_status = dealInfo.get(dealInfo.size()-1);
+		if(deal_status.equals("게시")) {
+			pvo.setDeal_status(deal_status);
+			pvo.setToday_deal(true);
+			
+			for(int i=0; i<dealInfo.size()-2; i++) {
+				pvo.setPost_id(Integer.parseInt(dealInfo.get(i)));
+				productService.updateDealStatus(pvo);
+			}
+		}else if(deal_status.equals("중지")){
+			// deal_info에서는 삭제
+			pvo.setToday_deal(false);
+			
+			for(int i=0; i<dealInfo.size()-2; i++) {
+				pvo.setPost_id(Integer.parseInt(dealInfo.get(i)));
+				productService.deleteDeal(pvo);
+			}
+		}
+		
+		cri = new Criteria(Integer.parseInt(dealInfo.get(dealInfo.size()-2)), 10);
+		List<AdminProductVO> postList = productService.selectPosting(cri);
+		model.addAttribute("postList", postList);
+		model.addAttribute("pageMaker", cri);
+		
+		return "postList";
+	}
+	
 	
 
 }

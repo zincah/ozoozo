@@ -48,6 +48,29 @@ public class AdminManageDAO {
 		sqlSessionTemplate.update("AdminManageDAO.updateProductStatus2", pvo);
 	}
 	
+	public List<AdminProductVO> selectCouponList(){
+		return sqlSessionTemplate.selectList("AdminManageDAO.selectCouponList");
+	}
+	
+	public void updateCouponStatus(AdminProductVO pvo) {
+		System.out.println("--> mybatis in adminmanagedao updatecouponstatus");
+		sqlSessionTemplate.update("AdminManageDAO.updateCouponStatus", pvo);
+	}
+	
+	public void updateDealStatus(AdminProductVO pvo) {
+		System.out.println("--> mybatis in adminmanagedao updatedealstatus");
+		sqlSessionTemplate.update("AdminManageDAO.updateDealStatus", pvo);
+		sqlSessionTemplate.update("AdminManageDAO.updateDealStatusOnPost", pvo);
+	}
+	
+	public void deleteDeal(AdminProductVO pvo) {
+		System.out.println("--> mybatis in adminmanagedao deletedeal");
+		sqlSessionTemplate.delete("AdminManageDAO.deleteDeal", pvo);
+		sqlSessionTemplate.update("AdminManageDAO.updateDealStatusOnPost", pvo);
+	}
+	
+
+	
 
 
 }
