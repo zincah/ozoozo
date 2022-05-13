@@ -166,9 +166,9 @@
 		  			$(".modal-status-select-option option:eq(0)").prop("selected", true);
 		  			$("#select-num").text("0");
 		  			
-		  			/*
+		  			
 		  			printTable(resp);
-		  			console.log($("#findPage").val());*/
+		  			console.log($("#findPage").val());
 		  			
 		  			
 		  			}

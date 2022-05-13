@@ -34,7 +34,9 @@
 				GROUP BY photo_postid 
 			)
 		) pimg ON po.post_id = pimg.photo_postid
-		INNER JOIN deal_info di ON po.post_id = di.deal_postid 
+		INNER JOIN (
+			SELECT * FROM deal_info WHERE deal_status='게시'
+		) di ON po.post_id = di.deal_postid 
 		ORDER BY di.deal_id DESC FETCH FIRST 4 ROWS ONLY;
 	</select>
 	
@@ -53,6 +55,11 @@
 		) pimg ON po.post_id = pimg.photo_postid
 		ORDER BY po.post_id DESC
 		limit 4 offset #{thispage} * 4;
+	</select>
+	
+	<!-- banner 화면에 뿌리기 -->
+	<select id="selectBannerList" resultType="banner">
+		SELECT banner_id, banner_urlbig, banner_urlsm FROM banner;
 	</select>
 	
 

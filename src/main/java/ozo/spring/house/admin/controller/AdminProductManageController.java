@@ -86,19 +86,30 @@ public class AdminProductManageController {
 	public String updateDealStatus(@RequestBody List<String> dealInfo, AdminProductVO pvo, Model model, Criteria cri) {
 
 		System.out.println(dealInfo);
-		
-		/*
-		pvo.setPost_couponid(Integer.parseInt(dealInfo.get(dealInfo.size()-1)));
-		
-		for(int i=0; i<dealInfo.size()-2; i++) {
-			pvo.setPost_id(Integer.parseInt(dealInfo.get(i)));
-			productService.updateCouponStatus(pvo);
+
+		String deal_status = dealInfo.get(dealInfo.size()-1);
+		if(deal_status.equals("게시")) {
+			pvo.setDeal_status(deal_status);
+			pvo.setToday_deal(true);
+			
+			for(int i=0; i<dealInfo.size()-2; i++) {
+				pvo.setPost_id(Integer.parseInt(dealInfo.get(i)));
+				productService.updateDealStatus(pvo);
+			}
+		}else if(deal_status.equals("중지")){
+			// deal_info에서는 삭제
+			pvo.setToday_deal(false);
+			
+			for(int i=0; i<dealInfo.size()-2; i++) {
+				pvo.setPost_id(Integer.parseInt(dealInfo.get(i)));
+				productService.deleteDeal(pvo);
+			}
 		}
 		
 		cri = new Criteria(Integer.parseInt(dealInfo.get(dealInfo.size()-2)), 10);
 		List<AdminProductVO> postList = productService.selectPosting(cri);
 		model.addAttribute("postList", postList);
-		model.addAttribute("pageMaker", cri);*/
+		model.addAttribute("pageMaker", cri);
 		
 		return "postList";
 	}

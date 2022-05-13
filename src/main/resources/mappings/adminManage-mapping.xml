@@ -121,9 +121,18 @@
 		UPDATE product_posting SET post_couponid=#{post_couponid} WHERE post_id=#{post_id};
 	</update>
 	
-	<!-- admin deal 상태 바꾸기 : deal-status -->
+	<!-- admin deal 상태 바꾸기 : deal-info, post -->
 	<update id="updateDealStatus">
-		
+		UPDATE deal_info SET deal_status=#{deal_status} WHERE deal_postid=#{post_id};
 	</update>
+	
+	<update id="updateDealStatusOnPost">
+		UPDATE product_posting SET today_deal=#{today_deal} WHERE post_id=#{post_id};
+	</update>
+	
+	<delete id="deleteDeal">
+		DELETE FROM deal_info WHERE deal_postid=#{post_id}
+	</delete>
+	
 	
 </mapper>

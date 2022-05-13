@@ -87,16 +87,18 @@
 		<div class="carousel_layout">
 
 			<!-- for 문 -->
-			<div class="carousel_frame">
-				<a href="#"> <!-- large image -->
-					<div class="carousel_banner">
-						<img class="banner_img_first" src="sources/eventone.png">
-					</div> <!-- small image -->
-					<div class="carousel_banner_sm">
-						<img class="banner_img_second" src="sources/eventone_small.png">
-					</div>
-				</a>
-			</div>
+			<c:forEach items="${bannerList }" var="banner">
+				<div class="carousel_frame">
+					<a href="#"> <!-- large image -->
+						<div class="carousel_banner">
+							<img class="banner_img_first" src="sources/eventone.png">
+						</div> <!-- small image -->
+						<div class="carousel_banner_sm">
+							<img class="banner_img_second" src="sources/eventone_small.png">
+						</div>
+					</a>
+				</div>
+			</c:forEach>
 
 			<div class="carousel_frame">
 				<a href="#"> <!-- large image -->

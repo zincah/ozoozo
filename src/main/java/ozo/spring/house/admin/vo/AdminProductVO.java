@@ -25,6 +25,9 @@ public class AdminProductVO {
 	private String post_status;
 	private int post_couponid;
 	
+	// posting
+	private boolean today_deal;
+	
 	// coupon
 	private int coupon_id;
 	private String coupon_title;
