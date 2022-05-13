@@ -38,6 +38,13 @@
 		$(".modi_btn").hide();
 		$(".del_btn").hide();
 		$(".stop_btn").hide();
+		$("#info_date").text("");
+		var classname = $("#banner_bigname").parent();
+	    classname.find("span").text("");
+	    var classname = $("#banner_smname").parent();
+	    classname.find("span").text("");
+		
+		$(".content-table-content-text").find("span").text("");
 		
 		/* 새 공지사항 jquery */
 		
@@ -50,6 +57,7 @@
 			
 			$("#info_newTitle").hide();
 			$("#info_title").show();
+			$("#info_title").text("");
 			
 			$(".insert_btn").hide();
 			$(".reset_btn").hide();
@@ -57,12 +65,21 @@
 			$(".del_btn").hide();
 			$(".stop_btn").hide();
 			
+			var classname = $("#banner_bigname").parent();
+		    classname.find("span").text("");
+		    var classname = $("#banner_smname").parent();
+		    classname.find("span").text("");
+			
 			$(".content-table-content-text").find("span").text("");
 			
 			
 		});
 		/* 새글 등록 */
 		$("#new_info").click(function() {
+			var classname = $("#banner_bigname").parent();
+		    classname.find("span").text("");
+		    var classname = $("#banner_smname").parent();
+		    classname.find("span").text("");
 
 			$(".insert_btn").show();
 			$(".reset_btn").show();
@@ -75,6 +92,8 @@
 			$(".cancle1").show();
 			$(".upload1").show();
 
+			$("#info_date").text("");
+			
 			$("#info_newTitle").show();
 			$("#info_title").hide();
 
@@ -229,30 +248,49 @@
 		
 	})
 	/* 내용뿌리기 */
-	$(".content-table-content-text").click(function(){
+	$(".b_title").click(function(){
 	
 		var item = $(this).attr('id')
+		
+		var fox ={"id" : item}
 		
 		$.ajax({
 			url:'view.admin',
 			method:'post',
 			contentType: 'application/json; charset=UTF-8',
-			data:  JSON.stringify(item),
+			data:  JSON.stringify(fox),
 			dataType: 'json',
 			async: false,
 			success:function(data){
 				
-				$.each(data,function(item){
+				
+				
+				$.each(data,function(index,fox){
+
+						
+					var UNIX_timestamp = fox["banner_uploaddate"]
 					
-					alert('hi')
-					/* $("#info_date").text("")
-					$("#info_date").text(""+item["banner_uploaddate"])
-					$("#info_title").text("")
-					$("#info_title").text(""+item["banner_title"])
+						  var a = new Date(UNIX_timestamp);
+						  var year = a.getFullYear();
+						  var month = a.getMonth();
+						  var date = a.getDate();
+						  var hour = a.getHours();
+						  var min = a.getMinutes();
+						  var sec = a.getSeconds();
+						  var time = year + '-' + '0' +month + '-' + date + ' ' + hour + ':' + min + ':' + sec ;
+						  
+						
+					
+					
+					 
+					 $("#info_date").text("");
+					$("#info_date").text(time); 
+					 $("#info_title").text("")
+					$("#info_title").text(""+fox["banner_title"])
 					var classname = $("#banner_bigname").parent();
-				    classname.find("span").text(""+item["banner_urlbig"]);
+				    classname.find("span").text(""+fox["banner_bigname"]);
 				    var classname = $("#banner_smname").parent();
-				    classname.find("span").text(""+item["banner_urlsm"]); */
+				    classname.find("span").text(""+fox["banner_smname"]);  
 					
 				})
 				
@@ -331,7 +369,7 @@
 			<td class="content-table-content-text option-line">${BB.banner_id}</td>
 				<td class="content-table-content-text option-line">${BB.banner_uploaddate}</td>
 				
-				<td id="${BB.banner_id}" class="content-table-content-text option-line "><a href="">${BB.banner_title}
+				<td id="${BB.banner_id}" class="content-table-content-text option-line b_title"><a >${BB.banner_title}
 				</a></td>
 				<td class="content-table-content-text option-line">쎄션</td>
 				
@@ -384,24 +422,20 @@
 					<tbody>
 						<tr class="content-table-content">
 							<td class="content-table-content-text option-line content-table-title" style="background-color: #f5f5f5; width: 20%;">등록일</td>
-							<td class="content-table-content-text option-line" id="info_date" style="width: 50%;">2022-04-12 13:11</td>
+							<td class="content-table-content-text option-line" id="info_date" style="width: 50%;"></td>
 							<td class="content-table-content-text option-line content-table-title" style="background-color: #f5f5f5; width: 10%;">담당자</td>
 							<td class="content-table-content-text option-line" id="info_charge" style="width: 20%;">쎄션</td>
 						</tr>
 						<tr class="content-table-content">
-							<td
-								class="content-table-content-text option-line content-table-title"
+							<td class="content-table-content-text option-line content-table-title"
 								style="background-color: #f5f5f5">제목</td>
 							<td colspan="3" class="content-table-content-text option-line">
 
-								<p id="info_title">타임쿠폰</p> <input
-								class="form-control info_text" id="info_newTitle">
+								<p id="info_title"></p> <input class="form-control info_text" id="info_newTitle">
 							</td>
 						</tr>
 						<tr class="content-table-content">
-							<td
-								class="content-table-content-text option-line content-table-title"
-								style="background-color: #f5f5f5">이미지(big size)</td>
+							<td class="content-table-content-text option-line content-table-title" style="background-color: #f5f5f5">이미지(big size)</td>
 							<td colspan="2" class="content-table-content-text option-line">
 								
 							<input type="file" name="banner_bigname" id="banner_bigname" class="banner_bigname" style="display: none" onchange="changeValue(this)" accept="image/*" />
@@ -450,7 +484,7 @@
 								<button type="button" class="btn btn-secondary modi_btn">수정</button>
 								<button type="button" class="btn btn-secondary stop_btn">중지</button>
 								<button type="button" class="btn btn-danger del_btn">삭제</button>
-								<button class="btn btn-success insert_btn">등록</button>
+								<button class="btn btn-success insert_btn"><a href="">등록</a> </button>
 								<button type="reset" class="btn btn-secondary reset_btn">취소</button>
 							</td>
 						</tr>

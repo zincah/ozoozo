@@ -71,10 +71,10 @@ public class AdminEventController {
 	
 	@ResponseBody
 	@RequestMapping(value="/view.admin", method = { RequestMethod.POST })
-	public List<BannerVO> bannerview(@RequestBody String param,BannerVO vo ){
+	public List<BannerVO> bannerview(@RequestBody Map<String,String> param,BannerVO vo ){
 
-		vo.setBanner_id(Integer.parseInt(param));
-		System.out.println(param);
+		vo.setBanner_id(Integer.parseInt(param.get("id")));
+		System.out.println(param.get("id"));
 		List<BannerVO> list = AdminBannerService.b_selectone(vo);
 		
 		return list;
