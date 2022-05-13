@@ -75,7 +75,7 @@
                     <div class="edit_user_info_item_body">
                         <div class="edit_user_info_item_body_wrap">
                             <div class="email_input">
-                                <input type="text" class="form_control" placeholder="이메일" value="ioi9737">
+                                <input type="text" class="form_control" placeholder="이메일" value="">
                                 <span class="input_seperator">@</span>
                                 <select class="form_control">
                                     <option value="" disabled="">선택해주세요</option>

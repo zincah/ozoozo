@@ -46,14 +46,14 @@ public class AdminUploadController {
 					String contentType = bigfile.getContentType();
 					long contentLength = bigfile.getSize();
 					
-					//String url = awss3Client.upload(is, key, contentType, contentLength, dirName);
-					//System.out.println(url);
+					String url = awss3Client.upload(is, key, contentType, contentLength, dirName);
+					System.out.println(url);
 					System.out.println("aws main file upload complete");
 					vo.setBanner_bigname(key);
-					//vo.setBanner_urlbig(url);
+					vo.setBanner_urlbig(url);
 					System.out.println("큰거");
-					//System.out.println(url);
-					AdminBannerService.b_insert(vo);
+					System.out.println(url);
+					
 					System.out.println("mybatis main photo ok");
 				}
 					}
@@ -69,20 +69,20 @@ public class AdminUploadController {
 						long contentLength = smfile.getSize();
 						
 						System.out.println(key);		
-						//String url = awss3Client.upload(is, key, contentType, contentLength, dirName);
-						//System.out.println(url);
+						String url = awss3Client.upload(is, key, contentType, contentLength, dirName);
+						System.out.println(url);
 						System.out.println("aws detail file upload complete");
 						vo.setBanner_smname(key);
-						//vo.setBanner_urlsm(url);
+						vo.setBanner_urlsm(url);
 						System.out.println("작은거");
-						//System.out.println(url);
-						AdminBannerService.b_insert(vo);
+						System.out.println(url);
+						
 						System.out.println("mybatis detail photo ok");
 
 					}
 						
 					
-					
+					AdminBannerService.b_insert(vo);
 				}
 				
 

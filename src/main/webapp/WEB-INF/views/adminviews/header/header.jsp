@@ -115,7 +115,7 @@
                             </div>
                             쿠폰발급
                         </a>
-                        <a class="nav-link" href="eventManagement.admin">
+                        <a class="nav-link" href="m_eventManagement.admin">
                             <div class="sb-nav-link-icon"><i class="bi bi-calendar3-event"></i></div>
                             이벤트관리
                         </a>
