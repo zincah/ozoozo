@@ -151,6 +151,15 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 	font-weight: 600;
 }
 
+.breadcrumb2 {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 0 1rem 0;
+    margin-bottom: 0.2rem;
+    list-style: none;
+    justify-content: space-between;
+}
+
 /* 인하님 */
 .bottomline {
 	border-bottom: 1px solid #dbdbdb;

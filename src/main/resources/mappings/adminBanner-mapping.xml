@@ -17,7 +17,7 @@
 	</insert>
 	
 	<delete id="b_delete" parameterType="banner">
-	DELETE FROM banner WHERE  	
+	DELETE FROM banner WHERE banner_id=#{banner_id}
 	</delete>
 	
 	<update id="b_boolean" parameterType="banner">

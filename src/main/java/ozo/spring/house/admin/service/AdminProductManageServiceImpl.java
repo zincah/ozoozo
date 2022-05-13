@@ -50,4 +50,9 @@ public class AdminProductManageServiceImpl implements AdminProductManageService 
 		adminManageDAO.deleteDeal(pvo);
 	}
 
+	@Override
+	public List<AdminProductVO> getProductList(AdminProductVO pvo) {
+		return adminManageDAO.getProductList(pvo);
+	}
+
 }

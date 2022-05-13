@@ -115,5 +115,24 @@ public class AdminProductManageController {
 	}
 	
 	
+	@RequestMapping(value="/productSearchBox.admin", method=RequestMethod.POST)
+	public String productSearchBox(@RequestBody Map<String, String> searchMap, AdminProductVO pvo, Model model, Criteria cri) {
+
+		System.out.println(searchMap);
+		
+		
+		
+		
+		return "postList";
+	}
+	
+	@RequestMapping(value="/productSearch.admin", method=RequestMethod.POST)
+	public String productSearch(@RequestBody Map<String, String> searchMap, AdminProductVO pvo, Model model, Criteria cri) {
+
+		
+		System.out.println(searchMap);
+		return "postList";
+	}
+	
 
 }

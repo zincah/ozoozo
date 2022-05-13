@@ -22,11 +22,6 @@ public class AdminBannerServiceImple implements AdminBannerService  {
 		bannerDAO.b_insert(vo);
 	}
 
-	@Override
-	public List<BannerVO> b_delete(BannerVO vo) {
-		
-		return null;
-	}
 
 	@Override
 	public List<BannerVO> b_select(BannerVO vo) {
@@ -36,15 +31,19 @@ public class AdminBannerServiceImple implements AdminBannerService  {
 
 	@Override
 	public HashMap<String, String> b_boolean(BannerVO vo) {
-		
 		bannerDAO.b_boolean(vo);
 		return null;
 	}
 
 	@Override
 	public List<BannerVO> b_selectone(BannerVO vo) {
-		
 		return bannerDAO.b_selectone(vo);
+	}
+
+
+	@Override
+	public void b_delete(BannerVO vo) {
+		bannerDAO.b_delete(vo);
 	}
 
 	

@@ -41,8 +41,132 @@
     		// setpage
 			var pageNum = ${pageMaker.getPageNum()};
     		setPage(pageNum);
+    		
+    		// 검색 기능
+    		// 날짜
+    		var datepick1;
+    		var datepick2;
+    		
+    		$("input[name=datepick1]").click(function(){
+    			$("input[name=datepick2]").attr("disabled", true);
+    		})
+    		
+    		$("input[name=datepick1]").change(function(){
+    			datepick1 = $("input[name=datepick1]").val();
+    			$("input[name=datepick2]").attr("disabled", false);
+    		})
+
+    		$("input[name=datepick2]").change(function(){
+    			// 날짜 선택
+    			getData();
+    		})
+    		
+			$("input[name=btnradio]").click(function(){
+				// 날짜 버튼들 누르면 반응
+    			getData();
+    		})
+    		
+    		$("#large-select").change(function(){
+    			// 카테고리 선택
+    			getData();
+    		})
+
+    		$("input[name=posttype]").click(function(){
+    			// 포스팅 타입 선택
+    			getData();
+    		})
+    		
+    		$("#search_select").change(function(){
+    			$("#search_input").prop("disabled", false);
+    			searching();
+    		});
 
     	});
+    	
+    	function getData(){
+    		
+    		// checkbox 초기화
+    		$("#allCheck").prop("checked", false);
+    		
+    		//조건들 받아오기
+    		var posttype = $("input[name=posttype]:checked").val();
+    		var category = $("#large-select").val();
+    		var startdate = $("input[name=datepick1]").val();
+    		var enddate = $("input[name=datepick2]").val();
+
+			var pack = $("#search_select option:selected").val();
+			var keyword = $("#search_input").val();
+
+			var searchMap = {
+    				"posttype" : posttype,
+    				"category" : category,
+    				"startdate" : startdate,
+    				"enddate" : enddate,
+    				"pack" : pack,
+    				"keyword" : keyword
+    		}
+
+			
+			$.ajax({
+		  		url:'productSearch.admin',
+		  		method:'post',
+		  		data: JSON.stringify(searchMap),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'html',
+		  		success : function(resp){
+		  			
+		  			//printList(resp);
+
+		  		}
+    		});
+			
+    	}
+    	
+    	function searching(){
+
+    		$("#search_input").keyup(function(){
+    			
+    			// checkbox 초기화
+        		$("#allCheck").prop("checked", false);
+    			
+    			// page 정보
+    			var thispage = $("#findPage").val();
+    			console.log(thispage);
+    			
+        		//조건들 받아오기
+        		var posttype = $("input[name=posttype]:checked").val();
+        		var category = $("#large-select").val();
+        		var startdate = $("input[name=datepick1]").val();
+        		var enddate = $("input[name=datepick2]").val();
+
+    			var pack = $("#search_select option:selected").val();
+    			var keyword = $("#search_input").val();
+
+    			var searchMap = {
+        				"posttype" : posttype,
+        				"category" : category,
+        				"startdate" : startdate,
+        				"enddate" : enddate,
+        				"pack" : pack,
+        				"keyword" : keyword
+        		}
+
+    			
+    			$.ajax({
+    		  		url:'productSearchBox.admin',
+    		  		method:'post',
+    		  		data: JSON.stringify(searchMap),
+    		  		contentType : 'application/json; charset=UTF-8',
+    		  		dataType : 'html',
+    		  		success : function(resp){
+    		  			
+    		  			//printList(resp);
+
+    		  		}
+        		});
+
+    		});
+    	}
     	
     	
     	function setPage(pageNum){
@@ -271,8 +395,11 @@
               <h1 class="mt-4 insert_title">판매 게시글 등록 관리</h1>
               
             </div>
-            <ol class="breadcrumb mb-3 bottomline">
+            <ol class="breadcrumb2 mb-3 bottomline">
               <li class="breadcrumb-item active">Manage sales posts</li>
+              <li>
+              	<button type="button" class="btn btn-secondary" id="resetBtn">초기화</button>
+              </li>
             </ol>
             <div class="container container-option bottomline">
               <div class="row optionGroup1">
@@ -307,31 +434,31 @@
                     <div class="radio-productCode paddingLeft1 align-custom">
                       <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                         <select class="form-select selectState" id="large-select" aria-label="Default select example" style="width: 200px;">
-                          <option selected value="0">카테고리 전체</option>
-                          <option value="1">가구</option>
-                          <option value="2">패브릭</option>
-                          <option value="3">조명</option>
-                          <option value="4">가전</option>
-                          <option value="5">주방용품</option>
-                          <option value="6">데코/식물</option>
-                          <option value="7">수납/정리</option>
+                          <option selected value="">카테고리 전체</option>
+                          <option value="가구">가구</option>
+                          <option value="패브릭">패브릭</option>
+                          <option value="조명">조명</option>
+                          <option value="가전">가전</option>
+                          <option value="주방용품">주방용품</option>
+                          <option value="데코/식물">데코/식물</option>
+                          <option value="수납/정리">수납/정리</option>
                         </select>
                       </div>
                       <div class="radio_layer paddingLeft1">
                         <div class="form-check">
-                          <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked="">
+                          <input class="form-check-input radio-custom" type="radio" name="posttype" id="flexRadioDefault1" checked="" value="">
                           <label class="form-check-label" for="flexRadioDefault1"> 전체 </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                          <input class="form-check-input radio-custom" type="radio" name="posttype" id="flexRadioDefault2" value="보류중">
                           <label class="form-check-label" for="flexRadioDefault2"> 보류중 </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                          <input class="form-check-input radio-custom" type="radio" name="posttype" id="flexRadioDefault3" value="승인대기">
                           <label class="form-check-label" for="flexRadioDefault3"> 승인대기 </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input radio-custom" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+                          <input class="form-check-input radio-custom" type="radio" name="posttype" id="flexRadioDefault3" value="판매중">
                           <label class="form-check-label" for="flexRadioDefault3"> 판매중 </label>
                         </div>
 
@@ -352,16 +479,16 @@
                 
 	                <div class="radio-productCode paddingLeft1 align-custom">
                       <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <select class="form-select selectState" id="large-select" aria-label="Default select example" style="width: 150px;">
-                          <option selected value="0">검색 필터</option>
-                          <option value="1">브랜드명</option>
-                          <option value="2">판매 게시글 명</option>
-                          <option value="3">종류</option>
+                        <select class="form-select selectState" id="search_select" aria-label="Default select example" style="width: 150px;">
+                          <option selected value="">검색 필터</option>
+                          <option value="company_name">브랜드명</option>
+                          <option value="post_name">판매 게시글 명</option>
+                          <option value="subcate_name">종류</option>
                         </select>
                       </div>
 	                </div>
                     
-                    <input class="form-control size-input" type="text">
+                    <input class="form-control size-input" id="search_input" type="text" disabled>
                 </div>
             </div>
             

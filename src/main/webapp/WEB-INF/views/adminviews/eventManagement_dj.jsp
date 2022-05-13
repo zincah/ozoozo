@@ -11,7 +11,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>Dashboard - SB Admin</title>
+<title>관리자 배너 페이지</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
 	rel="stylesheet" />
@@ -31,10 +31,10 @@
 <script>
 	
 	$(document).ready(function() {
-		$(".cancle2").hide();
-		$(".upload2").hide();
-		$(".cancle1").hide();
-		$(".upload1").hide();
+		
+		// 애초에 새 공지사항 등록 눌려져있게
+		makeNewInfo();
+		
 		$(".modi_btn").hide();
 		$(".del_btn").hide();
 		$(".stop_btn").hide();
@@ -74,66 +74,7 @@
 			
 			
 		});
-		/* 새글 등록 */
-		$("#new_info").click(function() {
-			var classname = $("#banner_bigname").parent();
-		    classname.find("span").text("");
-		    var classname = $("#banner_smname").parent();
-		    classname.find("span").text("");
 
-			$(".insert_btn").show();
-			$(".reset_btn").show();
-			$(".modi_btn").hide();
-			$(".del_btn").hide();
-			$(".stop_btn").hide();
-			
-			$(".cancle2").show();
-			$(".upload2").show();
-			$(".cancle1").show();
-			$(".upload1").show();
-
-			$("#info_date").text("");
-			
-			$("#info_newTitle").show();
-			$("#info_title").hide();
-
-			$("#info_content").text("");
-			$("#info_content").removeAttr("disabled");
-			
-			//작은놈
-			const realUpload = document.querySelector('.banner_smname');
-			const upload = document.querySelector('.upload2');
-
-			upload.addEventListener('click', () => realUpload.click());
-			
-			
-			//큰놈
-			const realUpload1 = document.querySelector('.banner_bigname');
-			const upload1 = document.querySelector('.upload1');
-
-			upload1.addEventListener('click', () => realUpload1.click());
-			
-			$("#banner_bigname").on("change",(e)=>{photo_name(e.target)});
-		    function photo_name(input){
-		    	var classname = $(input).parent();
-		    	console.log(classname);
-		        var name = input.value;
-		        var names = name.split("\\\\");
-		        var trueName = names[names.length-1];
-		        classname.find("span").text(trueName);
-		    }
-		    $("#banner_smname").on("change",(e)=>{photo_name(e.target)});
-		    function photo_name(input){
-		    	var classname = $(input).parent();
-		    	console.log(classname);
-		        var name = input.value;
-		        var names = name.split("\\\\");
-		        var trueName = names[names.length-1];
-		        classname.find("span").text(trueName);
-		    }
-		    
-		    
-		});
 		/* 등록 버튼  */   
 		$(".insert_btn").click(function() {
 	
@@ -188,14 +129,11 @@
 		       processData: false, 				// * 중요 *					
 		       enctype : 'multipart/form-data', // * 중요 *
 		       success: function(data) { 
-		        if (result.SUCCESS === true) {
-		          alert("성공");
-		         } else {
-		          alert("실패");
-		          }
-		       }  
-		
-		 
+		    	   
+		    	   location.reload();
+		       }
+		  
+
 		 })
 			
 	});
@@ -250,7 +188,19 @@
 	/* 내용뿌리기 */
 	$(".b_title").click(function(){
 	
-		var item = $(this).attr('id')
+		// 하단 버튼 바꾸기
+		$(".insert_btn").hide();
+		$(".reset_btn").hide();
+		$(".del_btn").show();
+		$("#info_newTitle").hide();
+		$("#info_title").show();
+		
+		$(".upload1").hide();
+		$(".upload2").hide();
+		$(".cancle1").hide();
+		$(".cancle2").hide();
+		
+		var item = $(this).attr('id');
 		
 		var fox ={"id" : item}
 		
@@ -263,30 +213,29 @@
 			async: false,
 			success:function(data){
 				
-				
-				
 				$.each(data,function(index,fox){
 
 						
 					var UNIX_timestamp = fox["banner_uploaddate"]
 					
-						  var a = new Date(UNIX_timestamp);
-						  var year = a.getFullYear();
-						  var month = a.getMonth();
-						  var date = a.getDate();
-						  var hour = a.getHours();
-						  var min = a.getMinutes();
-						  var sec = a.getSeconds();
-						  var time = year + '-' + '0' +month + '-' + date + ' ' + hour + ':' + min + ':' + sec ;
-						  
-						
-					
-					
+					  var a = new Date(UNIX_timestamp);
+					  var year = a.getFullYear();
+					  var month = a.getMonth();
+					  var date = a.getDate();
+					  var hour = a.getHours();
+					  var min = a.getMinutes();
+					  var sec = a.getSeconds();
+					  var time = year + '-' + '0' +month + '-' + date + ' ' + hour + ':' + min + ':' + sec ;
+
 					 
-					 $("#info_date").text("");
+					$("#info_date").text("");
 					$("#info_date").text(time); 
 					 $("#info_title").text("")
 					$("#info_title").text(""+fox["banner_title"])
+					
+					// banner id 를 input type hidden으로 세팅
+					$(".banner_id_input").val(""+fox["banner_id"]);
+					 
 					var classname = $("#banner_bigname").parent();
 				    classname.find("span").text(""+fox["banner_bigname"]);
 				    var classname = $("#banner_smname").parent();
@@ -295,12 +244,100 @@
 				})
 				
 			}
+			
+			
 			})
 		
 		
 	
 	});
 	});
+	
+	// 새 공지사항 등록 버튼 클릭
+	function makeNewInfo(){
+		var classname = $("#banner_bigname").parent();
+	    classname.find("span").text("");
+	    var classname = $("#banner_smname").parent();
+	    classname.find("span").text("");
+
+		$(".insert_btn").show();
+		$(".reset_btn").show();
+		$(".modi_btn").hide();
+		$(".del_btn").hide();
+		$(".stop_btn").hide();
+		
+		$(".cancle2").show();
+		$(".upload2").show();
+		$(".cancle1").show();
+		$(".upload1").show();
+
+		$("#info_date").text("");
+		
+		$("#info_newTitle").show();
+		$("#info_title").hide();
+
+		$("#info_content").text("");
+		$("#info_content").removeAttr("disabled");
+		
+		//작은놈
+		const realUpload = document.querySelector('.banner_smname');
+		const upload = document.querySelector('.upload2');
+
+		upload.addEventListener('click', () => realUpload.click());
+		
+		
+		//큰놈
+		const realUpload1 = document.querySelector('.banner_bigname');
+		const upload1 = document.querySelector('.upload1');
+
+		upload1.addEventListener('click', () => realUpload1.click());
+		
+		$("#banner_bigname").on("change",(e)=>{photo_name(e.target)});
+	    function photo_name(input){
+	    	var classname = $(input).parent();
+	    	console.log(classname);
+	        var name = input.value;
+	        var names = name.split("\\\\");
+	        var trueName = names[names.length-1];
+	        classname.find("span").text(trueName);
+	    }
+	    $("#banner_smname").on("change",(e)=>{photo_name(e.target)});
+	    function photo_name(input){
+	    	var classname = $(input).parent();
+	    	console.log(classname);
+	        var name = input.value;
+	        var names = name.split("\\\\");
+	        var trueName = names[names.length-1];
+	        classname.find("span").text(trueName);
+	    }
+	}
+	
+	// banner list에서 없애기
+	function deleteBannerList(){
+		
+		var banner_id = $(".banner_id_input").val();
+
+		console.log(banner_id);
+		
+		$.ajax({
+			url:'deleteBanner.admin',
+			method:'post',
+			contentType: 'application/json; charset=UTF-8',
+			data:  JSON.stringify(banner_id),
+			dataType: 'json',
+			success:function(resp){
+				
+				console.log(resp);
+				location.reload();
+				makeNewInfo();
+			}
+		});
+		
+		
+	}
+	
+	
+	
 </script>
 </head>
 
@@ -355,10 +392,11 @@
 	<table class="table table-hover table-box-style">
 		<thead>
 			<tr class="content-table-title">
+				<td class="content-table-title-text option-line">#</td>
 				<td class="content-table-title-text option-line">등록일</td>
-				<td class="content-table-title-text option-line">상태</td>
 				<td class="content-table-title-text option-line">제목</td>
 				<td class="content-table-title-text option-line">담당자</td>
+				<td class="content-table-title-text option-line">상태</td>
 				<td class="content-table-title-text"></td>
 			</tr>
 		</thead>
@@ -391,30 +429,14 @@
 		</tbody>
 	</table>
 
-	<div class="pagi mt-2">
-		<nav aria-label="Page navigation example">
-			<ul class="pagination">
-				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-				</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">4</a></li>
-				<li class="page-item"><a class="page-link" href="#">5</a></li>
-				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-				</a></li>
-			</ul>
-		</nav>
-	</div>
+	
 </div>
 <div class="">
 	<div class="">
 		<div class="content-table">
 			<div class="content-view-title content-header">
 				<span class="content-view-title-text">공지 내용 보기</span>
-				<button class="btn btn-outline-secondary" id="new_info">새
+				<button class="btn btn-outline-secondary" id="new_info" onclick="makeNewInfo()">새
 					공지사항 등록</button>
 			</div>
 			<form method="post" action="#" >
@@ -431,7 +453,9 @@
 								style="background-color: #f5f5f5">제목</td>
 							<td colspan="3" class="content-table-content-text option-line">
 
-								<p id="info_title"></p> <input class="form-control info_text" id="info_newTitle">
+								<p id="info_title"></p> 
+								<input class="banner_id_input" type="hidden" value="">
+								<input class="form-control info_text" id="info_newTitle">
 							</td>
 						</tr>
 						<tr class="content-table-content">
@@ -462,29 +486,12 @@
 							</td>
 						</tr>
 						
-
-						<!-- ------------------------ -->
-
-						<!-- <tr class="content-table-content">
-							<td
-								class="content-table-content-text option-line content-table-title"
-								style="background-color: #f5f5f5">설명</td>
-							<td colspan="3" class="content-table-content-text option-line">
-								<div class="form-floating">
-									<textarea id="info_content"
-										class="form-control answer-textarea"
-										placeholder="Leave a comment here" id="floatingTextarea2"
-										style="height: 10rem" disabled>상품 등록시에 상품 등록 매뉴얼을 잘 따라주시길 바랍니다.
-                          </textarea>
-								</div>
-							</td>
-						</tr> -->
-						<tr class="content-table-content text-end">
+						<tr class="content-table-content text-end table-btn-layer">
 							<td colspan="4">
 								<button type="button" class="btn btn-secondary modi_btn">수정</button>
 								<button type="button" class="btn btn-secondary stop_btn">중지</button>
-								<button type="button" class="btn btn-danger del_btn">삭제</button>
-								<button class="btn btn-success insert_btn"><a href="">등록</a> </button>
+								<button type="button" class="btn btn-danger del_btn" onclick="deleteBannerList()">삭제</button>
+								<button class="btn btn-success insert_btn">등록</button>
 								<button type="reset" class="btn btn-secondary reset_btn">취소</button>
 							</td>
 						</tr>

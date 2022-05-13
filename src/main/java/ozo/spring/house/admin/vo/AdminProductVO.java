@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ozo.spring.house.common.Criteria;
 
 @Getter
 @Setter
@@ -32,6 +33,13 @@ public class AdminProductVO {
 	private int coupon_id;
 	private String coupon_title;
 	private String coupon_subtitle;
+	
+	// 날짜 검색
+	private Timestamp startdate;
+	private Timestamp enddate;
+	private String pack; // 검색조건
 
+	// paging 넣어주기
+	private Criteria cri;
 
 }

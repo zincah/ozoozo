@@ -32,13 +32,13 @@
 	    //console.log("document.body.offsetHeight : ${document.body.offsetHeight}");
 		
 		var scrollTop = $(window).scrollTop();
-		console.log("scrollTop : " + scrollTop);
+		//console.log("scrollTop : " + scrollTop);
 
 		var windowHeight = $(window).height();
-		console.log("windowHeight : " + windowHeight);
+		//console.log("windowHeight : " + windowHeight);
 		
 		var documentHeight = $(document).height();
-		console.log("documentHeight : " + documentHeight);
+		//console.log("documentHeight : " + documentHeight);
 		
 		// scroll 위치...
 		var isBottom=scrollTop+windowHeight + 100 >= documentHeight;
@@ -52,8 +52,8 @@
 				console.log("up");
 			}
 			firstscroll = st;*/
-			
-			if(page == 2){
+
+			if(page == 2){ // productList개수/4 인 몫 값을 가져와야 함
 				return;
 			}
 			
