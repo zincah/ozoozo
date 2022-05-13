@@ -14,6 +14,14 @@
 <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
 <script>
 
+	$(document).ready(function(){
+		
+		$(".banner_link").click(function(e){
+			e.preventDefault();
+		});
+		
+	});
+
 	var firstscroll = 0;
 	var page = 0;
 	
@@ -89,38 +97,16 @@
 			<!-- for 문 -->
 			<c:forEach items="${bannerList }" var="banner">
 				<div class="carousel_frame">
-					<a href="#"> <!-- large image -->
+					<a class="banner_link" href="${banner.banner_id }"> <!-- large image -->
 						<div class="carousel_banner">
-							<img class="banner_img_first" src="sources/eventone.png">
+							<img class="banner_img_first" src="${banner.banner_urlbig }">
 						</div> <!-- small image -->
 						<div class="carousel_banner_sm">
-							<img class="banner_img_second" src="sources/eventone_small.png">
+							<img class="banner_img_second" src="${banner.banner_urlsm }">
 						</div>
 					</a>
 				</div>
 			</c:forEach>
-
-			<div class="carousel_frame">
-				<a href="#"> <!-- large image -->
-					<div class="carousel_banner">
-						<img class="banner_img_first" src="sources/eventtwo.webp">
-					</div> <!-- small image -->
-					<div class="carousel_banner_sm">
-						<img class="banner_img_second" src="sources/eventtwo_small.webp">
-					</div>
-				</a>
-			</div>
-
-			<div class="carousel_frame">
-				<a href="#"> <!-- large image -->
-					<div class="carousel_banner">
-						<img class="banner_img_first" src="sources/eventthree.webp">
-					</div> <!-- small image -->
-					<div class="carousel_banner_sm">
-						<img class="banner_img_second" src="sources/eventthree_small.webp">
-					</div>
-				</a>
-			</div>
 
 			<!-- 이미지 양 옆 버튼 -->
 			<div></div>
@@ -144,7 +130,7 @@
 						slideIndex = 1
 					}
 					slides[slideIndex - 1].style.display = "block";
-					setTimeout(showSlides, 5000);
+					setTimeout(showSlides, 3000);
 				}
 			</script>
 

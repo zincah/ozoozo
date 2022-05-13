@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
 
@@ -31,7 +32,10 @@ public class UserMainDAO {
 		return sqlSessionTemplate.selectList("UserMainDAO.plusProductList", pvo);
 	}
 	
-	
+	public List<BannerVO> selectBannerList(){
+		System.out.println("mybatis in usermaindao mainbannerlist");
+		return sqlSessionTemplate.selectList("UserMainDAO.selectBannerList");
+	}
 
 
 }
