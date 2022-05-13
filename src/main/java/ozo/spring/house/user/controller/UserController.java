@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.user.service.UserMainService;
 import ozo.spring.house.user.service.UserService;
 import ozo.spring.house.user.vo.UserProductVO;
@@ -35,6 +36,9 @@ public class UserController {
 		// ø¿¥√¿« µÙ list ªÃ±‚
 		List<UserProductVO> todayDealList = userMainService.mainDealProductList(vo);
 		System.out.println(todayDealList.size());
+		
+		// main banner list ªÃ±‚
+		List<BannerVO> bannerList = userMainService.selectBannerList();
 
 		for(int i=0; i<productList.size(); i++) {
 			UserProductVO pro = productList.get(i);
@@ -47,6 +51,7 @@ public class UserController {
 
 		model.addAttribute("productList", productList);
 		model.addAttribute("todayDealList", todayDealList);
+		model.addAttribute("bannerList", bannerList);
 		
 		return "ozomain_zinc";
 	}

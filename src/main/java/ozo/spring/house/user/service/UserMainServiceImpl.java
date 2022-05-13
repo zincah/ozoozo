@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.user.dao.UserMainDAO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
@@ -28,6 +29,11 @@ public class UserMainServiceImpl implements UserMainService {
 	@Override
 	public List<UserProductVO> plusProductList(UserPagingVO pvo) {
 		return userMainDAO.plusProductList(pvo);
+	}
+
+	@Override
+	public List<BannerVO> selectBannerList() {
+		return userMainDAO.selectBannerList();
 	}
 
 }
