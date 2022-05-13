@@ -166,7 +166,7 @@
                             </svg>
 						</button>
 
-						<c:if test="${Usercode ne null}">
+						<c:if test="${User_Num ne null}">
 
 
 							<a
@@ -191,7 +191,7 @@
                                 </path>
                             </svg></a>
 							<a class="layout-navigation-bar-icon" title="장바구니"
-								aria-label="장바구니" href="/cart"><svg class="icon" width="24"
+								aria-label="장바구니" href="/house/cart.com"><svg class="icon" width="24"
 									height="24" viewBox="0 0 24 24" stroke="currentColor"
 									fill="none" stroke-linejoin="round" stroke-width="2"
 									preserveAspectRatio="xMidYMid meet">
@@ -220,7 +220,7 @@
 						</c:if>
 
 
-						<c:if test="${Usercode eq null}">
+						<c:if test="${User_Num eq null}">
 							<list class="end_word_pre"> <a id="wordtree"
 								class="end_word" href="/house/login.com">로그인</a></list>
 
@@ -234,7 +234,7 @@
 					</div>
 				</div>
 								<!-- ----------여기는 스마일 클릭 박스 ----------- -->
-	<c:if test="${Usercode ne null}">
+	<c:if test="${User_Num ne null}">
 	<div>
 		<div
 			class="popout popout--prepared popout--axis-1 popout--dir-2 popout--cross-dir-2"

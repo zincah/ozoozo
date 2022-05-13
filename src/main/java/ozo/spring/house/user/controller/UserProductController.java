@@ -84,24 +84,29 @@ public class UserProductController {
 	// 장바구니 ajax
 	@ResponseBody
 	@RequestMapping(value = "/basket_ajax.com", method=RequestMethod.POST)
-	public boolean basket_add(@RequestBody String[] option_arr, HttpSession session) {
+	public String basket_add(@RequestBody String[] option_arr, HttpSession session) {
+		if(session.getAttribute("Usercode")==null) {
+			return "redirect:login.com";
+		}
+		if(option_arr.length == 0) {
+			return "error";
+		}
 		List<UserProductVO> option_li = new ArrayList<UserProductVO>();
 		UserVO U_vo = new UserVO();
-		
 		for(int i = 0; i < option_arr.length; i++) {
 			UserProductVO ex_li = new UserProductVO();
 			String[] Num = option_arr[i].split(":");
 			ex_li.setProduct_EA(Integer.parseInt(Num[1]));
 			String[] param_arr = Num[0].split(",");
 			if (param_arr.length == 2) {
-				ex_li.setOption2_name(param_arr[1]);
+				ex_li.setOption2(param_arr[1]);
 			}
-			ex_li.setOption1_name(param_arr[0]);
+			ex_li.setOption1(param_arr[0]);
 			option_li.add(ex_li);
 		}
-		
-		U_vo.setUser_num((int)session.getAttribute("Usercode"));
+		U_vo.setUser_num((Integer)session.getAttribute("User_Num"));
 		userservice.basket_add(option_li, U_vo);
-		return true;
+		return null;
+		
 	}
 }

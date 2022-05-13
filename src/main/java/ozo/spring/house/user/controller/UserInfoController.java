@@ -43,7 +43,7 @@ public class UserInfoController {
 	// login
 		@RequestMapping(value = "/login.com", method=RequestMethod.GET)
 		public String loginView(HttpSession session) {
-			if(session.getAttribute("Usercode")!=null) {
+			if(session.getAttribute("UserMail")!=null) {
 				return "ozomain_zinc";
 			}else {
 				return "ozoLogin_zinc";
@@ -56,9 +56,10 @@ public class UserInfoController {
 			// log 처리
 			System.out.println("login controller");
 			UserVO user = userService.checkUser(vo);
-			
+				
 			if(user != null) {
-				session.setAttribute("Usercode", user.getUser_email());
+				session.setAttribute("UserMail", user.getUser_email());
+				session.setAttribute("User_Num", user.getUser_num());
 				model.addAttribute("Usercode", vo.getUser_email());
 				model.addAttribute("member", vo); // member 정보
 				return "forward:main.com";
@@ -80,7 +81,7 @@ public class UserInfoController {
 		public String mypageView(HttpServletRequest request, Model model) {
 			HttpSession session = request.getSession();
 			
-			if(session.getAttribute("Usercode")!=null) {
+			if(session.getAttribute("UserMail")!=null) {
 				return "myPage";
 			}else {
 				String msg = "로그인후 이용 가능합니다.";
@@ -112,7 +113,7 @@ public class UserInfoController {
 		public String changePassword(@RequestParam("change_pass") String change_pass, UserVO vo, HttpSession session) {
 			String pass = change_pass.replace("\"", "");
 			System.out.println("바꾸고자 하는 비밀번호 : "+ pass +"\n");
-			String email = (String) session.getAttribute("Usercode");
+			String email = (String) session.getAttribute("UserMail");
 			System.out.println(email);
 			vo.setUser_pw(pass);
 			vo.setUser_email(email);

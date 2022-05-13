@@ -110,7 +110,7 @@ footer, header, main {
 button, input, select, textarea {
     font-size: inherit;
 }
-.layout-navigation-bar-icon>.icon {
+.layout-navigation-bar-icon>.s_icon {
     position: absolute;
     top: 6px;
     left: 6px;
@@ -118,7 +118,7 @@ button, input, select, textarea {
     color: #757575;
     
 }
-.layout-navigation-bar-drawer-button.layout-navigation-bar-icon>.icon:hover{
+.layout-navigation-bar-drawer-button.layout-navigation-bar-icon>.s_icon:hover{
     color: #ff778e;
 }
 .layout-navigation-hamburger-mobile__item:hover{
@@ -736,8 +736,9 @@ li {
     }
     #s_icon{
     	display:none;
-   
 	}
+	
+	
 }
 
 @media (min-width: 1024px){
@@ -812,8 +813,6 @@ li {
 
 
 
-
-
 @media (min-width: 768px) {
     .layout-navigation-primary__right {
         -webkit-box-flex: 1;
@@ -840,7 +839,11 @@ li {
         margin: 15px 1.5px 9px;
     }
 }
-
+@media (min-width: 1024px) {
+	.layout-navigation-bar-search-button{
+		display:none;
+	}
+}
 @media (min-width: 768px) {
     .layout-navigation-bar-icon__ticker {
         top: 0;
