@@ -221,7 +221,7 @@
                 <div class="review-modal__section__title">별점 평가</div>
                 <div class="review-modal__form__star__wrap">
                   <div class="review-modal__form__star">
-                    <div class="review-modal__form__star__label">내구성</div>
+                    <div class="review-modal__form__star__label">별점</div>
                     <div class="review-modal__form__star__value">
                       <ul class="rating-input">
                         <li>
@@ -252,102 +252,10 @@
                       </ul>
                     </div>
                   </div>
-                  <div class="review-modal__form__star">
-                    <div class="review-modal__form__star__label">가격</div>
-                    <div class="review-modal__form__star__value">
-                      <ul class="rating-input">
-                        <li>
-                          <label class="rating-input__star" aria-label="별점 1점"
-                            ><input type="radio" value="1" /><svg class="star" fill="currentColor" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill-rule="evenodd" d="M18 30.7l-9 3.8c-1.5.7-2.6-.2-2.5-1.8l.8-9.7L1 15.6c-1-1.3-.6-2.6 1-3l9.5-2.2 5-8.3c1-1.5 2.3-1.5 3.1 0l5 8.3 9.6 2.2c1.6.4 2 1.7 1 3L28.7 23l.8 9.7c.1 1.6-1 2.5-2.5 1.8l-9-3.8z"></path></svg
-                          ></label>
-                        </li>
-                        <li>
-                          <label class="rating-input__star" aria-label="별점 2점"
-                            ><input type="radio" value="2" /><svg class="star" fill="currentColor" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill-rule="evenodd" d="M18 30.7l-9 3.8c-1.5.7-2.6-.2-2.5-1.8l.8-9.7L1 15.6c-1-1.3-.6-2.6 1-3l9.5-2.2 5-8.3c1-1.5 2.3-1.5 3.1 0l5 8.3 9.6 2.2c1.6.4 2 1.7 1 3L28.7 23l.8 9.7c.1 1.6-1 2.5-2.5 1.8l-9-3.8z"></path></svg
-                          ></label>
-                        </li>
-                        <li>
-                          <label class="rating-input__star" aria-label="별점 3점"
-                            ><input type="radio" value="3" /><svg class="star" fill="currentColor" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill-rule="evenodd" d="M18 30.7l-9 3.8c-1.5.7-2.6-.2-2.5-1.8l.8-9.7L1 15.6c-1-1.3-.6-2.6 1-3l9.5-2.2 5-8.3c1-1.5 2.3-1.5 3.1 0l5 8.3 9.6 2.2c1.6.4 2 1.7 1 3L28.7 23l.8 9.7c.1 1.6-1 2.5-2.5 1.8l-9-3.8z"></path></svg
-                          ></label>
-                        </li>
-                        <li>
-                          <label class="rating-input__star" aria-label="별점 4점"
-                            ><input type="radio" value="4" /><svg class="star" fill="currentColor" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill-rule="evenodd" d="M18 30.7l-9 3.8c-1.5.7-2.6-.2-2.5-1.8l.8-9.7L1 15.6c-1-1.3-.6-2.6 1-3l9.5-2.2 5-8.3c1-1.5 2.3-1.5 3.1 0l5 8.3 9.6 2.2c1.6.4 2 1.7 1 3L28.7 23l.8 9.7c.1 1.6-1 2.5-2.5 1.8l-9-3.8z"></path></svg
-                          ></label>
-                        </li>
-                        <li>
-                          <label class="rating-input__star" aria-label="별점 5점"
-                            ><input type="radio" value="5" /><svg class="star" fill="currentColor" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill-rule="evenodd" d="M18 30.7l-9 3.8c-1.5.7-2.6-.2-2.5-1.8l.8-9.7L1 15.6c-1-1.3-.6-2.6 1-3l9.5-2.2 5-8.3c1-1.5 2.3-1.5 3.1 0l5 8.3 9.6 2.2c1.6.4 2 1.7 1 3L28.7 23l.8 9.7c.1 1.6-1 2.5-2.5 1.8l-9-3.8z"></path></svg
-                          ></label>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="review-modal__form__star">
-                    <div class="review-modal__form__star__label">디자인</div>
-                    <div class="review-modal__form__star__value">
-                      <ul class="rating-input">
-                        <li>
-                          <label class="rating-input__star" aria-label="별점 1점"
-                            ><input type="radio" value="1" /><svg class="star" fill="currentColor" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill-rule="evenodd" d="M18 30.7l-9 3.8c-1.5.7-2.6-.2-2.5-1.8l.8-9.7L1 15.6c-1-1.3-.6-2.6 1-3l9.5-2.2 5-8.3c1-1.5 2.3-1.5 3.1 0l5 8.3 9.6 2.2c1.6.4 2 1.7 1 3L28.7 23l.8 9.7c.1 1.6-1 2.5-2.5 1.8l-9-3.8z"></path></svg
-                          ></label>
-                        </li>
-                        <li>
-                          <label class="rating-input__star" aria-label="별점 2점"
-                            ><input type="radio" value="2" /><svg class="star" fill="currentColor" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill-rule="evenodd" d="M18 30.7l-9 3.8c-1.5.7-2.6-.2-2.5-1.8l.8-9.7L1 15.6c-1-1.3-.6-2.6 1-3l9.5-2.2 5-8.3c1-1.5 2.3-1.5 3.1 0l5 8.3 9.6 2.2c1.6.4 2 1.7 1 3L28.7 23l.8 9.7c.1 1.6-1 2.5-2.5 1.8l-9-3.8z"></path></svg
-                          ></label>
-                        </li>
-                        <li>
-                          <label class="rating-input__star" aria-label="별점 3점"
-                            ><input type="radio" value="3" /><svg class="star" fill="currentColor" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill-rule="evenodd" d="M18 30.7l-9 3.8c-1.5.7-2.6-.2-2.5-1.8l.8-9.7L1 15.6c-1-1.3-.6-2.6 1-3l9.5-2.2 5-8.3c1-1.5 2.3-1.5 3.1 0l5 8.3 9.6 2.2c1.6.4 2 1.7 1 3L28.7 23l.8 9.7c.1 1.6-1 2.5-2.5 1.8l-9-3.8z"></path></svg
-                          ></label>
-                        </li>
-                        <li>
-                          <label class="rating-input__star" aria-label="별점 4점"
-                            ><input type="radio" value="4" /><svg class="star" fill="currentColor" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill-rule="evenodd" d="M18 30.7l-9 3.8c-1.5.7-2.6-.2-2.5-1.8l.8-9.7L1 15.6c-1-1.3-.6-2.6 1-3l9.5-2.2 5-8.3c1-1.5 2.3-1.5 3.1 0l5 8.3 9.6 2.2c1.6.4 2 1.7 1 3L28.7 23l.8 9.7c.1 1.6-1 2.5-2.5 1.8l-9-3.8z"></path></svg
-                          ></label>
-                        </li>
-                        <li>
-                          <label class="rating-input__star" aria-label="별점 5점"
-                            ><input type="radio" value="5" /><svg class="star" fill="currentColor" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill-rule="evenodd" d="M18 30.7l-9 3.8c-1.5.7-2.6-.2-2.5-1.8l.8-9.7L1 15.6c-1-1.3-.6-2.6 1-3l9.5-2.2 5-8.3c1-1.5 2.3-1.5 3.1 0l5 8.3 9.6 2.2c1.6.4 2 1.7 1 3L28.7 23l.8 9.7c.1 1.6-1 2.5-2.5 1.8l-9-3.8z"></path></svg
-                          ></label>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="review-modal__form__star">
-                    <div class="review-modal__form__star__label">배송</div>
-                    <div class="review-modal__form__star__value">
-                      <ul class="rating-input">
-                        <li>
-                          <label class="rating-input__star" aria-label="별점 1점"
-                            ><input type="radio" value="1" /><svg class="star" fill="currentColor" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill-rule="evenodd" d="M18 30.7l-9 3.8c-1.5.7-2.6-.2-2.5-1.8l.8-9.7L1 15.6c-1-1.3-.6-2.6 1-3l9.5-2.2 5-8.3c1-1.5 2.3-1.5 3.1 0l5 8.3 9.6 2.2c1.6.4 2 1.7 1 3L28.7 23l.8 9.7c.1 1.6-1 2.5-2.5 1.8l-9-3.8z"></path></svg
-                          ></label>
-                        </li>
-                        <li>
-                          <label class="rating-input__star" aria-label="별점 2점"
-                            ><input type="radio" value="2" /><svg class="star" fill="currentColor" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill-rule="evenodd" d="M18 30.7l-9 3.8c-1.5.7-2.6-.2-2.5-1.8l.8-9.7L1 15.6c-1-1.3-.6-2.6 1-3l9.5-2.2 5-8.3c1-1.5 2.3-1.5 3.1 0l5 8.3 9.6 2.2c1.6.4 2 1.7 1 3L28.7 23l.8 9.7c.1 1.6-1 2.5-2.5 1.8l-9-3.8z"></path></svg
-                          ></label>
-                        </li>
-                        <li>
-                          <label class="rating-input__star" aria-label="별점 3점"
-                            ><input type="radio" value="3" /><svg class="star" fill="currentColor" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill-rule="evenodd" d="M18 30.7l-9 3.8c-1.5.7-2.6-.2-2.5-1.8l.8-9.7L1 15.6c-1-1.3-.6-2.6 1-3l9.5-2.2 5-8.3c1-1.5 2.3-1.5 3.1 0l5 8.3 9.6 2.2c1.6.4 2 1.7 1 3L28.7 23l.8 9.7c.1 1.6-1 2.5-2.5 1.8l-9-3.8z"></path></svg
-                          ></label>
-                        </li>
-                        <li>
-                          <label class="rating-input__star" aria-label="별점 4점"
-                            ><input type="radio" value="4" /><svg class="star" fill="currentColor" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill-rule="evenodd" d="M18 30.7l-9 3.8c-1.5.7-2.6-.2-2.5-1.8l.8-9.7L1 15.6c-1-1.3-.6-2.6 1-3l9.5-2.2 5-8.3c1-1.5 2.3-1.5 3.1 0l5 8.3 9.6 2.2c1.6.4 2 1.7 1 3L28.7 23l.8 9.7c.1 1.6-1 2.5-2.5 1.8l-9-3.8z"></path></svg
-                          ></label>
-                        </li>
-                        <li>
-                          <label class="rating-input__star" aria-label="별점 5점"
-                            ><input type="radio" value="5" /><svg class="star" fill="currentColor" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 36 36"><path fill-rule="evenodd" d="M18 30.7l-9 3.8c-1.5.7-2.6-.2-2.5-1.8l.8-9.7L1 15.6c-1-1.3-.6-2.6 1-3l9.5-2.2 5-8.3c1-1.5 2.3-1.5 3.1 0l5 8.3 9.6 2.2c1.6.4 2 1.7 1 3L28.7 23l.8 9.7c.1 1.6-1 2.5-2.5 1.8l-9-3.8z"></path></svg
-                          ></label>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
+
+
+
+
                 </div>
               </div>
               <div class="review-modal__section">
@@ -368,6 +276,9 @@
 
 
 
+
+
+
               <div class="review-modal__section">
                 <div class="review-modal__section__title">리뷰 작성</div>
                 <textarea placeholder="자세하고 솔직한 리뷰는 다른 고객에게 큰 도움이 됩니다. (최소 20자 이상)" class="form-control text-area-input review-modal__form__review-input" style="height: 56px"></textarea>
@@ -375,18 +286,22 @@
               </div>
               <button class="button button--color-blue button--size-50 button--shape-4 review-modal__form__submit" type="button" onclick="photoUpload()">완료</button>
             </form>
-            <div class="review-modal__policy">
-              <div class="review-modal__policy__button">
-                <span>오늘의집 리뷰 정책</span><svg class="icon" width="16" height="17" viewBox="0 0 16 17" fill="none" preserveAspectRatio="xMidYMid meet"><path d="M3 5.16663L8 9.99908L13 5.16663L14 6.08373L8 11.8333L2 6.08373L3 5.16663Z" fill="#424242"></path></svg>
-              </div>
-              <div class="" style="overflow: hidden"></div>
-            </div>
-            <div class="review-modal__explain">
-              <ul>
-                <li>포인트는 최초 작성한 리뷰를 기준으로 지급됩니다.</li>
-                <li>상품과 무관한 내용이나 사진, 동일 문자 반복 등의 부적합한 리뷰는&nbsp; 사전 경고 없이 삭제 및 포인트 회수될 수 있습니다.</li>
-              </ul>
-            </div>
+
+            <div class="review-modal__policy"><div class="review-modal__policy__button"><span>오조의집 리뷰 정책</span><svg class="icon up" width="16" height="17" viewBox="0 0 16 17" fill="none" preserveAspectRatio="xMidYMid meet"><path d="M3 5.16663L8 9.99908L13 5.16663L14 6.08373L8 11.8333L2 6.08373L3 5.16663Z" fill="#424242"></path></svg></div><div class="open expanded" style="overflow: hidden;"><p class="review-modal__policy__description">다음 금지행위에 해당되는 리뷰는 오늘의집 서비스 이용 약관 제24조에 따라 고객에게 통보 없이 삭제 또는 블라인드 될 수 있습니다. 보다 자세한 내용은 고객센터 Q&amp;A에서 확인하실 수 있습니다.
+
+              &lt;리뷰 작성 시 금지행위&gt;
+              1. 특정 내용의 리뷰 작성 조건으로 대가를 제공받고 이를 표시하지 않거나, 기타 특정업체의 영리적 목적을 위하여 리뷰를 게시한 경우
+              2. 동일 상품에 대해 반복적 리뷰 게시
+              3. 허위/과장된 내용 또는 직접 작성하지 않았거나 구매한 상품과 관련 없는 내용 게시
+              4. 정당한 권한 없이 타인의 권리 등(개인정보, 지식재산권, 소유권, 명예, 신용 등)을 침해하는 내용 게시
+              5. 욕설, 폭언, 비방 등 타인에 불쾌하거나 위협이 되는 내용 게시
+              6. 음란물 또는 청소년 유해 매체물, 범죄행위나 불법적인 행동을 전시 또는 조장하는 내용 게시
+              7. 정보통신기기의 오작동을 일으킬 수 있는 악성코드나 데이터를 포함하는 리뷰 게시
+              8. 사기성 상품, 서비스, 사업 계획 등을 판촉하는 리뷰 게시
+              9. 기타 관련법령 및 이용약관, 운영정책에 위배되는 리뷰 게시</p></div></div>
+
+
+
           </div>
         </div>
       </div>
