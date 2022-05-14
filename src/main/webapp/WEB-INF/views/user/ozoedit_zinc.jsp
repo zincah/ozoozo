@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +61,7 @@
                 <div class="edit_user_info_header_title">회원정보수정</div>
                 <a class="edit_user_info_header_secession">탈퇴하기</a>
             </div>
-
+		
             <!-- 수정 부분 -->
             <form action="#" method="post">
                 
@@ -189,8 +190,8 @@
                 <button class="update_btn_position update_btn">
                     회원정보수정
                 </button>
-
             </form>
+           
         </div>
 
     </div>

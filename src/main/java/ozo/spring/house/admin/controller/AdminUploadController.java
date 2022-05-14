@@ -53,7 +53,6 @@ public class AdminUploadController {
 					vo.setBanner_urlbig(url);
 					System.out.println("큰거");
 					System.out.println(url);
-					
 					System.out.println("mybatis main photo ok");
 				}
 					}
@@ -76,7 +75,6 @@ public class AdminUploadController {
 						vo.setBanner_urlsm(url);
 						System.out.println("작은거");
 						System.out.println(url);
-						
 						System.out.println("mybatis detail photo ok");
 
 					}
