@@ -59,10 +59,6 @@ public class UserController {
 	public String user_best() {
 		return "ozobest_zinc";
 	}
-	@RequestMapping(value = "/cart.com")
-	public String user_cart() {
-		return "ozocart_zinc";
-	}
 	@RequestMapping(value = "/category.com")
 	public String user_category() {
 		return "ozocategory_zinc";

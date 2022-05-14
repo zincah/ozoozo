@@ -132,4 +132,43 @@ public class UserDAO {
 		}
 		return true;
 	}
+	// 장바구니 DAO
+	public cart_Allload get_cart_class(CartVO cvo) {
+		return new cart_Allload(cvo);
+	}
+	
+	public class cart_Allload{
+		List<CartVO> cart_li = new ArrayList<CartVO>();
+		List<UserProductVO> product_li = new ArrayList<UserProductVO>();
+		public cart_Allload(CartVO cvo) {
+			this.cart_li = sqlSessionTemplate.selectList("UserProduct.cart_Get", cvo);
+		}
+		public List<CartVO> getCart_li() {
+			return cart_li;
+		}
+		public List<UserProductVO> getPro_li(){
+			for(int i = 0; i < cart_li.size(); i++) {
+				this.product_li.addAll(sqlSessionTemplate.selectList("UserProduct.pro_Get", cart_li.get(i)));
+			}
+			return product_li;
+		}
+		public List<UserProductVO> getSeller_filter(CartVO cvo){
+			cart_li = sqlSessionTemplate.selectList("UserProduct.seller_filter", cvo);
+			List<UserProductVO> seller_li = new ArrayList<UserProductVO>();
+			for(CartVO i : cart_li) {
+				seller_li.add(sqlSessionTemplate.selectOne("UserProduct.seller_filter_name", i));
+			}
+			return seller_li;
+		}
+		public List<UserProductVO> getPost_filter(CartVO cvo){
+			product_li = sqlSessionTemplate.selectList("UserProduct.post_filter_name", cvo);
+			return product_li;
+		}
+	}
+	
+	
+	
+	
+	
+	
 }
