@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="UserMyPageDAO ">
+ 
+
+	<select id="User_Info" resultType="user">
+		SELECT * FROM user_table WHERE user_num = #{user_num}
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<select id="user_edit" resultType="user">
+		UPDATE user_table SET user_eamil = #{user_eamil}, nickname=#{nickname}, user_birth=#{user_birth}, user_img=#{user_img}, comment=#{comment} WHERE user_email = #{user_email}
+	</select>
+ 
+ 
+ </mapper>
