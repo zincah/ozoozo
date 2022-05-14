@@ -10,6 +10,7 @@ public interface UserCategoryService {
 	public List<List<UserCategoryVO>> selectCategoryList(UserCategoryVO vo);
 	public List<UserCategoryVO> printTitle();
 	public List<UserProductVO> selectProductByCate(UserCategoryVO vo);
-
+	public List<UserCategoryVO> getCateName(UserCategoryVO vo);
+	public List<UserProductVO> getPostList(UserCategoryVO vo);
 
 }

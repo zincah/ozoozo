@@ -47,6 +47,30 @@ public class UserCategoryDAO {
 		return sqlSessionTemplate.selectList("UserCategoryDAO.selectProductByCate", vo);
 	}
 	
+	public List<UserCategoryVO> getCateName(UserCategoryVO vo){
+		return sqlSessionTemplate.selectList("UserCategoryDAO.getCateName", vo);
+	}
+	
+	public List<UserProductVO> getPostList(UserCategoryVO vo){
+		System.out.println("--> mybatis getpostlist");
+		List<UserCategoryVO> list = sqlSessionTemplate.selectList("UserCategoryDAO.getPostList", vo);
+		List<Integer> postids = new ArrayList<Integer>();
+		
+		for(int i=0; i<list.size(); i++) {
+			UserCategoryVO postid = list.get(i);
+			int post = postid.getDprodetails_postid();
+			postids.add(post);
+		}
+		
+		vo.setPost_ids(postids);
+		System.out.println("postids : " + postids.size());
+		return sqlSessionTemplate.selectList("UserCategoryDAO.selectProductByFilter", vo);
+	}
+	
+
+	
+	
+	
 
 
 	

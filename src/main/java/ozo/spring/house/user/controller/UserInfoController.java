@@ -52,7 +52,7 @@ public class UserInfoController {
 			session.setAttribute("lasturl", url);
 			
 			if(session.getAttribute("UserMail")!=null) {
-				return "ozomain_size";
+				return "ozomain_zinc";
 			}else {
 				return "ozoLogin_zinc";
 			}
@@ -68,10 +68,11 @@ public class UserInfoController {
 			if(user != null) {
 				session.setAttribute("UserMail", user.getUser_email());
 				session.setAttribute("User_Num", user.getUser_num());
-				model.addAttribute("Usercode", vo.getUser_email());
+				//model.addAttribute("Usercode", vo.getUser_email());
 				model.addAttribute("member", vo); // member 정보
 				// 세션에 저장되어있는 lasturl을 얻어와서 그 페이지로 리다이렉트 시킨다.
 				String url = (String) session.getAttribute("lasturl");
+				System.out.println(url);
 				// (장바구니에 있는 정보는 같이 어떻게 보낼지는 처리 안함)
 				return "redirect:"+url;
 			}else {

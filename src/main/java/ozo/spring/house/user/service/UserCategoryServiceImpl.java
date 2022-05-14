@@ -35,6 +35,16 @@ public class UserCategoryServiceImpl implements UserCategoryService{
 		return userCategoryDAO.selectProductByCate(vo);
 	}
 
+	@Override
+	public List<UserCategoryVO> getCateName(UserCategoryVO vo) {
+		return userCategoryDAO.getCateName(vo);
+	}
+
+	@Override
+	public List<UserProductVO> getPostList(UserCategoryVO vo) {
+		return userCategoryDAO.getPostList(vo);
+	}
+
 
 
 	

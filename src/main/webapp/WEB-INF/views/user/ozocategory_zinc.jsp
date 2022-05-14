@@ -21,13 +21,37 @@
 	crossorigin="anonymous"></script>
 <script>
 
+		var filterList = [];
+		
         $(document).ready(function(){
-
+        	
             $(".filter_btn").on('click', function(){
                 console.log(this.value);
-                $(".category_filter_output_wrap").show(); 
                 
-                $(".category_filter_control_tag_item button div").text(this.value);
+                var filter = $(this).val();
+
+            });
+            
+            
+            $("input[name=checking]").change(function(){
+            	
+            	var filter = $(this).val();
+            	
+            	if($(this).prop('checked')==true){
+            		plusList(filter);
+            	}else{
+            		removeList(filter);
+            	}
+            	
+            })
+            
+            // filtering 초기화 버튼
+            $(".reset_btn").click(function(){
+
+            	filterList = []; // 배열 초기화
+            	$("input[name=checking]").prop("checked", false); // 모든 체크박스 해제
+            	$(".category_filter_control_tag_item").remove(); // 리스트 아이템 요소 다 제거
+            	$(".category_filter_output_wrap").hide(); // 리스트 띄우는 부분 숨기기
             });
 
             /* 카테고리 토글 */
@@ -38,16 +62,14 @@
                 $(open[0]).slideToggle();
             });
 
-            $(".reset_btn").click(function(){
-                $(".category_filter_output_wrap").hide();
-            });
+
             
             
             // 이동
             $(".movetitle").on("click", function(e){
             	e.preventDefault();
             	
-            	$("#actionForm").find("input[name='topcate_code']").val($(this).attr("href"));
+            	$("#actionForm").find("input[name='catecode']").val($(this).attr("href"));
             	$("#actionForm").submit();
             });
             
@@ -55,21 +77,15 @@
             $(".subcate").click(function(){
             	$("#category_head").html("");
             	var code = $(this).attr("id");
-            	var subtitle = $(this).text();
+
             	
-            	var html = ' > <a id="">'+subtitle+'</a>';
-            	$("#category_head").append(html);
             	movelink(code);
             })
             
             $(".botcate").click(function(){
             	$("#category_head").html("");
             	var code = $(this).attr("id");
-            	var subtitle = $(this).parents("div").siblings("div").find(".subcate").text();
-            	var bottitle = $(this).text();
-            	
-            	var html = ' > <a id="">'+subtitle+'</a> > <a id="">'+bottitle+'</a>';
-            	$("#category_head").append(html);
+
             	movelink(code);
             })
             
@@ -85,14 +101,69 @@
             	}else{
             		$("#"+name+"").hide();
             	}
-            	
-
             })
             
             
 
 
         });
+        
+        
+        
+        // 체크박스를 체크했을 때 리스트에 추가해주는 jquery
+        function plusList(filter){
+        	filterList.push(filter);
+			console.log(filterList);
+			
+			if(filterList.length == 1){
+				$(".category_filter_output_wrap").show(); 
+			}
+
+			var html = '<li class="category_filter_control_tag_item" id="'+filter+'">\
+							<button class="category_filter_tag">\
+							<div>'+filter+'</div>\
+							<i class="fa-solid fa-xmark"></i>\
+							</button>\
+							</li>';
+							
+			
+			$(".category_filter_control_tag_list").append(html);
+
+			// filtering ajax 연결
+			filtering(filterList);
+        }
+        
+        // 동적요소 새롭게 이벤트 넣을 때
+        $(document).on('click', '.category_filter_control_tag_item button', function(){
+            var it = $(this).parent('li').attr("id");
+            removeList(it);
+            
+            $("input[name=checking]:checked").each(function(){
+            	if(it == $(this).val()){
+            		$(this).prop("checked", false);
+            	}
+            })
+        });
+        
+
+        
+        // 체크박스를 해제했을 때 해당 요소 삭제하는 jquery
+        function removeList(filter){
+        	for(var i=0; i<filterList.length; i++){
+        		if(filter == filterList[i]){
+        			filterList.splice(i, 1);
+					$(".category_filter_control_tag_item").eq(i).remove();
+        			break;
+        		}
+        	}
+        	console.log(filterList);
+        	
+        	if(filterList.length == 0){
+				$(".category_filter_output_wrap").hide(); 
+			}
+        	
+        	filtering(filterList);
+        }
         
         // 어떻게 드롭다운이 바로 밑에 뜨게 하지
         function checkPosition(name){
@@ -116,12 +187,44 @@
         
         function movelink(code){
         	
-        	console.log(code);
+        	var top = parseInt(code/10000);
+        	var sub = code;
         	
+        	var whole = top+"_"+sub;
+
+        	$("#actionForm").find("input[name='catecode']").val(whole);
+        	$("#actionForm").submit();
+
+        }
+        
+        function filtering(list){
+        	
+        	console.log(list);
+        	
+        	// 오늘의딜 등등 다른 것들도 받아와야함
+        	// 그것들은 그냥 체크된거~ 아님 다른 걸로 하도록~
+        	
+        	$.ajax({
+    	  		url:'getFilterList.com',
+    	  		method:'post',
+    	  		data: JSON.stringify(list),
+    	  		contentType : 'application/json; charset=UTF-8',
+    	  		dataType : 'html',
+    	  		success : function(resp){
+    				
+    	  			$("#product-layer").html(resp);
+    	  				
+    	  		},
+    	  		error : function(request, status, error) {
+    				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    			}
+    	  		});
         	
         	
         	
         }
+        
+        
       
 		
 		</script>
@@ -137,7 +240,7 @@
 				<div class="category_side_bar col-12 col-md-3">
 					<section class="category_list">
 						<div class="category_list_title">
-							<a id="${title.cate_code }" href="#">${title.cate_name }</a>
+							<a class="movetitle" href="${title.cate_code }">${title.cate_name }</a>
 						</div>
 						<ul class="category_tree">
 							
@@ -177,15 +280,22 @@
 					</section>
 					
 					<form action="m_category.com" method="get" id="actionForm">
-						<input type="hidden" name="topcate_code" value="">
+						<input type="hidden" name="catecode" value="">
 					</form>
 				</div>
 
 				<div class="category_content col-12 col-md-9">
 					<div class="category_header">
 						<div class="category_header_title">
-							<a href="#" id="${title.cate_code }">${title.cate_name }</a>
-							<span id="category_head"></span>
+							${title.cate_name }
+							<c:if test="${catename.size() > 0 }">
+								<svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path></svg>
+								 ${catename[0].subcate_name }
+								<c:if test="${catename.size() > 1}">
+									<svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path></svg>
+									 ${catename[1].subcate_name }
+								</c:if>
+							</c:if>
 						</div>
 						<div class="category_banner">
 							<div class="carousel_frame">
@@ -283,10 +393,10 @@
 												<button class="property_filter_dropdown_btn">
 													<div class="property_filter_dropdown_item">
 														<div class="_3zqA8 input-type">
-															<input type="checkbox" class="_3UImz" value="">
+															<input type="checkbox" class="_3UImz" value="1인" name="checking">
 															<span class="_2mDYR">
 															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
-														<span>1인</span>
+															<span>1인</span>
 													</div>
 												</button>
 											</li>
@@ -294,7 +404,7 @@
 												<button class="property_filter_dropdown_btn">
 													<div class="property_filter_dropdown_item">
 														<div class="_3zqA8 input-type">
-															<input type="checkbox" class="_3UImz" value="">
+															<input type="checkbox" class="_3UImz" value="2인" name="checking">
 															<span class="_2mDYR">
 															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
 														<span>2인</span>
@@ -305,7 +415,7 @@
 												<button class="property_filter_dropdown_btn">
 													<div class="property_filter_dropdown_item">
 														<div class="_3zqA8 input-type">
-															<input type="checkbox" class="_3UImz" value="">
+															<input type="checkbox" class="_3UImz" value="3인" name="checking">
 															<span class="_2mDYR">
 															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
 														<span>3인</span>
@@ -316,7 +426,7 @@
 												<button class="property_filter_dropdown_btn">
 													<div class="property_filter_dropdown_item">
 														<div class="_3zqA8 input-type">
-															<input type="checkbox" class="_3UImz" value="">
+															<input type="checkbox" class="_3UImz" value="4인" name="checking">
 															<span class="_2mDYR">
 															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
 														<span>4인</span>
@@ -327,7 +437,7 @@
 												<button class="property_filter_dropdown_btn">
 													<div class="property_filter_dropdown_item">
 														<div class="_3zqA8 input-type">
-															<input type="checkbox" class="_3UImz" value="">
+															<input type="checkbox" class="_3UImz" value="5인" name="checking">
 															<span class="_2mDYR">
 															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
 														<span>5인</span>
@@ -338,7 +448,7 @@
 												<button class="property_filter_dropdown_btn">
 													<div class="property_filter_dropdown_item">
 														<div class="_3zqA8 input-type">
-															<input type="checkbox" class="_3UImz" value="">
+															<input type="checkbox" class="_3UImz" value="6인" name="checking">
 															<span class="_2mDYR">
 															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
 														<span>6인</span>
@@ -349,7 +459,7 @@
 												<button class="property_filter_dropdown_btn">
 													<div class="property_filter_dropdown_item">
 														<div class="_3zqA8 input-type">
-															<input type="checkbox" class="_3UImz" value="">
+															<input type="checkbox" class="_3UImz" value="7인" name="checking">
 															<span class="_2mDYR">
 															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
 														<span>7인</span>
@@ -360,7 +470,7 @@
 												<button class="property_filter_dropdown_btn">
 													<div class="property_filter_dropdown_item">
 														<div class="_3zqA8 input-type">
-															<input type="checkbox" class="_3UImz" value="">
+															<input type="checkbox" class="_3UImz" value="8인" name="checking">
 															<span class="_2mDYR">
 															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
 														<span>8인</span>
@@ -382,7 +492,7 @@
 												<button class="property_filter_dropdown_btn">
 													<div class="property_filter_dropdown_item">
 														<div class="_3zqA8 input-type">
-															<input type="checkbox" class="_3UImz" value="">
+															<input type="checkbox" class="_3UImz" value="밝은우드톤" name="checking">
 															<span class="_2mDYR">
 															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
 														<span>밝은 우드톤</span>
@@ -393,7 +503,7 @@
 												<button class="property_filter_dropdown_btn">
 													<div class="property_filter_dropdown_item">
 														<div class="_3zqA8 input-type">
-															<input type="checkbox" class="_3UImz" value="">
+															<input type="checkbox" class="_3UImz" value="중간우드톤" name="checking">
 															<span class="_2mDYR">
 															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
 														<span>중간 우드톤</span>
@@ -404,7 +514,7 @@
 												<button class="property_filter_dropdown_btn">
 													<div class="property_filter_dropdown_item">
 														<div class="_3zqA8 input-type">
-															<input type="checkbox" class="_3UImz" value="">
+															<input type="checkbox" class="_3UImz" value="어두운우드톤" name="checking">
 															<span class="_2mDYR">
 															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
 														<span>어두운 우드톤</span>
@@ -425,10 +535,202 @@
 										<path fill="currentColor" fill-rule="nonzero"
 											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
 								</button>
+									<!-- dropdown : 색상 -->
+									<div class="dropdown_panel3 location3 dropping" id="색상">
+										<ul class="property_filter_dropdown">
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="화이트" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>화이트</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="블랙" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>블랙</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="브라운" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>브라운</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="골드" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>골드</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="오렌지" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>오렌지</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="그린" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>그린</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="네이비" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>네이비</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="핑크" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>핑크</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="투명" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>투명</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="그레이" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>그레이</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="베이지" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>베이지</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="실버" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>실버</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="레드" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>레드</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="옐로우" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>옐로우</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="블루" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>블루</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="바이올렛" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>바이올렛</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="멀티" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>멀티</span>
+													</div>
+												</button>
+											</li>
+										</ul>
+									</div>
 							</li>
 							<li class="category_filter_control_list_item">
 								<button class="filter_btn" value="리퍼상품">
-									리퍼 상품
+									리퍼 상품 유무
 									<svg class="chevron" width="12" height="12"
 										preserveAspectRatio="xMidYMid meet">
 										<g fill="none" fill-rule="evenodd">
@@ -436,10 +738,37 @@
 										<path fill="currentColor" fill-rule="nonzero"
 											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
 								</button>
+									<!-- dropdown 리퍼상품 -->
+									<div class="dropdown_panel4 location4 dropping" id="리퍼상품">
+										<ul class="property_filter_dropdown">
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="리퍼상품" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>리퍼 상품</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="리퍼상품 x" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>리퍼 상품 x</span>
+													</div>
+												</button>
+											</li>
+										</ul>
+									</div>
 							</li>
 							<li class="category_filter_control_list_item">
-								<button class="filter_btn" value="공간별상품">
-									공간별 상품
+								<button class="filter_btn" value="사용공간">
+									사용 공간
 									<svg class="chevron" width="12" height="12"
 										preserveAspectRatio="xMidYMid meet">
 										<g fill="none" fill-rule="evenodd">
@@ -447,6 +776,79 @@
 										<path fill="currentColor" fill-rule="nonzero"
 											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
 								</button>
+								<!-- dropdown 사용공간 -->
+									<div class="dropdown_panel5 location5 dropping" id="사용공간">
+										<ul class="property_filter_dropdown">
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="거실" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>거실</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="침실" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>침실</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="주방" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>주방</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="옷방" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>옷방</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="서재/공부방" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>서재/공부방</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="아이방" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>아이방</span>
+													</div>
+												</button>
+											</li>
+										</ul>
+									</div>
+								
+								
 							</li>
 							<li class="category_filter_control_list_item">
 								<button class="filter_btn" value="소재">
@@ -458,17 +860,199 @@
 										<path fill="currentColor" fill-rule="nonzero"
 											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
 								</button>
-							</li>
-							<li class="category_filter_control_list_item">
-								<button class="filter_btn" value="특가">
-									특가
-									<svg class="chevron" width="12" height="12"
-										preserveAspectRatio="xMidYMid meet">
-										<g fill="none" fill-rule="evenodd">
-										<path d="M0 0h12v12H0z"></path>
-										<path fill="currentColor" fill-rule="nonzero"
-											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
-								</button>
+								
+									<!-- dropdown : 소재 -->
+									<div class="dropdown_panel6 location6 dropping" id="소재">
+										<ul class="property_filter_dropdown">
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="원목" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>원목</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="천연 대리석" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>천연 대리석</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="세라믹" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>세라믹</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="유리" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>유리</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="플라스틱" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>플라스틱</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="콘크리트" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>콘크리트</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="인조가죽" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>인조가죽</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="스웨이드" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>스웨이드</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="벨벳" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>벨벳</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="가공목" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>가공목</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="인조대리석" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>인조대리석</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="화산석" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>화산석</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="철재/스틸" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>철재/스틸</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="라탄" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>라탄</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="천연가죽" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>천연가죽</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="패브릭" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>패브릭</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="매쉬" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>매쉬</span>
+													</div>
+												</button>
+											</li>
+										</ul>
+									</div>
 							</li>
 							<li class="category_filter_control_list_item">
 								<button class="filter_btn" value="상품유형">
@@ -480,6 +1064,33 @@
 										<path fill="currentColor" fill-rule="nonzero"
 											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
 								</button>
+								<!-- dropdown 리퍼상품 -->
+									<div class="dropdown_panel7 location7 dropping" id="상품유형">
+										<ul class="property_filter_dropdown">
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="렌탈상품" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>렌탈 상품</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="렌탈상품 x" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>렌탈 상품 x</span>
+													</div>
+												</button>
+											</li>
+										</ul>
+									</div>
 							</li>
 							<li class="category_filter_control_list_item">
 								<button class="filter_btn" value="가격">
@@ -502,6 +1113,44 @@
 										<path fill="currentColor" fill-rule="nonzero"
 											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
 								</button>
+								<!-- dropdown 배송 -->
+									<div class="dropdown_panel9 location9 dropping" id="배송">
+										<ul class="property_filter_dropdown">
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="무료배송" name="checking1">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>무료배송</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="일반배송" name="checking1">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>일반배송</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="화물배송" name="checking1">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>화물배송</span>
+													</div>
+												</button>
+											</li>
+										</ul>
+									</div>
 							</li>
 						</ul>
 					</div>
@@ -514,17 +1163,7 @@
 						<div class="category_filter_control_package">
 							<div class="category_filter_control_pack">
 								<ul class="category_filter_control_tag_list">
-									<li class="category_filter_control_tag_item">
-										<button class="category_filter_tag">
-											<div></div>
-											<svg class="icon" width="12" height="12"
-												preserveAspectRatio="xMidYMid meet">
-												<g fill="none" fill-rule="evenodd" opacity=".5">
-												<path d="M0 0h12v12H0z"></path>
-												<path fill="currentColor" fill-rule="nonzero"
-													d="M9.778 1.5l.722.75-3.778 3.722L6.75 6l-.028.028L10.5 9.75l-.722.75L6 6.745 2.222 10.5 1.5 9.75l3.777-3.723L5.25 6l.027-.027L1.5 2.25l.722-.75L6 5.255 9.778 1.5z"></path></g></svg>
-										</button>
-									</li>
+									
 								</ul>
 							</div>
 							<button class="reset_btn">
@@ -591,7 +1230,7 @@
         
                     </script>
 
-					<div class="photos row">
+					<div class="photos row" id="product-layer">
 						<c:forEach items="${productList }" var="product">
 						<div class="deals_list_wrap col-6 col-lg-4">
 							<article class="deals_item">

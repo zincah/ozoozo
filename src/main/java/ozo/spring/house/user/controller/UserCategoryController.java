@@ -31,10 +31,21 @@ public class UserCategoryController {
 	@RequestMapping(value = "/m_category.com", method=RequestMethod.GET)
 	public String category(UserCategoryVO vo, Model model, HttpServletRequest request) {
 
-		int catecode = Integer.parseInt(request.getParameter("topcate_code"));
+		String[] codes = request.getParameter("catecode").split("_");
 		
-		System.out.println(catecode);
-		vo.setTop_catecode(catecode); // url로 전달받은 코드
+		if(codes.length == 2) {
+			int subcate_code = Integer.parseInt(codes[1]);
+			vo.setMidcate_code(subcate_code/100);
+			
+			if(subcate_code%100 != 0) {
+				vo.setSubcate_code(subcate_code);
+			}
+		}
+
+		int topcate_code = Integer.parseInt(codes[0]);
+		System.out.println(topcate_code);
+
+		vo.setTop_catecode(topcate_code); // url로 전달받은 코드
 		
 		List<UserCategoryVO> titleList = userCategoryService.printTitle();
 		List<UserCategoryVO> others = new ArrayList<UserCategoryVO>();
@@ -42,7 +53,7 @@ public class UserCategoryController {
 		for(int i=0; i<titleList.size(); i++) {
 			UserCategoryVO cate = titleList.get(i);
 			
-			if(cate.getCate_code() == catecode) {
+			if(cate.getCate_code() == topcate_code) {
 				model.addAttribute("title", cate);
 			}else {
 				others.add(cate);
@@ -68,20 +79,28 @@ public class UserCategoryController {
 		
 		model.addAttribute("productList", productList);
 
+		
+		List<UserCategoryVO> catename = userCategoryService.getCateName(vo);
+		model.addAttribute("catename", catename);
 
 		return "ozocategory_zinc";
 	}
-	@ResponseBody
-	@RequestMapping(value = "/gocategory.com", method=RequestMethod.GET)
-	public List<UserCategoryVO> catelist(String category,UserCategoryVO vo) {
-		
-		System.out.println(category);
-		List<UserCategoryVO> s_list=null ;
-		
-			
+	
 
+	@RequestMapping(value = "/getFilterList.com", method=RequestMethod.POST)
+	public String getFilterList(@RequestBody List<String> filterList, UserCategoryVO vo, Model model) {
 		
-		return s_list;
+		System.out.println(filterList);
+		
+		vo.setTop_catecode(1); // 이건 다르게 넘겨줘야함
+		vo.setFiltering(filterList);
+		
+		List<UserProductVO> postList = userCategoryService.getPostList(vo);
+		
+		model.addAttribute("productList", postList);
+		System.out.println(postList.size());
+		
+		return "cates";
 	}
 	
 }
