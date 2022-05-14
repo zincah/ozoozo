@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -60,13 +62,120 @@
                         </div>
                         <ul class="cart_main_content_list">
                             <!-- 다른 브랜드 for 문 : 장바구니 -->
+                            <c:forEach var="i" begin="0" end="${fn:length(seller_li)-1 }">
                             <li class="cart_main_content_group">
+                                <article class="content_group">
+                                    <div class="cart_group_header">${seller_li[i].company_name }</div>
+                                        <c:forEach var="j" begin="0" end="${fn:length(post_li)-1}">
+                                        	<c:if test="${seller_li[i].seller_id eq post_li[j].post_sellerid }">
+                                        	<c:set var="post_id" value="${post_li[j].post_id }"/>
+                                        		<ul class="cart_group_delivery_list ${post_li[j].post_id }">
+                                        			<li class="cart_group_delivery_list_item">
+                                           				 <article class="cart_group_delivery_list_item_wrap">
+                                        					 <div class="carted_product">
+                                                				<div class="carted-product__select">
+                                                					<div class="_3zqA8">
+                                                						<input type="checkbox" class="_3UImz" value="" checked="">
+                                               							<span class="_2mDYR">
+                                               								<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR">
+                                               									<path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path>
+			                                                				</svg>
+			                                                			</span>
+			                                                		</div>
+			                                                	</div>
+                                                    			<a href="#" class="carted_product_link">
+                                                        			<div class="product_image">
+                                                           				<img src="sources/product1.webp">
+                                                        			</div>
+                                                        		<div class="product_info">
+                                                            <div class="product_info_title">[${seller_li[i].company_name}]${post_li[j].post_name}</div>
+                                                     
+                                                            <p class="product_info_delivery">무료배송&nbsp;|&nbsp;화물택배</p>
+                                                        </div>
+                                                    </a>
+                                                    <button class="delete_product" type="button" id="${post_li[j].post_id }">
+                                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path fill-rule="nonzero" d="M6 4.6L10.3.3l1.4 1.4L7.4 6l4.3 4.3-1.4 1.4L6 7.4l-4.3 4.3-1.4-1.4L4.6 6 .3 1.7 1.7.3 6 4.6z"></path></svg>
+                                                    </button>
+                                                     <ul class="carted_product_option_list">
+                                                    <c:forEach var="f" begin="0" end="${fn:length(pro_li)-1}">
+                                                    <c:if test="${post_id eq pro_li[f].product_postid }">
+                                                    <li class="carted_product_option_list_item ${pro_li[f].product_id }" >
+                                                            <article class="option_item">
+                                                                <div class="option_item_name">
+																	<c:choose>
+																		<c:when test="${pro_li[f].option2 ne ''}">
+																		${pro_li[f].option1} / ${pro_li[f].option2}
+																		</c:when>
+																		<c:otherwise>
+																		${pro_li[f].option1}
+																		</c:otherwise>
+																	</c:choose>
+																</div>
+                                                                <button class="option_item_delete" id="${pro_li[f].product_id }">
+                                                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path fill-rule="nonzero" d="M6 4.6L10.3.3l1.4 1.4L7.4 6l4.3 4.3-1.4 1.4L6 7.4l-4.3 4.3-1.4-1.4L4.6 6 .3 1.7 1.7.3 6 4.6z"></path></svg>
+                                                                </button>
+                                                                <div class="option_item_control">
+                                                                	<c:choose>
+                                                                		<c:when test="${cart_li[f].cart_quantity < 9 }" >
+		                                                                    <div class="option_item_count">
+		                                                                        <select class="form_control">
+		                                                                            <option value="0">1</option>
+		                                                                            <option value="1">2</option>
+		                                                                            <option value="2">3</option>
+		                                                                            <option value="3">4</option>
+		                                                                            <option value="4">5</option>
+		                                                                            <option value="5">6</option>
+		                                                                            <option value="6">7</option>
+		                                                                            <option value="7">8</option>
+		                                                                            <option value="8">9</option>
+		                                                                            <option value="9">+10</option>
+		                                                                        </select>
+		                                                                    </div>
+		                                                                    
+                                                                   		 </c:when>
+                                                                   		<c:otherwise>
+	                                                                    <div class="selling-option-item__quantity">
+	                                                                    	<input type="number" pattern="[0-9]*" min="1" step="1" size="5" class="form-control option-count-input manual" value="${cart_li[f].cart_quantity}">
+	                                                                    </div>
+                                                                    </c:otherwise>
+                                                                    </c:choose>
+                                                                    <div class="option_item_price">
+                                                                        <span class="option_item_price_here">${pro_li[f].product_price * cart_li[f].cart_quantity}</span>
+                                                                        원
+                                                                    </div>
+                                                                </div>
+                                                            </article>
+                                                        </li>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                    </ul>
+                                                    <div class="carted_product_footer">
+                                                        <div class="carted_product_footer_left">
+                                                            <button class="carted_product_edit_btn" type="button">옵션변경</button>
+                                                            <button class="carted_product_order_only_btn" type="button">바로구매</button>
+                                                        </div>
+                                                        <div class="carted_product_footer_right">
+                                                            <span class="carted_product_subtotal">179,000</span>
+                                                            원
+                                                        </div>
+                                                    </div>
+                                                </div>
+												<footer class="delivery_group_footer">
+                                                    <div class="delivery_group_footer_text">배송비 무료</div>
+                                                </footer>
+                                        		</ul>
+                                        	</c:if>
+                                        </c:forEach>
+								</article>
+							</li>    
+							</c:forEach>
+                            <!-- <li class="cart_main_content_group">
                                 <article class="content_group">
                                     <div class="cart_group_header">
                                         시디즈 배송
                                     </div>
                                     <ul class="cart_group_delivery_list">
-                                        <!--같은 브랜드 for문-->
+                                        같은 브랜드 for문
                                         <li class="cart_group_delivery_list_item">
                                             <article class="cart_group_delivery_list_item_wrap">
                                                 <div class="carted_product">
@@ -95,7 +204,7 @@
                                                         <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path fill-rule="nonzero" d="M6 4.6L10.3.3l1.4 1.4L7.4 6l4.3 4.3-1.4 1.4L6 7.4l-4.3 4.3-1.4-1.4L4.6 6 .3 1.7 1.7.3 6 4.6z"></path></svg>
                                                     </button>
                                                     <ul class="carted_product_option_list">
-                                                        <!--for문 : 한 상품판매페이지에서 여러 옵션-->
+                                                        for문 : 한 상품판매페이지에서 여러 옵션
                                                         <li class="carted_product_option_list_item">
                                                             <article class="option_item">
                                                                 <div class="option_item_name">라이트 그레이</div>
@@ -162,7 +271,6 @@
                                                             <span class="carted_product_subtotal">179,000</span>
                                                             원
                                                         </div>
-
                                                     </div>
                                                 </div>
                                                 <footer class="delivery_group_footer">
@@ -191,7 +299,7 @@
                                                         <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path fill-rule="nonzero" d="M6 4.6L10.3.3l1.4 1.4L7.4 6l4.3 4.3-1.4 1.4L6 7.4l-4.3 4.3-1.4-1.4L4.6 6 .3 1.7 1.7.3 6 4.6z"></path></svg>
                                                     </button>
                                                     <ul class="carted_product_option_list">
-                                                        <!--for문 : 한 상품판매페이지에서 여러 옵션-->
+                                                        for문 : 한 상품판매페이지에서 여러 옵션
                                                         <li class="carted_product_option_list_item">
                                                             <article class="option_item">
                                                                 <div class="option_item_name">선택: 블랙쉘(TNA200HF) / 색상: 미드나잇 블랙</div>
@@ -245,14 +353,14 @@
                                     </ul>
                                 </article>
                             </li>
-                            <!--다른브랜드-->
+                            다른브랜드
                             <li class="cart_main_content_group">
                                 <article class="content_group">
                                     <div class="cart_group_header">
                                         구르미애 배송
                                     </div>
                                     <ul class="cart_group_delivery_list">
-                                        <!--같은 브랜드 for문-->
+                                        같은 브랜드 for문
                                         <li class="cart_group_delivery_list_item">
                                             <article class="cart_group_delivery_list_item_wrap">
                                                 <div class="carted_product">
@@ -272,7 +380,7 @@
                                                         <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path fill-rule="nonzero" d="M6 4.6L10.3.3l1.4 1.4L7.4 6l4.3 4.3-1.4 1.4L6 7.4l-4.3 4.3-1.4-1.4L4.6 6 .3 1.7 1.7.3 6 4.6z"></path></svg>
                                                     </button>
                                                     <ul class="carted_product_option_list">
-                                                        <!--for문 : 한 상품판매페이지에서 여러 옵션-->
+                                                        for문 : 한 상품판매페이지에서 여러 옵션
                                                         <li class="carted_product_option_list_item">
                                                             <article class="option_item">
                                                                 <div class="option_item_name">컬러: 클래식 순면 80수 차렵이불(버터크림) / 사이즈: Q풀세트(이불+패드+베개커버2)</div>
@@ -324,7 +432,7 @@
                                         </li>
                                     </ul>
                                 </article>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ozo.spring.house.user.dao.UserDAO;
+import ozo.spring.house.user.dao.UserDAO.cart_Allload;
+import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserProduct_tableVO;
 import ozo.spring.house.user.vo.UserVO;
@@ -68,6 +70,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean basket_add(List<UserProductVO> vo, UserVO uvo) {
 		return userDAO.basket_add(vo,uvo);
+	}
+
+	@Override
+	public cart_Allload get_cart_class(CartVO vo) {
+		return userDAO.get_cart_class(vo);
 	}
 	
 }
