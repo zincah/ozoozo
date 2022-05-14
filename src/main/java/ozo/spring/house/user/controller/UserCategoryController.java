@@ -1,5 +1,6 @@
 package ozo.spring.house.user.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ozo.spring.house.user.service.UserCategoryService;
 import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
+import ozo.spring.house.user.vo.UserProductVO;
 
 @Controller
 public class UserCategoryController {
@@ -52,6 +54,20 @@ public class UserCategoryController {
 		System.out.println(wholeList.size());
 
 		model.addAttribute("wholeList", wholeList);
+		
+		List<UserProductVO> productList = userCategoryService.selectProductByCate(vo);
+		
+		for(int i=0; i<productList.size(); i++) {
+			UserProductVO pro = productList.get(i);
+			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
+			
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
+			
+			pro.setSale_price(decFormat.format(sale_price));
+		}
+		
+		model.addAttribute("productList", productList);
+
 
 		return "ozocategory_zinc";
 	}

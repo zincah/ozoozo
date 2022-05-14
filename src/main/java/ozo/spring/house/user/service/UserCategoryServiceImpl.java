@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ozo.spring.house.user.dao.UserCategoryDAO;
 import ozo.spring.house.user.vo.UserCategoryVO;
+import ozo.spring.house.user.vo.UserProductVO;
 
 @Service("userCategoryService")
 public class UserCategoryServiceImpl implements UserCategoryService{
@@ -27,6 +28,11 @@ public class UserCategoryServiceImpl implements UserCategoryService{
 	@Override
 	public List<UserCategoryVO> printTitle() {
 		return userCategoryDAO.printTitle();
+	}
+
+	@Override
+	public List<UserProductVO> selectProductByCate(UserCategoryVO vo) {
+		return userCategoryDAO.selectProductByCate(vo);
 	}
 
 

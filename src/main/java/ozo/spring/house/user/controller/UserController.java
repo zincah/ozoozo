@@ -140,10 +140,10 @@ public class UserController {
 	public String user_shopApply(HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
-		if(session.getAttribute("Usercode")!=null) {
+		if(session.getAttribute("User_Num")!=null) {
 			return "ShopApply";
 		}else {
-			return "ozoLogin_zinc";
+			return "redirect:login.com";
 		}
 	}
 	//로그인 화면에서 비밀번호 재설정

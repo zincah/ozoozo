@@ -1,7 +1,7 @@
 package ozo.spring.house.user.controller;
 
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,16 +42,24 @@ public class UserInfoController {
 	}
 	// login
 		@RequestMapping(value = "/login.com", method=RequestMethod.GET)
-		public String loginView(HttpSession session) {
+		public String loginView(HttpSession session, HttpServletRequest request) {
+			
+			// 이전 페이지 정보를 얻어와서 String url에 저장해준다.
+			String referer = request.getHeader("Referer");
+			String[] urls = referer.split("/");
+			String url = urls[urls.length-1];
+			// 세션에 lasturl이라는 이름으로 저장
+			session.setAttribute("lasturl", url);
+			
 			if(session.getAttribute("UserMail")!=null) {
-				return "ozomain_zinc";
+				return "ozomain_size";
 			}else {
 				return "ozoLogin_zinc";
 			}
 		}
 		
 		@RequestMapping(value="/login.com", method=RequestMethod.POST)
-		public String login(UserVO vo, Model model, HttpSession session) {
+		public String login(UserVO vo, Model model, HttpSession session, HttpServletRequest request) {
 
 			// log 처리
 			System.out.println("login controller");
@@ -62,7 +70,10 @@ public class UserInfoController {
 				session.setAttribute("User_Num", user.getUser_num());
 				model.addAttribute("Usercode", vo.getUser_email());
 				model.addAttribute("member", vo); // member 정보
-				return "forward:main.com";
+				// 세션에 저장되어있는 lasturl을 얻어와서 그 페이지로 리다이렉트 시킨다.
+				String url = (String) session.getAttribute("lasturl");
+				// (장바구니에 있는 정보는 같이 어떻게 보낼지는 처리 안함)
+				return "redirect:"+url;
 			}else {
 				String msg = "입력하신 m  a정보가 잘못 되었습니다.";
 				model.addAttribute("msg", msg);

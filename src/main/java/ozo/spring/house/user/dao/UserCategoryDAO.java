@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
+import ozo.spring.house.user.vo.UserProductVO;
 
 @Repository
 public class UserCategoryDAO {
@@ -39,6 +40,11 @@ public class UserCategoryDAO {
 	
 	public List<UserCategoryVO> printTitle(){
 		return sqlSessionTemplate.selectList("UserCategoryDAO.printTitle");
+	}
+	
+	public List<UserProductVO> selectProductByCate(UserCategoryVO vo){
+		System.out.println("--> mybatis select product by catecode");
+		return sqlSessionTemplate.selectList("UserCategoryDAO.selectProductByCate", vo);
 	}
 	
 
