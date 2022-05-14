@@ -1,5 +1,6 @@
 package ozo.spring.house.user.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -11,25 +12,39 @@ import ozo.spring.house.user.vo.UserCategoryVO;
 
 @Repository
 public class UserCategoryDAO {
+	
 	@Autowired
-	private SqlSessionTemplate sqlsessiontemplate;
+	private SqlSessionTemplate sqlSessionTemplate;
 	
+	public List<List<UserCategoryVO>> selectCategoryList(UserCategoryVO vo) {
+		System.out.println("--> mybatis category checkcount");
+		int count = sqlSessionTemplate.selectOne("UserCategoryDAO.checkCount", vo);
+		
+		System.out.println("--> mybatis category selectcatelist");
+		
+		List<List<UserCategoryVO>> wholeList = new ArrayList<List<UserCategoryVO>>();
+		List<UserCategoryVO> perList = new ArrayList<UserCategoryVO>();
+		
+		int su = vo.getTop_catecode()*100;
+		
+		for(int i=0; i<count; i++) {
+			vo.setChecksub(su);
+			perList = sqlSessionTemplate.selectList("UserCategoryDAO.selectCategoryList", vo);
+			wholeList.add(perList);
+			su++;
+		}
+		
+		return wholeList;
+	}
 	
-   public List<UserCategoryVO> m_category(UserCategoryVO vo) {
-      
-      System.out.println("메인 ");
-      return sqlsessiontemplate.selectList("UserCategoryDAO.m_category",vo);
-   }
-   public List<UserCategoryVO> s_category(UserCategoryVO vo) {
-      
-      System.out.println("서브 ");
-      return sqlsessiontemplate.selectList("UserCategoryDAO.s_category",vo);
-   }
-   public List<UserCategoryVO> b_category(UserCategoryVO vo) {
-      
-      System.out.println("하위  ");
-      return sqlsessiontemplate.selectList("UserCategoryDAO.b_category",vo);
-   }
+	public List<UserCategoryVO> printTitle(){
+		return sqlSessionTemplate.selectList("UserCategoryDAO.printTitle");
+	}
+	
+
+
+	
+
 
 
 }

@@ -122,7 +122,7 @@
 							href="/house/main.com">스토어홈</a> <a id="catcat"
 							class="layout-navigation-primary__menu__item layout-navigation-primary__menu__item--active 
                             layout-navigation-primary__menu__item--open"
-							href="/house/category.com">카테고리</a> <a
+							href="/house/m_category.com?topcate_code=1">카테고리</a> <a
 							class="layout-navigation-primary__menu__item"
 							href="/house/best.com">베스트</a> <a
 							class="layout-navigation-primary__menu__item"

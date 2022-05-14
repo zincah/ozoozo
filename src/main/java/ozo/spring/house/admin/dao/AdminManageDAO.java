@@ -69,8 +69,16 @@ public class AdminManageDAO {
 		sqlSessionTemplate.update("AdminManageDAO.updateDealStatusOnPost", pvo);
 	}
 	
-
+	public List<AdminProductVO> getProductList(AdminProductVO pvo){
+		System.out.println("--> mybatis in adminmanagedao getproductlist");
+		return sqlSessionTemplate.selectList("AdminManageDAO.getProductList", pvo);
+	}
 	
+	public int searchListCount(AdminProductVO pvo){
+		System.out.println("--> mybatis in adminmanagedao getproductlist");
+		List<AdminProductVO> list = sqlSessionTemplate.selectList("AdminManageDAO.searchListCount", pvo);
+		return list.size();
+	}
 
 
 }
