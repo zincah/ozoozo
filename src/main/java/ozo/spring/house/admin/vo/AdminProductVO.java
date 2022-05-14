@@ -1,5 +1,6 @@
 package ozo.spring.house.admin.vo;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import lombok.Getter;
@@ -35,9 +36,10 @@ public class AdminProductVO {
 	private String coupon_subtitle;
 	
 	// 날짜 검색
-	private Timestamp startdate;
-	private Timestamp enddate;
+	private Date startdate;
+	private Date enddate;
 	private String pack; // 검색조건
+	private String keyword; // 검색단어
 
 	// paging 넣어주기
 	private Criteria cri;

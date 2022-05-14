@@ -3,21 +3,21 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="UserCategoryDAO">
+ 
+ 	<select id="checkCount" resultType="int">
+ 		SELECT COUNT(*) FROM sub_category WHERE top_catecode=#{top_catecode} AND sub_depth = 1
+ 	</select>
+ 	
+ 	<select id="selectCategoryList" resultType="ucate">
+ 		SELECT * FROM sub_category WHERE top_catecode=#{top_catecode} AND subcate_code/100=#{checksub}
+ 	</select>
+ 	
+ 	<select id="printTitle" resultType="ucate">
+ 		SELECT * FROM category
+ 	</select>
+
     
     
-    <select id="m_category" resultType="ucate" >
-    SELECT * FROM category ORDER BY cate_code ASC
-    
-    </select>
-    
-    <select id="s_category" resultType="ucate">
-    select * from sub_category where top_catecode =1
-    </select>
-    
-    <select id="b_category" resultType="ucate">
-    
-    SELECT * FROM sub_category WHERE top_catecode = 1 and sub_depth = 2 and subcate_code/100 = 100;
-    </select>
-    
+
     
  </mapper>

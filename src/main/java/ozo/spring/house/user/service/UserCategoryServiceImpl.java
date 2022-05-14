@@ -12,31 +12,25 @@ import ozo.spring.house.user.vo.UserCategoryVO;
 public class UserCategoryServiceImpl implements UserCategoryService{
 	
 	@Autowired
-	UserCategoryDAO UserCategoryDAO;
+	UserCategoryDAO userCategoryDAO;
 	
 	//setter
 	public void setUserCategoryDAO(UserCategoryDAO userCategoryDAO) {
-		UserCategoryDAO = userCategoryDAO;
+		userCategoryDAO = userCategoryDAO;
 	}
 
 	@Override
-	public List<UserCategoryVO> m_category(UserCategoryVO vo) {
-		return UserCategoryDAO.m_category(vo);
-		
+	public List<List<UserCategoryVO>> selectCategoryList(UserCategoryVO vo) {
+		return userCategoryDAO.selectCategoryList(vo);
 	}
 
 	@Override
-	public List<UserCategoryVO> s_category(UserCategoryVO vo) {
-		return UserCategoryDAO.s_category(vo);
-		
+	public List<UserCategoryVO> printTitle() {
+		return userCategoryDAO.printTitle();
 	}
 
-	@Override
-	public List<UserCategoryVO> b_category(UserCategoryVO vo) {
-		return UserCategoryDAO.b_category(vo);
-		
-	}
-	
+
+
 	
 
 }

@@ -87,7 +87,11 @@
     		
     		// checkbox 초기화
     		$("#allCheck").prop("checked", false);
-    		
+			
+			// page 정보
+			var thispage = $("#findPage").val();
+			console.log(thispage);
+			
     		//조건들 받아오기
     		var posttype = $("input[name=posttype]:checked").val();
     		var category = $("#large-select").val();
@@ -97,7 +101,7 @@
 			var pack = $("#search_select option:selected").val();
 			var keyword = $("#search_input").val();
 
-			var searchMap = {
+			searchMap = {
     				"posttype" : posttype,
     				"category" : category,
     				"startdate" : startdate,
@@ -105,7 +109,6 @@
     				"pack" : pack,
     				"keyword" : keyword
     		}
-
 			
 			$.ajax({
 		  		url:'productSearch.admin',
@@ -115,7 +118,9 @@
 		  		dataType : 'html',
 		  		success : function(resp){
 		  			
-		  			//printList(resp);
+		  			printTable(resp);
+		  			setPage(1);
+		  			
 
 		  		}
     		});
@@ -126,7 +131,7 @@
 
     		$("#search_input").keyup(function(){
     			
-    			// checkbox 초기화
+        		// checkbox 초기화
         		$("#allCheck").prop("checked", false);
     			
     			// page 정보
@@ -142,7 +147,7 @@
     			var pack = $("#search_select option:selected").val();
     			var keyword = $("#search_input").val();
 
-    			var searchMap = {
+    			searchMap = {
         				"posttype" : posttype,
         				"category" : category,
         				"startdate" : startdate,
@@ -150,7 +155,6 @@
         				"pack" : pack,
         				"keyword" : keyword
         		}
-
     			
     			$.ajax({
     		  		url:'productSearchBox.admin',
@@ -160,26 +164,31 @@
     		  		dataType : 'html',
     		  		success : function(resp){
     		  			
-    		  			//printList(resp);
+    		  			printTable(resp);
+    		  			setPage(1);
 
     		  		}
         		});
 
     		});
     	}
-    	
+
     	
     	function setPage(pageNum){
     		
-    		var total = ${totalcount};
-    		console.log(pageNum);
+    		var total = $("#totalcount").val();
+    		console.log(total);
     		var amount = ${pageMaker.getAmount()};
 
     		var endPage = Math.ceil(pageNum/10.0)*10;
     		var startPage = endPage - 9;
 
-    	    var realEnd = Math.ceil((total*1.0)/amount);
-    	    
+    		if(total == 0){
+    			var realEnd = 1;
+    		}else{
+    			var realEnd = Math.ceil((total*1.0)/amount);
+    		}
+
     	    if(realEnd < endPage){
     	    	endPage = realEnd;
     	    }
@@ -201,6 +210,14 @@
 
 			}
 			
+			if(endPage == 1){
+				$(".page-layer").hide();
+				$(".page-outer").hide();
+			}else{
+				$(".page-layer").show();
+				$(".page-outer").show();
+			}
+			
 			
     		// paging a link click
         	$(".page-item a").on("click", function(e){
@@ -217,17 +234,34 @@
 
     	// page 이동
     	function movepage(pageNum){
+    		
+    		// checkbox 초기화
+    		$("#allCheck").prop("checked", false);
+			
+    		//조건들 받아오기
+    		var posttype = $("input[name=posttype]:checked").val();
+    		var category = $("#large-select").val();
+    		var startdate = $("input[name=datepick1]").val();
+    		var enddate = $("input[name=datepick2]").val();
 
-    		// 검색 조건을 같이 보내야 함
-    		var searchCondition = {
+			var pack = $("#search_select option:selected").val();
+			var keyword = $("#search_input").val();
+
+			searchMap = {
+    				"posttype" : posttype,
+    				"category" : category,
+    				"startdate" : startdate,
+    				"enddate" : enddate,
+    				"pack" : pack,
+    				"keyword" : keyword,
     				"pageNum" : pageNum
-    		};
+    		}
     		
 
     		$.ajax({
 		  		url:'movePaging.admin',
 		  		method:'post',
-		  		data: JSON.stringify(searchCondition),
+		  		data: JSON.stringify(searchMap),
 		  		contentType : 'application/json; charset=UTF-8',
 		  		dataType : 'html',
 		  		success : function(resp){
@@ -249,7 +283,7 @@
     		// 하위 체크박스 체크 여부에 따른 전체 체크박스 상태 변경
     		// 하위 체크박스 체크 개수와 전체 개수를 비교
 			
-			if ($(".check:checked").length == $(".check").length) {
+			if ($(".check:checked").length == $(".check").length && $(".check").length != 0) {
     		    $("#allCheck").prop("checked", true);
     		    // 선택된 체크박스 개수에 따른 숫자값 변경
     		    $(".select-num").text($(".check:checked").length);
@@ -292,8 +326,8 @@
 		  			
 		  			
 		  			printTable(resp);
-		  			console.log($("#findPage").val());
-		  			
+		  			setPage($("#findPage").val());
+		  			clickReset2();
 		  			
 		  			}
 		  		
@@ -328,8 +362,8 @@
 		  			
 		  			
 		  			printTable(resp);
-		  			console.log($("#findPage").val());
-		  			
+		  			setPage($("#findPage").val());
+		  			clickReset2();
 		  			
 		  			}
 		  		
@@ -365,8 +399,8 @@
 		  			$("#select-num").text("0");
 		  			
 		  			printTable(resp);
-		  			console.log($("#findPage").val());
-		  			
+		  			setPage($("#findPage").val());
+		  			clickReset2();
 		  			
 		  			}
 		  		
@@ -381,6 +415,42 @@
     		// checkbox 초기화
     		$("#allCheck").prop("checked", false);
     		checkfunction();
+    	}
+    	
+    	// 초기화 버튼 눌렀을 때 리스트까지 한꺼번에 뽑아주기 위한 용도
+    	function clickReset(){
+    		
+    		$("input[name=datepick2]").attr("disabled", true);
+    		dateBtn8Event(); // 날짜 전체로 돌리기
+    		$("#btnradio8").prop("checked", true);
+    		
+    		$("#search_select option:eq(0)").prop("selected", true);
+    		$("#search_input").prop("disabled", true);
+			$("#search_input").val("");
+			
+			$("#large-select option:eq(0)").prop("selected", true);
+			$('input[name="posttype"]')[0].checked = true;
+			
+			getData();
+
+    	}
+    	
+    	// 상태변경시 적용하는 초기화 용도
+		function clickReset2(){
+    		
+    		$("input[name=datepick2]").attr("disabled", true);
+    		dateBtn8Event(); // 날짜 전체로 돌리기
+    		$("#btnradio8").prop("checked", true);
+    		
+    		$("#search_select option:eq(0)").prop("selected", true);
+    		$("#search_input").prop("disabled", true);
+			$("#search_input").val("");
+			
+			$("#large-select option:eq(0)").prop("selected", true);
+			$('input[name="posttype"]')[0].checked = true;
+			
+
+
     	}
     	
 		
@@ -398,7 +468,7 @@
             <ol class="breadcrumb2 mb-3 bottomline">
               <li class="breadcrumb-item active">Manage sales posts</li>
               <li>
-              	<button type="button" class="btn btn-secondary" id="resetBtn">초기화</button>
+              	<button type="button" class="btn btn-secondary" onclick="clickReset()">초기화</button>
               </li>
             </ol>
             <div class="container container-option bottomline">
@@ -532,6 +602,7 @@
               </thead>
               <tbody id="postTableBody">
                 <!-- for -->
+                <input type="hidden" value="${totalcount}" id="totalcount">
                 <c:forEach items="${postList }" var="post">
 	                <tr class="content-table-content content-hover">
 	                  <td class="content-table-content-text option-line">
@@ -579,7 +650,7 @@
             <div class="pagi mt-3">
             <nav aria-label="Page navigation example">
               <ul class="pagination">
-                <li class="page-item">
+                <li class="page-item page-outer">
                   <a class="page-link" href="#" aria-label="Previous">
                     <span aria-hidden="true">
                     	<i class="fa-solid fa-angle-left"></i>
@@ -591,7 +662,7 @@
                 
                 
                 </div>
-                <li class="page-item">
+                <li class="page-item page-outer">
                   <a class="page-link" href="#" aria-label="Next">
                     <span aria-hidden="true">
                     	<i class="fa-solid fa-angle-right"></i>

@@ -16,6 +16,8 @@ public class UserCategoryVO {
 	private String subcate_name;
 	private int top_catecode;
 	
+	// category ¼±º°
+	private int checksub;
 	
 	
 	

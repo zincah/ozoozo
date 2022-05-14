@@ -55,4 +55,10 @@ public class AdminProductManageServiceImpl implements AdminProductManageService 
 		return adminManageDAO.getProductList(pvo);
 	}
 
+	@Override
+	public int searchListCount(AdminProductVO pvo) {
+		return adminManageDAO.searchListCount(pvo);
+	}
+
+	
 }

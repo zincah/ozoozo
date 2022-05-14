@@ -64,24 +64,6 @@
 		
 	</select>
 	
-	<!-- admin 상품 posting -->
-	<select id="selectPosting" resultType="adminproduct">
-		SELECT po.post_id, ss.company_name, di.deal_status, po.best_product, po.post_name, pp.product_created, pp.product_count, ca.cate_name, sc.subcate_name, po.post_status, po.post_couponid, pc.coupon_title 
-		FROM product_posting po INNER JOIN (
-			SELECT MAX(product_created) AS product_created , count(product_postid) AS product_count, product_postid FROM product GROUP BY product_postid 
-		) pp ON po.post_id = pp.product_postid
-		INNER JOIN seller ss ON po.post_sellerid = ss.seller_id 
-		INNER JOIN category ca ON po.po_category = ca.cate_code
-		INNER JOIN sub_category sc ON po.po_subcate = sc.subcate_code
-		LEFT OUTER JOIN product_coupon pc ON po.post_couponid = pc.coupon_id 
-		LEFT OUTER JOIN deal_info di ON po.post_id = di.deal_postid
-		ORDER BY po.post_id DESC limit #{amount} offset (#{pageNum}-1) * #{amount}
-	</select>
-	
-	<!-- admin posting size 얻어오기 -->
-	<select id="selectPostCount" resultType="int">
-		SELECT COUNT(post_id) FROM product_posting;
-	</select>
 	
 	<!-- admin 상품 상태 바꾸기 : product-posting -->
 	<update id="updateProductStatus1">
@@ -117,8 +99,8 @@
 	</delete>
 	
 	<!-- 총 검색 -->
-	<select id="getProductList" resultType="adminproduct">
-		SELECT po.post_id, ss.company_name, di.deal_status, po.best_product, po.post_name, pp.product_created, pp.product_count, ca.cate_name, sc.subcate_name, po.post_status, po.post_couponid, pc.coupon_title 
+	<select id="getProductList" parameterType="adminproduct" resultType="adminproduct">
+		SELECT po.post_id as post_id, ss.company_name as company_name, di.deal_status as deal_status, po.best_product as best_product, po.post_name as post_name, pp.product_created as product_created, pp.product_count as product_count, ca.cate_name as cate_name, sc.subcate_name as subcate_name, po.post_status as post_status, po.post_couponid as post_couponid, pc.coupon_title as coupon_title
 		FROM product_posting po INNER JOIN (
 			SELECT MAX(product_created) AS product_created , count(product_postid) AS product_count, product_postid FROM product GROUP BY product_postid 
 		) pp ON po.post_id = pp.product_postid
@@ -128,37 +110,77 @@
 		LEFT OUTER JOIN product_coupon pc ON po.post_couponid = pc.coupon_id 
 		LEFT OUTER JOIN deal_info di ON po.post_id = di.deal_postid
 		<where>
-			<if test="post_status != ''">
-				po.post_status = #{post_status}
+			<if test="post_status != '' and post_status != null">
+				post_status = #{post_status}
 			</if>
-			<if test="cate_name != null">
+			<if test="cate_name != '' and cate_name != null">
 				<trim prefix="and">
-					ca.cate_name = #{cate_name}
+					cate_name = #{cate_name}
 				</trim>
 			</if>
 			<if test="enddate != null and startdate != null">
 				<trim prefix="and">
-					pp.product_created BETWEEN #{startdate} AND #{enddate}
+					product_created BETWEEN #{startdate} AND #{enddate}
 				</trim>
 			</if>
-			<if test="pack != null">
+			<if test="pack != '' and pack != null">
 				<trim prefix="and">
 					<if test="pack=='company_name'.toString()">
-						ss.company_name LIKE '%'||#{keyword}||'%'
+						company_name LIKE '%'||#{keyword}||'%'
 					</if>
 					<if test="pack=='post_name'.toString()">
-						po.post_name LIKE '%'||#{keyword}||'%'
+						post_name LIKE '%'||#{keyword}||'%'
 					</if>
 					<if test="pack=='subcate_name'.toString()">
-						sc.subcate_name LIKE '%'||#{keyword}||'%'
+						subcate_name LIKE '%'||#{keyword}||'%'
 					</if>
 				</trim>
 			</if>
 		</where>
 		<trim prefix="order by">
-			po.post_id DESC
+			post_id DESC limit #{cri.amount} offset (#{cri.pageNum}-1) * #{cri.amount}
 		</trim>
-		
+	</select>
+	
+	<!-- 총 검색 count -->
+	<select id="searchListCount" parameterType="adminproduct" resultType="adminproduct">
+		SELECT po.post_id as post_id, ss.company_name as company_name, di.deal_status as deal_status, po.best_product as best_product, po.post_name as post_name, pp.product_created as product_created, pp.product_count as product_count, ca.cate_name as cate_name, sc.subcate_name as subcate_name, po.post_status as post_status, po.post_couponid as post_couponid, pc.coupon_title as coupon_title
+		FROM product_posting po INNER JOIN (
+			SELECT MAX(product_created) AS product_created , count(product_postid) AS product_count, product_postid FROM product GROUP BY product_postid 
+		) pp ON po.post_id = pp.product_postid
+		INNER JOIN seller ss ON po.post_sellerid = ss.seller_id 
+		INNER JOIN category ca ON po.po_category = ca.cate_code
+		INNER JOIN sub_category sc ON po.po_subcate = sc.subcate_code
+		LEFT OUTER JOIN product_coupon pc ON po.post_couponid = pc.coupon_id 
+		LEFT OUTER JOIN deal_info di ON po.post_id = di.deal_postid
+		<where>
+			<if test="post_status != '' and post_status != null">
+				post_status = #{post_status}
+			</if>
+			<if test="cate_name != '' and cate_name != null">
+				<trim prefix="and">
+					cate_name = #{cate_name}
+				</trim>
+			</if>
+			<if test="enddate != null and startdate != null">
+				<trim prefix="and">
+					product_created BETWEEN #{startdate} AND #{enddate}
+				</trim>
+			</if>
+			<if test="pack != '' and pack != null">
+				<trim prefix="and">
+					<if test="pack=='company_name'.toString()">
+						company_name LIKE '%'||#{keyword}||'%'
+					</if>
+					<if test="pack=='post_name'.toString()">
+						post_name LIKE '%'||#{keyword}||'%'
+					</if>
+					<if test="pack=='subcate_name'.toString()">
+						subcate_name LIKE '%'||#{keyword}||'%'
+					</if>
+				</trim>
+			</if>
+		</where>
 	</select>
 	
 	

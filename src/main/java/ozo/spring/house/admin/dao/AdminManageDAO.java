@@ -74,8 +74,11 @@ public class AdminManageDAO {
 		return sqlSessionTemplate.selectList("AdminManageDAO.getProductList", pvo);
 	}
 	
-
-	
+	public int searchListCount(AdminProductVO pvo){
+		System.out.println("--> mybatis in adminmanagedao getproductlist");
+		List<AdminProductVO> list = sqlSessionTemplate.selectList("AdminManageDAO.searchListCount", pvo);
+		return list.size();
+	}
 
 
 }

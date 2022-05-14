@@ -3,6 +3,8 @@ package ozo.spring.house.user.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,23 +23,36 @@ import ozo.spring.house.user.vo.UserCategoryVO;
 @Controller
 public class UserCategoryController {
 	
-	
 	@Autowired
 	UserCategoryService userCategoryService;
 	
-	@RequestMapping(value = "/m_category.com")
-	public String firstpage( UserCategoryVO vo,Model model) {
-//		List<UserCategoryVO> m_list; 
-//		m_list = UserCategoryService.m_category(vo);
-//		List<UserCategoryVO> s_list; 
-//		s_list = UserCategoryService.s_category(vo);
-//		List<UserCategoryVO> b_list; 
-//		b_list = UserCategoryService.b_category(vo);
-//		model.addAttribute("m_list", m_list);
-//		model.addAttribute("s_list", s_list);
-//		model.addAttribute("b_list", b_list);
+	@RequestMapping(value = "/m_category.com", method=RequestMethod.GET)
+	public String category(UserCategoryVO vo, Model model, HttpServletRequest request) {
+
+		int catecode = Integer.parseInt(request.getParameter("topcate_code"));
 		
+		System.out.println(catecode);
+		vo.setTop_catecode(catecode); // url로 전달받은 코드
 		
+		List<UserCategoryVO> titleList = userCategoryService.printTitle();
+		List<UserCategoryVO> others = new ArrayList<UserCategoryVO>();
+		
+		for(int i=0; i<titleList.size(); i++) {
+			UserCategoryVO cate = titleList.get(i);
+			
+			if(cate.getCate_code() == catecode) {
+				model.addAttribute("title", cate);
+			}else {
+				others.add(cate);
+			}
+		}
+		model.addAttribute("others", others);
+		
+		List<List<UserCategoryVO>> wholeList = userCategoryService.selectCategoryList(vo);
+		System.out.println(wholeList.size());
+
+		model.addAttribute("wholeList", wholeList);
+
 		return "ozocategory_zinc";
 	}
 	@ResponseBody
@@ -48,8 +63,7 @@ public class UserCategoryController {
 		List<UserCategoryVO> s_list=null ;
 		
 			
-		s_list = userCategoryService.s_category(vo);
-		
+
 		
 		return s_list;
 	}

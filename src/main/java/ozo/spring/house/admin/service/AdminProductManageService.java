@@ -15,6 +15,7 @@ public interface AdminProductManageService {
 	public void updateDealStatus(AdminProductVO pvo);
 	public void deleteDeal(AdminProductVO pvo);
 	public List<AdminProductVO> getProductList(AdminProductVO pvo);
+	public int searchListCount(AdminProductVO pvo);
 	
 
 }
