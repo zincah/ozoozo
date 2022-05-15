@@ -15,25 +15,123 @@
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <script>
 
-        $(function(){
+    
+       
+        window.onload = function(){
+        	<c:forEach items="${cart_li}" var="result">
+    		<c:if test="${result.cart_quantity < 10}">
+    			$("#"+ ${result.cart_product}+"_S").val(${result.cart_quantity}).prop("selected",true);
+    		</c:if>
+    		</c:forEach>
+        	$.ajax({
+    			url:'pro_first.com',	
+  		  		method:'post',
+  		  		data: JSON.stringify(),
+  		  		contentType : 'application/json; charset=UTF-8',
+  		  		dataType : 'json',
+  		  		success : function(pro_li){
+  		  		console.log("실행 순서 1");
+  		  			pro_js = pro_li;
+	  		  		$.ajax({
+	  	    			url:'cart_first.com',	
+	  	  		  		method:'post',
+	  	  		  		data: JSON.stringify(),
+	  	  		  		contentType : 'application/json; charset=UTF-8',
+	  	  		  		dataType : 'json',
+	  	  		  		success : function(cart_li){
+	  	  		  		console.log("실행 순서 2");
+	  	  		  			cart_js = cart_li;
+	  	  		  			product_price();	
+	  	  		  		}	
+	  	    		})
+  		  		}	
+    		})
+    		
+    		
+        }
+        
+        /* for(i=0; i < pro_js.length; i++){
+			if(pro_js[i].quantity < 10){
+				console.log("순서3");
+				$("#" + cart[i].cart_product + "_S").val(cart_js[i].cart_quantity) - 1).prop("selected",true);
+			}
+		} */
+        
+    </script>
+	</head>
+<body>
+	<script>
+	$(function(){
 
-            $(".modal_close", this).click(function(){
-                $(".modal_layer").hide();
-            });
-
-            $(".carted_product_edit_btn").click(function(){
-                $(".modal_layer").show();
-            });
-
+        $(".modal_close", this).click(function(){
+            $(".modal_layer").hide();
         });
 
-        
+        $(".carted_product_edit_btn").click(function(){
+            $(".modal_layer").show();
+        });
 
-    </script>
-
-</head>
-<body>
+    });
 	
+	let pro_js = [];
+    var cart_js = [];
+    pro_id = [];
+    function product_price(){
+    	for(i=0; i < pro_js.length; i++){
+    		//pro_id.push(pro_js[i].product_id);
+    		comma = int_comma(pro_js[i].product_price * cart_js[i].cart_quantity);
+    		$("#"+ pro_js[i].product_id + "_won").text(comma);
+    	}
+    	all_price();
+    }
+    function int_comma(Num){
+		return Num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    function ea_change(this_class){
+    	ex = this_class.id.split("_");
+    	if(ex[1] == "S"){
+    		if($(this_class).val() == 10){
+    			select_change(ex[0]);
+    			return;
+    		}
+    	}
+    	for(i=0; i < pro_js.length; i++){
+    		if(ex[0] == pro_js[i].product_id){
+    			won = int_comma(pro_js[i].product_price * (parseInt($(this_class).val())))
+    			$("#"+ex[0]+"_won").text(won);
+    			return;
+    		}
+    	}
+    	all_price();
+    }
+    function select_change(this_class){
+    	var html = '<div class="selling-option-item__quantity '+ this_class +'_ID">\
+    	<input type="number" pattern="[0-9]*" min="1" step="1" size="5" class="form-control option-count-input manual" id="'+ this_class +'_I" value="10" onInput="ea_change(this)"></div>';
+    	$("." + this_class + "_SD").remove();
+    	$("." + this_class + "_SSD").prepend(html);
+    }
+    function all_price(){
+    	post = [];
+    	post.push(pro_js[0].product_postid);
+    	for(i = 0; i < pro_js.length; i++){
+    		if(post.includes(pro_js[i].product_postid)){
+    		}else{
+    			post.push(pro_js[i].product_postid);
+    		}
+    	}
+    	for(i=0; i<post.length; i++){
+    		var Num = 0;
+    		for(j=0; j<pro_js.length; i++){
+    			if(post[i] == pro_js[j].post_id){
+    				Num += parseInt($("#" + pro_js[j].product_id + "_won").val());
+    			}
+    		}
+    		$("#" + post[i]).text(comma(num));
+    	}
+    	console.log(post);
+    }
+    
+	</script>
     <div class="header">
         <jsp:include page="./header/OzoH.jsp"></jsp:include>
     </div>
@@ -85,7 +183,7 @@
 			                                                	</div>
                                                     			<a href="#" class="carted_product_link">
                                                         			<div class="product_image">
-                                                           				<img src="sources/product1.webp">
+                                                           				<img src="#">
                                                         			</div>
                                                         		<div class="product_info">
                                                             <div class="product_info_title">[${seller_li[i].company_name}]${post_li[j].post_name}</div>
@@ -111,36 +209,41 @@
 																		</c:otherwise>
 																	</c:choose>
 																</div>
-                                                                <button class="option_item_delete" id="${pro_li[f].product_id }">
+                                                                <button class="option_item_delete" id="${pro_li[f].product_id}_B">
                                                                     <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path fill-rule="nonzero" d="M6 4.6L10.3.3l1.4 1.4L7.4 6l4.3 4.3-1.4 1.4L6 7.4l-4.3 4.3-1.4-1.4L4.6 6 .3 1.7 1.7.3 6 4.6z"></path></svg>
                                                                 </button>
-                                                                <div class="option_item_control">
+                                                                <div class="option_item_control ${pro_li[f].product_id}_SSD">
                                                                 	<c:choose>
                                                                 		<c:when test="${cart_li[f].cart_quantity < 9 }" >
-		                                                                    <div class="option_item_count">
-		                                                                        <select class="form_control">
-		                                                                            <option value="0">1</option>
-		                                                                            <option value="1">2</option>
-		                                                                            <option value="2">3</option>
-		                                                                            <option value="3">4</option>
-		                                                                            <option value="4">5</option>
-		                                                                            <option value="5">6</option>
-		                                                                            <option value="6">7</option>
-		                                                                            <option value="7">8</option>
-		                                                                            <option value="8">9</option>
-		                                                                            <option value="9">+10</option>
+		                                                                    <div class="option_item_count ${pro_li[f].product_id}_SD">
+		                                                                        <select class="form_control"id="${pro_li[f].product_id}_S" onChange="ea_change(this)">
+		                                                                            <option value="1">1</option>
+		                                                                            <option value="2">2</option>
+		                                                                            <option value="3">3</option>
+		                                                                            <option value="4">4</option>
+		                                                                            <option value="5">5</option>
+		                                                                            <option value="6">6</option>
+		                                                                            <option value="7">7</option>
+		                                                                            <option value="8">8</option>
+		                                                                            <option value="9">9</option>
+		                                                                            <option value="10">+10</option>
 		                                                                        </select>
+		                                                                        <span class="select-input__icon">
+		                                                                        <svg class="icon" width="10" height="10" style="fill:currentColor" preserveAspectRatio="xMidYMid meet">
+		                                                                        <path fill-rule="evenodd" d="M0 3l5 5 5-5z">
+		                                                                        </path>
+		                                                                        </svg>
+		                                                                        </span>
 		                                                                    </div>
-		                                                                    
                                                                    		 </c:when>
                                                                    		<c:otherwise>
-	                                                                    <div class="selling-option-item__quantity">
-	                                                                    	<input type="number" pattern="[0-9]*" min="1" step="1" size="5" class="form-control option-count-input manual" value="${cart_li[f].cart_quantity}">
+	                                                                    <div class="selling-option-item__quantity ${pro_li[f].product_id}_ID">
+	                                                                    	<input type="number" pattern="[0-9]*" min="1" step="1" size="5" class="form-control option-count-input manual" id="${pro_li[f].product_id}_I" value="${cart_li[f].cart_quantity}" onInput="ea_change(this)">
 	                                                                    </div>
                                                                     </c:otherwise>
                                                                     </c:choose>
                                                                     <div class="option_item_price">
-                                                                        <span class="option_item_price_here">${pro_li[f].product_price * cart_li[f].cart_quantity}</span>
+                                                                        <span class="option_item_price_here" id="${pro_li[f].product_id}_won"></span>
                                                                         원
                                                                     </div>
                                                                 </div>
@@ -155,7 +258,7 @@
                                                             <button class="carted_product_order_only_btn" type="button">바로구매</button>
                                                         </div>
                                                         <div class="carted_product_footer_right">
-                                                            <span class="carted_product_subtotal">179,000</span>
+                                                            <span class="carted_product_subtotal" id="${ post_li[j].post_id}">179,000</span>
                                                             원
                                                         </div>
                                                     </div>
@@ -190,7 +293,6 @@
                                                 	</div>
                                                     <a href="#" class="carted_product_link">
                                                         <div class="product_image">
-                                                            <img src="sources/product1.webp">
                                                         </div>
                                                         <div class="product_info">
                                                             <div class="product_info_title">
@@ -285,7 +387,6 @@
                                                 <div class="carted_product">
                                                     <a href="#" class="carted_product_link">
                                                         <div class="product_image">
-                                                            <img src="sources/product2.webp">
                                                         </div>
                                                         <div class="product_info">
                                                             <div class="product_info_title">
@@ -366,7 +467,6 @@
                                                 <div class="carted_product">
                                                     <a href="#" class="carted_product_link">
                                                         <div class="product_image">
-                                                            <img src="sources/product3.webp">
                                                         </div>
                                                         <div class="product_info">
                                                             <div class="product_info_title">
@@ -512,7 +612,7 @@
                     <form class="carted_product_edit_form">
                         <div class="product_modal_item">
                             <div class="product_modal_img">
-                                <img src="sources/product1.webp">
+                                <img src="#">
                             </div>
                             <div class="product_modal_content">
                                 <div class="product_info">

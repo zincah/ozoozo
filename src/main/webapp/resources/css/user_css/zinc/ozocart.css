@@ -366,7 +366,37 @@ select:focus{
     justify-content: space-between;
     align-items: center;
 }
-
+.option-count-input {
+    width: 80px;
+}
+.form-control {
+    transition: border-color .2s,box-shadow .2s,background-color .2s;
+    display: block;
+    box-sizing: border-box;
+    height: 40px;
+    width: 100%;
+    padding: 0 15px;
+    line-height: 40px;
+    border-radius: 4px;
+    border: 1px solid #dbdbdb;
+    background-color: #fff;
+    color: #424242;
+    font-size: 12px;
+}
+@media (min-width: 768px){
+.form-control {
+    font-size: 14px;
+}
+}
+.option-count-input.manual.form-control, .option-count-input.select-input>.form-control {
+    height: 24px;
+    padding: 0 10px;
+    font-size: 13px;
+    line-height: 22px;
+    border-radius: 3px;
+    text-align: center;
+    font-family: Tahoma,sans;
+}
 .carted_product_order_only_btn,
 .carted_product_edit_btn{
     position: relative;
@@ -896,62 +926,26 @@ select:focus{
 .option-count-input {
     width: 80px;
 }
-button, input[type=email], input[type=file], input[type=number], input[type=password], input[type=submit], input[type=tel], input[type=text], option, select, textarea {
-    -webkit-appearance: none;
-    -moz-appearance: textfield;
-}
+	 
 .form-control:active, .form-control:hover {
     background-color: #fafafa;
     border-color: #bdbdbd;
 }
 
-element.style {
+.select-input__icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    font-size: 0;
+    cursor: default;
+    color: rgba(0,0,0,.3);
+    pointer-events: none;
 }
-.option-count-input.manual.form-control, .option-count-input.select-input>.form-control {
-    height: 24px;
-    padding: 0 10px;
-    font-size: 13px;
-    line-height: 22px;
-    border-radius: 3px;
-    text-align: center;
-    font-family: Tahoma,sans;
+.option-count-input .select-input__icon {
+    top: 2px;
+    right: 5px;
 }
-.form-control:active, .form-control:hover {
-    background-color: #fafafa;
-    border-color: #bdbdbd;
-}
-button, input[type=email], input[type=file], input[type=number], input[type=password], input[type=submit], input[type=tel], input[type=text], option, select, textarea {
-    -webkit-appearance: none;
-    -moz-appearance: textfield;
-}
-.option-count-input {
-    width: 80px;
-}
-.form-control {
-    transition: border-color .2s,box-shadow .2s,background-color .2s;
-    display: block;
-    box-sizing: border-box;
-    height: 40px;
-    width: 100%;
-    padding: 0 15px;
-    line-height: 40px;
-    border-radius: 4px;
-    border: 1px solid #dbdbdb;
-    background-color: #fff;
-    color: #424242;
-    font-size: 12px;
-}
-@media (min-width: 768px){
-.form-control {
-    font-size: 14px;
-}
-}
-.option-count-input.manual.form-control, .option-count-input.select-input>.form-control {
-    height: 24px;
-    padding: 0 10px;
-    font-size: 13px;
-    line-height: 22px;
-    border-radius: 3px;
-    text-align: center;
-    font-family: Tahoma,sans;
+.select-input {
+    position: relative;
 }
