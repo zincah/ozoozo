@@ -97,6 +97,15 @@ public class UserCategoryController {
 		
 		List<UserProductVO> postList = userCategoryService.getPostList(vo);
 		
+		for(int i=0; i<postList.size(); i++) {
+			UserProductVO pro = postList.get(i);
+			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
+			
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
+			
+			pro.setSale_price(decFormat.format(sale_price));
+		}
+		
 		model.addAttribute("productList", postList);
 		System.out.println(postList.size());
 		

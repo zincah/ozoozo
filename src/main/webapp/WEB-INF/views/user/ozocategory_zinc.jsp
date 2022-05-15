@@ -52,6 +52,8 @@
             	$("input[name=checking]").prop("checked", false); // 모든 체크박스 해제
             	$(".category_filter_control_tag_item").remove(); // 리스트 아이템 요소 다 제거
             	$(".category_filter_output_wrap").hide(); // 리스트 띄우는 부분 숨기기
+            	
+            	filtering(filterList);
             });
 
             /* 카테고리 토글 */
@@ -93,14 +95,44 @@
             $(".filter_btn").click(function(event){
 
             	//alert($(this).val());
-            	var name = $(this).val();
-            	
-            	if($("#"+name+"").css("display")=='none'){
-            		$(".dropping").hide();
-            		$("#"+name+"").show();
+            	if($(this).val() == '오늘의딜'){ // 오늘의딜은 버튼임으로 검증
+            		
+            		var filter = $(this).val();
+            		
+            		// filtersize = 1
+            		
+            		if(filterList.length >= 1){
+            			
+            			var filtercnt = 0;
+            			
+            			for(var i=0; i<filterList.length; i++){
+            				filtercnt++;
+            				if(filter == filterList[i]){
+                    			removeList(filter);
+                    			break;
+                    		}else if(filtercnt==filterList.length){
+                    			plusList(filter);
+                    			break;
+                    		}
+                    	}
+
+            		}else if(filterList.length == 0){
+            			plusList(filter);
+            		}
+            		
             	}else{
-            		$("#"+name+"").hide();
+            		
+            		console.log("다른거");
+            		var name = $(this).val();
+                	
+                	if($("#"+name+"").css("display")=='none'){
+                		$(".dropping").hide();
+                		$("#"+name+"").show();
+                	}else{
+                		$("#"+name+"").hide();
+                	}
             	}
+
             })
             
             
@@ -113,6 +145,7 @@
         // 체크박스를 체크했을 때 리스트에 추가해주는 jquery
         function plusList(filter){
         	filterList.push(filter);
+        	console.log("plus");
 			console.log(filterList);
 			
 			if(filterList.length == 1){
@@ -1195,12 +1228,10 @@
 								</li>
 								<li>
 									<button class="dropdown_btn">인기순</button>
+									<!-- 별점 순 -->
 								</li>
 								<li>
 									<button class="dropdown_btn">많은 리뷰순</button>
-								</li>
-								<li>
-									<button class="dropdown_btn">유저사진 많은순</button>
 								</li>
 								<li>
 									<button class="dropdown_btn">높은 가격순</button>

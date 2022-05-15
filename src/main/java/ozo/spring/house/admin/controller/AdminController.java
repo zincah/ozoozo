@@ -60,13 +60,14 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/productManagementList.admin")
-	public String productManageView(HttpServletRequest request, Model model, Criteria cri) {
+	public String productManageView(HttpServletRequest request, Model model, Criteria cri, AdminProductVO pvo) {
 		
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("admincode")!=null) {
 			
-			List<AdminProductVO> postList = productService.selectPosting(cri);
+			pvo.setCri(cri);
+			List<AdminProductVO> postList = productService.getProductList(pvo);
 			List<AdminProductVO> couponList = productService.selectCouponList();
 			int total = productService.selectPostCount();
 			
