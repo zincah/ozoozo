@@ -49,7 +49,7 @@
  	
  	<!-- 카테고리 이름 받아오기 -->
  	<select id="getCateName" resultType="ucate">
- 		SELECT subcate_name FROM sub_category WHERE top_catecode=#{top_catecode} AND subcate_code=#{midcate_code}*100 OR subcate_code=#{subcate_code};
+ 		SELECT subcate_code, subcate_name FROM sub_category WHERE top_catecode=#{top_catecode} AND subcate_code=#{midcate_code}*100 OR subcate_code=#{subcate_code};
  	</select>
 
 	<!-- 대망의 filtering -->

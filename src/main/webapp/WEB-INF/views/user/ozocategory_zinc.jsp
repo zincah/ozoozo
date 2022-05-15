@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-<link href="resources/css/user_css/zinc/ozocategory_main.css?var=21"
+<link href="resources/css/user_css/zinc/ozocategory_main.css?var=1"
 	rel="stylesheet" />
 <link href="resources/css/user_css/zinc/ozoper_photo_cate.css?var=12"
 	rel="stylesheet" />
@@ -80,7 +80,6 @@
             	$("#category_head").html("");
             	var code = $(this).attr("id");
 
-            	
             	movelink(code);
             })
             
@@ -232,15 +231,26 @@
         
         function filtering(list){
         	
-        	console.log(list);
+        	var whole = [];
+
+        	var cates = [];
         	
-        	// 오늘의딜 등등 다른 것들도 받아와야함
-        	// 그것들은 그냥 체크된거~ 아님 다른 걸로 하도록~
+        	cates.push($("#top").val());
+        	cates.push(""+parseInt($("#mid").val()/100));
+        	cates.push($("#sub").val());
+        	
+			whole.push(list);
+			whole.push(cates);
+			
+			console.log(whole);
+
+        	// 배송, 가격 필터링 추가해야함
+
         	
         	$.ajax({
     	  		url:'getFilterList.com',
     	  		method:'post',
-    	  		data: JSON.stringify(list),
+    	  		data: JSON.stringify(whole),
     	  		contentType : 'application/json; charset=UTF-8',
     	  		dataType : 'html',
     	  		success : function(resp){
@@ -320,16 +330,19 @@
 				<div class="category_content col-12 col-md-9">
 					<div class="category_header">
 						<div class="category_header_title">
-							${title.cate_name }
+							<span>${title.cate_name }</span>
 							<c:if test="${catename.size() > 0 }">
 								<svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path></svg>
-								 ${catename[0].subcate_name }
+								 <span>${catename[0].subcate_name }</span>
 								<c:if test="${catename.size() > 1}">
 									<svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path></svg>
-									 ${catename[1].subcate_name }
+									 <span>${catename[1].subcate_name }</span>
 								</c:if>
 							</c:if>
 						</div>
+						<input type="hidden" value="${title.cate_code }" id="top">
+						<input type="hidden" value="${catename[0].subcate_code }" id="mid">
+						<input type="hidden" value="${catename[1].subcate_code }" id="sub">
 						<div class="category_banner">
 							<div class="carousel_frame">
 								<a href="#"> <!-- large image -->

@@ -97,6 +97,7 @@
 	<delete id="deleteDeal">
 		DELETE FROM deal_info WHERE deal_postid=#{post_id}
 	</delete>
+
 	
 	<!-- 총 검색 -->
 	<select id="getProductList" parameterType="adminproduct" resultType="adminproduct">
