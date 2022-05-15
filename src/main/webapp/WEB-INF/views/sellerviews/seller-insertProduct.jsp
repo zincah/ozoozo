@@ -670,37 +670,37 @@
 									<div class="col-10 color_options bottomline2">
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10401" id="place1" name="usingplace"/> <label
+												type="checkbox" value="10501" id="place1" name="usingplace"/> <label
 												class="form-check-label" for="place1"> 거실
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10401" id="place1" name="usingplace"/> <label
+												type="checkbox" value="10502" id="place1" name="usingplace"/> <label
 												class="form-check-label" for="place1"> 침실
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10401" id="place1" name="usingplace"/> <label
+												type="checkbox" value="10503" id="place1" name="usingplace"/> <label
 												class="form-check-label" for="place1"> 주방
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10401" id="place1" name="usingplace"/> <label
+												type="checkbox" value="10504" id="place1" name="usingplace"/> <label
 												class="form-check-label" for="place1"> 옷방
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10401" id="place1" name="usingplace"/> <label
+												type="checkbox" value="10505" id="place1" name="usingplace"/> <label
 												class="form-check-label" for="place1"> 서재/공부방
 											</label>
 										</div>
 										<div class="form-check form-check-display">
 											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10401" id="place1" name="usingplace"/> <label
+												type="checkbox" value="10506" id="place1" name="usingplace"/> <label
 												class="form-check-label" for="place1"> 아이방
 											</label>
 										</div>

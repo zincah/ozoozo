@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
+import ozo.spring.house.user.vo.UserProductVO;
 
 @Repository
 public class UserCategoryDAO {
@@ -40,6 +41,35 @@ public class UserCategoryDAO {
 	public List<UserCategoryVO> printTitle(){
 		return sqlSessionTemplate.selectList("UserCategoryDAO.printTitle");
 	}
+	
+	public List<UserProductVO> selectProductByCate(UserCategoryVO vo){
+		System.out.println("--> mybatis select product by catecode");
+		return sqlSessionTemplate.selectList("UserCategoryDAO.selectProductByCate", vo);
+	}
+	
+	public List<UserCategoryVO> getCateName(UserCategoryVO vo){
+		return sqlSessionTemplate.selectList("UserCategoryDAO.getCateName", vo);
+	}
+	
+	public List<UserProductVO> getPostList(UserCategoryVO vo){
+		System.out.println("--> mybatis getpostlist");
+		List<UserCategoryVO> list = sqlSessionTemplate.selectList("UserCategoryDAO.getPostList", vo);
+		List<Integer> postids = new ArrayList<Integer>();
+		
+		for(int i=0; i<list.size(); i++) {
+			UserCategoryVO postid = list.get(i);
+			int post = postid.getDprodetails_postid();
+			postids.add(post);
+		}
+		
+		vo.setPost_ids(postids);
+		System.out.println("postids : " + postids.size());
+		return sqlSessionTemplate.selectList("UserCategoryDAO.selectProductByFilter", vo);
+	}
+	
+
+	
+	
 	
 
 

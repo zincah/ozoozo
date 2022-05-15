@@ -1,5 +1,6 @@
 package ozo.spring.house.user.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ozo.spring.house.user.service.UserCategoryService;
 import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
+import ozo.spring.house.user.vo.UserProductVO;
 
 @Controller
 public class UserCategoryController {
@@ -29,10 +31,21 @@ public class UserCategoryController {
 	@RequestMapping(value = "/m_category.com", method=RequestMethod.GET)
 	public String category(UserCategoryVO vo, Model model, HttpServletRequest request) {
 
-		int catecode = Integer.parseInt(request.getParameter("topcate_code"));
+		String[] codes = request.getParameter("catecode").split("_");
 		
-		System.out.println(catecode);
-		vo.setTop_catecode(catecode); // url로 전달받은 코드
+		if(codes.length == 2) {
+			int subcate_code = Integer.parseInt(codes[1]);
+			vo.setMidcate_code(subcate_code/100);
+			
+			if(subcate_code%100 != 0) {
+				vo.setSubcate_code(subcate_code);
+			}
+		}
+
+		int topcate_code = Integer.parseInt(codes[0]);
+		System.out.println(topcate_code);
+
+		vo.setTop_catecode(topcate_code); // url로 전달받은 코드
 		
 		List<UserCategoryVO> titleList = userCategoryService.printTitle();
 		List<UserCategoryVO> others = new ArrayList<UserCategoryVO>();
@@ -40,7 +53,7 @@ public class UserCategoryController {
 		for(int i=0; i<titleList.size(); i++) {
 			UserCategoryVO cate = titleList.get(i);
 			
-			if(cate.getCate_code() == catecode) {
+			if(cate.getCate_code() == topcate_code) {
 				model.addAttribute("title", cate);
 			}else {
 				others.add(cate);
@@ -52,20 +65,51 @@ public class UserCategoryController {
 		System.out.println(wholeList.size());
 
 		model.addAttribute("wholeList", wholeList);
+		
+		List<UserProductVO> productList = userCategoryService.selectProductByCate(vo);
+		
+		for(int i=0; i<productList.size(); i++) {
+			UserProductVO pro = productList.get(i);
+			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
+			
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
+			
+			pro.setSale_price(decFormat.format(sale_price));
+		}
+		
+		model.addAttribute("productList", productList);
+
+		
+		List<UserCategoryVO> catename = userCategoryService.getCateName(vo);
+		model.addAttribute("catename", catename);
 
 		return "ozocategory_zinc";
 	}
-	@ResponseBody
-	@RequestMapping(value = "/gocategory.com", method=RequestMethod.GET)
-	public List<UserCategoryVO> catelist(String category,UserCategoryVO vo) {
-		
-		System.out.println(category);
-		List<UserCategoryVO> s_list=null ;
-		
-			
+	
 
+	@RequestMapping(value = "/getFilterList.com", method=RequestMethod.POST)
+	public String getFilterList(@RequestBody List<String> filterList, UserCategoryVO vo, Model model) {
 		
-		return s_list;
+		System.out.println(filterList);
+		
+		vo.setTop_catecode(1); // 이건 다르게 넘겨줘야함
+		vo.setFiltering(filterList);
+		
+		List<UserProductVO> postList = userCategoryService.getPostList(vo);
+		
+		for(int i=0; i<postList.size(); i++) {
+			UserProductVO pro = postList.get(i);
+			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
+			
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
+			
+			pro.setSale_price(decFormat.format(sale_price));
+		}
+		
+		model.addAttribute("productList", postList);
+		System.out.println(postList.size());
+		
+		return "cates";
 	}
 	
 }
