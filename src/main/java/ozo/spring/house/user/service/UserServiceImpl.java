@@ -76,5 +76,6 @@ public class UserServiceImpl implements UserService {
 	public cart_Allload get_cart_class(CartVO vo) {
 		return userDAO.get_cart_class(vo);
 	}
+
 	
 }
