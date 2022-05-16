@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ozo.spring.house.seller.service.CategoryService;
 import ozo.spring.house.seller.service.ProductService;
+import ozo.spring.house.seller.service.SellerPostingService;
 import ozo.spring.house.seller.vo.CategoryVO;
 import ozo.spring.house.seller.vo.ProductVO;
 
@@ -23,6 +24,8 @@ public class SellerController {
 	CategoryService categoryService;
 	@Autowired
 	ProductService productService;
+	@Autowired
+	SellerPostingService sellerPostingService;
 	
 	@RequestMapping(value = "/index.seller")
 	public String sellerIndex(HttpServletRequest request) {
@@ -79,29 +82,22 @@ public class SellerController {
 		}
 	}
 	@RequestMapping(value = "/productPostingManagement.seller", method=RequestMethod.GET)
-	public String sellerProductPostingManagement(HttpServletRequest request, CategoryVO vo, Model model) {
+	public String sellerProductPostingManagement(HttpServletRequest request, CategoryVO cvo, Model model, ProductVO vo) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
 			// 카테고리 목록 불러오기
-			List<CategoryVO> cateList = categoryService.getCategoryList(vo);
+			List<CategoryVO> cateList = categoryService.getCategoryList(cvo);
 			model.addAttribute("cateList", cateList);
 			
-//			// 게시글 목록 불러오기
-//			List<PostingVO> postingListView = postingService.selectPostingView((int) session.getAttribute("seller_id"));
-//			
-//			System.out.println("============## 판매글 리스트 ##============");
-//			for(PostingVO list : postingListView) {
-//				System.out.println(list);
-//			}
-//
-//			model.addAttribute("productStatus0", postingListView.stream().filter(list -> list.getStatus().equals("판매대기")).count());
-//			model.addAttribute("productStatus1", postingListView.stream().filter(list -> list.getStatus().equals("판매중")).count());
-//			model.addAttribute("productStatus2", postingListView.stream().filter(list -> list.getStatus().equals("품절")).count());
-//			model.addAttribute("productStatus3", postingListView.stream().filter(list -> list.getStatus().equals("승인대기")).count());
-//			model.addAttribute("productStatus4", postingListView.stream().filter(list -> list.getStatus().equals("판매중지")).count());
-//			model.addAttribute("productStatus5", postingListView.stream().filter(list -> list.getStatus().equals("판매종료")).count());
-//			model.addAttribute("productStatus6", postingListView.stream().filter(list -> list.getStatus().equals("판매금지")).count());
-//			model.addAttribute("productListView", postingListView);
+			// 게시글 목록 불러오기
+			vo.setSeller_id((int) session.getAttribute("seller_id"));
+			List<ProductVO> postingListView = sellerPostingService.selectPostingList(vo);
+
+			model.addAttribute("postingListView", postingListView);
+			model.addAttribute("postingStatus0", postingListView.stream().filter(list -> list.getPost_status().equals("판매중")).count());
+			model.addAttribute("postingStatus1", postingListView.stream().filter(list -> list.getPost_status().equals("판매종료")).count());
+			model.addAttribute("postingStatus2", postingListView.stream().filter(list -> list.getPost_status().equals("승인대기")).count());
+			model.addAttribute("postingStatus3", postingListView.stream().filter(list -> list.getPost_status().equals("보류")).count());
 			
 			return "seller-productPostingManagement";
 		}else {
