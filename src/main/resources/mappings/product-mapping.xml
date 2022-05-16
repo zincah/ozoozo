@@ -179,9 +179,9 @@
 					p.pro_catecode = #{sc_category}
 				</trim>
 			</if>
-			<if test="sc_middleSelect != 0">
+			<if test="sc_middleSelect != 0 and sc_smallSelect == 0">
 				<trim prefix="and">
-					p.pro_subcatecode = #{sc_middleSelect}
+					(p.pro_subcatecode/100) = (#{sc_middleSelect}/100)
 				</trim>
 			</if>
 			<if test="sc_smallSelect != 0">

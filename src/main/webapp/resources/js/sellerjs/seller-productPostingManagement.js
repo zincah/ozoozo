@@ -217,7 +217,7 @@ $("#productStatusChange").click(function () {
 	$(".productNum").text($(".check:checked").length);
 });
 
-// 판매상태 변경 처리
+// 판매글 상태 변경 처리
 $("#pscSubmitBtn").click(function () {
 
 	// 선택된 상품의 product_id 값 배열로 받아오기
@@ -236,44 +236,44 @@ $("#pscSubmitBtn").click(function () {
 	
 	// ajax 통신
 	$.ajax({
-		url : "productStatusUpdate.seller",
+		url : "postingStatusUpdate.seller",
 		type : "POST",
 		data : allData,
 		success : function(res) {
-			alert("판매상태 변경 완료");
+			alert("판매글 상태 변경 완료");
 			document.location.reload(); // 페이지 새로고침
 		},
 		error : function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("판매상태 변경 실패");
+			alert("판매글 상태 변경 실패");
 		}
 	});
 });
 
 
 
-/* 상품삭제 기능 */
+/* 오늘의딜 신청 기능 */
 // 모달 내 선택된 상품 수 표시 & 선택된 상품 리스트 띄우기
-$("#productDelete").click(function () {
+$("#dealApplication").click(function () {
 	$(".productNum").text($(".check:checked").length);
 	
 	// 선택<된 상품의 product_id 값 배열로 받아오기 (DB 처리용)
-	var pdList = new Array();
+	var postingList = new Array();
 	var index = 0;
 	$(".check:checked").each(function () {
-		pdList[index] = $(this).parent().next().text();
+		postingList[index] = $(this).parent().next().text();
 		++index;
 	});
-	console.log(pdList);
+	console.log(postingList);
 	
 	// ajax 통신
 	$.ajax({
-		url : "selectProductList.seller",
+		url : "selectPostingList.seller",
 		type : "POST",
 		dataType : "html",
-		data : JSON.stringify(pdList),
+		data : JSON.stringify(postingList),
 		contentType : "application/json",
 		success : function(res) {
-			$("#productDeleteView").html(res);
+			$("#selectPostingView").html(res);
 		},
 		error : function(request, status, error) {
 			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -282,30 +282,30 @@ $("#productDelete").click(function () {
 	
 });
 
-// 삭제버튼 클릭 후 상품 삭제 처리
-$("#pdSubmitBtn").click(function () {
+// 신청버튼 클릭 후 deal_info에 등록
+$("#dealAppSubmitBtn").click(function () {
 
 	// 선택된 상품의 product_id 값 배열로 받아오기 (DB 처리용)
-	var pdList = new Array();
+	var postingList = new Array();
 	var index = 0;
 	$(".check:checked").each(function () {
-		pdList[index] = $(this).parent().next().text();
+		postingList[index] = $(this).parent().next().text();
 		++index;
 	});
-	console.log(pdList);
+	console.log(postingList);
 	
 	// ajax 통신
 	$.ajax({
-		url : "selectProductDelete.seller",
+		url : "PostingDealAppUpdate.seller",
 		type : "POST",
-		data : JSON.stringify(pdList),
+		data : JSON.stringify(postingList),
 		contentType : "application/json",
 		success : function(res) {
-			alert("상품 삭제 완료");
+			alert("오늘의딜 신청 완료");
 			document.location.reload(); // 페이지 새로고침
 		},
 		error : function(request, status, error) {
-			alert("상품 삭제 실패");
+			alert("오늘의딜 신청 실패");
 		}
 	});
 });
@@ -396,14 +396,14 @@ function getProductData() {
 
 	// 데이터 처리 요청
 	$.ajax({
-  		url:'getSearchProductList.seller',
+  		url:'getSearchPostingList.seller',
   		type:'post',
   		data: JSON.stringify(datas),
   		contentType : 'application/json; charset=UTF-8',
   		dataType : 'html',
   		success : function(resp){
-			$("#productList").empty();
-  			$("#productList").html(resp);
+			$("#postingList").empty();
+  			$("#postingList").html(resp);
   		}
   	});
 }
