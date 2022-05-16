@@ -72,7 +72,6 @@
                         <img src="sources/brand.webp">
                     </div>
                     <div class="brand_profile_content">
-
                         <p class="brand_profile_content_title">리바트</p>
                         <p class="brand_profile_overview">
                             <span class="brand-profile__stars" aria-label="별점 4.8점"><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-0.752" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-0.752"><rect x="0" y="0" width="18.054293709343312" height="24"></rect></clipPath></defs><use xlink:href="#star-path-0.752" fill="#DBDBDB"></use><use clip-path="url(#star-clip-0.752)" xlink:href="#star-path-0.752"></use></svg></span><span class="brand-profile__count">4.8</span>
@@ -541,8 +540,8 @@
                         </div>
 
                         <div class="item_count_layer">
-                            <div class="item_count"><%--<fmt:formatNumber
-                                value=" ${fn:length(ItemList)}" pattern="#,###" />--%>전체 111</div>
+                            <span>전체</span><div class="item_count"><%--<fmt:formatNumber
+                                value=" ${fn:length(ItemList)}" pattern="#,###" />--%> 111</div>
                             <button class="item_filter_btn" id="item_filter_btn">인기순
                                 <svg class="caret" width="8" height="8" viewBox="0 0 8 8" preserveAspectRatio="xMidYMid meet"><path fill="#BDBDBD" d="M0 2l4 4 4-4z"></path></svg>
                             </button>
@@ -597,7 +596,7 @@
                     <c:forEach items="${shopItemList }" var="shopItem">
                         <div class="deals_list_wrap col-6 col-lg-4">
                             <article class="deals_item">
-                                <a href="#" style="text-decoration: none; width: 100%;">
+                                <a href="#" style="text-decoration: none;">
                                     <div class="deals_item_wrap">
                                         <div class="deals_item_pic_out">
                                             <div class="deals_item_pic">
@@ -615,8 +614,8 @@
                                                 <span class="deals_item_header_name">${shopItem.post_name}</span>
                                             </div>
                                             <div class="deals_item_body_price">
-                                                <span class="sale_percent">${shopItem.sale_ratio}%</span>
-                                                <span class="price">${shopItem.sale_price}</span>
+                                                <span class="sale_percent">${shopItem.deal_saleratio}</span>
+                                                <span class="price">${shopItem.deal_saleprice}</span>
                                             </div>
                                             <div class="deals_item_review">
                                                 <div class="review_icon">
@@ -650,9 +649,9 @@
             </button>
             <div class="carted_option_change_content modal_content">
 
-                <article class="brand_modal_info">
-                    <h1>쌀국수죠아</h1>
-                </article>
+                    <article class="brand_modal_info">
+                        <h1>쌀국수죠아</h1>
+                    </article>
                 <ul class="brand_info_content_list">
                     <!--for문-->
                     <li class="brand_info_content_list_item">
