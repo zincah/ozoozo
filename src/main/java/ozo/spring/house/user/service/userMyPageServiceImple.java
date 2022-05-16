@@ -12,24 +12,27 @@ import ozo.spring.house.user.vo.UserVO;
 public class userMyPageServiceImple implements userMyPageService {
 
 	@Autowired
-	UserMyPageDAO usermypageDAO;
+	UserMyPageDAO UserMyPageDAO;
 	
 	
 	
 	public void setUsermypageDAO(UserMyPageDAO usermypageDAO) {
-		this.usermypageDAO = usermypageDAO;
+		this.UserMyPageDAO = usermypageDAO;
 	}
 
 	@Override
-	public List<UserVO> User_Info(UserVO vo) {
+	public UserVO mypageinfo(UserVO vo) {
 		
-		return usermypageDAO.User_Info(vo);
+		return UserMyPageDAO.mypageinfo(vo);
 	}
 
 	@Override
-	public List<UserVO> user_edit(UserVO vo) {
+	public void user_edit(UserVO vo) {
 		
-		return null;
+		UserMyPageDAO.mypageinfo(vo);
+		
+		
+		
 	}
 
 }

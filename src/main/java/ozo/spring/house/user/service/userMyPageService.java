@@ -6,7 +6,7 @@ import ozo.spring.house.user.vo.UserVO;
 
 public interface userMyPageService {
 
-	public List<UserVO> User_Info(UserVO vo);
-	public List<UserVO> user_edit(UserVO vo);
+	public UserVO mypageinfo(UserVO vo);
+	public void user_edit(UserVO vo);
 	
 }

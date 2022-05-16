@@ -1,7 +1,5 @@
 package ozo.spring.house.user.dao;
 
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,13 +13,14 @@ public class UserMyPageDAO {
 	private SqlSessionTemplate sqlsessiontemplate;
 	
 	
-	public List<UserVO> User_Info(UserVO vo) {
-		
-		return sqlsessiontemplate.selectList("UserMyPageDAO.User_Info",vo);
+	public UserVO mypageinfo(UserVO vo) {
+		System.out.println("왜안되는거니..");
+		return sqlsessiontemplate.selectOne("UserMyPageDAO.mypageinfo",vo);
 	}
 	
 	public void user_edit() {
 		
+		sqlsessiontemplate.update("UserMyPageDAO.user_edit");
 	}
 
 	

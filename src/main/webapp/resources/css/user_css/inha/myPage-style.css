@@ -50,7 +50,9 @@ fieldset, img {border: 0;}
 .store_index_best_header{display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;}
 .filter_btn{margin: 0; padding: 0; background: none; border: none; z-index: 2; transition: opacity .1s; color: #ff778e;}
 .row{display: flex; flex-wrap: wrap; margin-right: -10px; margin-left: -10px; box-sizing: border-box;}
-.container{position: relative; margin-right: auto; margin-left: auto; max-width: 100%; height: auto; width: calc(100% - 120px);}
+
+.container{position: relative; margin-right: auto; margin-left: auto; max-width: 1180px; height: auto; width: calc(100% - 120px);}
+
 .col-lg-3{position: relative; width: 100%; min-height: 1px; box-sizing: border-box; flex: 0 0 25%; flex-grow: 0; flex-shrink: 0; flex-basis: 25%; max-width: 25%; padding-right: 10px; padding-left: 10px;}
 .deals_item{position: relative; display: flex; padding: 0 10px 30px; flex-direction: column; align-items: center;}
 .deals_item_pic_out{position: relative; width: auto; margin: 0 -10px;}
