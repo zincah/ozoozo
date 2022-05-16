@@ -1,3 +1,6 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="C" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,8 +22,8 @@
 
             $(".filter_btn").on('click', function(){
                 console.log(this.value);
-                $(".category_filter_output_wrap").show(); 
-                
+                $(".category_filter_output_wrap").show();
+
                 $(".category_filter_control_tag_item button div").text(this.value);
             });
 
@@ -50,9 +53,9 @@
 
 
 
-       
-        
-    
+
+
+
     </script>
 
 </head>
@@ -71,7 +74,7 @@
                         <div class="brand_profile_content">
                             <p class="brand_profile_content_title">리바트</p>
                             <p class="brand_profile_overview">
-                                <span class="brand-profile__stars" aria-label="별점 4.8점"><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-0.752" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-0.752"><rect x="0" y="0" width="18.054293709343312" height="24"></rect></clipPath></defs><use xlink:href="#star-path-0.752" fill="#DBDBDB"></use><use clip-path="url(#star-clip-0.752)" xlink:href="#star-path-0.752"></use></svg></span><span class="brand-profile__count">4.8 (27,517)</span>
+                                <span class="brand-profile__stars" aria-label="별점 4.8점"><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-0.752" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-0.752"><rect x="0" y="0" width="18.054293709343312" height="24"></rect></clipPath></defs><use xlink:href="#star-path-0.752" fill="#DBDBDB"></use><use clip-path="url(#star-clip-0.752)" xlink:href="#star-path-0.752"></use></svg></span><span class="brand-profile__count">4.8</span>
                             </p>
                             <p class="brand_profile_action_list">
                                 <a href="#" class="brand_profile_action move_review">
@@ -108,7 +111,7 @@
                                             <a href="#">침대부속기구</a>
                                         </li>
                                     </ul>
-                                </div> 
+                                </div>
                             </li>
                             <li class="category_entry">
                                 <div class="category_entry_header">
@@ -118,7 +121,7 @@
                                     </button>
                                 </div>
                                 <!--버튼 누르면 밑에 토글다운 생기게-->
-                                
+
                                 <div class="category_tree_child_layer" style="overflow: hidden;">
                                     <ul class="category_tree_children">
                                         <li class="category_tree_children_entry">
@@ -128,8 +131,8 @@
                                             <a href="#">토퍼</a>
                                         </li>
                                     </ul>
-                                </div> 
-                                 
+                                </div>
+
                             </li>
                             <li class="category_entry">
                                 <div class="category_entry_header">
@@ -157,7 +160,7 @@
                                             <a href="#">소파스톨</a>
                                         </li>
                                     </ul>
-                                </div> 
+                                </div>
                             </li>
                             <li class="category_entry">
                                 <div class="category_entry_header">
@@ -185,7 +188,7 @@
                                             <a href="#">좌식테이블</a>
                                         </li>
                                     </ul>
-                                </div>  
+                                </div>
                             </li>
                             <li class="category_entry">
                                 <div class="category_entry_header">
@@ -206,7 +209,7 @@
                                         <li class="category_tree_children_entry">
                                             <a href="#">tv스탠드</a>
                                         </li>
-                                </div>   
+
                             </li>
                             <li class="category_entry">
                                 <div class="category_entry_header">
@@ -264,7 +267,7 @@
                                     </button>
                                 </div>
                                 <!--버튼 누르면 밑에 토글다운 생기게-->
-                                <div style="overflow: hidden;"></div> 
+                                <div style="overflow: hidden;"></div>
                             </li>
                             <li class="category_entry">
                                 <div class="category_entry_header">
@@ -274,7 +277,7 @@
                                     </button>
                                 </div>
                                 <!--버튼 누르면 밑에 토글다운 생기게-->
-                                <div style="overflow: hidden;"></div> 
+                                <div style="overflow: hidden;"></div>
                             </li>
                             <li class="category_entry">
                                 <div class="category_entry_header">
@@ -284,7 +287,7 @@
                                     </button>
                                 </div>
                                 <!--버튼 누르면 밑에 토글다운 생기게-->
-                                <div style="overflow: hidden;"></div> 
+                                <div style="overflow: hidden;"></div>
                             </li>
                             <li class="category_entry">
                                 <div class="category_entry_header">
@@ -294,7 +297,7 @@
                                     </button>
                                 </div>
                                 <!--버튼 누르면 밑에 토글다운 생기게-->
-                                <div style="overflow: hidden;"></div> 
+                                <div style="overflow: hidden;"></div>
                             </li>
                             <li class="category_entry">
                                 <div class="category_entry_header">
@@ -304,7 +307,7 @@
                                     </button>
                                 </div>
                                 <!--버튼 누르면 밑에 토글다운 생기게-->
-                                <div style="overflow: hidden;"></div> 
+                                <div style="overflow: hidden;"></div>
                             </li>
                             <li class="category_entry">
                                 <div class="category_entry_header">
@@ -314,7 +317,7 @@
                                     </button>
                                 </div>
                                 <!--버튼 누르면 밑에 토글다운 생기게-->
-                                <div style="overflow: hidden;"></div> 
+                                <div style="overflow: hidden;"></div>
                             </li>
                             <li class="category_entry">
                                 <div class="category_entry_header">
@@ -324,7 +327,7 @@
                                     </button>
                                 </div>
                                 <!--버튼 누르면 밑에 토글다운 생기게-->
-                                <div style="overflow: hidden;"></div> 
+                                <div style="overflow: hidden;"></div>
                             </li>
                             <li class="category_entry">
                                 <div class="category_entry_header">
@@ -334,7 +337,7 @@
                                     </button>
                                 </div>
                                 <!--버튼 누르면 밑에 토글다운 생기게-->
-                                <div style="overflow: hidden;"></div> 
+                                <div style="overflow: hidden;"></div>
                             </li>
                             <li class="category_entry">
                                 <div class="category_entry_header">
@@ -344,7 +347,7 @@
                                     </button>
                                 </div>
                                 <!--버튼 누르면 밑에 토글다운 생기게-->
-                                <div style="overflow: hidden;"></div> 
+                                <div style="overflow: hidden;"></div>
                             </li>
                         </ul>
                         <ul class="category_list_others">
@@ -412,7 +415,7 @@
                             <nav>
                                 <ol class="brand_header_tree">
                                     <li class="brand_header_node">
-                                        <a href="#" class="link">리바트</a>
+                                        <a href="#" class="link">${shopItem.company_name}</a>
                                     </li>
                                 </ol>
                             </nav>
@@ -501,7 +504,7 @@
 
 
                     <section class="brand_product_section">
-                        
+
                         <div class="filter">
 
                             <!--filter-->
@@ -537,7 +540,8 @@
                             </div>
 
                             <div class="item_count_layer">
-                                <div class="item_count">전체 1,163</div>
+                                <span>전체</span><div class="item_count"><fmt:formatNumber
+                                    value=" ${fn:length(ItemList)}" pattern="#,###" /> </div>
                                 <button class="item_filter_btn" id="item_filter_btn">인기순
                                     <svg class="caret" width="8" height="8" viewBox="0 0 8 8" preserveAspectRatio="xMidYMid meet"><path fill="#BDBDBD" d="M0 2l4 4 4-4z"></path></svg>
                                 </button>
@@ -554,9 +558,7 @@
                                         <li>
                                             <button class="dropdown_btn">많은 리뷰순</button>
                                         </li>
-                                        <li>
-                                            <button class="dropdown_btn">유저사진 많은순</button>
-                                        </li>
+
                                         <li>
                                             <button class="dropdown_btn">높은 가격순</button>
                                         </li>
@@ -574,23 +576,24 @@
                             <script>
                                 var filter_btn = document.getElementById("item_filter_btn");
                                 var dropdown = document.getElementById("dropdown");
-                
+
                                 filter_btn.addEventListener('mouseenter', function(){
                                     dropdown.style.display = 'block';
                                 });
-                
+
                                 dropdown.addEventListener('mouseleave', function(){
                                     dropdown.style.display = 'none';
                                 });
-                
+
                             </script>
 
                         </div>
 
-                    
+
                     </section>
 
                     <div class="photos row">
+                        <c:forEach items="${shopItemList }" var="shopItem">
                         <div class="deals_list_wrap col-6 col-lg-4">
                             <article class="deals_item">
                                 <a href="#" style="text-decoration: none;">
@@ -598,7 +601,7 @@
                                         <div class="deals_item_pic_out">
                                             <div class="deals_item_pic">
                                                 <div class="item_ani">
-                                                    <img class="images" src="sources/best1.jpg">
+                                                    <img class="images" src="${shopItem.photo_url }">
                                                 </div>
                                             </div>
                                             <button class="item_bookmark">
@@ -607,19 +610,19 @@
                                         </div>
                                         <div class="deals_item_content">
                                             <div class="deals_item_header">
-                                                <span class="deals_item_header_brand">브랜드</span>
-                                                <span class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될 듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
+                                                <span class="deals_item_header_brand">${shopItem.company_name}</span>
+                                                <span class="deals_item_header_name">${shopItem.post_name}</span>
                                             </div>
                                             <div class="deals_item_body_price">
-                                                <span class="sale_percent">50%</span>
-                                                <span class="price">10,000</span>
+                                                <span class="sale_percent">${shopItem.deal_saleratio}</span>
+                                                <span class="price">${shopItem.deal_saleprice}</span>
                                             </div>
                                             <div class="deals_item_review">
                                                 <div class="review_icon">
                                                     <i class="fa-solid fa-star" style="color:#ff778e"></i>
                                                 </div>
-                                                <div class="review_score">4.6</div>
-                                                <div class="review_count">리뷰 3,641</div>
+                                                <div class="review_score">${shopItem.star_ratio }</div>
+
                                             </div>
                                             <div class="best_item_info">
                                                 <svg id="freeship_icon" class="icon" aria-label="무료배송" width="47" height="20" viewBox="0 0 47 20" preserveAspectRatio="xMidYMid meet"><g fill="none" fill-rule="evenodd"><rect width="47" height="20" fill="#000" fill-opacity=".07" fill-rule="nonzero" rx="4"></rect><path fill="#757575" d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
@@ -630,279 +633,7 @@
                                 </a>
                             </article>
                         </div>
-                        <div class="deals_list_wrap col-6 col-lg-4">
-                            <article class="deals_item">
-                                <a href="#" style="text-decoration: none;">
-                                    <div class="deals_item_wrap">
-                                        <div class="deals_item_pic_out">
-                                            <div class="deals_item_pic">
-                                                <div class="item_ani">
-                                                    <img class="images" src="sources/best2.webp">
-                                                </div>
-                                            </div>
-                                            <button class="item_bookmark">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inactive-icon"><defs><path id="scrap-icon-3-b" d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path><filter id="scrap-icon-3-a" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset><feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur><feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite><feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter><filter id="scrap-icon-3-c" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceAlpha" result="shadowBlurInner1" stdDeviation="1.5"></feGaussianBlur><feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset><feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"></feComposite><feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs><g fill="none" fill-rule="nonzero" transform="matrix(1 0 0 -1 0 24)"><use fill="#000" filter="url(#scrap-icon-3-a)" href="#scrap-icon-3-b"></use><use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use><use fill="#000" filter="url(#scrap-icon-3-c)" href="#scrap-icon-3-b"></use><path stroke="#FFF" d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-                                            </button>
-                                        </div>
-                                        <div class="deals_item_content">
-                                            <div class="deals_item_header">
-                                                <span class="deals_item_header_brand">브랜드</span>
-                                                <span class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될 듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
-                                            </div>
-                                            <div class="deals_item_body_price">
-                                                <span class="sale_percent">50%</span>
-                                                <span class="price">10,000</span>
-                                            </div>
-                                            <div class="deals_item_review">
-                                                <div class="review_icon">
-                                                    <i class="fa-solid fa-star" style="color:#ff778e"></i>
-                                                </div>
-                                                <div class="review_score">4.6</div>
-                                                <div class="review_count">리뷰 3,641</div>
-                                            </div>
-                                            <div class="best_item_info">
-                                                <svg id="freeship_icon" class="icon" aria-label="무료배송" width="47" height="20" viewBox="0 0 47 20" preserveAspectRatio="xMidYMid meet"><g fill="none" fill-rule="evenodd"><rect width="47" height="20" fill="#000" fill-opacity=".07" fill-rule="nonzero" rx="4"></rect><path fill="#757575" d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
-                                                <svg id="saleprice_icon" class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet"><rect width="30" height="20" fill="#F77" rx="4"></rect><path fill="#fff" d="M12.83 7.93v-.97H7.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </article>
-                        </div>
-                        <div class="deals_list_wrap col-6 col-lg-4">
-                            <article class="deals_item">
-                                <a href="#" style="text-decoration: none;">
-                                    <div class="deals_item_wrap">
-                                        <div class="deals_item_pic_out">
-                                            <div class="deals_item_pic">
-                                                <div class="item_ani">
-                                                    <img class="images" src="sources/best3.webp">
-                                                </div>
-                                            </div>
-                                            <button class="item_bookmark">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inactive-icon"><defs><path id="scrap-icon-3-b" d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path><filter id="scrap-icon-3-a" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset><feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur><feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite><feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter><filter id="scrap-icon-3-c" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceAlpha" result="shadowBlurInner1" stdDeviation="1.5"></feGaussianBlur><feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset><feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"></feComposite><feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs><g fill="none" fill-rule="nonzero" transform="matrix(1 0 0 -1 0 24)"><use fill="#000" filter="url(#scrap-icon-3-a)" href="#scrap-icon-3-b"></use><use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use><use fill="#000" filter="url(#scrap-icon-3-c)" href="#scrap-icon-3-b"></use><path stroke="#FFF" d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-                                            </button>
-                                        </div>
-                                        <div class="deals_item_content">
-                                            <div class="deals_item_header">
-                                                <span class="deals_item_header_brand">브랜드</span>
-                                                <span class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될 듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
-                                            </div>
-                                            <div class="deals_item_body_price">
-                                                <span class="sale_percent">50%</span>
-                                                <span class="price">10,000</span>
-                                            </div>
-                                            <div class="deals_item_review">
-                                                <div class="review_icon">
-                                                    <i class="fa-solid fa-star" style="color:#ff778e"></i>
-                                                </div>
-                                                <div class="review_score">4.6</div>
-                                                <div class="review_count">리뷰 3,641</div>
-                                            </div>
-                                            <div class="best_item_info">
-                                                <svg id="freeship_icon" class="icon" aria-label="무료배송" width="47" height="20" viewBox="0 0 47 20" preserveAspectRatio="xMidYMid meet"><g fill="none" fill-rule="evenodd"><rect width="47" height="20" fill="#000" fill-opacity=".07" fill-rule="nonzero" rx="4"></rect><path fill="#757575" d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
-                                                <svg id="saleprice_icon" class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet"><rect width="30" height="20" fill="#F77" rx="4"></rect><path fill="#fff" d="M12.83 7.93v-.97H7.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </article>
-                        </div>
-                        <div class="deals_list_wrap col-6 col-lg-4">
-                            <article class="deals_item">
-                                <a href="#" style="text-decoration: none;">
-                                    <div class="deals_item_wrap">
-                                        <div class="deals_item_pic_out">
-                                            <div class="deals_item_pic">
-                                                <div class="item_ani">
-                                                    <img class="images" src="sources/best4.webp">
-                                                </div>
-                                            </div>
-                                            <button class="item_bookmark">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inactive-icon"><defs><path id="scrap-icon-3-b" d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path><filter id="scrap-icon-3-a" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset><feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur><feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite><feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter><filter id="scrap-icon-3-c" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceAlpha" result="shadowBlurInner1" stdDeviation="1.5"></feGaussianBlur><feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset><feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"></feComposite><feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs><g fill="none" fill-rule="nonzero" transform="matrix(1 0 0 -1 0 24)"><use fill="#000" filter="url(#scrap-icon-3-a)" href="#scrap-icon-3-b"></use><use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use><use fill="#000" filter="url(#scrap-icon-3-c)" href="#scrap-icon-3-b"></use><path stroke="#FFF" d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-                                            </button>
-                                        </div>
-                                        <div class="deals_item_content">
-                                            <div class="deals_item_header">
-                                                <span class="deals_item_header_brand">브랜드</span>
-                                                <span class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될 듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
-                                            </div>
-                                            <div class="deals_item_body_price">
-                                                <span class="sale_percent">50%</span>
-                                                <span class="price">10,000</span>
-                                            </div>
-                                            <div class="deals_item_review">
-                                                <div class="review_icon">
-                                                    <i class="fa-solid fa-star" style="color:#ff778e"></i>
-                                                </div>
-                                                <div class="review_score">4.6</div>
-                                                <div class="review_count">리뷰 3,641</div>
-                                            </div>
-                                            <div class="best_item_info">
-                                                <svg id="freeship_icon" class="icon" aria-label="무료배송" width="47" height="20" viewBox="0 0 47 20" preserveAspectRatio="xMidYMid meet"><g fill="none" fill-rule="evenodd"><rect width="47" height="20" fill="#000" fill-opacity=".07" fill-rule="nonzero" rx="4"></rect><path fill="#757575" d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
-                                                <svg id="saleprice_icon" class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet"><rect width="30" height="20" fill="#F77" rx="4"></rect><path fill="#fff" d="M12.83 7.93v-.97H7.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </article>
-                        </div>
-                        <div class="deals_list_wrap col-6 col-lg-4">
-                            <article class="deals_item">
-                                <a href="#" style="text-decoration: none;">
-                                    <div class="deals_item_wrap">
-                                        <div class="deals_item_pic_out">
-                                            <div class="deals_item_pic">
-                                                <div class="item_ani">
-                                                    <img class="images" src="sources/best5.webp">
-                                                </div>
-                                            </div>
-                                            <button class="item_bookmark">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inactive-icon"><defs><path id="scrap-icon-3-b" d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path><filter id="scrap-icon-3-a" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset><feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur><feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite><feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter><filter id="scrap-icon-3-c" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceAlpha" result="shadowBlurInner1" stdDeviation="1.5"></feGaussianBlur><feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset><feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"></feComposite><feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs><g fill="none" fill-rule="nonzero" transform="matrix(1 0 0 -1 0 24)"><use fill="#000" filter="url(#scrap-icon-3-a)" href="#scrap-icon-3-b"></use><use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use><use fill="#000" filter="url(#scrap-icon-3-c)" href="#scrap-icon-3-b"></use><path stroke="#FFF" d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-                                            </button>
-                                        </div>
-                                        <div class="deals_item_content">
-                                            <div class="deals_item_header">
-                                                <span class="deals_item_header_brand">브랜드</span>
-                                                <span class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될 듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
-                                            </div>
-                                            <div class="deals_item_body_price">
-                                                <span class="sale_percent">50%</span>
-                                                <span class="price">10,000</span>
-                                            </div>
-                                            <div class="deals_item_review">
-                                                <div class="review_icon">
-                                                    <i class="fa-solid fa-star" style="color:#ff778e"></i>
-                                                </div>
-                                                <div class="review_score">4.6</div>
-                                                <div class="review_count">리뷰 3,641</div>
-                                            </div>
-                                            <div class="best_item_info">
-                                                <svg id="freeship_icon" class="icon" aria-label="무료배송" width="47" height="20" viewBox="0 0 47 20" preserveAspectRatio="xMidYMid meet"><g fill="none" fill-rule="evenodd"><rect width="47" height="20" fill="#000" fill-opacity=".07" fill-rule="nonzero" rx="4"></rect><path fill="#757575" d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
-                                                <svg id="saleprice_icon" class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet"><rect width="30" height="20" fill="#F77" rx="4"></rect><path fill="#fff" d="M12.83 7.93v-.97H7.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </article>
-                        </div>
-                        <div class="deals_list_wrap col-6 col-lg-4">
-                            <article class="deals_item">
-                                <a href="#" style="text-decoration: none;">
-                                    <div class="deals_item_wrap">
-                                        <div class="deals_item_pic_out">
-                                            <div class="deals_item_pic">
-                                                <div class="item_ani">
-                                                    <img class="images" src="sources/best6.webp">
-                                                </div>
-                                            </div>
-                                            <button class="item_bookmark">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inactive-icon"><defs><path id="scrap-icon-3-b" d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path><filter id="scrap-icon-3-a" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset><feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur><feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite><feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter><filter id="scrap-icon-3-c" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceAlpha" result="shadowBlurInner1" stdDeviation="1.5"></feGaussianBlur><feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset><feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"></feComposite><feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs><g fill="none" fill-rule="nonzero" transform="matrix(1 0 0 -1 0 24)"><use fill="#000" filter="url(#scrap-icon-3-a)" href="#scrap-icon-3-b"></use><use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use><use fill="#000" filter="url(#scrap-icon-3-c)" href="#scrap-icon-3-b"></use><path stroke="#FFF" d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-                                            </button>
-                                        </div>
-                                        <div class="deals_item_content">
-                                            <div class="deals_item_header">
-                                                <span class="deals_item_header_brand">브랜드</span>
-                                                <span class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될 듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
-                                            </div>
-                                            <div class="deals_item_body_price">
-                                                <span class="sale_percent">50%</span>
-                                                <span class="price">10,000</span>
-                                            </div>
-                                            <div class="deals_item_review">
-                                                <div class="review_icon">
-                                                    <i class="fa-solid fa-star" style="color:#ff778e"></i>
-                                                </div>
-                                                <div class="review_score">4.6</div>
-                                                <div class="review_count">리뷰 3,641</div>
-                                            </div>
-                                            <div class="best_item_info">
-                                                <svg id="freeship_icon" class="icon" aria-label="무료배송" width="47" height="20" viewBox="0 0 47 20" preserveAspectRatio="xMidYMid meet"><g fill="none" fill-rule="evenodd"><rect width="47" height="20" fill="#000" fill-opacity=".07" fill-rule="nonzero" rx="4"></rect><path fill="#757575" d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
-                                                <svg id="saleprice_icon" class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet"><rect width="30" height="20" fill="#F77" rx="4"></rect><path fill="#fff" d="M12.83 7.93v-.97H7.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </article>
-                        </div>
-                        <div class="deals_list_wrap col-6 col-lg-4">
-                            <article class="deals_item">
-                                <a href="#" style="text-decoration: none;">
-                                    <div class="deals_item_wrap">
-                                        <div class="deals_item_pic_out">
-                                            <div class="deals_item_pic">
-                                                <div class="item_ani">
-                                                    <img class="images" src="sources/best7.webp">
-                                                </div>
-                                            </div>
-                                            <button class="item_bookmark">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inactive-icon"><defs><path id="scrap-icon-3-b" d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path><filter id="scrap-icon-3-a" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset><feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur><feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite><feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter><filter id="scrap-icon-3-c" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceAlpha" result="shadowBlurInner1" stdDeviation="1.5"></feGaussianBlur><feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset><feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"></feComposite><feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs><g fill="none" fill-rule="nonzero" transform="matrix(1 0 0 -1 0 24)"><use fill="#000" filter="url(#scrap-icon-3-a)" href="#scrap-icon-3-b"></use><use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use><use fill="#000" filter="url(#scrap-icon-3-c)" href="#scrap-icon-3-b"></use><path stroke="#FFF" d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-                                            </button>
-                                        </div>
-                                        <div class="deals_item_content">
-                                            <div class="deals_item_header">
-                                                <span class="deals_item_header_brand">브랜드</span>
-                                                <span class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될 듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
-                                            </div>
-                                            <div class="deals_item_body_price">
-                                                <span class="sale_percent">50%</span>
-                                                <span class="price">10,000</span>
-                                            </div>
-                                            <div class="deals_item_review">
-                                                <div class="review_icon">
-                                                    <i class="fa-solid fa-star" style="color:#ff778e"></i>
-                                                </div>
-                                                <div class="review_score">4.6</div>
-                                                <div class="review_count">리뷰 3,641</div>
-                                            </div>
-                                            <div class="best_item_info">
-                                                <svg id="freeship_icon" class="icon" aria-label="무료배송" width="47" height="20" viewBox="0 0 47 20" preserveAspectRatio="xMidYMid meet"><g fill="none" fill-rule="evenodd"><rect width="47" height="20" fill="#000" fill-opacity=".07" fill-rule="nonzero" rx="4"></rect><path fill="#757575" d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
-                                                <svg id="saleprice_icon" class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet"><rect width="30" height="20" fill="#F77" rx="4"></rect><path fill="#fff" d="M12.83 7.93v-.97H7.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </article>
-                        </div>
-                        <div class="deals_list_wrap col-6 col-lg-4">
-                            <article class="deals_item">
-                                <a href="#" style="text-decoration: none;">
-                                    <div class="deals_item_wrap">
-                                        <div class="deals_item_pic_out">
-                                            <div class="deals_item_pic">
-                                                <div class="item_ani">
-                                                    <img class="images" src="sources/best8.webp">
-                                                </div>
-                                            </div>
-                                            <button class="item_bookmark">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inactive-icon"><defs><path id="scrap-icon-3-b" d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path><filter id="scrap-icon-3-a" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset><feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur><feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite><feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter><filter id="scrap-icon-3-c" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceAlpha" result="shadowBlurInner1" stdDeviation="1.5"></feGaussianBlur><feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset><feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"></feComposite><feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs><g fill="none" fill-rule="nonzero" transform="matrix(1 0 0 -1 0 24)"><use fill="#000" filter="url(#scrap-icon-3-a)" href="#scrap-icon-3-b"></use><use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use><use fill="#000" filter="url(#scrap-icon-3-c)" href="#scrap-icon-3-b"></use><path stroke="#FFF" d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-                                            </button>
-                                        </div>
-                                        <div class="deals_item_content">
-                                            <div class="deals_item_header">
-                                                <span class="deals_item_header_brand">브랜드</span>
-                                                <span class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될 듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
-                                            </div>
-                                            <div class="deals_item_body_price">
-                                                <span class="sale_percent">50%</span>
-                                                <span class="price">10,000</span>
-                                            </div>
-                                            <div class="deals_item_review">
-                                                <div class="review_icon">
-                                                    <i class="fa-solid fa-star" style="color:#ff778e"></i>
-                                                </div>
-                                                <div class="review_score">4.6</div>
-                                                <div class="review_count">리뷰 3,641</div>
-                                            </div>
-                                            <div class="best_item_info">
-                                                <svg id="freeship_icon" class="icon" aria-label="무료배송" width="47" height="20" viewBox="0 0 47 20" preserveAspectRatio="xMidYMid meet"><g fill="none" fill-rule="evenodd"><rect width="47" height="20" fill="#000" fill-opacity=".07" fill-rule="nonzero" rx="4"></rect><path fill="#757575" d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
-                                                <svg id="saleprice_icon" class="icon" aria-label="특가" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet"><rect width="30" height="20" fill="#F77" rx="4"></rect><path fill="#fff" d="M12.83 7.93v-.97H7.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </article>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
@@ -917,9 +648,10 @@
                         <svg class="icon-md" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path fill-rule="nonzero" d="M11.6 10l7.1 7.1-1.6 1.6-7.1-7.1-7.1 7.1-1.6-1.6L8.4 10 1.3 2.9l1.6-1.6L10 8.4l7.1-7.1 1.6 1.6z"></path></svg>
                     </button>
                     <div class="carted_option_change_content modal_content">
+                        <c:forEach items="${shopName}" var="shop">
                         <article class="brand_modal_info">
-                            <h1>리바트</h1>
-                        </article>
+                            <h1>%{shop.company_name}></h1>
+                        </article></c:forEach>
                         <ul class="brand_info_content_list">
                             <!--for문-->
                             <li class="brand_info_content_list_item">
@@ -933,7 +665,7 @@
                             </li>
                         </ul>
 
-                       
+
                     </div>
                 </div>
             </div>

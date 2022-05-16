@@ -36,8 +36,8 @@ public class UserCategoryServiceImpl implements UserCategoryService{
 	public List<UserProductVO> selectProductByCate(UserCategoryVO vo) {
 		return userCategoryDAO.selectProductByCate(vo);
 	}
-
-	@Override
+  
+  @Override
 	public List<UserCategoryVO> getCateName(UserCategoryVO vo) {
 		return userCategoryDAO.getCateName(vo);
 	}
@@ -51,11 +51,6 @@ public class UserCategoryServiceImpl implements UserCategoryService{
 	public List<List<FilterVO>> getFilterOption(UserCategoryVO vo) {
 		return userCategoryDAO.getFilterOption(vo);
 	}
-	
-	
 
-
-
-	
 
 }
