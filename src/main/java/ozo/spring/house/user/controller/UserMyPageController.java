@@ -1,6 +1,5 @@
 package ozo.spring.house.user.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,20 +18,39 @@ import ozo.spring.house.user.vo.UserVO;
 public class UserMyPageController {
 	
 	@Autowired
-	userMyPageService usermypageservice;
+	userMyPageService userMyPageService;
 	
 	@RequestMapping(value="/m_edit.com")
-	public String myuser(UserVO vo,Model model,HttpServletRequest request) {
-		
+	public String User_Info(UserVO vo,Model model,HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		System.out.println((int)session.getAttribute("User_Num"));
-		vo.setUser_num((int)session.getAttribute("User_Num"));
 		
-		List<UserVO> list;
-		list =usermypageservice.User_Info(vo);
 		
-//		 model.addAttribute("user_info", list);
-		return "ozoedit_zinc";
+		if(session.getAttribute("User_Num")!=null) {
+			vo.setUser_num((int)session.getAttribute("User_Num"));
+			UserVO info;
+			info = userMyPageService.mypageinfo(vo);
+			
+			
+			
+			UserVO mandu = userMyPageService.mypageinfo(vo) ;
+			mandu.setUser_email(info.getUser_email().split("@")[1]);
+			
+			info.setUser_email(info.getUser_email().split("@")[0]);
+			
+			 model.addAttribute("info", info);
+			 model.addAttribute("mandu", mandu);
+			 
+			return "ozoedit_zinc";
+		}else {
+			return "ozoLogin_zinc";
+		}
+		
+		
+		
+		
+		
+		 
+		 
 	}
 	
 	@ResponseBody

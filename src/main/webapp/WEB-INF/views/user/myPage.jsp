@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta property="og:title" content="님의 마이페이지" />
     <meta property="og:type" content="website" />
-    <link rel="stylesheet" href="resources/css/user_css/inha/myPage-style.css" />
+    <link rel="stylesheet" href="resources/css/user_css/inha/myPage-style.css?var=1" />
     <link rel="stylesheet" href="resources/css/user_css/inha/myPage-nav-style.css" />
     <link rel="stylesheet" href="resources/css/user_css/inha/footer-style.css" />
     <style type="text/css">

@@ -482,6 +482,7 @@
 							</td>
 							<td colspan="1" class="content-table-content-text">
 								<button type="button" class="btn btn-secondary btn-size upload2" >업로드</button>
+								
 								<button type="button" class="btn btn-outline-secondary btn-size cancle2">취소</button>
 							</td>
 						</tr>

@@ -2,17 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
- <mapper namespace="UserMyPageDAO ">
+ <mapper namespace="UserMyPageDAO">
  
 
-	<select id="User_Info" resultType="user">
-		SELECT * FROM user_table WHERE user_num = #{user_num}
+	<select id="mypageinfo" resultType="user">
+		SELECT user_email,nickname,user_img,comment FROM user_table WHERE user_num = #{user_num}
 	</select>
 	
-	<!-- 비밀번호 변경 -->
-	<select id="user_edit" resultType="user">
-		UPDATE user_table SET user_eamil = #{user_eamil}, nickname=#{nickname}, user_birth=#{user_birth}, user_img=#{user_img}, comment=#{comment} WHERE user_email = #{user_email}
-	</select>
+	<update id="user_edit" parameterType="user">
+	
+		UPDATE user_table SET nickname=#{nickname},user_img=#{user_img}, comment=#{comment}, user_birth=#{user_birth} WHERE user_num=#{user_num}
+	</update>
+	
  
  
  </mapper>

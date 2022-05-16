@@ -12,9 +12,143 @@
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
 	integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
 	crossorigin="anonymous"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <link href="resources/css/user_css/zinc/ozomypageheader.css" rel="stylesheet"/>
-    <link href="resources/css/user_css/zinc/ozoedit.css" rel="stylesheet" />
+    <link href="resources/css/user_css/zinc/ozoedit.css?var=1" rel="stylesheet" />
 </head>
+<script>
+$(document).ready(function(){
+	/* 회원정보 수정 클릭 */
+	$(".update_btn_position").click(function(){
+		 var radioVal = $("input:radio[name='radioValue']:checked").val();
+		    //데이터담기
+		    var data = {   
+						"user_nickname": $(".nickname").val(),
+						"user_birth": $(".user_birth").val(),
+						"comment": $(".user_comment").val(),
+						"gender": radioVal
+		                }
+		    console.log(data);
+		
+	});
+	
+	/* 파일 업로드 */
+	const realUpload = document.querySelector('.real-upload');
+ 	const upload = document.querySelector('.profile_btn');
+
+ 	upload.addEventListener('click', () => realUpload.click());
+
+
+ });
+
+ 
+	
+	
+	function changeValue(input) {
+			
+			
+		  var checkId = input.id;
+		  var checkSu = checkId.substr(-1);
+		  
+	  var file = input.files[0]; //선택된 파일 가져오기
+	
+	  //미리 만들어 놓은 div에 text(파일 이름) 추가
+	  //var name = document.getElementById('fileName');
+	  //name.textContent = file.name;
+	
+	  //새로운 이미지 div 추가
+	  var newImage = document.createElement("img");
+	  newImage.setAttribute("class", "upload_img");
+	
+	  //이미지 source 가져오기
+	  newImage.src = URL.createObjectURL(file);
+	  newImage.style.visibility = "visible";
+	  newImage.style.objectFit = "contain";
+	  alert(URL.createObjectURL(file));
+	
+	  //이미지를 image-show div에 추가
+	  var container = document.getElementById('image_show');
+	  container.appendChild(newImage);
+	  $('#image_show').css({"display":"flex"});
+	  
+	}
+	
+	function delPhoto(delit){
+  	  var parentId = delit.parentNode.id;
+  	  var checkSu = parentId.substr(-1);
+  	  
+  	  var container = document.getElementById('image_show');
+  	  if(container.hasChildNodes()){
+  		  container.removeChild(container.firstChild);
+  		  $('#image_show').hide();
+  	  }
+  	  
+  	  
+    }
+	
+
+	function checkOnlyOne(element) {
+		  
+		  const checkboxes 
+		      = document.getElementsByName(".radioValue");
+		  
+		  checkboxes.forEach((cb) => {
+		    cb.checked = false;
+		  })
+		  
+		  element.checked = true;
+		}
+/* function updatebtn(btn){
+	 //form data생성
+    var formData = new FormData();
+    var radioVal = $("input:radio[name='radioValue']:checked").val();
+    //데이터담기
+    var data = {   
+				"user_nickname": $(".nickname").val(),
+				"user_birth": $(".user_birth").val(),
+				"comment": $(".user_comment").val(),
+				"gender": radioVal
+                } */
+   
+     // input class 값 
+    /* var fileInput = $('.real-upload');
+    // fileInput 개수를 구한다.
+    for (var i = 0; i < fileInput.length; i++) {
+    	if (fileInput[i].files.length > 0) {
+    		for (var j = 0; j < fileInput[i].files.length; j++) {
+    			console.log(" fileInput[i].files[j] :::"+ fileInput[i].files[j]); */
+    			
+    			/* // formData에 'file'이라는 키값으로 fileInput 값을 append 시킨다.   */
+    			/* formData.append('myphoto', $('.real-upload')[i].files[j]);
+    		}
+    	}
+    } */
+   
+/*  // 'key'라는 이름으로 위에서 담은 data를 formData에 append한다. type은 json   */
+/*  formData.append('key', new Blob([ JSON.stringify(data) ], {type : "application/json"})); */
+ 
+  // ajax 처리 부분 * 
+ //- contentType : false 로 선언 시 content-type 헤더가 multipart/form-data로 전송되게 함
+ //- processData : false로 선언 시 formData를 string으로 변환하지 않음 */
+  
+ 
+ /*   $.ajax({  
+       url:'mypageupload.com',
+       method:'POST',
+       data: formData,
+       contentType: false,              // * 중요 *
+       processData: false, 				// * 중요 *					
+       enctype : 'multipart/form-data', // * 중요 *
+       success: function(data) { 
+    	   
+    	   alert("hi");
+       }
+  
+
+ })  */
+}
+
+</script>
 <body>
 	<header>
     	<jsp:include page="./header/OzoH.jsp"></jsp:include>
@@ -62,8 +196,8 @@
                 <a class="edit_user_info_header_secession">탈퇴하기</a>
             </div>
 		
-            <!-- 수정 부분 -->
-            <form action="#" method="post">
+             <!-- 수정 부분 -->
+            <form action="." method="post">
                 
                 <div class="edit_user_info_item">
                     <div class="edit_user_info_item_title">
@@ -76,11 +210,11 @@
                     <div class="edit_user_info_item_body">
                         <div class="edit_user_info_item_body_wrap">
                             <div class="email_input">
-                                <input type="text" class="form_control" placeholder="이메일" value="">
+                                <input type="text" class="h_email" placeholder="이메일" value="${info.user_email}">
                                 <span class="input_seperator">@</span>
-                                <select class="form_control">
+                                <select class="t_eamail">
                                     <option value="" disabled="">선택해주세요</option>
-                                    <option value="naver.com">naver.com</option>
+                                    <option value="naver.com" ${mandu.user_email eq 'naver.com' ? 'selected="selected"' : '' }>naver.com</option>
                                     <option value="hanmail.net">hanmail.net</option>
                                     <option value="daum.net">daum.net</option>
                                     <option value="gmail.com">gmail.com</option>
@@ -109,7 +243,7 @@
                     <div class="edit_user_info_item_body">
                         <div class="edit_user_info_item_body_wrap">
                             <div class="char_input">
-                                <input type="text" class="form_control" placeholder="별명" value="ohhhni">
+                                <input type="text" class="nickname" placeholder="별명" value="${info.nickname}">
                             </div>
                         </div>
                     </div>
@@ -125,11 +259,11 @@
                             <div class="gender_input">
                                 <ul class="radio_group_input">
                                     <li>
-                                        <input type="radio" class="form_radio">
+                                        <input type="radio" class="form_radio" name="radioValue" onclick="checkOnlyOne(this)" value="man" checked>
                                         남성
                                     </li>
                                     <li>
-                                        <input type="radio" class="form_radio" checked>
+                                        <input type="radio" class="form_radio" name="radioValue" onclick="checkOnlyOne(this)" value="woman" >
                                         여성
                                     </li>
                                 </ul>
@@ -148,7 +282,7 @@
                     <div class="edit_user_info_item_body">
                         <div class="edit_user_info_item_body_wrap">
                             <div class="char_input">
-                                <input type="text" class="form_control" placeholder="생년월일" value="1996-07-10">
+                                <input type="text" class="user_birth" placeholder="생년월일" value="${info.user_birth}" >
                             </div>
                         </div>
                     </div>
@@ -163,10 +297,20 @@
                         <div class="edit_user_info_item_body_wrap">
                             <div class="profile_layer">
                                 <div class="profile_btn_wrap">
-                                    <button class="delete_btn">삭제</button>
+                                    
+                                    <input type="file" class="real-upload" onchange="changeValue(this)" accept="image/*" style=display:none multiple  >
                                     <button class="profile_btn">
-                                        <img class="profile_img" src="sources/face.png">
-                                    </button>
+                                     <!-- <img class="profile_img" src="sources/face.png"> -->
+                                     
+                                     </button> 
+                                     
+                                    
+                                    <div id="image_show" class="image_show"></div>
+                                    <button class="delete_btn" onclick="delPhoto(this)" >삭제</button>
+                                    
+                                    
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
@@ -181,13 +325,13 @@
                     <div class="edit_user_info_item_body">
                         <div class="edit_user_info_item_body_wrap">
                             <div class="char_input">
-                                <input type="text" class="form_control" placeholder="한줄소개" value="">
+                                <input type="text" class="user_comment" placeholder="한줄소개" value="${info.comment}">
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <button class="update_btn_position update_btn">
+                <button class="update_btn_position update_btn" >
                     회원정보수정
                 </button>
             </form>
@@ -195,6 +339,7 @@
         </div>
 
     </div>
+   
 <footer>
     	<jsp:include page="./footer/footer.jsp"></jsp:include>
     </footer>

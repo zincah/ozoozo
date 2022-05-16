@@ -98,6 +98,18 @@ a{
     display: flex;
 }
 
+.image_show{
+    display: none;
+    position: absolute;
+    top: 0;
+    width: 200px;
+    height: 200px;
+    z-index: 100;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+
 .form_control{
     font-size: 15px;
     border-radius: 6px;
@@ -161,7 +173,7 @@ a{
 }
 
 .delete_btn{
-    z-index: 3;
+    z-index: 101;
     position: absolute;
     top: 12px;
     right: 12px;
