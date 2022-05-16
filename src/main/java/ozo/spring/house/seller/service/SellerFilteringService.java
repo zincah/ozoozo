@@ -31,6 +31,9 @@ public class SellerFilteringService {
 		for(int i=0; i<keyList.size(); i++) {
 			String key = keyList.get(i);
 			List<Object> value = (List<Object>) getMap.get(key);
+			
+			
+			
 			if(value.size()==0) {
 				System.out.println(key + "의 값은 아무것도 없음");
 			}else {

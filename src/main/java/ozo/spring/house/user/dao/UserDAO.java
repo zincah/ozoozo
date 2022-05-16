@@ -118,7 +118,7 @@ public class UserDAO {
 					cart_li.get(i).setCart_quantity(cart_li.get(i).getCart_quantity() + test.get(j).getEA());
 					cart_li.get(i).setCart_payment(test.get(j).getProduct_price()*cart_li.get(i).getCart_quantity());
 					System.out.println(test.get(j));
-					sqlSessionTemplate.update("UserProduct.cart_update",cart_li.get(i));
+					sqlSessionTemplate.update("UserProduct.cart_upload",cart_li.get(i));
 					test.remove(j);
 					break;
 				}
@@ -132,4 +132,53 @@ public class UserDAO {
 		}
 		return true;
 	}
+	// 장바구니 DAO
+	public cart_Allload get_cart_class(CartVO cvo) {
+		return new cart_Allload(cvo);
+	}
+	
+	public class cart_Allload{
+		List<CartVO> cart_li = new ArrayList<CartVO>();
+		List<UserProductVO> product_li = new ArrayList<UserProductVO>();
+		public cart_Allload() {
+		}
+		public cart_Allload(CartVO cvo) {
+			this.cart_li = sqlSessionTemplate.selectList("UserProduct.cart_Get", cvo);
+		}
+		public List<CartVO> getCart_li() {
+			return cart_li;
+		}
+		public void getCart_li(CartVO cvo){
+			this.cart_li = sqlSessionTemplate.selectList("UserProduct.cart_Get", cvo);
+		}
+		public List<UserProductVO> getPro_li(){
+			for(int i = 0; i < cart_li.size(); i++) {
+				this.product_li.addAll(sqlSessionTemplate.selectList("UserProduct.pro_Get", cart_li.get(i)));
+			}
+			return product_li;
+		}
+		public List<UserProductVO> getSeller_filter(CartVO cvo){
+			List<CartVO> cart_list = sqlSessionTemplate.selectList("UserProduct.seller_filter", cvo);
+			List<UserProductVO> seller_li = new ArrayList<UserProductVO>();
+			for(CartVO i : cart_list) {
+				seller_li.add(sqlSessionTemplate.selectOne("UserProduct.seller_filter_name", i));
+			}
+			return seller_li;
+		}
+		public List<UserProductVO> getPost_filter(CartVO cvo){
+			List<UserProductVO> product_list = sqlSessionTemplate.selectList("UserProduct.post_filter_name", cvo);
+			return product_list;
+		}
+		public void update_cart(CartVO cvo) {
+			sqlSessionTemplate.update("UserProduct.cart_update", cvo);
+		}
+		public void delete_cart_post(CartVO cvo) {
+			sqlSessionTemplate.delete("UserProduct.cart_delete_post", cvo);
+			
+		}
+		public void delete_cart_pro(CartVO cvo) {
+			sqlSessionTemplate.delete("UserProduct.cart_delete_pro", cvo);
+		}
+	}
+	
 }

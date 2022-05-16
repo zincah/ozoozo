@@ -28,6 +28,11 @@
     <select id="getBotCategoryList" resultType="cate" >
        SELECT * FROM sub_category WHERE sub_depth = #{depth} and subcate_code BETWEEN #{subcate_code} and (#{subcate_code} + 100);
     </select>
+    
+    <!-- filter option -->
+    <select id="getFilterOption" resultType="filter">
+    	select * from filter_element where ftop_catecode=#{cate_code} and filter_id/100=#{checkfid} order by filter_id;
+    </select>
 
 	
 

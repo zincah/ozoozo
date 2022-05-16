@@ -4,26 +4,40 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<c:forEach var="searchProductList" items="${searchProductList}">
+<c:forEach var="searchPostingList" items="${searchPostingList}">
 	<tr class="content-table-content content-hover">
 		<td class="content-table-content-text option-line checkTd">
-			<c:if test="${searchProductList.getStatus() ne '승인대기'}">
+			<c:if test="${searchPostingList.getPost_status() ne '승인대기'}">
 				<input class="form-check-input check" type="checkbox" value="" />
 			</c:if>
 		</td>
-		<td class="content-table-content-text option-line state0">${searchProductList.getProduct_id()}</td>
-		<td class="content-table-content-text option-line">${searchProductList.getProduct_seller_code()}</td>
-		<td class="content-table-content-text option-line">${searchProductList.getProduct_title()}</td>
+		<td class="content-table-content-text option-line state0">${searchPostingList.getPost_id()}</td>
+		<td class="content-table-content-text option-line">${searchPostingList.getStar_ratio()}</td>
+		<td class="content-table-content-text option-line">
+		${searchPostingList.getPost_name()}
+		<c:if test="${searchPostingList.isToday_deal()}">
+			<img class="badgeicon" alt="[오늘의딜]" title="오늘의딜" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/badgeIcon-deal.gif">
+		</c:if>
+		</td>
+		<td class="content-table-content-text option-line">${searchPostingList.getSale_ratio()}</td>
 		<td class="content-table-content-text option-line"><fmt:formatNumber
-				value="${searchProductList.getProduct_price()}" type="currency" /></td>
-		<td class="content-table-content-text option-line">${searchProductList.getCategory_name()}</td>
-		<td class="content-table-content-text option-line productListStatus">${searchProductList.getStatus()}</td>
-		<td class="content-table-content-text option-line">${searchProductList.getProduct_quantity()}</td>
+				value="${searchPostingList.getWhole_price()}" type="currency" /></td>
+		<td class="content-table-content-text option-line">${searchPostingList.getPost_couponid()}</td>
+		<td class="content-table-content-text option-line">${searchPostingList.getCate_name()}</td>
+		<td class="content-table-content-text option-line">${searchPostingList.getPost_status()}</td>
 		<td class="content-table-content-text option-line"><fmt:formatDate
-				value="${searchProductList.getProduct_created()}"
+				value="${searchPostingList.getPost_created()}"
 				pattern="yyyy-MM-dd HH:mm" /></td>
-		<td class="content-table-content-text option-line"><fmt:formatDate
-				value="${searchProductList.getProduct_updated()}"
-				pattern="yyyy-MM-dd HH:mm" /></td>
+		<td class="content-table-content-text option-line">
+			<c:if test="${searchPostingList.getDeal_time() ne null}">
+				<fmt:formatDate
+						value="${searchPostingList.getDeal_time()}"
+						pattern="yyyy-MM-dd HH:mm" />
+						 ~ 
+				<fmt:formatDate
+						value="${searchPostingList.getDeal_endtime()}"
+						pattern="yyyy-MM-dd HH:mm" />
+			</c:if>
+		</td>
 	</tr>
 </c:forEach>

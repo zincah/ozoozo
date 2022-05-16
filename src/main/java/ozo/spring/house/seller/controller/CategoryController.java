@@ -1,6 +1,7 @@
 package ozo.spring.house.seller.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ozo.spring.house.seller.service.CategoryService;
 import ozo.spring.house.seller.service.ProductService;
 import ozo.spring.house.seller.vo.CategoryVO;
+import ozo.spring.house.seller.vo.FilterVO;
 import ozo.spring.house.seller.vo.ProductVO;
 
 @Controller
@@ -32,7 +34,18 @@ public class CategoryController {
 	public String test(CategoryVO vo, Model model, HttpServletRequest request) {
 
 		List<CategoryVO> cateList = categoryService.getCategoryList(vo);
-		model.addAttribute("cateList", cateList);		
+		model.addAttribute("cateList", cateList);	
+		
+		vo.setCate_code(1); // 처음은 가구로 세팅
+		List<List<FilterVO>> wholeList = categoryService.getFilterOption(vo);
+		model.addAttribute("wholeList", wholeList);
+		
+		for(int i=0; i<wholeList.size(); i++) {
+			List<FilterVO> list = wholeList.get(i);
+			//System.out.println(list);
+		}
+		
+		
 		return "seller-insertProduct";
 	}
 	
@@ -42,6 +55,7 @@ public class CategoryController {
 		vo.setTop_catecode(vo.getCate_code());
 		vo.setDepth(1);
 		List<CategoryVO> midList = categoryService.getMidCategoryList(vo);
+
 		return midList;
 	}
 	
@@ -54,7 +68,7 @@ public class CategoryController {
 		return botList;
 	}
 
-	// 상품등록시
+	// 상품등록시 
 	@RequestMapping(value = "/putProduct.seller", method=RequestMethod.POST)
 	public String insertPost(ProductVO vo) {
 		System.out.println("update 전");
@@ -66,4 +80,17 @@ public class CategoryController {
 		return "index";
 	}
 
+	// filter를 가져오는 부분
+	@RequestMapping(value="/getFilterOption.seller", method=RequestMethod.POST)
+	public String getFilterOption(@RequestBody CategoryVO vo, Model model) {
+		
+		System.out.println(vo.getCate_code());
+		
+		List<List<FilterVO>> wholeList = categoryService.getFilterOption(vo);
+		model.addAttribute("wholeList", wholeList);
+
+
+		return "filtering";
+		
+	}
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ozo.spring.house.seller.service.ProductService;
 import ozo.spring.house.seller.service.SellerFilteringService;
 import ozo.spring.house.seller.service.SellerProductDetailService;
+import ozo.spring.house.seller.vo.CategoryVO;
 import ozo.spring.house.seller.vo.ProductDetailVO;
 import ozo.spring.house.seller.vo.ProductVO;
 
@@ -78,7 +79,7 @@ public class JsonController {
 		dvo.setRefundtable_fee((String)tableMap.get("refundtable_fee"));
 		dvo.setExchangetable_fee((String)tableMap.get("exchangetable_fee"));
 		dvo.setRefundtable_address((String)tableMap.get("refundtable_address"));
-
+		
 		productDetailService.insertTables(dvo);
 		
 		
@@ -126,6 +127,8 @@ public class JsonController {
 
 		return postingCode;
 	}
+	
+
 	
 
 

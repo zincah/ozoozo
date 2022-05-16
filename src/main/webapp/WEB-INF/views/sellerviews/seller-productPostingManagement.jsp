@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +20,7 @@
 <link href="resources/css/sellercss/fonts.css?after" rel="stylesheet" />
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
 <link href="resources/css/sellercss/insertProduct.css" rel="stylesheet" />
-<link href="resources/css/sellercss/seller-productPostingManagement.css"
+<link href="resources/css/sellercss/seller-productPostingManagement.css?t=<%=System.currentTimeMillis()%>"
 	rel="stylesheet" />
 <jsp:include page="header/headerModalView.jsp"></jsp:include>
 <script type="text/javascript"
@@ -41,23 +42,23 @@
 				<div class="row optionGroup1">
 					<div class="col status-name">
 						<span>전체</span> <span class="status-value"><fmt:formatNumber
-								value="${fn:length(producPostingtList)}" pattern="#,###" /></span>
+								value="${fn:length(postingListView)}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
 						<span>판매중</span> <span class="status-value"><fmt:formatNumber
-								value="${productPostingStatus0}" pattern="#,###" /></span>
+								value="${postingStatus0}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
 						<span>판매종료</span> <span class="status-value"><fmt:formatNumber
-								value="${productPostingStatus1}" pattern="#,###" /></span>
+								value="${postingStatus1}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
 						<span>승인대기</span> <span class="status-value"><fmt:formatNumber
-								value="${productPostingStatus2}" pattern="#,###" /></span>
+								value="${postingStatus2}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
 						<span>보류</span> <span class="status-value"><fmt:formatNumber
-								value="${productPostingStatus3}" pattern="#,###" /></span>
+								value="${postingStatus3}" pattern="#,###" /></span>
 					</div>
 					<div class="col-4 search-button-area">
 						<button class="search-button" id="searchBtn">
@@ -188,7 +189,7 @@
 									aria-label="Default select example" id="selectDate">
 									<!-- <option selected>대분류</option> -->
 									<option value="1">판매글 등록일</option>
-									<option value="2">오늘의딜 마감일</option>
+									<option value="2">오늘의딜 등록일</option>
 								</select>
 							</div>
 							<div class="radio-productCode">
@@ -274,7 +275,7 @@
 							data-bs-target="#modal-status-select" id="productStatusChange">판매상태
 								변경</a></li>
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-							data-bs-target="#modal-delete" id="productDelete">오늘의딜 신청</a></li>
+							data-bs-target="#modal-delete" id="dealApplication">오늘의딜 신청</a></li>
 					</ul>
 				</div>
 			</div>
@@ -316,7 +317,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- 상품 삭제 Modal -->
+		<!-- 오늘의딜 신청 Modal -->
 		<div class="modal fade" id="modal-delete" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
@@ -358,16 +359,17 @@
 												<table class="table table-box-style">
 													<thead>
 														<tr class="content-table-title">
-															<td class="content-table-title-text option-line">상품고유번호</td>
-															<td class="content-table-title-text option-line">판매자상품코드</td>
-															<td class="content-table-title-text option-line">상품명</td>
-															<td class="content-table-title-text option-line">판매가</td>
-															<td class="content-table-title-text option-line">카테고리</td>
-															<td class="content-table-title-text option-line">판매상태</td>
-															<td class="content-table-title-text option-line">재고</td>
+															<td class="content-table-title-text option-line">판매글번호</td>
+														<td class="content-table-title-text option-line">평점</td>
+														<td class="content-table-title-text option-line">제목</td>
+														<td class="content-table-title-text option-line">할인율</td>
+														<td class="content-table-title-text option-line">대표금액</td>
+														<td class="content-table-title-text option-line">쿠폰코드</td>
+														<td class="content-table-title-text option-line">카테고리</td>
+														<td class="content-table-title-text option-line">판매상태</td>
 														</tr>
 													</thead>
-													<tbody id="productDeleteView">
+													<tbody id="selectPostingView">
 														
 													</tbody>
 												</table>
@@ -383,7 +385,7 @@
 							data-bs-dismiss="modal">취소</button>
 						<button type="button"
 							class="btn btn-primary modal-status-select-submit-button"
-							id="tdSubmitBtn">신청</button>
+							id="dealAppSubmitBtn">신청</button>
 					</div>
 				</div>
 			</div>
@@ -394,42 +396,53 @@
 					<td class="content-table-title-text option-line"><input
 						class="form-check-input" type="checkbox" value="" id="allCheck" /></td>
 					<td class="content-table-title-text option-line">판매글번호</td>
-					<td class="content-table-title-text option-line">별점</td>
+					<td class="content-table-title-text option-line">평점</td>
 					<td class="content-table-title-text option-line">제목</td>
 					<td class="content-table-title-text option-line">할인율</td>
 					<td class="content-table-title-text option-line">대표금액</td>
+					<td class="content-table-title-text option-line">쿠폰코드</td>
 					<td class="content-table-title-text option-line">카테고리</td>
 					<td class="content-table-title-text option-line">판매상태</td>
 					<td class="content-table-title-text option-line">등록일</td>
 					<td class="content-table-title-text option-line">오늘의딜 기간</td>
 				</tr>
 			</thead>
-			<tbody id="productList">
-				<c:forEach var="productListView" items="${productListView}">
+			<tbody id="postingList">
+				<c:forEach var="postingListView" items="${postingListView}">
 					<tr class="content-table-content content-hover">
 						<td class="content-table-content-text option-line checkTd">
-							<c:if test="${productListView.getStatus() ne '승인대기'}">
+							<c:if test="${postingListView.getPost_status() ne '승인대기'}">
 								<input class="form-check-input check" type="checkbox" value="" />
 							</c:if>
 						</td>
-						<td class="content-table-content-text option-line state0">${productListView.getProduct_id()}</td>
-						<td class="content-table-content-text option-line">${productListView.getProduct_seller_code()}</td>
-						<td class="content-table-content-text option-line">${productListView.getProduct_title()}</td>
+						<td class="content-table-content-text option-line state0">${postingListView.getPost_id()}</td>
+						<td class="content-table-content-text option-line">${postingListView.getStar_ratio()}</td>
+						<td class="content-table-content-text option-line">
+						${postingListView.getPost_name()}
+						<c:if test="${postingListView.isToday_deal()}">
+							<img class="badgeicon" alt="[오늘의딜]" title="오늘의딜" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/badgeIcon-deal.gif">
+						</c:if>
+						</td>
+						<td class="content-table-content-text option-line">${postingListView.getSale_ratio()}%</td>
 						<td class="content-table-content-text option-line"><fmt:formatNumber
-								value="${productListView.getProduct_price()}" type="currency" /></td>
-						<td class="content-table-content-text option-line">${productListView.getCategory_name()}</td>
-						<td class="content-table-content-text option-line">${productListView.getStatus()}</td>
-						<td class="content-table-content-text option-line">${productListView.getProduct_quantity()}</td>
+								value="${postingListView.getWhole_price()}" type="currency" /></td>
+						<td class="content-table-content-text option-line">${postingListView.getPost_couponid()}</td>
+						<td class="content-table-content-text option-line">${postingListView.getCate_name()}</td>
+						<td class="content-table-content-text option-line">${postingListView.getPost_status()}</td>
 						<td class="content-table-content-text option-line"><fmt:formatDate
-								value="${productListView.getProduct_created()}"
+								value="${postingListView.getPost_created()}"
 								pattern="yyyy-MM-dd HH:mm" /></td>
-						<td class="content-table-content-text option-line"><fmt:formatDate
-								value="${productListView.getProduct_updated()}"
-								pattern="yyyy-MM-dd HH:mm" />
-								 ~ <!-- 등록된 쿠폰의 코드 표시해주는 부분도 추가 -->
+						<td class="content-table-content-text option-line">
+							<c:if test="${postingListView.getDeal_time() ne null}">
 								<fmt:formatDate
-								value="${productListView.getProduct_updated()}"
-								pattern="yyyy-MM-dd HH:mm" /></td>
+										value="${postingListView.getDeal_time()}"
+										pattern="yyyy-MM-dd HH:mm" />
+										 ~ 
+								<fmt:formatDate
+										value="${postingListView.getDeal_endtime()}"
+										pattern="yyyy-MM-dd HH:mm" />
+							</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

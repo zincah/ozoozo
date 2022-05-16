@@ -1,5 +1,6 @@
 package ozo.spring.house.admin.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,15 +28,25 @@ public class AdminProductManageController {
 	AdminProductManageService productService;
 	
 	@RequestMapping(value="/movePaging.admin", method=RequestMethod.POST)
-	public String movePaging(@RequestBody Map<String, String> searchCondition, Criteria cri, Model model) {
+	public String movePaging(@RequestBody Map<String, String> searchMap, Criteria cri, Model model, AdminProductVO pvo) {
 
-		System.out.println(searchCondition);
-		int pageNum = Integer.parseInt(searchCondition.get("pageNum"));
+		System.out.println(searchMap);
+		int pageNum = Integer.parseInt(searchMap.get("pageNum"));
+		
+		pvo.setPost_status(searchMap.get("posttype"));
+		pvo.setCate_name(searchMap.get("category"));
+		pvo.setStartdate(Date.valueOf(searchMap.get("startdate")));
+		pvo.setEnddate(Date.valueOf(searchMap.get("enddate")));
+		pvo.setPack(searchMap.get("pack"));
+		pvo.setKeyword(searchMap.get("keyword"));
 		
 		cri = new Criteria(pageNum, 10);
-		List<AdminProductVO> postList = productService.selectPosting(cri);
+		pvo.setCri(cri);
+		
+		List<AdminProductVO> postList = productService.getProductList(pvo);
 		model.addAttribute("postList", postList);
 		model.addAttribute("pageMaker", cri);
+		model.addAttribute("totalcount", productService.searchListCount(pvo));
 
 		return "postList";
 	}
@@ -54,9 +65,14 @@ public class AdminProductManageController {
 		}
 		
 		cri = new Criteria(Integer.parseInt(modifyInfo.get(modifyInfo.size()-2)), 10);
-		List<AdminProductVO> postList = productService.selectPosting(cri);
+		AdminProductVO vo = new AdminProductVO();
+		vo.setCri(cri);
+
+		List<AdminProductVO> postList = productService.getProductList(vo);
 		model.addAttribute("postList", postList);
 		model.addAttribute("pageMaker", cri);
+		System.out.println(productService.searchListCount(vo));
+		model.addAttribute("totalcount", productService.searchListCount(vo));
 		
 		return "postList";
 	}
@@ -74,9 +90,13 @@ public class AdminProductManageController {
 		}
 		
 		cri = new Criteria(Integer.parseInt(couponInfo.get(couponInfo.size()-2)), 10);
-		List<AdminProductVO> postList = productService.selectPosting(cri);
+		AdminProductVO vo = new AdminProductVO();
+		vo.setCri(cri);
+		
+		List<AdminProductVO> postList = productService.getProductList(vo);
 		model.addAttribute("postList", postList);
 		model.addAttribute("pageMaker", cri);
+		model.addAttribute("totalcount", productService.searchListCount(vo));
 		
 		return "postList";
 	}
@@ -107,13 +127,59 @@ public class AdminProductManageController {
 		}
 		
 		cri = new Criteria(Integer.parseInt(dealInfo.get(dealInfo.size()-2)), 10);
-		List<AdminProductVO> postList = productService.selectPosting(cri);
+		AdminProductVO vo = new AdminProductVO();
+		vo.setCri(cri);
+		
+		List<AdminProductVO> postList = productService.getProductList(vo);
 		model.addAttribute("postList", postList);
 		model.addAttribute("pageMaker", cri);
+		model.addAttribute("totalcount", productService.searchListCount(vo));
 		
 		return "postList";
 	}
 	
+	
+	@RequestMapping(value="/productSearchBox.admin", method=RequestMethod.POST)
+	public String productSearchBox(@RequestBody Map<String, String> searchMap, AdminProductVO pvo, Model model, Criteria cri) {
+
+		System.out.println(searchMap);
+		
+		pvo.setPost_status(searchMap.get("posttype"));
+		pvo.setCate_name(searchMap.get("category"));
+		pvo.setStartdate(Date.valueOf(searchMap.get("startdate")));
+		pvo.setEnddate(Date.valueOf(searchMap.get("enddate")));
+		pvo.setPack(searchMap.get("pack"));
+		pvo.setKeyword(searchMap.get("keyword"));
+		pvo.setCri(new Criteria());
+		
+		List<AdminProductVO> postList = productService.getProductList(pvo);
+		model.addAttribute("postList", postList);
+		model.addAttribute("pageMaker", cri);
+		model.addAttribute("totalcount", productService.searchListCount(pvo));
+		
+		return "postList";
+	}
+	
+	@RequestMapping(value="/productSearch.admin", method=RequestMethod.POST)
+	public String productSearch(@RequestBody Map<String, String> searchMap, AdminProductVO pvo, Model model, Criteria cri) {
+
+		System.out.println(searchMap);
+		
+		pvo.setPost_status(searchMap.get("posttype"));
+		pvo.setCate_name(searchMap.get("category"));
+		pvo.setStartdate(Date.valueOf(searchMap.get("startdate")));
+		pvo.setEnddate(Date.valueOf(searchMap.get("enddate")));
+		pvo.setPack(searchMap.get("pack"));
+		pvo.setKeyword(searchMap.get("keyword"));
+		pvo.setCri(new Criteria());
+		
+		List<AdminProductVO> postList = productService.getProductList(pvo);
+		model.addAttribute("postList", postList);
+		model.addAttribute("pageMaker", cri);
+		model.addAttribute("totalcount", productService.searchListCount(pvo));
+
+		return "postList";
+	}
 	
 
 }

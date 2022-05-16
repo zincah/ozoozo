@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
+import ozo.spring.house.user.vo.UserVO;
 
 @Repository
 public class UserMainDAO {
@@ -35,6 +36,18 @@ public class UserMainDAO {
 	public List<BannerVO> selectBannerList(){
 		System.out.println("mybatis in usermaindao mainbannerlist");
 		return sqlSessionTemplate.selectList("UserMainDAO.selectBannerList");
+	}
+	
+	// 잠깐 추가
+	public UserVO checkUserByNaver(UserVO vo) {
+		System.out.println("mybatis in userdao naverlogin");
+		return sqlSessionTemplate.selectOne("UserDAO.checkUserByNaver", vo);
+	}
+	
+	// 여기도 잠깐 추가
+	public void lastLoginCheck(UserVO vo) {
+		System.out.println("mybatis in userdao lastlogintimecheck");
+		sqlSessionTemplate.update("UserDAO.lastLoginCheck", vo);
 	}
 
 	public List<UserProductVO> todayDealList(){

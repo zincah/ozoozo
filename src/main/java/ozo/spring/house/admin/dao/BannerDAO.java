@@ -26,11 +26,10 @@ public class BannerDAO {
 		sessiontemplate.insert("BannerDAO.b_insert", vo);
 		
 	}
-	public List<BannerVO> b_delete(BannerVO vo){
-		
-		
-		return null;
-		
+	
+	public void b_delete(BannerVO vo){
+		System.out.println("mybatis admin banner delete");
+		sessiontemplate.delete("BannerDAO.b_delete", vo);
 	}
 	
 	public void b_boolean(BannerVO vo){

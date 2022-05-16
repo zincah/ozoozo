@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ozo.spring.house.seller.dao.CategoryDAO;
 import ozo.spring.house.seller.vo.CategoryVO;
+import ozo.spring.house.seller.vo.FilterVO;
 
 @Service("categoryService")
 public class CategoryServiceImpl implements CategoryService {
@@ -27,6 +28,11 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<CategoryVO> getBotCategoryList(CategoryVO vo) {
 		return categoryDAO.getBotCategoryList(vo);
+	}
+
+	@Override
+	public List<List<FilterVO>> getFilterOption(CategoryVO vo) {
+		return categoryDAO.getFilterOption(vo);
 	}
 
 }

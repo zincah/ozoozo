@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ozo.spring.house.seller.vo.CategoryVO;
+import ozo.spring.house.seller.vo.FilterVO;
 import ozo.spring.house.user.dao.UserCategoryDAO;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserProductVO;
@@ -13,29 +15,42 @@ import ozo.spring.house.user.vo.UserProductVO;
 public class UserCategoryServiceImpl implements UserCategoryService{
 	
 	@Autowired
-	UserCategoryDAO UserCategoryDAO;
+	UserCategoryDAO userCategoryDAO;
 	
 	//setter
 	public void setUserCategoryDAO(UserCategoryDAO userCategoryDAO) {
-		UserCategoryDAO = userCategoryDAO;
+		userCategoryDAO = userCategoryDAO;
 	}
 
 	@Override
-	public List<UserCategoryVO> m_category(UserCategoryVO vo) {
-		return UserCategoryDAO.m_category(vo);
-		
+	public List<List<UserCategoryVO>> selectCategoryList(UserCategoryVO vo) {
+		return userCategoryDAO.selectCategoryList(vo);
 	}
 
 	@Override
-	public List<UserCategoryVO> s_category(UserCategoryVO vo) {
-		return UserCategoryDAO.s_category(vo);
-		
+	public List<UserCategoryVO> printTitle() {
+		return userCategoryDAO.printTitle();
 	}
 
 	@Override
-	public List<UserCategoryVO> b_category(UserCategoryVO vo) {
-		return UserCategoryDAO.b_category(vo);
-		
+	public List<UserProductVO> selectProductByCate(UserCategoryVO vo) {
+		return userCategoryDAO.selectProductByCate(vo);
 	}
+  
+  @Override
+	public List<UserCategoryVO> getCateName(UserCategoryVO vo) {
+		return userCategoryDAO.getCateName(vo);
+	}
+
+	@Override
+	public List<UserProductVO> getPostList(UserCategoryVO vo) {
+		return userCategoryDAO.getPostList(vo);
+	}
+
+	@Override
+	public List<List<FilterVO>> getFilterOption(UserCategoryVO vo) {
+		return userCategoryDAO.getFilterOption(vo);
+	}
+
 
 }

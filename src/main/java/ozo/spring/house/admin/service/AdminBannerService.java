@@ -10,7 +10,7 @@ public interface AdminBannerService {
 	
 	public List<BannerVO> b_select (BannerVO vo);
 	public void b_insert(BannerVO vo);
-	public List<BannerVO> b_delete(BannerVO vo);
 	public HashMap<String, String> b_boolean(BannerVO vo);
 	public List<BannerVO> b_selectone(BannerVO vo);
+	public void b_delete(BannerVO vo);
 }

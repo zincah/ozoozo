@@ -59,21 +59,13 @@ public class UserController {
 	public String user_best() {
 		return "ozobest_zinc";
 	}
-	@RequestMapping(value = "/cart.com")
-	public String user_cart() {
-		return "ozocart_zinc";
-	}
 	@RequestMapping(value = "/category.com")
 	public String user_category() {
 		return "ozocategory_zinc";
 	}
 	
 	
-	//ȸ������ ������
-	@RequestMapping(value = "/signUp.com")
-	public String user_signUp(UserVO vo) {
-		return "SignUp";
-	}
+
 	
 	@RequestMapping(value = "/shop.com")
 	public String user_shop() {
@@ -144,10 +136,10 @@ public class UserController {
 	public String user_shopApply(HttpServletRequest request) {
 		
 		HttpSession session = request.getSession();
-		if(session.getAttribute("Usercode")!=null) {
+		if(session.getAttribute("User_Num")!=null) {
 			return "ShopApply";
 		}else {
-			return "ozoLogin_zinc";
+			return "redirect:login.com";
 		}
 	}
 	//�α��� ȭ�鿡�� ��й�ȣ �缳��

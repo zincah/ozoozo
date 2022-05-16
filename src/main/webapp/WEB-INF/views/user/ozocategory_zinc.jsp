@@ -12,40 +12,262 @@
 <title>Document</title>
 <link href="resources/css/user_css/zinc/ozocategory_main.css?var=1"
 	rel="stylesheet" />
-<link href="resources/css/user_css/zinc/ozoper_photo_cate.css?var=1"
+<link href="resources/css/user_css/zinc/ozoper_photo_cate.css?var=12"
 	rel="stylesheet" />
-	
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
 	integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
 	crossorigin="anonymous"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
-<script src="resources/js/userjs/category_menu.js"></script>
 <script>
 
+		var filterList = [];
+		
         $(document).ready(function(){
-
+        	
             $(".filter_btn").on('click', function(){
                 console.log(this.value);
-                $(".category_filter_output_wrap").show(); 
                 
-                $(".category_filter_control_tag_item button div").text(this.value);
+                var filter = $(this).val();
+
+            });
+            
+            
+            $("input[name=checking]").change(function(){
+            	
+            	var filter = $(this).val();
+            	
+            	if($(this).prop('checked')==true){
+            		plusList(filter);
+            	}else{
+            		removeList(filter);
+            	}
+            	
+            })
+            
+            // filtering 초기화 버튼
+            $(".reset_btn").click(function(){
+
+            	filterList = []; // 배열 초기화
+            	$("input[name=checking]").prop("checked", false); // 모든 체크박스 해제
+            	$(".category_filter_control_tag_item").remove(); // 리스트 아이템 요소 다 제거
+            	$(".category_filter_output_wrap").hide(); // 리스트 띄우는 부분 숨기기
+            	
+            	filtering(filterList);
             });
 
             /* 카테고리 토글 */
             $(".category_tree_child_layer").hide();
             $(".category_entry_expand", this).click(function(){
                 var open = $(this).parents("div").siblings("div");
-                console.log(open[0]);
+                //console.log(open[0]);
                 $(open[0]).slideToggle();
             });
 
-            $(".reset_btn").click(function(){
-                $(".category_filter_output_wrap").hide();
+
+            
+            
+            // 이동
+            $(".movetitle").on("click", function(e){
+            	e.preventDefault();
+            	
+            	$("#actionForm").find("input[name='catecode']").val($(this).attr("href"));
+            	$("#actionForm").submit();
             });
+            
+
+            $(".subcate").click(function(){
+            	$("#category_head").html("");
+            	var code = $(this).attr("id");
+
+            	movelink(code);
+            })
+            
+            $(".botcate").click(function(){
+            	$("#category_head").html("");
+            	var code = $(this).attr("id");
+
+            	movelink(code);
+            })
+            
+            // filter
+            $(".filter_btn").click(function(event){
+
+            	//alert($(this).val());
+            	if($(this).val() == '오늘의딜'){ // 오늘의딜은 버튼임으로 검증
+            		
+            		var filter = $(this).val();
+            		
+            		// filtersize = 1
+            		
+            		if(filterList.length >= 1){
+            			
+            			var filtercnt = 0;
+            			
+            			for(var i=0; i<filterList.length; i++){
+            				filtercnt++;
+            				if(filter == filterList[i]){
+                    			removeList(filter);
+                    			break;
+                    		}else if(filtercnt==filterList.length){
+                    			plusList(filter);
+                    			break;
+                    		}
+                    	}
+
+            		}else if(filterList.length == 0){
+            			plusList(filter);
+            		}
+            		
+            	}else{
+            		
+            		console.log("다른거");
+            		var name = $(this).val();
+                	
+                	if($("#"+name+"").css("display")=='none'){
+                		$(".dropping").hide();
+                		$("#"+name+"").show();
+                	}else{
+                		$("#"+name+"").hide();
+                	}
+            	}
+
+            })
+            
+            
 
 
         });
+        
+        
+        
+        // 체크박스를 체크했을 때 리스트에 추가해주는 jquery
+        function plusList(filter){
+        	filterList.push(filter);
+        	console.log("plus");
+			console.log(filterList);
+			
+			if(filterList.length == 1){
+				$(".category_filter_output_wrap").show(); 
+			}
+
+			var html = '<li class="category_filter_control_tag_item" id="'+filter+'">\
+							<button class="category_filter_tag">\
+							<div>'+filter+'</div>\
+							<i class="fa-solid fa-xmark"></i>\
+							</button>\
+							</li>';
+							
+			
+			$(".category_filter_control_tag_list").append(html);
+
+			// filtering ajax 연결
+			filtering(filterList);
+        }
+        
+        // 동적요소 새롭게 이벤트 넣을 때
+        $(document).on('click', '.category_filter_control_tag_item button', function(){
+            var it = $(this).parent('li').attr("id");
+            removeList(it);
+            
+            $("input[name=checking]:checked").each(function(){
+            	if(it == $(this).val()){
+            		$(this).prop("checked", false);
+            	}
+            })
+        });
+        
+
+        
+        // 체크박스를 해제했을 때 해당 요소 삭제하는 jquery
+        function removeList(filter){
+        	for(var i=0; i<filterList.length; i++){
+        		if(filter == filterList[i]){
+        			filterList.splice(i, 1);
+					$(".category_filter_control_tag_item").eq(i).remove();
+        			break;
+        		}
+        	}
+        	console.log(filterList);
+        	
+        	if(filterList.length == 0){
+				$(".category_filter_output_wrap").hide(); 
+			}
+        	
+        	filtering(filterList);
+        }
+        
+        // 어떻게 드롭다운이 바로 밑에 뜨게 하지
+        function checkPosition(name){
+        	
+        	var filterLayer = $(".category_filter_control_layer");
+            filterLayer.click(function(event){
+            	//var x = event.pageX;
+            	//var y = event.pageY;
+            	
+            	//var x = event.clientX;
+            	//var y = event.clientY;
+            	
+            	console.log(x);
+            	console.log(y);
+            	
+            	$("#"+name+"").css("top", y);
+            	$("#"+name+"").css("left", x);
+
+            })
+        }
+        
+        function movelink(code){
+        	
+        	var top = parseInt(code/10000);
+        	var sub = code;
+        	
+        	var whole = top+"_"+sub;
+
+        	$("#actionForm").find("input[name='catecode']").val(whole);
+        	$("#actionForm").submit();
+
+        }
+        
+        function filtering(list){
+        	
+        	var whole = [];
+
+        	var cates = [];
+        	
+        	cates.push($("#top").val());
+        	cates.push(""+parseInt($("#mid").val()/100));
+        	cates.push($("#sub").val());
+        	
+			whole.push(list);
+			whole.push(cates);
+			
+			console.log(whole);
+
+        	// 배송, 가격 필터링 추가해야함
+
+        	
+        	$.ajax({
+    	  		url:'getFilterList.com',
+    	  		method:'post',
+    	  		data: JSON.stringify(whole),
+    	  		contentType : 'application/json; charset=UTF-8',
+    	  		dataType : 'html',
+    	  		success : function(resp){
+    				
+    	  			$("#product-layer").html(resp);
+    	  				
+    	  		},
+    	  		error : function(request, status, error) {
+    				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    			}
+    	  		});
+        	
+        	
+        	
+        }
+        
+        
       
 		
 		</script>
@@ -54,450 +276,78 @@
 	<header>
 		<jsp:include page="./header/OzoH.jsp"></jsp:include>
 	</header>
+	
 	<div class="category_container container">
 		<div class="category_wrap">
 			<div class="category row">
 				<div class="category_side_bar col-12 col-md-3">
 					<section class="category_list">
 						<div class="category_list_title">
-							<a id="1" href="#">가구</a>
+							<a class="movetitle" href="${title.cate_code }">${title.cate_name }</a>
 						</div>
 						<ul class="category_tree">
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="10000" href="#" class="category_entry_move">침대</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path
-												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
+							
+							<c:forEach items="${wholeList }" var="cateList">
+								<li class="category_entry">
+									<div class="category_entry_header">
+										<a id="${cateList[0].subcate_code }" class="category_entry_move subcate">${cateList[0].subcate_name }</a>
+										<c:if test="${cateList[1] != null }">
+										<button class="category_entry_expand">
+											<svg class="icon" width="12" height="12" fill="currentColor"
+												viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
+												<path
+													d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
+										</button>
+										</c:if>
+									</div> <!--버튼 누르면 밑에 토글다운 생기게-->
+	
 									<div class="category_tree_child_layer" style="overflow: hidden;">
-									<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="10001" href="#">침대프레임</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10002" href="#">침대+매트리스</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10003" href="#">침대부속가구</a>
-										</li>
-									</ul>
-								</div>
-								
-							</li>
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="20100" href="#" class="category_entry_move">매트리스.토퍼</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path
-												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
-								</div> <!--버튼 누르면 밑에 토글다운 생기게-->
-
-								<div class="category_tree_child_layer" style="overflow: hidden;">
-									<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="10101" href="#">매트리스</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10102" href="#">토퍼</a>
-										</li>
-									</ul>
-								</div>
-
-							</li>
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="10200" href="#" class="category_entry_move">소파</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path
-												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
-								</div> <!--버튼 누르면 밑에 토글다운 생기게-->
-								<div class="category_tree_child_layer" style="overflow: hidden;">
-									<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="10201" href="#">일반소파</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10202" href="#">리클라이너</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10203" href="#">소파베드</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10204" href="#">좌식소파</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10205" href="#">소파스톨</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="10300" href="#" class="category_entry_move">테이블.책상</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path
-												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
-								</div> <!--버튼 누르면 밑에 토글다운 생기게-->
-								<div class="category_tree_child_layer" style="overflow: hidden;">
-									<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="10301" href="#">거실.소파테이블</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10302"  href="#">사이드테이블</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10303"  href="#">식탁</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10304" href="#">책상</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10305" href="#">좌식테이블</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="10400" href="#" class="category_entry_move">거실장.tv장</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
-								</div> <!--버튼 누르면 밑에 토글다운 생기게-->
-								<div class="category_tree_child_layer" style="overflow: hidden;">
-									<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="10401" href="#">일반거실장</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10402" href="#">높은거실장.사이드보드</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10403"  href="#">tv스탠드</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="10500" href="#" class="category_entry_move">서랍.수납장</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path
-												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
-								</div> <!--버튼 누르면 밑에 토글다운 생기게-->
-								<div class="category_tree_child_layer" style="overflow: hidden;">
-									<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="10501" href="#">서랍장</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10502" href="#">수납장</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10503" href="#">캐비닛</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10504" href="#">수납수납장</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10505" href="#">협탁</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="10600" href="#" class="category_entry_move">진열장.책장</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path
-												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
-								</div> <!--버튼 누르면 밑에 토글다운 생기게-->
-								<div class="category_tree_child_layer" style="overflow: hidden;">
-									<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="10601" href="#">진열장.장식장</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10602" href="#">책장</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10603" href="#">매거진랙</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="10700" href="#" class="category_entry_move">선반</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path
-												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
-								</div> <!--버튼 누르면 밑에 토글다운 생기게-->
-								<div class="category_tree_child_layer" style="overflow: hidden;">
-								<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="10701" href="#">벽선반</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10702" href="#">스탠드선반</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10703" href="#">앵글.조립식선반</a>
-										</li>
-										
-									</ul>
-								</div>
-							</li>
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="10800" href="#" class="category_entry_move">행거.옷장</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path
-												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
-								</div> <!--버튼 누르면 밑에 토글다운 생기게-->
-								<div class="category_tree_child_layer" style="overflow: hidden;">
-								<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="10801" href="#">옷장</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10802" href="#">붙박이장</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10803" href="#">드레스룸</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10803" href="#">행거</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="10900" href="#" class="category_entry_move">의자</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path
-												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
-								</div> <!--버튼 누르면 밑에 토글다운 생기게-->
-								<div class="category_tree_child_layer" style="overflow: hidden;">
-								<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="10901" href="#">인테리어의자</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10902" href="#">스톨.벤치</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10903" href="#">안락의자</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10904" href="#">흔들의자</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10905" href="#">안락의자</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10906" href="#">흔들의자</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10907" href="#">학생.사무용의자</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10908" href="#">게이밍의자</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10909" href="#">좌식의자.자세보정의자</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="10910" href="#">바체어</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="11000" href="#" class="category_entry_move">화장대.콘솔</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path
-												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
-								</div> 
-								<!--버튼 누르면 밑에 토글다운 생기게-->
-								
-								<div class="category_tree_child_layer" style="overflow: hidden;">
-								<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="11001" href="#">일반화장대</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="11002" href="#">수납화장대</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="11003" href="#">좌식.미니화장대</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="11004" href="#">접이식화장대</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="11005" href="#">콘솔</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="11006" href="#">화장대+의자</a>
-										</li>
-										
-									</ul>
-								</div>
-							</li>
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="12000" href="#" class="category_entry_move">거울</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path
-												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
-								</div> <!--버튼 누르면 밑에 토글다운 생기게-->
-								<div class="category_tree_child_layer" style="overflow: hidden;">
-								<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="12001" href="#">전신거울</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="12002" href="#">벽거울</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="12003" href="#">탁상거울</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="13000" href="#" class="category_entry_move">가벽.파티션</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path
-												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
-								</div> 
-							<!--버튼 누르면 밑에 토글다운 생기게-->
-								<div class="category_tree_child_layer" style="overflow: hidden;">
-								<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="12001" href="#">인테리어파티션</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="12002" href="#">사무용파티션</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="14000" href="#" class="category_entry_move">야외가구</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path
-												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
-								</div> 
-								<!--버튼 누르면 밑에 토글다운 생기게-->
-								<div class="category_tree_child_layer" style="overflow: hidden;">
-								<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="14001" href="#">일반화장대</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="11002" href="#">수납화장대</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="11003" href="#">좌식.미니화장대</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="11004" href="#">접이식화장대</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="11005" href="#">콘솔</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="11006" href="#">화장대+의자</a>
-										</li>
-										
-									</ul>
-								</div>
-							</li>
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="15000" href="#" class="category_entry_move">유아동가구</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path
-												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
-								</div> 
-								<!--버튼 누르면 밑에 토글다운 생기게-->
-								<div class="category_tree_child_layer" style="overflow: hidden;">
-								<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="15001" href="#">침대</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="15002" href="#">수납장.옷장</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="15003" href="#">책상</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="15004" href="#">의자.소파</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="15005" href="#">놀이기구</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="15006" href="#">안전문.침대가드</a>
-										</li>
-										
-									</ul>
-								</div>
-							</li> 
-							<li class="category_entry">
-								<div class="category_entry_header">
-									<a id="16000" href="#" class="category_entry_move">공간별가구</a>
-									<button class="category_entry_expand">
-										<svg class="icon" width="12" height="12" fill="currentColor"
-											viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
-											<path
-												d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-									</button>
-								</div> <!--버튼 누르면 밑에 토글다운 생기게-->
-								<div class="category_tree_child_layer" style="overflow: hidden;">
-								<ul class="category_tree_children">
-										<li class="category_tree_children_entry"><a id="16001" href="#">거실</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="16002" href="#">침실</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="16003" href="#">주방</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="16004" href="#">옷방.드레스룸</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="16005" href="#">서재.공부방</a>
-										</li>
-										<li class="category_tree_children_entry"><a id="16006" href="#">아이방</a>
-										</li>
-										
-									</ul>
-								</div>
-							</li>
+										<ul class="category_tree_children">
+											<c:forEach items="${cateList }" var="cate" begin="1">
+											<li class="category_tree_children_entry">
+												<a id="${cate.subcate_code }" class="botcate">${cate.subcate_name }</a>
+											</li>
+											</c:forEach>
+										</ul>
+									</div>
+								</li>
+							</c:forEach>
 						</ul>
 
 						<ul class="category_list_others">
-							<li id="2" class="category_list_others_item"><a >패브릭</a></li>
-							<li id="16" class="category_list_others_item"><a >조명</a></li>
-							<li id="3" class="category_list_others_item"><a href="#">가전</a></li>
-							<li id="4" class="category_list_others_item"><a href="#">주방용품</a></li>
-							<li id="5" class="category_list_others_item"><a href="#">데코.식물</a>
-							</li>
-							<li id="7" class="category_list_others_item"><a href="#">수납.정리</a>
-							</li>
-							<li id="6" class="category_list_others_item"><a href="#">생활용품</a></li>
-							<li id="8" class="category_list_others_item"><a href="#">생필품</a></li>
-							<li id="9" class="category_list_others_item"><a href="#">공구.DIY</a>
-							</li>
-							<li id="10" class="category_list_others_item"><a href="#">인테리어시공</a>
-							</li>
-							<li id="11" class="category_list_others_item"><a href="#">반려동물</a></li>
-							<li id="12" class="category_list_others_item"><a href="#">캠핑용품</a></li>
-							<li id="13" class="category_list_others_item"><a href="#">실내운동</a></li>
-							<li id="14" class="category_list_others_item"><a href="#">유아.아동</a>
-							</li>
-							<li id="15" class="category_list_others_item"><a href="#">렌탈</a></li>
+							<c:forEach items="${others }" var="other">
+								<li class="category_list_others_item"><a href="${other.cate_code }" class="movetitle">${other.cate_name }</a></li>
+							</c:forEach>
 							
 						</ul>
-
-
 					</section>
+					
+					<form action="m_category.com" method="get" id="actionForm">
+						<input type="hidden" name="catecode" value="">
+					</form>
 				</div>
 
 				<div class="category_content col-12 col-md-9">
 					<div class="category_header">
 						<div class="category_header_title">
-							<a href="#">가구</a>
+							<span>${title.cate_name }</span>
+							<c:if test="${catename.size() > 0 }">
+								<svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path></svg>
+								 <span>${catename[0].subcate_name }</span>
+								<c:if test="${catename.size() > 1}">
+									<svg class="icon" width="8" height="8" viewBox="0 0 8 8" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M4.95 4L2.12 1.19l.7-.71 3.54 3.54-3.53 3.53-.7-.7z"></path></svg>
+									 <span>${catename[1].subcate_name }</span>
+								</c:if>
+							</c:if>
 						</div>
+						<input type="hidden" value="${title.cate_code }" id="top">
+						<input type="hidden" value="${catename[0].subcate_code }" id="mid">
+						<input type="hidden" value="${catename[1].subcate_code }" id="sub">
 						<div class="category_banner">
 							<div class="carousel_frame">
 								<a href="#"> <!-- large image -->
 									<div class="carousel_banner">
-										<img class="banner_img" src="sources/banner1.jpg">
+										<img class="banner_img" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/banner1.jpg">
 									</div>
 								</a>
 							</div>
@@ -505,17 +355,17 @@
 							<div class="carousel_frame">
 								<a href="#"> <!-- large image -->
 									<div class="carousel_banner">
-										<img class="banner_img" src="sources/banner2.jpg">
+										<img class="banner_img" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/banner2.jpg">
 									</div>
 								</a>
 							</div>
 							<div class="paginator_item">
 								<ul class="carousel_paginator">
-									<li class="pagi_one"><span
-										class="carousel_paginator__page selected" data-key="1"></span>
+									<li class="pagi_one">
+										<span class="carousel_paginator__page selected" data-key="1"></span>
 									</li>
-									<li class="pagi_two"><span
-										class="carousel_paginator__page" data-key="2"></span></li>
+									<li class="pagi_two">
+										<span class="carousel_paginator__page" data-key="2"></span></li>
 								</ul>
 							</div>
 
@@ -547,70 +397,14 @@
 
 					<div class="category_navi">
 						<ul class="category_navi_list">
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn1.png">
-									<div class="navi_text">침대</div>
-							</a></li>
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn2.png">
-									<div class="navi_text">매트리스.토퍼</div>
-							</a></li>
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn3.png">
-									<div class="navi_text">소파</div>
-							</a></li>
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn4.png">
-									<div class="navi_text">테이블.책상</div>
-							</a></li>
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn5.png">
-									<div class="navi_text">거실장.tv장</div>
-							</a></li>
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn6.png">
-									<div class="navi_text">서랍.수납장</div>
-							</a></li>
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn7.png">
-									<div class="navi_text">진열장.책장</div>
-							</a></li>
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn8.jpg">
-									<div class="navi_text">선반</div>
-							</a></li>
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn9.png">
-									<div class="navi_text">행거.옷장</div>
-							</a></li>
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn10.png">
-									<div class="navi_text">의자</div>
-							</a></li>
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn11.png">
-									<div class="navi_text">화장대.콘솔</div>
-							</a></li>
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn12.png">
-									<div class="navi_text">거울</div>
-							</a></li>
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn13.png">
-									<div class="navi_text">가벽.파티션</div>
-							</a></li>
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn14.png">
-									<div class="navi_text">야외가구</div>
-							</a></li>
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn15.png">
-									<div class="navi_text">유아동가구</div>
-							</a></li>
-							<li class="category_navi_list_item"><a href="#"> <img
-									class="navi_img" src="sources/cn16.png">
-									<div class="navi_text">공간별가구</div>
-							</a></li>
+							<c:forEach items="${wholeList }" var="cateList">
+								<li class="category_navi_list_item">
+									<a href="#"> 
+										<div class="navi_text" id="${cateList[0].subcate_code }">${cateList[0].subcate_name }</div>
+									</a>
+								</li>
+							</c:forEach>
+							
 						</ul>
 					</div>
 
@@ -626,6 +420,7 @@
 											fill="#C2C8CC"></path></svg>
 									오늘의딜
 								</button>
+								
 							</li>
 							<li class="category_filter_control_list_item">
 								<button class="filter_btn" value="사용인원">
@@ -637,28 +432,144 @@
 										<path fill="currentColor" fill-rule="nonzero"
 											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
 								</button>
+									<!-- dropdown : 사용인원 -->
+									<div class="dropdown_panel1 location1 dropping" id="사용인원">
+										<ul class="property_filter_dropdown">
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="1인" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+															<span>1인</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="2인" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>2인</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="3인" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>3인</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="4인" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>4인</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="5인" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>5인</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="6인" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>6인</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="7인" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>7인</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="8인" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>8인</span>
+													</div>
+												</button>
+											</li>
+										</ul>
+									</div>
 							</li>
-							<li class="category_filter_control_list_item">
-								<button class="filter_btn" value="브랜드">
-									브랜드
-									<svg class="chevron" width="12" height="12"
-										preserveAspectRatio="xMidYMid meet">
-										<g fill="none" fill-rule="evenodd">
-										<path d="M0 0h12v12H0z"></path>
-										<path fill="currentColor" fill-rule="nonzero"
-											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
-								</button>
-							</li>
-							<li class="category_filter_control_list_item">
+							<li class="category_filter_control_list_item" style="postion:relative">
 								<button class="filter_btn" value="우드톤">
 									우드톤
-									<svg class="chevron" width="12" height="12"
-										preserveAspectRatio="xMidYMid meet">
-										<g fill="none" fill-rule="evenodd">
-										<path d="M0 0h12v12H0z"></path>
-										<path fill="currentColor" fill-rule="nonzero"
-											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
-								</button>
+									<svg class="chevron" width="12" height="12" preserveAspectRatio="xMidYMid meet">
+									<g fill="none" fill-rule="evenodd"><path d="M0 0h12v12H0z"></path><path fill="currentColor" fill-rule="nonzero" d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg></button>
+								
+									<div class="dropdown_panel2 location2 dropping" id="우드톤">
+										<ul class="property_filter_dropdown">
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="밝은우드톤" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>밝은 우드톤</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="중간우드톤" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>중간 우드톤</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="어두운우드톤" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>어두운 우드톤</span>
+													</div>
+												</button>
+											</li>
+										</ul>
+									</div>
+
 							</li>
 							<li class="category_filter_control_list_item">
 								<button class="filter_btn" value="색상">
@@ -670,10 +581,202 @@
 										<path fill="currentColor" fill-rule="nonzero"
 											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
 								</button>
+									<!-- dropdown : 색상 -->
+									<div class="dropdown_panel3 location3 dropping" id="색상">
+										<ul class="property_filter_dropdown">
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="화이트" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>화이트</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="블랙" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>블랙</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="브라운" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>브라운</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="골드" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>골드</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="오렌지" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>오렌지</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="그린" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>그린</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="네이비" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>네이비</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="핑크" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>핑크</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="투명" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>투명</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="그레이" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>그레이</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="베이지" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>베이지</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="실버" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>실버</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="레드" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>레드</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="옐로우" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>옐로우</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="블루" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>블루</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="바이올렛" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>바이올렛</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="멀티" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>멀티</span>
+													</div>
+												</button>
+											</li>
+										</ul>
+									</div>
 							</li>
 							<li class="category_filter_control_list_item">
 								<button class="filter_btn" value="리퍼상품">
-									리퍼 상품
+									리퍼 상품 유무
 									<svg class="chevron" width="12" height="12"
 										preserveAspectRatio="xMidYMid meet">
 										<g fill="none" fill-rule="evenodd">
@@ -681,10 +784,37 @@
 										<path fill="currentColor" fill-rule="nonzero"
 											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
 								</button>
+									<!-- dropdown 리퍼상품 -->
+									<div class="dropdown_panel4 location4 dropping" id="리퍼상품">
+										<ul class="property_filter_dropdown">
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="리퍼상품" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>리퍼 상품</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="리퍼상품 x" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>리퍼 상품 x</span>
+													</div>
+												</button>
+											</li>
+										</ul>
+									</div>
 							</li>
 							<li class="category_filter_control_list_item">
-								<button class="filter_btn" value="공간별상품">
-									공간별 상품
+								<button class="filter_btn" value="사용공간">
+									사용 공간
 									<svg class="chevron" width="12" height="12"
 										preserveAspectRatio="xMidYMid meet">
 										<g fill="none" fill-rule="evenodd">
@@ -692,6 +822,79 @@
 										<path fill="currentColor" fill-rule="nonzero"
 											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
 								</button>
+								<!-- dropdown 사용공간 -->
+									<div class="dropdown_panel5 location5 dropping" id="사용공간">
+										<ul class="property_filter_dropdown">
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="거실" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>거실</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="침실" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>침실</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="주방" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>주방</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="옷방" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>옷방</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="서재/공부방" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>서재/공부방</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="아이방" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>아이방</span>
+													</div>
+												</button>
+											</li>
+										</ul>
+									</div>
+								
+								
 							</li>
 							<li class="category_filter_control_list_item">
 								<button class="filter_btn" value="소재">
@@ -703,17 +906,199 @@
 										<path fill="currentColor" fill-rule="nonzero"
 											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
 								</button>
-							</li>
-							<li class="category_filter_control_list_item">
-								<button class="filter_btn" value="특가">
-									특가
-									<svg class="chevron" width="12" height="12"
-										preserveAspectRatio="xMidYMid meet">
-										<g fill="none" fill-rule="evenodd">
-										<path d="M0 0h12v12H0z"></path>
-										<path fill="currentColor" fill-rule="nonzero"
-											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
-								</button>
+								
+									<!-- dropdown : 소재 -->
+									<div class="dropdown_panel6 location6 dropping" id="소재">
+										<ul class="property_filter_dropdown">
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="원목" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>원목</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="천연 대리석" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>천연 대리석</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="세라믹" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>세라믹</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="유리" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>유리</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="플라스틱" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>플라스틱</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="콘크리트" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>콘크리트</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="인조가죽" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>인조가죽</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="스웨이드" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>스웨이드</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="벨벳" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>벨벳</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="가공목" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>가공목</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="인조대리석" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>인조대리석</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="화산석" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>화산석</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="철재/스틸" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>철재/스틸</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="라탄" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>라탄</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="천연가죽" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>천연가죽</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="패브릭" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>패브릭</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="매쉬" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>매쉬</span>
+													</div>
+												</button>
+											</li>
+										</ul>
+									</div>
 							</li>
 							<li class="category_filter_control_list_item">
 								<button class="filter_btn" value="상품유형">
@@ -725,6 +1110,33 @@
 										<path fill="currentColor" fill-rule="nonzero"
 											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
 								</button>
+								<!-- dropdown 리퍼상품 -->
+									<div class="dropdown_panel7 location7 dropping" id="상품유형">
+										<ul class="property_filter_dropdown">
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="렌탈상품" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>렌탈 상품</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="렌탈상품 x" name="checking">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>렌탈 상품 x</span>
+													</div>
+												</button>
+											</li>
+										</ul>
+									</div>
 							</li>
 							<li class="category_filter_control_list_item">
 								<button class="filter_btn" value="가격">
@@ -747,88 +1159,57 @@
 										<path fill="currentColor" fill-rule="nonzero"
 											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
 								</button>
+								<!-- dropdown 배송 -->
+									<div class="dropdown_panel9 location9 dropping" id="배송">
+										<ul class="property_filter_dropdown">
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="무료배송" name="checking1">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>무료배송</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="일반배송" name="checking1">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>일반배송</span>
+													</div>
+												</button>
+											</li>
+											<li class="property_filter_dropdown_list">
+												<button class="property_filter_dropdown_btn">
+													<div class="property_filter_dropdown_item">
+														<div class="_3zqA8 input-type">
+															<input type="checkbox" class="_3UImz" value="화물배송" name="checking1">
+															<span class="_2mDYR">
+															<svg width="1em" height="1em" viewBox="0 0 16 16" class="_2UftR"><path fill="currentColor" d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span></div>
+														<span>화물배송</span>
+													</div>
+												</button>
+											</li>
+										</ul>
+									</div>
 							</li>
 						</ul>
-
-						<!-- dropdown -->
-						<div class="dropdown_panel location">
-							<ul class="property_filter_dropdown">
-								<li class="property_filter_dropdown_list">
-									<button class="property_filter_dropdown_btn">
-										<div class="property_filter_dropdown_item">
-											<input type="checkbox" class="checkbox"> <span>1인</span>
-										</div>
-									</button>
-								</li>
-								<li class="property_filter_dropdown_list">
-									<button class="property_filter_dropdown_btn">
-										<div class="property_filter_dropdown_item">
-											<input type="checkbox" class="checkbox"> <span>2인</span>
-										</div>
-									</button>
-								</li>
-								<li class="property_filter_dropdown_list">
-									<button class="property_filter_dropdown_btn">
-										<div class="property_filter_dropdown_item">
-											<input type="checkbox" class="checkbox"> <span>3인</span>
-										</div>
-									</button>
-								</li>
-								<li class="property_filter_dropdown_list">
-									<button class="property_filter_dropdown_btn">
-										<div class="property_filter_dropdown_item">
-											<input type="checkbox" class="checkbox"> <span>4인</span>
-										</div>
-									</button>
-								</li>
-								<li class="property_filter_dropdown_list">
-									<button class="property_filter_dropdown_btn">
-										<div class="property_filter_dropdown_item">
-											<input type="checkbox" class="checkbox"> <span>5인</span>
-										</div>
-									</button>
-								</li>
-								<li class="property_filter_dropdown_list">
-									<button class="property_filter_dropdown_btn">
-										<div class="property_filter_dropdown_item">
-											<input type="checkbox" class="checkbox"> <span>6인</span>
-										</div>
-									</button>
-								</li>
-								<li class="property_filter_dropdown_list">
-									<button class="property_filter_dropdown_btn">
-										<div class="property_filter_dropdown_item">
-											<input type="checkbox" class="checkbox"> <span>7인</span>
-										</div>
-									</button>
-								</li>
-								<li class="property_filter_dropdown_list">
-									<button class="property_filter_dropdown_btn">
-										<div class="property_filter_dropdown_item">
-											<input type="checkbox" class="checkbox"> <span>8인</span>
-										</div>
-									</button>
-								</li>
-							</ul>
-						</div>
 					</div>
 
+						
+					
+						
 					<!-- 선택한 태그 나오게 하는 거-->
 					<div class="category_filter_output_wrap">
 						<div class="category_filter_control_package">
 							<div class="category_filter_control_pack">
 								<ul class="category_filter_control_tag_list">
-									<li class="category_filter_control_tag_item">
-										<button class="category_filter_tag">
-											<div></div>
-											<svg class="icon" width="12" height="12"
-												preserveAspectRatio="xMidYMid meet">
-												<g fill="none" fill-rule="evenodd" opacity=".5">
-												<path d="M0 0h12v12H0z"></path>
-												<path fill="currentColor" fill-rule="nonzero"
-													d="M9.778 1.5l.722.75-3.778 3.722L6.75 6l-.028.028L10.5 9.75l-.722.75L6 6.745 2.222 10.5 1.5 9.75l3.777-3.723L5.25 6l.027-.027L1.5 2.25l.722-.75L6 5.255 9.778 1.5z"></path></g></svg>
-										</button>
-									</li>
+									
 								</ul>
 							</div>
 							<button class="reset_btn">
@@ -860,12 +1241,10 @@
 								</li>
 								<li>
 									<button class="dropdown_btn">인기순</button>
+									<!-- 별점 순 -->
 								</li>
 								<li>
 									<button class="dropdown_btn">많은 리뷰순</button>
-								</li>
-								<li>
-									<button class="dropdown_btn">유저사진 많은순</button>
 								</li>
 								<li>
 									<button class="dropdown_btn">높은 가격순</button>
@@ -895,15 +1274,16 @@
         
                     </script>
 
-					<div class="photos row">
+					<div class="photos row" id="product-layer">
+						<c:forEach items="${productList }" var="product">
 						<div class="deals_list_wrap col-6 col-lg-4">
 							<article class="deals_item">
-								<a href="#" style="text-decoration: none;">
+								<a href="#" style="text-decoration: none; width: 100%;">
 									<div class="deals_item_wrap">
 										<div class="deals_item_pic_out">
 											<div class="deals_item_pic">
 												<div class="item_ani">
-													<img class="images" src="sources/best1.jpg">
+													<img class="images" src="${product.photo_url }">
 												</div>
 											</div>
 											<button class="item_bookmark">
@@ -942,31 +1322,33 @@
 														d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
 											</button>
 										</div>
+										
 										<div class="deals_item_content">
 											<div class="deals_item_header">
-												<span class="deals_item_header_brand">브랜드</span> <span
-													class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될
-													듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
+												<span class="deals_item_header_brand">${product.company_name }</span> 
+												<span class="deals_item_header_name">${product.post_name }</span>
 											</div>
 											<div class="deals_item_body_price">
-												<span class="sale_percent">50%</span> <span class="price">10,000</span>
+												<span class="sale_percent">${product.sale_ratio }%</span> 
+												<span class="price">${product.sale_price }</span>
 											</div>
 											<div class="deals_item_review">
 												<div class="review_icon">
 													<i class="fa-solid fa-star" style=""></i>
 												</div>
-												<div class="review_score">4.6</div>
-												<div class="review_count">리뷰 3,641</div>
+												<div class="review_score">${product.star_ratio }</div>
 											</div>
 											<div class="best_item_info">
-												<svg id="freeship_icon" class="icon" aria-label="무료배송"
-													width="47" height="20" viewBox="0 0 47 20"
-													preserveAspectRatio="xMidYMid meet">
-													<g fill="none" fill-rule="evenodd">
-													<rect width="47" height="20" fill="#000" fill-opacity=".07"
-														fill-rule="nonzero" rx="4"></rect>
-													<path fill="#757575"
-														d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
+												<c:if test="${product.shipping_info1 == 'free'}">
+													<svg id="freeship_icon" class="icon" aria-label="무료배송"
+														width="47" height="20" viewBox="0 0 47 20"
+														preserveAspectRatio="xMidYMid meet">
+														<g fill="none" fill-rule="evenodd">
+														<rect width="47" height="20" fill="#000" fill-opacity=".07"
+															fill-rule="nonzero" rx="4"></rect>
+														<path fill="#757575"
+															d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
+												</c:if>
 												<svg id="saleprice_icon" class="icon" aria-label="특가"
 													width="30" height="20" viewBox="0 0 30 20"
 													preserveAspectRatio="xMidYMid meet">
@@ -979,587 +1361,8 @@
 								</a>
 							</article>
 						</div>
-						<div class="deals_list_wrap col-6 col-lg-4">
-							<article class="deals_item">
-								<a href="#" style="text-decoration: none;">
-									<div class="deals_item_wrap">
-										<div class="deals_item_pic_out">
-											<div class="deals_item_pic">
-												<div class="item_ani">
-													<img class="images" src="sources/best2.webp">
-												</div>
-											</div>
-											<button class="item_bookmark">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24"
-													height="24" viewBox="0 0 24 24" class="inactive-icon">
-													<defs>
-													<path id="scrap-icon-3-b"
-														d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path>
-													<filter id="scrap-icon-3-a" width="150%" height="150%"
-														x="-25%" y="-25%" filterUnits="objectBoundingBox">
-													<feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-													<feGaussianBlur in="shadowOffsetOuter1"
-														result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur>
-													<feComposite in="shadowBlurOuter1" in2="SourceAlpha"
-														operator="out" result="shadowBlurOuter1"></feComposite>
-													<feColorMatrix in="shadowBlurOuter1"
-														values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter>
-													<filter id="scrap-icon-3-c" width="150%" height="150%"
-														x="-25%" y="-25%" filterUnits="objectBoundingBox">
-													<feGaussianBlur in="SourceAlpha" result="shadowBlurInner1"
-														stdDeviation="1.5"></feGaussianBlur>
-													<feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
-													<feComposite in="shadowOffsetInner1" in2="SourceAlpha"
-														k2="-1" k3="1" operator="arithmetic"
-														result="shadowInnerInner1"></feComposite>
-													<feColorMatrix in="shadowInnerInner1"
-														values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs>
-													<g fill="none" fill-rule="nonzero"
-														transform="matrix(1 0 0 -1 0 24)">
-													<use fill="#000" filter="url(#scrap-icon-3-a)"
-														href="#scrap-icon-3-b"></use>
-													<use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use>
-													<use fill="#000" filter="url(#scrap-icon-3-c)"
-														href="#scrap-icon-3-b"></use>
-													<path stroke="#FFF"
-														d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-											</button>
-										</div>
-										<div class="deals_item_content">
-											<div class="deals_item_header">
-												<span class="deals_item_header_brand">브랜드</span> <span
-													class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될
-													듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
-											</div>
-											<div class="deals_item_body_price">
-												<span class="sale_percent">50%</span> <span class="price">10,000</span>
-											</div>
-											<div class="deals_item_review">
-												<div class="review_icon">
-													<i class="fa-solid fa-star" style=""></i>
-												</div>
-												<div class="review_score">4.6</div>
-												<div class="review_count">리뷰 3,641</div>
-											</div>
-											<div class="best_item_info">
-												<svg id="freeship_icon" class="icon" aria-label="무료배송"
-													width="47" height="20" viewBox="0 0 47 20"
-													preserveAspectRatio="xMidYMid meet">
-													<g fill="none" fill-rule="evenodd">
-													<rect width="47" height="20" fill="#000" fill-opacity=".07"
-														fill-rule="nonzero" rx="4"></rect>
-													<path fill="#757575"
-														d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
-												<svg id="saleprice_icon" class="icon" aria-label="특가"
-													width="30" height="20" viewBox="0 0 30 20"
-													preserveAspectRatio="xMidYMid meet">
-													<rect width="30" height="20" fill="#F77" rx="4"></rect>
-													<path fill="#fff"
-														d="M12.83 7.93v-.97H7.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
-											</div>
-										</div>
-									</div>
-								</a>
-							</article>
-						</div>
-						<div class="deals_list_wrap col-6 col-lg-4">
-							<article class="deals_item">
-								<a href="#" style="text-decoration: none;">
-									<div class="deals_item_wrap">
-										<div class="deals_item_pic_out">
-											<div class="deals_item_pic">
-												<div class="item_ani">
-													<img class="images" src="sources/best3.webp">
-												</div>
-											</div>
-											<button class="item_bookmark">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24"
-													height="24" viewBox="0 0 24 24" class="inactive-icon">
-													<defs>
-													<path id="scrap-icon-3-b"
-														d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path>
-													<filter id="scrap-icon-3-a" width="150%" height="150%"
-														x="-25%" y="-25%" filterUnits="objectBoundingBox">
-													<feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-													<feGaussianBlur in="shadowOffsetOuter1"
-														result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur>
-													<feComposite in="shadowBlurOuter1" in2="SourceAlpha"
-														operator="out" result="shadowBlurOuter1"></feComposite>
-													<feColorMatrix in="shadowBlurOuter1"
-														values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter>
-													<filter id="scrap-icon-3-c" width="150%" height="150%"
-														x="-25%" y="-25%" filterUnits="objectBoundingBox">
-													<feGaussianBlur in="SourceAlpha" result="shadowBlurInner1"
-														stdDeviation="1.5"></feGaussianBlur>
-													<feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
-													<feComposite in="shadowOffsetInner1" in2="SourceAlpha"
-														k2="-1" k3="1" operator="arithmetic"
-														result="shadowInnerInner1"></feComposite>
-													<feColorMatrix in="shadowInnerInner1"
-														values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs>
-													<g fill="none" fill-rule="nonzero"
-														transform="matrix(1 0 0 -1 0 24)">
-													<use fill="#000" filter="url(#scrap-icon-3-a)"
-														href="#scrap-icon-3-b"></use>
-													<use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use>
-													<use fill="#000" filter="url(#scrap-icon-3-c)"
-														href="#scrap-icon-3-b"></use>
-													<path stroke="#FFF"
-														d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-											</button>
-										</div>
-										<div class="deals_item_content">
-											<div class="deals_item_header">
-												<span class="deals_item_header_brand">브랜드</span> <span
-													class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될
-													듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
-											</div>
-											<div class="deals_item_body_price">
-												<span class="sale_percent">50%</span> <span class="price">10,000</span>
-											</div>
-											<div class="deals_item_review">
-												<div class="review_icon">
-													<i class="fa-solid fa-star" style=""></i>
-												</div>
-												<div class="review_score">4.6</div>
-												<div class="review_count">리뷰 3,641</div>
-											</div>
-											<div class="best_item_info">
-												<svg id="freeship_icon" class="icon" aria-label="무료배송"
-													width="47" height="20" viewBox="0 0 47 20"
-													preserveAspectRatio="xMidYMid meet">
-													<g fill="none" fill-rule="evenodd">
-													<rect width="47" height="20" fill="#000" fill-opacity=".07"
-														fill-rule="nonzero" rx="4"></rect>
-													<path fill="#757575"
-														d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
-												<svg id="saleprice_icon" class="icon" aria-label="특가"
-													width="30" height="20" viewBox="0 0 30 20"
-													preserveAspectRatio="xMidYMid meet">
-													<rect width="30" height="20" fill="#F77" rx="4"></rect>
-													<path fill="#fff"
-														d="M12.83 7.93v-.97H7.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
-											</div>
-										</div>
-									</div>
-								</a>
-							</article>
-						</div>
-						<div class="deals_list_wrap col-6 col-lg-4">
-							<article class="deals_item">
-								<a href="#" style="text-decoration: none;">
-									<div class="deals_item_wrap">
-										<div class="deals_item_pic_out">
-											<div class="deals_item_pic">
-												<div class="item_ani">
-													<img class="images" src="sources/best4.webp">
-												</div>
-											</div>
-											<button class="item_bookmark">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24"
-													height="24" viewBox="0 0 24 24" class="inactive-icon">
-													<defs>
-													<path id="scrap-icon-3-b"
-														d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path>
-													<filter id="scrap-icon-3-a" width="150%" height="150%"
-														x="-25%" y="-25%" filterUnits="objectBoundingBox">
-													<feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-													<feGaussianBlur in="shadowOffsetOuter1"
-														result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur>
-													<feComposite in="shadowBlurOuter1" in2="SourceAlpha"
-														operator="out" result="shadowBlurOuter1"></feComposite>
-													<feColorMatrix in="shadowBlurOuter1"
-														values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter>
-													<filter id="scrap-icon-3-c" width="150%" height="150%"
-														x="-25%" y="-25%" filterUnits="objectBoundingBox">
-													<feGaussianBlur in="SourceAlpha" result="shadowBlurInner1"
-														stdDeviation="1.5"></feGaussianBlur>
-													<feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
-													<feComposite in="shadowOffsetInner1" in2="SourceAlpha"
-														k2="-1" k3="1" operator="arithmetic"
-														result="shadowInnerInner1"></feComposite>
-													<feColorMatrix in="shadowInnerInner1"
-														values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs>
-													<g fill="none" fill-rule="nonzero"
-														transform="matrix(1 0 0 -1 0 24)">
-													<use fill="#000" filter="url(#scrap-icon-3-a)"
-														href="#scrap-icon-3-b"></use>
-													<use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use>
-													<use fill="#000" filter="url(#scrap-icon-3-c)"
-														href="#scrap-icon-3-b"></use>
-													<path stroke="#FFF"
-														d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-											</button>
-										</div>
-										<div class="deals_item_content">
-											<div class="deals_item_header">
-												<span class="deals_item_header_brand">브랜드</span> <span
-													class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될
-													듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
-											</div>
-											<div class="deals_item_body_price">
-												<span class="sale_percent">50%</span> <span class="price">10,000</span>
-											</div>
-											<div class="deals_item_review">
-												<div class="review_icon">
-													<i class="fa-solid fa-star" style=""></i>
-												</div>
-												<div class="review_score">4.6</div>
-												<div class="review_count">리뷰 3,641</div>
-											</div>
-											<div class="best_item_info">
-												<svg id="freeship_icon" class="icon" aria-label="무료배송"
-													width="47" height="20" viewBox="0 0 47 20"
-													preserveAspectRatio="xMidYMid meet">
-													<g fill="none" fill-rule="evenodd">
-													<rect width="47" height="20" fill="#000" fill-opacity=".07"
-														fill-rule="nonzero" rx="4"></rect>
-													<path fill="#757575"
-														d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
-												<svg id="saleprice_icon" class="icon" aria-label="특가"
-													width="30" height="20" viewBox="0 0 30 20"
-													preserveAspectRatio="xMidYMid meet">
-													<rect width="30" height="20" fill="#F77" rx="4"></rect>
-													<path fill="#fff"
-														d="M12.83 7.93v-.97H7.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
-											</div>
-										</div>
-									</div>
-								</a>
-							</article>
-						</div>
-						<div class="deals_list_wrap col-6 col-lg-4">
-							<article class="deals_item">
-								<a href="#" style="text-decoration: none;">
-									<div class="deals_item_wrap">
-										<div class="deals_item_pic_out">
-											<div class="deals_item_pic">
-												<div class="item_ani">
-													<img class="images" src="sources/best5.webp">
-												</div>
-											</div>
-											<button class="item_bookmark">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24"
-													height="24" viewBox="0 0 24 24" class="inactive-icon">
-													<defs>
-													<path id="scrap-icon-3-b"
-														d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path>
-													<filter id="scrap-icon-3-a" width="150%" height="150%"
-														x="-25%" y="-25%" filterUnits="objectBoundingBox">
-													<feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-													<feGaussianBlur in="shadowOffsetOuter1"
-														result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur>
-													<feComposite in="shadowBlurOuter1" in2="SourceAlpha"
-														operator="out" result="shadowBlurOuter1"></feComposite>
-													<feColorMatrix in="shadowBlurOuter1"
-														values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter>
-													<filter id="scrap-icon-3-c" width="150%" height="150%"
-														x="-25%" y="-25%" filterUnits="objectBoundingBox">
-													<feGaussianBlur in="SourceAlpha" result="shadowBlurInner1"
-														stdDeviation="1.5"></feGaussianBlur>
-													<feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
-													<feComposite in="shadowOffsetInner1" in2="SourceAlpha"
-														k2="-1" k3="1" operator="arithmetic"
-														result="shadowInnerInner1"></feComposite>
-													<feColorMatrix in="shadowInnerInner1"
-														values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs>
-													<g fill="none" fill-rule="nonzero"
-														transform="matrix(1 0 0 -1 0 24)">
-													<use fill="#000" filter="url(#scrap-icon-3-a)"
-														href="#scrap-icon-3-b"></use>
-													<use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use>
-													<use fill="#000" filter="url(#scrap-icon-3-c)"
-														href="#scrap-icon-3-b"></use>
-													<path stroke="#FFF"
-														d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-											</button>
-										</div>
-										<div class="deals_item_content">
-											<div class="deals_item_header">
-												<span class="deals_item_header_brand">브랜드</span> <span
-													class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될
-													듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
-											</div>
-											<div class="deals_item_body_price">
-												<span class="sale_percent">50%</span> <span class="price">10,000</span>
-											</div>
-											<div class="deals_item_review">
-												<div class="review_icon">
-													<i class="fa-solid fa-star" style=""></i>
-												</div>
-												<div class="review_score">4.6</div>
-												<div class="review_count">리뷰 3,641</div>
-											</div>
-											<div class="best_item_info">
-												<svg id="freeship_icon" class="icon" aria-label="무료배송"
-													width="47" height="20" viewBox="0 0 47 20"
-													preserveAspectRatio="xMidYMid meet">
-													<g fill="none" fill-rule="evenodd">
-													<rect width="47" height="20" fill="#000" fill-opacity=".07"
-														fill-rule="nonzero" rx="4"></rect>
-													<path fill="#757575"
-														d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
-												<svg id="saleprice_icon" class="icon" aria-label="특가"
-													width="30" height="20" viewBox="0 0 30 20"
-													preserveAspectRatio="xMidYMid meet">
-													<rect width="30" height="20" fill="#F77" rx="4"></rect>
-													<path fill="#fff"
-														d="M12.83 7.93v-.97H7.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
-											</div>
-										</div>
-									</div>
-								</a>
-							</article>
-						</div>
-						<div class="deals_list_wrap col-6 col-lg-4">
-							<article class="deals_item">
-								<a href="#" style="text-decoration: none;">
-									<div class="deals_item_wrap">
-										<div class="deals_item_pic_out">
-											<div class="deals_item_pic">
-												<div class="item_ani">
-													<img class="images" src="sources/best6.webp">
-												</div>
-											</div>
-											<button class="item_bookmark">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24"
-													height="24" viewBox="0 0 24 24" class="inactive-icon">
-													<defs>
-													<path id="scrap-icon-3-b"
-														d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path>
-													<filter id="scrap-icon-3-a" width="150%" height="150%"
-														x="-25%" y="-25%" filterUnits="objectBoundingBox">
-													<feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-													<feGaussianBlur in="shadowOffsetOuter1"
-														result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur>
-													<feComposite in="shadowBlurOuter1" in2="SourceAlpha"
-														operator="out" result="shadowBlurOuter1"></feComposite>
-													<feColorMatrix in="shadowBlurOuter1"
-														values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter>
-													<filter id="scrap-icon-3-c" width="150%" height="150%"
-														x="-25%" y="-25%" filterUnits="objectBoundingBox">
-													<feGaussianBlur in="SourceAlpha" result="shadowBlurInner1"
-														stdDeviation="1.5"></feGaussianBlur>
-													<feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
-													<feComposite in="shadowOffsetInner1" in2="SourceAlpha"
-														k2="-1" k3="1" operator="arithmetic"
-														result="shadowInnerInner1"></feComposite>
-													<feColorMatrix in="shadowInnerInner1"
-														values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs>
-													<g fill="none" fill-rule="nonzero"
-														transform="matrix(1 0 0 -1 0 24)">
-													<use fill="#000" filter="url(#scrap-icon-3-a)"
-														href="#scrap-icon-3-b"></use>
-													<use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use>
-													<use fill="#000" filter="url(#scrap-icon-3-c)"
-														href="#scrap-icon-3-b"></use>
-													<path stroke="#FFF"
-														d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-											</button>
-										</div>
-										<div class="deals_item_content">
-											<div class="deals_item_header">
-												<span class="deals_item_header_brand">브랜드</span> <span
-													class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될
-													듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
-											</div>
-											<div class="deals_item_body_price">
-												<span class="sale_percent">50%</span> <span class="price">10,000</span>
-											</div>
-											<div class="deals_item_review">
-												<div class="review_icon">
-													<i class="fa-solid fa-star" style=""></i>
-												</div>
-												<div class="review_score">4.6</div>
-												<div class="review_count">리뷰 3,641</div>
-											</div>
-											<div class="best_item_info">
-												<svg id="freeship_icon" class="icon" aria-label="무료배송"
-													width="47" height="20" viewBox="0 0 47 20"
-													preserveAspectRatio="xMidYMid meet">
-													<g fill="none" fill-rule="evenodd">
-													<rect width="47" height="20" fill="#000" fill-opacity=".07"
-														fill-rule="nonzero" rx="4"></rect>
-													<path fill="#757575"
-														d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
-												<svg id="saleprice_icon" class="icon" aria-label="특가"
-													width="30" height="20" viewBox="0 0 30 20"
-													preserveAspectRatio="xMidYMid meet">
-													<rect width="30" height="20" fill="#F77" rx="4"></rect>
-													<path fill="#fff"
-														d="M12.83 7.93v-.97H7.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
-											</div>
-										</div>
-									</div>
-								</a>
-							</article>
-						</div>
-						<div class="deals_list_wrap col-6 col-lg-4">
-							<article class="deals_item">
-								<a href="#" style="text-decoration: none;">
-									<div class="deals_item_wrap">
-										<div class="deals_item_pic_out">
-											<div class="deals_item_pic">
-												<div class="item_ani">
-													<img class="images" src="sources/best7.webp">
-												</div>
-											</div>
-											<button class="item_bookmark">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24"
-													height="24" viewBox="0 0 24 24" class="inactive-icon">
-													<defs>
-													<path id="scrap-icon-3-b"
-														d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path>
-													<filter id="scrap-icon-3-a" width="150%" height="150%"
-														x="-25%" y="-25%" filterUnits="objectBoundingBox">
-													<feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-													<feGaussianBlur in="shadowOffsetOuter1"
-														result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur>
-													<feComposite in="shadowBlurOuter1" in2="SourceAlpha"
-														operator="out" result="shadowBlurOuter1"></feComposite>
-													<feColorMatrix in="shadowBlurOuter1"
-														values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter>
-													<filter id="scrap-icon-3-c" width="150%" height="150%"
-														x="-25%" y="-25%" filterUnits="objectBoundingBox">
-													<feGaussianBlur in="SourceAlpha" result="shadowBlurInner1"
-														stdDeviation="1.5"></feGaussianBlur>
-													<feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
-													<feComposite in="shadowOffsetInner1" in2="SourceAlpha"
-														k2="-1" k3="1" operator="arithmetic"
-														result="shadowInnerInner1"></feComposite>
-													<feColorMatrix in="shadowInnerInner1"
-														values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs>
-													<g fill="none" fill-rule="nonzero"
-														transform="matrix(1 0 0 -1 0 24)">
-													<use fill="#000" filter="url(#scrap-icon-3-a)"
-														href="#scrap-icon-3-b"></use>
-													<use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use>
-													<use fill="#000" filter="url(#scrap-icon-3-c)"
-														href="#scrap-icon-3-b"></use>
-													<path stroke="#FFF"
-														d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-											</button>
-										</div>
-										<div class="deals_item_content">
-											<div class="deals_item_header">
-												<span class="deals_item_header_brand">브랜드</span> <span
-													class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될
-													듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
-											</div>
-											<div class="deals_item_body_price">
-												<span class="sale_percent">50%</span> <span class="price">10,000</span>
-											</div>
-											<div class="deals_item_review">
-												<div class="review_icon">
-													<i class="fa-solid fa-star" style=""></i>
-												</div>
-												<div class="review_score">4.6</div>
-												<div class="review_count">리뷰 3,641</div>
-											</div>
-											<div class="best_item_info">
-												<svg id="freeship_icon" class="icon" aria-label="무료배송"
-													width="47" height="20" viewBox="0 0 47 20"
-													preserveAspectRatio="xMidYMid meet">
-													<g fill="none" fill-rule="evenodd">
-													<rect width="47" height="20" fill="#000" fill-opacity=".07"
-														fill-rule="nonzero" rx="4"></rect>
-													<path fill="#757575"
-														d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
-												<svg id="saleprice_icon" class="icon" aria-label="특가"
-													width="30" height="20" viewBox="0 0 30 20"
-													preserveAspectRatio="xMidYMid meet">
-													<rect width="30" height="20" fill="#F77" rx="4"></rect>
-													<path fill="#fff"
-														d="M12.83 7.93v-.97H7.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
-											</div>
-										</div>
-									</div>
-								</a>
-							</article>
-						</div>
-						<div class="deals_list_wrap col-6 col-lg-4">
-							<article class="deals_item">
-								<a href="#" style="text-decoration: none;">
-									<div class="deals_item_wrap">
-										<div class="deals_item_pic_out">
-											<div class="deals_item_pic">
-												<div class="item_ani">
-													<img class="images" src="sources/best8.webp">
-												</div>
-											</div>
-											<button class="item_bookmark">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24"
-													height="24" viewBox="0 0 24 24" class="inactive-icon">
-													<defs>
-													<path id="scrap-icon-3-b"
-														d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path>
-													<filter id="scrap-icon-3-a" width="150%" height="150%"
-														x="-25%" y="-25%" filterUnits="objectBoundingBox">
-													<feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-													<feGaussianBlur in="shadowOffsetOuter1"
-														result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur>
-													<feComposite in="shadowBlurOuter1" in2="SourceAlpha"
-														operator="out" result="shadowBlurOuter1"></feComposite>
-													<feColorMatrix in="shadowBlurOuter1"
-														values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter>
-													<filter id="scrap-icon-3-c" width="150%" height="150%"
-														x="-25%" y="-25%" filterUnits="objectBoundingBox">
-													<feGaussianBlur in="SourceAlpha" result="shadowBlurInner1"
-														stdDeviation="1.5"></feGaussianBlur>
-													<feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
-													<feComposite in="shadowOffsetInner1" in2="SourceAlpha"
-														k2="-1" k3="1" operator="arithmetic"
-														result="shadowInnerInner1"></feComposite>
-													<feColorMatrix in="shadowInnerInner1"
-														values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs>
-													<g fill="none" fill-rule="nonzero"
-														transform="matrix(1 0 0 -1 0 24)">
-													<use fill="#000" filter="url(#scrap-icon-3-a)"
-														href="#scrap-icon-3-b"></use>
-													<use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use>
-													<use fill="#000" filter="url(#scrap-icon-3-c)"
-														href="#scrap-icon-3-b"></use>
-													<path stroke="#FFF"
-														d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-											</button>
-										</div>
-										<div class="deals_item_content">
-											<div class="deals_item_header">
-												<span class="deals_item_header_brand">브랜드</span> <span
-													class="deals_item_header_name">[1+1] 여기에는 이름을 적으면 될
-													듯 어쩌구저쩌구 블라블라 안녕 안녕</span>
-											</div>
-											<div class="deals_item_body_price">
-												<span class="sale_percent">50%</span> <span class="price">10,000</span>
-											</div>
-											<div class="deals_item_review">
-												<div class="review_icon">
-													<i class="fa-solid fa-star" style=""></i>
-												</div>
-												<div class="review_score">4.6</div>
-												<div class="review_count">리뷰 3,641</div>
-											</div>
-											<div class="best_item_info">
-												<svg id="freeship_icon" class="icon" aria-label="무료배송"
-													width="47" height="20" viewBox="0 0 47 20"
-													preserveAspectRatio="xMidYMid meet">
-													<g fill="none" fill-rule="evenodd">
-													<rect width="47" height="20" fill="#000" fill-opacity=".07"
-														fill-rule="nonzero" rx="4"></rect>
-													<path fill="#757575"
-														d="M12.73 5.38v3.96h-6.6V5.38h6.6zm-2.68 9.43H8.76v-3.25H5v-1.03h8.86v1.03h-3.81v3.25zm1.4-6.49V6.41H7.43v1.91h4.04zm11.08 2.7h-1.42v1.54h2.26v1.02h-8.86v-1.02h2.24v-1.53h-1.1V7.78h5.32V6.65H15.6V5.63h6.66V8.8h-5.33v1.18h5.61v1.04zm-4.53 0v1.54h1.87v-1.53H18zm14.37 3.78h-1.23V9.86h-.8v4.49h-1.2V5.18h1.2v3.66h.8V5h1.23v9.8zm-4.2-2.54h-3.9V6.01h1.27v2.26h1.36V6h1.28v6.26zm-1.27-1.01v-2h-1.36v2h1.36zm14.49 1.71c0 1.13-1.25 1.82-3.41 1.82s-3.42-.7-3.42-1.82 1.25-1.82 3.4-1.82c2.18 0 3.43.7 3.43 1.82zm-3.41-6.05c-.5 1.13-2.1 1.9-3.51 2.1l-.54-1c1.64-.17 3.39-1.06 3.39-2.54V5.2h1.33v.28c0 1.48 1.99 2.47 3.4 2.53l-.55 1.01c-1.31-.18-3.03-.97-3.52-2.1zm4.42 3.78h-8.86V9.66h3.79V8.4h1.29v1.26h3.78v1.03zm-2.33 2.27c0-.5-.83-.8-2.1-.8s-2.08.3-2.08.8c0 .51.81.8 2.08.8s2.1-.29 2.1-.8z"></path></g></svg>
-												<svg id="saleprice_icon" class="icon" aria-label="특가"
-													width="30" height="20" viewBox="0 0 30 20"
-													preserveAspectRatio="xMidYMid meet">
-													<rect width="30" height="20" fill="#F77" rx="4"></rect>
-													<path fill="#fff"
-														d="M12.83 7.93v-.97H7.93v-.555h5.228v-.991H6.655v4.063h6.59v-.992H7.928V7.93h4.901zm-6.295 3.747v1.002h5.326v2.037h1.274v-3.04h-6.6zm7.733-.588v-1.024H5.5v1.024h8.768zM23.91 9.782V8.725h-1.405V5H21.24v9.705h1.264V9.782h1.405zm-3.954-3.79h-4.53v1.056h3.147c-.174 1.938-1.623 3.975-3.736 4.945l.773.958c2.974-1.612 4.259-4.03 4.346-6.96z"></path></svg>
-											</div>
-										</div>
-									</div>
-								</a>
-							</article>
-						</div>
+						</c:forEach>
+						
 					</div>
 				</div>
 			</div>

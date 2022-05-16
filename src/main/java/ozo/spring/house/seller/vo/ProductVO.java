@@ -35,7 +35,7 @@ public class ProductVO {
 	
 	// product_posting table
 	private int post_id;
-	private boolean today_deal;
+	private boolean today_deal; //boolean은 getter가 get이 아닌 is, setter는 set
 	private boolean best_product;
 	private float star_ratio;
 	private String post_name;
@@ -48,6 +48,23 @@ public class ProductVO {
 	private int post_sellerid;
 	private int po_category;
 	private int po_subcate;
+	private String post_status;
+	private int post_couponid;
+	private Timestamp post_created;
+	private int post_shipfee;
+	
+	private String cate_name;
+	
+	// deal info
+	private int deal_id;
+	private int deal_postid;
+	private int deal_originprice;
+	private int deal_saleratio;
+	private int deal_saleprice;
+	private int deal_sellerid;
+	private String deal_status;
+	private Timestamp deal_time;
+	private Timestamp deal_endtime;
 	
 	// option table
 	private int option_id;

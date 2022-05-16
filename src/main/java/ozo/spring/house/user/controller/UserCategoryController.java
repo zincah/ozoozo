@@ -1,7 +1,10 @@
 package ozo.spring.house.user.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,44 +17,115 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ozo.spring.house.seller.vo.FilterVO;
 import ozo.spring.house.user.service.UserCategoryService;
 import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
+import ozo.spring.house.user.vo.UserProductVO;
 
 @Controller
 public class UserCategoryController {
 	
-	
 	@Autowired
 	UserCategoryService userCategoryService;
 	
-	@RequestMapping(value = "/m_category.com")
-	public String firstpage( UserCategoryVO vo,Model model) {
-//		List<UserCategoryVO> m_list; 
-//		m_list = UserCategoryService.m_category(vo);
-//		List<UserCategoryVO> s_list; 
-//		s_list = UserCategoryService.s_category(vo);
-//		List<UserCategoryVO> b_list; 
-//		b_list = UserCategoryService.b_category(vo);
-//		model.addAttribute("m_list", m_list);
-//		model.addAttribute("s_list", s_list);
-//		model.addAttribute("b_list", b_list);
+	@RequestMapping(value = "/m_category.com", method=RequestMethod.GET)
+	public String category(UserCategoryVO vo, Model model, HttpServletRequest request) {
+
+		String[] codes = request.getParameter("catecode").split("_");
 		
+		if(codes.length == 2) {
+			int subcate_code = Integer.parseInt(codes[1]);
+			vo.setMidcate_code(subcate_code/100);
+			
+			if(subcate_code%100 != 0) {
+				vo.setSubcate_code(subcate_code);
+			}
+		}
+
+		int topcate_code = Integer.parseInt(codes[0]);
+		System.out.println(topcate_code);
+
+		vo.setTop_catecode(topcate_code); // url로 전달받은 코드
+		
+		List<UserCategoryVO> titleList = userCategoryService.printTitle();
+		List<UserCategoryVO> others = new ArrayList<UserCategoryVO>();
+		
+		for(int i=0; i<titleList.size(); i++) {
+			UserCategoryVO cate = titleList.get(i);
+			
+			if(cate.getCate_code() == topcate_code) {
+				model.addAttribute("title", cate);
+			}else {
+				others.add(cate);
+			}
+		}
+		model.addAttribute("others", others);
+		
+		List<List<UserCategoryVO>> wholeList = userCategoryService.selectCategoryList(vo);
+		System.out.println(wholeList.size());
+
+		model.addAttribute("wholeList", wholeList);
+		
+		List<UserProductVO> productList = userCategoryService.selectProductByCate(vo);
+		
+		for(int i=0; i<productList.size(); i++) {
+			UserProductVO pro = productList.get(i);
+			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
+			
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
+			
+			pro.setSale_price(decFormat.format(sale_price));
+		}
+		
+		model.addAttribute("productList", productList);
+
+		List<UserCategoryVO> catename = userCategoryService.getCateName(vo);
+		model.addAttribute("catename", catename);
+		
+		// filter 옵션 가져오기
+		List<List<FilterVO>> optionList = userCategoryService.getFilterOption(vo);
+		model.addAttribute("optionList", optionList);
+		System.out.println(optionList.size());
 		
 		return "ozocategory_zinc";
 	}
-	@ResponseBody
-	@RequestMapping(value = "/gocategory.com", method=RequestMethod.GET)
-	public List<UserCategoryVO> catelist(String category,UserCategoryVO vo) {
+	
+
+	@RequestMapping(value = "/getFilterList.com", method=RequestMethod.POST)
+	public String getFilterList(@RequestBody List<List<String>> wholeList, UserCategoryVO vo, Model model) {
 		
-		System.out.println(category);
-		List<UserCategoryVO> s_list=null ;
+		System.out.println(wholeList);
 		
+		List<String> cates = wholeList.get(1);
+
+		// category 넣어주기
+		vo.setTop_catecode(Integer.parseInt(cates.get(0)));
+		if(cates.size()>1 && cates.get(1)!="") {
+			vo.setMidcate_code(Integer.parseInt(cates.get(1)));
+			if(cates.size()>2 && cates.get(2)!="") {
+				vo.setSubcate_code(Integer.parseInt(cates.get(2)));
+			}
+		}
+		
+		vo.setFiltering(wholeList.get(0));
+		
+		
+		List<UserProductVO> postList = userCategoryService.getPostList(vo);
+		
+		for(int i=0; i<postList.size(); i++) {
+			UserProductVO pro = postList.get(i);
+			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-		s_list = userCategoryService.s_category(vo);
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
+			
+			pro.setSale_price(decFormat.format(sale_price));
+		}
 		
+		model.addAttribute("productList", postList);
+		System.out.println(postList.size());
 		
-		return s_list;
+		return "cates";
 	}
 	
 }

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="SellerPostingDAO">
+	
+	<!-- 판매글 리스트 -->
+	<select id="selectPostingList" resultType="product">
+		SELECT * FROM product_posting pp
+		JOIN category c ON pp.po_category = c.cate_code
+		LEFT JOIN deal_info di ON pp.post_id = di.deal_postid
+		WHERE pp.post_sellerid = #{seller_id}
+		ORDER BY pp.post_id DESC;
+	</select>
+	
+	<!-- 판매글 검색 리스트 -->
+	<select id="selectSearchPosting" resultType="product">
+		SELECT * FROM product_posting pp
+		JOIN category c ON pp.po_category = c.cate_code
+		LEFT JOIN deal_info di ON pp.post_id = di.deal_postid
+		<where>
+			<if test="seller_id != null">
+				pp.post_sellerid = #{seller_id}
+			</if>
+			<if test="sc_searchName != ''">
+				<if test="sc_searchNameStatus == 1">
+					<trim prefix="and">
+						cast(pp.post_id as VARCHAR) LIKE <trim prefix="replace('" suffix="%',' ','')">${sc_searchName}</trim>
+					</trim>
+				</if>
+				<if test="sc_searchNameStatus == 2">
+					<trim prefix="and">
+						pp.post_name LIKE <trim prefix="replace('%" suffix="%',' ','')">${sc_searchName}</trim>
+					</trim>
+				</if>
+			</if>
+			<if test="sc_searchStatus != null">
+				<trim prefix="and">
+					<if test="sc_searchStatus.size != 5">
+						<foreach collection="sc_searchStatus" item="arr" separator="or">
+							<if test="arr == 2">
+								pp.post_status = '판매중'
+							</if>
+							<if test="arr == 3">
+								pp.post_status = '판매종료'
+							</if>
+							<if test="arr == 4">
+								pp.post_status = '승인대기'
+							</if>
+							<if test="arr == 5">
+								pp.post_status = '보류'
+							</if>
+						</foreach>
+					</if>
+				</trim>
+			</if>
+			<if test="sc_category != 0">
+				<trim prefix="and">
+					pp.po_category = #{sc_category}
+				</trim>
+			</if>
+			<if test="sc_middleSelect != 0 and sc_smallSelect == 0">
+				<trim prefix="and">
+					(pp.po_subcate/100) = (#{sc_middleSelect}/100)
+				</trim>
+			</if>
+			<if test="sc_smallSelect != 0">
+				<trim prefix="and">
+					pp.po_subcate = #{sc_smallSelect}
+				</trim>
+			</if>
+			<if test="sc_selectDate == 1">
+				<trim prefix="and">
+					pp.post_created BETWEEN TO_DATE(#{sc_startDate}, 'YYYY-MM-DD') AND TO_DATE(#{sc_endDate}, 'YYYY-MM-DD') + INTERVAL '1 DAY'
+				</trim>
+			</if>
+			<if test="sc_selectDate == 2">
+				<trim prefix="and">
+					di.deal_time BETWEEN TO_DATE(#{sc_startDate}, 'YYYY-MM-DD') AND TO_DATE(#{sc_endDate}, 'YYYY-MM-DD') + INTERVAL '1 DAY'
+				</trim>
+			</if>
+			<if test="true">
+				ORDER BY pp.post_id DESC;
+			</if>
+		</where>
+	</select>
+	
+	<!-- 판매글 상태 업데이트 -->
+	<update id="updatePostingStatus" parameterType="product">
+		UPDATE product_posting SET post_status = #{post_status} WHERE post_id = #{post_id};
+	</update>
+	
+	<!-- 선택한 판매글 데이터 -->
+	<select id="selectSelectPosting" resultType="product">
+		SELECT * FROM product_posting pp
+		JOIN category c ON pp.po_category = c.cate_code
+		LEFT JOIN deal_info di ON pp.post_id = di.deal_postid
+		WHERE pp.post_id = #{post_id};
+	</select>
+	
+	<!-- 오늘의딜 신청 업데이트 -->
+	<update id="updatePostingDealApp" parameterType="product">
+		UPDATE deal_info SET 
+		(deal_id, deal_postid, deal_originprice, deal_saleratio, deal_saleprice, deal_sellerid)
+		 = ((SELECT COALESCE(MAX(deal_id), 0)+1 FROM deal_info), 
+		 #{post_id}, 
+		 (SELECT whole_price FROM product_posting pp WHERE pp.post_id = #{post_id}),
+		 );
+	</update>
+</mapper>
+

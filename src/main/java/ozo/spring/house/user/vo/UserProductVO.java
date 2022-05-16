@@ -27,6 +27,9 @@ public class UserProductVO {
 	private int po_subcate;
 
 	private int product_EA;
+	private int cart_quantity;
+	private int post_shipfee;
+	private int product_shipfee;
 	// 할인율
 	private String sale_price;
 	
@@ -68,4 +71,7 @@ public class UserProductVO {
 	private int deal_saleratio;
 	private int deal_saleprice;
 
+	//필요하면 쓰는 임의 값
+	private String exStr;
+	private int Int;
 }

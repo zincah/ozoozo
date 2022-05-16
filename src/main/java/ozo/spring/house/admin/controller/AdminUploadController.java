@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -53,7 +54,6 @@ public class AdminUploadController {
 					vo.setBanner_urlbig(url);
 					System.out.println("큰거");
 					System.out.println(url);
-					
 					System.out.println("mybatis main photo ok");
 				}
 					}
@@ -76,7 +76,6 @@ public class AdminUploadController {
 						vo.setBanner_urlsm(url);
 						System.out.println("작은거");
 						System.out.println(url);
-						
 						System.out.println("mybatis detail photo ok");
 
 					}
@@ -94,5 +93,41 @@ public class AdminUploadController {
 			
 			
 			return null;
-}
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/deleteBanner.admin", method=RequestMethod.POST)
+	public String deleteBanner(@RequestBody String banner_id, BannerVO bvo) {
+
+		String dirName = "Banner";
+		
+		bvo.setBanner_id(Integer.parseInt(banner_id.replace("\"", "")));
+		System.out.println(bvo.getBanner_id());
+		
+		List<BannerVO> bannerList = AdminBannerService.b_selectone(bvo);
+		BannerVO banner = bannerList.get(0);
+		
+		String[] bigs = banner.getBanner_urlbig().split("/");
+		String bigurl = dirName + "/" + bigs[bigs.length-1];
+		
+		String[] sms = banner.getBanner_urlsm().split("/");
+		String smurl = dirName + "/" + sms[sms.length-1];
+		
+		System.out.println(bigurl);
+		System.out.println(smurl);
+
+		try {
+			awss3Client.delete(bigurl);
+			awss3Client.delete(smurl);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		AdminBannerService.b_delete(bvo);
+		
+		return "success";
+
+	}
 }

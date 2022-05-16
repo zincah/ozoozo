@@ -9,6 +9,7 @@ import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.user.dao.UserMainDAO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
+import ozo.spring.house.user.vo.UserVO;
 
 @Service("userMainService")
 public class UserMainServiceImpl implements UserMainService {
@@ -37,7 +38,7 @@ public class UserMainServiceImpl implements UserMainService {
 	}
 
 	@Override
-	public List<UserProductVO> todayDealList() {
+  	public List<UserProductVO> todayDealList() {
 		return userMainDAO.todayDealList();
 	}
 
@@ -45,6 +46,17 @@ public class UserMainServiceImpl implements UserMainService {
 	public List<UserProductVO> shopItemList() {
 		return userMainDAO.shopItemList();
 	}
+  
+  @Override
+  public UserVO checkUserByNaver(UserVO vo) {
+		return userMainDAO.checkUserByNaver(vo); // ¿Å°Ü¾ßÇÔ
+	}
 
+	@Override
+	public void lastLoginCheck(UserVO vo) { 
+		userMainDAO.lastLoginCheck(vo); // ¿Å°Ü¾ßÇÔ
+	}
+
+  
 
 }

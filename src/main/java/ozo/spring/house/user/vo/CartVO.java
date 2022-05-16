@@ -22,4 +22,5 @@ public class CartVO {
 	private int product_price;
 	private int EA;
 	private int product_shipfee;
+	
 }
