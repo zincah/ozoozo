@@ -65,11 +65,7 @@ public class UserController {
 	}
 	
 	
-	//회원가입 페이지
-	@RequestMapping(value = "/signUp.com")
-	public String user_signUp(UserVO vo) {
-		return "SignUp";
-	}
+
 	
 	@RequestMapping(value = "/shop.com")
 	public String user_shop() {

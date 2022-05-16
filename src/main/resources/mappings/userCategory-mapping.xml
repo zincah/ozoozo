@@ -10,6 +10,7 @@
  	
  	<select id="selectCategoryList" resultType="ucate">
  		SELECT * FROM sub_category WHERE top_catecode=#{top_catecode} AND subcate_code/100=#{checksub}
+ 		ORDER BY subcate_code
  	</select>
  	
  	<select id="printTitle" resultType="ucate">

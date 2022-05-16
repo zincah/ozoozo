@@ -20,6 +20,7 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100&display=swap" rel="stylesheet">
 <link href="resources/css/admincss/fonts.css?var=1" rel="stylesheet" />
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <!-----카테고리js------->
 <script>
         $(document).ready(function () {
@@ -44,6 +45,32 @@
                 $('.layout-navigation-hamburger-pc__content').hide();
             });
         });
+
+ 
+        function kakaoLogout() {
+        	 
+        	//sessionStorage.clear();
+        	
+        	Kakao.isInitialized();
+        	
+            if (Kakao.Auth.getAccessToken()) {
+              Kakao.API.request({
+                url: '/v1/user/unlink',
+                success: function (response) {
+                	console.log(response)
+                },
+                fail: function (error) {
+                  console.log(error)
+                },
+              })
+              Kakao.Auth.setAccessToken(undefined)
+            }
+
+         
+         }  
+        
+        
+        
     </script>
 <script>
         $(function () {
@@ -261,7 +288,7 @@
 						href="/house/CScenter.com">고객센터</a></li>
 					<li class="layout-navigation-bar-user-menu__item-wrap">
 					<a href="logout.com">
-						<button class="layout-navigation-bar-user-menu__item" type="button">로그아웃</button></li>
+						<button class="layout-navigation-bar-user-menu__item" type="button" onclick="kakaoLogout()">로그아웃</button></li>
 					</a>
 				</ul>
 			</div>

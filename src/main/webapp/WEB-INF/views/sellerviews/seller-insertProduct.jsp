@@ -16,7 +16,7 @@
 	rel="stylesheet" />
 <link href="resources/css/sellercss/fonts.css?var=1" rel="stylesheet" />
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
-<link href="resources/css/sellercss/insertProduct.css?var=1" rel="stylesheet" />
+<link href="resources/css/sellercss/insertProduct.css?var=212" rel="stylesheet" />
 <jsp:include page="header/headerModalView.jsp"></jsp:include>
 <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="resources/js/sellerjs/plus_photo.js?var=1"></script>
@@ -285,12 +285,33 @@
 	  		});
 			
 	    }
+      	
+      	// filtering option 뽑기
+      	function getFilterOption(category){
+      		
+      		var category = {"cate_code" : category}
+      	
+      		
+      		$.ajax({
+		  		url:'getFilterOption.seller',
+		  		method:'post',
+		  		data: JSON.stringify(category),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'html',
+		  		success : function(resp){
+		  			
+		  			
+		  		
+		  		})
+      		
+      	}
       
       	
       	// category 뽑기
       	function changeFirstOption(){
 			var category = {"cate_code" : $("#category").val()}
 
+			getFilterOption(category);
 			
 		  	$.ajax({
 		  		url:'getMiddleCategory.seller',
@@ -612,347 +633,20 @@
 								</div>
 								
 								<div class="color_option mt-3 row">
-									<div class="col-2 option_title" style="font-size: 13px" id="10400">사용인원</div>
-									<div class="col-10 color_options bottomline2">
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10401" id="people1" name="usingpeople"/> <label
-												class="form-check-label" for="people1"> 1인
-											</label>
+									<c:forEach items="${wholeList }" var="perList">
+										<div class="col-2 option_title" style="font-size: 13px" id="${perList[0].filter_id }">${perList[0].filter_name }</div>
+										<div class="col-10 color_options bottomline2">
+											<div class="form-check form-check-display">
+												<input class="form-check-input form-check-input-margin"
+													type="checkbox" value="10401" id="people1" name="usingpeople"/> <label
+													class="form-check-label" for="people1"> 1인
+												</label>
+											</div>
 										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10402" id="people2" name="usingpeople"/> <label
-												class="form-check-label" for="people2"> 2인
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10403" id="people3" name="usingpeople"/> <label
-												class="form-check-label" for="people3"> 3인
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10404" id="people4" name="usingpeople"/> <label
-												class="form-check-label" for="people4"> 4인
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10405" id="people5" name="usingpeople"/> <label
-												class="form-check-label" for="people5"> 5인
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10406" id="people6" name="usingpeople"/> <label
-												class="form-check-label" for="people6"> 6인
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10407" id="people7" name="usingpeople"/> <label
-												class="form-check-label" for="people7"> 7인
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10408" id="people8" name="usingpeople"/> <label
-												class="form-check-label" for="people8"> 8인이상
-											</label>
-										</div>
-									</div>
-								</div>
+									</c:forEach>
+
 								
-								<div class="color_option mt-3 row">
-									<div class="col-2 option_title" style="font-size: 13px" id="10500">사용공간</div>
-									<div class="col-10 color_options bottomline2">
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10501" id="place1" name="usingplace"/> <label
-												class="form-check-label" for="place1"> 거실
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10502" id="place1" name="usingplace"/> <label
-												class="form-check-label" for="place1"> 침실
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10503" id="place1" name="usingplace"/> <label
-												class="form-check-label" for="place1"> 주방
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10504" id="place1" name="usingplace"/> <label
-												class="form-check-label" for="place1"> 옷방
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10505" id="place1" name="usingplace"/> <label
-												class="form-check-label" for="place1"> 서재/공부방
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10506" id="place1" name="usingplace"/> <label
-												class="form-check-label" for="place1"> 아이방
-											</label>
-										</div>
-
-									</div>
-								</div>
-
-								<div class="color_option mt-3 row">
-									<div class="col-2 option_title" style="font-size: 13px" id="10100">색상</div>
-									<div class="col-10 color_options bottomline2">
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10101" id="colorcheck1" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck1"> 화이트
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10102" id="colorcheck2" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck2"> 블랙
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10103" id="colorcheck3" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck3"> 브라운
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10104" id="colorcheck4" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck4"> 골드
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10105" id="colorcheck5" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck5"> 오렌지
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10106" id="colorcheck6" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck6"> 그린
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10107" id="colorcheck7" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck7"> 네이비
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10108" id="colorcheck8" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck8"> 핑크
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10109" id="colorcheck9" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck9"> 투명
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10110" id="colorcheck10" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck10"> 그레이
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10111" id="colorcheck11" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck11"> 베이지
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10112" id="colorcheck12" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck12"> 실버
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10113" id="colorcheck13" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck13"> 레드
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10114" id="colorcheck14" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck14"> 옐로우
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10115" id="colorcheck15" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck15"> 블루
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10116" id="colorcheck16" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck16">
-												바이올렛 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10117" id="colorcheck17" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck17"> 멀티
-											</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="color_option mt-3 row">
-									<div class="col-2 option_title" style="font-size: 13px">우드톤</div>
-									<div class="col-10 color_options bottomline2">
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10201" id="woodcheck1" name="woodtone"/> <label
-												class="form-check-label" for="woodcheck1"> 밝은
-												우드톤 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10202" id="woodcheck2" name="woodtone"/> <label
-												class="form-check-label" for="woodcheck2"> 중간
-												우드톤 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10203" id="woodcheck3" name="woodtone"/> <label
-												class="form-check-label" for="woodcheck3"> 어두운
-												우드톤 </label>
-										</div>
-									</div>
-								</div>
-
-								<div class="color_option mt-3 row">
-									<div class="col-2 option_title" style="font-size: 13px">소재</div>
-									<div class="col-10 color_options">
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10301" id="meterialcheck1" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck1"> 원목
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10302" id="meterialcheck2" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck2"> 천연
-												대리석 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10303" id="meterialcheck3" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck3"> 세라믹
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10304" id="meterialcheck4" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck4"> 유리
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10305" id="meterialcheck5" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck5">
-												플라스틱 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10306" id="meterialcheck6" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck6">
-												콘크리트 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10307" id="meterialcheck7" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck7">
-												인조가죽 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10308" id="meterialcheck8" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck8">
-												스웨이드 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10309" id="meterialcheck9" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck9"> 벨벳
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10310" id="meterialcheck10" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck10"> 가공목
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10311" id="meterialcheck11" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck11">
-												인조대리석 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10312" id="meterialcheck12" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck12"> 화산석
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10313" id="meterialcheck13" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck13">
-												철재/스틸 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10314" id="meterialcheck14" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck14"> 라탄
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10315" id="meterialcheck15" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck15">
-												천연가죽 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10316" id="meterialcheck16" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck16"> 패브릭
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="10317" id="meterialcheck17" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck17"> 매쉬
-											</label>
-										</div>
-									</div>
-								</div>
-
-
-							</div>
-						</div>
-					</div>
-				</div>
+								
 				
 				<!-- 상품추가 -->
 				
@@ -1254,6 +948,10 @@
 												class="form-check-label" for="flexRadioDefault3">
 												화물배송 </label>
 										</div>
+										<div class="form-check">
+											<input style="margin-left: 0.5rem;" class="form-control input-custom" name="post_shipfee" type="text" placeholder="배송비(숫자만)">
+										</div>
+							
 									</div>
 									<div class="col-6">
 										<div class="form-check">

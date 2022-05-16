@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ozo.spring.house.seller.service.ProductService;
 import ozo.spring.house.seller.service.SellerFilteringService;
 import ozo.spring.house.seller.service.SellerProductDetailService;
+import ozo.spring.house.seller.vo.CategoryVO;
 import ozo.spring.house.seller.vo.ProductDetailVO;
 import ozo.spring.house.seller.vo.ProductVO;
 
@@ -125,6 +126,15 @@ public class JsonController {
 
 
 		return postingCode;
+	}
+	
+	@RequestMapping(value="/getFilterOption.seller", method=RequestMethod.POST)
+	public String getFilterOption(@RequestBody CategoryVO vo) {
+		
+		
+		
+		return null;
+		
 	}
 	
 

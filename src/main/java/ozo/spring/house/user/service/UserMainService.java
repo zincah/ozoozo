@@ -5,6 +5,7 @@ import java.util.List;
 import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
+import ozo.spring.house.user.vo.UserVO;
 
 public interface UserMainService {
 	
@@ -12,5 +13,7 @@ public interface UserMainService {
 	public List<UserProductVO> mainDealProductList(UserProductVO vo);
 	public List<UserProductVO> plusProductList(UserPagingVO pvo);
 	public List<BannerVO> selectBannerList();
+	public UserVO checkUserByNaver(UserVO vo); // 옮겨야함
+	public void lastLoginCheck(UserVO vo); // 옮겨야함
 	
 }
