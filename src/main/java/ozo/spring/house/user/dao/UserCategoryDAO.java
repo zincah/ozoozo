@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ozo.spring.house.seller.vo.CategoryVO;
+import ozo.spring.house.seller.vo.FilterVO;
 import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserProductVO;
@@ -65,6 +67,29 @@ public class UserCategoryDAO {
 		vo.setPost_ids(postids);
 		System.out.println("postids : " + postids.size());
 		return sqlSessionTemplate.selectList("UserCategoryDAO.selectProductByFilter", vo);
+	}
+	
+	public List<List<FilterVO>> getFilterOption(UserCategoryVO vo) {
+		System.out.println("--> mybatis in userCategorydao getfilteroption");
+		
+		
+		List<List<FilterVO>> list = new ArrayList<List<FilterVO>>();
+		List<FilterVO> perList = new ArrayList<FilterVO>();
+		
+		int su = (vo.getTop_catecode()*100);
+		
+		for(int i=0; i<list.size(); i++) {
+			vo.setChecksub(su);
+			perList = sqlSessionTemplate.selectList("UserCategoryDAO.getFilterOption", vo);
+			if(perList.size() != 0) {
+				list.add(perList);
+			}
+			su++;
+		}
+		
+		
+		
+		return list;
 	}
 	
 

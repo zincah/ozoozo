@@ -79,7 +79,7 @@ public class JsonController {
 		dvo.setRefundtable_fee((String)tableMap.get("refundtable_fee"));
 		dvo.setExchangetable_fee((String)tableMap.get("exchangetable_fee"));
 		dvo.setRefundtable_address((String)tableMap.get("refundtable_address"));
-
+		
 		productDetailService.insertTables(dvo);
 		
 		
@@ -128,14 +128,7 @@ public class JsonController {
 		return postingCode;
 	}
 	
-	@RequestMapping(value="/getFilterOption.seller", method=RequestMethod.POST)
-	public String getFilterOption(@RequestBody CategoryVO vo) {
-		
-		
-		
-		return null;
-		
-	}
+
 	
 
 

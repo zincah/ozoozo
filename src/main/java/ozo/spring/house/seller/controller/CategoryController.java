@@ -1,6 +1,7 @@
 package ozo.spring.house.seller.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -39,6 +40,10 @@ public class CategoryController {
 		List<List<FilterVO>> wholeList = categoryService.getFilterOption(vo);
 		model.addAttribute("wholeList", wholeList);
 		
+		for(int i=0; i<wholeList.size(); i++) {
+			List<FilterVO> list = wholeList.get(i);
+			//System.out.println(list);
+		}
 		
 		
 		return "seller-insertProduct";
@@ -75,4 +80,17 @@ public class CategoryController {
 		return "index";
 	}
 
+	// filter를 가져오는 부분
+	@RequestMapping(value="/getFilterOption.seller", method=RequestMethod.POST)
+	public String getFilterOption(@RequestBody CategoryVO vo, Model model) {
+		
+		System.out.println(vo.getCate_code());
+		
+		List<List<FilterVO>> wholeList = categoryService.getFilterOption(vo);
+		model.addAttribute("wholeList", wholeList);
+
+
+		return "filtering";
+		
+	}
 }

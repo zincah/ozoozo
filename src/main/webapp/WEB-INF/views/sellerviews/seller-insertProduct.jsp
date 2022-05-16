@@ -191,56 +191,48 @@
       	
 	    function gatherData(){
       		
-      		checkProduct();
-      		photoUpload();
+      		//checkProduct();
+      		//photoUpload();
       		
-      		var usingpeopleList = []
-      		var usingplaceList = []
-      		var colorList = []
-      		var woodtone = []
-      		var materials = []
+      		var wholelist = []
       		
       		var jsonmove = []
       		
-      		// usingpeople 체크박스 값 가져오기
-      		$("input:checkbox[name=usingpeople]:checked").each(function(){
-      			var checkit = $(this).val();
-      			usingpeopleList.push(checkit);
-      		});
+      		titles = [];
       		
-      		// usingplace 체크박스 값 가져오기
-      		$("input:checkbox[name=usingplace]:checked").each(function(){
-      			var checkit = $(this).val();
-      			usingplaceList.push(checkit);
-      		});
+      		var checkmap = {};
       		
-      		// color 체크박스 값 가져오기
-      		$("input:checkbox[name=colorcheck]:checked").each(function(){
-      			var checkit = $(this).val();
-      			colorList.push(checkit);
-      		});
+      		$(".checkTitle").each(function(){
+      			var checkTitle = $(this).text();
+      			titles.push(checkTitle);
+      		})
       		
-      		// woodtone 체크박스 값 가져오기
-      		$("input:checkbox[name=woodtone]:checked").each(function(){
-      			var checkit = $(this).val();
-      			woodtone.push(checkit);
-      		});
+      		for(var i=0; i<titles.length; i++){
+      			var checkli = []
+
+      			$('input:checkbox[name='+titles[i]+']:checked').each(function(){
+      				var checkit = $(this).val();
+      				checkli.push(checkit);
+      			});
+      			
+      			var key = titles[i];
+      			checkmap[key] = checkli;
+				
+      		}
       		
-      		// material 체크박스 값 가져오기
-      		$("input:checkbox[name=f_material]:checked").each(function(){
-      			var checkit = $(this).val();
-      			materials.push(checkit);
-      		});
-			
-			var option = {
-					"사용인원" : usingpeopleList,
-					"사용공간" : usingplaceList,
-					"상품유형" : [$("#option_input").find("#rental").val()],
-					"리퍼상품유무" : [$("#option_input").find("#refurbish").val()],
-					"색상" : colorList,
-					"우드톤" : woodtone,
-					"소재" : materials
-				}
+      		if($("#option_input").find("#rental").val() != ""){
+      			checkmap.상품유형 = [$("#option_input").find("#rental").val()];
+      		}else{
+      			checkmap.상품유형 = []
+      		}
+      		
+      		if($("#option_input").find("#refurbish").val() != ""){
+      			checkmap.상품유형 = [$("#option_input").find("#rental").val()];
+      		}else{
+      			checkmap.상품유형 = []
+      		}
+
+      		console.log(checkmap);
 			
 			var table = {
 					"table_productTitle" : $("#table-productTitle").val(),
@@ -263,12 +255,12 @@
 					"exchangetable_fee" : $("#exchangetable_fee").val(),
 					"refundtable_address" : $("#refundtable_address").val()
 			}
-
-			jsonmove.push(option);
+			
+			jsonmove.push(checkmap);
 			jsonmove.push(table);
 			
 			console.log(JSON.stringify(jsonmove));
-
+			
 			// ajax로 데이터 넘기기
 		  	$.ajax({
 	  		url:'getJson.seller',
@@ -289,7 +281,7 @@
       	// filtering option 뽑기
       	function getFilterOption(category){
       		
-      		var category = {"cate_code" : category}
+      		
       	
       		
       		$.ajax({
@@ -300,7 +292,9 @@
 		  		dataType : 'html',
 		  		success : function(resp){
 		  			
-		  			
+		  			$(".filtering-layer").html("");
+		  			$(".filtering-layer").append(resp);
+		  		}
 		  		
 		  		})
       		
@@ -603,20 +597,17 @@
 				</div>
 				<!-- option db처리 나중에 -->
 				<div class="plus_layer">
-					<div
-						class="container container-option container-option-topPadding bottomline"
-						id="option_whole_wrap">
+					<div class="container container-option container-option-topPadding bottomline" id="option_whole_wrap">
 						<div class="row optionGroup1 option-wrap">
 							<div class="col-2 status-name-600" id="option-layer-name">옵션 (가구)</div>
-							<div class="col-10 search-input option_container"
-								id="option_input">
+							<div class="col-10 search-input option_container" id="option_input">
 								
 								<div class="radio-productCode">
 									<div class="btn-group" role="group"
 										aria-label="Basic radio toggle button group">
 										<select class="form-select selectState" id="rental" name="rental"
 											aria-label="Default select example">
-											<option selected value="10600">상품유형</option>
+											<option selected value=>상품유형</option>
 											<option value="10601">렌탈상품</option>
 											<option value="10602">렌탈상품 x</option>
 										</select>
@@ -625,33 +616,40 @@
 										aria-label="Basic radio toggle button group">
 										<select class="form-select selectState" name="refurbish" id="refurbish"
 											aria-label="Default select example">
-											<option selected value="10700">리퍼상품 유무</option>
+											<option selected value=>리퍼상품 유무</option>
 											<option value="10701">리퍼상품</option>
 											<option value="10702">리퍼상품 x</option>
 										</select>
 									</div>
 								</div>
 								
-								<div class="color_option mt-3 row">
+								
+								<div class="color_option mt-3 row filtering-layer">
 									<c:forEach items="${wholeList }" var="perList">
-										<div class="col-2 option_title" style="font-size: 13px" id="${perList[0].filter_id }">${perList[0].filter_name }</div>
-										<div class="col-10 color_options bottomline2">
+										<div class="col-2 option_title status-name-600 checkTitle" style="font-size: 13px" id="${perList[0].filter_id }">${perList[0].filter_name }</div>
+										<div class="col-10 color_options" style="padding-bottom: 1rem;">
+											<c:forEach items="${perList }" var="item" begin="1">
 											<div class="form-check form-check-display">
-												<input class="form-check-input form-check-input-margin"
-													type="checkbox" value="10401" id="people1" name="usingpeople"/> <label
-													class="form-check-label" for="people1"> 1인
+												<input class="form-check-input form-check-input-margin checking"
+													type="checkbox" value="${item.filter_id }" id="${item.filter_id }" name="${perList[0].filter_name }"/> 
+													<label class="form-check-label" for="${item.filter_id }"> ${item.filter_name }
 												</label>
 											</div>
+											</c:forEach>
 										</div>
 									</c:forEach>
-
+								</div>
 								
-								
+								</div>
+								</div>
+								</div>
+								</div>
+						
 				
 				<!-- 상품추가 -->
 				
 				<div
-					class="container container-option container-option-topPadding bottomline">
+					class="container container-option container-option-topPadding bottomline" style="border-top: 1px solid #ced4da;">
 					<div class="row optionGroup1">
 						<div class="col-2 status-name-600 point_col">상품 추가</div>
 						<div class="col-10 search-input option_container">
@@ -692,7 +690,7 @@
 										</div>
 								</div>
 							</div>
-
+					
 							
 						</div>
 					</div>
@@ -1057,14 +1055,12 @@
 							</div>
 						</div>
 					</div>
-				
-				</div>
-				
 
 				<div class="text-end mb-5">
 					<button class="btn btn-outline-secondary btn-size" type="reset">취소</button>
 					<button class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
 				</div>
+
 			</form>
 		</div>
 	</main>
@@ -1080,7 +1076,7 @@
 		</div>
 	</footer>
 </div>
-</div>
+
 <script>
 
 
