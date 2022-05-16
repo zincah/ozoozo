@@ -358,13 +358,14 @@
 												<table class="table table-box-style">
 													<thead>
 														<tr class="content-table-title">
-															<td class="content-table-title-text option-line">상품고유번호</td>
-															<td class="content-table-title-text option-line">판매자상품코드</td>
-															<td class="content-table-title-text option-line">상품명</td>
-															<td class="content-table-title-text option-line">판매가</td>
-															<td class="content-table-title-text option-line">카테고리</td>
-															<td class="content-table-title-text option-line">판매상태</td>
-															<td class="content-table-title-text option-line">재고</td>
+															<td class="content-table-title-text option-line">판매글번호</td>
+														<td class="content-table-title-text option-line">평점</td>
+														<td class="content-table-title-text option-line">제목</td>
+														<td class="content-table-title-text option-line">할인율</td>
+														<td class="content-table-title-text option-line">대표금액</td>
+														<td class="content-table-title-text option-line">쿠폰코드</td>
+														<td class="content-table-title-text option-line">카테고리</td>
+														<td class="content-table-title-text option-line">판매상태</td>
 														</tr>
 													</thead>
 													<tbody id="productDeleteView">
@@ -394,10 +395,11 @@
 					<td class="content-table-title-text option-line"><input
 						class="form-check-input" type="checkbox" value="" id="allCheck" /></td>
 					<td class="content-table-title-text option-line">판매글번호</td>
-					<td class="content-table-title-text option-line">별점</td>
+					<td class="content-table-title-text option-line">평점</td>
 					<td class="content-table-title-text option-line">제목</td>
 					<td class="content-table-title-text option-line">할인율</td>
 					<td class="content-table-title-text option-line">대표금액</td>
+					<td class="content-table-title-text option-line">쿠폰코드</td>
 					<td class="content-table-title-text option-line">카테고리</td>
 					<td class="content-table-title-text option-line">판매상태</td>
 					<td class="content-table-title-text option-line">등록일</td>
@@ -418,6 +420,7 @@
 						<td class="content-table-content-text option-line"><fmt:formatNumber
 								value="${productListView.getProduct_price()}" type="currency" /></td>
 						<td class="content-table-content-text option-line">${productListView.getCategory_name()}</td>
+						<td class="content-table-content-text option-line">${productListView.getCategory_name()}</td>
 						<td class="content-table-content-text option-line">${productListView.getStatus()}</td>
 						<td class="content-table-content-text option-line">${productListView.getProduct_quantity()}</td>
 						<td class="content-table-content-text option-line"><fmt:formatDate
@@ -426,7 +429,7 @@
 						<td class="content-table-content-text option-line"><fmt:formatDate
 								value="${productListView.getProduct_updated()}"
 								pattern="yyyy-MM-dd HH:mm" />
-								 ~ <!-- 등록된 쿠폰의 코드 표시해주는 부분도 추가 -->
+								 ~ 
 								<fmt:formatDate
 								value="${productListView.getProduct_updated()}"
 								pattern="yyyy-MM-dd HH:mm" /></td>
