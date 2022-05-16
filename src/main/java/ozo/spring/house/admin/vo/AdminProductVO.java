@@ -43,5 +43,9 @@ public class AdminProductVO {
 
 	// paging 넣어주기
 	private Criteria cri;
+	
+	// catecode 넣어주기 (오늘의딜때문에)
+	private int po_category;
+	private int po_subcate;
 
 }

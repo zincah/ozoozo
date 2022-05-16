@@ -9,6 +9,7 @@ import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.user.dao.UserMainDAO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
+import ozo.spring.house.user.vo.UserVO;
 
 @Service("userMainService")
 public class UserMainServiceImpl implements UserMainService {
@@ -34,6 +35,16 @@ public class UserMainServiceImpl implements UserMainService {
 	@Override
 	public List<BannerVO> selectBannerList() {
 		return userMainDAO.selectBannerList();
+	}
+
+	@Override
+	public UserVO checkUserByNaver(UserVO vo) {
+		return userMainDAO.checkUserByNaver(vo); // 옮겨야함
+	}
+
+	@Override
+	public void lastLoginCheck(UserVO vo) { 
+		userMainDAO.lastLoginCheck(vo); // 옮겨야함
 	}
 
 }

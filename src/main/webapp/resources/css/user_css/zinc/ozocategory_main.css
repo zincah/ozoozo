@@ -197,11 +197,12 @@ img{
 }
 
 .category_header_title{
+	display: flex;
+	align-items: center;
     font-size: 13px;
     font-weight: 400;
     margin-bottom: 20px;
     color: #424242;
-    vertical-align: center;
 }
 
 

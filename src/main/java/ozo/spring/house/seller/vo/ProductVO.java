@@ -48,6 +48,7 @@ public class ProductVO {
 	private int post_sellerid;
 	private int po_category;
 	private int po_subcate;
+	private int post_shipfee;
 	
 	// option table
 	private int option_id;

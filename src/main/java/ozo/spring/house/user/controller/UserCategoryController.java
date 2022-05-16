@@ -79,7 +79,6 @@ public class UserCategoryController {
 		
 		model.addAttribute("productList", productList);
 
-		
 		List<UserCategoryVO> catename = userCategoryService.getCateName(vo);
 		model.addAttribute("catename", catename);
 
@@ -88,12 +87,23 @@ public class UserCategoryController {
 	
 
 	@RequestMapping(value = "/getFilterList.com", method=RequestMethod.POST)
-	public String getFilterList(@RequestBody List<String> filterList, UserCategoryVO vo, Model model) {
+	public String getFilterList(@RequestBody List<List<String>> wholeList, UserCategoryVO vo, Model model) {
 		
-		System.out.println(filterList);
+		System.out.println(wholeList);
 		
-		vo.setTop_catecode(1); // 이건 다르게 넘겨줘야함
-		vo.setFiltering(filterList);
+		List<String> cates = wholeList.get(1);
+
+		// category 넣어주기
+		vo.setTop_catecode(Integer.parseInt(cates.get(0)));
+		if(cates.size()>1 && cates.get(1)!="") {
+			vo.setMidcate_code(Integer.parseInt(cates.get(1)));
+			if(cates.size()>2 && cates.get(2)!="") {
+				vo.setSubcate_code(Integer.parseInt(cates.get(2)));
+			}
+		}
+		
+		vo.setFiltering(wholeList.get(0));
+		
 		
 		List<UserProductVO> postList = userCategoryService.getPostList(vo);
 		

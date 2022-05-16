@@ -16,16 +16,6 @@ public class AdminProductManageServiceImpl implements AdminProductManageService 
 	AdminManageDAO adminManageDAO;
 
 	@Override
-	public List<AdminProductVO> selectPosting(Criteria cri) {
-		return adminManageDAO.selectPosting(cri);
-	}
-
-	@Override
-	public int selectPostCount() {
-		return adminManageDAO.selectPostCount();
-	}
-
-	@Override
 	public void updateProductStatus(AdminProductVO pvo) {
 		adminManageDAO.updateProductStatus(pvo);
 	}

@@ -69,7 +69,7 @@ public class AdminController {
 			pvo.setCri(cri);
 			List<AdminProductVO> postList = productService.getProductList(pvo);
 			List<AdminProductVO> couponList = productService.selectCouponList();
-			int total = productService.selectPostCount();
+			int total = productService.searchListCount(pvo);
 			
 			model.addAttribute("postList", postList);
 			model.addAttribute("pageMaker", cri);
