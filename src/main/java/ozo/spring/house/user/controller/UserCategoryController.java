@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ozo.spring.house.seller.vo.FilterVO;
 import ozo.spring.house.user.service.UserCategoryService;
 import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
@@ -81,7 +82,12 @@ public class UserCategoryController {
 
 		List<UserCategoryVO> catename = userCategoryService.getCateName(vo);
 		model.addAttribute("catename", catename);
-
+		
+		// filter 옵션 가져오기
+		List<List<FilterVO>> optionList = userCategoryService.getFilterOption(vo);
+		model.addAttribute("optionList", optionList);
+		System.out.println(optionList.size());
+		
 		return "ozocategory_zinc";
 	}
 	

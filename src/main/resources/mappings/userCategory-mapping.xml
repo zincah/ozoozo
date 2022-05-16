@@ -116,5 +116,9 @@
 		ORDER BY po.post_id DESC;
  	</select>
 
+	<!-- category filter option 가져오기 -->
+	<select id="getFilterOption" resultType="filter">
+    	select * from filter_element where ftop_catecode=#{top_catecode} and filter_id/100=#{checksub} order by filter_id;
+    </select>
     
  </mapper>

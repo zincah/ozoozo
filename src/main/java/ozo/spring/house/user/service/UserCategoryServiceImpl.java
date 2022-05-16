@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ozo.spring.house.seller.vo.CategoryVO;
+import ozo.spring.house.seller.vo.FilterVO;
 import ozo.spring.house.user.dao.UserCategoryDAO;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserProductVO;
@@ -44,6 +46,13 @@ public class UserCategoryServiceImpl implements UserCategoryService{
 	public List<UserProductVO> getPostList(UserCategoryVO vo) {
 		return userCategoryDAO.getPostList(vo);
 	}
+
+	@Override
+	public List<List<FilterVO>> getFilterOption(UserCategoryVO vo) {
+		return userCategoryDAO.getFilterOption(vo);
+	}
+	
+	
 
 
 
