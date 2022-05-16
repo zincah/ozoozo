@@ -2024,8 +2024,6 @@
 </div>
 <script>
 function basket(){
-	var sss = <%=(String)session.getAttribute("Usercode")%>
-	if(sss != null){
 		$.ajax({
 			url:'basket_ajax.com',
 			method:'post',
@@ -2033,13 +2031,13 @@ function basket(){
 			contentType : 'application/json; charset=UTF-8',
 			dataType : 'json',
 			success : function(after){
-				
+				if(after == "error"){
+					alert("최소 하나의 상품을 등록해주세요.");
+				}else if(after == null){
+					alert("성공적으로 장바구니에 담았습니다.");
+				}
 			}
 		})
-	}else{
-		location.replace("login.com");
-		alert("로그인 후 이용해주세요.");
-	}
 }
 
 $('.production-selling-select-modal').click(function(e) { 

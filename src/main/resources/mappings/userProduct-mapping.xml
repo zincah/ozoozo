@@ -51,7 +51,7 @@
 		values (#{cart_user},50003, #{product_id}, #{EA}, #{cart_payment}, #{seller_id} );
 	</insert>
 	
-	<update id="cart_update">
+	<update id="cart_upload">
 	update cart set cart_quantity= #{cart_quantity}, cart_payment = #{cart_payment}
 		where cart_product = #{cart_product}
 	</update>
@@ -61,8 +61,10 @@
 		select * from cart where cart_user= #{cart_user};	
 	</select>
 	<select id="pro_Get" resultType="userproduct">
-		select * from product p
-	inner join product_option po on po.op_productid = p.product_id 
+		select p.*, po.*, pp.whole_price, pp.sale_ratio, c.cart_quantity from product p
+	inner join product_option po on po.op_productid = p.product_id
+	inner join product_posting pp on pp.post_id = p.product_postid 
+	inner join cart c on c.cart_product = product_id 	
 	where product_id = #{cart_product};
 	</select>
 	<select id="seller_filter" resultType="cart">
@@ -72,14 +74,34 @@
 		select company_name,seller_id from seller where seller_id = #{cart_seller};
 	</select>
 	<select id="post_filter_name" resultType="userproduct">
-		select distinct on(cart_post) c.*,pp.post_name,pp.post_id,pp.post_sellerid  from cart c 
-			inner join product_posting pp on pp.post_id = c.cart_post 
-			inner join seller s on c.cart_seller  = s.seller_id 
-			where cart_user=#{cart_user};
+		select distinct on(cart_post) c.*,pp.post_name,pp.post_id,pp.post_sellerid,pp.post_shipfee,pimg.photo_url  from cart c 
+	inner join product_posting pp on pp.post_id = c.cart_post 
+	inner join seller s on c.cart_seller  = s.seller_id 
+	  INNER JOIN (
+         SELECT photo_id, photo_postid, photo_url FROM product_image 
+         WHERE (photo_id, photo_postid) 
+         IN (
+            SELECT MIN(photo_id) AS photo_id, photo_postid
+            FROM product_image 
+            GROUP BY photo_postid 
+         )
+      ) pimg ON pp.post_id  = pimg.photo_postid
+where cart_user=#{cart_user};
 	</select>	
 	
 	
 	<select id="option_name_Get" resultType="userproduct">
 		select option1, option2 from product_option where op_productid = #{product_id};
 	</select>
+	
+	<update id="cart_update">
+		update cart set cart_quantity = #{cart_quantity} where cart_product = #{cart_product};
+	</update>
+	
+	<delete id="cart_delete_pro">
+		delete from cart where cart_product = #{cart_product};
+	</delete>
+	<delete id="cart_delete_post">
+		delete from cart where cart_post =#{cart_post};
+	</delete>
 </mapper>

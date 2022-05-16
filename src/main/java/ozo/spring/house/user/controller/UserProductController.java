@@ -85,10 +85,12 @@ public class UserProductController {
 	@ResponseBody
 	@RequestMapping(value = "/basket_ajax.com", method=RequestMethod.POST)
 	public String basket_add(@RequestBody String[] option_arr, HttpSession session) {
-		if(session.getAttribute("Usercode")==null) {
+		if(session.getAttribute("User_Num")==null) {
+			System.out.println("1");
 			return "redirect:login.com";
 		}
 		if(option_arr.length == 0) {
+			System.out.println("2	");
 			return "error";
 		}
 		List<UserProductVO> option_li = new ArrayList<UserProductVO>();
@@ -106,6 +108,7 @@ public class UserProductController {
 		}
 		U_vo.setUser_num((Integer)session.getAttribute("User_Num"));
 		userservice.basket_add(option_li, U_vo);
+		System.out.println("장바구니 담기 성공!");
 		return null;
 		
 	}
