@@ -30,21 +30,21 @@ public class UserController {
 	@RequestMapping(value = "/main.com")
 	public String user_main(UserProductVO vo, Model model) {
 		
-		// product list »Ì±â
+		// product list ï¿½Ì±ï¿½
 		List<UserProductVO> productList = userMainService.mainProductList(vo);
 		
-		// ¿À´ÃÀÇ µô list »Ì±â
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ list ï¿½Ì±ï¿½
 		List<UserProductVO> todayDealList = userMainService.mainDealProductList(vo);
 		System.out.println(todayDealList.size());
 		
-		// main banner list »Ì±â
+		// main banner list ï¿½Ì±ï¿½
 		List<BannerVO> bannerList = userMainService.selectBannerList();
 
 		for(int i=0; i<productList.size(); i++) {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //¼Ò¼öÁ¡ ÇÔ¼ö
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //ï¿½Ò¼ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 			
 			pro.setSale_price(decFormat.format(sale_price));
 		}
@@ -69,7 +69,7 @@ public class UserController {
 	}
 	
 	
-	//È¸¿ø°¡ÀÔ ÆäÀÌÁö
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/signUp.com")
 	public String user_signUp(UserVO vo) {
 		return "SignUp";
@@ -104,22 +104,22 @@ public class UserController {
 	public String user_customercenter() {
 		return "customercenter";
 	}
-	// my_shopping (status) ÀÌ°Å µÎ°³¶ó¼­ ¼³Á¤ °í¹ÎÇØ¾ßÇÔ
+	// my_shopping (status) ï¿½Ì°ï¿½ ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
 	
 	
-	//³ªÀÇ ¼îÇÎ
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/myshopping.com")
 	public String user_myShopping() {
 		return "my_shopping_status";
 	}
-	//³ªÀÇ¸®ºä
+	//ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/myreview.com")
 	public String user_myReview_view() {
 		return "myReview-view";
 	}
 	
-	//¼³Á¤
-	//-	ºñ¹Ð¹øÈ£ º¯°æ
+	//ï¿½ï¿½ï¿½ï¿½
+	//-	ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 	
 	@RequestMapping(value = "/password_m.com")
 	public String user_P_M(HttpSession session) {
@@ -129,17 +129,17 @@ public class UserController {
 			return "ozoLogin_zinc";
 		}
 	}
-	//-È¸¿øÁ¤º¸ º¯°æ
+	//-È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	@RequestMapping(value = "/edit.com")
 	public String user_edit() {
 		return "ozoedit_zinc";
 	}
-	//¸®ºä¾²´Â ÆäÀÌÁö 
+	//ï¿½ï¿½ï¿½ä¾²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 	@RequestMapping(value = "/myreview_write.com")
 	public String user_myReview_write() {
 		return "myReview-write";
 	}
-	//ÀÔÁ¡½ÅÃ»
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»
 	@RequestMapping(value = "/shopApply.com")
 	public String user_shopApply(HttpServletRequest request) {
 		
@@ -150,9 +150,11 @@ public class UserController {
 			return "ozoLogin_zinc";
 		}
 	}
-	//·Î±×ÀÎ È­¸é¿¡¼­ ºñ¹Ð¹øÈ£ Àç¼³Á¤
+	//ï¿½Î±ï¿½ï¿½ï¿½ È­ï¿½é¿¡ï¿½ï¿½ ï¿½ï¿½Ð¹ï¿½È£ ï¿½ç¼³ï¿½ï¿½
 	@RequestMapping(value = "/passwordReset.com")
 	public String user_passwordReset() {
 		return "passwordReset";
 	}
+
+
 }

@@ -36,4 +36,15 @@ public class UserMainServiceImpl implements UserMainService {
 		return userMainDAO.selectBannerList();
 	}
 
+	@Override
+	public List<UserProductVO> todayDealList() {
+		return userMainDAO.todayDealList();
+	}
+
+	@Override
+	public List<UserProductVO> shopItemList() {
+		return userMainDAO.shopItemList();
+	}
+
+
 }

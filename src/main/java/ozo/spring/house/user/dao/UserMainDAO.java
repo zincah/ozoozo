@@ -37,5 +37,21 @@ public class UserMainDAO {
 		return sqlSessionTemplate.selectList("UserMainDAO.selectBannerList");
 	}
 
+	public List<UserProductVO> todayDealList(){
+		System.out.println("mybatis in usermaindao todaydeallist");
+		
+		List<UserProductVO> list = sqlSessionTemplate.selectList("UserMainDAO.todayDealList");
+		System.out.println(list.size());
+
+		return list;
+	}
+
+	public List<UserProductVO> shopItemList(){
+		System.out.println("mybatis in usermaindao shopitemlist");
+		List<UserProductVO> list = sqlSessionTemplate.selectList("UserMainDAO.shopItemList");
+		System.out.println(list.size());
+		return list;
+	}
+
 
 }

@@ -61,6 +61,12 @@
 	<select id="selectBannerList" resultType="banner">
 		SELECT banner_id, banner_urlbig, banner_urlsm FROM banner;
 	</select>
+
+
+
+
+
+
 	
 
 </mapper>

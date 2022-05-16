@@ -12,5 +12,6 @@ public interface UserMainService {
 	public List<UserProductVO> mainDealProductList(UserProductVO vo);
 	public List<UserProductVO> plusProductList(UserPagingVO pvo);
 	public List<BannerVO> selectBannerList();
-	
+	public List<UserProductVO> todayDealList();
+	public List<UserProductVO> shopItemList();
 }
