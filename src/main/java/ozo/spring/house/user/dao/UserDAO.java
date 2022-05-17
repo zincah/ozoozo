@@ -1,5 +1,6 @@
 package ozo.spring.house.user.dao;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -184,7 +185,7 @@ public class UserDAO {
 	public class payment_class{
 		List<CartVO> cart_li = new ArrayList<CartVO>();
 		List<UserProductVO> pro_li = new ArrayList<UserProductVO>();
-		List<UserProductVO> seller_li = new ArrayList<UserProductVO>();
+		List<UserProductVO> post_li = new ArrayList<UserProductVO>();
 		public payment_class() {
 			
 		}
@@ -203,16 +204,22 @@ public class UserDAO {
 			return pro_li;
 		}
 		public void set_post_list(CartVO cvo) {
-			this.seller_li.add(sqlSessionTemplate.selectOne("UserProduct.get_post", cvo));
+			this.post_li.add(sqlSessionTemplate.selectOne("UserProduct.get_post", cvo));
 		}
 		public List<UserProductVO> get_post_list() {
-			return seller_li;
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
+			for(int i = 0; i < post_li.size(); i++) {
+				post_li.get(i).setExStr(decFormat.format(post_li.get(i).getPost_shipfee()));
+			}
+			return post_li;
 		}
 		public List<UserAddressVO> address_check(CartVO cvo){
+			List<UserAddressVO> address_li= new ArrayList<UserAddressVO>();
 			if(null == sqlSessionTemplate.selectList("UserProduct.address_check", cvo)) {
 				return null;
 			}else {
-				List<UserAddressVO> address_li = sqlSessionTemplate.selectList("UserProduct.address_check", cvo);
+				address_li = sqlSessionTemplate.selectList("UserProduct.address_check", cvo);
+				System.out.println(address_li);	
 				return address_li;
 			}
 		}

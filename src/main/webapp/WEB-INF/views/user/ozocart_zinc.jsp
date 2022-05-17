@@ -241,16 +241,16 @@
     	}
     }
     function payment(){
-    	/* var param_Str = "";
-    	for(i = 0; i < post.length; i++){
-			Bln = $("#"+ post[i] + "_check").is(':checked')
-			param_Str += post[i];
-			if(i != post.length - 1 ){
-				param_Str +=  "%";
-			}
+   	 var param_Str = "";
+   	for(i = 0; i < post.length; i++){
+		Bln = $("#"+ post[i] + "_check").is(':checked')
+		param_Str += post[i];
+		if(i != post.length - 1 ){
+			param_Str +=  "%";
 		}
-    	var form_param ='<input type="hidden" name="Product_ID" value="'+ param_Str +'">';	
-    	$("#actionForm").append(form_param);*/
+	}
+   	var form_param ='<input type="hidden" name="Product_ID" value="'+ param_Str +'">';	
+   	$("#actionForm").append(form_param);
     	$("#actionForm").submit(); 
     }
 	</script>
