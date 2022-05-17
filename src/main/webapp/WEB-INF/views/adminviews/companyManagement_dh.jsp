@@ -16,10 +16,59 @@
     <link href="resources/css/admincss/styles.css" rel="stylesheet" />
     <link href="resources/css/admincss/fonts.css?after" rel="stylesheet" />
     <link href="resources/css/admincss/insertProduct_dh.css?var=1" rel="stylesheet" />
-    <link href="resources/css/admincss/seller-productManagement_dh.css?after" rel="stylesheet" />
+    <link href="resources/css/admincss/modalbtn.css?var=12" rel="stylesheet" />
+    <link href="resources/css/admincss/seller-productManagement_dh.css?var=22" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <script>
+    
+    	$(document).ready(function(){
+    		
+    		/* 체크박스 메소드 이 부분이랑 checkfunction() */ 
+    		// 전체 체크박스 체크 여부에 따른 하위 체크박스들 상태 변경
+    		$("#allCheck").on('change', function(){
+    			if ($("#allCheck").is(":checked")) {
+        		    $(".check").prop("checked", true);
+        		    // 선택된 체크박스 개수에 따른 숫자값 변경
+        		    $(".select-num").text($(".check:checked").length);
+        		  } else {
+        		    $(".check").prop("checked", false);
+        		    // 선택된 체크박스 개수에 따른 숫자값 변경
+        		    $(".select-num").text($(".check:checked").length);
+        		  }
+    		});
+    		
+    	});
+    	
+    	// 체크 박스 js
+    	function checkfunction(){
+    		// 하위 체크박스 체크 여부에 따른 전체 체크박스 상태 변경
+    		// 하위 체크박스 체크 개수와 전체 개수를 비교
+			
+			if ($(".check:checked").length == $(".check").length && $(".check").length != 0) {
+    		    $("#allCheck").prop("checked", true);
+    		    // 선택된 체크박스 개수에 따른 숫자값 변경
+    		    $(".select-num").text($(".check:checked").length);
+    		    console.log($(".check:checked").length);
+    		} else {
+    		    $("#allCheck").prop("checked", false);
+    		    // 선택된 체크박스 개수에 따른 숫자값 변경
+    		    $(".select-num").text($(".check:checked").length);
+    		    console.log($(".check:checked").length);
+    		  }
+    	}
+    	
+    
+    
+    
+    
+    
+    </script>
+    
+    
+    
+    
   </head>
   
   		<jsp:include page="header/header.jsp"></jsp:include>
@@ -27,8 +76,11 @@
         <main style="background-color: #f5f5f5">
           <div class="container-fluid px-4">
             <h1 class="mt-4 insert_title">업체 관리</h1>
-            <ol class="breadcrumb bottomline">
-              <li class="breadcrumb-item active">Product Management</li>
+            <ol class="breadcrumb2 mb-3 bottomline">
+              <li class="breadcrumb-item active">Company Management</li>
+              <li>
+              	<button type="button" class="btn btn-secondary" onclick="clickReset()">초기화</button>
+              </li>
             </ol>
             <div class="">
               <div class="container container-option container-option-topPadding bottomline">
@@ -105,17 +157,9 @@
                 <div class="row optionGroup1">
                   <div class="col-1 status-name">기간</div>
                   <div class="col search-input">
-                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                      <select class="form-select selectDate" aria-label="Default select example">
-                        <!-- <option selected>대분류</option> -->
-                        <option value="1">상품 등록일</option>
-                        <option value="2">상품 등록일</option>
-                        <option value="3">상품 등록일</option>
-                      </select>
-                    </div>
                     <div class="radio-productCode">
-                      <div class="btn-group paddingLeft1" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check dateBtn-1" name="btnradio" id="btnradio1" autocomplete="off" checked />
+                      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check dateBtn-1" name="btnradio" id="btnradio1" autocomplete="off"/>
                         <label class="btn btn-outline-secondary dateBtn" for="btnradio1">오늘</label>
 
                         <input type="radio" class="btn-check dateBtn-2" name="btnradio" id="btnradio2" autocomplete="off" />
@@ -136,7 +180,7 @@
                         <input type="radio" class="btn-check dateBtn-7" name="btnradio" id="btnradio7" autocomplete="off" />
                         <label class="btn btn-outline-secondary dateBtn" for="btnradio7">1년</label>
 
-                        <input type="radio" class="btn-check dateBtn-8" name="btnradio" id="btnradio8" autocomplete="off" />
+                        <input type="radio" class="btn-check dateBtn-8" name="btnradio" id="btnradio8" autocomplete="off" checked />
                         <label class="btn btn-outline-secondary dateBtn" for="btnradio8">전체</label>
                       </div>
                     </div>
@@ -181,7 +225,8 @@
             <thead>
               <tr class="content-table-title">
                 <td class="content-table-title-text option-line" style="width: 1rem;">
-                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
+                  	<input type="hidden" id="findPage" value=1>
+                    <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="allCheck"/>
                 </td>
                 <td class="content-table-title-text option-line" style="width: 3rem;">업체코드</td>
                 <td class="content-table-title-text option-line" style="width: 8rem;">업체명</td>
@@ -199,7 +244,8 @@
               <c:forEach items="${sellerList }" var="seller">
               <tr class="content-table-content content-hover">
                 <td class="content-table-content-text option-line">
-                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
+                  <input type="hidden" value="${seller.seller_id }"/>
+	              <input class="check form-check-input form-check-input-margin" type="checkbox" value="" name="productcheckbox" onchange="checkfunction()"/>
                 </td>
                 <td class="content-table-content-text option-line">${seller.seller_id }</td>
                 <td class="content-table-content-text option-line">${seller.company_name }</td>
@@ -269,5 +315,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="resources/js/adminjs/admin-productManagement_ih.js"></script>
+    <script src="resources/js/adminjs/date_admin.js"></script>
+    <script src="resources/js/adminjs/checkbox.js"></script>
   </body>
 </html>

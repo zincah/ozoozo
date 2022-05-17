@@ -561,6 +561,7 @@
                     <input class="form-control size-input" id="search_input" type="text" disabled>
                 </div>
             </div>
+            </div>
             
         </main>
         <!-- content -->
