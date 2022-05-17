@@ -18,6 +18,7 @@ import ozo.spring.house.admin.service.AdminUserManageService;
 import ozo.spring.house.admin.vo.AdminProductVO;
 import ozo.spring.house.common.Criteria;
 import ozo.spring.house.common.PageDTO;
+import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Controller
@@ -73,11 +74,14 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/companyManagement.admin")
-	public String companyManageView(HttpServletRequest request) {
+	public String companyManageView(HttpServletRequest request, Model model) {
 		
 		HttpSession session = request.getSession();
-		
 		if(session.getAttribute("admincode")!=null) {
+			
+			List<SellerVO> sellerList = userService.selectSellerList();
+			model.addAttribute("sellerList", sellerList);
+			
 			return "companyManagement_dh";
 		}else {
 			return "adminLogin_dj";

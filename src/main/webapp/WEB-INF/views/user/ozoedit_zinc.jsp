@@ -13,8 +13,9 @@
 	integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
 	crossorigin="anonymous"></script>
 	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<link href="resources/css/user_css/zinc/ozoedit.css?var=1212" rel="stylesheet" />
     <link href="resources/css/user_css/zinc/ozomypageheader.css" rel="stylesheet"/>
-    <link href="resources/css/user_css/zinc/ozoedit.css?var=1" rel="stylesheet" />
+
 </head>
 <script>
 $(document).ready(function(){
@@ -211,7 +212,7 @@ function updatebtn(btn){
           
                 
                 <div class="edit_user_info_item">
-                    <div class="edit_user_info_item_title">
+                    <div class="edit_user_info_item_title setmargin">
                         이메일
                         <div class="edit_user_info_item_title_sub">
                             *필수항목
@@ -221,18 +222,18 @@ function updatebtn(btn){
                     <div class="edit_user_info_item_body">
                         <div class="edit_user_info_item_body_wrap">
                             <div class="email_input">
-                                <input type="text" class="h_email" placeholder="이메일" value="${info.user_email}">
+                                <input type="text" class="h_email form_control" placeholder="이메일" value="${info.user_email}" disabled>
                                 <span class="input_seperator">@</span>
-                                <select class="t_eamail">
+                                <select class="t_eamail form_control" disabled>
                                     <option value="" disabled="">선택해주세요</option>
                                     <option value="naver.com" ${mandu.user_email eq 'naver.com' ? 'selected="selected"' : '' }>naver.com</option>
-                                    <option value="hanmail.net">hanmail.net</option>
-                                    <option value="daum.net">daum.net</option>
-                                    <option value="gmail.com">gmail.com</option>
-                                    <option value="nate.com">nate.com</option>
-                                    <option value="hotmail.com">hotmail.com</option>
-                                    <option value="outlook.com">outlook.com</option>
-                                    <option value="icloud.com">icloud.com</option>
+                                    <option value="hanmail.net" ${mandu.user_email eq 'hanmail.net' ? 'selected="selected"' : '' }>hanmail.net</option>
+                                    <option value="daum.net" ${mandu.user_email eq 'daum.net' ? 'selected="selected"' : '' }>daum.net</option>
+                                    <option value="gmail.com" ${mandu.user_email eq 'gmail.com' ? 'selected="selected"' : '' }>gmail.com</option>
+                                    <option value="nate.com" ${mandu.user_email eq 'nate.com' ? 'selected="selected"' : '' }>nate.com</option>
+                                    <option value="hotmail.com" ${mandu.user_email eq 'hotmail.com' ? 'selected="selected"' : '' }>hotmail.com</option>
+                                    <option value="outlook.com" ${mandu.user_email eq 'outlook.com' ? 'selected="selected"' : '' }>outlook.com</option>
+                                    <option value="icloud.com" ${mandu.user_email eq 'icloud.com' ? 'selected="selected"' : '' }>icloud.com</option>
                                     <option value="_manual">직접입력</option>
                                 </select>
                             </div>
@@ -244,7 +245,7 @@ function updatebtn(btn){
                 </div>
 
                 <div class="edit_user_info_item">
-                    <div class="edit_user_info_item_title">
+                    <div class="edit_user_info_item_title setmargin">
                         별명
                         <div class="edit_user_info_item_title_sub">
                             *필수항목
@@ -254,14 +255,14 @@ function updatebtn(btn){
                     <div class="edit_user_info_item_body">
                         <div class="edit_user_info_item_body_wrap">
                             <div class="char_input">
-                                <input type="text" class="nickname" placeholder="별명" value="${info.nickname}">
+                                <input type="text" class="nickname form_control" placeholder="별명" value="${info.nickname}">
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="edit_user_info_item">
-                    <div class="edit_user_info_item_title">
+                    <div class="edit_user_info_item_title setmargin">
                         성별
                     </div>
 
@@ -286,21 +287,21 @@ function updatebtn(btn){
                 </div>
 
                 <div class="edit_user_info_item" style="margin-top: 10px;">
-                    <div class="edit_user_info_item_title">
+                    <div class="edit_user_info_item_title setmargin">
                         생년월일
                     </div>
 
                     <div class="edit_user_info_item_body">
                         <div class="edit_user_info_item_body_wrap">
                             <div class="char_input">
-                                <input type="text" class="user_birth" placeholder="생년월일" value="${info.user_birth}" >
+                                <input type="text" class="user_birth form_control" placeholder="생년월일" value="${info.user_birth}" >
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="edit_user_info_item">
-                    <div class="edit_user_info_item_title">
+                    <div class="edit_user_info_item_title setmargin">
                         프로필 이미지
                     </div>
 
@@ -341,7 +342,7 @@ function updatebtn(btn){
                     <div class="edit_user_info_item_body">
                         <div class="edit_user_info_item_body_wrap">
                             <div class="char_input">
-                                <input type="text" class="user_comment" placeholder="한줄소개" value="${info.comment}">
+                                <input type="text" class="user_comment form_control" placeholder="한줄소개" value="${info.comment}">
                             </div>
                         </div>
                     </div>

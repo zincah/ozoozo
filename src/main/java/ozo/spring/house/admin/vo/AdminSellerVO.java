@@ -1,4 +1,4 @@
-package ozo.spring.house.seller.vo;
+package ozo.spring.house.admin.vo;
 
 import java.sql.Timestamp;
 
@@ -9,19 +9,20 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class SellerVO {
+public class AdminSellerVO {
 	
 	private int seller_id;
-	private int user_id;
+	private int user_num;
 	private String company_name;
 	private String representative;
 	private String address;
-	private String shop_tell;
+	private String shop_tel;
 	private String email;
-	private int registration_num; // 사업자등록번호
-	private Timestamp entry_date; // 입점일
-	private String seller_representpic; // 브랜드 대표 사진
-	private String seller_status; // 사업자 상태
+	private String registration_num;
+	private Timestamp entry_date;
+	private String seller_representpic;
 	
 	private float brandstar; // 브랜드 별점 
+	
+
 }

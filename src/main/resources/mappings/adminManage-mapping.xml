@@ -189,5 +189,12 @@
 		</where>
 	</select>
 	
+	<!-- 업체 관리 -->
+	<select id="selectSellerList" resultType="seller">
+		SELECT s.*, brandstar FROM seller s
+		INNER JOIN (SELECT SUM(star_ratio)/COUNT(post_id) AS brandstar, post_sellerid FROM product_posting GROUP BY post_sellerid) po
+		ON po.post_sellerid = s.seller_id;
+	</select>
+	
 	
 </mapper>

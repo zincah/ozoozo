@@ -2,6 +2,7 @@ package ozo.spring.house.admin.service;
 
 import java.util.List;
 
+import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.vo.UserVO;
 
 public interface AdminUserManageService {
@@ -10,4 +11,6 @@ public interface AdminUserManageService {
 	public void updateUserStatus(UserVO vo);
 	public List<UserVO> getUserList(UserVO vo);
 	public List<UserVO> floatingPopulation();
+	
+	public List<SellerVO> selectSellerList();
 }
