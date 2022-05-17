@@ -1,32 +1,57 @@
 package ozo.spring.house.admin.controller;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ozo.spring.house.admin.service.AdminProductManageService;
+import ozo.spring.house.admin.service.AdminUserManageService;
 import ozo.spring.house.admin.vo.AdminProductVO;
 import ozo.spring.house.common.Criteria;
 import ozo.spring.house.common.PageDTO;
+import ozo.spring.house.user.vo.UserVO;
 
 @Controller
 public class AdminController {
 	
 	@Autowired
 	AdminProductManageService productService;
+	
+	@Autowired
+	AdminUserManageService userService;
 
 	@RequestMapping(value = "/index.admin")
-	public String adminIndex(HttpServletRequest request) {
+	public String adminIndex(HttpServletRequest request, Model model) {
 		
 		HttpSession session = request.getSession();
-		
 		if(session.getAttribute("admincode")!=null) {
+
+			List<UserVO> floatList = userService.floatingPopulation();
+			List<String> dateList = new ArrayList<String>();
+			List<Integer> countList = new ArrayList<Integer>();
+			
+			for(int i=0; i<floatList.size(); i++) {
+				UserVO vo = floatList.get(i);
+				dateList.add("\""+String.valueOf(vo.getLogin_date())+"\"");
+				countList.add(vo.getCount());
+
+			}
+
+			System.out.println(dateList.size());
+			System.out.println(countList.size());
+			
+			model.addAttribute("dateList", dateList);
+			model.addAttribute("countList", countList);
+
 			return "index";
 		}else {
 			return "adminLogin_dj";

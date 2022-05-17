@@ -87,6 +87,11 @@ public class AdminManageDAO {
 		List<AdminProductVO> list = sqlSessionTemplate.selectList("AdminManageDAO.searchListCount", pvo);
 		return list.size();
 	}
+	
+	public List<UserVO> floatingPopulation() {
+		System.out.println("--> mybatis in adminmanagedao floating");
+		return sqlSessionTemplate.selectList("AdminManageDAO.floatingPopulation");
+	}
 
 
 }

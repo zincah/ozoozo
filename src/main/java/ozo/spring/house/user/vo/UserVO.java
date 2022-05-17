@@ -35,4 +35,10 @@ public class UserVO {
 	
 	private String pack; // user table 검색 package
 	private String keyword;
+	
+	// 유저 유동인구 측정
+	private Date login_date;
+	private int lc_usernum;
+	private int count;
+
 }

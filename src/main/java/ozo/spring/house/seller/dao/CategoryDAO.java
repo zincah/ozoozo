@@ -34,7 +34,7 @@ public class CategoryDAO {
 	
 	public List<List<FilterVO>> getFilterOption(CategoryVO vo) {
 		System.out.println("--> mybatis in categorydao getfilteroption");
-		int count = 5;
+		int count = 7;
 		
 		List<List<FilterVO>> wholeList = new ArrayList<List<FilterVO>>();
 		List<FilterVO> perList = new ArrayList<FilterVO>();
@@ -49,6 +49,8 @@ public class CategoryDAO {
 			}
 			su++;
 		}
+		
+		System.out.println(wholeList.size());
 		
 		return wholeList;
 	}

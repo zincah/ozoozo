@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -15,7 +16,89 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="resources/css/admincss/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+    <script>
+    
+	
+	$(document).ready(function(){
+		
+		Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+		Chart.defaults.global.defaultFontColor = "#292b2c";
+
+		// get Date
+		
+		var dateList = ${dateList};
+		var countList = ${countList};
+		
+		var dates = [];
+		
+
+		
+		// Area Chart Example
+		var ctx = document.getElementById("myAreaChart");
+		var myLineChart = new Chart(ctx, {
+		  type: "line",
+		  data: {
+		    labels: dateList,
+		    datasets: [
+		      {
+		        label: "Sessions",
+		        lineTension: 0.3,
+		        backgroundColor: "rgba(255, 119, 142, 0.224)",
+		        borderColor: "rgba(255, 119, 142)",
+		        pointRadius: 5,
+		        pointBackgroundColor: "rgba(255, 119, 142)",
+		        pointBorderColor: "rgba(255,255,255,0.8)",
+		        pointHoverRadius: 5,
+		        pointHoverBackgroundColor: "rgba(255, 119, 142)",
+		        pointHitRadius: 50,
+		        pointBorderWidth: 2,
+		        data: countList,
+		      },
+		    ],
+		  },
+		  options: {
+		    scales: {
+		      xAxes: [
+		        {
+		          time: {
+		            unit: "date",
+		          },
+		          gridLines: {
+		            display: true,
+		          },
+		          ticks: {
+		            maxTicksLimit: 7,
+		          },
+		        },
+		      ],
+		      yAxes: [
+		        {
+		          ticks: {
+		            min: 0,
+		            max: 30,
+		            maxTicksLimit: 5,
+		          },
+		          gridLines: {
+		            color: "rgba(0, 0, 0, .125)",
+		          },
+		        },
+		      ],
+		    },
+		    legend: {
+		      display: false,
+		    },
+		  },
+		});
+		
+		
+		
+	})
+
+    
+    
+    </script>
 </head>
 
 		<jsp:include page="header/header.jsp"></jsp:include>
@@ -146,7 +229,9 @@
                       <p class="margin-zero"><i class="fas fa-chart-area me-1 icon-margin-right"></i>유입인구</p>
                     </div>
                     <div class="d-flex justify-content-between sub-text">
-                      <div class="card-body padding-zero"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                      <div class="card-body padding-zero">
+                      <canvas id="myAreaChart" width="100%" height="40"></canvas>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -676,7 +761,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="resources/js/adminjs/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="resources/assets/demo/chart-area-demo.js"></script>
+    <!--  <script src="resources/assets/demo/chart-area-demo.js"></script>-->
     <script src="resources/assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="resources/js/adminjs/datatables-simple-demo.js"></script>

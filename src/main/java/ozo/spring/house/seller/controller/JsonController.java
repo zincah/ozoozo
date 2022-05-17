@@ -44,7 +44,10 @@ public class JsonController {
 		System.out.println(jsondata);
 		// get 방식으로 카테고리 받기
 		
-		
+		// category 받기
+		Map<String, Object> category = jsondata.get(2);
+		int topcate = Integer.valueOf((String)category.get("cate_code"));
+
 		HttpSession session = request.getSession();
 		int postingCode = (Integer)session.getAttribute("postingCode");
 		System.out.println(postingCode);
@@ -52,7 +55,7 @@ public class JsonController {
 		Map<String, Object> optionMap = jsondata.get(0);
 		System.out.println(optionMap);
 		
-		filter.setFilter(optionMap, 1, postingCode);
+		filter.setFilter(optionMap, topcate, postingCode);
 
 		
 		Map<String, Object> tableMap = jsondata.get(1);
@@ -81,6 +84,8 @@ public class JsonController {
 		dvo.setRefundtable_address((String)tableMap.get("refundtable_address"));
 		
 		productDetailService.insertTables(dvo);
+		
+		
 		
 		
 		return jsondata;

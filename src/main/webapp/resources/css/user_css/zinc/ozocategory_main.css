@@ -325,40 +325,6 @@ span{
     font-weight: 400;
 }
 
-.location1{
-    top: 50px;
-    left:108px;
-}
-
-.location2{
-    top: 50px;
-    left:220px;
-}
-
-.location3{
-    top: 50px;
-    left:310px;
-}
-
-.location4{
-    top: 50px;
-    left:310px;
-}
-
-.location5{
-    top: 50px;
-    left:310px;
-}
-
-.location6{
-    top: 50px;
-    left:310px;
-}
-
-.location7{
-    top: 50px;
-    left:350px;
-}
 
 .location8{
     top: 50px;
@@ -370,8 +336,7 @@ span{
     left: 86px;
 }
 
-.dropdown_panel1, .dropdown_panel2, .dropdown_panel3, .dropdown_panel4, .dropdown_panel5,
-.dropdown_panel6, .dropdown_panel7, .dropdown_panel8, .dropdown_panel9{
+.dropdown_panel8, .dropdown_panel9{
     display: none;
     position: absolute;
     border-radius: 4px;
@@ -384,7 +349,23 @@ span{
     overflow: hidden;
     white-space: nowrap;
     width: 460px;
-    z-index: 3;
+    z-index: 100;
+}
+
+.dropdown_panel{
+    display: none;
+    position: absolute;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 30%);
+    margin: 0 -1px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0 -1px 16px rgb(0 0 0 / 20%);
+    border-radius: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 460px;
+    z-index: 100;
 }
 
 .property_filter_dropdown{
@@ -631,43 +612,8 @@ span{
 }
 
 @media all and (max-width:1024px) {
-	
-	/* option À§Ä¡ */
-	.location1 {
-	    top: 73px;
-	    left: 92px;
-	}
-	
-	.location2 {
-	    top: 73px;
-	    left: 80px;
-	}
-	
-	.location3 {
-	    top: 73px;
-	    left: 80px;
-	}
-	
-	.location4 {
-	    top: 73px;
-	    left: 80px;
-	}
-	
-	.location5 {
-	    top: 73px;
-	    left: 80px;
-	}
-	
-	.location6 {
-	    top: 73px;
-	    left: 80px;
-	}
-	
-	.location7 {
-	    top: 73px;
-	    left: 80px;
-	}
-	
+
+	/*
 	.location8 {
 	    top: 73px;
 	    left: 80px;
@@ -676,7 +622,7 @@ span{
 	.location9 {
 	    top: 73px;
 	    left: 80px;
-	}
+	}*/
     
     .container{
         width: calc(100% - 80px);

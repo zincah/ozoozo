@@ -186,21 +186,26 @@
         
       }
 
+
       
       	// 데이터모으기
       	
 	    function gatherData(){
       		
-      		//checkProduct();
-      		//photoUpload();
+      		checkProduct();
+      		photoUpload();
       		
       		var wholelist = []
-      		
       		var jsonmove = []
-      		
       		titles = [];
       		
       		var checkmap = {};
+      		
+      		var topcate = $("#category").val();
+
+			var cates = {
+					"cate_code" : topcate,
+			}
       		
       		$(".checkTitle").each(function(){
       			var checkTitle = $(this).text();
@@ -220,6 +225,7 @@
 				
       		}
       		
+			/*
       		if($("#option_input").find("#rental").val() != ""){
       			checkmap.상품유형 = [$("#option_input").find("#rental").val()];
       		}else{
@@ -230,7 +236,7 @@
       			checkmap.상품유형 = [$("#option_input").find("#rental").val()];
       		}else{
       			checkmap.상품유형 = []
-      		}
+      		}*/
 
       		console.log(checkmap);
 			
@@ -258,6 +264,7 @@
 			
 			jsonmove.push(checkmap);
 			jsonmove.push(table);
+			jsonmove.push(cates);
 			
 			console.log(JSON.stringify(jsonmove));
 			
@@ -272,7 +279,7 @@
 	  		success : function(resp){
 					
 	  				alert("filter data");
-	  			
+
 	  			}
 	  		});
 			
@@ -413,7 +420,7 @@
 						"option1" : $("#product_wrap"+i+"").find("#option1").val(),
 						"option2" : $("#product_wrap"+i+"").find("#option2").val(),
 						"product_price" : $("#product_wrap"+i+"").find("#product_price").val(),
-						"product_quantity" : $("#product_wrap"+i+"").find("#product_quantity").val()
+						"product_quantity" : $("#product_wrap"+i+"").find("#product_quantity").val(),
 				}
 
 				
@@ -436,6 +443,11 @@
 		  			
 		  			$("#po_category").attr('value', cate);
 		  			$("#po_subcate").attr('value', subcate);
+		  			
+		  			var shipfee = $("#post_shipfee").val();
+		  			if(shipfee == ""){
+		  				$("#post_shipfee").val(0);
+		  			}
 		  			
 		  			alert("form전송");
 		  			$("form").submit();
@@ -602,30 +614,9 @@
 							<div class="col-2 status-name-600" id="option-layer-name">옵션 (가구)</div>
 							<div class="col-10 search-input option_container" id="option_input">
 								
-								<div class="radio-productCode">
-									<div class="btn-group" role="group"
-										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState" id="rental" name="rental"
-											aria-label="Default select example">
-											<option selected value=>상품유형</option>
-											<option value="10601">렌탈상품</option>
-											<option value="10602">렌탈상품 x</option>
-										</select>
-									</div>
-									<div class="btn-group" role="group"
-										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState" name="refurbish" id="refurbish"
-											aria-label="Default select example">
-											<option selected value=>리퍼상품 유무</option>
-											<option value="10701">리퍼상품</option>
-											<option value="10702">리퍼상품 x</option>
-										</select>
-									</div>
-								</div>
-								
-								
-								<div class="color_option mt-3 row filtering-layer">
-									<c:forEach items="${wholeList }" var="perList">
+								<div class="filtering-layer">
+									<div class="color_option mt-3 row">
+										<c:forEach items="${wholeList }" var="perList" begin="0">
 										<div class="col-2 option_title status-name-600 checkTitle" style="font-size: 13px" id="${perList[0].filter_id }">${perList[0].filter_name }</div>
 										<div class="col-10 color_options" style="padding-bottom: 1rem;">
 											<c:forEach items="${perList }" var="item" begin="1">
@@ -638,12 +629,13 @@
 											</c:forEach>
 										</div>
 									</c:forEach>
+									</div>
 								</div>
 								
-								</div>
-								</div>
-								</div>
-								</div>
+							</div>
+						</div>
+					</div>
+					</div>
 						
 				
 				<!-- 상품추가 -->
@@ -947,7 +939,7 @@
 												화물배송 </label>
 										</div>
 										<div class="form-check">
-											<input style="margin-left: 0.5rem;" class="form-control input-custom" name="post_shipfee" type="text" placeholder="배송비(숫자만)">
+											<input style="margin-left: 0.5rem;" class="form-control input-custom" id="post_shipfee" name="post_shipfee" type="text" placeholder="배송비(숫자만)">
 										</div>
 							
 									</div>
