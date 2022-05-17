@@ -132,6 +132,8 @@ where cart_user=#{cart_user};
 where cart_user=#{cart_user} AND  cart_post= #{cart_post};
 	</select>
 	<select id="address_check" resultType="address">
-		select * from address where user_num = #{cart_user};
+		select a.*, ut.user_email  from address a
+	inner join user_table ut on ut.user_num = a.user_num 
+	where a.user_num = #{cart_user};
 	</select>
 </mapper>

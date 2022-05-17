@@ -44,8 +44,8 @@ public class UserPaymentController {
 	@RequestMapping(value = "/cart_payment.com", method=RequestMethod.POST)
 	public String load_payment(HttpSession session,Model model, HttpServletRequest request) {
 		int userID = (Integer)session.getAttribute("User_Num");
-		//String[] param_li = request.getParameter("Product_ID").split("%");
-		String[] param_li = {"50003", "50011"};
+		String[] param_li = request.getParameter("Product_ID").split("%");
+		//String[] param_li = {"50003", "50011"};
 		List<CartVO> cvo_li = new ArrayList<CartVO>();
 		CartVO cvo = new CartVO();
 		this.pay_cls = userservice.get_payment_class();
@@ -67,7 +67,16 @@ public class UserPaymentController {
 		model.addAttribute("pro_li", pro_li);
 		this.address_li = pay_cls.address_check(cvo);
 		model.addAttribute("address_li", address_li);
-		System.out.println(address_li);
+		for(int i = 0; i < address_li.size(); i++) {
+			if(address_li.get(i).isAddr_default()) {
+				model.addAttribute("address_true", address_li.get(i));
+			}
+		}
+		if(address_li.size() == 0 ) {
+			model.addAttribute("addr_boolean", false);
+		}else {
+			model.addAttribute("addr_boolean", true);
+		}
 		return "calculation";
 	}
 	

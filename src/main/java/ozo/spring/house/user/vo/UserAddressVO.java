@@ -14,7 +14,7 @@ public class UserAddressVO {
 	private String phone_num;
 	private String address1;
 	private String address2;
-	private boolean is_default;
+	private boolean addr_default;
 	private int user_num;
-	
+	private String user_email;
 }
