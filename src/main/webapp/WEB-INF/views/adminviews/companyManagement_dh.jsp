@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - SB Admin</title>
+    <title>업체 관리</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="resources/css/admincss/styles.css" rel="stylesheet" />
     <link href="resources/css/admincss/fonts.css?after" rel="stylesheet" />
@@ -41,20 +44,42 @@
               </div>
               <div class="container container-option container-option-topPadding bottomline">
                 <div class="row optionGroup1">
+                  <div class="col-1 status-name">업체 상태</div>
+                   <div class="col search-check-group">
+                    <div class="form-check form-check-display">
+                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
+                      <label class="form-check-label" for="flexCheckDefault"> 입점신청업체 </label>
+                    </div>
+                    <div class="form-check form-check-display">
+                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
+                      <label class="form-check-label" for="flexCheckDefault"> 입점업체 </label>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="container container-option container-option-topPadding bottomline">
+                <div class="row optionGroup1">
                   <div class="col-1 status-name">분류</div>
                   <div class="col search-check-group">
+                  	<!-- 나중에 넣기 -->
                     <div class="form-check form-check-display">
                       <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
                       <label class="form-check-label" for="flexCheckDefault"> 평점순 </label>
                     </div>
                     <div class="form-check form-check-display">
                       <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                      <label class="form-check-label" for="flexCheckDefault"> 신고순 </label>
+                      <label class="form-check-label" for="flexCheckDefault"> 매출순 </label>
+                    </div>
+                    <div class="form-check form-check-display">
+                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
+                      <label class="form-check-label" for="flexCheckDefault"> 인기순 </label>
                     </div>
                     
                   </div>
                 </div>
               </div>
+              
               <div class="container container-option container-option-topPadding bottomline">
                 <div class="row optionGroup1">
                   <div class="col-1 status-name">카테고리</div>
@@ -139,61 +164,90 @@
         </main>
         <!-- content -->
         <div class="content-table">
+        	<div class="dropdown setting-button text-end">
+				<button class="settingBtn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                   <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
+                 </svg>
+				</button>
+				<ul class="dropdown-menu settingBtnDropdown" aria-labelledby="dropdownMenuButton1" style="">
+					<li><h6 class="dropdown-header">업체 관리</h6></li>
+					<li>
+						<a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-status-select" id="companyStatusChange">업체상태변경</a>
+					</li>
+				</ul>
+			</div>
           <table class="table table-hover table-box-style">
             <thead>
               <tr class="content-table-title">
-                <td class="content-table-title-text option-line">
+                <td class="content-table-title-text option-line" style="width: 1rem;">
                   <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
                 </td>
-                <td class="content-table-title-text option-line">SID</td>
-                <td class="content-table-title-text option-line">업체명</td>
-                <td class="content-table-title-text option-line">대표명</td>
-                <td class="content-table-title-text option-line">전화번호</td>
-                <td class="content-table-title-text option-line">가구</td>
-                <td class="content-table-title-text option-line">사업자 등록 번호</td>
-                <td class="content-table-title-text option-line">등록일</td>
-                <td class="content-table-title-text option-line">별점</td>
-                <td class="content-table-title-text option-line">리뷰 수</td>
-                <td class="content-table-title-text">상태</td>
+                <td class="content-table-title-text option-line" style="width: 3rem;">업체코드</td>
+                <td class="content-table-title-text option-line" style="width: 8rem;">업체명</td>
+                <td class="content-table-title-text option-line" style="width: 4rem;">대표명</td>
+                <td class="content-table-title-text option-line" style="width: 8rem;">대표전화</td>
+                <td class="content-table-title-text option-line" style="width: 8rem;">사업자등록번호</td>
+                <td class="content-table-title-text option-line" style="width: 8rem;">입점일</td>
+                <td class="content-table-title-text option-line" style="width: 3rem;">업체별점</td>
+                <td class="content-table-title-text option-line" style="width: 3rem;">상태</td>
+                  
               </tr>
             </thead>
             <tbody>
               <!-- for -->
+              <c:forEach items="${sellerList }" var="seller">
               <tr class="content-table-content content-hover">
                 <td class="content-table-content-text option-line">
                   <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
                 </td>
-                <td class="content-table-content-text option-line">1001</td>
-                <td class="content-table-content-text option-line">뽀대현</td>
-                <td class="content-table-content-text option-line">정대현</td>
-                <td class="content-table-content-text option-line">010-1111-2222</td>
-                <td class="content-table-content-text option-line">전체</td>
-                <td class="content-table-content-text option-line">1321522-125</td>
-                <td class="content-table-content-text option-line">2022-03-12</td>
-                <td class="content-table-content-text option-line">4.3</td>
-                <td class="content-table-content-text option-line">\30,000</td>
+                <td class="content-table-content-text option-line">${seller.seller_id }</td>
+                <td class="content-table-content-text option-line">${seller.company_name }</td>
+                <td class="content-table-content-text option-line">${seller.representative }</td>
+                <td class="content-table-content-text option-line">${seller.shop_tell }</td>
+                <td class="content-table-content-text option-line">${seller.registration_num }</td>
                 <td class="content-table-content-text option-line">
-                  영업중
-                </td>
+					<fmt:formatDate value="${seller.entry_date}" pattern="yyyy-MM-dd HH:mm" />
+				</td>
+                <td class="content-table-content-text option-line">${seller.brandstar }</td>
+                <td class="content-table-content-text option-line">${seller.seller_status }</td>
               </tr>
-              <tr class="content-table-content content-hover">
-                <td class="content-table-content-text option-line">
-                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
-                </td>
-                <td class="content-table-content-text option-line state0">1002</td>
-                <td class="content-table-content-text option-line ">존잘</td>
-                <td class="content-table-content-text option-line">정대현</td>
-                <td class="content-table-content-text option-line">010-1111-2222</td>
-                <td class="content-table-content-text option-line">의자</td>
-                <td class="content-table-content-text option-line">1321522-125</td>
-                <td class="content-table-content-text option-line">2022-03-12</td>
-                <td class="content-table-content-text option-line">179784</td>
-                <td class="content-table-content-text option-line">\900,512,026</td>
-                <td class="content-table-content-text option-line">영업중단</td>
-              </tr>
+              </c:forEach>
             </tbody>
           </table>
         </div>
+        
+        <!--쿠폰등록modal-->        
+		<div class="modal fade" id="modal-status-select" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <p class="modal-title" id="">업체 관리</p>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body modal-status-select-product">
+					<div class="modal-status-select-product-num">
+						<span>선택된 업체 수 : </span> 
+						<span class="modal-status-select-product-num-value productNum select-num">0</span>
+						<span>개</span>
+					</div>
+					<div class="modal-status-select">
+						<div class="btn-group modal-status-select-btn-group" role="group" aria-label="Basic radio toggle button group">
+							<select class="form-select modal-status-select-option" aria-label="Default select example" id="couponStatusOption">
+								<option value="입점중">입점승인</option>
+								<option value="보류중">보류중</option>
+								<option value="업체정지">업체정지</option>
+							</select>
+						</div>
+					</div>
+				</div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+		        <button type="button" class="btn modal-status-select-submit-button" onclick="updateCouponStatus()">확인</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
         
         <!-- footer -->
         <footer class="py-4 bg-light mt-auto">

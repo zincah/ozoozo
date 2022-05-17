@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ozo.spring.house.admin.dao.AdminManageDAO;
+import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Service("adminUserManageService")
@@ -32,6 +33,11 @@ public class AdminUserManageServiceImpl implements AdminUserManageService {
 	@Override
 	public List<UserVO> floatingPopulation() {
 		return adminManageDAO.floatingPopulation();
+	}
+
+	@Override
+	public List<SellerVO> selectSellerList() {
+		return adminManageDAO.selectSellerList();
 	}
 
 }

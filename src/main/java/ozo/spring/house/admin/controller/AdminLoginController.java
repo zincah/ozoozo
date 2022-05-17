@@ -22,7 +22,7 @@ public class AdminLoginController {
 	@RequestMapping(value = "/login.admin", method=RequestMethod.GET)
 	public String loginView(HttpSession session) {
 		if(session.getAttribute("admincode")!=null) {
-			return "index";
+			return "redirect:index.admin";
 		}else {
 			return "adminLogin_dj";
 		}
@@ -37,8 +37,8 @@ public class AdminLoginController {
 		
 		if(admin != null) {
 			session.setAttribute("admincode", admin.getAdmin_code());
-			model.addAttribute("admincode", vo.getAdmin_code());
-			model.addAttribute("member", vo); // member 정보
+			//model.addAttribute("admincode", vo.getAdmin_code());
+			//model.addAttribute("member", vo); // member 정보
 			return "redirect:index.admin";
 		}else {
 			String msg = "입력하신 정보가 잘못 되었습니다.";

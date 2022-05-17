@@ -10,6 +10,7 @@ import ozo.spring.house.admin.vo.AdminProductVO;
 import ozo.spring.house.admin.vo.MemberVO;
 import ozo.spring.house.common.Criteria;
 import ozo.spring.house.seller.vo.ProductDetailVO;
+import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Repository
@@ -93,5 +94,10 @@ public class AdminManageDAO {
 		return sqlSessionTemplate.selectList("AdminManageDAO.floatingPopulation");
 	}
 
+	// 입점신청관련 관련
+	public List<SellerVO> selectSellerList(){
+		System.out.println("--> mybatis in adminmanagedao selectseller");
+		return sqlSessionTemplate.selectList("AdminManageDAO.selectSellerList");
+	}
 
 }
