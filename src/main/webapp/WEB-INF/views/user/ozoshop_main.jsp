@@ -87,6 +87,9 @@
                         </p>
                     </div>
                 </article>
+
+
+                <c:C:forEach items="${cateList}" var="cate">
                 <section class="category_list">
                     <div class="category_list_title">
                         <a href="#">가구</a>
@@ -100,7 +103,7 @@
                                 </button>
                             </div>
                             <!--버튼 누르면 밑에 토글다운 생기게-->
-                            <div class="category_tree_child_layer" style="overflow: hidden;">
+                            <div class="category_tree_child_layer" style="overflow: inherit;">
                                 <ul class="category_tree_children">
                                     <li class="category_tree_children_entry">
                                         <a href="#">침대프레임</a>
@@ -114,83 +117,8 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="category_entry">
-                            <div class="category_entry_header">
-                                <a href="#" class="category_entry_move">매트리스.토퍼</a>
-                                <button class="category_entry_expand">
-                                    <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                </button>
-                            </div>
-                            <!--버튼 누르면 밑에 토글다운 생기게-->
 
-                            <div class="category_tree_child_layer" style="overflow: hidden;">
-                                <ul class="category_tree_children">
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">매트리스</a>
-                                    </li>
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">토퍼</a>
-                                    </li>
-                                </ul>
-                            </div>
 
-                        </li>
-                        <li class="category_entry">
-                            <div class="category_entry_header">
-                                <a href="#" class="category_entry_move">소파</a>
-                                <button class="category_entry_expand">
-                                    <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                </button>
-                            </div>
-                            <!--버튼 누르면 밑에 토글다운 생기게-->
-                            <div class="category_tree_child_layer" style="overflow: hidden;">
-                                <ul class="category_tree_children">
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">일반소파</a>
-                                    </li>
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">리클라이너</a>
-                                    </li>
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">소파베드</a>
-                                    </li>
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">좌식소파</a>
-                                    </li>
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">소파스톨</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="category_entry">
-                            <div class="category_entry_header">
-                                <a href="#" class="category_entry_move">테이블.책상</a>
-                                <button class="category_entry_expand">
-                                    <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                </button>
-                            </div>
-                            <!--버튼 누르면 밑에 토글다운 생기게-->
-                            <div class="category_tree_child_layer" style="overflow: hidden;">
-                                <ul class="category_tree_children">
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">거실.소파테이블</a>
-                                    </li>
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">사이드테이블</a>
-                                    </li>
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">식탁</a>
-                                    </li>
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">책상</a>
-                                    </li>
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">좌식테이블</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
                         <li class="category_entry">
                             <div class="category_entry_header">
                                 <a href="#" class="category_entry_move">거실장.tv장</a>
@@ -219,26 +147,7 @@
                                                 <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
                                             </button>
                                         </div>
-                                        <!--버튼 누르면 밑에 토글다운 생기게-->
-                                        <div class="category_tree_child_layer" style="overflow: hidden;">
-                                            <ul class="category_tree_children">
-                                                <li class="category_tree_children_entry">
-                                                    <a href="#">서랍장</a>
-                                                </li>
-                                                <li class="category_tree_children_entry">
-                                                    <a href="#">수납장</a>
-                                                </li>
-                                                <li class="category_tree_children_entry">
-                                                    <a href="#">캐비닛</a>
-                                                </li>
-                                                <li class="category_tree_children_entry">
-                                                    <a href="#">주납수납장</a>
-                                                </li>
-                                                <li class="category_tree_children_entry">
-                                                    <a href="#">협탁</a>
-                                                </li>
-                                        </div>
-                                    </li>
+
                                     <li class="category_entry">
                                         <div class="category_entry_header">
                                             <a href="#" class="category_entry_move">진열장.책장</a>
@@ -246,20 +155,7 @@
                                                 <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
                                             </button>
                                         </div>
-                                        <!--버튼 누르면 밑에 토글다운 생기게-->
-                                        <div class="category_tree_child_layer" style="overflow: hidden;">
-                                            <ul class="category_tree_children">
-                                                <li class="category_tree_children_entry">
-                                                    <a href="#">진열장.장식장</a>
-                                                </li>
-                                                <li class="category_tree_children_entry">
-                                                    <a href="#">책장</a>
-                                                </li>
-                                                <li class="category_tree_children_entry">
-                                                    <a href="#">매거진랙</a>
-                                                </li>
-                                        </div>
-                                    </li>
+
                                     <li class="category_entry">
                                         <div class="category_entry_header">
                                             <a href="#" class="category_entry_move">선반</a>
@@ -280,128 +176,10 @@
                                         <!--버튼 누르면 밑에 토글다운 생기게-->
                                         <div style="overflow: hidden;"></div>
                                     </li>
-                                    <li class="category_entry">
-                                        <div class="category_entry_header">
-                                            <a href="#" class="category_entry_move">의자</a>
-                                            <button class="category_entry_expand">
-                                                <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                            </button>
-                                        </div>
-                                        <!--버튼 누르면 밑에 토글다운 생기게-->
-                                        <div style="overflow: hidden;"></div>
-                                    </li>
-                                    <li class="category_entry">
-                                        <div class="category_entry_header">
-                                            <a href="#" class="category_entry_move">화장대.콘솔</a>
-                                            <button class="category_entry_expand">
-                                                <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                            </button>
-                                        </div>
-                                        <!--버튼 누르면 밑에 토글다운 생기게-->
-                                        <div style="overflow: hidden;"></div>
-                                    </li>
-                                    <li class="category_entry">
-                                        <div class="category_entry_header">
-                                            <a href="#" class="category_entry_move">거울</a>
-                                            <button class="category_entry_expand">
-                                                <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                            </button>
-                                        </div>
-                                        <!--버튼 누르면 밑에 토글다운 생기게-->
-                                        <div style="overflow: hidden;"></div>
-                                    </li>
-                                    <li class="category_entry">
-                                        <div class="category_entry_header">
-                                            <a href="#" class="category_entry_move">가벽.파티션</a>
-                                            <button class="category_entry_expand">
-                                                <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                            </button>
-                                        </div>
-                                        <!--버튼 누르면 밑에 토글다운 생기게-->
-                                        <div style="overflow: hidden;"></div>
-                                    </li>
-                                    <li class="category_entry">
-                                        <div class="category_entry_header">
-                                            <a href="#" class="category_entry_move">야외가구</a>
-                                            <button class="category_entry_expand">
-                                                <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                            </button>
-                                        </div>
-                                        <!--버튼 누르면 밑에 토글다운 생기게-->
-                                        <div style="overflow: hidden;"></div>
-                                    </li>
-                                    <li class="category_entry">
-                                        <div class="category_entry_header">
-                                            <a href="#" class="category_entry_move">유아동가구</a>
-                                            <button class="category_entry_expand">
-                                                <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                            </button>
-                                        </div>
-                                        <!--버튼 누르면 밑에 토글다운 생기게-->
-                                        <div style="overflow: hidden;"></div>
-                                    </li>
-                                    <li class="category_entry">
-                                        <div class="category_entry_header">
-                                            <a href="#" class="category_entry_move">공간별가구</a>
-                                            <button class="category_entry_expand">
-                                                <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                            </button>
-                                        </div>
-                                        <!--버튼 누르면 밑에 토글다운 생기게-->
-                                        <div style="overflow: hidden;"></div>
-                                    </li>
-                                </ul>
-                                <ul class="category_list_others">
-                                    <li class="category_list_others_item">
-                                        <a href="#">패브릭</a>
-                                    </li>
-                                    <li class="category_list_others_item">
-                                        <a href="#">조명</a>
-                                    </li>
-                                    <li class="category_list_others_item">
-                                        <a href="#">가전</a>
-                                    </li>
-                                    <li class="category_list_others_item">
-                                        <a href="#">주방용품</a>
-                                    </li>
-                                    <li class="category_list_others_item">
-                                        <a href="#">데코.식물</a>
-                                    </li>
-                                    <li class="category_list_others_item">
-                                        <a href="#">수납.정리</a>
-                                    </li>
-                                    <li class="category_list_others_item">
-                                        <a href="#">생활용품</a>
-                                    </li>
-                                    <li class="category_list_others_item">
-                                        <a href="#">생필품</a>
-                                    </li>
-                                    <li class="category_list_others_item">
-                                        <a href="#">공구.DIY</a>
-                                    </li>
-                                    <li class="category_list_others_item">
-                                        <a href="#">인테리어시공</a>
-                                    </li>
-                                    <li class="category_list_others_item">
-                                        <a href="#">반려동물</a>
-                                    </li>
-                                    <li class="category_list_others_item">
-                                        <a href="#">캠핑용품</a>
-                                    </li>
-                                    <li class="category_list_others_item">
-                                        <a href="#">실내운동</a>
-                                    </li>
-                                    <li class="category_list_others_item">
-                                        <a href="#">유아.아동</a>
-                                    </li>
-                                    <li class="category_list_others_item">
-                                        <a href="#">렌탈</a>
-                                    </li>
-                                    <li class="category_list_others_item">
-                                        <a href="#">식품</a>
-                                    </li>
-                                </ul>
+
+
                 </section>
+                </c:C:forEach>
             </div>
 
             <div class="category_content col-12 col-md-9">
