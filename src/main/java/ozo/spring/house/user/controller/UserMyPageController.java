@@ -1,14 +1,15 @@
 package ozo.spring.house.user.controller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.user.service.userMyPageService;
@@ -45,17 +46,44 @@ public class UserMyPageController {
 			return "ozoLogin_zinc";
 		}
 		
-		
-		
-		
-		
-		 
-		 
+	}
+	
+	@RequestMapping(value="/out.com")
+	public String memberout() {
+		return "memberout";
 	}
 	
 	@ResponseBody
-	@RequestMapping
-	public void user_edit(UserVO vo) {
+	@RequestMapping(value="/stopit.com" , method=RequestMethod.POST)
+	public String user_stop(UserVO vo, HttpServletRequest request ) {
+		HttpSession session = request.getSession();
+		System.out.println("여기 넘어왔어~");
+		vo.setUser_num((int)session.getAttribute("User_Num"));
+		vo.setUser_status("활동중");
+		
+		userMyPageService.user_stop(vo);
+
+		
+		return "success";
+	}
+	@RequestMapping(value="/m_myPage.com")
+	public String  mypage(UserVO vo,Model model,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		
+		if(session.getAttribute("User_Num")!=null) {
+			vo.setUser_num((int)session.getAttribute("User_Num"));
+			UserVO info;
+			info = userMyPageService.mypageinfo(vo);
+			
+			model.addAttribute("info", info);
+			 
+			 
+			return "myPage";
+		}else {
+			return "ozoLogin_zinc";
+		}
 		
 	}
+	
 }

@@ -28,10 +28,23 @@ public class userMyPageServiceImple implements userMyPageService {
 
 	@Override
 	public void user_edit(UserVO vo) {
+		System.out.println("걱정마 들어가고 있어 ");
+		UserMyPageDAO.user_edit(vo);
 		
-		UserMyPageDAO.mypageinfo(vo);
 		
 		
+	}
+
+	@Override
+	public void user_urlnone(UserVO vo) {
+		System.out.println("응 url 제외하고 들어가고 있어 ");
+		UserMyPageDAO.user_urlnone(vo);
+		
+	}
+
+	@Override
+	public void user_stop(UserVO vo) {
+		UserMyPageDAO.user_stop(vo);
 		
 	}
 

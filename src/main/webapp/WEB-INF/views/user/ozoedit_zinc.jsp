@@ -18,19 +18,8 @@
 </head>
 <script>
 $(document).ready(function(){
-	/* 회원정보 수정 클릭 */
-	$(".update_btn_position").click(function(){
-		 var radioVal = $("input:radio[name='radioValue']:checked").val();
-		    //데이터담기
-		    var data = {   
-						"user_nickname": $(".nickname").val(),
-						"user_birth": $(".user_birth").val(),
-						"comment": $(".user_comment").val(),
-						"gender": radioVal
-		                }
-		    console.log(data);
-		
-	});
+	
+	
 	
 	/* 파일 업로드 */
 	const realUpload = document.querySelector('.real-upload');
@@ -38,6 +27,18 @@ $(document).ready(function(){
 
  	upload.addEventListener('click', () => realUpload.click());
 
+ 	
+ 	
+ 	
+ 		
+ 		if(${info.user_img ne null} ){
+ 	 		
+ 	 		$("#image_show").css({display:"flex"})
+ 	 		$("#image_show").html('<img class="upload_img" src="${info.user_img}" style="visibility: visible; object-fit: contain;">')
+ 	 	}else{
+ 	 		
+ 	 	}
+ 		
 
  });
 
@@ -46,7 +47,7 @@ $(document).ready(function(){
 	
 	function changeValue(input) {
 			
-			
+			console.log(1234567890);
 		  var checkId = input.id;
 		  var checkSu = checkId.substr(-1);
 		  
@@ -71,6 +72,7 @@ $(document).ready(function(){
 	  container.appendChild(newImage);
 	  $('#image_show').css({"display":"flex"});
 	  
+	  return toto =1; 
 	}
 	
 	function delPhoto(delit){
@@ -81,6 +83,7 @@ $(document).ready(function(){
   	  if(container.hasChildNodes()){
   		  container.removeChild(container.firstChild);
   		  $('#image_show').hide();
+  		  $("#image_show").text("")
   	  }
   	  
   	  
@@ -98,7 +101,13 @@ $(document).ready(function(){
 		  
 		  element.checked = true;
 		}
-/* function updatebtn(btn){
+	
+	var toto;
+	function areyouchange(roro){
+		console.log("ome")
+		return toto = 1;
+	}
+function updatebtn(btn){
 	 //form data생성
     var formData = new FormData();
     var radioVal = $("input:radio[name='radioValue']:checked").val();
@@ -108,31 +117,33 @@ $(document).ready(function(){
 				"user_birth": $(".user_birth").val(),
 				"comment": $(".user_comment").val(),
 				"gender": radioVal
-                } */
-   
+                } 
+   console.log(data)
+    console.log(toto)
+   if(toto==1){
      // input class 값 
-    /* var fileInput = $('.real-upload');
+     var fileInput = $('.real-upload');
     // fileInput 개수를 구한다.
     for (var i = 0; i < fileInput.length; i++) {
     	if (fileInput[i].files.length > 0) {
     		for (var j = 0; j < fileInput[i].files.length; j++) {
-    			console.log(" fileInput[i].files[j] :::"+ fileInput[i].files[j]); */
+    			console.log(" fileInput[i].files[j] :::"+ fileInput[i].files[j]); 
     			
-    			/* // formData에 'file'이라는 키값으로 fileInput 값을 append 시킨다.   */
-    			/* formData.append('myphoto', $('.real-upload')[i].files[j]);
+    			 // formData에 'file'이라는 키값으로 fileInput 값을 append 시킨다.   
+    			 formData.append('myphoto', $('.real-upload')[i].files[j]);
     		}
     	}
-    } */
-   
-/*  // 'key'라는 이름으로 위에서 담은 data를 formData에 append한다. type은 json   */
-/*  formData.append('key', new Blob([ JSON.stringify(data) ], {type : "application/json"})); */
+    } 
+   }
+  // 'key'라는 이름으로 위에서 담은 data를 formData에 append한다. type은 json   
+   formData.append('key', new Blob([ JSON.stringify(data) ], {type : "application/json"})); 
  
-  // ajax 처리 부분 * 
+  // ajax 처리 부분  
  //- contentType : false 로 선언 시 content-type 헤더가 multipart/form-data로 전송되게 함
- //- processData : false로 선언 시 formData를 string으로 변환하지 않음 */
+ //- processData : false로 선언 시 formData를 string으로 변환하지 않음 
   
  
- /*   $.ajax({  
+    $.ajax({  
        url:'mypageupload.com',
        method:'POST',
        data: formData,
@@ -141,11 +152,11 @@ $(document).ready(function(){
        enctype : 'multipart/form-data', // * 중요 *
        success: function(data) { 
     	   
-    	   alert("hi");
+    	   alert("정보가 변경되었습니다.");
        }
   
 
- })  */
+ })  
 }
 
 </script>
@@ -193,11 +204,11 @@ $(document).ready(function(){
         <div class="edit_user_info_wrap container">
             <div class="edit_user_info_header">
                 <div class="edit_user_info_header_title">회원정보수정</div>
-                <a class="edit_user_info_header_secession">탈퇴하기</a>
+                <a href="/house/out.com"class="edit_user_info_header_secession">탈퇴하기</a>
             </div>
 		
              <!-- 수정 부분 -->
-            <form action="." method="post">
+          
                 
                 <div class="edit_user_info_item">
                     <div class="edit_user_info_item_title">
@@ -259,11 +270,11 @@ $(document).ready(function(){
                             <div class="gender_input">
                                 <ul class="radio_group_input">
                                     <li>
-                                        <input type="radio" class="form_radio" name="radioValue" onclick="checkOnlyOne(this)" value="man" checked>
+                                        <input type="radio" class="form_radio" name="radioValue" onclick="checkOnlyOne(this)" value="true" checked>
                                         남성
                                     </li>
                                     <li>
-                                        <input type="radio" class="form_radio" name="radioValue" onclick="checkOnlyOne(this)" value="woman" >
+                                        <input type="radio" class="form_radio" name="radioValue" onclick="checkOnlyOne(this)" value="false" >
                                         여성
                                     </li>
                                 </ul>
@@ -298,14 +309,19 @@ $(document).ready(function(){
                             <div class="profile_layer">
                                 <div class="profile_btn_wrap">
                                     
-                                    <input type="file" class="real-upload" onchange="changeValue(this)" accept="image/*" style=display:none multiple  >
+                                    <input type="file" class="real-upload" onchange="changeValue(this)"  accept="image/*" style=display:none   multiple  >
                                     <button class="profile_btn">
                                      <!-- <img class="profile_img" src="sources/face.png"> -->
                                      
                                      </button> 
                                      
                                     
-                                    <div id="image_show" class="image_show"></div>
+                                    
+                                    <div id="image_show" class="image_show" >
+                                    
+                                   
+                                   
+                                    </div>
                                     <button class="delete_btn" onclick="delPhoto(this)" >삭제</button>
                                     
                                     
@@ -331,10 +347,10 @@ $(document).ready(function(){
                     </div>
                 </div>
 
-                <button class="update_btn_position update_btn" >
+                <button class="update_btn_position update_btn"  onclick="updatebtn(this)">
                     회원정보수정
                 </button>
-            </form>
+         
            
         </div>
 
