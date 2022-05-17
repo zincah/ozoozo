@@ -232,8 +232,8 @@
 								<button class="layout-navigation-bar-user-button" type="button"
 									aria-label="우동이형님">
 									<div class="layout-navigation-bar-user-button__image">
+									<c:if test="${User_Num ne null}">
 										<img class="image"
-										
 											src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36&amp;h=36&amp;c=c"
 											srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144&amp;h=144&amp;c=c 3x">
 									</div>

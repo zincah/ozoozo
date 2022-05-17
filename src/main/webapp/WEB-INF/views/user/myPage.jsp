@@ -41,23 +41,7 @@
             </li>
           </ul>
         </nav>
-        <!--
-        <nav class="page-navigation mypage-nav-content">
-          <ul style="transform: translateX(0px); margin: 0px">
-            <li class="mypage-nav-item">
-              <a class="active select" href="#" target="self">프로필</a>
-            </li>
-            <li class="mypage-nav-item">
-              <a href="#" target="self">나의 쇼핑</a>
-            </li>
-            <li class="mypage-nav-item">
-              <a href="#" target="self">나의 리뷰</a>
-            </li>
-            <li class="mypage-nav-item">
-              <a href="#" target="self">설정</a>
-            </li>
-          </ul>
-        </nav>-->
+       
       </div>
       <div class="mypage-profile-container">
         <div class="mypage-profile-inner">
@@ -65,13 +49,12 @@
             <div class="mypage-profile-img-item">
               <div class="mypage-profile-img-container">
                 <div class="mypage-profile-img-area">
-                <c:set value="${info.user_img}"></c:set>
-                <c:if test="${info.user_img ne null}">
-                  <img class="mypage-profile-img" src="${info.user_img}" />
-                  </c:if>
-                   <c:if test="${info.user_img eq null}">
-                  <img class="mypage-profile-img" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/avatar.webp" />
-                  </c:if>
+               		<c:if test="${info.user_img ne null}">
+                  		<img class="mypage-profile-img" src="${info.user_img}" />
+                  	</c:if>
+                 	<c:if test="${info.user_img eq null }">
+                  		<img class="mypage-profile-img" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/avatar.webp" />
+                	</c:if>
                 </div>
                 <div class="mypage-profile-text-area">
                   <div class="mypage-profile-name">${info.nickname}</div>
