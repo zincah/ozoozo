@@ -18,7 +18,7 @@
 			data-bs-toggle="modal" data-bs-target="#modal-view-order">
 			<fmt:formatDate value="${searchOrderList.getOrder_date()}" pattern="yyyy-MM-dd HH:mm" /></td>
 		<td class="content-table-content-text option-line state0"
-			data-bs-toggle="modal" data-bs-target="#modal-view-order">${searchOrderList.getOrder_id()}</td>
+			data-bs-toggle="modal" data-bs-target="#modal-view-order">${searchOrderList.getOrder_id()}(${orderListView.getOrder_num()})</td>
 		<td class="content-table-content-text option-line"
 			data-bs-toggle="modal" data-bs-target="#modal-view-order">${searchOrderList.getOrder_status()}</td>
 		<td class="content-table-content-text option-line"

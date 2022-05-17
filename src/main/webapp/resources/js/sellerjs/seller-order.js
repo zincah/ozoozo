@@ -400,3 +400,25 @@ function getOrderData() {
   		}
   	});
 }
+
+
+
+// 주문 상세조회 모달
+function orderDetailView(orderNum) {
+	
+	// 선택한 행의 그룹주문번호 값 저장하기
+	console.log(orderNum);
+	
+	/*
+	// 데이터 처리 요청
+	$.ajax({
+  		url:'getOrderDatailView.seller',
+  		type:'post',
+  		data: JSON.stringify(orderNum),
+  		contentType : 'application/json; charset=UTF-8',
+  		dataType : 'html',
+  		success : function(resp){
+  			$("#modal-view-order").html(resp);
+  		}
+  	});*/
+}

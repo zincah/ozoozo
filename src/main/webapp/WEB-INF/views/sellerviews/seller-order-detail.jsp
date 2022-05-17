@@ -21,7 +21,7 @@
 						<thead>
 							<tr class="content-table-title">
 								<td class="content-table-title-text option-line">주문날짜</td>
-								<td class="content-table-title-text option-line">주문번호(그룹주문번호)</td>
+								<td class="content-table-title-text option-line">주문번호</td>
 								<td class="content-table-title-text option-line">판매자 상품코드</td>
 								<td class="content-table-title-text option-line">상품명</td>
 								<td class="content-table-title-text option-line">옵션정보</td>
@@ -32,22 +32,28 @@
 						<tbody>
 							<c:forEach var="selectPostingListView" items="${selectOrderListView}">
 								<tr class="content-table-content content-hover">
-									<td class="content-table-content-text option-line state0">${selectPostingListView.getPost_id()}</td>
-									<td class="content-table-content-text option-line">${selectPostingListView.getStar_ratio()}</td>
-									<td class="content-table-content-text option-line">
-										${selectPostingListView.getPost_name()} <c:if
-											test="${selectPostingListView.isToday_deal()}">
-											<img class="badgeicon" alt="[오늘의딜]" title="오늘의딜"
-												src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/badgeIcon-deal.gif">
+									<td class="content-table-content-text option-line"
+										data-bs-toggle="modal" data-bs-target="#modal-view-order">
+										<fmt:formatDate value="${selectOrderListView.getOrder_date()}" pattern="yyyy-MM-dd HH:mm" /></td>
+									<td class="content-table-content-text option-line state0"
+										data-bs-toggle="modal" data-bs-target="#modal-view-order">
+										${selectOrderListView.getOrder_id()}
+									</td>
+									<td class="content-table-content-text option-line"
+										data-bs-toggle="modal" data-bs-target="#modal-view-order">${selectOrderListView.getProduct_seller_code()}</td>
+									<td class="content-table-content-text option-line"
+										data-bs-toggle="modal" data-bs-target="#modal-view-order">${selectOrderListView.getProduct_title()}</td>
+									<td class="content-table-content-text option-line"
+										data-bs-toggle="modal" data-bs-target="#modal-view-order">
+										${selectOrderListView.getOption1()}
+										<c:if test="${selectOrderListView.getOption2() ne ''}">
+											 / ${selectOrderListView.getOption2()}
 										</c:if>
 									</td>
-									<td class="content-table-content-text option-line">${selectPostingListView.getSale_ratio()}%
-										+ 10%</td>
-									<td class="content-table-content-text option-line"><fmt:formatNumber
-											value="${selectPostingListView.getWhole_price()}" type="currency" /></td>
-									<td class="content-table-content-text option-line">${selectPostingListView.getPost_couponid()}</td>
-									<td class="content-table-content-text option-line">${selectPostingListView.getCate_name()}</td>
-									<td class="content-table-content-text option-line">${selectPostingListView.getPost_status()}</td>
+									<td class="content-table-content-text option-line"
+										data-bs-toggle="modal" data-bs-target="#modal-view-order">${selectOrderListView.getQuantity()}</td>
+									<td class="content-table-content-text option-line"
+										data-bs-toggle="modal" data-bs-target="#modal-view-order">${selectOrderListView.getPayment()}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -63,10 +69,10 @@
 					<div
 						class="container container-option container-option-topPadding bottomline topline">
 						<div class="row optionGroup1">
-							<div class="col-2 view-title">주문자</div>
-							<div class="col">이영</div>
-							<div class="col-2 view-title-last">결제금액</div>
-							<div class="col">42,500</div>
+							<div class="col-2 view-title">주문자 이메일</div>
+							<div class="col">${orderShippingView.getUser_email()}</div>
+							<div class="col-2 view-title-last">총 결제금액</div>
+							<div class="col">${orderShippingView.getPayment_total()}</div>
 						</div>
 					</div>
 				</div>
@@ -75,31 +81,9 @@
 						class="container container-option container-option-topPadding bottomline">
 						<div class="row optionGroup1">
 							<div class="col-2 view-title">결제방법</div>
-							<div class="col">카드결제</div>
+							<div class="col">${orderShippingView.getPayment_way()}</div>
 							<div class="col-2 view-title-last">결제정보</div>
-							<div class="col">신한카드 0113-23-****</div>
-						</div>
-					</div>
-				</div>
-				<div class="product-list-group">
-					<div
-						class="container container-option container-option-topPadding bottomline">
-						<div class="row optionGroup1">
-							<div class="col-2 view-title">배송방법</div>
-							<div class="col">택배</div>
-							<div class="col-2 view-title-last">배송금액</div>
-							<div class="col">2,500</div>
-						</div>
-					</div>
-				</div>
-				<div class="product-list-group">
-					<div
-						class="container container-option container-option-topPadding bottomline">
-						<div class="row optionGroup1">
-							<div class="col-2 view-title">배송지</div>
-							<div class="col">[12345] 경기도 어쩌구 저쩌구 125-21</div>
-							<div class="col-2 view-title-last">배송메세지</div>
-							<div class="col">던지지 마세요.</div>
+							<div class="col">${orderShippingView.getPayment_info()}</div>
 						</div>
 					</div>
 				</div>
@@ -108,9 +92,29 @@
 						class="container container-option container-option-topPadding bottomline">
 						<div class="row optionGroup1">
 							<div class="col-2 view-title">택배회사</div>
-							<div class="col">CJ대한통운</div>
+							<div class="col">${orderShippingView.getDelivery()}</div>
 							<div class="col-2 view-title-last">송장번호</div>
-							<div class="col">12387589317</div>
+							<div class="col">${orderShippingView.getInvoice_number()}</div>
+						</div>
+					</div>
+				</div>
+				<div class="product-list-group">
+					<div
+						class="container container-option container-option-topPadding bottomline">
+						<div class="row optionGroup1">
+							<div class="col-2 view-title-last">배송금액</div>
+							<div class="col">${orderShippingView.getShipping_fee()}</div>
+							<div class="col-2 view-title-last">배송메세지</div>
+							<div class="col">${orderShippingView.getMemo()}</div>
+						</div>
+					</div>
+				</div>
+				<div class="product-list-group">
+					<div
+						class="container container-option container-option-topPadding bottomline">
+						<div class="row optionGroup1">
+							<div class="col-2 view-title">배송지</div>
+							<div class="col">${orderShippingView.getAddress1()} ${orderShippingView.getAddress2()}</div>							
 						</div>
 					</div>
 				</div>

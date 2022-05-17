@@ -114,13 +114,15 @@ public class ProductVO {
 	private int order_num; // 여러개 주문시 그룹주문번호
 	private int shipping_fee; // 배송비
 	private int payment; // 결제금액
+	private String delivery; // 택배회사
+	private int invoice_number; // 송장번호
 	
 	//payment
 	private int payment_id; // 결제아이디
 	private int pay_ordernum; // 그룹주문번호 (serial4)
 	private String payment_way; // 결제수단
 	private String payment_info; // 결제정보
-	private int payment_total; // 결제금액
+	private int payment_total; // 총 결제금액
 	
 	//address
 	private int address_id; // 배송지PK
@@ -129,6 +131,14 @@ public class ProductVO {
 	private String phone_num; // 수취인 연락처
 	private String address1; // 주소
 	private String address2; // 상세주소
-	private boolean is_default; // 기본배송지여부
+	private boolean addr_default; // 기본배송지여부
 	// user_num(회원번호)은 상단에 선언함.
+	
+	//user table
+	// user_num(회원번호)은 상단에 선언함.
+	private String user_email; // 유저 이메일
+	private String nickname; // 유저 닉네임
+	private String user_birth; // 유저 생일
+	private boolean gender; // 유저 성별
+	// 일단 필요한것만 선언함
 }
