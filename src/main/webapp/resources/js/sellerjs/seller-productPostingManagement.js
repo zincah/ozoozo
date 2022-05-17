@@ -135,7 +135,7 @@ $(".initBtn").click(function () {
 	$("#btnradio8").prop("checked", true);
 	dateBtn8Event();
 	
-	getProductData();
+	getPostingData();
 });
 
 
@@ -315,53 +315,53 @@ $("#dealAppSubmitBtn").click(function () {
 $(document).ready(function () {	
 	// 검색어 값 받아오기
 	$("#searchName").keyup(function() {
-		getProductData();
+		getPostingData();
 	});
 	
 	// 검색어 조건 값 받아오기
 	$(".searchNameStatusGroup").change(function() {
-		getProductData();
+		getPostingData();
 	});
 	
 	// 판매 상태 값 받아오기
 	$(".searchStatusGroup").change(function() {
-		getProductData();
+		getPostingData();
 	});
 	
 	// 카테고리(대분류) 값 받아오기
 	$("#category").change(function() {
-		getProductData();
+		getPostingData();
 	});
 	
 	// 카테고리(중분류) 값 받아오기
 	$("#middle-select").change(function() {
-		getProductData();
+		getPostingData();
 	});
 	
 	// 카테고리(소분류) 값 받아오기
 	$("#small-select").change(function() {
-		getProductData();
+		getPostingData();
 	});
 	
 	// 기간 조건 값 받아오기
 	$("#selectDate").change(function() {
-		getProductData();
+		getPostingData();
 	});
 	
 	// 기간 값 받아오기
 	$(".searchDateBtn").change(function() {
-		getProductData();
+		getPostingData();
 	});
 	$(".startDate").change(function() {
-		getProductData();
+		getPostingData();
 	});
 	$(".endDate").change(function() {
-		getProductData();
+		getPostingData();
 	});
 });
 
 // 검색 처리
-function getProductData() {
+function getPostingData() {
 	
 	// 상품 선택 checkBox 초기화
 	$("#allCheck").prop("checked", false);

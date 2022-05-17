@@ -100,4 +100,35 @@ public class ProductVO {
 	private String sc_selectDate; // 기간 조건 셀렉트박스 값
 	private Date sc_startDate; // 시작날짜
 	private Date sc_endDate; // 종료날짜
+	
+	//user order
+	private int order_id; // 주문번호
+	private int quantity; // 수량
+	private String order_status; // 주문상태
+	private Timestamp confirm_date; // 구매확정일자
+	private Timestamp order_date; // 주문일자
+	private String memo; // 배송메모
+	// product_id(상품아이디)는 상단에 선언함
+	private int user_num; // 회원아이디
+	// seller_id(판매자아이디)는 상단에 선언함
+	private int order_num; // 여러개 주문시 그룹주문번호
+	private int shipping_fee; // 배송비
+	private int payment; // 결제금액
+	
+	//payment
+	private int payment_id; // 결제아이디
+	private int pay_ordernum; // 그룹주문번호 (serial4)
+	private String payment_way; // 결제수단
+	private String payment_info; // 결제정보
+	private int payment_total; // 결제금액
+	
+	//address
+	private int address_id; // 배송지PK
+	private String address_name; // 배송지명
+	private String receiver; // 수취인명
+	private String phone_num; // 수취인 연락처
+	private String address1; // 주소
+	private String address2; // 상세주소
+	private boolean is_default; // 기본배송지여부
+	// user_num(회원번호)은 상단에 선언함.
 }

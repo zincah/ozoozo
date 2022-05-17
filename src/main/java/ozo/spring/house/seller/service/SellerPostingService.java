@@ -9,5 +9,5 @@ public interface SellerPostingService {
 	public List<ProductVO> selectSearchPosting(ProductVO vo);
 	public void updatePostingStatus(ProductVO vo);
 	public ProductVO selectSelectPosting(ProductVO vo);
-	public void updatePostingDealApp(ProductVO vo);
+	public void insertPostingDealApp(ProductVO vo);
 }

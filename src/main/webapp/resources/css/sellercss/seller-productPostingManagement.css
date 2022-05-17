@@ -480,3 +480,7 @@ input[type="date"] {
 .badgeicon {
 	height: 14px;
 }
+
+.modal-delete-product-notice {
+	padding-bottom: 1rem;
+}

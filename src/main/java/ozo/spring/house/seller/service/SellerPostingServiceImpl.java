@@ -35,7 +35,7 @@ public class SellerPostingServiceImpl implements SellerPostingService {
 	}
 	
 	@Override
-	public void updatePostingDealApp(ProductVO vo) {
-		sellerPostingDAO.updatePostingDealApp(vo);
+	public void insertPostingDealApp(ProductVO vo) {
+		sellerPostingDAO.insertPostingDealApp(vo);
 	}
 }

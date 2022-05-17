@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ozo.spring.house.seller.service.CategoryService;
 import ozo.spring.house.seller.service.ProductService;
+import ozo.spring.house.seller.service.SellerOrderService;
 import ozo.spring.house.seller.service.SellerPostingService;
 import ozo.spring.house.seller.vo.CategoryVO;
 import ozo.spring.house.seller.vo.ProductVO;
@@ -26,6 +27,8 @@ public class SellerController {
 	ProductService productService;
 	@Autowired
 	SellerPostingService sellerPostingService;
+	@Autowired
+	SellerOrderService sellerOrderService;
 	
 	@RequestMapping(value = "/index.seller")
 	public String sellerIndex(HttpServletRequest request) {
@@ -105,11 +108,27 @@ public class SellerController {
 		}
 	}
 	@RequestMapping(value = "/order.seller", method=RequestMethod.GET)
-	public String sellerOrder(HttpServletRequest request, CategoryVO vo, Model model) {
+	public String sellerOrder(HttpServletRequest request, CategoryVO cvo, Model model, ProductVO vo) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
-			List<CategoryVO> cateList = categoryService.getCategoryList(vo);
+			// 카테고리 목록 불러오기
+			List<CategoryVO> cateList = categoryService.getCategoryList(cvo);
 			model.addAttribute("cateList", cateList);
+			
+			// 주문 목록 불러오기
+			vo.setSeller_id((int) session.getAttribute("seller_id"));
+			List<ProductVO> orderListView = sellerOrderService.selectOrderList(vo);
+
+			model.addAttribute("orderListView", orderListView);
+			model.addAttribute("orderStatus0", orderListView.stream().filter(list -> list.getOrder_status().equals("결제완료")).count());
+			model.addAttribute("orderStatus1", orderListView.stream().filter(list -> list.getOrder_status().equals("배송준비중")).count());
+			model.addAttribute("orderStatus2", orderListView.stream().filter(list -> list.getOrder_status().equals("배송중")).count());
+			model.addAttribute("orderStatus3", orderListView.stream().filter(list -> list.getOrder_status().equals("배송완료")).count());
+			model.addAttribute("orderStatus4", orderListView.stream().filter(list -> list.getOrder_status().equals("교환")).count());
+			model.addAttribute("orderStatus5", orderListView.stream().filter(list -> list.getOrder_status().equals("반품")).count());
+			model.addAttribute("orderStatus6", orderListView.stream().filter(list -> list.getOrder_status().equals("환불")).count());
+			model.addAttribute("orderStatus7", orderListView.stream().filter(list -> list.getOrder_status().equals("주문취소")).count());
+			
 			return "seller-order";
 		}else {
 			return "seller-login";
