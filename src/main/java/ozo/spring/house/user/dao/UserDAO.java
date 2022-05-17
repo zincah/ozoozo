@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import ozo.spring.house.user.vo.CartVO;
+import ozo.spring.house.user.vo.UserAddressVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserProduct_tableVO;
 import ozo.spring.house.user.vo.UserVO;
@@ -158,11 +159,7 @@ public class UserDAO {
 			return product_li;
 		}
 		public List<UserProductVO> getSeller_filter(CartVO cvo){
-			List<CartVO> cart_list = sqlSessionTemplate.selectList("UserProduct.seller_filter", cvo);
-			List<UserProductVO> seller_li = new ArrayList<UserProductVO>();
-			for(CartVO i : cart_list) {
-				seller_li.add(sqlSessionTemplate.selectOne("UserProduct.seller_filter_name", i));
-			}
+			List<UserProductVO> seller_li = sqlSessionTemplate.selectList("UserProduct.seller_filter", cvo);
 			return seller_li;
 		}
 		public List<UserProductVO> getPost_filter(CartVO cvo){
@@ -178,6 +175,46 @@ public class UserDAO {
 		}
 		public void delete_cart_pro(CartVO cvo) {
 			sqlSessionTemplate.delete("UserProduct.cart_delete_pro", cvo);
+		}
+	}
+	// 결제 페이지
+	public payment_class get_payment_class() {
+		return new payment_class();
+	}
+	public class payment_class{
+		List<CartVO> cart_li = new ArrayList<CartVO>();
+		List<UserProductVO> pro_li = new ArrayList<UserProductVO>();
+		List<UserProductVO> seller_li = new ArrayList<UserProductVO>();
+		public payment_class() {
+			
+		}
+		public void set_payment_list(CartVO cvo) {
+			this.cart_li.addAll(sqlSessionTemplate.selectList("UserProduct.payment_cart_get", cvo));
+		}
+		public List<CartVO> get_payment_list() {
+			return cart_li;
+		}
+		public void set_product_list(CartVO cvo) {
+			this.pro_li.add(sqlSessionTemplate.selectOne("UserProduct.payment_pro_get", cvo));
+		}
+		public List<UserProductVO> get_product_list(){
+			System.out.println("수량 : " + pro_li.size());
+			System.out.println(this.pro_li.get(0));
+			return pro_li;
+		}
+		public void set_post_list(CartVO cvo) {
+			this.seller_li.add(sqlSessionTemplate.selectOne("UserProduct.get_post", cvo));
+		}
+		public List<UserProductVO> get_post_list() {
+			return seller_li;
+		}
+		public List<UserAddressVO> address_check(CartVO cvo){
+			if(null == sqlSessionTemplate.selectList("UserProduct.address_check", cvo)) {
+				return null;
+			}else {
+				List<UserAddressVO> address_li = sqlSessionTemplate.selectList("UserProduct.address_check", cvo);
+				return address_li;
+			}
 		}
 	}
 	

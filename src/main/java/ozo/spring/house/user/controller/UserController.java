@@ -30,21 +30,21 @@ public class UserController {
 	@RequestMapping(value = "/main.com")
 	public String user_main(UserProductVO vo, Model model) {
 		
-		// product list �̱�
+		// product list 占싱깍옙
 		List<UserProductVO> productList = userMainService.mainProductList(vo);
 		
-		// ������ �� list �̱�
+		// 占쏙옙占쏙옙占쏙옙 占쏙옙 list 占싱깍옙
 		List<UserProductVO> todayDealList = userMainService.mainDealProductList(vo);
 		System.out.println(todayDealList.size());
 		
-		// main banner list �̱�
+		// main banner list 占싱깍옙
 		List<BannerVO> bannerList = userMainService.selectBannerList();
 
 		for(int i=0; i<productList.size(); i++) {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //�Ҽ��� �Լ�
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //占쌀쇽옙占쏙옙 占쌉쇽옙
 			
 			pro.setSale_price(decFormat.format(sale_price));
 		}
@@ -88,30 +88,27 @@ public class UserController {
 		return "orders";
 	}
 	
-	@RequestMapping(value = "/calculation.com")
-	public String user_calculation() {
-		return "calculation";
-	}
+	
 	@RequestMapping(value = "/customercenter.com")
 	public String user_customercenter() {
 		return "customercenter";
 	}
-	// my_shopping (status) �̰� �ΰ��� ���� ����ؾ���
+	// my_shopping (status) 占싱곤옙 占싸곤옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙瞞占쏙옙占�
 	
 	
-	//���� ����
+	//占쏙옙占쏙옙 占쏙옙占쏙옙
 	@RequestMapping(value = "/myshopping.com")
 	public String user_myShopping() {
 		return "my_shopping_status";
 	}
-	//���Ǹ���
+	//占쏙옙占실몌옙占쏙옙
 	@RequestMapping(value = "/myreview.com")
 	public String user_myReview_view() {
 		return "myReview-view";
 	}
 	
-	//����
-	//-	��й�ȣ ����
+	//占쏙옙占쏙옙
+	//-	占쏙옙橘占싫� 占쏙옙占쏙옙
 	
 	@RequestMapping(value = "/password_m.com")
 	public String user_P_M(HttpSession session) {
@@ -121,17 +118,17 @@ public class UserController {
 			return "ozoLogin_zinc";
 		}
 	}
-	//-ȸ������ ����
+	//-회占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 	@RequestMapping(value = "/edit.com")
 	public String user_edit() {
 		return "ozoedit_zinc";
 	}
-	//���侲�� ������ 
+	//占쏙옙占썰쓰占쏙옙 占쏙옙占쏙옙占쏙옙 
 	@RequestMapping(value = "/myreview_write.com")
 	public String user_myReview_write() {
 		return "myReview-write";
 	}
-	//������û
+	//占쏙옙占쏙옙占쏙옙청
 	@RequestMapping(value = "/shopApply.com")
 	public String user_shopApply(HttpServletRequest request) {
 		
@@ -142,7 +139,7 @@ public class UserController {
 			return "redirect:login.com";
 		}
 	}
-	//�α��� ȭ�鿡�� ��й�ȣ �缳��
+	//占싸깍옙占쏙옙 화占썽에占쏙옙 占쏙옙橘占싫� 占썹설占쏙옙
 	@RequestMapping(value = "/passwordReset.com")
 	public String user_passwordReset() {
 		return "passwordReset";
