@@ -671,7 +671,7 @@
 						class="form-check-input" type="checkbox" value="" id="allCheck" />
 					</td>
 					<td class="content-table-title-text option-line">주문날짜</td>
-					<td class="content-table-title-text option-line">주문번호(그룹주문번호)</td>
+					<td class="content-table-title-text option-line">주문번호(그룹)</td>
 					<td class="content-table-title-text option-line">처리상태</td>
 					<td class="content-table-title-text option-line">판매자 상품코드</td>
 					<td class="content-table-title-text option-line">상품명</td>
@@ -683,8 +683,8 @@
 				</tr>
 			</thead>
 			<tbody id="orderList">
-				<c:forEach var="orderListView" items="${orderListView}">
-					<tr class="content-table-content content-hover">
+				<c:forEach var="orderListView" items="${orderListView}" varStatus="status">
+					<tr class="content-table-content content-hover" onclick="orderDetailView(orderList${status.index})">
 						<td class="content-table-content-text option-line checkTd">
 							<c:if test="${orderListView.getOrder_status() ne '배송중'}">
 								<input class="form-check-input check" type="checkbox" value="" />
@@ -698,7 +698,7 @@
 							<fmt:formatDate value="${orderListView.getOrder_date()}" pattern="yyyy-MM-dd HH:mm" /></td>
 						<td class="content-table-content-text option-line state0"
 							data-bs-toggle="modal" data-bs-target="#modal-view-order">
-							${orderListView.getOrder_id()}(${orderListView.getOrder_num()})
+							<span name="orderList${status.index}">${orderListView.getOrder_id()}(${orderListView.getOrder_num()})</span>
 						</td>
 						<td class="content-table-content-text option-line"
 							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getOrder_status()}</td>
