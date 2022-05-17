@@ -1,0 +1,175 @@
+#navigation {
+    width: 100%;
+    height: 40px;
+    padding: 15px 0;
+    background-color: white;
+    border-bottom: 1px solid #eeeeee;
+    position: relative;
+}
+
+#navigation > a {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+}
+#inform {
+    margin: 50px auto 0;
+    position: relative;
+    z-index: 100;
+}
+#inform, #send_mail {
+    padding: 40px;
+    width: 80%;
+    background-color: white;
+    border-radius: 25px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.error {
+    font-size: 100px;
+    font-weight: bold;
+    color: #35c5f0;
+}
+
+.content {
+    font-size: 24px;
+}
+
+.detail {
+    margin: 30px 0;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+#open_mail {
+    margin: 0 auto;
+    width: 150px;
+    height: 50px;
+    background-color: #35c5f0;
+    border-radius: 10px;
+    box-shadow: 0 5px 5px 0 rgb(0 0 0 / 20%);
+    color: white;
+    font-size: 20px;
+    line-height: 50px;
+    cursor: pointer;
+}
+
+#send_mail {
+    margin: 20px auto 100px;
+    text-align: left;
+    transform: translate(0, -100%) rotate(-90deg) scale(0);
+    transition: all 0.3s ease-in;
+}
+#inform, #send_mail {
+    padding: 40px;
+    width: 80%;
+    background-color: white;
+    border-radius: 25px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.content {
+    font-size: 24px;
+}
+
+form {
+    display: block;
+    margin-top: 0em;
+}
+
+input[type="hidden" i] {
+    appearance: none;
+    background-color: initial;
+    cursor: default;
+    display: none !important;
+    padding: initial;
+    border: initial;
+}
+
+input {
+    writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: -internal-light-dark(black, white);
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
+    margin: 0em;
+    padding: 1px 2px;
+    border-width: 2px;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+}
+input[type="hidden" i] {
+    appearance: none;
+    background-color: initial;
+    cursor: default;
+    display: none !important;
+    padding: initial;
+    border: initial;
+}
+form > input[type=text] {
+    display: block;
+    margin: 20px 0;
+    width: 33%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 38px;
+    border: 1px solid #dcdcdc;
+    height: 38px;
+}
+
+form > input[type=text] {
+    display: block;
+    margin: 20px 0;
+    width: 33%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 38px;
+    border: 1px solid #dcdcdc;
+    height: 38px;
+}
+form > textarea {
+    display: block;
+    margin: 20px 0;
+    width: 100%;
+    height: 178px;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 28px;
+    border: 1px solid #dcdcdc;
+    resize: none;
+}
+form > input[type=button] {
+    display: block;
+    width: 100px;
+    height: 40px;
+    border: none;
+    background-color: #35c5f0;
+    border-radius: 4px;
+    color: white;
+    font-size: 15px;
+    text-align: center;
+    cursor: pointer;
+}

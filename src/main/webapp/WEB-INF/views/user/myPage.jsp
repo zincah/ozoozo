@@ -66,7 +66,7 @@
                 <div class="mypage-profile-img-area">
                   <img
                     class="mypage-profile-img"
-                    src="../sources/ozohouse-profile-default.png"
+                    src="${info.user_img}"
                   />
                 </div>
                 <div class="mypage-profile-text-area">

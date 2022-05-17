@@ -38,12 +38,18 @@ public class UserUploadController {
 		HttpSession session = request.getSession();
 			System.out.println("file upload ready");
 			String dirName = "MyPage";
+			System.out.println(Boolean.valueOf(param.get("gender")));
+			System.out.println((param.get("user_nickname")));
+			System.out.println(param.get("user_birth"));
+			System.out.println(param.get("comment"));
+			System.out.println((int)session.getAttribute("User_Num"));
 			
 			try {	
 					vo.setUser_num((int)session.getAttribute("User_Num"));
-					vo.setNickname(param.get("user_nickname"));
-					vo.setNickname(param.get("user_birth"));
-					vo.setNickname(param.get("comment"));
+					vo.setNickname((String)param.get("user_nickname"));
+					vo.setUser_birth((String)param.get("user_birth"));
+					vo.setComment((String)param.get("comment"));
+					vo.setGender(Boolean.valueOf(param.get("gender")));
 					
 					if(myphoto!=null) {	
 					
@@ -54,17 +60,19 @@ public class UserUploadController {
 					InputStream is = myphotofile.getInputStream();
 					String contentType = myphotofile.getContentType();
 					long contentLength = myphotofile.getSize();
-					
-					//String url = awss3Client.upload(is, key, contentType, contentLength, dirName);
-					//System.out.println(url);
+					String url = awss3Client.upload(is, key, contentType, contentLength, dirName);
+					System.out.println(url);
 					System.out.println("aws main file upload complete");
-					//vo.setUser_img(url);
+					vo.setUser_img(url);
 					System.out.println("마이페이지사진");
 					System.out.println("mybatis main photo ok");
 				}
+				usermypageservice.user_edit(vo);
+					}else {
+						usermypageservice.user_urlnone(vo);
 					}
 				
-					usermypageservice.user_edit(vo);
+					
 				
 				
 

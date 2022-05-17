@@ -18,10 +18,16 @@ public class UserMyPageDAO {
 		return sqlsessiontemplate.selectOne("UserMyPageDAO.mypageinfo",vo);
 	}
 	
-	public void user_edit() {
+	public void user_edit(UserVO vo) {
 		
-		sqlsessiontemplate.update("UserMyPageDAO.user_edit");
+		sqlsessiontemplate.update("UserMyPageDAO.user_edit",vo);
 	}
-
-	
+	public void user_urlnone(UserVO vo) {
+		
+		sqlsessiontemplate.update("UserMyPageDAO.user_urlnone",vo);
+	}
+	public void user_stop(UserVO vo) {
+		
+		sqlsessiontemplate.update("UserMyPageDAO.user_stop",vo);
+	}
 }

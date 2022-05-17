@@ -10,10 +10,14 @@
 	</select>
 	
 	<update id="user_edit" parameterType="user">
-	
-		UPDATE user_table SET nickname=#{nickname},user_img=#{user_img}, comment=#{comment}, user_birth=#{user_birth} WHERE user_num=#{user_num}
+		UPDATE user_table SET gender=#{gender},nickname=#{nickname},user_img=#{user_img}, comment=#{comment}, user_birth=#{user_birth} WHERE user_num=#{user_num}
 	</update>
 	
- 
- 
+	<update id="user_urlnone" parameterType="user">
+		UPDATE user_table SET gender=#{gender},nickname=#{nickname}, comment=#{comment}, user_birth=#{user_birth} WHERE user_num=#{user_num}
+	</update>
+	
+	<update id="user_stop" parameterType="user">
+		UPDATE user_table SET  user_status=#{user_status} WHERE user_num=#{user_num}
+	</update>
  </mapper>

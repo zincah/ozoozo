@@ -1,0 +1,257 @@
+*{
+    font-family: "S-Core", sans-serif;
+  }
+  
+  
+  @font-face {
+   font-family: 'S-Core';
+   font-weight:400;
+   src: url('../font/S-CoreDream-4Regular.woff') format('woff');
+  }
+  
+  @font-face {
+   font-family: 'S-Core';
+   font-weight:600;
+   src: url('../font/S-CoreDream-6Bold.woff') format('woff');
+  }
+  
+  @font-face {
+   font-family: 'S-Core';
+   font-weight:800;
+   src: url('../font/S-CoreDream-8Heavy.woff') format('woff');
+  }
+  
+  a{
+    text-decoration: none;
+    color: inherit;
+    border: 0;
+  }
+
+/* styles.css와 살짝 다른 부분 시작 */
+h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
+    margin-top: 0;
+    margin-bottom: 0.2rem; /* 기존 0.5rem */
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.container,
+.container-fluid,
+.container-xxl,
+.container-xl,
+.container-lg,
+.container-md,
+.container-sm {
+  width: 100%;
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  /*padding-left: var(--bs-gutter-x, 0.75rem);*/ /* 기존 주석X */
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+    .container { /* 기존 설정 죽이기 위한 용도 */
+      max-width: inherit;
+    }
+}
+@media (min-width: 768px) {
+    .container { /* 기존 설정 죽이기 위한 용도 */
+      max-width: inherit;
+    }
+}
+
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 0 1.7rem 0; /* 기존 0 0 */
+    margin-bottom: 1rem;
+    list-style: none;
+}
+
+.mt-4 {
+    margin-top: 1.7rem !important; /* 기존 1.5rem */
+}
+
+.mb-3 {
+    margin-bottom: 0.7rem !important; /* 기존 1rem */
+}
+
+.mb-4 {
+    margin-bottom: 1rem !important; /* 기존 1.5rem */
+}
+
+.bottomline {
+    border-bottom: 1px solid #dbdbdb;
+  }
+  
+  .container-option {
+    padding-bottom: 0.7rem;
+  }
+  
+  .option-name {
+    font-size: 13px;
+    font-weight: 600;
+    border-right: 1px solid #dbdbdb;
+  }
+  
+  .row {
+    align-items: center;
+  }
+  
+  .btn {
+    font-size: 11px;
+  }
+  
+  .paddingLeft1 {
+    padding-left: 1rem;
+    display: flex;
+    font-size: 11px;
+  
+  }
+  
+  .startDate {
+    margin-right: 0.5rem;
+  }
+  
+  .dateBtn {
+    width: 4rem;
+    color: #444;
+    background-color: #fff;
+  }
+  
+  .option-line {
+    border-right: 1px solid #dbdbdb;
+  }
+  
+  input[type="date"] {
+    font-size: 11px;
+    height: 2rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    border : 1px solid #6c757d;
+    color : #444;
+  }
+  
+  .optionGroup1 {
+    flex-direction : row;
+    flex-wrap: nowrap;
+  }
+  
+  .selectState {
+    font-size: 11px;
+    height: 2rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    border : 1px solid #6c757d;
+    color : #444;
+    width: 100px;
+  }
+  
+  .container-option-topPadding {
+    padding-top: 0.7rem;
+  }
+  
+  .content-table {
+    padding: 24px 24px 0 24px;
+    padding-top: 2rem;
+  }
+  
+  .content-table-title {
+    font-size: 13px;
+    font-weight: 600;
+    background-color: #f5f5f5;
+    vertical-align: middle;
+  }
+  
+  .content-table-title-text, .content-table-content-text {
+    text-align: center;
+  }
+  
+  .content-table-content-text {
+    font-size: 11px;
+    vertical-align: middle;
+  }
+  
+  .table-box-style {
+    border-radius: 0.25rem;
+    border : 1px solid #dbdbdb;
+    margin-bottom: 0px;
+  }
+  
+  .state0 {
+    color: #ff778e;
+  }
+  
+  .content-view-title-text {
+    font-size: 13px;
+    font-weight: 600;
+    border-left: 4px solid #ff778e;
+    padding-left: 0.4rem;
+  }
+  
+  .content-view-table {
+    margin-top: 0.5rem;
+  }
+  
+  .answer-area {
+    display: flex;
+    align-items: flex-start;
+    padding-bottom: 2rem;
+    --bs-gutter-x: 0;
+  }
+  
+  .submitBtn {
+    font-size: 13px;
+    font-weight: 600;
+  }
+  
+  .answer-textarea {
+    font-size: 11px;
+  }
+  
+  .content-hover:hover {
+    cursor: pointer;
+  }
+  
+  .reply-write {
+    padding-left: 1rem;
+  }
+
+  .content-table-content-text option-line{
+    font-size: 11px;
+  }
+  ._1FOBS-z2Fa{
+    display:flex;
+    list-style: none;
+    text-decoration: none;
+  }
+  .form-select-sm{
+    font-size: 11px;
+    height: 2rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    border: 1px solid #6c757d;
+    color: #444;
+    
+  }
+  .input-group-sm > .form-control{
+    font-size: 11px;
+    height: 2rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    border: 1px solid #6c757d;
+    color: #444;
+    width: 100px;
+  }
+  ._1FOBS-z2Fa li{
+    display:flex;
+    list-style: none;
+    text-decoration: none;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+.category-box{
+  display: flex;
+  flex-direction: row ;
+}
