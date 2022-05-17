@@ -39,7 +39,7 @@ public class AdminLoginController {
 			session.setAttribute("admincode", admin.getAdmin_code());
 			model.addAttribute("admincode", vo.getAdmin_code());
 			model.addAttribute("member", vo); // member 정보
-			return "index";
+			return "redirect:index.admin";
 		}else {
 			String msg = "입력하신 정보가 잘못 되었습니다.";
 			model.addAttribute("msg", msg);

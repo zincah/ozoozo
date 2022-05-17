@@ -29,4 +29,9 @@ public class AdminUserManageServiceImpl implements AdminUserManageService {
 		return adminManageDAO.getUserList(vo);
 	}
 
+	@Override
+	public List<UserVO> floatingPopulation() {
+		return adminManageDAO.floatingPopulation();
+	}
+
 }

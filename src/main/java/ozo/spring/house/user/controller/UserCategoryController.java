@@ -86,7 +86,6 @@ public class UserCategoryController {
 		// filter 옵션 가져오기
 		List<List<FilterVO>> optionList = userCategoryService.getFilterOption(vo);
 		model.addAttribute("optionList", optionList);
-		System.out.println(optionList.size());
 		
 		return "ozocategory_zinc";
 	}

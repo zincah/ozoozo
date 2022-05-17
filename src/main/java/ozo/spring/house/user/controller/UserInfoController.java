@@ -88,6 +88,7 @@ public class UserInfoController {
 		if(user!=null) {
 			session.setAttribute("UserMail", email);
 			session.setAttribute("User_Num", user.getUser_num());
+			vo.setUser_num(user.getUser_num());
 			userMainService.lastLoginCheck(vo);
 			return "redirect:login.com";
 		}else {
@@ -99,6 +100,7 @@ public class UserInfoController {
 			System.out.println("네이버 회원가입 성공");
 			
 			UserVO nuser = userMainService.checkUserByNaver(vo);
+			vo.setUser_num(nuser.getUser_num());
 			userMainService.lastLoginCheck(vo);
 			
 			session.setAttribute("UserMail", email);
@@ -152,6 +154,7 @@ public class UserInfoController {
 				if(user!=null) { // 회원정보가 있는 경우
 					session.setAttribute("UserMail", kaemail);
 					session.setAttribute("User_Num", user.getUser_num());
+					vo.setUser_num(user.getUser_num());
 					userMainService.lastLoginCheck(vo);
 					return "redirect:login.com";
 					
@@ -164,6 +167,7 @@ public class UserInfoController {
 					System.out.println("카카오 회원가입 성공");
 					
 					UserVO nuser = userMainService.checkUserByNaver(vo);
+					vo.setUser_num(nuser.getUser_num());
 					userMainService.lastLoginCheck(vo);
 					
 					session.setAttribute("UserMail", kaemail);
@@ -175,6 +179,7 @@ public class UserInfoController {
 
 			UserVO user = userService.checkUser(vo);
 			System.out.println(user.getUser_num());
+			
 				
 			if(user != null) {
 				System.out.println("일반 로그인 시작");
@@ -182,6 +187,7 @@ public class UserInfoController {
 				session.setAttribute("User_Num", user.getUser_num());
 				//model.addAttribute("Usercode", vo.getUser_email());
 				model.addAttribute("member", vo); // member 정보
+				vo.setUser_num(user.getUser_num());
 				userMainService.lastLoginCheck(vo); // 최종로그인 날짜 업데이트
 				
 				// 세션에 저장되어있는 lasturl을 얻어와서 그 페이지로 리다이렉트 시킨다.

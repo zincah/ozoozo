@@ -78,17 +78,18 @@ public class UserCategoryDAO {
 		
 		int su = (vo.getTop_catecode()*100);
 		
-		for(int i=0; i<list.size(); i++) {
+		int total = 8;
+		
+		for(int i=0; i<total; i++) {
 			vo.setChecksub(su);
+			System.out.println(vo.getChecksub());
 			perList = sqlSessionTemplate.selectList("UserCategoryDAO.getFilterOption", vo);
 			if(perList.size() != 0) {
 				list.add(perList);
 			}
 			su++;
 		}
-		
-		
-		
+
 		return list;
 	}
 	

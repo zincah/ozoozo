@@ -40,4 +40,14 @@
 		UPDATE user_table SET last_login=now() WHERE user_email=#{user_email};
 	</update>
 	
+	<!-- 유동인구 측정 -->
+	<insert id="insertLoginCount" parameterType="user">
+		INSERT INTO logincount (lc_usernum, login_date) VALUES (#{user_num}, #{login_date})
+	</insert>
+	
+	<select id="selectLoginCount" resultType="user">
+		SELECT * FROM logincount WHERE lc_usernum=#{user_num} AND login_date=#{login_date} 
+	</select>
+	
+	
 </mapper>

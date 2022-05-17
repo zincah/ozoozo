@@ -120,5 +120,6 @@
 	<select id="getFilterOption" resultType="filter">
     	select * from filter_element where ftop_catecode=#{top_catecode} and filter_id/100=#{checksub} order by filter_id;
     </select>
+
     
  </mapper>
