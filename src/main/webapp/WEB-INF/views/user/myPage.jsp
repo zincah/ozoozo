@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -64,13 +65,16 @@
             <div class="mypage-profile-img-item">
               <div class="mypage-profile-img-container">
                 <div class="mypage-profile-img-area">
-                  <img
-                    class="mypage-profile-img"
-                    src="${info.user_img}"
-                  />
+                <c:set value="${info.user_img}"></c:set>
+                <c:if test="${info.user_img ne null}">
+                  <img class="mypage-profile-img" src="${info.user_img}" />
+                  </c:if>
+                   <c:if test="${info.user_img eq null}">
+                  <img class="mypage-profile-img" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/avatar.webp" />
+                  </c:if>
                 </div>
                 <div class="mypage-profile-text-area">
-                  <div class="mypage-profile-name">매운쌀국수</div>
+                  <div class="mypage-profile-name">${info.nickname}</div>
                 </div>
               </div>
             </div>
