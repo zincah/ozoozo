@@ -190,14 +190,16 @@ public class UserInfoController {
 				vo.setUser_num(user.getUser_num());
 				userMainService.lastLoginCheck(vo); // 최종로그인 날짜 업데이트
 				
+				String url = "";
 				// 세션에 저장되어있는 lasturl을 얻어와서 그 페이지로 리다이렉트 시킨다.
-				String url = (String) session.getAttribute("lasturl");
-				System.out.println(url);
-				
-				if(url.equals("signUp.com")) {
-					return "redirect:main.com";
-				}else if(url.equals("")){
-					return "redirect:main.com";
+				if(session.getAttribute("login_id") == null) {
+					
+				}else {
+					url = (String) session.getAttribute("lasturl");
+					System.out.println(url);
+					if(url.equals("signUp.com")) {
+						return "redirect:main.com";
+					}
 				}
 				// (장바구니에 있는 정보는 같이 어떻게 보낼지는 처리 안함)
 				return "redirect:"+url;

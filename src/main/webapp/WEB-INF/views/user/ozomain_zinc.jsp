@@ -163,7 +163,7 @@
 										<div class="item_timer">
 											<div>1일 남음</div>
 										</div>
-										<button class="item_bookmark">
+										<button class="item_bookmark" id="${deal.post_id }">
 											<svg xmlns="http://www.w3.org/2000/svg" width="24"
 												height="24" viewBox="0 0 24 24" class="inactive-icon">
 												<defs>
@@ -461,7 +461,7 @@
 												<img class="images" src="${product.photo_url}">
 											</div>
 										</div>
-										<button class="item_bookmark">
+										<button class="item_bookmark" id="${product.post_id }">
 											<svg xmlns="http://www.w3.org/2000/svg" width="24"
 												height="24" viewBox="0 0 24 24" class="inactive-icon">
 												<defs>

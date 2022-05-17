@@ -290,3 +290,8 @@ input[type="date"] {
 .reply-write {
 	padding-left: 1rem;
 }
+
+/* 추가 */
+.paddingLeft1{
+	padding-left: 1rem;
+}
