@@ -583,11 +583,7 @@ input, select, textarea {
     padding: 11px 10px;
     min-height: 40px;
 }
-._2wuTD {
-    background-color: #fff;
-    border-color: #ff778e;
-    color: #ff778e;
-}
+
 
 ._1eWD8 {
     user-select: none;
@@ -610,6 +606,11 @@ input, select, textarea {
     text-decoration: none;
     transition: color 0.1s ease 0s, background-color 0.1s ease 0s, border-color 0.1s ease 0s;
     border-radius: 4px;
+}
+._2wuTD {
+    background-color: #fff;
+    border-color: #ff778e;
+    color: #ff778e;
 }
 ._2xq8i {
     font-size: 15px;
@@ -1038,4 +1039,148 @@ fieldset, img {
         box-sizing: border-box;
         min-height: 1px;
     }
+}
+.css-11hv2i2 {
+    margin-bottom: 50px;
+}
+.css-19h7lru {
+    margin: 0px auto;
+    box-sizing: border-box;
+    width: auto;
+    max-width: 100%;
+    min-height: 1px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 56px;
+    border-bottom: 1px solid rgb(234, 235, 239);
+}
+.css-q6jijz {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 30px;
+}
+.css-1m1px9z {
+    flex: 1 0 0px;
+    text-align: right;
+    padding-left: 11px;
+    font-size: 15px;
+    line-height: 20px;
+    transition: opacity 0.25s ease 0s;
+}
+.css-1msvccc {
+    overflow: hidden;
+    margin: -3px;
+    padding: 23px 3px 3px;
+    box-sizing: border-box;
+}
+.css-1s5pqoc {
+    margin: 0px auto;
+    box-sizing: border-box;
+    width: auto;
+    max-width: 100%;
+    min-height: 1px;
+}
+.css-19mgahg {
+    display: flex;
+    padding: 0px 0px 8px;
+}
+.css-1jiwet1 {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 72px;
+    font-size: 15px;
+    line-height: 18px;
+    white-space: pre-line;
+    max-height: 40px;
+    transition: color 0.25s ease 0s;
+}
+.css-yby15j {
+    flex: 1 0 0px;
+    max-width: 570px;
+}
+.css-vqaf4p {
+    display: flex;
+}
+.css-14kx49g {
+    display: flex;
+    flex: 1 0 0px;
+    width: 100%;
+}
+.css-abcfsy {
+    position: relative;
+    flex: 1 0 0px;
+    width: 100%;
+    min-width: 270px;
+}
+.css-a5kq9u {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    color: rgb(41, 41, 41);
+}
+.css-15hj6g4 {
+    position: relative;
+    flex: 1 0 0px;
+    flex-wrap: wrap;
+}
+.css-y0wgwc {
+    width: 100%;
+    margin-bottom: 8px;
+}
+.css-1d3w5wq {
+    width: 100%;
+}
+.css-7x8hv9 {
+    position: relative;
+    flex: 1 0 0px;
+}
+.css-1nuhno9 {
+    padding-top: 8px;
+}
+.css-1jq486h {
+    display: flex;
+    margin-bottom: 8px;
+    max-width: 270px;
+}
+.css-1maly7k {
+    width: 120px;
+    margin-right: 8px;
+    font-size: 15px;
+}
+.css-6vqhdq {
+    flex: 1 0 0px;
+    text-align: right;
+    padding-left: 11px;
+    font-size: 15px;
+    line-height: 20px;
+    color: rgb(41, 41, 41);
+    transition: opacity 0.25s ease 0s;
+}
+.css-4pfmkz {
+    display: inline-block;
+    margin: 0px;
+    width: auto;
+    box-sizing: border-box;
+    border: none;
+    background: none;
+    font-family: "Noto Sans KR", "Noto Sans CJK KR", "¸¼Àº °íµñ", "Malgun Gothic", sans-serif;
+    text-decoration: none;
+    text-align: center;
+    transition: color 0.1s ease 0s, opacity 0.1s ease 0s;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    color: rgb(53, 197, 240);
+    padding: 2px;
+    font-size: 15px;
+    line-height: 19px;
+    font-weight: bold;
 }

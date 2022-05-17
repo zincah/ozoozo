@@ -1,17 +1,162 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="resources/css/user_css/header/calculation.css">
+    <link rel="stylesheet" href="resources/css/user_css/header/calculation.css?var=1">
     <link rel="stylesheet" href="resources/css/user_css/header/public.css">
     <title>Document</title>
+    <!-- jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>	
+    <!-- iamport.payment.js -->
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-SDK 1.1.8.js"></script>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+    window.onload = function(){
+    	$.ajax({
+			url:'pro_js.com',	
+		  		method:'post',
+		  		data: JSON.stringify(),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'json',
+		  		success : function(pro_li){
+		  			pro_js = pro_li;
+  		  		$.ajax({
+  	    			url:'cart_js.com',	
+  	  		  		method:'post',
+  	  		  		data: JSON.stringify(),
+  	  		  		contentType : 'application/json; charset=UTF-8',
+  	  		  		dataType : 'json',
+  	  		  		success : function(cart_li){
+  	  		  			if(cart_li.length == 0){
+  	  		  				return;
+  	  		  			}
+  	  		  			cart_js = cart_li;
+  	  		  			console.log(cart_js);
+  	  		  			console.log(pro_js);
+  	  		  			each_price();
+  	  		  		}	
+  	    		})
+		  		}	
+		})
+    }
+    
+    </script>
 </head>
 <body>
 <header>
+	<script>
+		function int_comma(num){
+			return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+		function each_price(){
+			var All_price = 0;
+			var shipfee = 0;
+			for(i=0; i < pro_js.length; i++){
+				price = parseInt(pro_js[i].product_price);
+				ea = parseInt(pro_js[i].cart_quantity);
+				$("."+pro_js[i].product_id+"_won").text(int_comma(price * ea) + "원");
+				$("."+pro_js[i].product_id+"_ea").text(ea+"개");
+				All_price += price * ea;
+				shipfee += pro_js[i].product_shipfee * ea
+			}
+			all_price(All_price,shipfee);
+		}
+		function all_price(price, shipfee){
+			$(".all_price").text(int_comma(price) + "원");
+			$(".shipfee").text(int_comma(shipfee) + "원");
+			
+			
+			var final_price = price + shipfee;
+			$(".final_price").text(int_comma(final_price));
+			var point = final_price * 0.003;
+			$(".point").text(point + " P");
+			
+		}
+		/* var IMP = window.IMP;
+		IMP.init("imp9096979898");
+		
+		function requestPay() {
+		      // IMP.request_pay(param, callback) 결제창 호출
+		      IMP.request_pay({ // param
+		          pg: "html5_inicis",
+		          pay_method: "card",
+		          merchant_uid: "ORD20180131-0000011",
+		          name: "노르웨이 회전 의자",
+		          amount: 64900,
+		          buyer_email: "gildong@gmail.com",
+		          buyer_name: "홍길동",
+		          buyer_tel: "010-4242-4242",
+		          buyer_addr: "서울특별시 강남구 신사동",
+		          buyer_postcode: "01181"
+		      }, function (rsp) { // callback
+		          if (rsp.success) {
+		              ...,
+		              // 결제 성공 시 로직,
+		              ...
+		          } else {
+		              ...,
+		              // 결제 실패 시 로직,
+		              ...
+		          }
+		      });
+		    } */
+		
+		function sample6_execDaumPostcode() {
+	        new daum.Postcode({
+	            oncomplete: function(data) {
+	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var addr = ''; // 주소 변수
+	                var extraAddr = ''; // 참고항목 변수
+
+	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                    addr = data.roadAddress;
+	                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                    addr = data.jibunAddress;
+	                }
+
+	                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+	                if(data.userSelectedType === 'R'){
+	                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+	                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+	                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                        extraAddr += data.bname;
+	                    }
+	                    // 건물명이 있고, 공동주택일 경우 추가한다.
+	                    if(data.buildingName !== '' && data.apartment === 'Y'){
+	                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                    }
+	                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                    if(extraAddr !== ''){
+	                        extraAddr = ' (' + extraAddr + ')';
+	                    }
+	                    // 조합된 참고항목을 해당 필드에 넣는다.
+	                    document.getElementById("sample6_extraAddress").value = extraAddr;
+	                
+	                } else {
+	                    document.getElementById("sample6_extraAddress").value = '';
+	                }
+
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                document.getElementById('sample6_postcode').value = data.zonecode;
+	                document.getElementById("sample6_address").value = addr;
+	                // 커서를 상세주소 필드로 이동한다.
+	                document.getElementById("sample6_detailAddress").focus();
+	            }
+	        }).open();
+	    }
+		
+	</script>
+
     	<jsp:include page="./header/OzoH.jsp"></jsp:include>
     </header>
     <div class="layout">
@@ -21,6 +166,8 @@
     <main class="_2u6kP">
         <div class="_2VbEo">
             <header class="_2CEFF">주문/결제</header>
+            <c:choose>
+            <c:when test="${address_li eq '' }">
             <section class="clDqQ">
                 <div class="checkout-container vtJfv">
                     <div class="_2jygH">배송지</div>
@@ -122,6 +269,202 @@
                         </label></div>
                 </div>
             </section>
+            </c:when>
+            <c:otherwise>
+            <section class="css-11hv2i2 e14xfypx5">
+            	<section class="css-19h7lru e14xfypx4">
+            		<div class="css-q6jijz e14xfypx3">주문자</div>
+            		<div class="css-6vqhdq e14xfypx2"></div>
+            	</section>
+            <div class="css-1msvccc e14xfypx0">
+            <section class="css-1s5pqoc eskht2b7">
+            	<label class="eskht2b5 css-19mgahg e126uv4s3">
+            		<div class="css-1bp0feq e126uv4s2">이름</div>
+            		<div class="css-14o29br e126uv4s1">
+            			<input class="_3ASDR _1qwAY" name="name" maxlength="10" value="">
+            		</div>
+            	</label>
+            <label class="css-1icqu5k e126uv4s3">
+            	<div class="css-1bp0feq e126uv4s2">이메일</div>
+            		<div class="css-yby15j e126uv4s1">
+            			<div class="css-vqaf4p emiurti8">
+            				<div class="css-14kx49g emiurti7">
+            					<div class="css-abcfsy emiurti6">
+            						<input class="_3ASDR _1qwAY" type="email" placeholder="이메일" title="이메일 앞부분" maxlength="20" value="">
+            					</div>
+            					<span class="css-a5kq9u emiurti5">@</span>
+            				</div>
+            				<div class="css-15hj6g4 emiurti4">
+            				<div class="css-y0wgwc emiurti3">
+            					<input class="_3ASDR _1qwAY css-135vgro emiurti2" type="email" title="이메일 뒷부분" maxlength="20" value="">
+            				</div>
+            				<div class="css-1d3w5wq emiurti1">
+            					<div class="_3Bt8k">
+            						<select class="_3ASDR _1qwAY _3K8Q8 css-7x8hv9 emiurti0">
+            						<option value="" disabled="">선택해주세요</option>
+            						<option value="0">naver.com</option>
+            						<option value="1">hanmail.net</option>
+            						<option value="2">daum.net</option>
+            						<option value="3">gmail.com</option>
+            						<option value="4">kakao.com</option>
+            						<option value="5">nate.com</option>
+            						<option value="6">hotmail.com</option>
+            						<option value="7">outlook.com</option>
+            						<option value="8">icloud.com</option>
+            						<option value="9">직접 입력</option>
+            						</select>
+            						<svg width="1em" height="1em" viewBox="0 0 10 10" fill="currentColor" class="IgBXR">
+            						<path d="M0 3l5 5 5-5z"></path>
+            						</svg>
+            					</div>
+            				</div>
+            			</div>
+            		</div>
+            	</div>
+            </label>
+            <label class="css-1icqu5k e126uv4s3">
+            <div class="css-1bp0feq e126uv4s2">휴대전화</div>
+            <div class="css-14o29br e126uv4s1">
+            <div class="_2Z2K1">
+            	<div class="_2ixif">
+            		<div class="_3Bt8k">
+            			<select class="_3ASDR _1qwAY _3K8Q8" name="phone1">
+            			<option value="" disabled="">선택</option>
+            			<option value="0">010</option>
+            			<option value="1">011</option>
+            			<option value="2">016</option>
+            			<option value="3">017</option>
+            			<option value="4">018</option>
+            			<option value="5">019</option>
+            			</select>
+            			<svg width="1em" height="1em" viewBox="0 0 10 10" fill="currentColor" class="IgBXR yPMDv">
+            			<path d="M0 3l5 5 5-5z"></path>
+            			</svg>
+            		</div>
+            	</div>
+            	<div class="UYZ4Z"><input class="_3ASDR _1qwAY" type="tel" placeholder="입력해주세요" size="1" maxlength="9" value=""></div>
+            </div>
+            <div class="css-1nuhno9 eskht2b4">
+            	<button class="_1eWD8 _3SroY _3VwZT css-1d3w5wq eskht2b3" type="button">인증번호 발송</button>
+            </div>
+           	</div>
+        	</label>
+        </section>
+       	</div>
+     	</section>
+						<section class="css-11hv2i2 e14xfypx5">
+							<section class="css-19h7lru e14xfypx4">
+								<div class="css-q6jijz e14xfypx3">배송지</div>
+								<div class="css-6vqhdq e14xfypx2"></div>
+								<button class="e3bjt0w0 css-4pfmkz" type="button">위와
+									동일하게 채우기</button>
+							</section>
+							<div class="css-1msvccc e14xfypx0">
+								<section class="css-svxxd2 e3bjt0w1">
+									<label class="css-1icqu5k e126uv4s3"><div
+											class="css-1bp0feq e126uv4s2">배송지명</div>
+										<div class="css-14o29br e126uv4s1">
+											<input class="_3ASDR _1qwAY" name="name" maxlength="20"
+												value="">
+										</div></label><label class="css-1icqu5k e126uv4s3"><div
+											class="css-1bp0feq e126uv4s2">받는 사람</div>
+										<div class="css-14o29br e126uv4s1">
+											<input class="_3ASDR _1qwAY" name="recipient" value="">
+										</div></label><label class="css-1icqu5k e126uv4s3"><div
+											class="css-1bp0feq e126uv4s2">연락처</div>
+										<div class="css-14o29br e126uv4s1">
+											<div class="_2Z2K1">
+												<div class="_2ixif">
+													<div class="_3Bt8k">
+														<select class="_3ASDR _1qwAY _3K8Q8" name="phone1"><option
+																value="" disabled="">선택</option>
+															<option value="0">010</option>
+															<option value="1">011</option>
+															<option value="2">016</option>
+															<option value="3">017</option>
+															<option value="4">018</option>
+															<option value="5">019</option>
+															<option value="6">02</option>
+															<option value="7">031</option>
+															<option value="8">032</option>
+															<option value="9">033</option>
+															<option value="10">041</option>
+															<option value="11">042</option>
+															<option value="12">043</option>
+															<option value="13">044</option>
+															<option value="14">051</option>
+															<option value="15">052</option>
+															<option value="16">053</option>
+															<option value="17">054</option>
+															<option value="18">055</option>
+															<option value="19">061</option>
+															<option value="20">062</option>
+															<option value="21">063</option>
+															<option value="22">064</option>
+															<option value="23">070</option>
+															<option value="24">080</option>
+															<option value="25">050</option>
+															<option value="26">012</option>
+															<option value="27">059</option>
+															<option value="28">직접 입력</option></select>
+														<svg width="1em" height="1em" viewBox="0 0 10 10"
+															fill="currentColor" class="IgBXR yPMDv">
+															<path d="M0 3l5 5 5-5z"></path></svg>
+													</div>
+												</div>
+												<div class="UYZ4Z">
+													<input class="_3ASDR _1qwAY" type="tel"
+														placeholder="입력해주세요" size="1" maxlength="9" value="">
+												</div>
+											</div>
+										</div></label><label class="css-1icqu5k e126uv4s3"><div
+											class="css-1bp0feq e126uv4s2">주소</div>
+										<div class="css-yby15j e126uv4s1">
+											<div>
+												<div class="css-1jq486h e138ry6t2">
+													<button class="_1eWD8 _2wuTD _3VwZT css-1maly7k e138ry6t1" onclick="sample6_execDaumPostcode()"
+														type="button">주소찾기</button>
+													<input class="_3ASDR _1qwAY css-1xfkvr7 e138ry6t0" id="sample6_postcode"
+														disabled="" value="">
+												</div>
+												<div class="css-1a9pxps e138ry6t2">
+													<textarea class="_3ASDR _1qwAY css-1xfkvr7 e138ry6t0" id="sample6_address"
+														disabled="" rows="1"
+														style="overflow: hidden; overflow-wrap: break-word; height: 40px;"></textarea>
+												</div>
+											</div>
+											<input class="_3ASDR _1qwAY" name="extraAddress"  id="sample6_detailAddress"
+												placeholder="상세주소 입력" maxlength="50" value=""><label
+												for="is-default-address" class="css-t6mvy9 e1lbmohe1"><div
+													class="_3zqA8 css-tz6wcf e1lbmohe0">
+													<input type="checkbox" class="_3UImz"
+														id="is-default-address" name="isDefaultAddress" value=""><span
+														class="_2mDYR"><svg width="1em" height="1em"
+															viewBox="0 0 16 16" class="_2UftR">
+															<path fill="currentColor"
+																d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span>
+												</div>기본 배송지로 저장</label>
+										</div></label>
+									<div class="css-18azwi1 e84q8kd5">
+										<div class="_3Bt8k">
+											<select class="_3ASDR _1qwAY _3K8Q8"><option
+													value="0">배송시 요청사항을 선택해주세요</option>
+												<option value="1">부재시 문앞에 놓아주세요</option>
+												<option value="2">배송전에 미리 연락주세요</option>
+												<option value="3">부재시 경비실에 맡겨 주세요</option>
+												<option value="4">부재시 전화주시거나 문자 남겨 주세요</option>
+												<option value="5">직접입력</option></select>
+											<svg width="1em" height="1em" viewBox="0 0 10 10"
+												fill="currentColor" class="IgBXR">
+												<path d="M0 3l5 5 5-5z"></path></svg>
+										</div>
+									</div>
+								</section>
+							</div>
+						</section>
+
+					</c:otherwise>
+</c:choose>
             <section class="clDqQ">
                 <div class="checkout-container vtJfv">
                     <div class="_2jygH">주문상품</div>
@@ -129,37 +472,48 @@
                 </div>
                 <div class="_254uw">
                     <section class="checkout-container _3aT7b">
+                    	 <c:forEach var="i" begin="0" end="${fn:length(post_li)-1}">
                         <div class="css-wclqjc egkpco10">
                             <div class="css-114dac7 e1qx8gyn5">
                                 <div class="css-s5xdrg e1qx8gyn4">
-                                    <div class="css-1d4irc7 e1qx8gyn3">주식회사 유한상사</div>
-                                    <div class="css-o69atw e1qx8gyn2"><span class="css-1ohhab7 e1qx8gyn1">배송비</span>0원</div>
+                                    <div class="css-1d4irc7 e1qx8gyn3">주식회사 ${post_li[i].company_name }</div>
+                                    <div class="css-o69atw e1qx8gyn2"><span class="css-1ohhab7 e1qx8gyn1">배송비</span>개당 ${post_li[i].post_shipfee}원</div>
                                 </div>
                             </div>
+                            <c:forEach var="j" begin="0" end="${fn:length(pro_li)-1}">
+                            <c:if test="${pro_li[j].product_postid eq post_li[i].post_id }">
                             <div>
                                 <div class="css-1deqzke e1l2pwkp8">
                                     <picture>
-                                        <source type="image/webp"
-                                            src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161777914306431945.jpg?w=72&amp;h=72&amp;c=c&amp;webp=1"
-                                            srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161777914306431945.jpg?w=144&amp;h=144&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161777914306431945.jpg?w=144&amp;h=144&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161777914306431945.jpg?w=256&amp;h=256&amp;c=c&amp;webp=1 3x">
                                         <img class="css-15hitpz e1l2pwkp7"
-                                            src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161777914306431945.jpg?w=72&amp;h=72&amp;c=c"
-                                            srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161777914306431945.jpg?w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161777914306431945.jpg?w=144&amp;h=144&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161777914306431945.jpg?w=256&amp;h=256&amp;c=c 3x">
+                                            src="${post_li[i].photo_url }">
                                     </picture>
                                     <div class="css-17fh4sh e1l2pwkp6">
-                                        <div class="css-tobrwt e1l2pwkp5">[25%쿠폰]3겹 순수소프트 롤화장지 (27Mx30롤)x2팩</div>
+                                        <div class="css-tobrwt e1l2pwkp5">[25%쿠폰]${post_li[i].post_name }</div>
                                         <ul class="css-rvb3re e1l2pwkp4">
-                                            <li>3겹 순수소프트 롤화장지 (27Mx30롤)x2백</li>
+                                            <li>
+                                            <c:choose>
+                                            <c:when test="${pro_li[j].option2 eq '' }">
+                                            	${pro_li[j].option1 }
+                                            </c:when>
+                                            <c:otherwise>
+                                            	${pro_li[j].option1} / ${pro_li[j].option2 }
+                                            </c:otherwise>
+                                            </c:choose>
+                                            </li>
                                         </ul>
                                         <div class="css-18cz9pp e1l2pwkp3"><span
-                                                class="css-1r6ecne e1l2pwkp2">38,400원</span>
+                                                class="css-1r6ecne e1l2pwkp2 ${pro_li[j].product_id}_won"></span>
                                             <div class="css-1tcfgij e1l2pwkp1"></div><span
-                                                class="css-1fgdtzk e1l2pwkp0">1개</span>
+                                                class="css-1fgdtzk e1l2pwkp0 ${pro_li[j].product_id }_ea"></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            </c:if>
+                            </c:forEach>
                         </div>
+                        </c:forEach>
                     </section>
                 </div>
             </section>
@@ -316,11 +670,11 @@
                                 <div class="_3TNPF">결제금액</div>
                                 <div class="_2JEof">
                                     <div class="_34k6S">총 상품 금액</div>
-                                    <div class="_25zAE ySGW6">38,400원</div>
+                                    <div class="_25zAE ySGW6 all_price"></div>
                                 </div>
                                 <div class="_2JEof">
                                     <div class="_34k6S">배송비</div>
-                                    <div class="_25zAE">0원</div>
+                                    <div class="_25zAE shipfee"></div>
                                 </div>
                                 <div class="_2JEof">
                                     <div class="_34k6S">쿠폰 사용</div>
@@ -332,8 +686,8 @@
                                 </div>
                                 <div class="_1qFy7">
                                     <div class="_3hFjD">최종 결제 금액</div>
-                                    <div class="_2YW1B"><span class="_1vQx0">38,400</span>&nbsp;원<div class="_1-Gyq"><span
-                                                class="csPTb">116 P</span>&nbsp;적립 예정</div>
+                                    <div class="_2YW1B"><span class="_1vQx0 final_price"></span>&nbsp;원<div class="_1-Gyq"><span
+                                                class="csPTb point">116 P</span>&nbsp;적립 예정</div>
                                     </div>
                                 </div>
                             </div>

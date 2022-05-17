@@ -47,7 +47,6 @@
 	  	    		})
   		  		}	
     		})
-    		
         }
         
         /* for(i=0; i < pro_js.length; i++){
@@ -240,6 +239,19 @@
     		  		}	
       		})
     	}
+    }
+    function payment(){
+    	/* var param_Str = "";
+    	for(i = 0; i < post.length; i++){
+			Bln = $("#"+ post[i] + "_check").is(':checked')
+			param_Str += post[i];
+			if(i != post.length - 1 ){
+				param_Str +=  "%";
+			}
+		}
+    	var form_param ='<input type="hidden" name="Product_ID" value="'+ param_Str +'">';	
+    	$("#actionForm").append(form_param);*/
+    	$("#actionForm").submit(); 
     }
 	</script>
     <div class="header">
@@ -434,7 +446,7 @@
                             </div>
                             
                             <div class="cart_order">
-                                <button class="cart_order_btn btn_layer">
+                                <button class="cart_order_btn btn_layer" onClick="payment()">
                                     ${pro_li.size()}개 상품 구매 하기
                                 </button>
                             </div>
@@ -443,7 +455,7 @@
                 </div>
             </div>
         </div>
-         </div>
+        </div>
         </c:when>
         <c:otherwise>
         <div class="commerce-cart-empty">
@@ -456,7 +468,8 @@
         	</div>
         </c:otherwise>
         </c:choose>
-
+		<form action="cart_payment.com" method="post" id="actionForm">
+		</form>
     <!-- 하단 skicky -->
     <div class="sm_footer" style="position: sticky; bottom: 0px; transition: bottom 0.1s ease 0s;">
         <div class="cart_footer" style="position: relative;">

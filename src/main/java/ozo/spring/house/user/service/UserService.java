@@ -3,6 +3,7 @@ package ozo.spring.house.user.service;
 import java.util.List;
 
 import ozo.spring.house.user.dao.UserDAO.cart_Allload;
+import ozo.spring.house.user.dao.UserDAO.payment_class;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserProduct_tableVO;
@@ -21,4 +22,5 @@ public interface UserService {
 	public boolean basket_add(List<UserProductVO> vo, UserVO uvo);
 	//장바구니
 	public cart_Allload get_cart_class(CartVO vo);
+	public payment_class get_payment_class();
 }
