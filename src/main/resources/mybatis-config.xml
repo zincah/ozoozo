@@ -40,8 +40,9 @@
 		<mapper resource="mappings/userMain-mapping.xml"/>
 		<mapper resource="mappings/adminBanner-mapping.xml"/>
 		<mapper resource="mappings/userTodayDeal-mapping.xml"/>
-    <mapper resource="mappings/userMyPage-mapping.xml"/>
-    <mapper resource="mappings/sellerPosting-mapping.xml"/>
-    <mapper resource="mappings/userShop-mapping.xml"/>
+	    <mapper resource="mappings/userMyPage-mapping.xml"/>
+	    <mapper resource="mappings/sellerPosting-mapping.xml"/>
+	    <mapper resource="mappings/userShop-mapping.xml"/>
+	    <mapper resource="mappings/sellerOrder-mapping.xml"/>
 	</mappers>
 </configuration>

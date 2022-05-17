@@ -27,6 +27,8 @@
 	src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css" />
 </head>
 
 <jsp:include page="header/header.jsp"></jsp:include>
@@ -121,19 +123,19 @@
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
-									type="checkbox" id="statusCheck1" name="searchStatus" value="2" /> <label
+									type="checkbox" id="statusCheck2" name="searchStatus" value="3" /> <label
 									class="form-check-label" for="statusCheck2"> 판매종료 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
-									type="checkbox" id="statusCheck2" name="searchStatus" value="3" /> <label
+									type="checkbox" id="statusCheck3" name="searchStatus" value="4" /> <label
 									class="form-check-label" for="statusCheck3"> 승인대기 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
-									type="checkbox" id="statusCheck3" name="searchStatus" value="4" /> <label
+									type="checkbox" id="statusCheck4" name="searchStatus" value="5" /> <label
 									class="form-check-label" for="statusCheck4"> 보류 </label>
 							</div>
 						</div>
@@ -328,6 +330,10 @@
 							aria-label="Close"></button>
 					</div>
 					<div class="modal-body modal-status-select-product">
+						<div class="modal-delete-product-notice">
+							<span class="modal-delete-product-num-value"><i
+								class="bi bi-dot"></i>오늘의딜은 '현재 할인율+10%'으로 진행되며 신청 후 승인 전까진 상태변경이 불가합니다.</span>
+						</div>
 						<div class="modal-delete-product-num">
 							<span>선택된 판매글 수 : </span> <span
 								class="modal-delete-product-num-value productNum">0</span> <span>개</span>
@@ -411,8 +417,11 @@
 				<c:forEach var="postingListView" items="${postingListView}">
 					<tr class="content-table-content content-hover">
 						<td class="content-table-content-text option-line checkTd">
-							<c:if test="${postingListView.getPost_status() ne '승인대기'}">
+							<c:if test="${postingListView.getPost_status() ne '승인대기' and postingListView.getPost_status() ne '보류' and !postingListView.isToday_deal() and postingListView.getDeal_status() ne '신청'}">
 								<input class="form-check-input check" type="checkbox" value="" />
+							</c:if>
+							<c:if test="${postingListView.getPost_status() eq '승인대기' or postingListView.getPost_status() eq '보류' or postingListView.isToday_deal() or postingListView.getDeal_status() eq '신청'}">
+								<input class="form-check-input" type="checkbox" value="" disabled />
 							</c:if>
 						</td>
 						<td class="content-table-content-text option-line state0">${postingListView.getPost_id()}</td>
@@ -423,9 +432,26 @@
 							<img class="badgeicon" alt="[오늘의딜]" title="오늘의딜" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/badgeIcon-deal.gif">
 						</c:if>
 						</td>
-						<td class="content-table-content-text option-line">${postingListView.getSale_ratio()}%</td>
-						<td class="content-table-content-text option-line"><fmt:formatNumber
-								value="${postingListView.getWhole_price()}" type="currency" /></td>
+						<!-- 딜 유무에 따른 할인율 데이터 -->
+						<c:if test="${postingListView.isToday_deal()}">
+							<td class="content-table-content-text option-line" style="color:#ff778e">
+								${postingListView.getDeal_saleratio()}%
+							</td>
+						</c:if>
+						<c:if test="${!postingListView.isToday_deal()}">
+							<td class="content-table-content-text option-line">
+								${postingListView.getSale_ratio()}%
+							</td>
+						</c:if>
+						<!-- 딜 유무에 따른 판매 금액 데이터 -->
+						<c:if test="${postingListView.isToday_deal()}">
+							<td class="content-table-content-text option-line" style="color:#ff778e"><fmt:formatNumber
+									value="${postingListView.getDeal_saleprice()}" type="currency" /></td>
+						</c:if>
+						<c:if test="${!postingListView.isToday_deal()}">
+							<td class="content-table-content-text option-line"><fmt:formatNumber
+									value="${postingListView.getWhole_price()}" type="currency" /></td>
+						</c:if>
 						<td class="content-table-content-text option-line">${postingListView.getPost_couponid()}</td>
 						<td class="content-table-content-text option-line">${postingListView.getCate_name()}</td>
 						<td class="content-table-content-text option-line">${postingListView.getPost_status()}</td>
@@ -441,6 +467,9 @@
 								<fmt:formatDate
 										value="${postingListView.getDeal_endtime()}"
 										pattern="yyyy-MM-dd HH:mm" />
+							</c:if>
+							<c:if test="${postingListView.getDeal_status() eq '신청'}">
+							오늘의딜 승인대기중
 							</c:if>
 						</td>
 					</tr>

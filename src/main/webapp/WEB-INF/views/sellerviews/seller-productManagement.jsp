@@ -463,6 +463,9 @@
 							<c:if test="${productListView.getStatus() ne '승인대기'}">
 								<input class="form-check-input check" type="checkbox" value="" />
 							</c:if>
+							<c:if test="${productListView.getStatus() eq '승인대기'}">
+								<input class="form-check-input" type="checkbox" value="" disabled />
+							</c:if>
 						</td>
 						<td class="content-table-content-text option-line state0">${productListView.getProduct_id()}</td>
 						<td class="content-table-content-text option-line">${productListView.getProduct_seller_code()}</td>

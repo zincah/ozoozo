@@ -114,7 +114,8 @@ public class SellerPostingController {
 		if(session.getAttribute("seller")!=null) {
 			for(String postingId : listPostingId) {
 				vo.setPost_id(Integer.parseInt(postingId));
-				sellerPostingService.updatePostingDealApp(vo);
+				vo.setSeller_id((int) session.getAttribute("seller_id"));
+				sellerPostingService.insertPostingDealApp(vo);
 			}
 			return "seller-productPostingManagement-selectList";
 		}else {

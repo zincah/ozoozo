@@ -2,53 +2,74 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="SellerPostingDAO">
+<mapper namespace="SellerOrderDAO">
 	
-	<!-- 판매글 리스트 -->
-	<select id="selectPostingList" resultType="product">
-		SELECT * FROM product_posting pp
-		JOIN category c ON pp.po_category = c.cate_code
-		LEFT JOIN deal_info di ON pp.post_id = di.deal_postid
-		WHERE pp.post_sellerid = #{seller_id}
-		ORDER BY pp.post_id DESC;
+	<!-- 주문건 리스트 -->
+	<select id="selectOrderList" resultType="product">
+		SELECT * FROM user_order uo 
+		JOIN payment p ON p.pay_ordernum  = uo.order_num 
+		JOIN product p2 ON p2.product_id = uo.product_id 
+		JOIN address a ON a.address_id = uo.address_id
+		JOIN product_option po ON po.op_productid = uo.product_id
+		WHERE uo.seller_id = #{seller_id}
+		ORDER BY uo.order_id DESC;
 	</select>
 	
 	<!-- 판매글 검색 리스트 -->
-	<select id="selectSearchPosting" resultType="product">
-		SELECT * FROM product_posting pp
-		JOIN category c ON pp.po_category = c.cate_code
-		LEFT JOIN deal_info di ON pp.post_id = di.deal_postid
+	<select id="selectSearchOrder" resultType="product">
+		SELECT * FROM user_order uo 
+		JOIN payment p ON p.pay_ordernum  = uo.order_num 
+		JOIN product p2 ON p2.product_id = uo.product_id 
+		JOIN address a ON a.address_id = uo.address_id
+		JOIN product_option po ON po.op_productid = uo.product_id
 		<where>
 			<if test="seller_id != null">
-				pp.post_sellerid = #{seller_id}
+				uo.seller_id = #{seller_id}
 			</if>
 			<if test="sc_searchName != ''">
 				<if test="sc_searchNameStatus == 1">
 					<trim prefix="and">
-						cast(pp.post_id as VARCHAR) LIKE <trim prefix="replace('" suffix="%',' ','')">${sc_searchName}</trim>
+						cast(uo.order_id as VARCHAR) LIKE <trim prefix="replace('" suffix="%',' ','')">${sc_searchName}</trim>
 					</trim>
 				</if>
 				<if test="sc_searchNameStatus == 2">
 					<trim prefix="and">
-						pp.post_name LIKE <trim prefix="replace('%" suffix="%',' ','')">${sc_searchName}</trim>
+						cast(uo.order_num as VARCHAR) LIKE <trim prefix="replace('" suffix="%',' ','')">${sc_searchName}</trim>
+					</trim>
+				</if>
+				<if test="sc_searchNameStatus == 3">
+					<trim prefix="and">
+						a.receiver LIKE <trim prefix="replace('%" suffix="%',' ','')">${sc_searchName}</trim>
 					</trim>
 				</if>
 			</if>
 			<if test="sc_searchStatus != null">
 				<trim prefix="and">
-					<if test="sc_searchStatus.size != 5">
+					<if test="sc_searchStatus.size != 9">
 						<foreach collection="sc_searchStatus" item="arr" separator="or">
 							<if test="arr == 2">
-								pp.post_status = '판매중'
+								uo.order_status = '결제완료'
 							</if>
 							<if test="arr == 3">
-								pp.post_status = '판매종료'
+								uo.order_status = '배송준비중'
 							</if>
 							<if test="arr == 4">
-								pp.post_status = '승인대기'
+								uo.order_status = '배송중'
 							</if>
 							<if test="arr == 5">
-								pp.post_status = '보류'
+								uo.order_status = '배송완료'
+							</if>
+							<if test="arr == 6">
+								uo.order_status = '교환'
+							</if>
+							<if test="arr == 7">
+								uo.order_status = '반품'
+							</if>
+							<if test="arr == 8">
+								uo.order_status = '환불'
+							</if>
+							<if test="arr == 9">
+								uo.order_status = '주문취소'
 							</if>
 						</foreach>
 					</if>
@@ -56,31 +77,24 @@
 			</if>
 			<if test="sc_category != 0">
 				<trim prefix="and">
-					pp.po_category = #{sc_category}
+					p2.pro_catecode = #{sc_category}
 				</trim>
 			</if>
 			<if test="sc_middleSelect != 0 and sc_smallSelect == 0">
 				<trim prefix="and">
-					(pp.po_subcate/100) = (#{sc_middleSelect}/100)
+					(p2.pro_subcatecode/100) = (#{sc_middleSelect}/100)
 				</trim>
 			</if>
 			<if test="sc_smallSelect != 0">
 				<trim prefix="and">
-					pp.po_subcate = #{sc_smallSelect}
+					p2.pro_subcatecode = #{sc_smallSelect}
 				</trim>
 			</if>
-			<if test="sc_selectDate == 1">
-				<trim prefix="and">
-					pp.post_created BETWEEN TO_DATE(#{sc_startDate}, 'YYYY-MM-DD') AND TO_DATE(#{sc_endDate}, 'YYYY-MM-DD') + INTERVAL '1 DAY'
-				</trim>
-			</if>
-			<if test="sc_selectDate == 2">
-				<trim prefix="and">
-					di.deal_time BETWEEN TO_DATE(#{sc_startDate}, 'YYYY-MM-DD') AND TO_DATE(#{sc_endDate}, 'YYYY-MM-DD') + INTERVAL '1 DAY'
-				</trim>
-			</if>
+			<trim prefix="and">
+				uo.order_date BETWEEN TO_DATE(#{sc_startDate}, 'YYYY-MM-DD') AND TO_DATE(#{sc_endDate}, 'YYYY-MM-DD') + INTERVAL '1 DAY'
+			</trim>
 			<if test="true">
-				ORDER BY pp.post_id DESC;
+				ORDER BY uo.order_date DESC;
 			</if>
 		</where>
 	</select>

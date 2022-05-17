@@ -10,6 +10,9 @@
 			<c:if test="${searchProductList.getStatus() ne '승인대기'}">
 				<input class="form-check-input check" type="checkbox" value="" />
 			</c:if>
+			<c:if test="${searchProductList.getStatus() eq '승인대기'}">
+				<input class="form-check-input" type="checkbox" value="" disabled />
+			</c:if>
 		</td>
 		<td class="content-table-content-text option-line state0">${searchProductList.getProduct_id()}</td>
 		<td class="content-table-content-text option-line">${searchProductList.getProduct_seller_code()}</td>
