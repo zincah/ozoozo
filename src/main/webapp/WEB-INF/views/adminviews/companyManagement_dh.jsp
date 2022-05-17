@@ -59,6 +59,19 @@
     		  }
     	}
     	
+    	// 초기화 버튼
+    	function clickReset(){
+    		
+    		$("input[name=datepick2]").attr("disabled", true);
+    		dateBtn8Event(); // 날짜 전체로 돌리기
+    		$("#btnradio8").prop("checked", true);
+
+			$("#search_input").val("");
+			$('input[name="status"]')[0].checked = true;
+			
+			//getData();
+
+    	}
     
     
     
@@ -98,13 +111,17 @@
                 <div class="row optionGroup1">
                   <div class="col-1 status-name">업체 상태</div>
                    <div class="col search-check-group">
-                    <div class="form-check form-check-display">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                      <label class="form-check-label" for="flexCheckDefault"> 입점신청업체 </label>
+                   <div class="form-check form-check-display">
+                      <input class="form-check-input form-check-input-margin" name="status" type="checkbox" value="" id="status1" checked/>
+                      <label class="form-check-label" for="status1"> 전체 </label>
                     </div>
                     <div class="form-check form-check-display">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                      <label class="form-check-label" for="flexCheckDefault"> 입점업체 </label>
+                      <input class="form-check-input form-check-input-margin" name="status" type="checkbox" value="" id="status2" />
+                      <label class="form-check-label" for="status2"> 입점신청업체 </label>
+                    </div>
+                    <div class="form-check form-check-display">
+                      <input class="form-check-input form-check-input-margin" name="status" type="checkbox" value="" id="status3" />
+                      <label class="form-check-label" for="status3"> 입점업체 </label>
                     </div>
                     
                   </div>
@@ -115,45 +132,28 @@
                   <div class="col-1 status-name">분류</div>
                   <div class="col search-check-group">
                   	<!-- 나중에 넣기 -->
-                    <div class="form-check form-check-display">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                      <label class="form-check-label" for="flexCheckDefault"> 평점순 </label>
+                  	<div class="form-check form-check-display">
+                      <input class="form-check-input form-check-input-margin" name="ranking" type="checkbox" value="" id="ranking1" checked/>
+                      <label class="form-check-label" for="ranking1"> 전체 </label>
                     </div>
                     <div class="form-check form-check-display">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                      <label class="form-check-label" for="flexCheckDefault"> 매출순 </label>
+                      <input class="form-check-input form-check-input-margin" name="ranking" type="checkbox" value="" id="ranking2" />
+                      <label class="form-check-label" for="ranking2"> 평점순 </label>
                     </div>
                     <div class="form-check form-check-display">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                      <label class="form-check-label" for="flexCheckDefault"> 인기순 </label>
+                      <input class="form-check-input form-check-input-margin" name="ranking" type="checkbox" value="" id="ranking3" />
+                      <label class="form-check-label" for="ranking3"> 매출순 </label>
+                    </div>
+                    <div class="form-check form-check-display">
+                      <input class="form-check-input form-check-input-margin" name="ranking" type="checkbox" value="" id="ranking4" />
+                      <label class="form-check-label" for="ranking4"> 인기순 </label>
                     </div>
                     
                   </div>
                 </div>
               </div>
-              
-              <div class="container container-option container-option-topPadding bottomline">
-                <div class="row optionGroup1">
-                  <div class="col-1 status-name">카테고리</div>
-                  <div class="col search-input">
-                    <div class="radio-productCode">
-                      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <select class="form-select selectState" id="large-select" aria-label="Default select example">
-                          <option selected>대분류</option>
-                          <option value="1">주방</option>
-                          <option value="2">헬스/반려/캠핑</option>
-                          <option value="3">생활용품</option>
-                          <option value="4">가구</option>
-                          <option value="5">홈테코/조명</option>
-                          <option value="6">시공/서비스</option>
-                          <option value="7">렌탈</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="container container-option container-option-topPadding bottomline">
+
+              <div class="container container-option container-option-topPadding">
                 <div class="row optionGroup1">
                   <div class="col-1 status-name">기간</div>
                   <div class="col search-input">
@@ -187,18 +187,6 @@
                     <div class="paddingLeft1">
                       <input class="startDate" type="date" id="date" value="" />
                       <input class="endDate" type="date" id="date" value="" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="container container-option container-option-topPadding">
-                <div class="row optionGroup1">
-                  <div class="col search-submitBtn">
-                    <div class="d-grid gap-2">
-                      <button class="btn btn-secondary submitBtn" type="button">검색</button>
-                    </div>
-                    <div class="d-grid gap-2">
-                      <button class="btn btn-outline-secondary initBtn" type="button">초기화</button>
                     </div>
                   </div>
                 </div>
