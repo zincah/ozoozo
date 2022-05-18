@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ozo.spring.house.user.dao.UserScrapDAO;
+import ozo.spring.house.user.vo.ScrapVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 
 @Service("userScrapService")
@@ -24,17 +25,25 @@ public class UserScrapServiceImple implements UserScrapService {
 
 	
 	@Override
-	public List<UserScrapVO> u_scrap(UserScrapVO vo) {
+	public List<ScrapVO> s_scrap(ScrapVO vo) {
 	
 		
-		return userscrapdao.u_scrap(vo);
+		return userscrapdao.s_scrap(vo);
 	}
 
 	
 	@Override
-	public void u_cancle(UserScrapVO vo) {
+	public void s_cancle(UserScrapVO vo) {
 		
-		userscrapdao.u_cancle(vo);
+		userscrapdao.s_cancle(vo);
+	}
+
+
+
+	@Override
+	public void s_insert(UserScrapVO vo) {
+		
+		userscrapdao.s_insert(vo);
 	}
 
 	

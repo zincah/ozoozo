@@ -5,8 +5,8 @@
  <mapper namespace="UserMyPageDAO">
  
 
-	<select id="mypageinfo" resultType="user">
-		SELECT user_email,nickname,user_img,comment FROM user_table WHERE user_num = #{user_num}
+	<select id="selectUser" resultType="user">
+		SELECT user_email, nickname, user_img, comment FROM user_table WHERE user_num = #{user_num}
 	</select>
 	
 	<update id="user_edit" parameterType="user">
