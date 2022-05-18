@@ -118,5 +118,11 @@ public class AdminManageDAO {
 		System.out.println("--> mybatis in adminmanagedao update sellerstatus");
 		sqlSessionTemplate.update("AdminManageDAO.sellerStatusUpdate", vo);
 	}
+	
+	// ∏≈√‚
+	public List<AdminProductVO> todayDealSale(AdminProductVO vo){
+		System.out.println("--> mybatis in adminmanagedao get todaydealsale");
+		return sqlSessionTemplate.selectList("AdminManageDAO.todayDealSale", vo);
+	}
 
 }

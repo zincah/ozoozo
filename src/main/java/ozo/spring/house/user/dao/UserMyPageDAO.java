@@ -17,6 +17,7 @@ public class UserMyPageDAO {
 	//회원정보 수정
 	public UserVO mypageinfo(UserVO vo) {
 		System.out.println("--> this is mybatis");
+		System.out.println(vo.getUser_num());
 		return sqlsessiontemplate.selectOne("UserMyPageDAO.selectUser",vo);
 	}
 	

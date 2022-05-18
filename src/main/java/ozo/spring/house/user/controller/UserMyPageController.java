@@ -74,20 +74,19 @@ public class UserMyPageController {
 		return "success";
 	}
 	@RequestMapping(value="/m_myPage.com")
-	public String  mypage(UserVO vo,Model model,HttpServletRequest request,ScrapVO svo) {
+	public String  mypage(UserVO vo, Model model, HttpServletRequest request, ScrapVO svo) {
 		HttpSession session = request.getSession();
 		
 		
 		if(session.getAttribute("User_Num")!=null) {
-			//vo.setUser_num((int)session.getAttribute("User_Num"));
+			vo.setUser_num((int)session.getAttribute("User_Num"));
 			System.out.println((int)session.getAttribute("User_Num"));
-			//UserVO info;
-			//info = userMyPageService.mypageinfo(vo);
+			UserVO info = userMyPageService.mypageinfo(vo);
 			
 			List<ScrapVO> list ;
 			list = userscrapservice.s_scrap(svo);
 			
-			//model.addAttribute("info",info);
+			model.addAttribute("info",info);
 			model.addAttribute("list", list);
 			 
 			return "myPage";
