@@ -12,8 +12,8 @@ public class Criteria {
 	// paging 할 수 있는 vo
 	// 검색의 기준
 	
-	private int pageNum;
-	private int amount;
+	private int pageNum; // 페이지 번호
+	private int amount; // 페이지당 게시물 수
 	
 	public Criteria() {
 		// 기본 생성자를 통해서 기본값 1페이지, 10개단위로 지정해서 처리

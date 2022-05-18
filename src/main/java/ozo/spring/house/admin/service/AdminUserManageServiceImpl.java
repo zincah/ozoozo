@@ -40,4 +40,19 @@ public class AdminUserManageServiceImpl implements AdminUserManageService {
 		return adminManageDAO.selectSellerList();
 	}
 
+	@Override
+	public SellerVO getSellerInfo(SellerVO vo) {
+		return adminManageDAO.getSellerInfo(vo);
+	}
+
+	@Override
+	public void sellerStatusUpdate(SellerVO vo) {
+		adminManageDAO.sellerStatusUpdate(vo);
+	}
+
+	@Override
+	public int getUserListCount(UserVO vo) {
+		return adminManageDAO.getUserListCount(vo);
+	}
+
 }

@@ -13,4 +13,9 @@ public interface AdminUserManageService {
 	public List<UserVO> floatingPopulation();
 	
 	public List<SellerVO> selectSellerList();
+	public SellerVO getSellerInfo(SellerVO vo);
+	public void sellerStatusUpdate(SellerVO vo);
+	public int getUserListCount(UserVO vo);
+	
 }
+

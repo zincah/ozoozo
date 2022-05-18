@@ -95,3 +95,17 @@
     list-style: none;
     justify-content: space-between;
 }
+
+/* 입점 매장 정보 */
+.view-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.view-title-last {
+    font-size: 11px;
+    font-weight: 600;
+    border-left: 1px solid #dbdbdb;
+    text-align: center;
+}

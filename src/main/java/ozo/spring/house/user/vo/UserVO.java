@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ozo.spring.house.common.Criteria;
 
 @Getter
 @Setter
@@ -40,5 +41,8 @@ public class UserVO {
 	private Date login_date;
 	private int lc_usernum;
 	private int count;
+	
+	// paging
+	private Criteria cri;
 
 }

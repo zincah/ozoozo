@@ -19,13 +19,13 @@ public class AdminManageDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<UserVO> selectUser(UserVO vo) {
+	public List<UserVO> selectUser(UserVO vo) { // 안쓸수도
 		System.out.println("--> mybatis in adminmanagedao select user");
 		return sqlSessionTemplate.selectList("AdminManageDAO.selectUser", vo);
 	}
 	
 	public List<UserVO> getUserList(UserVO vo) {
-		System.out.println("--> mybatis in adminmanagedao getuselist");
+		System.out.println("--> mybatis in adminmanagedao getuserlist");
 		return sqlSessionTemplate.selectList("AdminManageDAO.getUserList", vo);
 	}
 	
@@ -33,6 +33,15 @@ public class AdminManageDAO {
 		System.out.println("--> mybatis in adminmanagedao update user status");
 		sqlSessionTemplate.update("AdminManageDAO.updateUserStatus", vo);
 	}
+	
+	public int getUserListCount(UserVO vo) { // 총 total 개수
+		System.out.println("--> mybatis in adminmanagedao update user status");
+		List<UserVO> list = sqlSessionTemplate.selectList("AdminManageDAO.getUserListCount", vo);
+		return list.size();
+	}
+	
+	
+	
 	/*
 	public List<AdminProductVO> selectPosting(Criteria cri) {
 		System.out.println("--> mybatis in adminmanagedao selectposting");
@@ -98,6 +107,16 @@ public class AdminManageDAO {
 	public List<SellerVO> selectSellerList(){
 		System.out.println("--> mybatis in adminmanagedao selectseller");
 		return sqlSessionTemplate.selectList("AdminManageDAO.selectSellerList");
+	}
+	
+	public SellerVO getSellerInfo(SellerVO vo) {
+		System.out.println("--> mybatis in adminmanagedao get seller info");
+		return sqlSessionTemplate.selectOne("AdminManageDAO.getSellerInfo", vo);
+	}
+	
+	public void sellerStatusUpdate(SellerVO vo) {
+		System.out.println("--> mybatis in adminmanagedao update sellerstatus");
+		sqlSessionTemplate.update("AdminManageDAO.sellerStatusUpdate", vo);
 	}
 
 }

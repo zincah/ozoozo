@@ -17,10 +17,13 @@
     <link href="resources/css/admincss/membermanagement_dh.css?var=12" rel="stylesheet" />
     <link href="resources/css/admincss/insertProduct_dh.css?var=1" rel="stylesheet" />
     <link href="resources/css/admincss/seller-productManagement_dh.css?var=1" rel="stylesheet" />
+    <link href="resources/css/admincss/paging.css?var=13" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <script>
+    
+    	var pageNum;
     
     	$(document).ready(function(){
 
@@ -36,16 +39,7 @@
     		
     		// 초기화 버튼
     		$("#resetBtn").click(function(){
-    			
-    			$("input[name=datepick2]").attr("disabled", true);
-    			$("#status_select option:eq(0)").prop("selected", true);
-    			$('input[name="member"]')[0].checked = true;
-    			$("#search_input").prop("disabled", true);
-    			$("#search_input").val("");
-    			$("#search_select option:eq(0)").prop("selected", true);
-    			dateBtn8Event(); // 날짜 전체로 돌리기
-    			$("#btnradio8").prop("checked", true);
-    			
+    			clickReset();
     			getUserData();
     			
     			// 날짜 오늘날짜로 돌리는 것도
@@ -92,9 +86,130 @@
     			$("#search_input").prop("disabled", false);
 
     			searching();
-    		})
+    		});
+    		
+    		// setpage
+			pageNum = ${pageMaker.getPageNum()}; // 현재 페이지 설정
+    		setPage(pageNum);
 
     	});
+    	
+    	function clickReset(){
+			$("input[name=datepick2]").attr("disabled", true);
+			$("#status_select option:eq(0)").prop("selected", true);
+			$('input[name="member"]')[0].checked = true;
+			$("#search_input").prop("disabled", true);
+			$("#search_input").val("");
+			$("#search_select option:eq(0)").prop("selected", true);
+			dateBtn8Event(); // 날짜 전체로 돌리기
+			$("#btnradio8").prop("checked", true);
+			
+			getUserData();
+    	}
+    	
+    	// paging
+		function setPage(pageNum){
+    		
+    		console.log(pageNum);
+    		
+    		var total = $("#totalcount").val();
+    		console.log(total);
+    		var amount = ${pageMaker.getAmount()};
+
+    		var endPage = Math.ceil(pageNum/10.0)*10;
+    		var startPage = endPage - 9;
+
+    		if(total == 0){
+    			var realEnd = 1;
+    		}else{
+    			var realEnd = Math.ceil((total*1.0)/amount);
+    		}
+
+    	    if(realEnd < endPage){
+    	    	endPage = realEnd;
+    	    }
+    	    
+    	    var prev = startPage > 1;
+    	    var next = endPage < realEnd; // 쓸지안쓸지..
+    	    
+    	    $(".page-layer").html("");
+    	    
+			for(var i=startPage; i<=endPage; i++){
+				
+				if(pageNum == i){
+					var li = '<li class="page-item active"><a class="page-link" href="'+i+'">'+i+'</a></li>';
+				}else{
+					var li = '<li class="page-item"><a class="page-link" href="'+i+'">'+i+'</a></li>';
+				}
+				
+				$(".page-layer").append(li);
+
+			}
+			
+			if(endPage == 1){
+				$(".page-layer").hide();
+				$(".page-outer").hide();
+			}else{
+				$(".page-layer").show();
+				$(".page-outer").show();
+			}
+			
+			
+    		// paging a link click
+        	$(".page-item a").on("click", function(e){
+
+    			e.preventDefault();
+    			pageNum = $(this).attr("href");
+    			console.log("movepage : "+pageNum);
+    			movepage(pageNum);
+    		});
+
+    	}
+    	
+		// page 이동
+    	function movepage(pageNum){
+    		
+    		// checkbox 초기화
+    		$("#allCheck").prop("checked", false);
+			
+    		//조건들 받아오기
+    		var type = $("input[name=member]:checked").val();
+       		var status = $("#status_select").val();
+       		var startdate = $("input[name=datepick1]").val();
+       		var enddate = $("input[name=datepick2]").val();
+
+   			var pack = $("#search_select option:selected").val();
+   			var keyword = $("#search_input").val();
+
+   			var searchMap = {
+       				"user_type" : type,
+       				"user_status" : status,
+       				"startdate" : startdate,
+       				"enddate" : enddate,
+       				"pack" : pack,
+       				"keyword" : keyword,
+       				"pageNum" : pageNum // page 추가해주기
+       		}
+    		
+			
+    		$.ajax({
+		  		url:'moveUserPaging.admin',
+		  		method:'post',
+		  		data: JSON.stringify(searchMap),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'html',
+		  		success : function(resp){
+		  			
+		  			printTable(resp);
+		  			setPage(pageNum);
+
+		  		},
+		  		error : function(request, status, error) {
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+    		});
+    		
+    	}
     	
     	// 검색 시 실행되는 메소드
     	function searching(){
@@ -119,7 +234,8 @@
         				"startdate" : startdate,
         				"enddate" : enddate,
         				"pack" : pack,
-        				"keyword" : keyword
+        				"keyword" : keyword,
+        				"pageNum" : pageNum
         		}
 
     			
@@ -128,15 +244,25 @@
     		  		method:'post',
     		  		data: JSON.stringify(searchMap),
     		  		contentType : 'application/json; charset=UTF-8',
-    		  		dataType : 'json',
+    		  		dataType : 'html',
     		  		success : function(resp){
     		  			
-    		  			printList(resp);
+    		  			printTable(resp);
+    		  			setPage(1);
 
     		  		}
         		});
 
     		});
+    	}
+    	
+    	// 화면 table 뽑기
+    	function printTable(resp){
+    		$("#listTableBody").html(resp);
+    		
+    		// checkbox 초기화
+    		$("#allCheck").prop("checked", false);
+    		checkfunction();
     	}
     	
     	function checkfunction(){
@@ -177,7 +303,8 @@
     				"startdate" : startdate,
     				"enddate" : enddate,
     				"pack" : pack,
-    				"keyword" : keyword
+    				"keyword" : keyword,
+    				"pageNum" : pageNum
     		}
 
 		  	$.ajax({
@@ -185,18 +312,60 @@
 		  		method:'post',
 		  		data: JSON.stringify(searchMap),
 		  		contentType : 'application/json; charset=UTF-8',
-		  		dataType : 'json',
+		  		dataType : 'html',
 		  		success : function(resp){
-						
-		  				printList(resp);
-		  			}
+							
+			  			printTable(resp);
+			  			setPage(1);
+		  		}
 		  		
 		  		});
 				
     		
     	}
     		
-    	// list 뽑는 메소드 : 반환값만 넣어주면 됨
+
+    	
+    	// 유저 상태 변경
+    	function updateUserStatus(){
+    		// checkbox 값 한개씩 가져오기
+    		var usernumList = []
+    		
+    		$("input:checkbox[name=usercheckbox]:checked").each(function(){
+      			var checkit = $(this).parent().next().text();
+      			usernumList.push(checkit);
+      		});
+    		
+    		usernumList.push(pageNum);
+    		console.log(pageNum);
+    		usernumList.push($("#statusOption").val());
+    		
+    		console.log(usernumList);
+    		
+    		$.ajax({
+		  		url:'updateUserStatus.admin',
+		  		method:'post',
+		  		data: JSON.stringify(usernumList),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'html',
+		  		success : function(resp){
+					
+		  			$(".modal").modal('hide')
+		  			$(".modal-status-select-option option:eq(0)").prop("selected", true);
+		  			$("#select-num").text("0");
+
+		  			printTable(resp);
+		  			setPage(pageNum);
+		  			clickReset();
+		  			
+		  			}
+		  		
+		  		});
+				
+    		
+    	}
+    	
+    	// list 뽑는 메소드 : 반환값만 넣어주면 됨 - 이건 이제 안씀
     	function printList(resp){
     		$("#listTableBody").html("");
 				
@@ -217,7 +386,8 @@
   				var join_date = new Date(item["join_date"]).toISOString().split("T")[0];
 
   				result += 
-  					'<tr class="content-table-content content-hover">\
+  					'\
+  					<tr class="content-table-content content-hover">\
 					  <td class="content-table-content-text option-line"><input class="form-check-input form-check-input-margin check" type="checkbox" value="" id="flexCheckDefault1" name="usercheckbox" onchange="checkfunction()"/></td>\
 					  <td class="content-table-content-text option-line state0" id="usernum">'+item["user_num"]+'</td>\
 					<td class="content-table-content-text option-line">'+item["nickname"]+'</td>\
@@ -233,41 +403,6 @@
 	  		})
 	  			
 	  		$("#listTableBody").append(result);
-    	}
-    	
-    	// 유저 상태 변경
-    	function updateUserStatus(){
-    		// checkbox 값 한개씩 가져오기
-    		var usernumList = []
-    		
-    		$("input:checkbox[name=usercheckbox]:checked").each(function(){
-      			var checkit = $(this).parent().next().text();
-      			usernumList.push(checkit);
-      		});
-    		
-    		usernumList.push($("#statusOption").val());
-    		
-    		console.log(usernumList);
-    		
-    		$.ajax({
-		  		url:'updateUserStatus.admin',
-		  		method:'post',
-		  		data: JSON.stringify(usernumList),
-		  		contentType : 'application/json; charset=UTF-8',
-		  		dataType : 'json',
-		  		success : function(resp){
-					
-		  			$(".modal").modal('hide')
-		  			$(".modal-status-select-option option:eq(0)").prop("selected", true);
-		  			$("#select-num").text("0");
-		  			printList(resp);
-		  			
-		  			
-		  			}
-		  		
-		  		});
-				
-    		
     	}
 
     
@@ -414,6 +549,7 @@
               </tr>
             </thead>
             <tbody id="listTableBody">
+            	<input type="hidden" value="${totalcount}" id="totalcount">
               <!-- for -->
               <c:forEach items="${userList }" var="user">
               <tr class="content-table-content content-hover">
@@ -444,6 +580,30 @@
               </c:forEach>
             </tbody>
           </table>
+          <!-- paging -->
+          <div class="pagi mt-3">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item page-outer">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">
+                    	<i class="fa-solid fa-angle-left"></i>
+                    </span>
+                  </a>
+                </li>
+                <div class="page-layer">
+
+                </div>
+                <li class="page-item page-outer">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">
+                    	<i class="fa-solid fa-angle-right"></i>
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
         <!-- footer -->
         <footer class="py-4 bg-light mt-auto">

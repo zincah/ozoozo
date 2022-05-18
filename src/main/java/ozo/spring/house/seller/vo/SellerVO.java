@@ -1,6 +1,7 @@
 package ozo.spring.house.seller.vo;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,4 +25,6 @@ public class SellerVO {
 	private String seller_status; // 사업자 상태
 	
 	private float brandstar; // 브랜드 별점 
+	
+	List<Integer> sellerList; // sellerid 정보 저장
 }
