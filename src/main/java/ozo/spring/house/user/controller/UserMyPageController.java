@@ -5,17 +5,17 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.service.userMyPageService;
+import ozo.spring.house.user.vo.ScrapVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 
@@ -74,17 +74,21 @@ public class UserMyPageController {
 		return "success";
 	}
 	@RequestMapping(value="/m_myPage.com")
-	public String  mypage(UserVO vo,Model model,HttpServletRequest request) {
+	public String  mypage(UserVO vo,Model model,HttpServletRequest request,ScrapVO svo) {
 		HttpSession session = request.getSession();
 		
 		
 		if(session.getAttribute("User_Num")!=null) {
-			vo.setUser_num((int)session.getAttribute("User_Num"));
-			UserVO info;
-			info = userMyPageService.mypageinfo(vo);
+			//vo.setUser_num((int)session.getAttribute("User_Num"));
+			System.out.println((int)session.getAttribute("User_Num"));
+			//UserVO info;
+			//info = userMyPageService.mypageinfo(vo);
 			
-			model.addAttribute("info", info);
-			 
+			List<ScrapVO> list ;
+			list = userscrapservice.s_scrap(svo);
+			
+			//model.addAttribute("info",info);
+			model.addAttribute("list", list);
 			 
 			return "myPage";
 		}else {
@@ -97,18 +101,22 @@ public class UserMyPageController {
 	
 	/* ½ºÅ©·¦ */
 	@ResponseBody
-	@RequestMapping(value="/scrap")
-	public String Scrap(UserScrapVO vo,Model model,HttpServletRequest request) {
+	@RequestMapping(value="/userscrap.com", method=RequestMethod.POST)
+	public String Scrappick(@RequestBody int param, UserScrapVO vo, Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
+		System.out.println("scrap ³Ñ¾î¿Ô¾î");
+		//session.getAttribute("UserMail");
+		System.out.println(session.getAttribute("User_Num"));
+		System.out.println(param);
+		vo.setSc_usernum((int)session.getAttribute("User_Num"));
+		vo.setSc_postid(param);
 		
-		session.getAttribute("UserMail");
-		System.out.println(session.getAttribute("UserMail"));
-		
-		//vo.setU
-		
+		userscrapservice.s_insert(vo);
 		//List<UserScrapVO> list;
 		//list= userscrapservice.u_scrap(vo);
-		return "MyPage" ;
+		return "º¸³Á´Ù" ;
 	}
+	
+	
 	
 }

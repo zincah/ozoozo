@@ -20,7 +20,26 @@
 			e.preventDefault();
 		});
 		
+		$(".item_bookmark").click(function(){
+			var item =  $(this).attr('id')
+			alert(item);
+			
+			$.ajax({
+				url:"userscrap.com",
+				type: 'post',
+				data: JSON.stringify(item),
+				contentType:'application/json; charset=UTF-8',
+				dataType: 'text',
+				success: function(resp){
+					alert("보냇다 ");
+					
+				}
+				})
+				
+		})
 	});
+	
+	
 
 	var firstscroll = 0;
 	var page = 0;
