@@ -261,10 +261,12 @@
 	</select>
 	
 	<!-- 매출 -->
-	<select id="todayDealSale" resultType="">
-	SELECT po.post_id, s.company_name, po.post_name, ca.cate_name, 
-	sales.payment, sales.quantity, deal.deal_time, 
-	deal.deal_endtime, deal.deal_status FROM product_posting po 
+	<select id="todayDealSale" resultType="adminproduct">
+	SELECT po.post_id as post_id, s.company_name as company_name, 
+	po.post_name as post_name, ca.cate_name as cate_name, 
+	sales.payment as payment, sales.quantity as quantity, 
+	deal.deal_time as deal_time, deal.deal_endtime as deal_endtime, 
+	deal.deal_status as deal_status FROM product_posting po 
 	INNER JOIN (
 	SELECT SUM(uo.payment) AS payment, SUM(uo.quantity) AS quantity, uo.od_postid AS salespoid FROM user_order uo
 	INNER JOIN deal_info di ON uo.od_postid = di.deal_postid GROUP BY od_postid) sales ON po.post_id = sales.salespoid

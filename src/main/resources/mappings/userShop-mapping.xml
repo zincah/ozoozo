@@ -24,7 +24,7 @@
 
 
     <!-- 카테고리 정보 가져오기 -->
-    <select id="shopCateList" resultType="UserCategory">
+    <select id="shopCateList" resultType="cate">
         select po.po_category, po.po_subcate, sc.subcate_name, c.cate_name
         from product_posting po
                  inner join sub_category sc on po.po_subcate = sc.subcate_code

@@ -179,7 +179,7 @@ public class UserInfoController {
 			}
 
 			UserVO user = userService.checkUser(vo);
-			System.out.println(user.getUser_num());
+			//System.out.println(user.getUser_num());
 			
 				
 			if(user != null) {
@@ -194,17 +194,17 @@ public class UserInfoController {
 				
 				String url = "";
 				// 세션에 저장되어있는 lasturl을 얻어와서 그 페이지로 리다이렉트 시킨다.
-				if(session.getAttribute("login_id") == null) {
+				if(session.getAttribute("lasturl") == null) {
 					
 				}else {
 					url = (String) session.getAttribute("lasturl");
 					System.out.println(url);
 					if(url.equals("signUp.com")) {
-						return "redirect:main.com";
+						return "redirect:"+url;
 					}
 				}
 				// (장바구니에 있는 정보는 같이 어떻게 보낼지는 처리 안함)
-				return "redirect:"+url;
+				return "redirect:main.com";
 			
 			}
 			
