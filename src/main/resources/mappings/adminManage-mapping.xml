@@ -121,7 +121,8 @@
 	
 	<!-- admin deal 상태 바꾸기 : deal-info, post -->
 	<update id="updateDealStatus">
-		UPDATE deal_info SET deal_status=#{deal_status} WHERE deal_postid=#{post_id};
+		UPDATE deal_info SET deal_status=#{deal_status},
+		deal_time=now(), deal_endtime=now()+'1 days' WHERE deal_postid=#{post_id};
 	</update>
 	
 	<update id="updateDealStatusOnPost">
@@ -129,7 +130,7 @@
 	</update>
 	
 	<delete id="deleteDeal">
-		DELETE FROM deal_info WHERE deal_postid=#{post_id}
+		UPDATE deal_info SET deal_status#{중지} WHERE deal_postid=#{post_id}
 	</delete>
 
 	
@@ -219,11 +220,6 @@
 	</select>
 	
 	<!-- 업체 관리 -->
-	<select id="selectSellerList" resultType="seller">
-		SELECT s.*, brandstar FROM seller s
-		INNER JOIN (SELECT SUM(star_ratio)/COUNT(post_id) AS brandstar, post_sellerid FROM product_posting GROUP BY post_sellerid) po
-		ON po.post_sellerid = s.seller_id;
-	</select>
 	
 	<select id="getSellerInfo" resultType="seller">
 		SELECT * FROM seller WHERE seller_id=#{seller_id};
@@ -241,10 +237,11 @@
 	</update>
 	
 	<!-- filtering -->
-	<select id="sellerSearchBox" resultType="seller">
-		SELECT s1.*, s2.sid_text FROM seller s1 INNER JOIN 
+	<select id="selectSellerList" resultType="seller">
+		SELECT s1.*, s2.sid_text, po.brandstar FROM seller s1 INNER JOIN 
 		(SELECT seller_id::text sid_text, seller_id FROM seller) s2 ON s1.seller_id = s2.seller_id
-		where s2.sid_text like '%'||'테'||'%' or s1.company_name like '%'||'테'||'%';
+		INNER JOIN (SELECT SUM(star_ratio)/COUNT(post_id) AS brandstar, post_sellerid FROM product_posting 
+		GROUP BY post_sellerid) po ON po.post_sellerid = s1.seller_id
 		<where>
 			<if test="keyword != '' and keyword != null">
 				s2.sid_text like '%'||#{keyword}||'%'
@@ -255,7 +252,26 @@
 				s1.representative like '%'||#{keyword}||'%'
 				</trim>
 			</if>
+			<if test="seller_status != '' and seller_status != null">
+				<trim prefix="and">
+					s1.seller_status = #{seller_status}
+				</trim>
+			</if>
 		</where>
+	</select>
+	
+	<!-- 매출 -->
+	<select id="todayDealSale" resultType="">
+	SELECT po.post_id, s.company_name, po.post_name, ca.cate_name, 
+	sales.payment, sales.quantity, deal.deal_time, 
+	deal.deal_endtime, deal.deal_status FROM product_posting po 
+	INNER JOIN (
+	SELECT SUM(uo.payment) AS payment, SUM(uo.quantity) AS quantity, uo.od_postid AS salespoid FROM user_order uo
+	INNER JOIN deal_info di ON uo.od_postid = di.deal_postid GROUP BY od_postid) sales ON po.post_id = sales.salespoid
+	INNER JOIN seller s ON s.seller_id = po.post_sellerid
+	INNER JOIN category ca ON ca.cate_code = po.po_category
+	INNER JOIN deal_info deal ON po.post_id = deal.deal_postid
+	ORDER BY deal.deal_time DESC;
 	</select>
 	
 </mapper>

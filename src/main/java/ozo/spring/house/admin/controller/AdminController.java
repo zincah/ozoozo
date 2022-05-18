@@ -74,12 +74,12 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/companyManagement.admin")
-	public String companyManageView(HttpServletRequest request, Model model) {
+	public String companyManageView(HttpServletRequest request, Model model, SellerVO vo) {
 		
 		HttpSession session = request.getSession();
 		if(session.getAttribute("admincode")!=null) {
 			
-			List<SellerVO> sellerList = userService.selectSellerList();
+			List<SellerVO> sellerList = userService.selectSellerList(vo);
 			model.addAttribute("sellerList", sellerList);
 			
 			return "companyManagement_dh";

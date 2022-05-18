@@ -82,11 +82,11 @@
     		})
 
     		$("input[name=datepick2]").change(function(){
-				// data 전송
+				searching();
     		})
     		
 			$("input[name=btnradio]").click(function(){
-				// date 전송하기
+				searching();
     		})
     		
     		// searchbox
@@ -96,7 +96,7 @@
     		
     		// 업체 상태
     		$("input[name=status]").click(function(){
-    			alert("hi");
+    			searching();
     		})
     		
     	});
@@ -165,7 +165,7 @@
 			$("#search_input").val("");
 			$('input[name="status"]')[0].checked = true;
 			
-			//getData();
+			searching();
 
     	}
     	

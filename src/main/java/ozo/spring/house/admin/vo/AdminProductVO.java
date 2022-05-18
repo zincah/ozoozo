@@ -47,5 +47,14 @@ public class AdminProductVO {
 	// catecode 넣어주기 (오늘의딜때문에)
 	private int po_category;
 	private int po_subcate;
+	
+	// 매출 정리 payment
+	private int payment;
+	private int quantity;
+	
+	private Timestamp deal_time;
+	private Timestamp deal_endtime;
+
+	
 
 }

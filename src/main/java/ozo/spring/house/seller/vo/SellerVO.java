@@ -1,5 +1,6 @@
 package ozo.spring.house.seller.vo;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -27,4 +28,10 @@ public class SellerVO {
 	private float brandstar; // 브랜드 별점 
 	
 	List<Integer> sellerList; // sellerid 정보 저장
+	
+	// 검색 조건
+	private String ranking; // 판매순, 평점순...
+	private Date startdate;
+	private Date enddate; // 유저 정보를 알아내기 위한 날짜
+	private String keyword;
 }
