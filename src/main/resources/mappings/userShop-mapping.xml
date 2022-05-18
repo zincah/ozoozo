@@ -8,7 +8,7 @@
     <select id="shopItemList" resultType="userproduct">
         SELECT po.post_id, po.star_ratio, po.post_name, po.sale_ratio,
                po.whole_price, po.shipping_info1, po.po_category, po.po_subcate,
-               po.post_status, po.po_subcate, s.company_name, pimg.photo_url
+               po.post_status, s.company_name, pimg.photo_url
         FROM product_posting po INNER JOIN seller s ON po.post_sellerid = s.seller_id
                                 INNER JOIN (
             SELECT photo_id, photo_postid, photo_url FROM product_image
@@ -20,8 +20,17 @@
                   )
         ) pimg ON po.post_id = pimg.photo_postid
         where po.post_status = '판매중' and s.seller_id = 500001;
+    </select>
 
 
+    <!-- 카테고리 정보 가져오기 -->
+    <select id="shopCateList" resultType="UserCategory">
+        select po.po_category, po.po_subcate, sc.subcate_name, c.cate_name
+        from product_posting po
+                 inner join sub_category sc on po.po_subcate = sc.subcate_code
+                 inner join category c on sc.top_catecode = c.cate_code
+
+        where po.post_sellerid = 500001;
     </select>
 
 </mapper>
