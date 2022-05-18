@@ -123,5 +123,23 @@
 		 (SELECT whole_price * ((sale_ratio+10)/100.0) FROM product_posting pp WHERE pp.post_id = #{post_id}),
 		 #{seller_id});
 	</insert>
+	
+	<!-- 선택한 주문건의 통합 상세정보 (상품 개별 리스트) -->
+	<select id="selectOrderDetailData" resultType="product">
+		SELECT * FROM user_order uo 
+		JOIN product p2 ON p2.product_id = uo.product_id 
+		JOIN product_option po ON po.op_productid = uo.product_id
+		WHERE uo.seller_id = #{seller_id} AND uo.order_num = #{order_num}
+		ORDER BY uo.order_id DESC;
+	</select>
+	
+	<!-- 선택한 주문건의 통합 상세정보 (해당 주문건 결제정보) -->
+	<select id="selectOrderDetailPayment" resultType="product">
+		SELECT * FROM payment p 
+		JOIN user_order uo ON uo.order_id = #{order_id}
+		JOIN user_table ut ON ut.user_num = uo.user_num
+		JOIN address a ON a.address_id = uo.address_id
+		WHERE p.py_sellerid = #{seller_id} AND p.pay_ordernum = #{order_num};
+	</select>
 </mapper>
 
