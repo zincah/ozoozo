@@ -17,5 +17,8 @@ public interface AdminProductManageService {
 	public List<AdminProductVO> getProductList(AdminProductVO pvo);
 	public int searchListCount(AdminProductVO pvo);
 	
+	// 매출 정보
+	public List<AdminProductVO> todayDealSale(AdminProductVO vo);
+	
 
 }

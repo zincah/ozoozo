@@ -50,5 +50,10 @@ public class AdminProductManageServiceImpl implements AdminProductManageService 
 		return adminManageDAO.searchListCount(pvo);
 	}
 
+	@Override
+	public List<AdminProductVO> todayDealSale(AdminProductVO vo) {
+		return adminManageDAO.todayDealSale(vo);
+	}
+
 	
 }

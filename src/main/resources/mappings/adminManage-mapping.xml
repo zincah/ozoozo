@@ -261,6 +261,7 @@
 	</select>
 	
 	<!-- 매출 -->
+	<!-- today deal -->
 	<select id="todayDealSale" resultType="adminproduct">
 	SELECT po.post_id as post_id, s.company_name as company_name, 
 	po.post_name as post_name, ca.cate_name as cate_name, 

@@ -22,7 +22,21 @@
   	
   		$(document).ready(function(){
   			
-  			// 체크박스 선택시 테이블 교체
+  			/* 상품 선택 체크박스 */
+    		// 전체 체크박스 체크 여부에 따른 하위 체크박스들 상태 변경
+    		$("#allCheck").on('change', function(){
+    			if ($("#allCheck").is(":checked")) {
+        		    $(".check").prop("checked", true);
+        		    // 선택된 체크박스 개수에 따른 숫자값 변경
+        		    $(".select-num").text($(".check:checked").length);
+        		  } else {
+        		    $(".check").prop("checked", false);
+        		    // 선택된 체크박스 개수에 따른 숫자값 변경
+        		    $(".select-num").text($(".check:checked").length);
+        		  }
+    		});
+  			
+  			// 라디오버튼 선택시 테이블 교체
   			$("input[name=checktype]").click(function(){
   				
   				var checking = $("input[name=checktype]:checked").val();
@@ -55,11 +69,43 @@
   		
   		function getTodayDeal(){
   			
-  			
-  			
-  			
-  			
+  			$.ajax({
+		  		url:'getTodayDealList.admin',
+		  		method:'post',
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'html',
+		  		success : function(resp){
+		  			
+		  			$(".dealTable").html(resp);
+		  			
+		  
+
+		  		}
+    		});
+
   		}
+  		
+    	// 체크 박스 js
+    	function checkfunction(){
+    		// 하위 체크박스 체크 여부에 따른 전체 체크박스 상태 변경
+    		// 하위 체크박스 체크 개수와 전체 개수를 비교
+    		
+    		alert("hi");
+			
+			if ($(".check:checked").length == $(".check").length && $(".check").length != 0) {
+    		    $("#allCheck").prop("checked", true);
+    		    // 선택된 체크박스 개수에 따른 숫자값 변경
+    		    $(".select-num").text($(".check:checked").length);
+    		    console.log($(".check:checked").length);
+    		} else {
+    		    $("#allCheck").prop("checked", false);
+    		    // 선택된 체크박스 개수에 따른 숫자값 변경
+    		    $(".select-num").text($(".check:checked").length);
+    		    console.log($(".check:checked").length);
+    		  }
+    	}
+  		
+
   		
   	
   	
@@ -159,7 +205,7 @@
             <thead>
               <tr class="content-table-title">
                 <td class="content-table-title-text option-line">
-                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
+                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="allCheck" />
                 </td>
                 <td class="content-table-title-text option-line">SID</td>
                 <td class="content-table-title-text option-line">업체명</td>
@@ -177,7 +223,7 @@
               <!-- for -->
               <tr class="content-table-content content-hover">
                 <td class="content-table-content-text option-line">
-                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
+                  <input class="form-check-input form-check-input-margin check" type="checkbox" value="" onclick="checkfunction()">
                 </td>
                 <td class="content-table-content-text option-line">1001</td>
                 <td class="content-table-content-text option-line">뽀대현</td>
@@ -200,7 +246,7 @@
             <thead>
               <tr class="content-table-title">
                 <td class="content-table-title-text option-line" style="width: 1rem;">
-                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
+                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="allCheck" />
                 </td>
                 <td class="content-table-title-text option-line" style="width: 3rem;">POSTNUM</td>
                 <td class="content-table-title-text option-line" style="width: 8rem;">브랜드명</td>
@@ -216,7 +262,7 @@
               <!-- for -->
               <tr class="content-table-content content-hover">
                 <td class="content-table-content-text option-line">
-                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
+                  <input class="check form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
                 </td>
                 <td class="content-table-content-text option-line">1001</td>
                 <td class="content-table-content-text option-line">뽀대현</td>
@@ -235,24 +281,24 @@
             <thead>
               <tr class="content-table-title">
                 <td class="content-table-title-text option-line" style="width: 1rem;">
-                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
+                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="allCheck" />
                 </td>
                 <td class="content-table-title-text option-line" style="width: 3rem;">POSTNUM</td>
                 <td class="content-table-title-text option-line" style="width: 8rem;">브랜드명</td>
                 <td class="content-table-title-text option-line" style="width: 15rem;">판매 게시글 명</td>
                 <td class="content-table-title-text option-line" style="width: 5rem;">카테고리</td>
-                <td class="content-table-title-text option-line" style="width: 10rem;">매출액</td>
+                <td class="content-table-title-text option-line" style="width: 8rem;">매출액</td>
                 <td class="content-table-title-text option-line" style="width: 4rem;">건수</td>
-                <td class="content-table-title-text option-line" style="width: 7rem;">시작일</td>
-                <td class="content-table-title-text option-line" style="width: 7rem;">종료일</td>
+                <td class="content-table-title-text option-line" style="width: 10rem;">시작일</td>
+                <td class="content-table-title-text option-line" style="width: 10rem;">종료일</td>
                 <td class="content-table-title-text" style="width: 5rem;">상태</td>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="dealTable">
               <!-- for -->
               <tr class="content-table-content content-hover">
                 <td class="content-table-content-text option-line">
-                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
+                  <input class="check form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
                 </td>
                 <td class="content-table-content-text option-line">1001</td>
                 <td class="content-table-content-text option-line">뽀대현</td>
@@ -289,6 +335,7 @@
     <script src="resources/js/adminjs/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="resources/js/adminjs/admin-productManagement.js"></script>
+    <script src="resources/js/adminjs/date_admin.js"></script>
+    <script src="resources/js/adminjs/checkbox.js"></script>
   </body>
 </html>

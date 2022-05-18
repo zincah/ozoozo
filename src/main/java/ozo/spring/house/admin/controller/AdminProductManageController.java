@@ -181,5 +181,14 @@ public class AdminProductManageController {
 		return "postList";
 	}
 	
+	/* 매출 관리 */
+	@RequestMapping(value="/getTodayDealList.admin", method=RequestMethod.POST)
+	public String getTodayDealList(Criteria cri, AdminProductVO vo, Model model) {
+
+		List<AdminProductVO> dealList = productService.todayDealSale(vo);
+		model.addAttribute("dealList", dealList);
+
+		return "dealsales";
+	}
 
 }
