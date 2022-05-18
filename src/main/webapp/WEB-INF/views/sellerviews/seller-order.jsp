@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -23,7 +23,8 @@
 <jsp:include page="header/headerModalView.jsp"></jsp:include>
 <link href="resources/css/sellercss/seller-order.css" rel="stylesheet" />
 <link href="resources/css/sellercss/seller-order2.css" rel="stylesheet" />
-<script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
+<script type="text/javascript"
+	src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
@@ -99,27 +100,27 @@
 						<div class="col search-input">
 							<div class="search-input-box">
 								<input type="text"
-									class="form-control form-control-sm input-font"
-									id="searchName" placeholder="" />
+									class="form-control form-control-sm input-font" id="searchName"
+									placeholder="" />
 							</div>
 							<div class="radio-productCode paddingLeft1">
 								<div class="form-check">
-									<input class="form-check-input searchNameStatusGroup" type="radio"
-										name="searchNameStatus" id="searchNameStatus1" value="1" checked /> <label
-										class="form-check-label" for="searchNameStatus1">
-										주문번호 </label>
+									<input class="form-check-input searchNameStatusGroup"
+										type="radio" name="searchNameStatus" id="searchNameStatus1"
+										value="1" checked /> <label class="form-check-label"
+										for="searchNameStatus1"> 주문번호 </label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input searchNameStatusGroup" type="radio"
-										name="searchNameStatus" id="searchNameStatus2" value="2" /> <label
-										class="form-check-label" for="searchNameStatus2">
-										그룹주문번호 </label>
+									<input class="form-check-input searchNameStatusGroup"
+										type="radio" name="searchNameStatus" id="searchNameStatus2"
+										value="2" /> <label class="form-check-label"
+										for="searchNameStatus2"> 그룹주문번호 </label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input searchNameStatusGroup" type="radio"
-										name="searchNameStatus" id="searchNameStatus3" value="3" /> <label
-										class="form-check-label" for="searchNameStatus3">
-										수취인명 </label>
+									<input class="form-check-input searchNameStatusGroup"
+										type="radio" name="searchNameStatus" id="searchNameStatus3"
+										value="3" /> <label class="form-check-label"
+										for="searchNameStatus3"> 수취인명 </label>
 								</div>
 							</div>
 						</div>
@@ -131,57 +132,64 @@
 						<div class="col-1 status-name-400">처리 상태</div>
 						<div class="col search-check-group">
 							<div class="form-check form-check-display">
-								<input class="form-check-input form-check-input-margin searchStatusGroup"
-									type="checkbox" id="statusCheckAll" name="searchStatus" value="1" /> <label
-									class="form-check-label" for="statusCheckAll"> 전체 </label>
+								<input
+									class="form-check-input form-check-input-margin searchStatusGroup"
+									type="checkbox" id="statusCheckAll" name="searchStatus"
+									value="1" /> <label class="form-check-label"
+									for="statusCheckAll"> 전체 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
-									type="checkbox" id="statusCheck1" name="searchStatus" value="2" /> <label
-									class="form-check-label" for="statusCheck1"> 결제완료 </label>
+									type="checkbox" id="statusCheck1" name="searchStatus" value="2" />
+								<label class="form-check-label" for="statusCheck1"> 결제완료
+								</label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
-									type="checkbox" id="statusCheck2" name="searchStatus" value="3" /> <label
-									class="form-check-label" for="statusCheck2"> 배송준비중 </label>
+									type="checkbox" id="statusCheck2" name="searchStatus" value="3" />
+								<label class="form-check-label" for="statusCheck2">
+									배송준비중 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
-									type="checkbox" id="statusCheck3" name="searchStatus" value="4" /> <label
-									class="form-check-label" for="statusCheck3"> 배송중 </label>
+									type="checkbox" id="statusCheck3" name="searchStatus" value="4" />
+								<label class="form-check-label" for="statusCheck3"> 배송중
+								</label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
-									type="checkbox" id="statusCheck4" name="searchStatus" value="5" /> <label
-									class="form-check-label" for="statusCheck4"> 배송완료 </label>
+									type="checkbox" id="statusCheck4" name="searchStatus" value="5" />
+								<label class="form-check-label" for="statusCheck4"> 배송완료
+								</label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
-									type="checkbox" id="statusCheck5" name="searchStatus" value="6" /> <label
-									class="form-check-label" for="statusCheck5"> 교환 </label>
+									type="checkbox" id="statusCheck5" name="searchStatus" value="6" />
+								<label class="form-check-label" for="statusCheck5"> 교환 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
-									type="checkbox" id="statusCheck6" name="searchStatus" value="7" /> <label
-									class="form-check-label" for="statusCheck6"> 반품 </label>
+									type="checkbox" id="statusCheck6" name="searchStatus" value="7" />
+								<label class="form-check-label" for="statusCheck6"> 반품 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
-									type="checkbox" id="statusCheck7" name="searchStatus" value="8" /> <label
-									class="form-check-label" for="statusCheck7"> 환불 </label>
+									type="checkbox" id="statusCheck7" name="searchStatus" value="8" />
+								<label class="form-check-label" for="statusCheck7"> 환불 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
-									type="checkbox" id="statusCheck8" name="searchStatus" value="9" /> <label
-									class="form-check-label" for="statusCheck8"> 주문취소 </label>
+									type="checkbox" id="statusCheck8" name="searchStatus" value="9" />
+								<label class="form-check-label" for="statusCheck8"> 주문취소
+								</label>
 							</div>
 						</div>
 					</div>
@@ -233,42 +241,43 @@
 							<div class="radio-productCode">
 								<div class="btn-group paddingLeft2" role="group"
 									aria-label="Basic radio toggle button group">
-									<input type="radio" class="btn-check dateBtn-1 searchDateBtn" name="btnradio"
-										id="btnradio1" autocomplete="off"  /> <label
+									<input type="radio" class="btn-check dateBtn-1 searchDateBtn"
+										name="btnradio" id="btnradio1" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio1">오늘</label>
 
-									<input type="radio" class="btn-check dateBtn-2 searchDateBtn" name="btnradio"
-										id="btnradio2" autocomplete="off" /> <label
+									<input type="radio" class="btn-check dateBtn-2 searchDateBtn"
+										name="btnradio" id="btnradio2" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio2">3일</label>
 
-									<input type="radio" class="btn-check dateBtn-3 searchDateBtn" name="btnradio"
-										id="btnradio3" autocomplete="off" /> <label
+									<input type="radio" class="btn-check dateBtn-3 searchDateBtn"
+										name="btnradio" id="btnradio3" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio3">1주일</label>
 
-									<input type="radio" class="btn-check dateBtn-4 searchDateBtn" name="btnradio"
-										id="btnradio4" autocomplete="off" /> <label
+									<input type="radio" class="btn-check dateBtn-4 searchDateBtn"
+										name="btnradio" id="btnradio4" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio4">1개월</label>
 
-									<input type="radio" class="btn-check dateBtn-5 searchDateBtn" name="btnradio"
-										id="btnradio5" autocomplete="off" /> <label
+									<input type="radio" class="btn-check dateBtn-5 searchDateBtn"
+										name="btnradio" id="btnradio5" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio5">3개월</label>
 
-									<input type="radio" class="btn-check dateBtn-6 searchDateBtn" name="btnradio"
-										id="btnradio6" autocomplete="off" /> <label
+									<input type="radio" class="btn-check dateBtn-6 searchDateBtn"
+										name="btnradio" id="btnradio6" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio6">6개월</label>
 
-									<input type="radio" class="btn-check dateBtn-7 searchDateBtn" name="btnradio"
-										id="btnradio7" autocomplete="off" /> <label
+									<input type="radio" class="btn-check dateBtn-7 searchDateBtn"
+										name="btnradio" id="btnradio7" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio7">1년</label>
 
-									<input type="radio" class="btn-check dateBtn-8 searchDateBtn" name="btnradio"
-										id="btnradio8" autocomplete="off" checked/> <label
-										class="btn btn-outline-secondary dateBtn" for="btnradio8">전체</label>
+									<input type="radio" class="btn-check dateBtn-8 searchDateBtn"
+										name="btnradio" id="btnradio8" autocomplete="off" checked />
+									<label class="btn btn-outline-secondary dateBtn"
+										for="btnradio8">전체</label>
 								</div>
 							</div>
 							<div class="paddingLeft1">
-								<input class="startDate" type="date" id="startDate" value="" /> <input
-									class="endDate" type="date" id="endDate" value="" />
+								<input class="startDate" type="date" id="startDate" value="" />
+								<input class="endDate" type="date" id="endDate" value="" />
 							</div>
 						</div>
 					</div>
@@ -276,7 +285,8 @@
 				<div class="container container-option container-option-topPadding">
 					<div class="row optionGroup1">
 						<div class="col search-submitBtn">
-							<div class="d-grid gap-2"> <!-- 비강조 클래스 : btn-outline-secondary -->
+							<div class="d-grid gap-2">
+								<!-- 비강조 클래스 : btn-outline-secondary -->
 								<button class="btn btn-secondary initBtn" type="button">초기화</button>
 							</div>
 						</div>
@@ -370,14 +380,15 @@
 															<td class="content-table-title-text option-line">No.</td>
 															<td class="content-table-title-text option-line">주문날짜</td>
 															<td class="content-table-title-text option-line">주문번호</td>
-															<td class="content-table-title-text option-line">판매자 상품코드</td>
+															<td class="content-table-title-text option-line">판매자
+																상품코드</td>
 															<td class="content-table-title-text option-line">상풍명</td>
 															<td class="content-table-title-text option-line">옵션정보</td>
 															<td class="content-table-title-text option-line">수량</td>
 														</tr>
 													</thead>
 													<tbody id="selectOrderView1">
-														
+
 													</tbody>
 												</table>
 											</div>
@@ -391,7 +402,7 @@
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">취소</button>
 						<button type="button"
-							class="btn btn-primary modal-status-select-submit-button" 
+							class="btn btn-primary modal-status-select-submit-button"
 							id="orderCheckSubmitBtn">확인</button>
 					</div>
 				</div>
@@ -472,7 +483,7 @@
 														</tr>
 													</thead>
 													<tbody id="selectOrderView2">
-														
+
 													</tbody>
 												</table>
 											</div>
@@ -567,7 +578,7 @@
 														</tr>
 													</thead>
 													<tbody id="selectOrderView3">
-														
+
 													</tbody>
 												</table>
 											</div>
@@ -644,7 +655,7 @@
 														</tr>
 													</thead>
 													<tbody id="selectOrderView4">
-														
+
 													</tbody>
 												</table>
 											</div>
@@ -683,22 +694,25 @@
 				</tr>
 			</thead>
 			<tbody id="orderList">
-				<c:forEach var="orderListView" items="${orderListView}" varStatus="status">
-					<tr class="content-table-content content-hover" onclick="orderDetailView(orderList${status.index})">
-						<td class="content-table-content-text option-line checkTd">
-							<c:if test="${orderListView.getOrder_status() ne '배송중'}">
+				<c:forEach var="orderListView" items="${orderListView}"
+					varStatus="status">
+					<tr class="content-table-content content-hover"
+						onclick="orderDetailView(${status.index})">
+						<td class="content-table-content-text option-line checkTd"><c:if
+								test="${orderListView.getOrder_status() ne '배송중'}">
 								<input class="form-check-input check" type="checkbox" value="" />
-							</c:if>
-							<c:if test="${orderListView.getOrder_status() eq '배송중'}">
-								<input class="form-check-input" type="checkbox" value="" disabled />
-							</c:if>
-						</td>
+							</c:if> <c:if test="${orderListView.getOrder_status() eq '배송중'}">
+								<input class="form-check-input" type="checkbox" value=""
+									disabled />
+							</c:if></td>
 						<td class="content-table-content-text option-line"
-							data-bs-toggle="modal" data-bs-target="#modal-view-order">
-							<fmt:formatDate value="${orderListView.getOrder_date()}" pattern="yyyy-MM-dd HH:mm" /></td>
+							data-bs-toggle="modal" data-bs-target="#modal-view-order"><fmt:formatDate
+								value="${orderListView.getOrder_date()}"
+								pattern="yyyy-MM-dd HH:mm" /></td>
 						<td class="content-table-content-text option-line state0"
-							data-bs-toggle="modal" data-bs-target="#modal-view-order">
-							<span name="orderList${status.index}">${orderListView.getOrder_id()}(${orderListView.getOrder_num()})</span>
+							data-bs-toggle="modal" data-bs-target="#modal-view-order"><span
+							name="orderId${status.index}">${orderListView.getOrder_id()}</span>
+							(<span name="orderNum${status.index}">${orderListView.getOrder_num()}</span>)
 						</td>
 						<td class="content-table-content-text option-line"
 							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getOrder_status()}</td>
@@ -708,8 +722,8 @@
 							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getProduct_title()}</td>
 						<td class="content-table-content-text option-line"
 							data-bs-toggle="modal" data-bs-target="#modal-view-order">
-							${orderListView.getOption1()}
-							<c:if test="${orderListView.getOption2() ne ''}">
+							${orderListView.getOption1()} <c:if
+								test="${orderListView.getOption2() ne ''}">
 								 / ${orderListView.getOption2()}
 							</c:if>
 						</td>
@@ -727,9 +741,24 @@
 		</table>
 	</div>
 	<!-- 주문상세 Modal -->
-	<div class="modal fade" id="modal-view-order" tabindex="-1"
+	<div class="modal fade" tabindex="-1" id="modal-view-order"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		
+		<div class="modal-dialog modal-dialog-centered modal-dialog-order">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">주문 상세조회</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body modal-status-select-product">
+					<div>
+						<span class="content-view-title-text">주문 정보</span>
+					</div>
+					<div id="modal-view-order"></div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer"></div>
 	</div>
 	<!-- footer -->
 	<footer class="py-4 bg-light mt-auto">
@@ -744,13 +773,13 @@
 		</div>
 	</footer>
 </div>
-</div>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	crossorigin="anonymous"></script>
 <script src="resources/js/sellerjs/scripts.js"></script>
 <script src="resources/js/sellerjs/seller-customerInquiry.js"></script>
-<script src="resources/js/sellerjs/seller-order.js?t=<%=System.currentTimeMillis() %>"></script>
+<script
+	src="resources/js/sellerjs/seller-order.js?t=<%=System.currentTimeMillis()%>"></script>
 <script src="resources/js/sellerjs/category.js"></script>
 </body>
 </html>

@@ -23,4 +23,14 @@ public class SellerOrderDAO {
 		System.out.println("--> mybatis in sellerOrderDAO searchOrder select");
 		return sqlSessionTemplate.selectList("SellerOrderDAO.selectSearchOrder", vo);
 	}
+	
+	public List<ProductVO> selectOrderDetailData(ProductVO vo) {
+		System.out.println("--> mybatis in sellerOrderDAO orderDetailData select");
+		return sqlSessionTemplate.selectList("SellerOrderDAO.selectOrderDetailData", vo);
+	}
+
+	public ProductVO selectOrderDetailPayment(ProductVO vo) {
+		System.out.println("--> mybatis in sellerOrderDAO orderDetailPayment select");
+		return sqlSessionTemplate.selectOne("SellerOrderDAO.selectOrderDetailPayment", vo);
+	}
 }

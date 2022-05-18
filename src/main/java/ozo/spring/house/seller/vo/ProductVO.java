@@ -111,18 +111,25 @@ public class ProductVO {
 	// product_id(상품아이디)는 상단에 선언함
 	private int user_num; // 회원아이디
 	// seller_id(판매자아이디)는 상단에 선언함
-	private int order_num; // 여러개 주문시 그룹주문번호
+	private int order_num; // 그룹주문번호
 	private int shipping_fee; // 배송비
 	private int payment; // 결제금액
+	// address_id(배송지연결키)는 하단에 선언함
 	private String delivery; // 택배회사
 	private int invoice_number; // 송장번호
+	private int od_postid; // postid 연결 키
 	
 	//payment
 	private int payment_id; // 결제아이디
 	private int pay_ordernum; // 그룹주문번호 (serial4)
 	private String payment_way; // 결제수단
 	private String payment_info; // 결제정보
-	private int payment_total; // 총 결제금액
+	private int payment_total; // 결제금액
+	private int py_sellerid; // 판매자 아이디
+	private int py_couponid; // 사용한 쿠폰코드
+	private int py_usepoint; // 사용 포인트
+	private int py_discount; // 할인금액 (사용한 쿠폰코드의 금액 + 사용 포인트)
+	private int py_final; // 최종 결제금액 (결제금액 - 할인금액)
 	
 	//address
 	private int address_id; // 배송지PK

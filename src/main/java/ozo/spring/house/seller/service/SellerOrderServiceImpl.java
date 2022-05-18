@@ -23,4 +23,14 @@ public class SellerOrderServiceImpl implements SellerOrderService{
 	public List<ProductVO> selectSearchOrder(ProductVO vo) {
 		return sellerOrderDAO.selectSearchOrder(vo);
 	}
+	
+	@Override
+	public List<ProductVO> selectOrderDetailData(ProductVO vo) {
+		return sellerOrderDAO.selectOrderDetailData(vo);
+	}
+	
+	@Override
+	public ProductVO selectOrderDetailPayment(ProductVO vo) {
+		return sellerOrderDAO.selectOrderDetailPayment(vo);
+	}
 }
