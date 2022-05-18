@@ -39,10 +39,10 @@
 	<select id="getUserList" parameterType="user" resultType="user">
 		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table 
 		<where>
-			<if test="user_type != ''">
+			<if test="user_type != '' and user_type != null">
 				user_type = #{user_type}
 			</if>
-			<if test="user_status != null">
+			<if test="user_status != '' and user_status != null">
 				<trim prefix="and">
 					user_status = #{user_status}
 				</trim>
@@ -52,7 +52,7 @@
 					join_date BETWEEN #{startdate} AND #{enddate}
 				</trim>
 			</if>
-			<if test="pack != null">
+			<if test="pack != null and pack != ''">
 				<trim prefix="and">
 					<if test="pack=='nickname'.toString()">
 						nickname LIKE '%'||#{keyword}||'%'
@@ -64,9 +64,38 @@
 			</if>
 		</where>
 		<trim prefix="order by">
-			user_num DESC
+			user_num DESC limit #{cri.amount} offset (#{cri.pageNum}-1) * #{cri.amount}
 		</trim>
-		
+	</select>
+	
+	<!-- total count (검색시도 포함) -->
+	<select id="getUserListCount" parameterType="user" resultType="user">
+		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table 
+		<where>
+			<if test="user_type != '' and user_type != null">
+				user_type = #{user_type}
+			</if>
+			<if test="user_status != '' and user_status != null">
+				<trim prefix="and">
+					user_status = #{user_status}
+				</trim>
+			</if>
+			<if test="enddate != null and startdate != null">
+				<trim prefix="and">
+					join_date BETWEEN #{startdate} AND #{enddate}
+				</trim>
+			</if>
+			<if test="pack != null and pack != ''">
+				<trim prefix="and">
+					<if test="pack=='nickname'.toString()">
+						nickname LIKE '%'||#{keyword}||'%'
+					</if>
+					<if test="pack=='email'.toString()">
+						user_email LIKE '%'||#{keyword}||'%'
+					</if>
+				</trim>
+			</if>
+		</where>
 	</select>
 	
 	
@@ -196,5 +225,37 @@
 		ON po.post_sellerid = s.seller_id;
 	</select>
 	
+	<select id="getSellerInfo" resultType="seller">
+		SELECT * FROM seller WHERE seller_id=#{seller_id};
+	</select>
+	
+	<!-- 입점 상태 변경 -->
+	<update id="sellerStatusUpdate" parameterType="seller">
+		UPDATE seller SET seller_status=#{seller_status} 
+		<where>
+			seller_id IN 
+			<foreach item="item" collection="sellerList" index="index" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</where> 
+	</update>
+	
+	<!-- filtering -->
+	<select id="sellerSearchBox" resultType="seller">
+		SELECT s1.*, s2.sid_text FROM seller s1 INNER JOIN 
+		(SELECT seller_id::text sid_text, seller_id FROM seller) s2 ON s1.seller_id = s2.seller_id
+		where s2.sid_text like '%'||'테'||'%' or s1.company_name like '%'||'테'||'%';
+		<where>
+			<if test="keyword != '' and keyword != null">
+				s2.sid_text like '%'||#{keyword}||'%'
+				<trim prefix="or">
+				s1.company_name like '%'||#{keyword}||'%'
+				</trim>
+				<trim prefix="or">
+				s1.representative like '%'||#{keyword}||'%'
+				</trim>
+			</if>
+		</where>
+	</select>
 	
 </mapper>

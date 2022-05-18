@@ -194,7 +194,7 @@
     	    }
     	    
     	    var prev = startPage > 1;
-    	    var next = endPage < realEnd;
+    	    var next = endPage < realEnd; // 쓸지안쓸지
     	    
     	    $(".page-layer").html("");
     	    
@@ -310,7 +310,7 @@
     		
     		postNumList.push($("#findPage").val());
     		postNumList.push($("#dealStatusOption").val());
-    		
+    	
     		
     		$.ajax({
 		  		url:'updateDealStatus.admin',

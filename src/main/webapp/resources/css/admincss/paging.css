@@ -1,8 +1,22 @@
 @charset "UTF-8";
 
+.pagi {
+    width: 100%;
+}
+
+.pagination {
+    justify-content: flex-end;
+}
+
 .page-item.active .page-link{
 	background-color: #ff778e;
 	border-color: #ff778e;
+}
+
+.page-link{
+	border: 0px;
+    padding: 0.15rem 0.5rem;
+    color: #828282;
 }
 
 .page-layer{
