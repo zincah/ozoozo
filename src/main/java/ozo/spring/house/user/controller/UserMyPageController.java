@@ -1,5 +1,7 @@
 package ozo.spring.house.user.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.service.userMyPageService;
+import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Controller
@@ -20,6 +24,9 @@ public class UserMyPageController {
 	
 	@Autowired
 	userMyPageService userMyPageService;
+	
+	@Autowired 
+	UserScrapService userscrapservice;
 	
 	@RequestMapping(value="/m_edit.com")
 	public String User_Info(UserVO vo,Model model,HttpServletRequest request) {
@@ -84,6 +91,24 @@ public class UserMyPageController {
 			return "ozoLogin_zinc";
 		}
 		
+	}
+	
+
+	
+	/* ½ºÅ©·¦ */
+	@ResponseBody
+	@RequestMapping(value="/scrap")
+	public String Scrap(UserScrapVO vo,Model model,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		session.getAttribute("UserMail");
+		System.out.println(session.getAttribute("UserMail"));
+		
+		//vo.setU
+		
+		//List<UserScrapVO> list;
+		//list= userscrapservice.u_scrap(vo);
+		return "MyPage" ;
 	}
 	
 }

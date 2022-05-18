@@ -154,6 +154,7 @@ public class UserInfoController {
 				if(user!=null) { // 회원정보가 있는 경우
 					session.setAttribute("UserMail", kaemail);
 					session.setAttribute("User_Num", user.getUser_num());
+					//session.setAttribute("User_img", user.getUser_img());
 					vo.setUser_num(user.getUser_num());
 					userMainService.lastLoginCheck(vo);
 					return "redirect:login.com";
@@ -185,6 +186,7 @@ public class UserInfoController {
 				System.out.println("일반 로그인 시작");
 				session.setAttribute("UserMail", user.getUser_email());
 				session.setAttribute("User_Num", user.getUser_num());
+				session.setAttribute("User_img", user.getUser_img());
 				//model.addAttribute("Usercode", vo.getUser_email());
 				model.addAttribute("member", vo); // member 정보
 				vo.setUser_num(user.getUser_num());
