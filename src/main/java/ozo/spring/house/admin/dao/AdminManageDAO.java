@@ -104,9 +104,9 @@ public class AdminManageDAO {
 	}
 
 	// 입점신청관련 관련
-	public List<SellerVO> selectSellerList(){
+	public List<SellerVO> selectSellerList(SellerVO vo){
 		System.out.println("--> mybatis in adminmanagedao selectseller");
-		return sqlSessionTemplate.selectList("AdminManageDAO.selectSellerList");
+		return sqlSessionTemplate.selectList("AdminManageDAO.selectSellerList", vo);
 	}
 	
 	public SellerVO getSellerInfo(SellerVO vo) {

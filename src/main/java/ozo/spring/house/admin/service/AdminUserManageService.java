@@ -12,10 +12,11 @@ public interface AdminUserManageService {
 	public List<UserVO> getUserList(UserVO vo);
 	public List<UserVO> floatingPopulation();
 	
-	public List<SellerVO> selectSellerList();
+	public List<SellerVO> selectSellerList(SellerVO vo);
 	public SellerVO getSellerInfo(SellerVO vo);
 	public void sellerStatusUpdate(SellerVO vo);
 	public int getUserListCount(UserVO vo);
+	
 	
 }
 

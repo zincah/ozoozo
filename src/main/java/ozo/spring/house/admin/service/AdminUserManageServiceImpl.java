@@ -36,8 +36,8 @@ public class AdminUserManageServiceImpl implements AdminUserManageService {
 	}
 
 	@Override
-	public List<SellerVO> selectSellerList() {
-		return adminManageDAO.selectSellerList();
+	public List<SellerVO> selectSellerList(SellerVO vo) {
+		return adminManageDAO.selectSellerList(vo);
 	}
 
 	@Override

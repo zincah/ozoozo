@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+#storeSales{
+	
+}
+
+#todayDeal{
+	display: none;
+}
+
+#best30{
+	display: none;
+}
+
+#table_subject{
+	font-weight: 600;
+	margin-bottom: 1rem;
+}
+

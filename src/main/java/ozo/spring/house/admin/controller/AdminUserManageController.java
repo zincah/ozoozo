@@ -180,14 +180,33 @@ public class AdminUserManageController {
 		
 		if(sellerList.size() != 0) {
 			userManage.sellerStatusUpdate(vo);
-			List<SellerVO> list = userManage.selectSellerList();
+			List<SellerVO> list = userManage.selectSellerList(vo);
 			model.addAttribute("sellerList", list);
 		}
 		
 		return "sellerList";
 	}
 	
-	// moveUserPaging
+	@RequestMapping(value = "/sellerSearchBox.admin", method=RequestMethod.POST)
+	public String sellerSearchBox(@RequestBody Map<String, String> searchMap, SellerVO vo, Model model) {
+		
+		System.out.println(searchMap);
+		
+		vo.setSeller_status(searchMap.get("status"));
+		vo.setRanking(searchMap.get("ranking"));
+		vo.setStartdate(Date.valueOf(searchMap.get("startdate")));
+		vo.setEnddate(Date.valueOf(searchMap.get("enddate")));
+		vo.setKeyword(searchMap.get("keyword"));
+
+		System.out.println(searchMap.get("keyword"));
+		List<SellerVO> sellerList = userManage.selectSellerList(vo);
+		
+		model.addAttribute("sellerList", sellerList);
+		
+		return "sellerList";
+	}
+	
+	
 	
 
 
