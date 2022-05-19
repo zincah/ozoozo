@@ -19,6 +19,9 @@ public interface AdminProductManageService {
 	
 	// 매출 정보
 	public List<AdminProductVO> todayDealSale(AdminProductVO vo);
+	public List<AdminProductVO> sellerSale(AdminProductVO vo);
+	public List<AdminProductVO> bestSale(AdminProductVO vo);
+	
 	
 
 }

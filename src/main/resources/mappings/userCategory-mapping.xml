@@ -46,6 +46,7 @@
 			</if>
 		</where>
 		ORDER BY po.post_id DESC
+		limit 3 offset #{thispage} * 3
  	</select>
  	
  	<!-- 카테고리 이름 받아오기 -->
@@ -114,11 +115,12 @@
 			</if>
 		</where>
 		ORDER BY po.post_id DESC
+		limit 3 offset #{thispage} * 3
  	</select>
  	
- 	<!-- 게시물 개수 받아오기 --> 
- 	<select id="getCategoryCount" resultType="int">
- 		SELECT COUNT(*) FROM product_posting
+ 	<!-- 필터링 개수 받아오기 -->
+ 	<select id="filteringCount" resultType="int">
+ 		SELECT COUNT(post_id) FROM product_posting
 		<where>
 			post_status='판매중' AND po_category=#{top_catecode} 
 			<if test="midcate_code != 0">
@@ -142,6 +144,24 @@
 			<if test="post_ids.size() == 0">
 				<trim prefix="and">
 					post_id = 60000
+				</trim>
+			</if>
+		</where>
+ 	</select>
+ 	
+ 	<!-- 처음 게시물 개수 받아오기 : paging total --> 
+ 	<select id="getCategoryCount" resultType="int">
+ 		SELECT COUNT(*) FROM product_posting
+		<where>
+			post_status='판매중' AND po_category=#{top_catecode} 
+			<if test="midcate_code != 0 and midcate_code != null">
+				<trim prefix="and">
+					po_subcate/100=#{midcate_code}
+				</trim>
+			</if>
+			<if test="subcate_code != 0 and midcate_code != null">
+				<trim prefix="and">
+					po_subcate=#{subcate_code}
 				</trim>
 			</if>
 		</where>
