@@ -193,7 +193,7 @@
                             </svg>
 						</button>
 
-
+							<c:if test="${User_Num ne null}">
 
 							<a
 								class="layout-navigation-bar-icon layout-navigation-bar-icon--hide-mobile"
