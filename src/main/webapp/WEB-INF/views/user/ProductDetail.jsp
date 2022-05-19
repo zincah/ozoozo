@@ -2032,8 +2032,12 @@ function basket(){
 			contentType : 'application/json; charset=UTF-8',
 			dataType : 'json',
 			success : function(after){
+				console.log(after);
 				if(after == "error"){
 					alert("최소 하나의 상품을 등록해주세요.");
+				}else if(after == "123"){
+					alert("로그인 후 이용해 주세요.");
+					location.href = 'http://localhost:8080/house/login.com';
 				}else if(after == null){
 					alert("성공적으로 장바구니에 담았습니다.");
 				}

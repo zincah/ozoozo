@@ -243,12 +243,24 @@
 	                paid_at: rsp.paid_at //결제 승인 시각
 	            }),
 	            success : function(){
-	            
-	            },error : function(){
-	            	
+	            	alert("결제 성공! 이용해 주셔서 감사합니다.");
+	            	payment_after_cart_delete();
+	            	location.href = 'http://localhost:8080/house/myshopping.com';
 	            }
 	        })
 		}  
+		function payment_after_cart_delete(){
+			$.ajax({
+    			url: "cart_delete.com", // 예: https://www.myservice.com/payments/complete
+    			method: "POST",
+	            headers: { "Content-Type": "application/json" },
+	            dataType : 'json',
+	            data: JSON.stringify(),
+	            success : function(){
+	            	console.log("삭제 성공");
+	            }
+	        })
+		}
 		 function payment_UID(){
 			 first_num = randomNum(1,9);
 			 var num = "0000000" + randomNum(0,9999999);

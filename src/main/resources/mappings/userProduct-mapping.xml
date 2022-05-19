@@ -174,6 +174,8 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
       ) pimg ON p.product_postid = pimg.photo_postid
 	where p.product_id = #{product_id}
 	</select>
-	
+	<delete id="cart_del">
+	delete from cart where cart_product = #{cart_product};
+	</delete>
 	
 </mapper>
