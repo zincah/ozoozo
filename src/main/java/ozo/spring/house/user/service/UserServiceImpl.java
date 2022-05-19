@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ozo.spring.house.user.dao.UserDAO;
 import ozo.spring.house.user.dao.UserDAO.cart_Allload;
+import ozo.spring.house.user.dao.UserDAO.paymentLog_cls;
 import ozo.spring.house.user.dao.UserDAO.payment_class;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserProductVO;
@@ -81,6 +82,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public payment_class get_payment_class() {
 		return userDAO.get_payment_class();
+	}
+
+	@Override
+	public paymentLog_cls get_Log_class() {
+		return userDAO.get_paymentLog_class();
 	}
 
 	

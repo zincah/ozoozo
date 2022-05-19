@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.ImportVO;
 import ozo.spring.house.user.vo.UserAddressVO;
+import ozo.spring.house.user.vo.UserPaymentLogVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserProduct_tableVO;
 import ozo.spring.house.user.vo.UserVO;
@@ -106,13 +107,16 @@ public class UserDAO {
 			}
 		}
 		for(int i = 0; i < vo.size(); i++) {
+			System.out.println("check : " + vo.get(i));
 			test.add(sqlSessionTemplate.selectOne("UserProduct.product_Get_id",vo.get(i)));
+		}
+		System.out.println("test 사이즈 : " + test.size());
+		for(int i = 0; i < vo.size(); i++) {
+			System.out.println("테스트 : " + test.get(i));
+			test.get(i).setCart_post(vo.get(i).getPost_id());
 			test.get(i).setEA(vo.get(i).getProduct_EA());
 			test.get(i).setCart_user(uvo.getUser_num());
 			test.get(i).setCart_payment(test.get(i).getProduct_price()*test.get(i).getEA());
-		}
-		for(CartVO i : test) {
-			System.out.println("테스트 : " + i);
 		}
 		for(int i = 0 ; i < cart_li.size(); i++) {
 			System.out.println("실행 횟수" + i);
@@ -135,6 +139,14 @@ public class UserDAO {
 		}
 		return true;
 	}
+	public product_cls get_productDetail_class() {
+		return new product_cls();
+	}
+	public class product_cls{
+		
+	}
+	
+	
 	// 장바구니 DAO
 	public cart_Allload get_cart_class(CartVO cvo) {
 		return new cart_Allload(cvo);
@@ -229,5 +241,65 @@ public class UserDAO {
 			sqlSessionTemplate.insert("UserProduct.order_add",ivo);
 		}
 	}
+	// 결제내역
+	public paymentLog_cls get_paymentLog_class() {
+		return new paymentLog_cls();
+	}
 	
+	public class paymentLog_cls{
+		List<UserPaymentLogVO> pl_li = new ArrayList<UserPaymentLogVO>();
+		List<UserPaymentLogVO> date_filter = new ArrayList<UserPaymentLogVO>();
+		List<UserProductVO> wide_li = new ArrayList<UserProductVO>();
+		public paymentLog_cls() {
+		}
+		public void set_payment_li(UserPaymentLogVO upvo) {
+			this.pl_li = sqlSessionTemplate.selectList("UserProduct.get_paymentLogVO", upvo);
+			this.date_filter = sqlSessionTemplate.selectList("UserProduct.get_date_filter", upvo);
+		}
+		public List<UserPaymentLogVO> get_payment_li(){
+			return pl_li;
+		}
+		public List<UserPaymentLogVO> get_date_filter(){
+			return date_filter;
+		}
+		public void set_wide_li(List<UserPaymentLogVO> upvo) {
+			for(int i=0; i < upvo.size(); i++) {
+				UserProductVO exvo = sqlSessionTemplate.selectOne("UserProduct.get_wide_list", upvo.get(i));
+				this.wide_li.add(exvo);
+			}
+		}
+		public List<UserProductVO> get_wide_li(){
+			return wide_li;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 }

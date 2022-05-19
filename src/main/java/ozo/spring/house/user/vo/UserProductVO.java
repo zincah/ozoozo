@@ -50,6 +50,7 @@ public class UserProductVO {
 	private String product_content;
 	private String product_table;
 	private String product_postid;
+	private String shop_tell;
 	
 	private String option;
 	
