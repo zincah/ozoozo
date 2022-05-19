@@ -33,4 +33,19 @@ public class SellerOrderDAO {
 		System.out.println("--> mybatis in sellerOrderDAO orderDetailPayment select");
 		return sqlSessionTemplate.selectOne("SellerOrderDAO.selectOrderDetailPayment", vo);
 	}
+
+	public ProductVO selectOrderListModal(ProductVO vo) {
+		System.out.println("--> mybatis in sellerOrderDAO orderListModal select");
+		return sqlSessionTemplate.selectOne("SellerOrderDAO.selectOrderListModal", vo);
+	}
+
+	public void updateOrderCheck(ProductVO vo) {
+		System.out.println("--> mybatis in sellerOrderDAO orderCheck update");
+		sqlSessionTemplate.update("SellerOrderDAO.updateOrderCheck", vo);
+	}
+
+	public void updateOrderSend(ProductVO vo) {
+		System.out.println("--> mybatis in sellerOrderDAO orderSend update");
+		sqlSessionTemplate.update("SellerOrderDAO.updateOrderSend", vo);
+	}
 }

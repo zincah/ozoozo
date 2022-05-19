@@ -9,4 +9,7 @@ public interface SellerOrderService {
 	public List<ProductVO> selectSearchOrder(ProductVO vo);
 	public List<ProductVO> selectOrderDetailData(ProductVO vo);
 	public ProductVO selectOrderDetailPayment(ProductVO vo);
+	public ProductVO selectOrderListModal(ProductVO vo);
+	public void updateOrderCheck(ProductVO vo);
+	public void updateOrderSend(ProductVO vo);
 }
