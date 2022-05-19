@@ -63,16 +63,10 @@
 		var isBottom=scrollTop+windowHeight + 100 >= documentHeight;
 
 		if(isBottom){
-			/*
-			var st = $(this).scrollTop();
-			if(st > firstscroll){
-				console.log("down");
-			}else{
-				console.log("up");
-			}
-			firstscroll = st;*/
-
-			if(page == 2){ // productList개수/4 인 몫 값을 가져와야 함
+			
+			var pag = parseInt(${totalCount}/4);
+			
+			if(page == pag){ // productList개수/4 인 몫 값을 가져와야 함
 				return;
 			}
 			
@@ -171,7 +165,7 @@
 				<div class="col-12 col-md-4 col-lg-3">
 					<div class="deals_list_wrap">
 						<article class="deals_item">
-							<a href="#" style="text-decoration: none; width: 100%;">
+							<a href="productPage.com?p=${deal.post_id }&deal=true" style="text-decoration: none; width: 100%;">
 								<div class="deals_item_wrap">
 									<div class="deals_item_pic_out">
 										<div class="deals_item_pic">
@@ -281,7 +275,7 @@
 				<div class="category_list" id="category_list">
 					<!--for문 해야하나?-->
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=1">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate1.webp">
 								<div class="category_item_title">가구</div>
@@ -289,7 +283,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=2">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate2.webp">
 								<div class="category_item_title">패브릭</div>
@@ -297,7 +291,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=16">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate3.webp">
 								<div class="category_item_title">조명</div>
@@ -305,7 +299,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=3">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate4.webp">
 								<div class="category_item_title">가전</div>
@@ -313,7 +307,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=4">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate5.webp">
 								<div class="category_item_title">주방용품</div>
@@ -321,7 +315,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=5">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate6.webp">
 								<div class="category_item_title">데코/식물</div>
@@ -329,7 +323,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=7">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate7.webp">
 								<div class="category_item_title">수납정리</div>
@@ -337,7 +331,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=6">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate8.webp">
 								<div class="category_item_title">생활용품</div>
@@ -345,7 +339,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=1_10500">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate9.webp">
 								<div class="category_item_title">서랍/수납장</div>
@@ -353,7 +347,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=8">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate10.webp">
 								<div class="category_item_title">생필품</div>
@@ -361,7 +355,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=9">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate11.webp">
 								<div class="category_item_title">공구DIY</div>
@@ -369,7 +363,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=10">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate12.webp">
 								<div class="category_item_title">인테리어시공</div>
@@ -377,7 +371,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=11">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate13.webp">
 								<div class="category_item_title">반려동물</div>
@@ -385,7 +379,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=12">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate14.webp">
 								<div class="category_item_title">캠핑용품</div>
@@ -393,7 +387,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=13">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate15.webp">
 								<div class="category_item_title">실내운동</div>
@@ -401,7 +395,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=15">
 							<div class="category_item">
 								<img class="category_item_image" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate16.webp">
 								<div class="category_item_title">렌탈</div>
@@ -472,7 +466,7 @@
 				<div class="col-12 col-md-4 col-lg-3">
 					<div class="deals_list_wrap">
 						<article class="deals_item">
-							<a href="#" style="text-decoration: none; width: 100%;">
+							<a href="productPage.com?p=${product.post_id }" style="text-decoration: none; width: 100%;">
 								<div class="deals_item_wrap">
 									<div class="deals_item_pic_out">
 										<div class="deals_item_pic">
@@ -559,6 +553,8 @@
 				</c:forEach>
 		</section>
 	</div>
+	
+
 	
 	<div class="footer_topH" style="width:100%"></div>
 	<!-- paging -->

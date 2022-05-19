@@ -139,6 +139,51 @@
 
         });
         
+    	var firstscroll = 0;
+    	var page = 0;
+    	
+    	// 무한스크롤 페이징
+    	$(window).on("scroll", function(event){
+
+    		var scrollTop = $(window).scrollTop();
+    		var windowHeight = $(window).height();
+    		var documentHeight = $(document).height();
+
+    		var isBottom=scrollTop+windowHeight + 100 >= documentHeight;
+
+    		if(isBottom){
+    			
+    			//var pag = parseInt(${totalCount}/4);
+    			if(page == pag){ 
+    				return;
+    			}
+    			
+    			page++;
+    			//getProductList(page);
+    		}
+    	});
+    	
+		function getProductList(page){
+
+			console.log(page);
+			
+			$.ajax({
+		  		url:'getProductListCate.com',
+		  		method:'post',
+		  		data: JSON.stringify(page),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'html',
+		  		success : function(resp){
+					//$("#itemLayer").append(resp);
+		  				
+		  		},
+		  		error : function(request, status, error) {
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+		  		});
+			
+		}
+        
         
         
         // 체크박스를 체크했을 때 리스트에 추가해주는 jquery
@@ -322,7 +367,7 @@
 						</ul>
 					</section>
 					
-					<form action="m_category.com" method="get" id="actionForm">
+					<form action="category.com" method="get" id="actionForm">
 						<input type="hidden" name="catecode" value="">
 					</form>
 				</div>

@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,12 @@ public class UserProductController {
 	UserService userservice;
 	
 	@RequestMapping(value = "/productPage.com")
-	public String user_product(Model model, UserProductVO vo, UserProduct_tableVO tvo) {
+	public String user_product(Model model, UserProductVO vo, UserProduct_tableVO tvo, HttpServletRequest request) {
+		
+		// 상품 아이디
+		String pro = request.getParameter("p");
+		System.out.println(pro); // 상품 아이디로 전달
+		
 		List<UserProductVO> product_list;
 		List<UserProductVO> product_img_list;
 		

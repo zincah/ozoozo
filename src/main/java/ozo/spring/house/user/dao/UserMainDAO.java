@@ -35,6 +35,11 @@ public class UserMainDAO {
 		return sqlSessionTemplate.selectList("UserMainDAO.plusProductList", pvo);
 	}
 	
+	public int getProductCount() {
+		System.out.println("mybatis in usermaindao getproduct total count");
+		return sqlSessionTemplate.selectOne("UserMainDAO.getProductCount");
+	}
+	
 	public List<BannerVO> selectBannerList(){
 		System.out.println("mybatis in usermaindao mainbannerlist");
 		return sqlSessionTemplate.selectList("UserMainDAO.selectBannerList");

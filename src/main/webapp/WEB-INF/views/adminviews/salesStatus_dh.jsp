@@ -24,15 +24,31 @@
   			
   			/* 상품 선택 체크박스 */
     		// 전체 체크박스 체크 여부에 따른 하위 체크박스들 상태 변경
-    		$("#allCheck").on('change', function(){
-    			if ($("#allCheck").is(":checked")) {
-        		    $(".check").prop("checked", true);
+    		
+    		// 판매매출
+    		$("#allCheck1").on('change', function(){
+    			if ($("#allCheck1").is(":checked")) {
+        		    $(".check1").prop("checked", true);
         		    // 선택된 체크박스 개수에 따른 숫자값 변경
-        		    $(".select-num").text($(".check:checked").length);
+        		    $(".select-num").text($(".check1:checked").length);
         		  } else {
-        		    $(".check").prop("checked", false);
+        		    $(".check1").prop("checked", false);
         		    // 선택된 체크박스 개수에 따른 숫자값 변경
-        		    $(".select-num").text($(".check:checked").length);
+        		    $(".select-num").text($(".check1:checked").length);
+        		  }
+    		});
+  			
+  			// 오늘의딜
+    		$("#allCheck3").on('change', function(){
+
+    			if ($("#allCheck3").is(":checked")) {
+        		    $(".check3").prop("checked", true);
+        		    // 선택된 체크박스 개수에 따른 숫자값 변경
+        		    $(".select-num").text($(".check3:checked").length);
+        		  } else {
+        		    $(".check3").prop("checked", false);
+        		    // 선택된 체크박스 개수에 따른 숫자값 변경
+        		    $(".select-num").text($(".check3:checked").length);
         		  }
     		});
   			
@@ -89,20 +105,32 @@
     	function checkfunction(){
     		// 하위 체크박스 체크 여부에 따른 전체 체크박스 상태 변경
     		// 하위 체크박스 체크 개수와 전체 개수를 비교
-    		
-    		alert("hi");
 			
-			if ($(".check:checked").length == $(".check").length && $(".check").length != 0) {
-    		    $("#allCheck").prop("checked", true);
+    		// 1
+			if ($(".check1:checked").length == $(".check1").length && $(".check1").length != 0) {
+    		    $("#allCheck1").prop("checked", true);
     		    // 선택된 체크박스 개수에 따른 숫자값 변경
-    		    $(".select-num").text($(".check:checked").length);
-    		    console.log($(".check:checked").length);
+    		    $(".select-num").text($(".check1:checked").length);
+    		    console.log($(".check1:checked").length);
     		} else {
-    		    $("#allCheck").prop("checked", false);
+    		    $("#allCheck1").prop("checked", false);
     		    // 선택된 체크박스 개수에 따른 숫자값 변경
-    		    $(".select-num").text($(".check:checked").length);
-    		    console.log($(".check:checked").length);
-    		  }
+    		    $(".select-num").text($(".check1:checked").length);
+    		    console.log($(".check1:checked").length);
+    		}
+    		
+    		// 오늘의 딜
+    		if ($(".check3:checked").length == $(".check3").length && $(".check3").length != 0) {
+    		    $("#allCheck3").prop("checked", true);
+    		    // 선택된 체크박스 개수에 따른 숫자값 변경
+    		    $(".select-num").text($(".check3:checked").length);
+    		    console.log($(".check3:checked").length);
+    		} else {
+    		    $("#allCheck3").prop("checked", false);
+    		    // 선택된 체크박스 개수에 따른 숫자값 변경
+    		    $(".select-num").text($(".check3:checked").length);
+    		    console.log($(".check3:checked").length);
+    		}
     	}
   		
 
@@ -205,7 +233,7 @@
             <thead>
               <tr class="content-table-title">
                 <td class="content-table-title-text option-line">
-                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="allCheck" />
+                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="allCheck1" />
                 </td>
                 <td class="content-table-title-text option-line">SID</td>
                 <td class="content-table-title-text option-line">업체명</td>
@@ -223,7 +251,7 @@
               <!-- for -->
               <tr class="content-table-content content-hover">
                 <td class="content-table-content-text option-line">
-                  <input class="form-check-input form-check-input-margin check" type="checkbox" value="" onclick="checkfunction()">
+                  <input class="form-check-input form-check-input-margin check1" type="checkbox" value="" onclick="checkfunction()">
                 </td>
                 <td class="content-table-content-text option-line">1001</td>
                 <td class="content-table-content-text option-line">뽀대현</td>
@@ -246,7 +274,7 @@
             <thead>
               <tr class="content-table-title">
                 <td class="content-table-title-text option-line" style="width: 1rem;">
-                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="allCheck" />
+                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="allCheck2" />
                 </td>
                 <td class="content-table-title-text option-line" style="width: 3rem;">POSTNUM</td>
                 <td class="content-table-title-text option-line" style="width: 8rem;">브랜드명</td>
@@ -262,7 +290,7 @@
               <!-- for -->
               <tr class="content-table-content content-hover">
                 <td class="content-table-content-text option-line">
-                  <input class="check form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
+                  <input class="check2 form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault1" />
                 </td>
                 <td class="content-table-content-text option-line">1001</td>
                 <td class="content-table-content-text option-line">뽀대현</td>
@@ -281,7 +309,7 @@
             <thead>
               <tr class="content-table-title">
                 <td class="content-table-title-text option-line" style="width: 1rem;">
-                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="allCheck" />
+                  <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="allCheck3" />
                 </td>
                 <td class="content-table-title-text option-line" style="width: 3rem;">POSTNUM</td>
                 <td class="content-table-title-text option-line" style="width: 8rem;">브랜드명</td>
