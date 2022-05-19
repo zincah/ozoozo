@@ -193,7 +193,6 @@
                             </svg>
 						</button>
 
-						<c:if test="${User_Num ne null}">
 
 
 							<a
