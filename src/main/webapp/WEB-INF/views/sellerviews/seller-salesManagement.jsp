@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,38 +102,11 @@
 						</div>
 					</div>
 				</div>
-				<div
-					class="container container-option container-option-topPadding bottomline">
-					<div class="row optionGroup1">
-						<div class="col-1 status-name-400">상세검색</div>
-						<div class="col search-select-input">
-							<div class="btn-group" role="group"
-								aria-label="Basic radio toggle button group">
-								<select class="form-select selectState" id="search-select"
-									aria-label="Default select example" style="width: 8rem">
-									<option value="0">전체</option>
-									<option value="1">상품명</option>
-									<option value="2">판매자상품코드</option>
-								</select>
-							</div>
-							<div class="search-input search-input-margin">
-								<div class="search-input-box">
-									<input type="text"
-										class="form-control form-control-sm input-font"
-										id="search-input" placeholder="" disabled="true" />
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 				<div class="container container-option container-option-topPadding">
 					<div class="row optionGroup1">
 						<div class="col search-submitBtn">
 							<div class="d-grid gap-2">
-								<button class="btn btn-secondary submitBtn" type="button">검색</button>
-							</div>
-							<div class="d-grid gap-2">
-								<button class="btn btn-outline-secondary initBtn" type="button">초기화</button>
+								<button class="btn btn-secondary initBtn" type="button">초기화</button>
 							</div>
 						</div>
 					</div>
@@ -179,257 +156,138 @@
 					<td class="content-table-title-text option-line">판매이익(정상금액-(할인,쿠폰,배송비))</td>
 				</tr>
 			</thead>
-			<tbody class="content-table-content content-hover table-hover-self">
-				<!-- for -->
-				<tr>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales" rowspan="5">2022-04-26</td>
-					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">신용카드</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">300,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">3</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">200,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">2</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">10,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">5,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">185,000</td>
-				</tr>
-				<tr>
-					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">휴대폰결제</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">5,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">2,500</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">92,500</td>
-				</tr>
-				<tr>
-					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">안심계좌</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-				</tr>
-				<tr>
-					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">무통장입금</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-				</tr>
-				<tr>
-					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">소계</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">400,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">4</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">300,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">3</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">15,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">7,500</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">277,500</td>
-				</tr>
-			</tbody>
-
-			<tbody class="content-table-content content-hover table-hover-self">
-				<!-- for -->
-				<tr>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales" rowspan="5">2022-04-25</td>
-					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">신용카드</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">300,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">3</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">200,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">2</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">10,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">5,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">185,000</td>
-				</tr>
-				<tr>
-					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">휴대폰결제</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">5,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">2,500</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">92,500</td>
-				</tr>
-				<tr>
-					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">안심계좌</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-				</tr>
-				<tr>
-					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">무통장입금</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-				</tr>
-				<tr>
-					<td class="content-table-content-text option-line state0"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">소계</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">400,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">4</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">300,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">3</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">15,000</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">7,500</td>
-					<td class="content-table-content-text option-line"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">277,500</td>
-				</tr>
-			</tbody>
+			<tbody id="salesList">
+				<c:forEach var="salesListView" items="${salesListView}" varStatus="status">
+					<tbody class="content-table-content content-hover table-hover-self">
+						<!-- for -->
+						<tr>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales" rowspan="5">
+								<fmt:formatDate	value="${salesListView.getOrder_date()}"
+								pattern="yyyy-MM-dd HH:mm" />
+							</td>
+							<td class="content-table-content-text option-line state0"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">신용카드</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">300,000</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">3</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">200,000</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">2</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">10,000</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">5,000</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">185,000</td>
+						</tr>
+						<tr>
+							<td class="content-table-content-text option-line state0"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">휴대폰결제</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">5,000</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">2,500</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">92,500</td>
+						</tr>
+						<tr>
+							<td class="content-table-content-text option-line state0"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">안심계좌</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+						</tr>
+						<tr>
+							<td class="content-table-content-text option-line state0"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">무통장입금</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+						</tr>
+						<tr>
+							<td class="content-table-content-text option-line state0"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">소계</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">400,000</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">4</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">100,000</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">1</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">300,000</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">3</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">15,000</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">0</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">7,500</td>
+							<td class="content-table-content-text option-line"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">277,500</td>
+						</tr>
+					</tbody>
+				</c:forEach>
+			</tbody>		
 		</table>
 		<div class="row mt-4">
 			<div class="col-xl-6 col-md-6 mb-4">
@@ -486,9 +344,8 @@
 								<thead>
 									<tr class="content-table-title">
 										<td class="content-table-title-text option-line">날짜</td>
-										<td class="content-table-title-text option-line">주문번호</td>
+										<td class="content-table-title-text option-line">주문번호(그룹)</td>
 										<td class="content-table-title-text option-line">구분</td>
-										<td class="content-table-title-text option-line">상태</td>
 										<td class="content-table-title-text option-line">결제금액</td>
 										<td class="content-table-title-text option-line">결제건수</td>
 										<td class="content-table-title-text option-line">할인</td>
@@ -504,7 +361,6 @@
 											14:25</td>
 										<td class="content-table-content-text option-line state0">1583921</td>
 										<td class="content-table-content-text option-line">신용카드</td>
-										<td class="content-table-content-text option-line">취소</td>
 										<td class="content-table-content-text option-line">-20,000</td>
 										<td class="content-table-content-text option-line">-1</td>
 										<td class="content-table-content-text option-line">0</td>
@@ -517,7 +373,6 @@
 											13:55</td>
 										<td class="content-table-content-text option-line state0">1583921</td>
 										<td class="content-table-content-text option-line">신용카드</td>
-										<td class="content-table-content-text option-line">결제</td>
 										<td class="content-table-content-text option-line">20,000</td>
 										<td class="content-table-content-text option-line">1</td>
 										<td class="content-table-content-text option-line">0</td>

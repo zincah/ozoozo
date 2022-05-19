@@ -84,10 +84,6 @@
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-chart-area"></i>
 							</div> 매출내역
-						</a> <a class="nav-link" href="#">
-							<div class="sb-nav-link-icon">
-								<i class="fas fa-table"></i>
-							</div> 정산내역
 						</a>
 
 						<div class="sb-sidenav-menu-heading">CS Management</div>
