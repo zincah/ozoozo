@@ -29,7 +29,7 @@ public class UserCategoryController {
 	@Autowired
 	UserCategoryService userCategoryService;
 	
-	@RequestMapping(value = "/m_category.com", method=RequestMethod.GET)
+	@RequestMapping(value = "/category.com", method=RequestMethod.GET)
 	public String category(UserCategoryVO vo, Model model, HttpServletRequest request) {
 
 		String[] codes = request.getParameter("catecode").split("_");
@@ -44,7 +44,9 @@ public class UserCategoryController {
 		}
 
 		int topcate_code = Integer.parseInt(codes[0]);
+		//int total = userCategoryService.getCategoryCount(vo); // 전체 개수 보내기
 		System.out.println(topcate_code);
+		
 
 		vo.setTop_catecode(topcate_code); // url로 전달받은 코드
 		
@@ -69,6 +71,7 @@ public class UserCategoryController {
 		
 		List<UserProductVO> productList = userCategoryService.selectProductByCate(vo);
 		
+		
 		for(int i=0; i<productList.size(); i++) {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
@@ -79,6 +82,7 @@ public class UserCategoryController {
 		}
 		
 		model.addAttribute("productList", productList);
+		//model.addAttribute("totalCount", total);
 
 		List<UserCategoryVO> catename = userCategoryService.getCateName(vo);
 		model.addAttribute("catename", catename);

@@ -17,7 +17,9 @@
                 방문하시려는 페이지의 주소가 잘못 입력되었거나, 삭제되어 사용하실 수 없습니다.
                 <br>입력하신 주소가 정확한지 다시 한번 확인해 주세요.
             </div>
-            <div id="open_mail" onclick="openMail()">확인했어요!</div>
+            <a href="main.com" style="text-decoration: none; color: inherit;">
+            	<div id="open_mail">홈으로가기</div>
+            </a>
         </div>
 </body>
 </html>

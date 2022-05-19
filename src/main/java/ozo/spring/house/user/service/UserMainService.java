@@ -13,9 +13,11 @@ public interface UserMainService {
 	public List<UserProductVO> mainDealProductList(UserProductVO vo);
 	public List<UserProductVO> plusProductList(UserPagingVO pvo);
 	public List<BannerVO> selectBannerList();
-  public UserVO checkUserByNaver(UserVO vo); // ¿Å°Ü¾ßÇÔ
+	public int getProductCount();
+	
+	public UserVO checkUserByNaver(UserVO vo); // ¿Å°Ü¾ßÇÔ
 	public void lastLoginCheck(UserVO vo); // ¿Å°Ü¾ßÇÔ
-  public List<UserProductVO> todayDealList();
+	public List<UserProductVO> todayDealList();
 	public List<UserProductVO> shopItemList();
 
 }

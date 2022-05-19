@@ -68,6 +68,10 @@ public class UserCategoryDAO {
 		System.out.println("postids : " + postids.size());
 		return sqlSessionTemplate.selectList("UserCategoryDAO.selectProductByFilter", vo);
 	}
+	/*
+	public int getCategoryCount(UserCategoryVO vo) {
+		return sqlSessionTemplate.selectOne("UserCategoryDAO.getCategoryCount", vo);
+	}*/
 	
 	public List<List<FilterVO>> getFilterOption(UserCategoryVO vo) {
 		System.out.println("--> mybatis in userCategorydao getfilteroption");

@@ -19,6 +19,7 @@ public class UserPagingController {
 	@Autowired
 	UserMainService userMainService;
 
+	// main page
 	@RequestMapping(value = "/getProductList.com")
 	public String user_main(@RequestBody String su, UserProductVO vo, UserPagingVO pvo, Model model) {
 		
@@ -27,6 +28,7 @@ public class UserPagingController {
 		pvo.setThispage(pagecount); // 잘감
 		
 		List<UserProductVO> productList = userMainService.plusProductList(pvo);
+		
 
 		for(int i=0; i<productList.size(); i++) {
 			UserProductVO pro = productList.get(i);
@@ -38,9 +40,39 @@ public class UserPagingController {
 			System.out.println(pro.getPost_id());
 		}
 		
+		
 		model.addAttribute("productList", productList);
 		model.addAttribute("pagecount", pagecount);
 
+		return "ozomain_plus";
+	}
+	
+	// category page
+	@RequestMapping(value = "/getProductListCate.com")
+	public String user_cate(@RequestBody String su, UserProductVO vo, UserPagingVO pvo, Model model) {
+		
+		// product list 뽑기
+		int pagecount = Integer.parseInt(su);
+		pvo.setThispage(pagecount); // 잘감
+		
+		/*
+		List<UserProductVO> productList = userMainService.plusProductList(pvo);
+		
+
+		for(int i=0; i<productList.size(); i++) {
+			UserProductVO pro = productList.get(i);
+			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
+			
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
+			
+			pro.setSale_price(decFormat.format(sale_price));
+			System.out.println(pro.getPost_id());
+		}
+		
+		
+		model.addAttribute("productList", productList);
+		model.addAttribute("pagecount", pagecount);
+*/
 		return "ozomain_plus";
 	}
 

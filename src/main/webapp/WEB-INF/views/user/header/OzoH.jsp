@@ -149,7 +149,7 @@
 							href="/house/main.com">스토어홈</a> <a id="catcat"
 							class="layout-navigation-primary__menu__item layout-navigation-primary__menu__item--active 
                             layout-navigation-primary__menu__item--open"
-							href="/house/m_category.com?catecode=1">카테고리</a> <a
+							href="/house/category.com?catecode=1">카테고리</a> <a
 							class="layout-navigation-primary__menu__item"
 							href="/house/best.com">베스트</a> <a
 							class="layout-navigation-primary__menu__item"
@@ -504,11 +504,11 @@
 
 														<li class="layout-navigation-hamburger-mobile__item-wrap"><a
 															class="layout-navigation-hamburger-mobile__item"
-															href="/store/category?affect_type=StoreHamburger&amp;category=0">가구</a>
+															href="category.com?catecode=1">가구</a>
 														</li>
 														<li class="layout-navigation-hamburger-mobile__item-wrap"><a
 															class="layout-navigation-hamburger-mobile__item"
-															href="/store/category?affect_type=StoreHamburger&amp;category=1">패브릭</a>
+															href="category.com?catecode=2">패브릭</a>
 														</li>
 														<li class="layout-navigation-hamburger-mobile__item-wrap"><a
 															class="layout-navigation-hamburger-mobile__item"

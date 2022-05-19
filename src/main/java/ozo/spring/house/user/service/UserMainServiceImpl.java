@@ -31,6 +31,11 @@ public class UserMainServiceImpl implements UserMainService {
 	public List<UserProductVO> plusProductList(UserPagingVO pvo) {
 		return userMainDAO.plusProductList(pvo);
 	}
+	
+	@Override
+	public int getProductCount() {
+		return userMainDAO.getProductCount();
+	}
 
 	@Override
 	public List<BannerVO> selectBannerList() {
@@ -56,6 +61,8 @@ public class UserMainServiceImpl implements UserMainService {
 	public void lastLoginCheck(UserVO vo) { 
 		userMainDAO.lastLoginCheck(vo); // ¿Å°Ü¾ßÇÔ
 	}
+
+
 
   
 

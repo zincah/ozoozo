@@ -70,6 +70,16 @@
 		<url-pattern>*.admin</url-pattern>
 	</servlet-mapping>
 
+	<!-- error-page -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error404.com</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error500.com</location>
+	</error-page>
 
 
 	<!-- utf-8 encoding -->
