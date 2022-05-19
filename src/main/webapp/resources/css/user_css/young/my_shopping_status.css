@@ -913,7 +913,7 @@ div {
 body,
 html {
     line-height: 1;
-    font-family: OhouseSans, Noto Sans KR, Apple SD Gothic Neo, ë§‘ì€ ê³ ë”•, Malgun Gothic, sans-serif;
+    font-family: OhouseSans, Noto Sans KR, Apple SD Gothic Neo, 챘짠�샖�혶�궗 챗쨀 챘�앪��, Malgun Gothic, sans-serif;
     -webkit-font-smoothing: antialiased;
     letter-spacing: -.4px;
     font-size: 13px;
@@ -1049,4 +1049,10 @@ h3 {
 .css-1hm59ir {
     margin-left: 10px;
     color: rgb(53, 197, 240);
+}
+.dh_edit {
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 160px;
+    font-weight: 700;
 }

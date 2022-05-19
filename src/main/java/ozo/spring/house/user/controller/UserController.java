@@ -81,10 +81,7 @@ public class UserController {
 	public String user_Review_W() {
 		return "myReview-write";
 	}
-	@RequestMapping(value = "/orders.com")
-	public String user_orders() {
-		return "orders";
-	}
+
 	
 	
 	@RequestMapping(value = "/customercenter.com")
@@ -94,12 +91,7 @@ public class UserController {
 	// my_shopping (status) �뜝�떛怨ㅼ삕 �뜝�떥怨ㅼ삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�옚�뜝�룞�삕�뜝占�
 	
 	
-	//�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
-	@RequestMapping(value = "/myshopping.com")
-	public String user_myShopping() {
-		return "my_shopping_status";
-	}
-	//�뜝�룞�삕�뜝�떎紐뚯삕�뜝�룞�삕
+	
 	@RequestMapping(value = "/myreview.com")
 	public String user_myReview_view() {
 		return "myReview-view";
@@ -151,6 +143,10 @@ public class UserController {
 	@RequestMapping(value = "/error500.com")
 	public String error500() {
 		return "error/500Error";
+	}
+	@RequestMapping(value = "/shoptest.com")
+	public String shop() {
+		return "shop";
 	}
 
 

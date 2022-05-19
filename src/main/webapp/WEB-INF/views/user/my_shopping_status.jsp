@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 
 <html>
@@ -12,7 +14,7 @@
 
     <link rel="stylesheet" href="resources/css/user_css/young/my_shopping.css">
     <link rel="stylesheet" href="resources/css/user_css/young/footer.css">
-    <link rel="stylesheet" href="resources/css/user_css/young/my_shopping_status.css">
+    <link rel="stylesheet" href="resources/css/user_css/young/my_shopping_status.css?var=1">
 
     <style data-emotion="css 1yajzey" data-s="">
         .css-1yajzey {
@@ -27,10 +29,99 @@
             }
         }
     </style>
-
+	<script>
+	 window.onload = function(){
+		 pl_js = [];
+		 wide_js = [];
+		 $.ajax({
+				url:'paymentLog_list.com',	
+			  		method:'post',
+			  		data: JSON.stringify(),
+			  		contentType : 'application/json; charset=UTF-8',
+			  		dataType : 'json',
+			  		success : function(pl_li){
+			  			pl_js = pl_li;
+	  		  		$.ajax({
+	  	    			url:'wide_list.com',	
+	  	  		  		method:'post',
+	  	  		  		data: JSON.stringify(),
+	  	  		  		contentType : 'application/json; charset=UTF-8',
+	  	  		  		dataType : 'json',
+	  	  		  		success : function(wide_li){
+	  	  		  			wide_js = wide_li;
+	  	  		  		$.ajax({
+		  	    			url:'date_filter.com',	
+		  	  		  		method:'post',
+		  	  		  		data: JSON.stringify(),
+		  	  		  		contentType : 'application/json; charset=UTF-8',
+		  	  		  		dataType : 'json',
+		  	  		  		success : function(date_filter){
+		  	  		  			date_js = date_filter;
+		  	  		  			each_price();
+		  	  		  			count_method();
+		  	  		  		for(i =0; i < date_js.length; i++){
+								dateStr = $("." + date_js[i].order_num + "_time").text();
+								dateStr = dateStr.substr(0, 10);
+								dateStr = dateStr.replace(/-/gi, ".");
+								$("." + date_js[i].order_num + "_time").text(dateStr);
+							}
+		  	  		  		}	
+		  	    		})
+	  	  		  		}	
+	  	    		})
+			  	}	
+			})
+			
+	 }
+	</script>
 
 
 <body>
+
+	<script>
+	function int_comma(num){
+		return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+	function each_price(){
+		for(i = 0; i < pl_js.length; i++){
+			for(j = 0; j < wide_js.length; j++){
+				if(pl_js[i].product_id == wide_js[j].product_id){
+				$("."+ pl_js[i].order_num + "_" + wide_js[j].product_id + "_won").text(int_comma(pl_js[i].payment));
+			
+				}
+			}
+		}
+	}
+	function count_method(){
+		pay_wait = 0;
+		pay_success = 0;
+		ship_ready = 0;
+		shipping = 0;
+		ship_success = 0;
+		buy = 0;
+		for(i = 0; i < pl_js.length; i++){
+			if(pl_js[i].order_status == "입금대기"){
+				pay_wait++;
+			}else if(pl_js[i].order_status == "결제완료"){
+				pay_success++;
+			}else if(pl_js[i].order_status == "배송준비중"){
+				ship_ready++;
+			}else if(pl_js[i].order_status == "배송중"){
+				shipping++;
+			}else if(pl_js[i].order_status == "배송완료"){
+				ship_success++;
+			}else if(pl_js[i].order_status == "구매확정"){
+				buy++;
+			}
+		}
+		$(".pay_wait").text(pay_wait);
+		$(".pay_success").text(pay_success);
+		$(".ship_ready").text(ship_ready);
+		$(".shipping").text(shipping);
+		$(".ship_success").text(ship_success);
+		$(".buy").text(buy);
+	}
+	</script>
 <header>
     	<jsp:include page="./header/OzoH.jsp"></jsp:include>
     </header>
@@ -78,38 +169,38 @@
                 <div class="order-list__menu"><a class="order-list__menu__list" href="#">
                         <div class="order-list__menu__list__wrap">
                             <div class="order-list__menu__list__title">입금대기</div>
-                            <div class="order-list__menu__list__value">0</div>
+                            <div class="order-list__menu__list__value pay_wait">0</div>
                         </div>
                     </a><a class="order-list__menu__list" href="#">
                         <div class="order-list__menu__list__wrap">
                             <div class="order-list__menu__list__title">결제완료</div>
-                            <div class="order-list__menu__list__value">0</div>
+                            <div class="order-list__menu__list__value pay_success">0</div>
                         </div>
                     </a><a class="order-list__menu__list" href="#">
                         <div class="order-list__menu__list__wrap">
                             <div class="order-list__menu__list__title">배송준비</div>
-                            <div class="order-list__menu__list__value">0</div>
+                            <div class="order-list__menu__list__value ship_ready">0</div>
                         </div>
                     </a><a class="order-list__menu__list" href="#">
                         <div class="order-list__menu__list__wrap">
                             <div class="order-list__menu__list__title">배송중</div>
-                            <div class="order-list__menu__list__value">0</div>
+                            <div class="order-list__menu__list__value shipping">0</div>
                         </div>
                     </a><a class="order-list__menu__list" href="#">
                         <div class="order-list__menu__list__wrap">
                             <div class="order-list__menu__list__title">배송완료</div>
-                            <div class="order-list__menu__list__value">0</div>
+                            <div class="order-list__menu__list__value ship_success">0</div>
                         </div>
                     </a><a class="order-list__menu__list" href="#">
                         <div class="order-list__menu__list__wrap">
                             <div class="order-list__menu__list__title order-list__menu__list__title--focus">구매확정</div>
-                            <div class="order-list__menu__list__value">5</div>
+                            <div class="order-list__menu__list__value buy">0</div>
                         </div>
                     </a></div>
                 <div>
                     <div>
                         <div class="css-1yajzey ehoya3o0">
-                            <div class="filter css-rzn8ck">
+                            <!-- <div class="filter css-rzn8ck">
                                 <div class="filter-bar">
                                     <div class="filter-bar__control-list">
                                         <ul class="filter-bar__control-list__left">
@@ -168,39 +259,46 @@
                                                 class="filter-bar__tag-list__clear" type="button">초기화</button></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> -->
+                            <c:forEach var="i" begin="0" end="${fn:length(date_filter)-1}">
+                            <c:set var="order_num" value="${date_filter[i].order_num }"/>
                             <section class="css-idjloq e1yy3fi630">
                                 <div class="css-sw3pq5 e1yy3fi629">
-                                    <div class="css-145bbay e1yy3fi628"><span class="divider">79471063</span>2021.12.07
+                                    <div class="css-145bbay e1yy3fi628 "><span class="divider">${date_filter[i].order_num }</span><span class="dh_edit ${date_filter[i].order_num }_time">${date_filter[i].order_date}</span>
                                     </div><a class="css-1buj0y e1yy3fi627"
                                         href="http://127.0.0.1:3000/orders.html">상세보기</a>
                                 </div>
+                               <c:forEach var="j" begin="0" end="${fn:length(pl_li)-1}">
+                               <c:if test="${order_num ne pl_li[j].order_num}">
+                               <c:set var="postid" value="${pl_li[j].od_postid }"/>
+                               <c:set var="tell_check" value="${pl_li[fn:length(pl_li)-1].seller_id }"/>
                                 <div>
                                     <div class="css-1ra10s7 e1yy3fi626">
-                                        <h3 class="css-7c5cag e1yy3fi624">구매확정<span class=""> ·</span><span> 12/9
+                                        <h3 class="css-7c5cag e1yy3fi624">${pl_li[j].order_status}<span class=""> ·</span><span> 12/9
                                                 (목)</span><span class="status"> 도착완료</span></h3>
                                         <div class="css-gw5lra e1yy3fi625">
                                             <div class="css-5y01s9 e1yy3fi623">
                                                 <picture>
                                                     <source type="image/webp"
-                                                        src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1548313879650_ZHhOpk1Ch.jpg?w=144&amp;h=144&amp;c=c&amp;webp=1"
-                                                        srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1548313879650_ZHhOpk1Ch.jpg?w=180&amp;h=180&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1548313879650_ZHhOpk1Ch.jpg?w=256&amp;h=256&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1548313879650_ZHhOpk1Ch.jpg?w=360&amp;h=360&amp;c=c&amp;webp=1 3x">
+                                                        src="${wide_li[j].photo_url }">
                                                     <img class="css-1nuap3l e1yy3fi622"
-                                                        src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1548313879650_ZHhOpk1Ch.jpg?w=144&amp;h=144&amp;c=c"
-                                                        srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1548313879650_ZHhOpk1Ch.jpg?w=180&amp;h=180&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1548313879650_ZHhOpk1Ch.jpg?w=256&amp;h=256&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/1548313879650_ZHhOpk1Ch.jpg?w=360&amp;h=360&amp;c=c 3x">
+                                                        src="${wide_li[j].photo_url }">
                                                 </picture>
                                                 <div class="css-1khw1py e1yy3fi621">
                                                     <div class="css-1jgx3ye e1yy3fi620"><a
                                                             class="css-1hnr1vy e1yy3fi619"
-                                                            href="/brands/home?query=%EB%AA%A8%EB%82%98%EC%BD%94%EC%98%AC%EB%A6%AC%EB%B8%8C">모나코올리브</a><a
+                                                            href="/brands/home?query=%EB%AA%A8%EB%82%98%EC%BD%94%EC%98%AC%EB%A6%AC%EB%B8%8C">${wide_li[j].company_name }</a><a
                                                             class="css-g5ex4y e1yy3fi618"
-                                                            href="http://127.0.0.1:3000/orders.html">[12%쿠폰] 무타공 초간편
-                                                            1분설치 스테인레스 수건걸이</a>
+                                                            href="http://127.0.0.1:3000/orders.html">[12%쿠폰] ${wide_li[j].post_name }</a>
                                                     </div>
                                                     <div class="css-1jgx3ye e1yy3fi620">
-                                                        <div class="css-137xxwq e1yy3fi617">1분설치 수건걸이</div>
+                                                        <div class="css-137xxwq e1yy3fi617">${wide_li[j].option1_name } : ${wide_li[j].option1}
+															<c:if test="${wide_li[j].option2 ne '' }">
+															/	${wide_li[j].option2_name } : ${wide_li[j].option2}
+															</c:if>
+														</div>
                                                         <div class="css-13mg6pb e1yy3fi616"><span
-                                                                class="divider">4,900원</span>1개</div>
+                                                                class="divider ${pl_li[j].order_num}_${pl_li[j].product_id}_won">0원</span>${pl_li[j].quantity }개</div>
                                                         <div class="css-5b05l4 e1yy3fi615"><span>일반택배</span></div>
                                                     </div>
                                                 </div>
@@ -215,178 +313,28 @@
                                                 </script>
                                             </div>
                                         </div>
+                                        <c:choose>
+                                        <c:when test="${pl_li[j].order_num ne pl_li[j+1].order_num }">
                                         <div class="css-lq5sl4 e1yy3fi613">
                                             <div class="css-13iurt9 e1yy3fi612">무료배송</div>
-                                            <div class="css-i1jsxi e1yy3fi611">모나코올리브<a href="tel:070-4407-9501"
-                                                    class="css-1hm59ir e1yy3fi610">070-4407-9501</a></div>
+                                            <div class="css-i1jsxi e1yy3fi611">${wide_li[j].company_name }<a href="tel:070-4407-9501"
+                                                    class="css-1hm59ir e1yy3fi610">${wide_li[j].shop_tell }</a></div>
                                         </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <section class="css-idjloq e1yy3fi630">
-                                <div class="css-sw3pq5 e1yy3fi629">
-                                    <div class="css-145bbay e1yy3fi628"><span class="divider">77300489</span>2021.11.22
-                                    </div><a class="css-1buj0y e1yy3fi627" href="/orders/77300489">상세보기</a>
-                                </div>
-                                <div>
-                                    <div class="css-1ra10s7 e1yy3fi626">
-                                        <h3 class="css-7c5cag e1yy3fi624">구매확정<span class=""> ·</span><span> 11/24
-                                                (수)</span><span class="status"> 도착완료</span></h3>
-                                        <div class="css-gw5lra e1yy3fi625">
-                                            <div class="css-5y01s9 e1yy3fi623">
-                                                <picture>
-                                                    <source type="image/webp"
-                                                        src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=144&amp;h=144&amp;c=c&amp;webp=1"
-                                                        srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=180&amp;h=180&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=256&amp;h=256&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=360&amp;h=360&amp;c=c&amp;webp=1 3x">
-                                                    <img class="css-1nuap3l e1yy3fi622"
-                                                        src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=144&amp;h=144&amp;c=c"
-                                                        srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=180&amp;h=180&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=256&amp;h=256&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=360&amp;h=360&amp;c=c 3x">
-                                                </picture>
-                                                <div class="css-1khw1py e1yy3fi621">
-                                                    <div class="css-1jgx3ye e1yy3fi620"><a
-                                                            class="css-1hnr1vy e1yy3fi619"
-                                                            href="/brands/home?query=%EB%B2%A0%EC%9D%B4%EC%A7%81%ED%86%A4">베이직톤</a><a
-                                                            class="css-g5ex4y e1yy3fi618" href="/orders/77300489">[오늘의딜]
-                                                            [5%쿠폰] 노스베어 프리미엄 10mm 라셀 극세사차렵이불 SS/Q/K/LK</a></div>
-                                                    <div class="css-1jgx3ye e1yy3fi620">
-                                                        <div class="css-137xxwq e1yy3fi617">컬러: 10mm라셀극세사(소프트 베이지) /
-                                                            사이즈: 슈퍼싱글(SS) 이불단품</div>
-                                                        <div class="css-13mg6pb e1yy3fi616"><span
-                                                                class="divider">59,800원</span>1개</div>
-                                                        <div class="css-5b05l4 e1yy3fi615"><span>일반택배</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="css-1yl0oty e1yy3fi614"><button class="css-klr9vj">배송추적</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="css-1ra10s7 e1yy3fi626">
-                                        <h3 class="css-7c5cag e1yy3fi624">구매확정<span class=""> ·</span><span> 11/24
-                                                (수)</span><span class="status"> 도착완료</span></h3>
-                                        <div class="css-gw5lra e1yy3fi625">
-                                            <div class="css-5y01s9 e1yy3fi623">
-                                                <picture>
-                                                    <source type="image/webp"
-                                                        src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=144&amp;h=144&amp;c=c&amp;webp=1"
-                                                        srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=180&amp;h=180&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=256&amp;h=256&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=360&amp;h=360&amp;c=c&amp;webp=1 3x">
-                                                    <img class="css-1nuap3l e1yy3fi622"
-                                                        src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=144&amp;h=144&amp;c=c"
-                                                        srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=180&amp;h=180&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=256&amp;h=256&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/160405524122572244.jpg?w=360&amp;h=360&amp;c=c 3x">
-                                                </picture>
-                                                <div class="css-1khw1py e1yy3fi621">
-                                                    <div class="css-1jgx3ye e1yy3fi620"><a
-                                                            class="css-1hnr1vy e1yy3fi619"
-                                                            href="/brands/home?query=%EB%B2%A0%EC%9D%B4%EC%A7%81%ED%86%A4">베이직톤</a><a
-                                                            class="css-g5ex4y e1yy3fi618" href="/orders/77300489">[오늘의딜]
-                                                            [5%쿠폰] 노스베어 프리미엄 10mm 라셀 극세사차렵이불 SS/Q/K/LK</a></div>
-                                                    <div class="css-1jgx3ye e1yy3fi620">
-                                                        <div class="css-137xxwq e1yy3fi617">추가상품 - SS침대패드(소프트 베이지)</div>
-                                                        <div class="css-13mg6pb e1yy3fi616"><span
-                                                                class="divider">34,800원</span>1개</div>
-                                                        <div class="css-5b05l4 e1yy3fi615"><span>일반택배</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="css-1yl0oty e1yy3fi614"><button class="css-klr9vj">배송추적</button>
-                                            </div>
-                                        </div>
+                                        </c:when>
+                                        <c:when test="${wide_li[j].seller_id ne wide_li[j+1].seller_id }">
                                         <div class="css-lq5sl4 e1yy3fi613">
                                             <div class="css-13iurt9 e1yy3fi612">무료배송</div>
-                                            <div class="css-i1jsxi e1yy3fi611">구르미애<a href="tel:1577-1886"
-                                                    class="css-1hm59ir e1yy3fi610">1577-1886</a></div>
+                                            <div class="css-i1jsxi e1yy3fi611">${wide_li[j].company_name }<a href="tel:070-4407-9501"
+                                                    class="css-1hm59ir e1yy3fi610">${wide_li[j].shop_tell }</a></div>
                                         </div>
-                                    </div>
+                                        </c:when>
+                                        </c:choose>
+	                                    </div>
                                 </div>
+                                </c:if>
+                                </c:forEach>
                             </section>
-                            <section class="css-idjloq e1yy3fi630">
-                                <div class="css-sw3pq5 e1yy3fi629">
-                                    <div class="css-145bbay e1yy3fi628"><span class="divider">77299357</span>2021.11.22
-                                    </div><a class="css-1buj0y e1yy3fi627" href="/orders/77299357">상세보기</a>
-                                </div>
-                                <div>
-                                    <div class="css-1ra10s7 e1yy3fi626">
-                                        <h3 class="css-7c5cag e1yy3fi624">구매확정<span class=""> ·</span><span> 11/23
-                                                (화)</span><span class="status"> 도착완료</span></h3>
-                                        <div class="css-gw5lra e1yy3fi625">
-                                            <div class="css-5y01s9 e1yy3fi623">
-                                                <picture>
-                                                    <source type="image/webp"
-                                                        src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161094644800159461.jpg?w=144&amp;h=144&amp;c=c&amp;webp=1"
-                                                        srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161094644800159461.jpg?w=180&amp;h=180&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161094644800159461.jpg?w=256&amp;h=256&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161094644800159461.jpg?w=360&amp;h=360&amp;c=c&amp;webp=1 3x">
-                                                    <img class="css-1nuap3l e1yy3fi622"
-                                                        src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161094644800159461.jpg?w=144&amp;h=144&amp;c=c"
-                                                        srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161094644800159461.jpg?w=180&amp;h=180&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161094644800159461.jpg?w=256&amp;h=256&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161094644800159461.jpg?w=360&amp;h=360&amp;c=c 3x">
-                                                </picture>
-                                                <div class="css-1khw1py e1yy3fi621">
-                                                    <div class="css-1jgx3ye e1yy3fi620"><a
-                                                            class="css-1hnr1vy e1yy3fi619"
-                                                            href="/brands/home?query=%EC%A0%95%EB%A6%AC%EC%83%9D%ED%99%9C">정리생활</a><a
-                                                            class="css-g5ex4y e1yy3fi618" href="/orders/77299357">마르케
-                                                            스웨이드 호텔 티슈케이스</a></div>
-                                                    <div class="css-1jgx3ye e1yy3fi620">
-                                                        <div class="css-137xxwq e1yy3fi617">그레이</div>
-                                                        <div class="css-13mg6pb e1yy3fi616"><span
-                                                                class="divider">9,900원</span>1개</div>
-                                                        <div class="css-5b05l4 e1yy3fi615"><span>일반택배</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="css-1yl0oty e1yy3fi614"><button class="css-klr9vj">배송추적</button>
-                                            </div>
-                                        </div>
-                                        <div class="css-lq5sl4 e1yy3fi613">
-                                            <div class="css-13iurt9 e1yy3fi612">선결제배송비 3,000원</div>
-                                            <div class="css-i1jsxi e1yy3fi611">정리생활<a href="tel:031-322-9338"
-                                                    class="css-1hm59ir e1yy3fi610">031-322-9338</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <section class="css-idjloq e1yy3fi630">
-                                <div class="css-sw3pq5 e1yy3fi629">
-                                    <div class="css-145bbay e1yy3fi628"><span class="divider">74322262</span>2021.10.26
-                                    </div><a class="css-1buj0y e1yy3fi627" href="/orders/74322262">상세보기</a>
-                                </div>
-                                <div>
-                                    <div class="css-1ra10s7 e1yy3fi626">
-                                        <h3 class="css-7c5cag e1yy3fi624">구매확정<span class=""> ·</span><span> 10/29
-                                                (금)</span><span class="status"> 도착완료</span></h3>
-                                        <div class="css-gw5lra e1yy3fi625">
-                                            <div class="css-5y01s9 e1yy3fi623">
-                                                <picture>
-                                                    <source type="image/webp"
-                                                        src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161647061896987794.jpg?w=144&amp;h=144&amp;c=c&amp;webp=1"
-                                                        srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161647061896987794.jpg?w=180&amp;h=180&amp;c=c&amp;webp=1 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161647061896987794.jpg?w=256&amp;h=256&amp;c=c&amp;webp=1 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161647061896987794.jpg?w=360&amp;h=360&amp;c=c&amp;webp=1 3x">
-                                                    <img class="css-1nuap3l e1yy3fi622"
-                                                        src="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161647061896987794.jpg?w=144&amp;h=144&amp;c=c"
-                                                        srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161647061896987794.jpg?w=180&amp;h=180&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161647061896987794.jpg?w=256&amp;h=256&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/productions/161647061896987794.jpg?w=360&amp;h=360&amp;c=c 3x">
-                                                </picture>
-                                                <div class="css-1khw1py e1yy3fi621">
-                                                    <div class="css-1jgx3ye e1yy3fi620"><a
-                                                            class="css-1hnr1vy e1yy3fi619"
-                                                            href="/brands/home?query=%EC%9D%B4%EC%9D%B4%EA%B3%B5%EB%B8%8C%EC%9D%B4%EC%83%B5">이이공브이샵</a><a
-                                                            class="css-g5ex4y e1yy3fi618" href="/orders/74322262">캡슐
-                                                            감성라운드 휴지케이스 3colors</a></div>
-                                                    <div class="css-1jgx3ye e1yy3fi620">
-                                                        <div class="css-137xxwq e1yy3fi617">화이트</div>
-                                                        <div class="css-13mg6pb e1yy3fi616"><span
-                                                                class="divider">5,000원</span>1개</div>
-                                                        <div class="css-5b05l4 e1yy3fi615"><span>일반택배</span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="css-1yl0oty e1yy3fi614"><button class="css-klr9vj">배송추적</button>
-                                            </div>
-                                        </div>
-                                        <div class="css-lq5sl4 e1yy3fi613">
-                                            <div class="css-13iurt9 e1yy3fi612">선결제배송비 3,000원</div>
-                                            <div class="css-i1jsxi e1yy3fi611">이이공브이샵<a href="tel:032-661-2203"
-                                                    class="css-1hm59ir e1yy3fi610">032-661-2203</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

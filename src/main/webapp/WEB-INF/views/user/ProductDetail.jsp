@@ -392,7 +392,7 @@
                                         			option_val = $("."+S1.id).val() + "," + S2.options[S2.selectedIndex].text + ":1";
                                         		}
                                         		//console.log($("#"+S1).val());
-                                        		//console.log(option_val);
+                                        		console.log(option_val);
                                         		
                                         		splitStr = option_val.split(":");
                                         		for(var i in option_arr){
@@ -403,7 +403,6 @@
                                         			}
                                         		}
                                         		option_arr.push(option_val);
-                                        		console.log(option_arr);
                                         		$.ajax({
                                         			url:'option_toString.com',
                                         			method:'post',
@@ -411,6 +410,7 @@
                                         			contentType : 'application/json; charset=UTF-8',
                                       		  		dataType : 'json',
                                       		  		success : function(option_toString_list){
+                                      		  			console.log("ajax : " + option_toString_list);
                                       		  			buy_item(option_toString_list);
                                       		  		}
                                         		})
@@ -560,10 +560,10 @@
                                 			$(".selling-option-form-content__price__number").text(int_comma(all));
                                 		}
                                 		function product_EA_change(className, selectNum){
+                                			console.log("check" + className + selectNum);
                                 			exCls = $(className).attr('class').split(" ");
                                 			Str = $("." + exCls[1]).text();
 											Str = Str.replace(/ /gi,'').replace(/\t/gi,'').split("\n");
-                                			
                                 			if(select){
                                 				option = Str[0].split("/")
                                 				option1 = option[0].split(":");
@@ -575,9 +575,10 @@
                                 			}
                                 			for(i = 0; i < option_arr.length; i++){
                                 				splitStr = option_arr[i].split(":");
-                                				if(toStr == splitStr[0]){
+                                				console.log("check2 : \n" + splitStr[0]+ "\n" + toStr);
+                                				if(toStr == splitStr[0].replace(/ /gi,'')){
                                 					var Num = parseInt(selectNum) + 1;
-                                					option_arr[i] = toStr + ":" + Num;
+                                					option_arr[i] = splitStr[0] + ":" + Num;
                                 				}
                                 			}
                                 			console.log(option_arr);

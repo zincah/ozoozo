@@ -55,9 +55,9 @@
 		phone = "${address_true.phone_num}";
     	phone = phone.split("-");
     	$(".phone").val(phone[1] + "-" + phone[2]);
-    	for(i=0; i < 10; i++){
+    	/* for(i=0; i < 10; i++){
     		console.log(payment_UID());
-    	}
+    	} */
     	
     }
     
@@ -238,7 +238,7 @@
 	            data: JSON.stringify ({
 	                imp_uid: rsp.imp_uid, //imp 번호
 	                merchant_uid: parseInt(rsp.merchant_uid), //고유번호
-	                pay_method: rsp.pay_method,// 결제 방법
+	                pay_method: way_payment,// 결제 방법
 	                paid_amount: rsp.paid_amount,// 가격
 	                paid_at: rsp.paid_at //결제 승인 시각
 	            }),
@@ -251,7 +251,8 @@
 		}  
 		 function payment_UID(){
 			 first_num = randomNum(1,9);
-			 num = randomNum(0,9999999);
+			 var num = "0000000" + randomNum(0,9999999);
+			 num = num.slice(-7);
 			 return first_num  + num;
 		 }
 		 function randomNum(min, max){
