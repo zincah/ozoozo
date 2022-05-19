@@ -138,13 +138,15 @@
     }
     function all_price(){
     	post = [];
-    	post.push(pro_js[0].product_postid);
     	for(i = 0; i < pro_js.length; i++){
-    		if(post.includes(pro_js[i].product_postid)){
-    		}else{
-    			post.push(pro_js[i].product_postid);
-    		}
-    	}
+   			Bln = $("#"+ pro_js[i].product_postid + "_check").is(':checked');
+   			if(Bln){
+   				if(post.includes(pro_js[i].product_postid)){
+   	   			}else{
+   	   				post.push(pro_js[i].product_postid);
+   	   			}
+			}	
+   		}
     	var all_price = 0;
     	var sale_before = 0;
     	var sale_after = 0;
@@ -203,17 +205,23 @@
     	}
     }
     function check(this_class){
-    	if($("#"+this_class.id).is(':checked')){
-    		for(i = 0; i < post.length; i++){
-    			Bln = $("#"+ post[i] + "_check").is(':checked')
-    			if(!Bln){
-					return;
-				} 		
-    		}
-    		$(".check_input").prop('checked',true);
-    	}else{
-    		$(".check_input").prop('checked',false);
-    	}
+    	product_count = 0;
+    	Bln_ = false;
+   		for(i = 0; i < pro_js.length; i++){
+   			Bln = $("#"+ pro_js[i].product_postid + "_check").is(':checked');
+   			if(Bln){
+   				product_count++;
+			}else{
+				Bln_ = true;
+			} 		
+   		}
+   		$(".cart_order_btn").text(product_count +"개 상품 구매 하기");
+   		all_price();
+   		if(Bln_){
+   			$(".check_input").prop('checked',false);
+   			return;
+   		}
+   		$(".check_input").prop('checked',true);
     }
     function check_delete(){
    	check_li = [];
@@ -242,16 +250,23 @@
     }
     function payment(){
    	 var param_Str = "";
+   	 console.log(post);
+   	 if(post.length == 0){
+   		 alert("구매하실 상품을 선택해 주세요.");
+   		 return;
+   	 }
    	for(i = 0; i < post.length; i++){
-		Bln = $("#"+ post[i] + "_check").is(':checked')
-		param_Str += post[i];
-		if(i != post.length - 1 ){
-			param_Str +=  "%";
+		if(Bln = $("#"+ post[i] + "_check").is(':checked')){
+			param_Str += post[i];
+			if(i != post.length - 1 ){
+				param_Str +=  "%";
+			}
 		}
 	}
+   	console.log(param_Str);
    	var form_param ='<input type="hidden" name="Product_ID" value="'+ param_Str +'">';	
    	$("#actionForm").append(form_param);
-    	$("#actionForm").submit(); 
+    $("#actionForm").submit(); 
     }
 	</script>
     <div class="header">

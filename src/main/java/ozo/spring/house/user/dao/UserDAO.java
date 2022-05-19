@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import ozo.spring.house.user.vo.CartVO;
+import ozo.spring.house.user.vo.ImportVO;
 import ozo.spring.house.user.vo.UserAddressVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserProduct_tableVO;
@@ -199,8 +200,8 @@ public class UserDAO {
 			this.pro_li.add(sqlSessionTemplate.selectOne("UserProduct.payment_pro_get", cvo));
 		}
 		public List<UserProductVO> get_product_list(){
-			System.out.println("수량 : " + pro_li.size());
-			System.out.println(this.pro_li.get(0));
+			//System.out.println("수량 : " + pro_li.size());
+			//System.out.println(this.pro_li.get(0));
 			return pro_li;
 		}
 		public void set_post_list(CartVO cvo) {
@@ -219,9 +220,13 @@ public class UserDAO {
 				return null;
 			}else {
 				address_li = sqlSessionTemplate.selectList("UserProduct.address_check", cvo);
-				System.out.println(address_li);	
+				//System.out.println(address_li);	
 				return address_li;
 			}
+		}
+		public void payment_add(ImportVO ivo) {
+			sqlSessionTemplate.insert("UserProduct.payment_add",ivo);
+			sqlSessionTemplate.insert("UserProduct.order_add",ivo);
 		}
 	}
 	

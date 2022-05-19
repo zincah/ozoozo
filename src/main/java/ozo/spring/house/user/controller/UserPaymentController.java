@@ -2,7 +2,9 @@ package ozo.spring.house.user.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ozo.spring.house.user.dao.UserDAO.payment_class;
 import ozo.spring.house.user.service.UserService;
 import ozo.spring.house.user.vo.CartVO;
+import ozo.spring.house.user.vo.ImportVO;
 import ozo.spring.house.user.vo.UserAddressVO;
 import ozo.spring.house.user.vo.UserProductVO;
 
@@ -77,6 +81,11 @@ public class UserPaymentController {
 		}else {
 			model.addAttribute("addr_boolean", true);
 		}
+		/*
+		 * for(int i = 0; i< cart_li.size(); i++) { System.out.println(cart_li.get(i));
+		 * System.out.println(pro_li.get(i)); System.out.println("                  ");
+		 * }
+		 */
 		return "calculation";
 	}
 	
@@ -89,5 +98,33 @@ public class UserPaymentController {
 	@RequestMapping(value = "/cart_js.com", method=RequestMethod.POST)
 	public List<CartVO> get_cart_li(){
 		return cart_li;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/payment/ajax.com", method=RequestMethod.POST)
+	public void payment_json(@RequestBody HashMap<String,Object> ivo ) {
+		int merchant_uid = (Integer)ivo.get("merchant_uid");
+		int paid_amount = (Integer)ivo.get("paid_amount");
+		String pay_method = (String)ivo.get("pay_method");
+		int time = (Integer)ivo.get("paid_at");
+		//List<ImportVO> payment_li = new ArrayList<ImportVO>();
+		for(int i = 0; i < cart_li.size(); i++) {
+			ImportVO add_vo = new ImportVO();
+			add_vo.setMerchant_uid(merchant_uid);
+			add_vo.setPaid_amount(paid_amount);
+			add_vo.setPay_method(pay_method);
+			//add_vo.setPaid_at(time);
+			add_vo.setSeller_id(cart_li.get(i).getCart_seller());
+			int price = pro_li.get(i).getProduct_price() * pro_li.get(i).getCart_quantity();
+			add_vo.setPrice(price);
+			int final_price = price; //할인된만큼 뺴기
+			add_vo.setFinal_price(final_price);
+			add_vo.setProduct_id(cart_li.get(i).getCart_product()); 	
+			add_vo.setUID(cart_li.get(i).getCart_user());
+			add_vo.setQuantity(pro_li.get(i).getCart_quantity());
+			int shipfee = pro_li.get(i).getProduct_shipfee() * pro_li.get(i).getCart_quantity();
+			add_vo.setShipfee(shipfee);
+			add_vo.setOrder_status("결제 완료");
+			pay_cls.payment_add(add_vo);
+		}
 	}
 }
