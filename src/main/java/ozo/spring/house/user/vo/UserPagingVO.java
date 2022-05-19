@@ -10,5 +10,7 @@ import lombok.ToString;
 public class UserPagingVO {
 	
 	private int thispage;
+	
+
 
 }

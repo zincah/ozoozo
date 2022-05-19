@@ -55,5 +55,15 @@ public class AdminProductManageServiceImpl implements AdminProductManageService 
 		return adminManageDAO.todayDealSale(vo);
 	}
 
+	@Override
+	public List<AdminProductVO> sellerSale(AdminProductVO vo) {
+		return adminManageDAO.sellerSale(vo);
+	}
+
+	@Override
+	public List<AdminProductVO> bestSale(AdminProductVO vo) {
+		return adminManageDAO.bestSale(vo);
+	}
+
 	
 }

@@ -1,6 +1,7 @@
 package ozo.spring.house.admin.controller;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -183,12 +184,83 @@ public class AdminProductManageController {
 	
 	/* 매출 관리 */
 	@RequestMapping(value="/getTodayDealList.admin", method=RequestMethod.POST)
-	public String getTodayDealList(Criteria cri, AdminProductVO vo, Model model) {
+	public String getTodayDealList(@RequestBody(required=false) Map<String, String> searchMap, Criteria cri, AdminProductVO vo, Model model) {
 
+		System.out.println("todayDeal" + searchMap);
+		
+		// 오늘의딜 날짜 세팅
+		vo.setStartdate(java.sql.Date.valueOf("2018-01-01"));
+		java.util.Date today = new java.util.Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = simpleDateFormat.format(today);
+		vo.setEnddate(Date.valueOf(formattedDate));
+		
+		if(searchMap != null) {
+			vo.setStartdate(Date.valueOf(searchMap.get("startdate")));
+			vo.setEnddate(Date.valueOf(searchMap.get("enddate")));
+			vo.setKeyword(searchMap.get("keyword"));
+		}
+		
 		List<AdminProductVO> dealList = productService.todayDealSale(vo);
 		model.addAttribute("dealList", dealList);
 
 		return "dealsales";
 	}
+	
+	@RequestMapping(value="/getBest30List.admin", method=RequestMethod.POST)
+	public String getBest30List(@RequestBody(required=false) Map<String, String> searchMap, Criteria cri, AdminProductVO vo, Model model) {
 
+		System.out.println(searchMap);
+		
+		if(searchMap != null) {
+			vo.setKeyword(searchMap.get("keyword"));
+		}
+
+		List<AdminProductVO> bestList = productService.bestSale(vo);
+		
+		for(int i=0; i<bestList.size(); i++) {
+			
+			AdminProductVO pvo = bestList.get(i);
+			long salePrice = (long)Math.round(pvo.getWhole_price()*(1-pvo.getSale_ratio()/100.0));
+			pvo.setSale_price(salePrice);
+
+		}
+
+		model.addAttribute("bestList", bestList);
+
+		return "best30sales";
+	}
+	
+	@RequestMapping(value="/getStoreSaleList.admin", method=RequestMethod.POST)
+	public String getStoreSaleList(@RequestBody(required=false) Map<String, String> searchMap, Criteria cri, AdminProductVO vo, Model model) {
+
+		System.out.println("storesale : " + searchMap);
+
+		// 매출 날짜 세팅
+		vo.setStartdate(java.sql.Date.valueOf("2018-01-01"));
+		java.util.Date today = new java.util.Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = simpleDateFormat.format(today);
+		vo.setEnddate(Date.valueOf(formattedDate));
+		
+		if(searchMap != null) {
+			vo.setStartdate(Date.valueOf(searchMap.get("startdate")));
+			vo.setEnddate(Date.valueOf(searchMap.get("enddate")));
+			vo.setKeyword(searchMap.get("keyword"));
+		}
+
+		List<AdminProductVO> sellerSaleList = productService.sellerSale(vo);
+		
+		for(int i=0; i<sellerSaleList.size(); i++) {
+			AdminProductVO ch = sellerSaleList.get(i);
+			int fee = 5;
+			int realPayment = (int)Math.round(ch.getPayment()*(1-fee/100.0));
+			ch.setFee(fee);
+			ch.setRealPayment(realPayment);
+		}
+		
+		model.addAttribute("sellerSaleList", sellerSaleList);
+
+		return"storesales";
+	}
 }
