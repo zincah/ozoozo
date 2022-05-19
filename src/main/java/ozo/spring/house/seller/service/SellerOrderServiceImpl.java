@@ -33,4 +33,19 @@ public class SellerOrderServiceImpl implements SellerOrderService{
 	public ProductVO selectOrderDetailPayment(ProductVO vo) {
 		return sellerOrderDAO.selectOrderDetailPayment(vo);
 	}
+	
+	@Override
+	public ProductVO selectOrderListModal(ProductVO vo) {
+		return sellerOrderDAO.selectOrderListModal(vo);
+	}
+	
+	@Override
+	public void updateOrderCheck(ProductVO vo) {
+		sellerOrderDAO.updateOrderCheck(vo);
+	}
+
+	@Override
+	public void updateOrderSend(ProductVO vo) {
+		sellerOrderDAO.updateOrderSend(vo);
+	}
 }

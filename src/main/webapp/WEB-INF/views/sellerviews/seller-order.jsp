@@ -63,20 +63,24 @@
 								value="${orderStatus3}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
-						<span>교환</span> <span class="status-value"><fmt:formatNumber
+						<span>구매확정</span> <span class="status-value"><fmt:formatNumber
 								value="${orderStatus4}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
-						<span>반품</span> <span class="status-value"><fmt:formatNumber
+						<span>교환</span> <span class="status-value"><fmt:formatNumber
 								value="${orderStatus5}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
-						<span>환불</span> <span class="status-value"><fmt:formatNumber
+						<span>반품</span> <span class="status-value"><fmt:formatNumber
 								value="${orderStatus6}" pattern="#,###" /></span>
+					</div>
+					<div class="col status-name">
+						<span>환불</span> <span class="status-value"><fmt:formatNumber
+								value="${orderStatus7}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name-last">
 						<span>주문취소</span> <span class="status-value"><fmt:formatNumber
-								value="${orderStatus7}" pattern="#,###" /></span>
+								value="${orderStatus8}" pattern="#,###" /></span>
 					</div>
 					<div class="col-3 search-button-area">
 						<button class="search-button" id="searchBtn">
@@ -170,25 +174,32 @@
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
 									type="checkbox" id="statusCheck5" name="searchStatus" value="6" />
-								<label class="form-check-label" for="statusCheck5"> 교환 </label>
+								<label class="form-check-label" for="statusCheck5"> 구매확정
+								</label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
 									type="checkbox" id="statusCheck6" name="searchStatus" value="7" />
-								<label class="form-check-label" for="statusCheck6"> 반품 </label>
+								<label class="form-check-label" for="statusCheck6"> 교환 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
 									type="checkbox" id="statusCheck7" name="searchStatus" value="8" />
-								<label class="form-check-label" for="statusCheck7"> 환불 </label>
+								<label class="form-check-label" for="statusCheck7"> 반품 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
 									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
 									type="checkbox" id="statusCheck8" name="searchStatus" value="9" />
-								<label class="form-check-label" for="statusCheck8"> 주문취소
+								<label class="form-check-label" for="statusCheck8"> 환불 </label>
+							</div>
+							<div class="form-check form-check-display">
+								<input
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck9" name="searchStatus" value="10" />
+								<label class="form-check-label" for="statusCheck9"> 주문취소
 								</label>
 							</div>
 						</div>
@@ -319,14 +330,10 @@
 					<ul class="dropdown-menu settingBtnDropdown"
 						aria-labelledby="dropdownMenuButton1">
 						<li><h6 class="dropdown-header">주문건 일괄 설정</h6></li>
-						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+						<li><a class="dropdown-item menu" href="#" data-bs-toggle="modal"
 							data-bs-target="#modal-check" id="menu1">발주확인</a></li>
-						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+						<li><a class="dropdown-item menu" href="#" data-bs-toggle="modal"
 							data-bs-target="#modal-send" id="menu2">발송처리</a></li>
-						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-							data-bs-target="#modal-modify" id="menu3">송장수정</a></li>
-						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-							data-bs-target="#modal-delete" id="menu4">주문취소</a></li>
 					</ul>
 				</div>
 			</div>
@@ -377,17 +384,16 @@
 												<table class="table table-box-style">
 													<thead>
 														<tr class="content-table-title">
-															<td class="content-table-title-text option-line">No.</td>
 															<td class="content-table-title-text option-line">주문날짜</td>
 															<td class="content-table-title-text option-line">주문번호</td>
-															<td class="content-table-title-text option-line">판매자
-																상품코드</td>
-															<td class="content-table-title-text option-line">상풍명</td>
+															<td class="content-table-title-text option-line">판매자 상품코드</td>
+															<td class="content-table-title-text option-line">상품명</td>
 															<td class="content-table-title-text option-line">옵션정보</td>
-															<td class="content-table-title-text option-line">수량</td>
+															<td class="content-table-title-text option-line">판매가</td>
+															<td class="content-table-title-text option-line">주문 수량</td>
 														</tr>
 													</thead>
-													<tbody id="selectOrderView1">
+													<tbody class="selectOrderView">
 
 													</tbody>
 												</table>
@@ -472,17 +478,16 @@
 												<table class="table table-box-style">
 													<thead>
 														<tr class="content-table-title">
-															<td class="content-table-title-text option-line">No.</td>
 															<td class="content-table-title-text option-line">주문날짜</td>
 															<td class="content-table-title-text option-line">주문번호</td>
-															<td class="content-table-title-text option-line">판매자
-																상품코드</td>
-															<td class="content-table-title-text option-line">상풍명</td>
+															<td class="content-table-title-text option-line">판매자 상품코드</td>
+															<td class="content-table-title-text option-line">상품명</td>
 															<td class="content-table-title-text option-line">옵션정보</td>
-															<td class="content-table-title-text option-line">수량</td>
+															<td class="content-table-title-text option-line">판매가</td>
+															<td class="content-table-title-text option-line">주문 수량</td>
 														</tr>
 													</thead>
-													<tbody id="selectOrderView2">
+													<tbody class="selectOrderView">
 
 													</tbody>
 												</table>
@@ -499,178 +504,6 @@
 						<button type="button"
 							class="btn btn-primary modal-status-select-submit-button"
 							id="sendSubmitBtn">확인</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 송장수정 Modal -->
-		<div class="modal fade" id="modal-modify" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">송장수정</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body modal-status-select-product">
-						<div class="modal-delete-product-notice">
-							<span class="modal-delete-product-num-value"><i
-								class="bi bi-dot"></i>수정할 송장번호를 입력하여 선택된 주문건의 송장번호를 일괄 변경 합니다.</span>
-						</div>
-						<div class="col search-input invoice-box">
-							<div class="btn-group" role="group"
-								aria-label="Basic radio toggle button group">
-								<select class="form-select selectState parcelservice-select"
-									aria-label="Default select example" id="selectDelivery3">
-									<option value="0">CJ대한통운</option>
-									<option value="1">롯데택배</option>
-									<option value="2">한진택배</option>
-									<option value="3">로젠택배</option>
-									<option value="4">우체국택배</option>
-								</select>
-							</div>
-							<div class="invoice-number">
-								<input type="text"
-									class="form-control form-control-sm input-font"
-									id="exampleFormControlInput1" placeholder="송장번호 입력" />
-							</div>
-						</div>
-						<div class="modal-delete-product-num">
-							<span>선택된 상품 수 : </span> <span
-								class="modal-delete-product-num-value orderNum">0</span> <span>개</span>
-						</div>
-						<div class="modal-delete-select-product">
-							<div class="accordion accordion-flush" id="accordionFlushExample">
-								<div class="accordion-item">
-									<h2 class="accordion-header" id="flush-headingOne">
-										<button class="accordion-button collapsed modal-product-list"
-											type="button" data-bs-toggle="collapse"
-											data-bs-target="#flush-collapseOne" aria-expanded="false"
-											aria-controls="flush-collapseOne">
-											선택된 상품 리스트
-											<svg class="accordion-button-arrow"
-												xmlns="http://www.w3.org/2000/svg" width="13" height="13"
-												fill="currentColor" class="bi bi-chevron-down"
-												viewBox="0 0 16 16">
-                              <path fill-rule="evenodd"
-													d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                            </svg>
-										</button>
-									</h2>
-									<div id="flush-collapseOne" class="accordion-collapse collapse"
-										aria-labelledby="flush-headingOne"
-										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">
-											<!-- for -->
-											<div class="product-list-group">
-												<table class="table table-box-style">
-													<thead>
-														<tr class="content-table-title">
-															<td class="content-table-title-text option-line">No.</td>
-															<td class="content-table-title-text option-line">주문날짜</td>
-															<td class="content-table-title-text option-line">주문번호</td>
-															<td class="content-table-title-text option-line">판매자
-																상품코드</td>
-															<td class="content-table-title-text option-line">상풍명</td>
-															<td class="content-table-title-text option-line">옵션정보</td>
-															<td class="content-table-title-text option-line">수량</td>
-														</tr>
-													</thead>
-													<tbody id="selectOrderView3">
-
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">취소</button>
-						<button type="button"
-							class="btn btn-primary modal-status-select-submit-button"
-							id="invoiceUpdateSubmitBtn">확인</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 주문취소 Modal -->
-		<div class="modal fade" id="modal-delete" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">주문취소처리</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body modal-status-select-product">
-						<div class="modal-delete-product-notice">
-							<span class="modal-delete-product-num-value"><i
-								class="bi bi-dot"></i>선택된 주문건의 주문을 일괄 취소 처리합니다.</span>
-						</div>
-						<div class="modal-delete-product-num">
-							<span>선택된 주문건 수 : </span> <span
-								class="modal-delete-product-num-value orderNum">0</span> <span>개</span>
-						</div>
-						<div class="modal-delete-select-product">
-							<div class="accordion accordion-flush" id="accordionFlushExample">
-								<div class="accordion-item">
-									<h2 class="accordion-header" id="flush-headingOne">
-										<button class="accordion-button collapsed modal-product-list"
-											type="button" data-bs-toggle="collapse"
-											data-bs-target="#flush-collapseOne" aria-expanded="false"
-											aria-controls="flush-collapseOne">
-											선택된 주문건 리스트
-											<svg class="accordion-button-arrow"
-												xmlns="http://www.w3.org/2000/svg" width="13" height="13"
-												fill="currentColor" class="bi bi-chevron-down"
-												viewBox="0 0 16 16">
-                              <path fill-rule="evenodd"
-													d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
-                            </svg>
-										</button>
-									</h2>
-									<div id="flush-collapseOne" class="accordion-collapse collapse"
-										aria-labelledby="flush-headingOne"
-										data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body">
-											<!-- for -->
-											<div class="product-list-group">
-												<table class="table table-box-style">
-													<thead>
-														<tr class="content-table-title">
-															<td class="content-table-title-text option-line">No.</td>
-															<td class="content-table-title-text option-line">주문날짜</td>
-															<td class="content-table-title-text option-line">주문번호</td>
-															<td class="content-table-title-text option-line">판매자
-																상품코드</td>
-															<td class="content-table-title-text option-line">상풍명</td>
-															<td class="content-table-title-text option-line">옵션정보</td>
-															<td class="content-table-title-text option-line">수량</td>
-														</tr>
-													</thead>
-													<tbody id="selectOrderView4">
-
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-bs-dismiss="modal">취소</button>
-						<button type="button"
-							class="btn btn-primary modal-status-select-submit-button"
-							id="orderCancleSubmitBtn">확인</button>
 					</div>
 				</div>
 			</div>
@@ -696,44 +529,43 @@
 			<tbody id="orderList">
 				<c:forEach var="orderListView" items="${orderListView}"
 					varStatus="status">
-					<tr class="content-table-content content-hover"
-						onclick="orderDetailView(${status.index})">
+					<tr class="content-table-content content-hover">
 						<td class="content-table-content-text option-line checkTd"><c:if
-								test="${orderListView.getOrder_status() ne '배송중'}">
+								test="${orderListView.getOrder_status() ne '구매확정'}">
 								<input class="form-check-input check" type="checkbox" value="" />
-							</c:if> <c:if test="${orderListView.getOrder_status() eq '배송중'}">
+							</c:if> <c:if test="${orderListView.getOrder_status() eq '구매확정'}">
 								<input class="form-check-input" type="checkbox" value=""
 									disabled />
 							</c:if></td>
-						<td class="content-table-content-text option-line"
+						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 							data-bs-toggle="modal" data-bs-target="#modal-view-order"><fmt:formatDate
 								value="${orderListView.getOrder_date()}"
 								pattern="yyyy-MM-dd HH:mm" /></td>
-						<td class="content-table-content-text option-line state0"
-							data-bs-toggle="modal" data-bs-target="#modal-view-order"><span
-							name="orderId${status.index}">${orderListView.getOrder_id()}</span>
+						<td class="content-table-content-text option-line state0" onclick="orderDetailView(${status.index})"
+							data-bs-toggle="modal" data-bs-target="#modal-view-order">
+							<span name="orderId${status.index}">${orderListView.getOrder_id()}</span>
 							(<span name="orderNum${status.index}">${orderListView.getOrder_num()}</span>)
 						</td>
-						<td class="content-table-content-text option-line"
+						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getOrder_status()}</td>
-						<td class="content-table-content-text option-line"
+						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getProduct_seller_code()}</td>
-						<td class="content-table-content-text option-line"
+						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getProduct_title()}</td>
-						<td class="content-table-content-text option-line"
+						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 							data-bs-toggle="modal" data-bs-target="#modal-view-order">
 							${orderListView.getOption1()} <c:if
 								test="${orderListView.getOption2() ne ''}">
 								 / ${orderListView.getOption2()}
 							</c:if>
 						</td>
-						<td class="content-table-content-text option-line"
+						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getQuantity()}</td>
-						<td class="content-table-content-text option-line"
+						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getReceiver()}</td>
-						<td class="content-table-content-text option-line"
+						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getPhone_num()}</td>
-						<td class="content-table-content-text option-line"
+						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getAddress1()}</td>
 					</tr>
 				</c:forEach>
@@ -754,11 +586,106 @@
 					<div>
 						<span class="content-view-title-text">주문 정보</span>
 					</div>
-					<div id="modal-view-order"></div>
+					<div id="modal-view-order-change">
+						<div class="modal-delete-select-product">
+							<div class="product-list-group">
+								<table class="table table-box-style">
+									<thead>
+										<tr class="content-table-title">
+											<td class="content-table-title-text option-line">주문날짜</td>
+											<td class="content-table-title-text option-line">주문번호</td>
+											<td class="content-table-title-text option-line">판매자 상품코드</td>
+											<td class="content-table-title-text option-line">상품명</td>
+											<td class="content-table-title-text option-line">옵션정보</td>
+											<td class="content-table-title-text option-line">판매가</td>
+											<td class="content-table-title-text option-line">주문 수량</td>
+										</tr>
+									</thead>
+									<tbody>
+											<tr class="content-table-content content-hover">
+												<td class="content-table-content-text option-line"
+													data-bs-toggle="modal" data-bs-target="#modal-view-order"></td>
+												<td class="content-table-content-text option-line state0"
+													data-bs-toggle="modal" data-bs-target="#modal-view-order"></td>
+												<td class="content-table-content-text option-line"
+													data-bs-toggle="modal" data-bs-target="#modal-view-order"></td>
+												<td class="content-table-content-text option-line"
+													data-bs-toggle="modal" data-bs-target="#modal-view-order"></td>
+												<td class="content-table-content-text option-line"
+													data-bs-toggle="modal" data-bs-target="#modal-view-order"></td>
+												<td class="content-table-content-text option-line"
+													data-bs-toggle="modal" data-bs-target="#modal-view-order"></td>
+												<td class="content-table-content-text option-line"
+													data-bs-toggle="modal" data-bs-target="#modal-view-order"></td>
+											</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<div class="marginTop">
+							<span class="content-view-title-text">결제/배송 정보</span>
+						</div>
+						<div class="modal-delete-select-product marginTop1"
+							id="selectOrderDetailView2">
+							<div class="product-list-group">
+								<div
+									class="container container-option container-option-topPadding bottomline topline">
+									<div class="row optionGroup1">
+										<div class="col-2 view-title">주문자 이메일</div>
+										<div class="col"></div>
+										<div class="col-2 view-title-last">최종 결제금액<br>(결제금액-할인금액)</div>
+										<div class="col"></div>
+									</div>
+								</div>
+							</div>
+							<div class="product-list-group">
+								<div
+									class="container container-option container-option-topPadding bottomline">
+									<div class="row optionGroup1">
+										<div class="col-2 view-title">결제수단</div>
+										<div class="col"></div>
+										<div class="col-2 view-title-last">결제정보</div>
+										<div class="col"></div>
+									</div>
+								</div>
+							</div>
+							<div class="product-list-group">
+								<div
+									class="container container-option container-option-topPadding bottomline">
+									<div class="row optionGroup1">
+										<div class="col-2 view-title">택배회사</div>
+										<div class="col"></div>
+										<div class="col-2 view-title-last">송장번호</div>
+										<div class="col"></div>
+									</div>
+								</div>
+							</div>
+							<div class="product-list-group">
+								<div
+									class="container container-option container-option-topPadding bottomline">
+									<div class="row optionGroup1">
+										<div class="col-2 view-title">배송금액</div>
+										<div class="col"></div>
+										<div class="col-2 view-title-last">배송메세지</div>
+										<div class="col"></div>
+									</div>
+								</div>
+							</div>
+							<div class="product-list-group">
+								<div
+									class="container container-option container-option-topPadding bottomline">
+									<div class="row optionGroup1">
+										<div class="col-2 view-title">배송지</div>
+										<div class="col"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
+				<div class="modal-footer"></div>
 			</div>
 		</div>
-		<div class="modal-footer"></div>
 	</div>
 	<!-- footer -->
 	<footer class="py-4 bg-light mt-auto">

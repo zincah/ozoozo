@@ -124,10 +124,11 @@ public class SellerController {
 			model.addAttribute("orderStatus1", orderListView.stream().filter(list -> list.getOrder_status().equals("배송준비중")).count());
 			model.addAttribute("orderStatus2", orderListView.stream().filter(list -> list.getOrder_status().equals("배송중")).count());
 			model.addAttribute("orderStatus3", orderListView.stream().filter(list -> list.getOrder_status().equals("배송완료")).count());
-			model.addAttribute("orderStatus4", orderListView.stream().filter(list -> list.getOrder_status().equals("교환")).count());
-			model.addAttribute("orderStatus5", orderListView.stream().filter(list -> list.getOrder_status().equals("반품")).count());
-			model.addAttribute("orderStatus6", orderListView.stream().filter(list -> list.getOrder_status().equals("환불")).count());
-			model.addAttribute("orderStatus7", orderListView.stream().filter(list -> list.getOrder_status().equals("주문취소")).count());
+			model.addAttribute("orderStatus4", orderListView.stream().filter(list -> list.getOrder_status().equals("구매확정")).count());
+			model.addAttribute("orderStatus5", orderListView.stream().filter(list -> list.getOrder_status().equals("교환")).count());
+			model.addAttribute("orderStatus6", orderListView.stream().filter(list -> list.getOrder_status().equals("반품")).count());
+			model.addAttribute("orderStatus7", orderListView.stream().filter(list -> list.getOrder_status().equals("환불")).count());
+			model.addAttribute("orderStatus8", orderListView.stream().filter(list -> list.getOrder_status().equals("주문취소")).count());
 			
 			return "seller-order";
 		}else {

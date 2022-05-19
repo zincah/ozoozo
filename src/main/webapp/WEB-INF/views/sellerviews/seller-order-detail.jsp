@@ -40,7 +40,9 @@
 										</c:if>
 						</td>
 						<td class="content-table-content-text option-line"
-							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderDetailList.getProduct_price()}</td>
+							data-bs-toggle="modal" data-bs-target="#modal-view-order">
+							<fmt:formatNumber value="${orderDetailList.getProduct_price()}" pattern="#,###" />
+						</td>
 						<td class="content-table-content-text option-line"
 							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderDetailList.getQuantity()}</td>
 					</tr>
@@ -60,8 +62,10 @@
 			<div class="row optionGroup1">
 				<div class="col-2 view-title">주문자 이메일</div>
 				<div class="col">${orderDetailPayment.getUser_email()}</div>
-				<div class="col-2 view-title-last">최종 결제금액(결제금액-할인금액)</div>
-				<div class="col">${orderDetailPayment.getPy_final()}</div>
+				<div class="col-2 view-title-last">최종 결제금액<br>(결제금액-할인금액)</div>
+				<div class="col">
+					<fmt:formatNumber value="${orderDetailPayment.getPy_final()}" pattern="#,###" />
+				</div>
 			</div>
 		</div>
 	</div>
@@ -91,8 +95,10 @@
 		<div
 			class="container container-option container-option-topPadding bottomline">
 			<div class="row optionGroup1">
-				<div class="col-2 view-title-last">배송금액</div>
-				<div class="col">${orderDetailPayment.getShipping_fee()}</div>
+				<div class="col-2 view-title">배송금액</div>
+				<div class="col">
+					<fmt:formatNumber value="${orderDetailPayment.getShipping_fee()}" pattern="#,###" />
+				</div>
 				<div class="col-2 view-title-last">배송메세지</div>
 				<div class="col">${orderDetailPayment.getMemo()}</div>
 			</div>
