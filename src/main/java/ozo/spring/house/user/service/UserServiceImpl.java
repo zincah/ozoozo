@@ -9,6 +9,7 @@ import ozo.spring.house.user.dao.UserDAO;
 import ozo.spring.house.user.dao.UserDAO.cart_Allload;
 import ozo.spring.house.user.dao.UserDAO.paymentLog_cls;
 import ozo.spring.house.user.dao.UserDAO.payment_class;
+import ozo.spring.house.user.dao.UserDAO.product_cls;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserProduct_tableVO;
@@ -88,6 +89,13 @@ public class UserServiceImpl implements UserService {
 	public paymentLog_cls get_Log_class() {
 		return userDAO.get_paymentLog_class();
 	}
+
+	@Override
+	public product_cls get_product_class() {
+		// TODO Auto-generated method stub
+		return userDAO.get_productDetail_class();
+	}
+	
 
 	
 }

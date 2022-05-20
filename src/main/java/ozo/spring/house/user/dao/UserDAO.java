@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import ozo.spring.house.seller.vo.ProductVO;
 import ozo.spring.house.user.vo.CartVO;
+import ozo.spring.house.user.vo.CouponVO;
 import ozo.spring.house.user.vo.ImportVO;
 import ozo.spring.house.user.vo.UserAddressVO;
 import ozo.spring.house.user.vo.UserPaymentLogVO;
@@ -143,7 +145,12 @@ public class UserDAO {
 		return new product_cls();
 	}
 	public class product_cls{
+		public product_cls() {
+		}
 		
+		public CouponVO get_coupon(ProductVO pvo) {
+			return null;
+		}
 	}
 	
 	
