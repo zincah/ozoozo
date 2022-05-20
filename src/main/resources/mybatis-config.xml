@@ -49,5 +49,6 @@
 	    <mapper resource="mappings/sellerOrder-mapping.xml"/>
 	    <mapper resource="mappings/userScrap-mapping.xml"/>
 	    <mapper resource="mappings/userMyPage-mapping.xml"/>
+	    <mapper resource="mappings/serverStart-mapping.xml"/>
 	</mappers>
 </configuration>
