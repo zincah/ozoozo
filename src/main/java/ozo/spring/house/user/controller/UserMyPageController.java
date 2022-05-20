@@ -1,5 +1,6 @@
 package ozo.spring.house.user.controller;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.service.userMyPageService;
 import ozo.spring.house.user.vo.ScrapVO;
+import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 
@@ -74,7 +76,7 @@ public class UserMyPageController {
 		return "success";
 	}
 	@RequestMapping(value="/m_myPage.com")
-	public String  mypage(UserVO vo, Model model, HttpServletRequest request, ScrapVO svo) {
+	public String  mypage(UserVO vo, Model model, HttpServletRequest request, ScrapVO svo, UserScrapVO usvo) {
 		HttpSession session = request.getSession();
 		
 		
@@ -85,10 +87,23 @@ public class UserMyPageController {
 			
 			List<ScrapVO> list ;
 			list = userscrapservice.s_scrap(svo);
+			for(int i=0; i<list.size(); i++) {
+				ScrapVO pro = list.get(i);
+				int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
+				
+				DecimalFormat decFormat = new DecimalFormat("###,###"); 
+				
+				pro.setSale_price(decFormat.format(sale_price));
+			}
 			
-			model.addAttribute("info",info);
-			model.addAttribute("list", list);
-			 
+			List<UserScrapVO> post = userscrapservice.us_list(usvo);
+			
+			
+			
+			model.addAttribute("info",info); //회원정보
+			model.addAttribute("list", list); //북마크
+			model.addAttribute("post", post); //회원이 갖고있는 북마크 홈화면표시 
+			
 			return "myPage";
 		}else {
 			return "ozoLogin_zinc";
@@ -101,21 +116,51 @@ public class UserMyPageController {
 	/* 스크랩 */
 	@ResponseBody
 	@RequestMapping(value="/userscrap.com", method=RequestMethod.POST)
-	public String Scrappick(@RequestBody int param, UserScrapVO vo, Model model, HttpServletRequest request) {
+	public String Scrappick(@RequestBody int param, UserScrapVO vo, Model model, HttpServletRequest request,UserProductVO pvo) {
 		HttpSession session = request.getSession();
 		System.out.println("scrap 넘어왔어");
 		//session.getAttribute("UserMail");
 		System.out.println(session.getAttribute("User_Num"));
 		System.out.println(param);
-		vo.setSc_usernum((int)session.getAttribute("User_Num"));
-		vo.setSc_postid(param);
 		
-		userscrapservice.s_insert(vo);
-		//List<UserScrapVO> list;
-		//list= userscrapservice.u_scrap(vo);
-		return "보냇다" ;
+		if(session.getAttribute("User_Num")!=null) {
+			
+			
+				vo.setSc_usernum((int)session.getAttribute("User_Num"));
+				vo.setSc_postid(param);
+		
+				userscrapservice.s_insert(vo);
+			
+				
+			//}
+			
+		return "보냈다" ;
+	}else {
+		return "보냈다" ;
+		}
 	}
-	
+		
+
+	/* 스크랩 지우기 */
+	@ResponseBody
+	@RequestMapping(value="/scrapdelete.com", method=RequestMethod.POST)
+	public String Scrapdelete(@RequestBody int param, UserScrapVO vo, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		System.out.println("지우러 넘어왔어");
+		
+		System.out.println(session.getAttribute("User_Num"));
+		System.out.println(param);
+		if(session.getAttribute("User_Num")!=null) {
+			vo.setSc_postid(param);
+			userscrapservice.s_cancle(vo);
+		return "지웠다" ;
+		}else {
+		return "로그인이 필요합니다" ;
+		}
+		
+		
+		
+	}
 	
 	
 }

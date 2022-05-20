@@ -10,6 +10,10 @@
 	INSERT INTO user_scrap ( sc_usernum,sc_postid) VALUES(#{sc_usernum},#{sc_postid})
 	</insert>
 	
+	<select id="us_list" resultType="userscrap">
+	SELECT * FROM user_scrap 
+	</select>
+	
 	
 	<select id="s_scrap" resultType="scrap">
 	SELECT po.post_id, po.star_ratio, po.post_name, po.sale_ratio, po.whole_price, po.shipping_info1, po.po_category, po.po_subcate, s.company_name, pimg.photo_url 
@@ -25,8 +29,13 @@
 		) pimg ON po.post_id = pimg.photo_postid;
 	</select>
 	
+	<delete id="s_cancle" parameterType="userscrap">
+	DELETE FROM user_scrap WHERE sc_postid=#{sc_postid}
+	</delete>
 	
-	
+	<select id="userScrapList" resultType="userscrap">
+		SELECT sc_postid FROM user_scrap WHERE sc_usernum=#{sc_usernum};
+	</select>
 	
 	
 	

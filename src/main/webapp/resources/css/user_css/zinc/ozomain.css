@@ -76,6 +76,7 @@ img{
 
 /* ¿À´ÃÀÇ µô ¿µ¿ª */
 
+
 .store_index_section{
     margin-top: 50px;
 }
@@ -243,7 +244,7 @@ img{
     position: absolute;
     bottom: 12px;
     right: 12px;
-    z-index: 2;
+    z-index: 100;
     width: 24px;
     height: 24px;
     margin: 0;

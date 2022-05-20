@@ -33,4 +33,16 @@ public class UserScrapDAO {
 		sqlsessiontemplate.insert("UserScrapDAO.s_insert",vo);
 			
 	}
+	
+	//스크랩 중복확인용 테이블
+	public List<UserScrapVO> us_list(UserScrapVO vo) {
+		
+		return sqlsessiontemplate.selectList("UserScrapDAO.us_list");
+	
+	}
+	
+	public List<UserScrapVO> userScrapList(UserScrapVO vo){
+		System.out.println("--> mybatis userscrapselect");
+		return sqlsessiontemplate.selectList("UserScrapDAO.userScrapList", vo);
+	}
 }

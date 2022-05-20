@@ -74,4 +74,6 @@ public class UserProductVO {
 	//필요하면 쓰는 임의 값
 	private String exStr;
 	private int Int;
+	
+	private boolean checkit; // scrap
 }
