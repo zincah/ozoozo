@@ -65,5 +65,15 @@ public class AdminProductManageServiceImpl implements AdminProductManageService 
 		return adminManageDAO.bestSale(vo);
 	}
 
+	@Override
+	public int registrationWait() {
+		return adminManageDAO.registrationWait();
+	}
+
+	@Override
+	public int registrationHold() {
+		return adminManageDAO.registrationHold();
+	}
+
 	
 }

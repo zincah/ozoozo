@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.user.dao.UserMainDAO;
+import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserVO;
@@ -60,6 +61,16 @@ public class UserMainServiceImpl implements UserMainService {
 	@Override
 	public void lastLoginCheck(UserVO vo) { 
 		userMainDAO.lastLoginCheck(vo); // ¿Å°Ü¾ßÇÔ
+	}
+
+	@Override
+	public List<List<UserCategoryVO>> printCateList(UserProductVO vo) {
+		return userMainDAO.printCateList(vo);
+	}
+
+	@Override
+	public List<UserCategoryVO> printTop(UserProductVO vo) {
+		return userMainDAO.printTop(vo);
 	}
 
 

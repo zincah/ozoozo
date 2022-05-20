@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ozo.spring.house.user.dao.UserMainDAO;
 import ozo.spring.house.user.service.UserMainService;
+import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserProductVO;
 
 import java.text.DecimalFormat;
@@ -29,7 +30,7 @@ public class UserDealBestController {
 
 
 	@RequestMapping(value = "/brandshop.com")
-	public String main_shop(Model model){
+	public String main_shop(Model model, UserProductVO vo){
 
 		List<UserProductVO> shopItemList = userMainService.shopItemList();
 		System.out.println(shopItemList.size());
@@ -43,8 +44,17 @@ public class UserDealBestController {
 
 			sho.setSale_price(decFormat.format(sale_price));
 		}
+		
+		vo.setPost_sellerid(500001);
+		List<UserCategoryVO> toplist = userMainService.printTop(vo);
+		List<List<UserCategoryVO>> otherlist = userMainService.printCateList(vo);
 
-
+		
+		System.out.println(toplist.size());
+		System.out.println(otherlist.size());
+		
+		model.addAttribute("toplist", toplist);
+		model.addAttribute("otherlist", otherlist);
 		model.addAttribute("shopItemList", shopItemList);
 
 		return "ozoshop_main";

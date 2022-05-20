@@ -134,5 +134,15 @@ public class AdminManageDAO {
 		System.out.println("--> mybatis in adminmanagedao get bestSale");
 		return sqlSessionTemplate.selectList("AdminManageDAO.bestSale", vo);
 	}
+	
+	// INDEX PAGE
+	public int registrationWait() {
+		System.out.println("--> mybatis in adminmanagedao registration wait count");
+		return sqlSessionTemplate.selectOne("AdminManageDAO.registrationWait");
+	}
 
+	public int registrationHold() {
+		System.out.println("--> mybatis in adminmanagedao registration hold count");
+		return sqlSessionTemplate.selectOne("AdminManageDAO.registrationHold");
+	}
 }
