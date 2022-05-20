@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import ozo.spring.house.seller.vo.ProductVO;
 import ozo.spring.house.user.vo.CartVO;
+import ozo.spring.house.user.vo.CouponVO;
 import ozo.spring.house.user.vo.ImportVO;
 import ozo.spring.house.user.vo.UserAddressVO;
 import ozo.spring.house.user.vo.UserPaymentLogVO;
@@ -143,7 +145,12 @@ public class UserDAO {
 		return new product_cls();
 	}
 	public class product_cls{
+		public product_cls() {
+		}
 		
+		public CouponVO get_coupon(ProductVO pvo) {
+			return null;
+		}
 	}
 	
 	
@@ -222,8 +229,11 @@ public class UserDAO {
 		public List<UserProductVO> get_post_list() {
 			DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
 			for(int i = 0; i < post_li.size(); i++) {
+				try {
 				post_li.get(i).setExStr(decFormat.format(post_li.get(i).getPost_shipfee()));
-			}
+				}catch(NullPointerException np) {
+				}
+			}	
 			return post_li;
 		}
 		public List<UserAddressVO> address_check(CartVO cvo){
@@ -240,6 +250,12 @@ public class UserDAO {
 			sqlSessionTemplate.insert("UserProduct.payment_add",ivo);
 			sqlSessionTemplate.insert("UserProduct.order_add",ivo);
 		}
+		public void cart_del(List<CartVO> cvo) {
+			for(int i = 0; i < cvo.size(); i++) {
+				sqlSessionTemplate.delete("UserProduct.cart_del", cvo.get(i));
+			}
+		}
+		
 	}
 	// 결제내역
 	public paymentLog_cls get_paymentLog_class() {

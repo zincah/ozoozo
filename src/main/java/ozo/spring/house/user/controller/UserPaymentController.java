@@ -127,4 +127,11 @@ public class UserPaymentController {
 			pay_cls.payment_add(add_vo);
 		}
 	}
+	@ResponseBody
+	@RequestMapping(value = "/cart_delete.com", method=RequestMethod.POST)
+	public boolean cart_delete() {
+		System.out.println("calcul check potin");
+		pay_cls.cart_del(cart_li);
+		return true;
+	}
 }

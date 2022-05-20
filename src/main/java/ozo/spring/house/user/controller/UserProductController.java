@@ -37,9 +37,10 @@ public class UserProductController {
 		
 		List<UserProductVO> product_list;
 		List<UserProductVO> product_img_list;
+		UserProductVO coupon = new UserProductVO();
 		UserProductVO uvo = new UserProductVO();
 		uvo.setPost_id(Integer.parseInt(pro));
-		
+		pro_cls = userservice.get_product_class();
 		
 		DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
 		
@@ -76,10 +77,10 @@ public class UserProductController {
 		model.addAttribute("table", product_table2);
 		return "ProductDetail";
 	}
-	
+	// get option 2
 	@ResponseBody
 	@RequestMapping(value = "/option_send.com", method=RequestMethod.POST)
-	public List<UserProductVO> changePassword(@RequestBody String Option,UserProductVO vo, HttpSession session,HttpServletRequest request) {
+	public List<UserProductVO> get_option2(@RequestBody String Option,UserProductVO vo, HttpSession session,HttpServletRequest request) {
 		String option = Option.replace("\"", "");
 		System.out.println("사용자가 보낸 옵션 값 : "+ option +"\n");
 		vo.setOption1(option);
@@ -96,16 +97,14 @@ public class UserProductController {
 		return option_toString;
 	}
 	
-	// 장바구니 ajax
+	// cart insert
 	@ResponseBody
 	@RequestMapping(value = "/basket_ajax.com", method=RequestMethod.POST)
 	public String basket_add(@RequestBody String[] option_arr, HttpSession session, HttpServletRequest request) {
 		if(session.getAttribute("User_Num")==null) {
-			System.out.println("1");
-			return "redirect:login.com";
+			return "123";
 		}
 		if(option_arr.length == 0) {
-			System.out.println("2	");
 			return "error";
 		}
 		
@@ -129,6 +128,5 @@ public class UserProductController {
 		userservice.basket_add(option_li, U_vo);
 		System.out.println("장바구니 담기 성공!");
 		return null;
-		
 	}
 }
