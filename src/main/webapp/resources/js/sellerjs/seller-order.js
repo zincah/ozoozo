@@ -209,108 +209,6 @@ $(".check").change(function () {
   }
 });
 
-
-
-/* 판매상태 변경 기능 */
-// 모달 내 선택된 상품 수 표시
-$("#menu1").click(function () {
-	$(".orderNum").text($(".check:checked").length);
-});
-
-// 판매글 상태 변경 처리
-$("#pscSubmitBtn").click(function () {
-
-	// 선택된 상품의 product_id 값 배열로 받아오기
-	var pscList = new Array();
-	var index = 0;
-	$(".check:checked").each(function () {
-		pscList[index] = $(this).parent().next().text();
-		++index;
-	});
-	
-	// 상태 옵션값 받아오기
-	var statusOption = $("#statusOption option:selected").text();
-	
-	// 데이터 모으기
-	var allData = {"pscList":pscList, "statusOption":statusOption};
-	
-	// ajax 통신
-	$.ajax({
-		url : "postingStatusUpdate.seller",
-		type : "POST",
-		data : allData,
-		success : function(res) {
-			alert("판매글 상태 변경 완료");
-			document.location.reload(); // 페이지 새로고침
-		},
-		error : function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("판매글 상태 변경 실패");
-		}
-	});
-});
-
-
-
-/* 오늘의딜 신청 기능 */
-// 모달 내 선택된 상품 수 표시 & 선택된 상품 리스트 띄우기
-$("#dealApplication").click(function () {
-	$(".productNum").text($(".check:checked").length);
-	
-	// 선택<된 상품의 product_id 값 배열로 받아오기 (DB 처리용)
-	var postingList = new Array();
-	var index = 0;
-	$(".check:checked").each(function () {
-		postingList[index] = $(this).parent().next().text();
-		++index;
-	});
-	console.log(postingList);
-	
-	// ajax 통신
-	$.ajax({
-		url : "selectPostingList.seller",
-		type : "POST",
-		dataType : "html",
-		data : JSON.stringify(postingList),
-		contentType : "application/json",
-		success : function(res) {
-			$("#selectPostingView").html(res);
-		},
-		error : function(request, status, error) {
-			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		}
-	});
-	
-});
-
-// 신청버튼 클릭 후 deal_info에 등록
-$("#dealAppSubmitBtn").click(function () {
-
-	// 선택된 상품의 product_id 값 배열로 받아오기 (DB 처리용)
-	var postingList = new Array();
-	var index = 0;
-	$(".check:checked").each(function () {
-		postingList[index] = $(this).parent().next().text();
-		++index;
-	});
-	console.log(postingList);
-	
-	// ajax 통신
-	$.ajax({
-		url : "PostingDealAppUpdate.seller",
-		type : "POST",
-		data : JSON.stringify(postingList),
-		contentType : "application/json",
-		success : function(res) {
-			alert("오늘의딜 신청 완료");
-			document.location.reload(); // 페이지 새로고침
-		},
-		error : function(request, status, error) {
-			alert("오늘의딜 신청 실패");
-		}
-	});
-});
-
-
 /* 상품 검색 기능 */
 $(document).ready(function () {	
 	// 검색어 값 받아오기
@@ -425,7 +323,139 @@ function orderDetailView(orderIndex) {
   		contentType : 'application/json; charset=UTF-8',
   		dataType : 'html',
   		success : function(resp){
-  			$("#modal-view-order").html(resp);
+			$("#modal-view-order-change").empty();
+  			$("#modal-view-order-change").html(resp);
   		}
   	});
 }
+
+
+
+// 메뉴 버튼 클릭시 모달 내 선택된 주문건 리스트 띄우기
+$(".menu").click(function () {
+
+	$(".orderNum").text($(".check:checked").length);
+	
+	// 선택된 상품의 order_id 값 배열로 받아오기
+	var selectList = new Array();
+	var index = 0;
+	$(".check:checked").each(function () {
+		selectList[index] = $(this).parent().next().next().children().first().text();
+		++index;
+	});
+	
+	// ajax 통신
+	$.ajax({
+		url : "selectOrderList.seller",
+		type : "POST",
+		dataType : "html",
+		data : JSON.stringify(selectList),
+		contentType : "application/json",
+		success : function(res) {
+			$(".selectOrderView").html(res);
+		},
+		error : function(request, status, error) {
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	});
+})
+
+// 발주확인 처리
+$("#orderCheckSubmitBtn").click(function() {
+	
+	// 선택된 상품의 order_id 값 배열로 받아오기
+	var selectList = new Array();
+	var index = 0;
+	$(".check:checked").each(function () {
+		selectList[index] = $(this).parent().next().next().children().first().text();
+		++index;
+	});
+	
+	// ajax 통신
+	$.ajax({
+		url : "orderCheckUpdate.seller",
+		type : "POST",
+		data : JSON.stringify(selectList),
+		contentType : "application/json",
+		dateType : "json",
+		success : function(res) {
+			if(res=="fail") {
+				alert("발주 처리는 결제완료 상태인 주문건만 가능합니다.");
+			} else {
+				alert("발주 처리 완료");
+				document.location.reload(); // 페이지 새로고침
+			}
+		},
+		error : function(request, status, error) {
+			alert("발주 처리 실패");
+		}
+	});
+	
+})
+
+// 발송처리
+$("#sendSubmitBtn").click(function() {
+	
+	// 선택된 상품의 order_id 값 배열로 받아오기
+	var selectList = new Array();
+	var index = 0;
+	$(".check:checked").each(function () {
+		selectList[index] = $(this).parent().next().next().children().first().text();
+		++index;
+	});
+
+	// 선택된 상품의 order_Num 값 배열로 받아오기
+	var selectListON = new Array();
+	var index = 0;
+	$(".check:checked").each(function () {
+		selectListON[index] = $(this).parent().next().next().children().last().text();
+		++index;
+	});
+	
+	var delivery;
+	if($("#selectDelivery2").val() == 0) {
+		delivery = "CJ대한통운";
+	} else if($("#selectDelivery2").val() == 1) {
+		delivery = "롯데택배";
+	} else if($("#selectDelivery2").val() == 2) {
+		delivery = "한진택배";
+	} else if($("#selectDelivery2").val() == 3) {
+		delivery = "로젠택배";
+	} else if($("#selectDelivery2").val() == 4) {
+		delivery = "우체국택배";
+	}
+	var invoice = $("#inputInvoiceNumber").val();
+	
+	var allData = {
+		"selectList" : selectList,
+		"selectListON" : selectListON,
+		"delivery" : delivery,
+		"invoice" : invoice,
+	}
+	
+	// ajax 통신
+	$.ajax({
+		url : "orderSendUpdate.seller",
+		type : "POST",
+		data : JSON.stringify(allData),
+		contentType : "application/json",
+		dateType : "json",
+		success : function(res) {
+			if(res=="fail1") {
+				alert("발송 처리는 배송준비중 상태인 주문건만 가능합니다.");
+			} else if(res=="fail2") {
+				alert("발송 처리는 그룹주문번호가 같은 주문건만 가능합니다.");
+			} else if(res=="fail3") {
+				alert("송장번호를 입력해주세요.");
+			} else if(res=="fail4") {
+				alert("송장번호는 숫자 또는 8자리 이하로 입력해주세요.");
+			} else {
+				alert("발송 처리 완료");
+				document.location.reload(); // 페이지 새로고침
+			}
+		},
+		error : function(request, status, error) {
+			alert("발주 처리 실패");
+		}
+	});	
+})

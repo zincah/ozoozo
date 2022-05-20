@@ -287,16 +287,10 @@
 		var isBottom=scrollTop+windowHeight + 100 >= documentHeight;
 
 		if(isBottom){
-			/*
-			var st = $(this).scrollTop();
-			if(st > firstscroll){
-				console.log("down");
-			}else{
-				console.log("up");
-			}
-			firstscroll = st;*/
-
-			if(page == 2){ // productList개수/4 인 몫 값을 가져와야 함
+			
+			var pag = parseInt(${totalCount}/4);
+			
+			if(page == pag){ // productList개수/4 인 몫 값을 가져와야 함
 				return;
 			}
 			
@@ -394,16 +388,17 @@
 
 				<!-- for 문 -->
 				<c:forEach items="${todayDealList }" var="deal">
-					<div class="col-12 col-md-4 col-lg-3">
-						<div class="deals_list_wrap">
-							<article class="deals_item">
-								<a  style="text-decoration: none; width: 100%;">
-									<div class="deals_item_wrap">
-										<div class="deals_item_pic_out">
-											<div class="deals_item_pic">
-												<div class="item_ani">
-													<img class="images" src="${deal.photo_url }">
-												</div>
+
+				<div class="col-12 col-md-4 col-lg-3">
+					<div class="deals_list_wrap">
+						<article class="deals_item">
+							<a href="productPage.com?p=${deal.post_id }&deal=true" style="text-decoration: none; width: 100%;">
+								<div class="deals_item_wrap">
+									<div class="deals_item_pic_out">
+										<div class="deals_item_pic">
+											<div class="item_ani">
+												<img class="images" src="${deal.photo_url }">
+
 											</div>
 											
 											
@@ -553,7 +548,7 @@
 				<div class="category_list" id="category_list">
 					<!--for문 해야하나?-->
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=1">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate1.webp">
@@ -562,7 +557,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=2">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate2.webp">
@@ -571,7 +566,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=16">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate3.webp">
@@ -580,7 +575,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=3">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate4.webp">
@@ -589,7 +584,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=4">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate5.webp">
@@ -598,7 +593,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=5">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate6.webp">
@@ -607,7 +602,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=7">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate7.webp">
@@ -616,7 +611,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=6">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate8.webp">
@@ -625,7 +620,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=1_10500">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate9.webp">
@@ -634,7 +629,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=8">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate10.webp">
@@ -643,7 +638,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=9">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate11.webp">
@@ -652,7 +647,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=10">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate12.webp">
@@ -661,7 +656,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=11">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate13.webp">
@@ -670,7 +665,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=12">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate14.webp">
@@ -679,7 +674,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=13">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate15.webp">
@@ -688,7 +683,7 @@
 						</a>
 					</div>
 					<div class="category_item_wrap">
-						<a href="#">
+						<a href="category.com?catecode=15">
 							<div class="category_item">
 								<img class="category_item_image"
 									src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/cate16.webp">
@@ -758,16 +753,18 @@
 			<div class="row best_production" id="itemLayer">
 				<!-- for 문 -->
 				<c:forEach items="${productList }" var="product">
-					<div class="col-12 col-md-4 col-lg-3">
-						<div class="deals_list_wrap">
-							<article class="deals_item">
-								<a href="#" style="text-decoration: none; width: 100%;">
-									<div class="deals_item_wrap">
-										<div class="deals_item_pic_out">
-											<div class="deals_item_pic">
-												<div class="item_ani">
-													<img class="images" src="${product.photo_url}">
-												</div>
+
+
+				<div class="col-12 col-md-4 col-lg-3">
+					<div class="deals_list_wrap">
+						<article class="deals_item">
+							<a href="productPage.com?p=${product.post_id }" style="text-decoration: none; width: 100%;">
+								<div class="deals_item_wrap">
+									<div class="deals_item_pic_out">
+										<div class="deals_item_pic">
+											<div class="item_ani">
+												<img class="images" src="${product.photo_url}">
+
 											</div>
 											<button class="item_bookmark b_blue" id="${product.post_id }">
 												<svg xmlns="http://www.w3.org/2000/svg" width="24"
@@ -875,7 +872,9 @@
 		</section>
 	</div>
 
-	<div class="footer_topH" style="width: 100%"></div>
+
+	
+	<div class="footer_topH" style="width:100%"></div>
 	<!-- paging -->
 
 

@@ -45,7 +45,7 @@ public class UserCategoryDAO {
 	}
 	
 	public List<UserProductVO> selectProductByCate(UserCategoryVO vo){
-		System.out.println("--> mybatis select product by catecode");
+		System.out.println("--> mybatis select product");
 		return sqlSessionTemplate.selectList("UserCategoryDAO.selectProductByCate", vo);
 	}
 	
@@ -66,7 +66,28 @@ public class UserCategoryDAO {
 		
 		vo.setPost_ids(postids);
 		System.out.println("postids : " + postids.size());
+
 		return sqlSessionTemplate.selectList("UserCategoryDAO.selectProductByFilter", vo);
+	}
+	
+	public int filteringCount(UserCategoryVO vo) {
+		System.out.println("--> mybatis in usercategorydao get filtercount");
+		List<UserCategoryVO> list = sqlSessionTemplate.selectList("UserCategoryDAO.getPostList", vo);
+		List<Integer> postids = new ArrayList<Integer>();
+		
+		for(int i=0; i<list.size(); i++) {
+			UserCategoryVO postid = list.get(i);
+			int post = postid.getDprodetails_postid();
+			postids.add(post);
+		}
+		
+		vo.setPost_ids(postids);
+		System.out.println("postids : " + postids.size());
+		return sqlSessionTemplate.selectOne("UserCategoryDAO.filteringCount",vo);
+	}
+	
+	public int getCategoryCount(UserCategoryVO vo) {
+		return sqlSessionTemplate.selectOne("UserCategoryDAO.getCategoryCount", vo);
 	}
 	
 	public List<List<FilterVO>> getFilterOption(UserCategoryVO vo) {
@@ -92,6 +113,8 @@ public class UserCategoryDAO {
 
 		return list;
 	}
+	
+	
 	
 
 	

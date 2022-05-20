@@ -272,7 +272,7 @@ input[type="date"] {
 	font-size: 11px;
 	padding: 0;
 	font-weight: 600;
-	width: 7.5rem;
+	width: 7.7rem;
 }
 
 .accordion-button::after {
@@ -528,4 +528,15 @@ input[type="date"] {
 
 .marginTop1 {
 	margin-top: 1rem;
+}
+
+@media (min-width: 576px) {
+	.modal-dialog {
+	    max-width: 1000px;
+	    margin: 1.75rem auto;
+	}
+}
+
+.modal-footer {
+	border-top: 1px solid #ffffff;
 }

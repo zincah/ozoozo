@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.seller.service.CategoryService;
 import ozo.spring.house.seller.service.SellerOrderService;
@@ -92,5 +93,104 @@ public class SellerOrderController {
 		
 		// ajax로 부분만 띄워줄 jsp 주소 리턴
 		return "seller-order-detail";
+	}
+	
+	// 선택된 주문건 리스트(메뉴 모달용)
+	@RequestMapping(value = "/selectOrderList.seller", method=RequestMethod.POST)
+	public String selectOrderList(HttpServletRequest request, Model model, ProductVO vo, @RequestBody ArrayList<String> datas) {	
+		HttpSession session = request.getSession();
+		
+		// 하나씩 출력될 주문건 리스트를 저장할 변수
+		List<ProductVO> selectOrderList = new ArrayList<ProductVO>();
+		
+		// 넘겨받은 order_id 배열값 하나씩 뽑고 쿼리문 처리
+		for(String selectOrderId : datas) {
+			vo.setOrder_id(Integer.parseInt(selectOrderId));
+			vo.setSeller_id((int) session.getAttribute("seller_id"));
+			selectOrderList.add(sellerOrderService.selectOrderListModal(vo));
+		}
+
+		// model에 값 저장
+		model.addAttribute("selectOrderList", selectOrderList);
+		
+		// ajax로 부분만 띄워줄 jsp 주소 리턴
+		return "seller-order-selectList";
+	}
+	
+	// 발주처리
+	@ResponseBody
+	@RequestMapping(value = "/orderCheckUpdate.seller", method=RequestMethod.POST)
+	public String orderCheckUpdate(HttpServletRequest request, Model model, ProductVO vo, @RequestBody ArrayList<String> datas) {	
+		HttpSession session = request.getSession();
+		
+		// 주문건 상태가 '결제완료'가 아닐경우 실패 처리
+		for(String selectOrderId : datas) {
+			vo.setOrder_id(Integer.parseInt(selectOrderId));
+			vo.setSeller_id((int) session.getAttribute("seller_id"));
+			ProductVO orderStatus = sellerOrderService.selectOrderListModal(vo);
+			if(!orderStatus.getOrder_status().equals("결제완료")) {
+				return "fail";
+			}
+		}
+		
+		// 넘겨받은 order_id 배열값 하나씩 뽑고 쿼리문 처리
+		for(String selectOrderId : datas) {
+			vo.setOrder_id(Integer.parseInt(selectOrderId));
+			vo.setSeller_id((int) session.getAttribute("seller_id"));
+			sellerOrderService.updateOrderCheck(vo);
+		}
+		
+		return "success";
+	}
+	
+	// 발송처리
+	@ResponseBody
+	@RequestMapping(value = "/orderSendUpdate.seller", method=RequestMethod.POST)
+	public String orderSendUpdate(HttpServletRequest request, Model model, ProductVO vo, @RequestBody Map<String, Object> datas) {	
+		HttpSession session = request.getSession();
+		
+		@SuppressWarnings("unchecked")
+		ArrayList<String> selectOrderIdList = (ArrayList<String>) datas.get("selectList");
+		@SuppressWarnings("unchecked")
+		ArrayList<String> selectOrderNumList = (ArrayList<String>) datas.get("selectListON");
+		String delivery = (String) datas.get("delivery");
+		if((String) datas.get("invoice") == null || ((String) datas.get("invoice")).equals("")) {
+			return "fail3";
+		}
+		int invoice;
+		try { // 숫자가 아닌 값이 들어갈 경우 예외처리
+			invoice = Integer.valueOf(((String) datas.get("invoice")).trim());
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			return "fail4";
+		}
+		
+		// 주문건 상태가 '배송준비중'이 아닐경우 실패 처리
+		for(String selectOrderId : selectOrderIdList) {
+			vo.setOrder_id(Integer.parseInt(selectOrderId));
+			vo.setSeller_id((int) session.getAttribute("seller_id"));
+			ProductVO orderStatus = sellerOrderService.selectOrderListModal(vo);
+			if(!orderStatus.getOrder_status().equals("배송준비중")) {
+				return "fail1";
+			}
+		}
+
+		// 같은 그룹주문번호인지 검증
+		for(int i=1; i < selectOrderNumList.size(); i++) {
+			if(!selectOrderNumList.get(0).equals(selectOrderNumList.get(i))) {
+				return "fail2";
+			}
+		}
+		
+		// 넘겨받은 order_id 배열값 하나씩 뽑고 쿼리문 처리
+		for(String selectOrderId : selectOrderIdList) {
+			vo.setOrder_id(Integer.parseInt(selectOrderId));
+			vo.setSeller_id((int) session.getAttribute("seller_id"));
+			vo.setDelivery(delivery);
+			vo.setInvoice_number(invoice);
+			sellerOrderService.updateOrderSend(vo);
+		}
+		
+		return "success";
 	}
 }

@@ -227,7 +227,9 @@
                                         </a>
                                     </span>
                                 </div>
+                                
                                 <!-- 쿠폰 기능 -->
+                                 <c:if test="${product[0].post_couponid != ''}  ">
                                 <div class="css-72tjgz e1gkvgq70">
                                     <button type="button" class="css-vs55nv emhbdh42" id="couponOn" onclick="openCoupon()" >
                                         <div class="css-px0sae emhbdh41">
@@ -247,6 +249,7 @@
                                         </div>
                                     </button>
                                 </div>
+                                </c:if>
                             </div>
                             
                                 
@@ -392,7 +395,7 @@
                                         			option_val = $("."+S1.id).val() + "," + S2.options[S2.selectedIndex].text + ":1";
                                         		}
                                         		//console.log($("#"+S1).val());
-                                        		//console.log(option_val);
+                                        		console.log(option_val);
                                         		
                                         		splitStr = option_val.split(":");
                                         		for(var i in option_arr){
@@ -403,7 +406,6 @@
                                         			}
                                         		}
                                         		option_arr.push(option_val);
-                                        		console.log(option_arr);
                                         		$.ajax({
                                         			url:'option_toString.com',
                                         			method:'post',
@@ -411,6 +413,7 @@
                                         			contentType : 'application/json; charset=UTF-8',
                                       		  		dataType : 'json',
                                       		  		success : function(option_toString_list){
+                                      		  			console.log("ajax : " + option_toString_list);
                                       		  			buy_item(option_toString_list);
                                       		  		}
                                         		})
@@ -560,10 +563,10 @@
                                 			$(".selling-option-form-content__price__number").text(int_comma(all));
                                 		}
                                 		function product_EA_change(className, selectNum){
+                                			console.log("check" + className + selectNum);
                                 			exCls = $(className).attr('class').split(" ");
                                 			Str = $("." + exCls[1]).text();
 											Str = Str.replace(/ /gi,'').replace(/\t/gi,'').split("\n");
-                                			
                                 			if(select){
                                 				option = Str[0].split("/")
                                 				option1 = option[0].split(":");
@@ -575,9 +578,10 @@
                                 			}
                                 			for(i = 0; i < option_arr.length; i++){
                                 				splitStr = option_arr[i].split(":");
-                                				if(toStr == splitStr[0]){
+                                				console.log("check2 : \n" + splitStr[0]+ "\n" + toStr);
+                                				if(toStr == splitStr[0].replace(/ /gi,'')){
                                 					var Num = parseInt(selectNum) + 1;
-                                					option_arr[i] = toStr + ":" + Num;
+                                					option_arr[i] = splitStr[0] + ":" + Num;
                                 				}
                                 			}
                                 			console.log(option_arr);
@@ -2031,8 +2035,12 @@ function basket(){
 			contentType : 'application/json; charset=UTF-8',
 			dataType : 'json',
 			success : function(after){
+				console.log(after);
 				if(after == "error"){
 					alert("최소 하나의 상품을 등록해주세요.");
+				}else if(after == "123"){
+					alert("로그인 후 이용해 주세요.");
+					location.href = 'http://localhost:8080/house/login.com';
 				}else if(after == null){
 					alert("성공적으로 장바구니에 담았습니다.");
 				}

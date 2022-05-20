@@ -9,7 +9,7 @@
 <div class="col-12 col-md-4 col-lg-3">
 	<div class="deals_list_wrap">
 		<article class="deals_item">
-			<a href="#" style="text-decoration: none; width: 100%;">
+			<a href="productPage.com?p=${product.post_id }" style="text-decoration: none; width: 100%;">
 				<div class="deals_item_wrap">
 					<div class="deals_item_pic_out">
 						<div class="deals_item_pic">

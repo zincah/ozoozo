@@ -41,6 +41,9 @@ public class UserCategoryVO {
 	private List<String> filtering;
 	private List<Integer> post_ids;
 	
+	// paging
+	private int thispage;
+	
 	
 	
 }

@@ -85,18 +85,10 @@
 
 
 
-
-
-
-
                         <div class="sb-sidenav-menu-heading">Sales Management</div>
                         <a class="nav-link" href="salesStatus.admin">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             매출현황
-                        </a>
-                        <a class="nav-link" href="calculateManagement.admin">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            정산관리
                         </a>
 
                         <div class="sb-sidenav-menu-heading">CS Management</div>

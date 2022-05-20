@@ -21,11 +21,18 @@ public class AdminProductVO {
 	private double star_ratio;
 	private String post_name;
 	private Timestamp product_created;
+	private Timestamp post_created;
 	private int product_count;
 	private String cate_name;
 	private String subcate_name;
 	private String post_status;
 	private int post_couponid;
+	
+	// seller
+	private int seller_id;
+	private String representative;
+	private int registration_num;
+	private String seller_status;
 	
 	// posting
 	private boolean today_deal;
@@ -51,6 +58,12 @@ public class AdminProductVO {
 	// 매출 정리 payment
 	private int payment;
 	private int quantity;
+	private int realPayment;
+	private int fee;
+	private int cnt;
+	private int whole_price;
+	private int sale_ratio;
+	private long sale_price;
 	
 	private Timestamp deal_time;
 	private Timestamp deal_endtime;

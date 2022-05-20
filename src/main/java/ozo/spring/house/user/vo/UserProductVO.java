@@ -30,6 +30,8 @@ public class UserProductVO {
 	private int cart_quantity;
 	private int post_shipfee;
 	private int product_shipfee;
+	
+	private int post_couponid;
 	// «“¿Œ¿≤
 	private String sale_price;
 	
@@ -50,6 +52,7 @@ public class UserProductVO {
 	private String product_content;
 	private String product_table;
 	private String product_postid;
+	private String shop_tell;
 	
 	private String option;
 	

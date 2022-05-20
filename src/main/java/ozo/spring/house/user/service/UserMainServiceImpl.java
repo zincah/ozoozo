@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ozo.spring.house.admin.vo.BannerVO;
+import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.dao.UserMainDAO;
+import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserVO;
@@ -31,6 +33,11 @@ public class UserMainServiceImpl implements UserMainService {
 	public List<UserProductVO> plusProductList(UserPagingVO pvo) {
 		return userMainDAO.plusProductList(pvo);
 	}
+	
+	@Override
+	public int getProductCount() {
+		return userMainDAO.getProductCount();
+	}
 
 	@Override
 	public List<BannerVO> selectBannerList() {
@@ -43,8 +50,8 @@ public class UserMainServiceImpl implements UserMainService {
 	}
 
 	@Override
-	public List<UserProductVO> shopItemList() {
-		return userMainDAO.shopItemList();
+	public List<UserProductVO> shopItemList(UserProductVO vo) {
+		return userMainDAO.shopItemList(vo);
 	}
   
   @Override
@@ -56,6 +63,23 @@ public class UserMainServiceImpl implements UserMainService {
 	public void lastLoginCheck(UserVO vo) { 
 		userMainDAO.lastLoginCheck(vo); // ¿Å°Ü¾ßÇÔ
 	}
+
+	@Override
+	public List<List<UserCategoryVO>> printCateList(UserProductVO vo) {
+		return userMainDAO.printCateList(vo);
+	}
+
+	@Override
+	public List<UserCategoryVO> printTop(UserProductVO vo) {
+		return userMainDAO.printTop(vo);
+	}
+
+	@Override
+	public SellerVO sellerInfo(UserProductVO vo) {
+		return userMainDAO.sellerInfo(vo);
+	}
+
+
 
   
 

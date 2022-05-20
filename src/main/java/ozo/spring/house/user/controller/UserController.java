@@ -38,16 +38,15 @@ public class UserController {
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		
 		// product list �뜝�떛源띿삕
+
 		vo.setCheckit(false);
+
 		List<UserProductVO> productList = userMainService.mainProductList(vo);
+		int total = userMainService.getProductCount();
 		
 		// �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕 list �뜝�떛源띿삕
 		List<UserProductVO> todayDealList = userMainService.mainDealProductList(vo);
 		System.out.println(todayDealList.size());
-		
-		
-		
-		
 		
 		// main banner list �뜝�떛源띿삕
 		List<BannerVO> bannerList = userMainService.selectBannerList();
@@ -61,6 +60,7 @@ public class UserController {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
+
 			DecimalFormat decFormat = new DecimalFormat("###,###"); 
 			
 			pro.setSale_price(decFormat.format(sale_price));
@@ -78,7 +78,6 @@ public class UserController {
 			int sale_price = pro.getDeal_saleprice()*(100-pro.getSale_ratio())/100;
 			
 			DecimalFormat decFormat = new DecimalFormat("###,###"); 
-			
 			pro.setSale_price(decFormat.format(sale_price));
 			
 			for(int j=0; j<scrap.size(); j++) {
@@ -89,6 +88,7 @@ public class UserController {
 			}
 		}
 
+		model.addAttribute("totalCount", total);
 		model.addAttribute("productList", productList);
 		model.addAttribute("todayDealList", todayDealList);
 		model.addAttribute("bannerList", bannerList);
@@ -99,11 +99,7 @@ public class UserController {
 	public String user_best() {
 		return "ozobest_zinc";
 	}
-	@RequestMapping(value = "/category.com")
-	public String user_category() {
-		return "ozocategory_zinc";
-	}
-	
+
 	
 
 	
@@ -123,25 +119,14 @@ public class UserController {
 	public String user_Review_W() {
 		return "myReview-write";
 	}
-	@RequestMapping(value = "/orders.com")
-	public String user_orders() {
-		return "orders";
-	}
+
 	
 	
 	@RequestMapping(value = "/customercenter.com")
 	public String user_customercenter() {
 		return "customercenter";
 	}
-	// my_shopping (status) �뜝�떛怨ㅼ삕 �뜝�떥怨ㅼ삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�옚�뜝�룞�삕�뜝占�
-	
-	
-	//�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
-	@RequestMapping(value = "/myshopping.com")
-	public String user_myShopping() {
-		return "my_shopping_status";
-	}
-	//�뜝�룞�삕�뜝�떎紐뚯삕�뜝�룞�삕
+
 	@RequestMapping(value = "/myreview.com")
 	public String user_myReview_view() {
 		return "myReview-view";
@@ -183,6 +168,20 @@ public class UserController {
 	@RequestMapping(value = "/passwordReset.com")
 	public String user_passwordReset() {
 		return "passwordReset";
+	}
+	
+	@RequestMapping(value = "/error404.com")
+	public String error404() {
+		return "error/404Error";
+	}
+	
+	@RequestMapping(value = "/error500.com")
+	public String error500() {
+		return "error/500Error";
+	}
+	@RequestMapping(value = "/shoptest.com")
+	public String shop() {
+		return "shop";
 	}
 
 

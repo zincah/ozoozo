@@ -6,33 +6,34 @@
 
 	<!-- 상품 상세 페이지 가져오기 -->
 	<select id="product_get" resultType="userproduct">
-		SELECT DISTINCT ON(option1) po.option1,c.cate_name,sc.subcate_name, s.company_name,pp.post_name, pp.sale_ratio, pp.whole_price, p.product_id, po.option1_name, po.option2_name from product_posting pp
+		SELECT DISTINCT ON(option1) pp.post_couponid, 	po.option1,c.cate_name,sc.subcate_name, s.company_name,pp.post_name, pp.sale_ratio, pp.whole_price, p.product_id, po.option1_name, po.option2_name from product_posting pp
 	inner join product p on pp.post_id = p.product_postid 
 	inner join product_option po on p.product_id = po.op_productid
 	inner join seller s on s.seller_id = pp.post_sellerid 
 	inner join category c ON c.cate_code = po_category 
 	inner join sub_category sc ON sc.subcate_code = pp.po_subcate 
-	where pp.post_id = 50003; <!-- 여기다가 id 값 넣어주면 됨 -->
+	where pp.post_id = #{post_id}; <!-- 여기다가 id 값 넣어주면 됨 -->
 	</select>
+	
 	<!-- 2번 옵션 겁색 셀렉트	 -->
 	<select id="product_option2_get" resultType="userproduct">
 		SELECT  s.company_name,ps.post_name, ps.sale_ratio, ps.whole_price, p.product_id, po.option1_name , po.option1, po.option2_name , po.option2  FROM seller s 
 			INNER JOIN product_posting ps ON ps.post_sellerid = s.seller_id 
 			INNER JOIN product p ON p.product_postid =  ps.post_id 
 			INNER JOIN product_option po ON p.product_id = po.op_productid	
-			WHERE po.option1 = #{option1} AND post_id=50003;
+			WHERE po.option1 = #{option1} AND post_id=#{post_id};
 	</select>
 	
 	<select id="product_Get_img" resultType="userproduct">
 	select pi2.photo_url, pi2.photo_separate  from product_posting pp 
 		inner join product_image pi2 on pi2.photo_postid = pp.post_id 
-		where pp.post_id = 50003 order by pi2.photo_id asc;
+		where pp.post_id = #{post_id} order by pi2.photo_id asc;
 	
 	</select>
 	
 	<select id="product_Get_table" resultType="user_P_table">
 	select * from product_tables 
-	where protable_postid = 50003;
+	where protable_postid = #{protable_postid};
 	</select>
 	
 	<select id="basket_info" resultType="cart">
@@ -43,12 +44,15 @@
 	<select id="product_Get_id" resultType="cart">
 	SELECT p.product_id,p.seller_id,p.product_price FROM product p 
 		inner join product_option po on p.product_id = po.op_productid 
-		where po.option1 = #{option1} and po.option2 = #{option2} and p.product_postid = 50003
+		where po.option1 = #{option1} and po.option2 = #{option2} and p.product_postid = ${post_id};
 	</select>
-	
+	<insert id="addr_add">
+	insert into address(address_name, receiver, phone_num, address1, address2, addr_default,user_num)
+		values(#{address_name}, #{receiver}, #{phone_num}, #{address1}, #{address2}, #{addr_default}, ${user_num})
+	</insert>
 	<insert id="cart_add" >
 	insert into cart(cart_user,cart_post,cart_product,  cart_quantity,  cart_payment, cart_seller) 
-		values (#{cart_user},50003, #{product_id}, #{EA}, #{cart_payment}, #{seller_id} );
+		values (#{cart_user},#{cart_post}, #{product_id}, #{EA}, #{cart_payment}, #{seller_id} );
 	</insert>
 	
 	<update id="cart_upload">
@@ -136,4 +140,46 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
 	inner join user_table ut on ut.user_num = a.user_num 
 	where a.user_num = #{cart_user};
 	</select>
+	<insert id="payment_add">
+		insert into payment(payment_id,pay_ordernum,payment_way,payment_total, py_sellerid, py_final)
+	values((select coalesce(max(payment_id), 0)+1 from payment),#{ merchant_uid},#{pay_method},#{price},#{seller_id},#{paid_amount});
+	</insert>
+	<insert id="order_add">
+	<!-- 배송지 ID 넣어야함 -->
+	insert into user_order(order_id,quantity, order_status, product_id, user_num, seller_id, order_num, shipping_fee, payment)
+	values((select coalesce(max(order_id), 0)+1 from user_order),#{quantity},#{order_status},#{product_id},#{UID},#{seller_id},#{merchant_uid},#{shipfee},#{final_price});
+	</insert>
+	
+	<!-- 결제내역 -->
+	<select id="get_paymentLogVO" resultType="paymentlog">
+		select * from user_order uo where user_num = #{user_num} order by uo.order_date desc;;
+	</select>
+	
+	<select id="get_date_filter" resultType="paymentlog">
+		select uo.order_num, uo.order_date  from (select distinct on (order_num) *
+	from user_order) uo 
+	where uo.user_num = ${user_num}
+	order by uo.order_date desc;
+	</select>
+	
+	<select id="get_wide_list" resultType="userproduct">
+	select pp.post_id, pp.post_name,s.seller_id ,s.company_name, s.shop_tell, p.product_price, p.product_id, po.option1, po.option2, po.option1_name , po.option2_name, pimg.photo_url  from product_posting pp  
+	inner join seller s on pp.post_sellerid = s.seller_id 
+	inner join product p on p.product_postid  = pp.post_id 
+	inner join product_option po on po.op_productid = p.product_id 
+	INNER JOIN (
+         SELECT photo_id, photo_postid, photo_url FROM product_image 
+         WHERE (photo_id, photo_postid) 
+         IN (
+            SELECT MIN(photo_id) AS photo_id, photo_postid
+            FROM product_image 
+            GROUP BY photo_postid 
+         )
+      ) pimg ON p.product_postid = pimg.photo_postid
+	where p.product_id = #{product_id}
+	</select>
+	<delete id="cart_del">
+	delete from cart where cart_product = #{cart_product};
+	</delete>
+	
 </mapper>

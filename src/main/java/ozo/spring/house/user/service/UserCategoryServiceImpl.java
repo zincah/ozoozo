@@ -46,11 +46,23 @@ public class UserCategoryServiceImpl implements UserCategoryService{
 	public List<UserProductVO> getPostList(UserCategoryVO vo) {
 		return userCategoryDAO.getPostList(vo);
 	}
+	
+	@Override
+	public int filterCount(UserCategoryVO vo) {
+		return userCategoryDAO.filteringCount(vo);
+	}
+	
+	@Override
+	public int getCategoryCount(UserCategoryVO vo) {
+		return userCategoryDAO.getCategoryCount(vo);
+	}
 
 	@Override
 	public List<List<FilterVO>> getFilterOption(UserCategoryVO vo) {
 		return userCategoryDAO.getFilterOption(vo);
 	}
+
+
 
 
 }

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link href="resources/css/user_css/header/ozohouseError.css" rel="stylesheet" />
+<link href="resources/css/user_css/header/500Error.css?var=1" rel="stylesheet" />
 <link href="resources/css/user_css/header/style.css" rel="stylesheet" />
 <title>Insert title here</title>
 </head>

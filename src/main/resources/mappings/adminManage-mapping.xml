@@ -11,6 +11,16 @@
 		SELECT COUNT(lc_usernum), login_date FROM logincount GROUP BY login_date ORDER BY login_date DESC
 		LIMIT 7 OFFSET 0 * 7
 	</select>
+	
+	<!-- 인덱스 페이지 : 등록 요청 -->
+	<select id="registrationWait" resultType="int">
+		SELECT COUNT(*) FROM product_posting WHERE post_status='승인대기';
+	</select>
+	
+	<!-- 인덱스 페이지 : 등록 보류 -->
+	<select id="registrationHold" resultType="int">
+		SELECT COUNT(*) FROM product_posting WHERE post_status='보류중';
+	</select>
 
 	<!-- 회원관리 -->
 	<select id="selectUser" resultType="user">
@@ -274,7 +284,55 @@
 	INNER JOIN seller s ON s.seller_id = po.post_sellerid
 	INNER JOIN category ca ON ca.cate_code = po.po_category
 	INNER JOIN deal_info deal ON po.post_id = deal.deal_postid
+	<where>
+		deal.deal_time BETWEEN #{startdate} AND #{enddate}		
+		<if test="keyword != '' and keyword != null">
+			<trim prefix="and">
+			company_name like '%'||#{keyword}||'%'
+			<trim prefix="or">
+			post_name like '%'||#{keyword}||'%'
+			</trim>
+			</trim>
+		</if>
+	</where>
 	ORDER BY deal.deal_time DESC;
 	</select>
+	
+	<!-- 업체별 매출 -->
+	<select id="sellerSale" resultType="adminproduct">
+	SELECT s.*, sale.quantity, sale.payment FROM seller s
+	INNER JOIN (
+		SELECT SUM(quantity) AS quantity, SUM(payment) AS payment, seller_id AS sid FROM user_order 
+		WHERE order_date BETWEEN #{startdate} AND #{enddate}
+		GROUP BY seller_id
+	) sale ON s.seller_id = sale.sid
+	<where>
+	<if test="keyword != '' and keyword != null">
+		s.company_name like '%'||#{keyword}||'%'
+	</if>
+	</where>
+	</select>
+	
+	<!-- best30 매출 -->
+	<select id="bestSale" resultType="adminproduct">
+		SELECT po.post_id, s.company_name, po.post_name, c.cate_name, po.whole_price, po.sale_ratio, 
+		best.quantity, best.payment, best.cnt, po.post_created, po.today_deal FROM product_posting po
+		INNER JOIN (
+		SELECT COUNT(od_postid) AS cnt, SUM(quantity) AS quantity, SUM(payment) AS payment, od_postid AS bestid
+		FROM user_order GROUP BY od_postid ORDER BY cnt DESC fetch first 30 row only
+		) best ON po.post_id = best.bestid
+		INNER JOIN category c ON po.po_category = c.cate_code
+		INNER JOIN seller s ON po.post_sellerid = s.seller_id
+		<where>
+		<if test="keyword != '' and keyword != null">
+			s.company_name like '%'||#{keyword}||'%'
+			<trim prefix="or">
+			po.post_name like '%'||#{keyword}||'%'
+			</trim>
+		</if>
+		</where>
+	</select>
+	
+	
 	
 </mapper>

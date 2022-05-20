@@ -53,8 +53,16 @@
 		$(".email1").val(email[0]);
 		$(".email2").val(email[1]);
 		phone = "${address_true.phone_num}";
-    	phone = phone.split("-");
-    	$(".phone").val(phone[1] + "-" + phone[2]);
+		if("${address_true.phone_num}" != ''){
+			phone = phone.split("-");
+	    	$(".phone").val(phone[1] + "-" + phone[2]);
+			
+		}
+    	
+    	/* for(i=0; i < 10; i++){
+    		console.log(payment_UID());
+    	} */
+    	
     }
     
     </script>
@@ -78,12 +86,13 @@
 			}
 			all_price(All_price,shipfee);
 		}
+		var final_price = 0;
 		function all_price(price, shipfee){
 			$(".all_price").text(int_comma(price) + "원");
 			$(".shipfee").text(int_comma(shipfee) + "원");
 			
 			
-			var final_price = price + shipfee;
+			final_price = price + shipfee;
 			
 			fp = int_comma(final_price);
 			$(".final_price").text(fp);
@@ -95,34 +104,6 @@
 			$(".emiurti3").remove();
 			$(".emiurti0").addClass("email2");
 		}
-		/* var IMP = window.IMP;
-		IMP.init("imp9096979898");
-		
-		function requestPay() {
-		      // IMP.request_pay(param, callback) 결제창 호출
-		      IMP.request_pay({ // param
-		          pg: "html5_inicis",
-		          pay_method: "card",
-		          merchant_uid: "ORD20180131-0000011",
-		          name: "노르웨이 회전 의자",
-		          amount: 64900,
-		          buyer_email: "gildong@gmail.com",
-		          buyer_name: "홍길동",
-		          buyer_tel: "010-4242-4242",
-		          buyer_addr: "서울특별시 강남구 신사동",
-		          buyer_postcode: "01181"
-		      }, function (rsp) { // callback
-		          if (rsp.success) {
-		              ...,
-		              // 결제 성공 시 로직,
-		              ...
-		          } else {
-		              ...,
-		              // 결제 실패 시 로직,
-		              ...
-		          }
-		      });
-		    } */
 		
 		function sample6_execDaumPostcode() {
 	        new daum.Postcode({
@@ -178,39 +159,160 @@
 		function addr_change_close(){
 			$(".addr_change_div").hide();
 		}
-		
-		
+		var way_payment ="card";
+		function payment_change(this_class){
+		    $(".css-8sa7n1").addClass("css-1jzgr0t");
+		    $(".css-8sa7n1").removeClass("css-8sa7n1");
+		    $(this_class).removeClass("css-1jzgr0t");
+			$(this_class).addClass("css-8sa7n1");
+			$(".css-9n3kbk").addClass("css-10z9090");
+			$(".css-9n3kbk").removeClass("css-9n3kbk");
+			
+			son = $(this_class).find(".css-10z9090");
+			$(son).addClass("css-9n3kbk");
+			$(son).removeClass("css-10z9090");
+			way_payment = this_class.id;
+		}
+		function address_add(){
+			addr_li = [];
+			addr_li.push($("#shipID").val()); //배송지명
+			addr_li.push($(".recipient").val()); //받는 사람
+			addr_li.push($("#sample6_postcode").val()); // 5자리
+			addr_li.push($("#sample6_address").val()); // 주소
+			addr_li.push($("#sample6_detailAddress").val()); // 추가 주소
+			phone = $('input[name=phone]').val();
+			phone1 = phone.substr(0,4);
+			phone2 = phone.substr(4,8);
+			addr_li.push($('select[name=phone1]').val() + "-" + phone1 + "-" + phone2); // 추가 주소
+			//addr_li.push($(".shipmemo").val()); //배송 메모
+			$.ajax({
+    			url: "addr_insert.com", 
+    			method: "POST",
+	            headers: { "Content-Type": "application/json" },
+	            dataType : 'json',
+	            data: JSON.stringify(addr_li),
+	            success : function(){
+	            }
+	        })
+		}
 		// 여기서 부터 결제
 		  var IMP = window.IMP; // 생략 가능
 	    IMP.init("imp90839936"); // 예: imp00000000
 	    //결제 요청하기
 	    function requestPay() {
-	    	email = $("email1").val() + "@" + $("email2").val();
-	    	title = ${post_li[0].post_name}
+	    	 address_add();
+	    	 return;
+	    	email = $(".email1").val() + "@" + $(".email2").val();
+	    	checkBox = $('input[name=isAgree]').is(':checked');
+	    	if(${post_li.size()} == 1){
+	    		title = "${post_li[0].post_name}";
+	    	}else{
+	    		ea = parseInt(${post_li.size()} - 1);
+	    		console.log(email);
+	    		console.log("수량 : " + ea);
+	    		title = "${post_li[0].post_name} 외 " + ea + "개";
+	    	}
+	    	if($('input[name=name]').val() == ''){
+	    		alert("이름을 입력해 주세요.");
+	    		return;
+	    	}else if($('input[name=email]').val() == ''){
+	    		alert("이메일을 입력해 주세요.");
+	    		return;
+	    	}else if($(".email2").val() == '' ){
+	    		alert("이메일 형식이 올바르지 않습니다.");
+	    		return;
+	    	}else if($('input[name=phone]').val() == ''){
+				alert("핸드폰번호를 작성해 주세요.");
+				return
+	    	}else if($('#sample6_postcode').val() == ''){
+	    		alert("주소를 선택해주세요.");
+	    		return;
+	    	}else if($("#shipID").val() == ''){
+	    		alert("배송지명을 입력해주세요.");
+	    		return;
+	    	}else if($('input[name=recipient]').val() == ''){
+	    		alert("받는분 성함을 입력해주세요.");
+	    		return;
+	    	}else if(!checkBox){
+	    		alert("개인정보 동의를 해주세요.");
+	    		return;
+	    	}
 	    	
 	    	
+	    	address_add();
+			phone_ = $("select[name=phone1]").val() + "-" + $('input[name=phone]').val();	    	
+	    	address = "${address_true.address1}"
+	    	address = address.replace("[","").split("]");
+			console.log(address);	    	
 	    	
 	        // IMP.request_pay(param, callback) 결제창 호출
 	        IMP.request_pay({ // param
 	            pg: "html5_inicis",
-	            pay_method: "kakaopay",
-	            merchant_uid: "50003_" + new Date().getTime(),
-	            name: "노르웨이 회전 의자",
-	            amount: 300,
+	            pay_method: way_payment,
+	            merchant_uid: parseInt(payment_UID()),
+	            name: title,
+	            amount: 100,//final_price,
 	            buyer_email: email,
-	            buyer_name: "홍길동",
-	            buyer_tel: "010-4242-4242",
-	            buyer_addr: "서울특별시 강남구 신사동",
-	            buyer_postcode: "01181"
+	            buyer_name: $('input[name=name]').val(),
+	            buyer_tel: phone_,
+	            buyer_addr: address[1],
+	            buyer_postcode: address[0]
 	        }, function (rsp) { // callback
 	            if (rsp.success) {
-	            	new Date().getTime()
-	                // 결제 성공 시 로직,
+	                // 결제 성공 시 로직 
+	                payment_success(rsp);
 	            } else {
 	                // 결제 실패 시 로직,
+	                alert("결제에 실패했습니다. 실패 원인: " + rsp.error_msg);
 	            }
 	        });
 	      }
+		function payment_success(rsp){
+			console.log(rsp);
+			$.ajax({
+    			url: "payment/ajax.com", // 예: https://www.myservice.com/payments/complete
+    			method: "POST",
+	            headers: { "Content-Type": "application/json" },
+	            dataType : 'json',
+	            data: JSON.stringify ({
+	                imp_uid: rsp.imp_uid, //imp 번호
+	                merchant_uid: parseInt(rsp.merchant_uid), //고유번호
+	                pay_method: way_payment,// 결제 방법
+	                paid_amount: rsp.paid_amount,// 가격
+	                paid_at: rsp.paid_at //결제 승인 시각
+	            }),
+	            success : function(){
+	            	alert("결제 성공! 이용해 주셔서 감사합니다.");
+	            	payment_after_cart_delete();
+	            	location.href = 'http://localhost:8080/house/myshopping.com';
+	            }
+	        })
+		}  
+		function payment_after_cart_delete(){
+			$.ajax({
+    			url: "cart_delete.com", // 예: https://www.myservice.com/payments/complete
+    			method: "POST",
+	            headers: { "Content-Type": "application/json" },
+	            dataType : 'json',
+	            data: JSON.stringify(),
+	            success : function(){
+	            	console.log("삭제 성공");
+	            }
+	        })
+		}
+		 function payment_UID(){
+			 first_num = randomNum(1,9);
+			 var num = "0000000" + randomNum(0,9999999);
+			 num = num.slice(-7);
+			 return first_num  + num;
+		 }
+		 function randomNum(min, max){
+			 var randNum = Math.floor(Math.random()*(max-min+1)) + min; 
+			 return randNum; 
+			 }
+
+		  
+		  
 		  //결제 정보 전달하기
 	    
 	    //결제번호, 주문번호 추출하기
@@ -229,7 +331,7 @@
 			<div class="_2VbEo">
 				<header class="_2CEFF">주문/결제</header>
 				<c:choose>
-					<c:when test="${address_li ne null }">
+					<c:when test="${address_li.size() ne 0 }">
 						<section class="clDqQ">
 							<div class="checkout-container vtJfv">
 								<div class="_2jygH">배송지</div>
@@ -254,13 +356,13 @@
 									</div>
 									<div class="css-18azwi1 e84q8kd0">
 										<div class="_3Bt8k">
-											<select class="_3ASDR _1qwAY _3K8Q8">
-												<option value="0">배송시 요청사항을 선택해주세요</option>
-												<option value="1">부재시 문앞에 놓아주세요</option>
-												<option value="2">배송전에 미리 연락주세요</option>
-												<option value="3">부재시 경비실에 맡겨 주세요</option>
-												<option value="4">부재시 전화주시거나 문자 남겨 주세요</option>
-												<option value="5">직접입력</option>
+											<select class="_3ASDR _1qwAY _3K8Q8 shipmemo">
+												<option value="">배송시 요청사항을 선택해주세요</option>
+												<option >부재시 문앞에 놓아주세요</option>
+												<option >배송전에 미리 연락주세요</option>
+												<option >부재시 경비실에 맡겨 주세요</option>
+												<option >부재시 전화주시거나 문자 남겨 주세요</option>
+												<option >직접입력</option>
 											</select>
 											<svg width="1em" height="1em" viewBox="0 0 10 10"
 												fill="currentColor" class="IgBXR">
@@ -291,7 +393,8 @@
 												<div class="_1a7bp jTtMl">
 													<div class="_2EQGD _1a7bp _1m42e">
 														<input class="_3ASDR _1qwAY email1" type="email"
-															placeholder="이메일" title="이메일 앞부분" maxlength="20" value="">
+															name="email" placeholder="이메일" title="이메일 앞부분"
+															maxlength="20" value="">
 													</div>
 													<span class="_1r4AF">@</span>
 												</div>
@@ -331,14 +434,14 @@
 											<div class="_2Z2K1">
 												<div class="_2ixif">
 													<div class="_3Bt8k">
-														<select class="_3ASDR _1qwAY _3K8Q8" name="phone1">
+														<select class="_3ASDR _1qwAY _3K8Q8">
 															<option value="" disabled="">선택</option>
-															<option value="0">010</option>
-															<option value="1">011</option>
-															<option value="2">016</option>
-															<option value="3">017</option>
-															<option value="4">018</option>
-															<option value="5">019</option>
+															<option value="010">010</option>
+															<option value="011">011</option>
+															<option value="016">016</option>
+															<option value="017">017</option>
+															<option value="018">018</option>
+															<option value="019">019</option>
 														</select>
 														<svg width="1em" height="1em" viewBox="0 0 10 10"
 															fill="currentColor" class="IgBXR yPMDv">
@@ -348,8 +451,7 @@
 												</div>
 												<div class="UYZ4Z">
 													<input class="_3ASDR _1qwAY phone" type="tel"
-														placeholder="입력해주세요" size="1" maxlength="9"
-														value="">
+														placeholder="입력해주세요" size="1" maxlength="9" value="">
 												</div>
 											</div>
 										</div>
@@ -369,7 +471,7 @@
 									<label class="eskht2b5 css-19mgahg e126uv4s3">
 										<div class="css-1bp0feq e126uv4s2">이름</div>
 										<div class="css-14o29br e126uv4s1">
-											<input class="_3ASDR _1qwAY" name="name" maxlength="10"
+											<input class="_3ASDR _1qwAY 22ship_name" name="name" maxlength="10"
 												value="">
 										</div>
 									</label> <label class="css-1icqu5k e126uv4s3">
@@ -378,14 +480,14 @@
 											<div class="css-vqaf4p emiurti8">
 												<div class="css-14kx49g emiurti7">
 													<div class="css-abcfsy emiurti6">
-														<input class="_3ASDR _1qwAY" type="email"
+														<input class="_3ASDR _1qwAY" type="email" name="email"
 															placeholder="이메일" title="이메일 앞부분" maxlength="20" value="">
 													</div>
 													<span class="css-a5kq9u emiurti5">@</span>
 												</div>
 												<div class="css-15hj6g4 emiurti4">
 													<div class="css-y0wgwc emiurti3">
-														<input class="_3ASDR _1qwAY css-135vgro emiurti2"
+														<input class="_3ASDR _1qwAY css-135vgro emiurti2 email2"
 															type="email" title="이메일 뒷부분" maxlength="20" value="">
 													</div>
 													<div class="css-1d3w5wq emiurti1">
@@ -421,12 +523,12 @@
 													<div class="_3Bt8k">
 														<select class="_3ASDR _1qwAY _3K8Q8" name="phone1">
 															<option value="" disabled="">선택</option>
-															<option value="0">010</option>
-															<option value="1">011</option>
-															<option value="2">016</option>
-															<option value="3">017</option>
-															<option value="4">018</option>
-															<option value="5">019</option>
+															<option value="010">010</option>
+															<option value="011">011</option>
+															<option value="016">016</option>
+															<option value="017">017</option>
+															<option value="018">018</option>
+															<option value="019">019</option>
 														</select>
 														<svg width="1em" height="1em" viewBox="0 0 10 10"
 															fill="currentColor" class="IgBXR yPMDv">
@@ -435,7 +537,7 @@
 													</div>
 												</div>
 												<div class="UYZ4Z">
-													<input class="_3ASDR _1qwAY" type="tel"
+													<input class="_3ASDR _1qwAY phone" type="tel" name="phone"
 														placeholder="입력해주세요" size="1" maxlength="9" value="">
 												</div>
 											</div>
@@ -460,12 +562,12 @@
 									<label class="css-1icqu5k e126uv4s3"><div
 											class="css-1bp0feq e126uv4s2">배송지명</div>
 										<div class="css-14o29br e126uv4s1">
-											<input class="_3ASDR _1qwAY" name="name" maxlength="20"
+											<input class="_3ASDR _1qwAY" name="name" id="shipID" maxlength="20"
 												value="">
 										</div></label><label class="css-1icqu5k e126uv4s3"><div
 											class="css-1bp0feq e126uv4s2">받는 사람</div>
 										<div class="css-14o29br e126uv4s1">
-											<input class="_3ASDR _1qwAY" name="recipient" value="">
+											<input class="_3ASDR _1qwAY recipient" name="recipient" value="">
 										</div></label><label class="css-1icqu5k e126uv4s3"><div
 											class="css-1bp0feq e126uv4s2">연락처</div>
 										<div class="css-14o29br e126uv4s1">
@@ -474,12 +576,12 @@
 													<div class="_3Bt8k">
 														<select class="_3ASDR _1qwAY _3K8Q8" name="phone1"><option
 																value="" disabled="">선택</option>
-															<option value="0">010</option>
-															<option value="1">011</option>
-															<option value="2">016</option>
-															<option value="3">017</option>
-															<option value="4">018</option>
-															<option value="5">019</option>
+															<option value="010">010</option>
+															<option value="011">011</option>
+															<option value="016">016</option>
+															<option value="017">017</option>
+															<option value="018">018</option>
+															<option value="019">019</option>
 															<option value="6">02</option>
 															<option value="7">031</option>
 															<option value="8">032</option>
@@ -509,7 +611,7 @@
 													</div>
 												</div>
 												<div class="UYZ4Z">
-													<input class="_3ASDR _1qwAY" type="tel"
+													<input class="_3ASDR _1qwAY" type="tel" name="phone"
 														placeholder="입력해주세요" size="1" maxlength="9" value="">
 												</div>
 											</div>
@@ -544,13 +646,13 @@
 										</div></label>
 									<div class="css-18azwi1 e84q8kd5">
 										<div class="_3Bt8k">
-											<select class="_3ASDR _1qwAY _3K8Q8"><option
+											<select class="_3ASDR _1qwAY _3K8Q8 shipmemo"><option
 													value="0">배송시 요청사항을 선택해주세요</option>
-												<option value="1">부재시 문앞에 놓아주세요</option>
-												<option value="2">배송전에 미리 연락주세요</option>
-												<option value="3">부재시 경비실에 맡겨 주세요</option>
-												<option value="4">부재시 전화주시거나 문자 남겨 주세요</option>
-												<option value="5">직접입력</option></select>
+												<option value="x">부재시 문앞에 놓아주세요</option>
+												<option >배송전에 미리 연락주세요</option>
+												<option >부재시 경비실에 맡겨 주세요</option>
+												<option >부재시 전화주시거나 문자 남겨 주세요</option>
+												<option >직접입력</option></select>
 											<svg width="1em" height="1em" viewBox="0 0 10 10"
 												fill="currentColor" class="IgBXR">
 												<path d="M0 3l5 5 5-5z"></path></svg>
@@ -684,7 +786,8 @@
 					<div class="_254uw">
 						<div class="checkout-container css-1f3snd1 e7wda440">
 							<div class="css-2pv01r e149t0mw4">
-								<button type="button" class="css-1jzgr0t e149t0mw3">
+								<button type="button" class="css-8sa7n1 e149t0mw3" id="card"
+									onclick="payment_change(this)">
 									<picture>
 									<source type="image/webp"
 										src="https://image.ohou.se/i/bucketplace-v2-development/pg/img_card.png?w=144&amp;h=144&amp;c=c&amp;webp=1"
@@ -693,9 +796,10 @@
 										src="https://image.ohou.se/i/bucketplace-v2-development/pg/img_card.png?w=144&amp;h=144&amp;c=c"
 										srcset="https://image.ohou.se/i/bucketplace-v2-development/pg/img_card.png?w=144&amp;h=144&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/pg/img_card.png?w=256&amp;h=256&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/pg/img_card.png?w=360&amp;h=360&amp;c=c 3x">
 									</picture>
-									<div class="css-10z9090 e149t0mw1">카드</div>
+									<div class="css-9n3kbk e149t0mw1">카드</div>
 								</button>
-								<button type="button" class="css-8sa7n1 e149t0mw3">
+								<button type="button" class="css-1jzgr0t e149t0mw3" id="vbank"
+									onclick="payment_change(this)">
 									<picture>
 									<source type="image/webp"
 										src="https://image.ohou.se/i/bucketplace-v2-development/pg/img_vbank.png?w=144&amp;h=144&amp;c=c&amp;webp=1"
@@ -704,9 +808,10 @@
 										src="https://image.ohou.se/i/bucketplace-v2-development/pg/img_vbank.png?w=144&amp;h=144&amp;c=c"
 										srcset="https://image.ohou.se/i/bucketplace-v2-development/pg/img_vbank.png?w=256&amp;h=256&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/pg/img_vbank.png?w=360&amp;h=360&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/pg/img_vbank.png?w=480&amp;h=480&amp;c=c 3x">
 									</picture>
-									<div class="css-9n3kbk e149t0mw1">무통장입금</div>
+									<div class="css-10z9090 e149t0mw1">무통장입금</div>
 								</button>
-								<button type="button" class="css-1jzgr0t e149t0mw3">
+								<button type="button" class="css-1jzgr0t e149t0mw3"
+									id="kakaopay" onclick="payment_change(this)">
 									<picture>
 									<source type="image/webp"
 										src="https://image.ohou.se/i/bucketplace-v2-development/pg/img_kakaopay.png?w=144&amp;h=144&amp;c=c&amp;webp=1"
@@ -718,7 +823,8 @@
 									<div class="css-10z9090 e149t0mw1">카카오페이</div>
 									<div class="css-qdif5i e149t0mw0">최대1만원할인</div>
 								</button>
-								<button type="button" class="css-1jzgr0t e149t0mw3">
+								<button type="button" class="css-1jzgr0t e149t0mw3" id="tosspay"
+									onclick="payment_change(this)">
 									<picture>
 									<source type="image/webp"
 										src="https://image.ohou.se/i/bucketplace-v2-development/pg/img_toss.png?w=144&amp;h=144&amp;c=c&amp;webp=1"
@@ -730,7 +836,8 @@
 									<div class="css-10z9090 e149t0mw1">토스</div>
 									<div class="css-qdif5i e149t0mw0">최대6천원혜택</div>
 								</button>
-								<button type="button" class="css-1jzgr0t e149t0mw3">
+								<button type="button" class="css-1jzgr0t e149t0mw3"
+									id="naverpay" onclick="payment_change(this)">
 									<picture>
 									<source type="image/webp"
 										src="https://image.ohou.se/i/bucketplace-v2-development/pg/img_naver.png?w=144&amp;h=144&amp;c=c&amp;webp=1"
@@ -742,7 +849,8 @@
 									<div class="css-10z9090 e149t0mw1">네이버페이</div>
 									<div class="css-qdif5i e149t0mw0">최대2.5%적립</div>
 								</button>
-								<button type="button" class="css-1jzgr0t e149t0mw3">
+								<button type="button" class="css-1jzgr0t e149t0mw3" id="payco"
+									onclick="payment_change(this)">
 									<picture>
 									<source type="image/webp"
 										src="https://image.ohou.se/i/bucketplace-v2-development/pg/img_payco.png?w=144&amp;h=144&amp;c=c&amp;webp=1"
@@ -754,7 +862,8 @@
 									<div class="css-10z9090 e149t0mw1">페이코</div>
 									<div class="css-qdif5i e149t0mw0">최대3%적립</div>
 								</button>
-								<button type="button" class="css-1jzgr0t e149t0mw3">
+								<button type="button" class="css-1jzgr0t e149t0mw3" id="chai"
+									onclick="payment_change(this)">
 									<picture>
 									<source type="image/webp"
 										src="https://image.ohou.se/i/bucketplace-v2-development/pg/img_chai.png?w=144&amp;h=144&amp;c=c&amp;webp=1"
@@ -766,7 +875,8 @@
 									<div class="css-10z9090 e149t0mw1">차이</div>
 									<div class="css-qdif5i e149t0mw0">최대1만원혜택</div>
 								</button>
-								<button type="button" class="css-1jzgr0t e149t0mw3">
+								<button type="button" class="css-1jzgr0t e149t0mw3" id="phone"
+									onclick="payment_change(this)">
 									<picture>
 									<source type="image/webp"
 										src="https://image.ohou.se/i/bucketplace-v2-development/pg/img_phone.png?w=144&amp;h=144&amp;c=c&amp;webp=1"
@@ -862,15 +972,17 @@
 			<jsp:include page="./footer/footer.jsp"></jsp:include>
 		</footer>
 	</div>
-	<div class="addr_change_div"> 
+	<c:if test="${address_li.size() ne 0 }">
+	<div class="addr_change_div">
 		<div class="_1SpqS _1MBhg open open-active">
 			<div class="_3OUv- mHTb_ _2cK_F">
 				<div tabindex="-1" class="_2mP0n _3iCqi y72e_">
 					<div class="Jua8R">
 						<header class="_1I4Z6">
 							<div class="_2NWGa">
-								<svg class="_22l5h" width="24" height="24" fill="currentColor" onClick="addr_change_close()"
-									viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+								<svg class="_22l5h" width="24" height="24" fill="currentColor"
+									onClick="addr_change_close()" viewBox="0 0 24 24"
+									preserveAspectRatio="xMidYMid meet">
 									<path
 										d="M12 11.3l8.13-8.14.7.7L12.72 12l8.13 8.13-.7.7L12 12.72l-8.13 8.13-.7-.7L11.28 12 3.16 3.87l.7-.71L12 11.29z"></path></svg>
 							</div>
@@ -879,31 +991,32 @@
 						<article class="_2XEGg">
 							<div class="_3tS7D">
 								<c:forEach var="i" begin="0" end="${fn:length(address_li)-1}">
-								<div class="_1wQwu">
-									<div class="_1-RcR">
-										<div class="_2PF83">${address_li[i].address_name }</div>
-										<c:if test="${address_li[i].addr_default eq true }">
-										<div>
-											<div class="_3Qh2J">기본배송지</div>
+									<div class="_1wQwu">
+										<div class="_1-RcR">
+											<div class="_2PF83">${address_li[i].address_name }</div>
+											<c:if test="${address_li[i].addr_default eq true }">
+												<div>
+													<div class="_3Qh2J">기본배송지</div>
+												</div>
+											</c:if>
 										</div>
-										</c:if>
-									</div>
-									<div class="_2PBCS">${address_li[i].address1 } , ${address_li[i].address2 }</div>
-									<div class="keo89">
-										<div class="_2OXw7">${address_li[i].receiver }</div>
-										<div class="_3EB5d">${address_li[i].phone_num }</div>
-									</div>
-									<div class="LdTP4">
-										<div class="_1n3SH">
-											<button class="_1eWD8 _2wYpN _1xT_u _7sIV3" type="button">삭제</button>
-											<button class="_1eWD8 _2wYpN _1xT_u _7sIV3" type="button">수정</button>
+										<div class="_2PBCS">${address_li[i].address1 },
+											${address_li[i].address2 }</div>
+										<div class="keo89">
+											<div class="_2OXw7">${address_li[i].receiver }</div>
+											<div class="_3EB5d">${address_li[i].phone_num }</div>
 										</div>
-										<div class="_1n3SH">
-											<button class="_1eWD8 _3SroY _1xT_u _7sIV3 _3ohIu"
-												type="button">선택</button>
+										<div class="LdTP4">
+											<div class="_1n3SH">
+												<button class="_1eWD8 _2wYpN _1xT_u _7sIV3" type="button">삭제</button>
+												<button class="_1eWD8 _2wYpN _1xT_u _7sIV3" type="button">수정</button>
+											</div>
+											<div class="_1n3SH">
+												<button class="_1eWD8 _3SroY _1xT_u _7sIV3 _3ohIu"
+													type="button">선택</button>
+											</div>
 										</div>
 									</div>
-								</div>
 								</c:forEach>
 							</div>
 							<div class="_1-R1t">
@@ -915,6 +1028,6 @@
 			</div>
 		</div>
 	</div>
-
+</c:if>
 </body>
 </html>
