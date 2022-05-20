@@ -22,6 +22,8 @@ public interface AdminProductManageService {
 	public List<AdminProductVO> sellerSale(AdminProductVO vo);
 	public List<AdminProductVO> bestSale(AdminProductVO vo);
 	
-	
+	// index
+	public int registrationWait();
+	public int registrationHold();
 
 }

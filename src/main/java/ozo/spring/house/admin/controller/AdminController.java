@@ -42,6 +42,12 @@ public class AdminController {
 			List<String> dateList = new ArrayList<String>();
 			List<Integer> countList = new ArrayList<Integer>();
 			
+			int waitcount = productService.registrationWait();
+			int holdcount = productService.registrationHold();
+			List<Integer> regiList = new ArrayList<Integer>();
+			regiList.add(waitcount);
+			regiList.add(holdcount);
+			
 			for(int i=0; i<floatList.size(); i++) {
 				UserVO vo = floatList.get(i);
 				dateList.add("\""+String.valueOf(vo.getLogin_date())+"\"");
@@ -54,6 +60,7 @@ public class AdminController {
 			
 			model.addAttribute("dateList", dateList);
 			model.addAttribute("countList", countList);
+			model.addAttribute("regiList", regiList);
 
 			return "index";
 		}else {

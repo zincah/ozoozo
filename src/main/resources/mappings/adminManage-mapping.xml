@@ -11,6 +11,16 @@
 		SELECT COUNT(lc_usernum), login_date FROM logincount GROUP BY login_date ORDER BY login_date DESC
 		LIMIT 7 OFFSET 0 * 7
 	</select>
+	
+	<!-- 인덱스 페이지 : 등록 요청 -->
+	<select id="registrationWait" resultType="int">
+		SELECT COUNT(*) FROM product_posting WHERE post_status='승인대기';
+	</select>
+	
+	<!-- 인덱스 페이지 : 등록 보류 -->
+	<select id="registrationHold" resultType="int">
+		SELECT COUNT(*) FROM product_posting WHERE post_status='보류중';
+	</select>
 
 	<!-- 회원관리 -->
 	<select id="selectUser" resultType="user">
@@ -322,5 +332,7 @@
 		</if>
 		</where>
 	</select>
+	
+	
 	
 </mapper>

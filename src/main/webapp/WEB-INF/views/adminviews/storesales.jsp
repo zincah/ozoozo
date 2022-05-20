@@ -18,7 +18,7 @@
 ${payment }
 </td>
    <td class="content-table-content-text option-line">
-   	<fmt:formatNumber type="number" maxFractionDigits="3" value="${sellerSale.payment}" var="realpayment"/>
+   	<fmt:formatNumber type="number" maxFractionDigits="3" value="${sellerSale.realPayment}" var="realpayment"/>
 ${realpayment }
 </td>
 <td class="content-table-content-text option-line">${sellerSale.fee }%</td>
