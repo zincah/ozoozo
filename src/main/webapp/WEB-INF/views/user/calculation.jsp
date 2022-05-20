@@ -53,8 +53,12 @@
 		$(".email1").val(email[0]);
 		$(".email2").val(email[1]);
 		phone = "${address_true.phone_num}";
-    	phone = phone.split("-");
-    	$(".phone").val(phone[1] + "-" + phone[2]);
+		if("${address_true.phone_num}" != ''){
+			phone = phone.split("-");
+	    	$(".phone").val(phone[1] + "-" + phone[2]);
+			
+		}
+    	
     	/* for(i=0; i < 10; i++){
     		console.log(payment_UID());
     	} */
@@ -169,12 +173,35 @@
 			$(son).removeClass("css-10z9090");
 			way_payment = this_class.id;
 		}
-		
+		function address_add(){
+			addr_li = [];
+			addr_li.push($("#shipID").val()); //배송지명
+			addr_li.push($(".recipient").val()); //받는 사람
+			addr_li.push($("#sample6_postcode").val()); // 5자리
+			addr_li.push($("#sample6_address").val()); // 주소
+			addr_li.push($("#sample6_detailAddress").val()); // 추가 주소
+			phone = $('input[name=phone]').val();
+			phone1 = phone.substr(0,4);
+			phone2 = phone.substr(4,8);
+			addr_li.push($('select[name=phone1]').val() + "-" + phone1 + "-" + phone2); // 추가 주소
+			//addr_li.push($(".shipmemo").val()); //배송 메모
+			$.ajax({
+    			url: "addr_insert.com", 
+    			method: "POST",
+	            headers: { "Content-Type": "application/json" },
+	            dataType : 'json',
+	            data: JSON.stringify(addr_li),
+	            success : function(){
+	            }
+	        })
+		}
 		// 여기서 부터 결제
 		  var IMP = window.IMP; // 생략 가능
 	    IMP.init("imp90839936"); // 예: imp00000000
 	    //결제 요청하기
 	    function requestPay() {
+	    	 address_add();
+	    	 return;
 	    	email = $(".email1").val() + "@" + $(".email2").val();
 	    	checkBox = $('input[name=isAgree]').is(':checked');
 	    	if(${post_li.size()} == 1){
@@ -197,10 +224,22 @@
 	    	}else if($('input[name=phone]').val() == ''){
 				alert("핸드폰번호를 작성해 주세요.");
 				return
+	    	}else if($('#sample6_postcode').val() == ''){
+	    		alert("주소를 선택해주세요.");
+	    		return;
+	    	}else if($("#shipID").val() == ''){
+	    		alert("배송지명을 입력해주세요.");
+	    		return;
+	    	}else if($('input[name=recipient]').val() == ''){
+	    		alert("받는분 성함을 입력해주세요.");
+	    		return;
 	    	}else if(!checkBox){
 	    		alert("개인정보 동의를 해주세요.");
 	    		return;
 	    	}
+	    	
+	    	
+	    	address_add();
 			phone_ = $("select[name=phone1]").val() + "-" + $('input[name=phone]').val();	    	
 	    	address = "${address_true.address1}"
 	    	address = address.replace("[","").split("]");
@@ -292,7 +331,7 @@
 			<div class="_2VbEo">
 				<header class="_2CEFF">주문/결제</header>
 				<c:choose>
-					<c:when test="${address_li ne null }">
+					<c:when test="${address_li.size() ne 0 }">
 						<section class="clDqQ">
 							<div class="checkout-container vtJfv">
 								<div class="_2jygH">배송지</div>
@@ -317,13 +356,13 @@
 									</div>
 									<div class="css-18azwi1 e84q8kd0">
 										<div class="_3Bt8k">
-											<select class="_3ASDR _1qwAY _3K8Q8">
-												<option value="0">배송시 요청사항을 선택해주세요</option>
-												<option value="1">부재시 문앞에 놓아주세요</option>
-												<option value="2">배송전에 미리 연락주세요</option>
-												<option value="3">부재시 경비실에 맡겨 주세요</option>
-												<option value="4">부재시 전화주시거나 문자 남겨 주세요</option>
-												<option value="5">직접입력</option>
+											<select class="_3ASDR _1qwAY _3K8Q8 shipmemo">
+												<option value="">배송시 요청사항을 선택해주세요</option>
+												<option >부재시 문앞에 놓아주세요</option>
+												<option >배송전에 미리 연락주세요</option>
+												<option >부재시 경비실에 맡겨 주세요</option>
+												<option >부재시 전화주시거나 문자 남겨 주세요</option>
+												<option >직접입력</option>
 											</select>
 											<svg width="1em" height="1em" viewBox="0 0 10 10"
 												fill="currentColor" class="IgBXR">
@@ -432,7 +471,7 @@
 									<label class="eskht2b5 css-19mgahg e126uv4s3">
 										<div class="css-1bp0feq e126uv4s2">이름</div>
 										<div class="css-14o29br e126uv4s1">
-											<input class="_3ASDR _1qwAY" name="name" maxlength="10"
+											<input class="_3ASDR _1qwAY 22ship_name" name="name" maxlength="10"
 												value="">
 										</div>
 									</label> <label class="css-1icqu5k e126uv4s3">
@@ -523,12 +562,12 @@
 									<label class="css-1icqu5k e126uv4s3"><div
 											class="css-1bp0feq e126uv4s2">배송지명</div>
 										<div class="css-14o29br e126uv4s1">
-											<input class="_3ASDR _1qwAY" name="name" maxlength="20"
+											<input class="_3ASDR _1qwAY" name="name" id="shipID" maxlength="20"
 												value="">
 										</div></label><label class="css-1icqu5k e126uv4s3"><div
 											class="css-1bp0feq e126uv4s2">받는 사람</div>
 										<div class="css-14o29br e126uv4s1">
-											<input class="_3ASDR _1qwAY" name="recipient" value="">
+											<input class="_3ASDR _1qwAY recipient" name="recipient" value="">
 										</div></label><label class="css-1icqu5k e126uv4s3"><div
 											class="css-1bp0feq e126uv4s2">연락처</div>
 										<div class="css-14o29br e126uv4s1">
@@ -607,13 +646,13 @@
 										</div></label>
 									<div class="css-18azwi1 e84q8kd5">
 										<div class="_3Bt8k">
-											<select class="_3ASDR _1qwAY _3K8Q8"><option
+											<select class="_3ASDR _1qwAY _3K8Q8 shipmemo"><option
 													value="0">배송시 요청사항을 선택해주세요</option>
-												<option value="1">부재시 문앞에 놓아주세요</option>
-												<option value="2">배송전에 미리 연락주세요</option>
-												<option value="3">부재시 경비실에 맡겨 주세요</option>
-												<option value="4">부재시 전화주시거나 문자 남겨 주세요</option>
-												<option value="5">직접입력</option></select>
+												<option value="x">부재시 문앞에 놓아주세요</option>
+												<option >배송전에 미리 연락주세요</option>
+												<option >부재시 경비실에 맡겨 주세요</option>
+												<option >부재시 전화주시거나 문자 남겨 주세요</option>
+												<option >직접입력</option></select>
 											<svg width="1em" height="1em" viewBox="0 0 10 10"
 												fill="currentColor" class="IgBXR">
 												<path d="M0 3l5 5 5-5z"></path></svg>
@@ -933,6 +972,7 @@
 			<jsp:include page="./footer/footer.jsp"></jsp:include>
 		</footer>
 	</div>
+	<c:if test="${address_li.size() ne 0 }">
 	<div class="addr_change_div">
 		<div class="_1SpqS _1MBhg open open-active">
 			<div class="_3OUv- mHTb_ _2cK_F">
@@ -988,6 +1028,6 @@
 			</div>
 		</div>
 	</div>
-
+</c:if>
 </body>
 </html>

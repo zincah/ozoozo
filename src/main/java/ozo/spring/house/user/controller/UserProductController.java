@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.user.dao.UserDAO.product_cls;
 import ozo.spring.house.user.service.UserService;
+import ozo.spring.house.user.vo.CouponVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserProduct_tableVO;
 import ozo.spring.house.user.vo.UserVO;
@@ -37,13 +38,12 @@ public class UserProductController {
 		
 		List<UserProductVO> product_list;
 		List<UserProductVO> product_img_list;
-		UserProductVO coupon = new UserProductVO();
 		UserProductVO uvo = new UserProductVO();
 		uvo.setPost_id(Integer.parseInt(pro));
+		
 		pro_cls = userservice.get_product_class();
 		
 		DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
-		
 		product_list = userservice.productGet(uvo);
 		
 		int price = product_list.get(0).getWhole_price();
@@ -54,7 +54,7 @@ public class UserProductController {
 		model.addAttribute("price",decFormat.format(price));
 		model.addAttribute("price_sale", decFormat.format(price/100*sale));
 		model.addAttribute("price_first", decFormat.format(price/100*sale-15000));
-		
+		System.out.println(product_list.get(0).getPost_couponid());
 		// img list model 등록
 		product_img_list = userservice.productGet_img(uvo);
 		List<UserProductVO> img_true = new ArrayList<UserProductVO>();

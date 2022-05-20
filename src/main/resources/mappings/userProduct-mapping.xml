@@ -6,7 +6,7 @@
 
 	<!-- 상품 상세 페이지 가져오기 -->
 	<select id="product_get" resultType="userproduct">
-		SELECT DISTINCT ON(option1) po.option1,c.cate_name,sc.subcate_name, s.company_name,pp.post_name, pp.sale_ratio, pp.whole_price, p.product_id, po.option1_name, po.option2_name from product_posting pp
+		SELECT DISTINCT ON(option1) pp.post_couponid, 	po.option1,c.cate_name,sc.subcate_name, s.company_name,pp.post_name, pp.sale_ratio, pp.whole_price, p.product_id, po.option1_name, po.option2_name from product_posting pp
 	inner join product p on pp.post_id = p.product_postid 
 	inner join product_option po on p.product_id = po.op_productid
 	inner join seller s on s.seller_id = pp.post_sellerid 
@@ -14,6 +14,7 @@
 	inner join sub_category sc ON sc.subcate_code = pp.po_subcate 
 	where pp.post_id = #{post_id}; <!-- 여기다가 id 값 넣어주면 됨 -->
 	</select>
+	
 	<!-- 2번 옵션 겁색 셀렉트	 -->
 	<select id="product_option2_get" resultType="userproduct">
 		SELECT  s.company_name,ps.post_name, ps.sale_ratio, ps.whole_price, p.product_id, po.option1_name , po.option1, po.option2_name , po.option2  FROM seller s 
@@ -43,9 +44,12 @@
 	<select id="product_Get_id" resultType="cart">
 	SELECT p.product_id,p.seller_id,p.product_price FROM product p 
 		inner join product_option po on p.product_id = po.op_productid 
-		where po.option1 = #{option1} and po.option2 = #{option2};<!--  and p.product_postid = 50003 -->
+		where po.option1 = #{option1} and po.option2 = #{option2} and p.product_postid = ${post_id};
 	</select>
-	
+	<insert id="addr_add">
+	insert into address(address_name, receiver, phone_num, address1, address2, addr_default,user_num)
+		values(#{address_name}, #{receiver}, #{phone_num}, #{address1}, #{address2}, #{addr_default}, ${user_num})
+	</insert>
 	<insert id="cart_add" >
 	insert into cart(cart_user,cart_post,cart_product,  cart_quantity,  cart_payment, cart_seller) 
 		values (#{cart_user},#{cart_post}, #{product_id}, #{EA}, #{cart_payment}, #{seller_id} );

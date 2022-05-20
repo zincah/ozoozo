@@ -148,9 +148,10 @@ public class UserDAO {
 		public product_cls() {
 		}
 		
-		public CouponVO get_coupon(ProductVO pvo) {
+		public CouponVO get_coupon(UserProductVO pvo) {
 			return null;
 		}
+		
 	}
 	
 	
@@ -255,7 +256,10 @@ public class UserDAO {
 				sqlSessionTemplate.delete("UserProduct.cart_del", cvo.get(i));
 			}
 		}
-		
+		public void addr_insert(UserAddressVO uavo) {
+			sqlSessionTemplate.insert("UserProduct.addr_add", uavo);
+			System.out.println("林家 insert");
+		}
 	}
 	// 搬力郴开
 	public paymentLog_cls get_paymentLog_class() {
