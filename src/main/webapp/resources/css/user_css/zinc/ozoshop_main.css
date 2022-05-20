@@ -68,6 +68,14 @@ button{
     cursor: pointer;
 }
 
+/**/
+.firsttitlelayer{
+	margin-bottom: 0.5rem;
+}
+
+
+/**/
+
 .category_container{
     position: relative;
     margin-top: 40px;
@@ -243,7 +251,7 @@ button{
 }
 
 .category_tree{
-    display: none;
+    display: block;
     margin: 15px 0 30px;
     padding-bottom: 30px;
     border-bottom: 1px solid #dbdbdb;
@@ -397,6 +405,11 @@ button{
     line-height: 21px;
     font-weight: 600;
 
+}
+
+.brandname{
+	font-size: 15px;
+	color: #828282;
 }
 
 .category_banner{
