@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.user.service.UserMainService;
+import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.service.UserService;
+import ozo.spring.house.user.vo.ScrapVO;
 import ozo.spring.house.user.vo.UserProductVO;
+import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 @Controller
 public class UserController {
@@ -27,10 +30,17 @@ public class UserController {
 	@Autowired
 	UserMainService userMainService;
 	
+	@Autowired
+	UserScrapService userScrapService;
+	
 	@RequestMapping(value = "/main.com")
-	public String user_main(UserProductVO vo, Model model) {
+	public String user_main(UserProductVO vo, Model model, HttpSession session, UserScrapVO svo) {
+		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		
 		// product list �뜝�떛源띿삕
+
+		vo.setCheckit(false);
+
 		List<UserProductVO> productList = userMainService.mainProductList(vo);
 		int total = userMainService.getProductCount();
 		
@@ -40,14 +50,42 @@ public class UserController {
 		
 		// main banner list �뜝�떛源띿삕
 		List<BannerVO> bannerList = userMainService.selectBannerList();
-
+		
+		if(session.getAttribute("User_Num") != null) {
+			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+			scrap = userScrapService.userScrapList(svo);
+		}
+		
 		for(int i=0; i<productList.size(); i++) {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //�뜝���눦�삕�뜝�룞�삕 �뜝�뙃�눦�삕
+
+			DecimalFormat decFormat = new DecimalFormat("###,###"); 
 			
 			pro.setSale_price(decFormat.format(sale_price));
+			
+			for(int j=0; j<scrap.size(); j++) {
+				UserScrapVO sc = scrap.get(j);
+				if(pro.getPost_id() == sc.getSc_postid()) {
+					pro.setCheckit(true);
+				}
+			}
+		}
+		
+		for(int i=0; i<todayDealList.size(); i++) {
+			UserProductVO pro = todayDealList.get(i);
+			int sale_price = pro.getDeal_saleprice()*(100-pro.getSale_ratio())/100;
+			
+			DecimalFormat decFormat = new DecimalFormat("###,###"); 
+			pro.setSale_price(decFormat.format(sale_price));
+			
+			for(int j=0; j<scrap.size(); j++) {
+				UserScrapVO sc = scrap.get(j);
+				if(pro.getPost_id() == sc.getSc_postid()) {
+					pro.setCheckit(true);
+				}
+			}
 		}
 
 		model.addAttribute("totalCount", total);
@@ -88,10 +126,7 @@ public class UserController {
 	public String user_customercenter() {
 		return "customercenter";
 	}
-	// my_shopping (status) �뜝�떛怨ㅼ삕 �뜝�떥怨ㅼ삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�옚�뜝�룞�삕�뜝占�
-	
-	
-	
+
 	@RequestMapping(value = "/myreview.com")
 	public String user_myReview_view() {
 		return "myReview-view";

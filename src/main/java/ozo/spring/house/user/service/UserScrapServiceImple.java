@@ -46,6 +46,19 @@ public class UserScrapServiceImple implements UserScrapService {
 		userscrapdao.s_insert(vo);
 	}
 
+
+	@Override
+	public List<UserScrapVO> us_list(UserScrapVO vo) {
+		
+		return userscrapdao.us_list(vo);
+	}
+
+
+	@Override
+	public List<UserScrapVO> userScrapList(UserScrapVO vo) { // scrap 얻어오기
+		return userscrapdao.userScrapList(vo);
+	}
+
 	
 	
 }

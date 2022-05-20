@@ -275,7 +275,7 @@
 				<ul class="layout-navigation-bar-user-menu">
 					<li class="layout-navigation-bar-user-menu__item-wrap"><a
 						class="layout-navigation-bar-user-menu__item"
-						href="/house/myPage.com">마이페이지</a></li>
+						href="/house/m_myPage.com">마이페이지</a></li>
 					<li class="layout-navigation-bar-user-menu__item-wrap"><a
 						class="layout-navigation-bar-user-menu__item"
 						href="/house/myshopping.com">나의 쇼핑</a></li>
@@ -288,7 +288,7 @@
 							신청</a></li>
 					<li class="layout-navigation-bar-user-menu__item-wrap"><a
 						class="layout-navigation-bar-user-menu__item"
-						href="/house/CScenter.com">고객센터</a></li>
+						href="/house/m_CScenter.com">고객센터</a></li>
 					<li class="layout-navigation-bar-user-menu__item-wrap">
 					<a href="logout.com">
 						<button class="layout-navigation-bar-user-menu__item" type="button" onclick="kakaoLogout()">로그아웃</button></li>
