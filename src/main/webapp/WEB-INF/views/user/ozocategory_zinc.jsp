@@ -624,7 +624,7 @@
 					</div>
 
 					<div class="item_count_layer">
-						<div class="item_count">전체 153,760개</div>
+						<div class="item_count">전체 ${totalCount} </div>
 						<button class="item_filter_btn" id="item_filter_btn">
 							인기순
 							<svg class="caret" width="8" height="8" viewBox="0 0 8 8"

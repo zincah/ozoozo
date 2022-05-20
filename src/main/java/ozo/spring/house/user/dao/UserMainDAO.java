@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ozo.spring.house.admin.vo.BannerVO;
+import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
@@ -81,14 +82,21 @@ public class UserMainDAO {
 		return list;
 	}
 
-	public List<UserProductVO> shopItemList(){
+	// brand 관련 잠깐 추가
+	public List<UserProductVO> shopItemList(UserProductVO vo){
 		System.out.println("mybatis in usermaindao shopitemlist");
-		List<UserProductVO> list = sqlSessionTemplate.selectList("UserMainDAO.shopItemList");
+		
+		System.out.println("mid값" + vo.getInt());
+		List<UserProductVO> list = sqlSessionTemplate.selectList("UserMainDAO.shopItemList", vo);
 		System.out.println(list.size());
 		return list;
 	}
 	
-	// brand 관련 잠깐 추가
+	public SellerVO sellerInfo(UserProductVO vo) {
+		System.out.println("--> mybatis in usermaindao sellerinfo");
+		return sqlSessionTemplate.selectOne("UserMainDAO.sellerInfo", vo);
+	}
+	
 	public List<UserCategoryVO> printTop(UserProductVO vo){
 		System.out.println("--> mybatis in usermaindao printtop");
 		return sqlSessionTemplate.selectList("UserMainDAO.printTopCate", vo);

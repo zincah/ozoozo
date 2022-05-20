@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ozo.spring.house.admin.vo.BannerVO;
+import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.dao.UserMainDAO;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserPagingVO;
@@ -49,8 +50,8 @@ public class UserMainServiceImpl implements UserMainService {
 	}
 
 	@Override
-	public List<UserProductVO> shopItemList() {
-		return userMainDAO.shopItemList();
+	public List<UserProductVO> shopItemList(UserProductVO vo) {
+		return userMainDAO.shopItemList(vo);
 	}
   
   @Override
@@ -71,6 +72,11 @@ public class UserMainServiceImpl implements UserMainService {
 	@Override
 	public List<UserCategoryVO> printTop(UserProductVO vo) {
 		return userMainDAO.printTop(vo);
+	}
+
+	@Override
+	public SellerVO sellerInfo(UserProductVO vo) {
+		return userMainDAO.sellerInfo(vo);
 	}
 
 
