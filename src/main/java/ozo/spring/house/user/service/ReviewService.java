@@ -16,4 +16,5 @@ public interface ReviewService {
 	public List<Map<String, String>> listofobject(UserPaymentLogVO vo);
 	public Map<String, String> getReviewInfo(UserPaymentLogVO vo);
 	public void insertReview(ReviewVO vo);
+	public List<Map<String, String>> selectMyReview(ReviewVO vo);
 }

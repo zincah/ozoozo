@@ -319,7 +319,7 @@
 		best.quantity, best.payment, best.cnt, po.post_created, po.today_deal FROM product_posting po
 		INNER JOIN (
 		SELECT COUNT(od_postid) AS cnt, SUM(quantity) AS quantity, SUM(payment) AS payment, od_postid AS bestid
-		FROM user_order GROUP BY od_postid ORDER BY cnt DESC fetch first 30 row only
+		FROM user_order GROUP BY od_postid fetch first 30 row only
 		) best ON po.post_id = best.bestid
 		INNER JOIN category c ON po.po_category = c.cate_code
 		INNER JOIN seller s ON po.post_sellerid = s.seller_id
@@ -331,6 +331,7 @@
 			</trim>
 		</if>
 		</where>
+		order by best.cnt desc
 	</select>
 	
 	
