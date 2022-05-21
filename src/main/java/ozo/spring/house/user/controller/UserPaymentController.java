@@ -147,7 +147,8 @@ public class UserPaymentController {
 		uavo.setAddress1("[" + addr_li[2] + "] " + addr_li[3] );
 		uavo.setAddress2(addr_li[4]);
 		uavo.setUser_num(userID);
-		uavo.setAddr_default(false);
+		uavo.setAddr_default(true);
+		System.out.println(uavo.isAddr_default());
 		uavo.setPhone_num(addr_li[5]);
 		pay_cls.addr_insert(uavo);
 	}

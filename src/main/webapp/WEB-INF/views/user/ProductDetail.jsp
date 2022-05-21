@@ -229,7 +229,7 @@
                                 </div>
                                 
                                 <!-- 쿠폰 기능 -->
-                                 <c:if test="${product[0].post_couponid != ''}  ">
+                                 <c:if test="${product[0].post_couponid eq ''}">
                                 <div class="css-72tjgz e1gkvgq70">
                                     <button type="button" class="css-vs55nv emhbdh42" id="couponOn" onclick="openCoupon()" >
                                         <div class="css-px0sae emhbdh41">
