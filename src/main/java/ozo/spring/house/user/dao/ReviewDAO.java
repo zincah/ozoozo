@@ -62,4 +62,9 @@ public class ReviewDAO {
     	System.out.println("--> mybatis select my review");
     	return sqlSessionTemplate.selectList("ReviewDAO.selectMyReview", vo);
     }
+    
+    public Map<String, String> selectMyReviewOne(ReviewVO vo){
+    	System.out.println("--> mybatis select my review one");
+    	return sqlSessionTemplate.selectOne("ReviewDAO.selectMyReviewOne", vo);
+    }
 }
