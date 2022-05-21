@@ -56,6 +56,10 @@ public class ReviewDAO {
     	System.out.println("--> mybatis list of object");
     	sqlSessionTemplate.insert("ReviewDAO.insertReview", vo);
     	sqlSessionTemplate.update("ReviewDAO.changeReviewStatus", vo);
-    	
+    }
+    
+    public List<Map<String, String>> selectMyReview(ReviewVO vo){
+    	System.out.println("--> mybatis select my review");
+    	return sqlSessionTemplate.selectList("ReviewDAO.selectMyReview", vo);
     }
 }

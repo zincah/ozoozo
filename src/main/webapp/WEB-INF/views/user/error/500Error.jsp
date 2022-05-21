@@ -66,7 +66,9 @@
             <div class="detail">
                 
             </div>
-            <div id="open_mail" onclick="openMail()">확인했어요!</div>
+            <a href="main.com">
+            	<div id="open_mail">확인했어요!</div>
+            </a>
         </div>
 </body>
 </html>

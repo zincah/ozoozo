@@ -21,7 +21,8 @@
 		            group by photo_postid 
 		         )
 		) photo on uo.od_postid = photo.photo_postid
-		where user_num=100002 and order_status='배송완료' order by uo.order_date;
+		where user_num=#{user_num} and order_status='배송완료' and review_status='false'
+		order by uo.order_date;
 	</select>
 	
 	<!-- 리뷰버튼 눌렀을 때 셀렉트 -->
@@ -41,20 +42,30 @@
 		            group by photo_postid 
 		         )
 		) photo on uo.od_postid = photo.photo_postid
-		where user_num=100002 and order_status='배송완료' and order_id=#{order_id}
+		where user_num=#{user_num} and order_status='배송완료' and order_id=#{order_id}
 		order by uo.order_date;
 	</select>
 	
 	<!-- 리뷰 등록 -->
-	<select id="insertReview" parameterType="review">
+	<insert id="insertReview" parameterType="review">
 		insert into review (reuser_num, reproduct_id, reseller_id, rating,
 		review_image, recontent, repost_id) values (#{reuser_num}, #{reproduct_id},
 		#{reseller_id}, #{rating}, #{review_image}, #{recontent}, #{repost_id});
-	</select>
+	</insert>
 	
 	<update id="changeReviewStatus" parameterType="review">
 		update user_order set review_status=true where order_id=#{order_id};
 	</update>
+	
+	<!-- 내 리뷰 보기 -->
+	<select id="selectMyReview" resultType="HashMap">
+		select re.*, s.company_name, po.post_name, op.* from review re 
+		inner join seller s on s.seller_id = reseller_id
+		inner join product_posting po on re.repost_id = po.post_id 
+		inner join product_option op on re.reproduct_id = op.op_productid
+		where reuser_num=#{reuser_num} order by review_id desc;
+	</select> 
+	
 
 </mapper>
 

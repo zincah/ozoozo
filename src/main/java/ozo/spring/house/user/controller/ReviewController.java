@@ -37,8 +37,7 @@ public class ReviewController {
     @Autowired
     AwsS3 client;
 
-	// 여기 잠깐 추가
-	//회원가입 페이지
+    // 리뷰 첫 페이지 (내가 써야할 리뷰 목록이 보이는 화면)
 	@RequestMapping(value = "/review.com")
 	public String writeReview(UserPaymentLogVO vo, Model model, HttpServletRequest request) {
 		
@@ -55,6 +54,7 @@ public class ReviewController {
 		return "login.com";
 	}
 	
+	// 리뷰 쓸 정보 얻어오기
 	@ResponseBody
 	@RequestMapping(value = "/getReviewInfo.com", method=RequestMethod.POST)
 	public String getReviewInfo(@RequestBody String code,UserPaymentLogVO vo, Model model, HttpServletRequest request) {
@@ -77,57 +77,41 @@ public class ReviewController {
 
 		return jsonmap;
 	}
-	
-    /*
-    @RequestMapping(value = "/userreview.com")
-    public String user_Review(Model model, ReviewVO vo){
-        List<ReviewVO> list;
-        vo.setUser_num(100004);
-        list = reviewService.myReviewList(vo);
 
-        for(int i=0; i<list.size(); i++){
-            ReviewVO review = list.get(i);
-            System.out.println(review.getContent());
-            System.out.println(review.getUser_num());
-            System.out.println(review.getCreated_at());
-        }
-        model.addAttribute("list", list);
-
-        return "myReview-view";
-    }*/
-
-    /*
-    �궗吏꾩뾽濡쒕뱶
-     */
-
+	// 리뷰 쓰기 사진 업로드
     @ResponseBody
     @RequestMapping(value="/uploadReview.com", method= RequestMethod.POST)
-    public String uploadPhotos(@RequestParam(value="reviewphoto") MultipartFile review){
+    public String uploadPhotos(@RequestParam(value="reviewphoto", required = false) MultipartFile review){
 
         System.out.println("file upload ready");
         String dirName = "photoReview";
         String url = "";
 
-        try {
-            String key = review.getOriginalFilename();
-            System.out.println("filename --> " +key);
-            InputStream is = review.getInputStream();
-            String contentType = review.getContentType();
-            long contentLength = review.getSize();
+        if(review != null) {
+        	
+        	try {
+                String key = review.getOriginalFilename();
+                System.out.println("filename --> " +key);
+                InputStream is = review.getInputStream();
+                String contentType = review.getContentType();
+                long contentLength = review.getSize();
 
-            url = client.upload(is, key, contentType, contentLength, dirName);
-            System.out.println(url);
-            System.out.println("aws main file upload complete");
+                url = client.upload(is, key, contentType, contentLength, dirName);
+                System.out.println(url);
+                System.out.println("aws main file upload complete");
 
-        }catch(Exception e) {
-            e.printStackTrace();
-            
+            }catch(Exception e) {
+                e.printStackTrace();
+                
+            }
+        	
         }
-
+        
         return url;
 
     }
     
+    // 리뷰 작성
     @RequestMapping(value="/reviewInsert.com", method= RequestMethod.POST)
     public String reviewInsert(ReviewVO vo, HttpServletRequest request){
 
@@ -141,6 +125,25 @@ public class ReviewController {
 
     	return "redirect:review.com";
     }
+    
+	@RequestMapping(value = "/review_view.com")
+	public String reviewView(HttpServletRequest request, ReviewVO vo, Model model) {
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("User_Num")!=null) {
+			
+			int user_num = (Integer)session.getAttribute("User_Num");
+			vo.setReuser_num(user_num);
+			List<Map<String, String>> myreviewlist = reviewService.selectMyReview(vo);
+			model.addAttribute("myreviewlist", myreviewlist);
+
+			System.out.println(myreviewlist);
+			
+			return "myReview-view";
+			
+		}
+		return "login.com";
+	}
 
 
 

@@ -20,7 +20,7 @@ public class ReviewVO {
     private int liked;
     private boolean status;
     private Timestamp created_at;
-    private String repost_id;
+    private int repost_id;
     
     // order table Ã³¸®
     private int order_id;
