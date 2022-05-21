@@ -54,7 +54,7 @@ public class UserProductController {
 		model.addAttribute("price",decFormat.format(price));
 		model.addAttribute("price_sale", decFormat.format(price/100*sale));
 		model.addAttribute("price_first", decFormat.format(price/100*sale-15000));
-		System.out.println(product_list.get(0).getPost_couponid());
+		System.out.println("쿠폰 코드 : " + product_list.get(0).getPost_couponid());
 		// img list model 등록
 		product_img_list = userservice.productGet_img(uvo);
 		List<UserProductVO> img_true = new ArrayList<UserProductVO>();

@@ -260,6 +260,9 @@ public class UserDAO {
 			sqlSessionTemplate.insert("UserProduct.addr_add", uavo);
 			System.out.println("林家 insert");
 		}
+		public void addr_default_change(UserAddressVO uavo) {
+			
+		}
 	}
 	// 搬力郴开
 	public paymentLog_cls get_paymentLog_class() {

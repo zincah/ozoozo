@@ -161,6 +161,7 @@
 		}
 		var way_payment ="card";
 		function payment_change(this_class){
+			address_add();
 		    $(".css-8sa7n1").addClass("css-1jzgr0t");
 		    $(".css-8sa7n1").removeClass("css-8sa7n1");
 		    $(this_class).removeClass("css-1jzgr0t");
@@ -195,13 +196,14 @@
 	            }
 	        })
 		}
+		function addr_add_btn(){
+			
+		}
 		// 여기서 부터 결제
 		  var IMP = window.IMP; // 생략 가능
 	    IMP.init("imp90839936"); // 예: imp00000000
 	    //결제 요청하기
 	    function requestPay() {
-	    	 address_add();
-	    	 return;
 	    	email = $(".email1").val() + "@" + $(".email2").val();
 	    	checkBox = $('input[name=isAgree]').is(':checked');
 	    	if(${post_li.size()} == 1){
@@ -224,21 +226,22 @@
 	    	}else if($('input[name=phone]').val() == ''){
 				alert("핸드폰번호를 작성해 주세요.");
 				return
-	    	}else if($('#sample6_postcode').val() == ''){
-	    		alert("주소를 선택해주세요.");
-	    		return;
 	    	}else if($("#shipID").val() == ''){
 	    		alert("배송지명을 입력해주세요.");
 	    		return;
 	    	}else if($('input[name=recipient]').val() == ''){
 	    		alert("받는분 성함을 입력해주세요.");
 	    		return;
+	    	}else if($(".2phone").val() == ''){
+	    		alert("주문자 핸드폰 번호를 입력해주세요.");
+	    		return;
+	    	}else if($('#sample6_postcode').val() == ''){
+	    		alert("주소를 선택해주세요.");
+	    		return;
 	    	}else if(!checkBox){
 	    		alert("개인정보 동의를 해주세요.");
 	    		return;
 	    	}
-	    	
-	    	
 	    	address_add();
 			phone_ = $("select[name=phone1]").val() + "-" + $('input[name=phone]').val();	    	
 	    	address = "${address_true.address1}"
@@ -450,7 +453,7 @@
 													</div>
 												</div>
 												<div class="UYZ4Z">
-													<input class="_3ASDR _1qwAY phone" type="tel"
+													<input class="_3ASDR _1qwAY 2phone" type="tel"
 														placeholder="입력해주세요" size="1" maxlength="9" value="">
 												</div>
 											</div>
@@ -611,7 +614,7 @@
 													</div>
 												</div>
 												<div class="UYZ4Z">
-													<input class="_3ASDR _1qwAY" type="tel" name="phone"
+													<input class="_3ASDR _1qwAY 2phone"  type="tel" name="phone"
 														placeholder="입력해주세요" size="1" maxlength="9" value="">
 												</div>
 											</div>
@@ -633,16 +636,7 @@
 											</div>
 											<input class="_3ASDR _1qwAY" name="extraAddress"
 												id="sample6_detailAddress" placeholder="상세주소 입력"
-												maxlength="50" value=""><label
-												for="is-default-address" class="css-t6mvy9 e1lbmohe1"><div
-													class="_3zqA8 css-tz6wcf e1lbmohe0">
-													<input type="checkbox" class="_3UImz"
-														id="is-default-address" name="isDefaultAddress" value=""><span
-														class="_2mDYR"><svg width="1em" height="1em"
-															viewBox="0 0 16 16" class="_2UftR">
-															<path fill="currentColor"
-																d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span>
-												</div>기본 배송지로 저장</label>
+												maxlength="50" value="">
 										</div></label>
 									<div class="css-18azwi1 e84q8kd5">
 										<div class="_3Bt8k">
@@ -1020,7 +1014,7 @@
 								</c:forEach>
 							</div>
 							<div class="_1-R1t">
-								<button class="_1eWD8 _3SroY _3VwZT _1bxWR">배송지 추가</button>
+								<button class="_1eWD8 _3SroY _3VwZT _1bxWR" onclick="addr_add_btn()">배송지 추가</button>
 							</div>
 						</article>
 					</div>
