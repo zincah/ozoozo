@@ -17,6 +17,7 @@ public class ServerDAO {
 
 	public void updatePostingDeal() {
 		//System.out.println("--> mybatis in serverDAO postingDeal update");
-		sqlSessionTemplate.update("ServerStart.postingDealUpdate");
+		sqlSessionTemplate.update("ServerStart.postingDealUpdate1");
+		sqlSessionTemplate.update("ServerStart.postingDealUpdate2");
 	}
 }
