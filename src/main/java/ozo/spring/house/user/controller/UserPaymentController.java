@@ -36,6 +36,7 @@ public class UserPaymentController {
 	List<UserProductVO> post_li = new ArrayList<UserProductVO>();
 	List<UserAddressVO> address_li = new ArrayList<UserAddressVO>();
 	payment_class pay_cls;
+	Integer userID;
 	
 	@RequestMapping(value = "/calculation.com")
 	public void user_calculation(HttpSession session,HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -47,7 +48,7 @@ public class UserPaymentController {
 	}
 	@RequestMapping(value = "/cart_payment.com", method=RequestMethod.POST)
 	public String load_payment(HttpSession session,Model model, HttpServletRequest request) {
-		int userID = (Integer)session.getAttribute("User_Num");
+		userID = (Integer)session.getAttribute("User_Num");
 		String[] param_li = request.getParameter("Product_ID").split("%");
 		//String[] param_li = {"50003", "50011"};
 		List<CartVO> cvo_li = new ArrayList<CartVO>();
@@ -126,5 +127,28 @@ public class UserPaymentController {
 			add_vo.setOrder_status("결제 완료");
 			pay_cls.payment_add(add_vo);
 		}
+	}
+	@ResponseBody
+	@RequestMapping(value = "/cart_delete.com", method=RequestMethod.POST)
+	public boolean cart_delete() {
+		System.out.println("calcul check potin");
+		pay_cls.cart_del(cart_li);
+		return true;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/addr_insert.com", method=RequestMethod.POST)
+	public void addr_insert(@RequestBody String[] addr_li) {
+		UserAddressVO uavo = new UserAddressVO();
+		for(int i = 0; i < addr_li.length; i++) {
+			System.out.println(addr_li[i]);
+		}
+		uavo.setAddress_name(addr_li[0]);
+		uavo.setReceiver(addr_li[1]);
+		uavo.setAddress1("[" + addr_li[2] + "] " + addr_li[3] );
+		uavo.setAddress2(addr_li[4]);
+		uavo.setUser_num(userID);
+		uavo.setAddr_default(false);
+		uavo.setPhone_num(addr_li[5]);
+		pay_cls.addr_insert(uavo);
 	}
 }

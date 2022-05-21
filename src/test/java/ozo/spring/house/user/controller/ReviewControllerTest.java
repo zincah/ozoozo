@@ -24,16 +24,16 @@ public class ReviewControllerTest extends TestCase {
     public void insertreview() {
 
         ReviewVO vo = new ReviewVO();
-
+        /*
         vo.setUser_num(100004);
         vo.setProduct_id(3);
         vo.setSeller_id(500001);
         vo.setRating(1);
-        vo.setContent("녕세요");
+        vo.setContent("�뀞�꽭�슂");
         vo.setRv_catecode(2);
-        vo.setRv_subcatecode(10003);
+        vo.setRv_subcatecode(10003);*/
 
-        reviewService.insertview(vo);
+        //reviewService.insertview(vo);
     }
 
 

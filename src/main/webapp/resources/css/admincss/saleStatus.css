@@ -17,3 +17,14 @@
 	margin-bottom: 1rem;
 }
 
+/* 추가 : 초기화 버튼 관련*/ 
+
+.breadcrumb2 {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 0 1rem 0;
+    margin-bottom: 0.2rem;
+    list-style: none;
+    justify-content: space-between;
+}
+

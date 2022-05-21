@@ -11,20 +11,20 @@ import java.sql.Timestamp;
 public class ReviewVO {
 
     private int review_id;
-    private int user_num;
-    private int product_id;
-    private int seller_id;
+    private int reuser_num;
+    private int reproduct_id;
+    private int reseller_id;
     private int rating;
     private String review_image;
-    private String content;
+    private String recontent;
     private int liked;
     private boolean status;
     private Timestamp created_at;
-    private int rv_catecode;
-    private int rv_subcatecode;
+    private int repost_id;
+    
+    // order table Ã³¸®
+    private int order_id;
+    private boolean review_status; // ÀÌ°Å ¸ô¶û·î
 
-    public ReviewVO(){
-
-    }
 
 }

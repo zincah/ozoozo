@@ -23,13 +23,21 @@ button, input, select, textarea {font-size: inherit;}
 .my-review-list__list__item__wrap {display: flex;}
 .my-review-list__list__item__product {-webkit-box-flex: 1; flex: 1 0 0px; min-height: 125px;}
 .my-review-list__list__item__product__name {font-size: 14px; line-height: 20px; font-weight: 800; margin: 5px 0px;}
-.my-review-list__list__item__product__explain {line-height: 20px; font-size: 12px; font-weight: 400; margin: 5px 0px;}
+.my-review-list__list__item__product__explain {line-height: 20px; font-size: 15px; font-weight: 600; margin: 5px 0px;}
 .my-review-list__list__item__product__info {display: flex; -webkit-box-align: center; align-items: center; margin-bottom: 12px;}
-.my-review-list__list__item__product__info__star {font-size: 14px;}
-.my-review-list__list__item__product__info__text {font-size: 11px; color: rgb(158, 158, 158); margin-left: 10px;}
+.my-review-list__list__item__product__info__star {font-size: 14px; display: flex;}
+.my-review-list__list__item__product__info__text {font-size: 11px; color: rgb(158, 158, 158);}
+.my-review-list__list__item__product__info__text__fill {font-size: 11px; color: #ff778e;}
 .my-review-list__list__item__product__content {font-size: 12px; line-height: 1.6; font-weight: 400;}
 .my-review-list__list__item__insert {cursor: pointer; font-size: 12px; text-align: right; color: rgb(117, 117, 117); margin-bottom: 10px;}
 .my-review-list__list__item__image {width: 100px; height: 100px;}
+
+.acss-176vqvk{
+	font-size: 12px;
+    line-height: 20px;
+    color: rgb(47, 52, 56);
+    font-weight: 400;
+}
 
 @media (min-width: 375px) {
     .container {margin-right: auto; margin-left: auto; width: calc(100% - 30px); max-width: 100%; box-sizing: border-box; min-height: 1px;}

@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="resources/css/user_css/zinc/ozoshop_main.css" rel="stylesheet"/>
+    <link href="resources/css/user_css/zinc/ozoshop_main.css?var=13" rel="stylesheet"/>
     <link href="resources/css/user_css/zinc/ozoper_photo_cate.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
             integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
@@ -47,9 +47,19 @@
             $(".info_action").click(function(){
                 $(".modal_layer").show();
             });
+            
+            
+            $(".moveTitle").click(function(){
+            	
+            	
+            })
+            
+
+            
 
 
         });
+        
 
 
 
@@ -68,212 +78,112 @@
         <div class="category row">
             <div class="category_side_bar col-12 col-md-3">
                 <article class="brand_profile">
-                    <div class="brand_profile_image">
-                        <img src="sources/brand.webp">
-                    </div>
+                	<c:if test="${seller.seller_representpic ne null}">
+	                    <div class="brand_profile_image">
+	                        <img src="${seller.seller_representpic }">
+	                    </div>
+	                 </c:if>
 
-                    <c:forEach items="${sellerList}" var="seller">
                     <div class="brand_profile_content">
-
 
                         <p class="brand_profile_content_title">${seller.company_name}</p>
                         <p class="brand_profile_overview">
-                            <span class="brand-profile__stars" aria-label="별점 4.8점"><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-0.752" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-0.752"><rect x="0" y="0" width="18.054293709343312" height="24"></rect></clipPath></defs><use xlink:href="#star-path-0.752" fill="#DBDBDB"></use><use clip-path="url(#star-clip-0.752)" xlink:href="#star-path-0.752"></use></svg></span><span class="brand-profile__count">4.8</span>
+                            <span class="brand-profile__stars"><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-0.752" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-0.752"><rect x="0" y="0" width="18.054293709343312" height="24"></rect></clipPath></defs><use xlink:href="#star-path-0.752" fill="#DBDBDB"></use><use clip-path="url(#star-clip-0.752)" xlink:href="#star-path-0.752"></use></svg></span><span class="brand-profile__count">4.8</span>
                         </p>
                         <p class="brand_profile_action_list">
                             <a href="#" class="brand_profile_action move_review">
                                 모든리뷰보기
                             </a>
-                            <button class="brand_profile_action info_action">
-                                브랜드정보보기
-                            </button>
                         </p>
                     </div>
-                    </c:forEach>
+
                 </article>
 
 
-                <c:forEach items="${cateList}" var="cate">
                 <section class="category_list">
-                    <div class="category_list_title">
-                        <a href="#">${cate.category}</a>
-                    </div>
-                    <ul class="category_tree">
-                        <li class="category_entry">
-                            <div class="category_entry_header">
-                                <a href="#" class="category_entry_move">${cate.subcate}</a>
-                                <button class="category_entry_expand">
-                                    <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                </button>
-                            </div>
-                            <!--버튼 누르면 밑에 토글다운 생기게-->
-                            <div class="category_tree_child_layer" style="overflow: inherit;">
-                                <ul class="category_tree_children">
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">침대프레임</a>
-                                    </li>
+                		<c:if test="${sublist == null}">
+                		<div class="category_list_title">
+                			<c:forEach items="${toplist }" var="top">
+                				<div class="firsttitlelayer">
+									<a class="movetitle" href="brandshop.com?brandcode=${seller.seller_id}&catecode=${top.cate_code }">${top.cate_name }</a>
+								</div>
+							</c:forEach>
+						</div>
+						</c:if>
+						
+						<c:if test="${sublist.size()  > 0 }">
+						<div class="category_list_title">
+							<a class="movetitle" href="brandshop.com?brandcode=${seller.seller_id}&catecode=${title.cate_code }">${title.cate_name }</a>
+						</div>
+						<ul class="category_tree">
+							
+							<c:forEach items="${sublist }" var="sub">
+								<li class="category_entry">
+									<div class="category_entry_header">
+										<a href="brandshop.com?brandcode=${seller.seller_id}&catecode=${title.cate_code }_${sub[0].subcate_code }" class="category_entry_move subcate">${sub[0].subcate_name }</a>
+										<c:if test="${sub[1] != null }">
+										<button class="category_entry_expand">
+											<svg class="icon" width="12" height="12" fill="currentColor"
+												viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
+												<path
+													d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
+										</button>
+										</c:if>
+									</div> <!--버튼 누르면 밑에 토글다운 생기게-->
+	
+									<div class="category_tree_child_layer" style="overflow: hidden;">
+										<ul class="category_tree_children">
+											<c:forEach items="${sub }" var="sm" begin="1">
+											<li class="category_tree_children_entry">
+												<a href="brandshop.com?brandcode=${seller.seller_id}&catecode=${title.cate_code }_${sm.subcate_code }" class="botcate">${sm.subcate_name }</a>
+											</li>
+											</c:forEach>
+										</ul>
+									</div>
+								</li>
+							</c:forEach>
+						</ul>
 
-                                </ul>
-                            </div>
-                        </li>
-
-
-                        <li class="category_entry">
-                            <div class="category_entry_header">
-                                <a href="#" class="category_entry_move">거실장.tv장</a>
-                                <button class="category_entry_expand">
-                                    <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                </button>
-                            </div>
-                            <!--버튼 누르면 밑에 토글다운 생기게-->
-                            <div class="category_tree_child_layer" style="overflow: hidden;">
-                                <ul class="category_tree_children">
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">일반거실장</a>
-                                    </li>
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">높은거실장.사이드보드</a>
-                                    </li>
-                                    <li class="category_tree_children_entry">
-                                        <a href="#">tv스탠드</a>
-                                    </li>
-
-                                    </li>
-                                    <li class="category_entry">
-                                        <div class="category_entry_header">
-                                            <a href="#" class="category_entry_move">서랍.수납장</a>
-                                            <button class="category_entry_expand">
-                                                <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                            </button>
-                                        </div>
-
-                                    <li class="category_entry">
-                                        <div class="category_entry_header">
-                                            <a href="#" class="category_entry_move">진열장.책장</a>
-                                            <button class="category_entry_expand">
-                                                <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                            </button>
-                                        </div>
-
-                                    <li class="category_entry">
-                                        <div class="category_entry_header">
-                                            <a href="#" class="category_entry_move">선반</a>
-                                            <button class="category_entry_expand">
-                                                <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                            </button>
-                                        </div>
-                                        <!--버튼 누르면 밑에 토글다운 생기게-->
-                                        <div style="overflow: hidden;"></div>
-                                    </li>
-                                    <li class="category_entry">
-                                        <div class="category_entry_header">
-                                            <a href="#" class="category_entry_move">행거.옷장</a>
-                                            <button class="category_entry_expand">
-                                                <svg class="icon" width="12" height="12" fill="currentColor" viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet"><path d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
-                                            </button>
-                                        </div>
-                                        <!--버튼 누르면 밑에 토글다운 생기게-->
-                                        <div style="overflow: hidden;"></div>
-                                    </li>
-
-
-                </section>
-                </c:forEach>
+						<ul class="category_list_others">
+							
+							<c:forEach items="${others }" var="other">
+								<li class="category_list_others_item">
+								<a href="brandshop.com?brandcode=${seller.seller_id}&catecode=${other.cate_code }" class="movetitle">${other.cate_name }</a></li>
+							</c:forEach>
+							
+						</ul>
+						</c:if>
+				</section>
             </div>
 
             <div class="category_content col-12 col-md-9">
                 <div class="category_header">
                     <div class="category_header_title">
-                        <p>모든 상품</p>
+                    	<span style="font-weight: 600;">모든 상품</span>
+                        <span class="brandname">
+                        	(<a href="brandshop.com?brandcode=${seller.seller_id}" class="link">${seller.company_name}</a>)
+                        </span>
                     </div>
                 </div>
 
                 <div class="brand_header_wrap">
-                    <div class="brand_header">
-                        <nav>
-                            <ol class="brand_header_tree">
-                                <li class="brand_header_node">
-                                    <a href="#" class="link">${shopItem.company_name}</a>
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
 
                     <nav class="brand_header_menu_wrap">
                         <ul class="brand_header_menu_list">
                             <!--for문-->
+                            <c:forEach items="${toplist }" var="top"> 
                             <li class="brand_header_menu_list_item_wrap">
                                 <div class="brand_header_menu_list_item">
                                     <a href="#">
                                         <div class="brand_header_menu_list_item_name">
-                                            가구
+                                            ${top.cate_name }
                                         </div>
                                     </a>
                                 </div>
                             </li>
-                            <li class="brand_header_menu_list_item_wrap">
-                                <div class="brand_header_menu_list_item">
-                                    <a href="#">
-                                        <div class="brand_header_menu_list_item_name">
-                                            패브릭
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="brand_header_menu_list_item_wrap">
-                                <div class="brand_header_menu_list_item">
-                                    <a href="#">
-                                        <div class="brand_header_menu_list_item_name">
-                                            조명
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="brand_header_menu_list_item_wrap">
-                                <div class="brand_header_menu_list_item">
-                                    <a href="#">
-                                        <div class="brand_header_menu_list_item_name">
-                                            데코.식물
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="brand_header_menu_list_item_wrap">
-                                <div class="brand_header_menu_list_item">
-                                    <a href="#">
-                                        <div class="brand_header_menu_list_item_name">
-                                            수납.정리
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="brand_header_menu_list_item_wrap">
-                                <div class="brand_header_menu_list_item">
-                                    <a href="#">
-                                        <div class="brand_header_menu_list_item_name">
-                                            생활용품
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="brand_header_menu_list_item_wrap">
-                                <div class="brand_header_menu_list_item">
-                                    <a href="#">
-                                        <div class="brand_header_menu_list_item_name">
-                                            공구.DIY
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                            <li class="brand_header_menu_list_item_wrap">
-                                <div class="brand_header_menu_list_item">
-                                    <a href="#">
-                                        <div class="brand_header_menu_list_item_name">
-                                            유아.아동
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
+                            </c:forEach>
+
+
                         </ul>
                     </nav>
 
@@ -285,41 +195,9 @@
 
                     <div class="filter">
 
-                        <!--filter-->
-                        <div class="filter_bar_control_layer">
-                            <ul class="filter_bar_control_list">
-                                <li class="filter_bar_control_list_item">
-                                    <div class="drop_down">
-                                        <button class="filter_bar_control_btn">
-                                            가격
-                                            <svg class="icon" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M6.069 6.72l4.123-3.783 1.216 1.326-5.32 4.881L.603 4.273l1.196-1.346z"></path></svg>
-                                        </button>
-                                    </div>
-                                </li>
-
-                                <li class="filter_bar_control_list_item">
-                                    <div class="drop_down">
-                                        <button class="filter_bar_control_btn">
-                                            배송
-                                            <svg class="icon" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M6.069 6.72l4.123-3.783 1.216 1.326-5.32 4.881L.603 4.273l1.196-1.346z"></path></svg>
-                                        </button>
-                                    </div>
-                                </li>
-
-                                <li class="filter_bar_control_list_item">
-                                    <div class="drop_down">
-                                        <button class="filter_bar_control_btn">
-                                            판매여부
-                                            <svg class="icon" width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet"><path d="M6.069 6.72l4.123-3.783 1.216 1.326-5.32 4.881L.603 4.273l1.196-1.346z"></path></svg>
-                                        </button>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-
+                      
                         <div class="item_count_layer">
-                            <div class="item_count"><%--<fmt:formatNumber
-                                value=" ${fn:length(ItemList)}" pattern="#,###" />--%>전체 111</div>
+                            <div class="item_count">전체 ${shopItemList.size() }</div>
                             <button class="item_filter_btn" id="item_filter_btn">인기순
                                 <svg class="caret" width="8" height="8" viewBox="0 0 8 8" preserveAspectRatio="xMidYMid meet"><path fill="#BDBDBD" d="M0 2l4 4 4-4z"></path></svg>
                             </button>

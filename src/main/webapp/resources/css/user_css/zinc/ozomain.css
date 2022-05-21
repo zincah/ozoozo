@@ -76,6 +76,7 @@ img{
 
 /* ¿À´ÃÀÇ µô ¿µ¿ª */
 
+
 .store_index_section{
     margin-top: 50px;
 }
@@ -241,9 +242,9 @@ img{
 
 .item_bookmark{
     position: absolute;
-    bottom: 12px;
-    right: 12px;
-    z-index: 2;
+    bottom: 168px;
+    right: 14px;
+    z-index: 100;
     width: 24px;
     height: 24px;
     margin: 0;

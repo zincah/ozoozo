@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -16,15 +18,24 @@ import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 
 
-
-@Service
+@Service("naverLoginService")
+@PropertySource("classpath:config/naverlogin.properties")
 public class NaverLoginService {
 	
-	private final static String CLIENT_ID = "vwDrylFpGE2QwqTy6okk";
-	private final static String CLIENT_SECRET = "K7GFtiaxUC";
-	private final static String REDIRECT_URI = "http://localhost:8080/house/nalogin.com";
-	private final static String SESSION_STATE = "oauth_state";
-	private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
+	@Value("${CLIENT_ID}")
+	private String CLIENT_ID;
+	
+	@Value("${CLIENT_SECRET}")
+	private String CLIENT_SECRET;
+	
+	@Value("${REDIRECT_URI}")
+	private String REDIRECT_URI;
+	
+	@Value("${SESSION_STATE}")
+	private String SESSION_STATE;
+	
+	@Value("${PROFILE_API_URL}")
+	private String PROFILE_API_URL;
 	
 	/* 네이버 아이디로 인증 url 생성 method */
 	public String getAuthorizationUrl(HttpSession session) {

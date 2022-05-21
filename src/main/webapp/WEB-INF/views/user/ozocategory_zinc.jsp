@@ -22,6 +22,7 @@
 <script>
 
 		var filterList = [];
+		var totalCount;
 		
         $(document).ready(function(){
         	
@@ -135,6 +136,7 @@
             })
             
             
+            totalCount = ${totalCount};
 
 
         });
@@ -142,39 +144,65 @@
     	var firstscroll = 0;
     	var page = 0;
     	
+    	
     	// 무한스크롤 페이징
     	$(window).on("scroll", function(event){
+    		
+    		console.log(totalCount);
 
     		var scrollTop = $(window).scrollTop();
     		var windowHeight = $(window).height();
     		var documentHeight = $(document).height();
-
     		var isBottom=scrollTop+windowHeight + 100 >= documentHeight;
 
+    		
+    		
     		if(isBottom){
     			
-    			//var pag = parseInt(${totalCount}/4);
+    			if(totalCount%3 == 0){
+    				console.log(totalCount/3)
+    				var pag = parseInt(totalCount/3-1); 
+    			}else{
+    				var pag = parseInt(totalCount/3); 
+    			}
+
+
+    			console.log("pag"+ pag);
+    			console.log("page: " + page)
     			if(page == pag){ 
     				return;
     			}
     			
     			page++;
-    			//getProductList(page);
+    			getProductList(page, filterList);
     		}
     	});
     	
-		function getProductList(page){
+		function getProductList(thispage, filterList){
 
-			console.log(page);
+			var whole = [];
+        	var cates = [];
+        	var page = [];
+        	
+        	cates.push($("#top").val());
+        	cates.push(""+parseInt($("#mid").val()/100));
+        	cates.push($("#sub").val());
+        	
+        	page.push(thispage);
+        	
+			whole.push(filterList);
+			whole.push(cates);
+			whole.push(page);
+
 			
 			$.ajax({
 		  		url:'getProductListCate.com',
 		  		method:'post',
-		  		data: JSON.stringify(page),
+		  		data: JSON.stringify(whole),
 		  		contentType : 'application/json; charset=UTF-8',
 		  		dataType : 'html',
 		  		success : function(resp){
-					//$("#itemLayer").append(resp);
+					$("#product-layer").append(resp);
 		  				
 		  		},
 		  		error : function(request, status, error) {
@@ -276,8 +304,10 @@
         
         function filtering(list){
         	
+        	// thispage 무조건 0으로 해서 전송
+        	page = 0;
+        	
         	var whole = [];
-
         	var cates = [];
         	
         	cates.push($("#top").val());
@@ -290,7 +320,7 @@
 			console.log(whole);
 
         	// 배송, 가격 필터링 추가해야함
-
+			
         	
         	$.ajax({
     	  		url:'getFilterList.com',
@@ -301,6 +331,8 @@
     	  		success : function(resp){
     				
     	  			$("#product-layer").html(resp);
+    	  			totalCount = $("#filterCount").val();
+
     	  				
     	  		},
     	  		error : function(request, status, error) {
@@ -592,7 +624,7 @@
 					</div>
 
 					<div class="item_count_layer">
-						<div class="item_count">전체 153,760개</div>
+						<div class="item_count">전체 ${totalCount} </div>
 						<button class="item_filter_btn" id="item_filter_btn">
 							인기순
 							<svg class="caret" width="8" height="8" viewBox="0 0 8 8"

@@ -1,7 +1,9 @@
 package ozo.spring.house.admin.controller;
 
-import java.sql.Date;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +42,12 @@ public class AdminController {
 			List<String> dateList = new ArrayList<String>();
 			List<Integer> countList = new ArrayList<Integer>();
 			
+			int waitcount = productService.registrationWait();
+			int holdcount = productService.registrationHold();
+			List<Integer> regiList = new ArrayList<Integer>();
+			regiList.add(waitcount);
+			regiList.add(holdcount);
+			
 			for(int i=0; i<floatList.size(); i++) {
 				UserVO vo = floatList.get(i);
 				dateList.add("\""+String.valueOf(vo.getLogin_date())+"\"");
@@ -52,6 +60,7 @@ public class AdminController {
 			
 			model.addAttribute("dateList", dateList);
 			model.addAttribute("countList", countList);
+			model.addAttribute("regiList", regiList);
 
 			return "index";
 		}else {
@@ -126,11 +135,32 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/salesStatus.admin")
-	public String saleStatusView(HttpServletRequest request) {
+	public String saleStatusView(HttpServletRequest request, AdminProductVO vo, Model model) {
 		
 		HttpSession session = request.getSession();
-		
 		if(session.getAttribute("admincode")!=null) {
+			
+			// 매출 날짜 세팅
+			vo.setStartdate(java.sql.Date.valueOf("2018-01-01"));
+			Date today = new Date();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	        String formattedDate = simpleDateFormat.format(today);
+			vo.setEnddate(java.sql.Date.valueOf(formattedDate));
+			
+			List<AdminProductVO> sellerSaleList = productService.sellerSale(vo);
+			
+			for(int i=0; i<sellerSaleList.size(); i++) {
+				AdminProductVO ch = sellerSaleList.get(i);
+				int fee = 5;
+				int realPayment = (int)Math.round(ch.getPayment()*(1-fee/100.0));
+				ch.setFee(fee);
+				ch.setRealPayment(realPayment);
+			}
+			
+			model.addAttribute("sellerSaleList", sellerSaleList);
+			
+			
+
 			return "salesStatus_dh";
 		}else {
 			return "adminLogin_dj";

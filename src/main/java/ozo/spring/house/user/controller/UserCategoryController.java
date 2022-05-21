@@ -21,6 +21,7 @@ import ozo.spring.house.seller.vo.FilterVO;
 import ozo.spring.house.user.service.UserCategoryService;
 import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
+import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
 
 @Controller
@@ -44,11 +45,11 @@ public class UserCategoryController {
 		}
 
 		int topcate_code = Integer.parseInt(codes[0]);
-		//int total = userCategoryService.getCategoryCount(vo); // 전체 개수 보내기
 		System.out.println(topcate_code);
 		
 
 		vo.setTop_catecode(topcate_code); // url로 전달받은 코드
+		int total = userCategoryService.getCategoryCount(vo); // 전체 개수 보내기
 		
 		List<UserCategoryVO> titleList = userCategoryService.printTitle();
 		List<UserCategoryVO> others = new ArrayList<UserCategoryVO>();
@@ -69,6 +70,7 @@ public class UserCategoryController {
 
 		model.addAttribute("wholeList", wholeList);
 		
+		vo.setThispage(0);
 		List<UserProductVO> productList = userCategoryService.selectProductByCate(vo);
 		
 		
@@ -82,7 +84,7 @@ public class UserCategoryController {
 		}
 		
 		model.addAttribute("productList", productList);
-		//model.addAttribute("totalCount", total);
+		model.addAttribute("totalCount", total);
 
 		List<UserCategoryVO> catename = userCategoryService.getCateName(vo);
 		model.addAttribute("catename", catename);
@@ -112,9 +114,10 @@ public class UserCategoryController {
 		}
 		
 		vo.setFiltering(wholeList.get(0));
-		
-		
+
 		List<UserProductVO> postList = userCategoryService.getPostList(vo);
+		int filterCount = userCategoryService.filterCount(vo);
+		System.out.println("filtering count" + filterCount);
 		
 		for(int i=0; i<postList.size(); i++) {
 			UserProductVO pro = postList.get(i);
@@ -125,8 +128,8 @@ public class UserCategoryController {
 			pro.setSale_price(decFormat.format(sale_price));
 		}
 		
+		model.addAttribute("filterCount", filterCount);
 		model.addAttribute("productList", postList);
-		System.out.println(postList.size());
 		
 		return "cates";
 	}

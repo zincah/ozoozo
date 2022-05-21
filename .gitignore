@@ -1,4 +1,4 @@
-
+gi
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,eclipse,intellij,java,maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,eclipse,intellij,java,maven
 
@@ -6,6 +6,8 @@
 awss3.properties
 email.properties
 awsdb.properties
+naverlogin.properties
+imp.properties
 
 
 ### Eclipse ###

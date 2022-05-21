@@ -19,11 +19,34 @@
                       GROUP BY photo_postid
                   )
         ) pimg ON po.post_id = pimg.photo_postid
-        where po.post_status = '판매중' and s.seller_id = 500001;
+        <where>
+        po.post_status = '판매중' and s.seller_id=#{post_sellerid}
+        	<if test="po_category != 0 and po_category != null">
+        		<trim prefix="and">
+					po.po_category=#{po_category}
+				</trim>
+        	</if>
+        	<if test="Int != 0 and Int != null">
+				<trim prefix="and">
+					po.po_subcate/100*100=#{Int}
+				</trim>
+			</if>
+			<if test="po_subcate != 0 and po_subcate != null">
+				<trim prefix="and">
+					po.po_subcate=#{po_subcate}
+				</trim>
+			</if>
+        </where>
+        
+    </select>
+    
+    <select id="sellerInfo" resultType="seller">
+    	SELECT * FROM seller WHERE seller_id=#{post_sellerid}
     </select>
 
-
+	
     <!-- 카테고리 정보 가져오기 -->
+	<!-- 
     <select id="shopCateList" resultType="cate">
         select po.po_category, po.po_subcate, sc.subcate_name, c.cate_name
         from product_posting po
@@ -31,6 +54,35 @@
                  inner join category c on sc.top_catecode = c.cate_code
 
         where po.post_sellerid = 500001;
-    </select>
+    </select>  -->
 
+    <!-- 브랜드 카테고리 뽑기 대 -->
+    <select id="printTopCate" resultType="ucate">
+    SELECT distinct po_category as cate_code, ca.cate_name FROM
+    product_posting po INNER JOIN category ca ON 
+    po.po_category = ca.cate_code
+	WHERE post_sellerid = #{post_sellerid} 
+	ORDER BY cate_code asc;
+	</select>
+	
+	<!-- 브랜드 카테고리 뽑기 중 -->
+	<select id="printMidCate" resultType="ucate">
+	SELECT sc.subcate_code, sc.subcate_name FROM 
+	sub_category sc INNER JOIN (
+	SELECT distinct po_subcate/100*100 AS mid FROM
+	product_posting WHERE post_sellerid = #{post_sellerid}) 
+	md ON sc.subcate_code = md.mid
+	WHERE sc.subcate_code/10000 = #{po_category};
+	</select>
+	
+	<!-- 브랜드 카테고리 뽑기 소 -->
+	<select id="printSmCate" resultType="ucate">
+	SELECT distinct po_subcate as subcate_code, sc.subcate_name 
+	FROM product_posting po
+	INNER JOIN sub_category sc ON po.po_subcate = sc.subcate_code
+	WHERE post_sellerid = #{post_sellerid} 
+	AND subcate_code/10000 = #{po_category}
+	ORDER BY po.po_subcate asc;
+	</select>
+    
 </mapper>

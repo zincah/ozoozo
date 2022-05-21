@@ -33,7 +33,8 @@
 		
 		var dates = [];
 		
-
+		dateList = dateList.reverse();
+		countList = countList.reverse();
 		
 		// Area Chart Example
 		var ctx = document.getElementById("myAreaChart");
@@ -167,19 +168,19 @@
 	                  <div class="card-body">
 	                    <div class="d-flex title-text">
 	                      <p class="margin-zero"><i class="bi bi-tags-fill icon-margin-right"></i>상품등록요청</p>
-	                      <span class="badge rounded-pill bg-pointcolor title-badge-margin-left">0</span>
+	                      <span class="badge rounded-pill bg-pointcolor title-badge-margin-left">${regiList[0] }</span>
 	                    </div>
 	                    <div class="d-flex justify-content-between sub-text">
 	                      <p class="small">등록 대기</p>
 	                      <div>
-	                        <span class="num-text-color">0</span>
+	                        <span class="num-text-color">${regiList[0] }</span>
 	                        <span>건</span>
 	                      </div>
 	                    </div>
 	                    <div class="d-flex justify-content-between sub-text">
-	                      <p class="small">등록 거부</p>
+	                      <p class="small">등록 보류</p>
 	                      <div>
-	                        <span class="num-text-color">0</span>
+	                        <span class="num-text-color">${regiList[1] }</span>
 	                        <span>건</span>
 	                      </div>
 	                    </div>

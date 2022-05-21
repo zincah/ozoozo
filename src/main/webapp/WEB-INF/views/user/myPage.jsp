@@ -12,11 +12,38 @@
     <link rel="stylesheet" href="resources/css/user_css/inha/myPage-style.css?var=1" />
     <link rel="stylesheet" href="resources/css/user_css/inha/myPage-nav-style.css" />
     <link rel="stylesheet" href="resources/css/user_css/inha/footer-style.css" />
+    <script type="text/javascript"
+	src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
     <style type="text/css">
       address {
         font-style: normal;
       }
     </style>
+    <script>
+    $(document).ready(function(){
+    	
+    	$(".item_bookmark").click(function(){
+    		
+    		var toto = $(this).attr('id')
+    		
+    		
+    		$.ajax({
+				url:"scrapdelete.com",
+				type: 'post',
+				data: JSON.stringify(toto),
+				contentType:'application/json; charset=UTF-8',
+				dataType: 'text',
+				success: function(resp){
+					
+					
+				}
+				})
+    		
+    	})
+    });
+    
+    </script>
+    
     <title>님의 마이페이지</title>
   </head>
   <body>
@@ -28,7 +55,7 @@
         <nav class="page-navigation mypage-nav-owner">
           <ul style="transform: translateX(0px); margin: 0px">
             <li class="mypage-nav-item">
-              <a class="active" href="/house/myPage.com" target="self">프로필</a>
+              <a class="active" href="/house/m_myPage.com" target="self">프로필</a>
             </li>
             <li class="mypage-nav-item">
               <a href="/house/myshopping.com" target="self">나의 쇼핑</a>
@@ -37,7 +64,7 @@
               <a href="/house/myreview.com" target="self">나의 리뷰</a>
             </li>
             <li class="mypage-nav-item">
-              <a href="/house/edit.com" target="self">설정</a>
+              <a href="/house/m_edit.com" target="self">설정</a>
             </li>
           </ul>
         </nav>
@@ -214,7 +241,7 @@
 <div class="col-12 col-md-4 col-lg-3">
 	<div class="deals_list_wrap">
 		<article class="deals_item">
-			<a href="#" style="text-decoration: none; width: 100%;">
+			<a href="" style="text-decoration: none; width: 100%;">
 				<div class="deals_item_wrap">
 					<div class="deals_item_pic_out">
 						<div class="deals_item_pic">
@@ -265,7 +292,7 @@
 						</div>
 						<div class="deals_item_body_price">
 							<span class="sale_percent">${s.sale_ratio }%</span> 
-							<span class="price sale_price">${s.whole_price }</span>
+							<span class="price sale_price">${s.sale_price }</span>
 						</div>
 						<div class="deals_item_review">
 							<div class="review_icon">

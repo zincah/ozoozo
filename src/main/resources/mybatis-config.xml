@@ -24,7 +24,8 @@
 		<typeAlias type="ozo.spring.house.user.vo.UserAddressVO" alias="address"/>
 		<typeAlias type="ozo.spring.house.user.vo.UserScrapVO" alias="userscrap"/>
 		<typeAlias type="ozo.spring.house.user.vo.ScrapVO" alias="scrap"/>
-		<typeAlias type="ozo.spring.house.admin.vo.AdminCouponVO" alias="coupon"/>
+    <typeAlias type="ozo.spring.house.admin.vo.AdminCouponVO" alias="coupon"/>
+    <typeAlias type="ozo.spring.house.user.vo.UserPaymentLogVO" alias="paymentlog"/>
 	</typeAliases>
 	<!-- 원래 여기에 datasource를 넣어줘야하는데 applicationContext에서 넣었음 -->
 	<mappers>
@@ -49,5 +50,6 @@
 	    <mapper resource="mappings/sellerOrder-mapping.xml"/>
 	    <mapper resource="mappings/userScrap-mapping.xml"/>
 	    <mapper resource="mappings/userMyPage-mapping.xml"/>
+	    <mapper resource="mappings/serverStart-mapping.xml"/>
 	</mappers>
 </configuration>

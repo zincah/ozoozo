@@ -43,6 +43,8 @@ public class ScrapVO {
 		private int post_shipfee;
 		
 		private String cate_name;
+		//할인가격
+		private String sale_price;
 	
 	 // seller
 		private String company_name;
