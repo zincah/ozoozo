@@ -24,5 +24,65 @@
 	UPDATE banner SET banner_status=#{banner_status} where banner_id=#{banner_id}
 	</update>
 	
-	
+
+
+
+
+	<!-- coupon list -->
+	<select id="couponListView" resultType="coupon">
+		select * from product_coupon pc
+	</select>
+
+
+	<!-- coupon searching -->
+	<select id="couponSearching" resultType="coupon">
+		select * from product_coupon pc
+	<where>
+		<if test="coupon_type != '' and coupon_type != null">
+			coupon_type = ${coupon_type}
+		</if>
+		<if test="pc_searchName != ''">
+			<trim prefix="and">
+				pc.coupon_name LIKE <trim prefix="replace('%" suffix="%',' ','')">${pc_searchName}</trim>
+			</trim>
+		</if>
+		<if test="pc_searchStatus != null">
+			<trim prefix="and">
+				<if test="pc_searchStatus.size != 4">
+					<foreach collection="pc_searchStatus" item="arr" separator="or">
+						<if test="arr == 2">
+							pc.coupon_status = '대기'
+						</if>
+						<if test="arr == 3">
+							pc.coupon_status = '진행중'
+						</if>
+						<if test="arr == 4">
+							pc.coupon_status = '종료'
+						</if>
+					</foreach>
+				</if>
+			</trim>
+		</if>
+		<if test="pc.selectDate">
+			<trim prefix="and">
+				pc.coupon_created BETWEEN TO_DATE(#{pc_startDate}, 'YYYY-MM-DD') AND TO_DATE(#{pc_endDate}, 'YYYY-MM-DD') + INTERVAL '1 DAY'
+			</trim>
+		</if>
+		<if test="true">
+			ORDER BY pc.coupon_id DESC;
+		</if>
+
+	</where>
+	</select>
+
+
+	<!-- coupon inserting -->
+	<insert id="couponInserting" parameterType="coupon">
+		INSERT INTO product_coupon (coupont_id, coupon_title, coupon_subtitle, coupon_startdate, coupon_enddate)
+		VALUES (#{coupon_title},#{coupon_subtitle},#{coupon_startdate},#{coupon_enddate},
+		        select coalesce (max (coupon_id), 100)+1
+		        from product_coupon), (select max (coupon_id) from coupon));
+
+	</insert>
+
 </mapper>

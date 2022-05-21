@@ -1,5 +1,7 @@
 package ozo.spring.house.admin.controller;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,68 +18,106 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.admin.service.AdminBannerService;
+import ozo.spring.house.admin.service.AdminCouponService;
+import ozo.spring.house.admin.vo.AdminCouponVO;
 import ozo.spring.house.admin.vo.BannerVO;
+import ozo.spring.house.common.Criteria;
 
 @Controller
 public class AdminEventController {
-	
+
 	@Autowired
-	AdminBannerService AdminBannerService; 
-	
+	AdminBannerService AdminBannerService;
+
+	@Autowired
+	AdminCouponService AdminCouponService;
+
+
 	@RequestMapping(value = "/m_eventManagement.admin")
-	public String eventManagementView(HttpServletRequest request,Model model,BannerVO vo) {
-		
+	public String eventManagementView(HttpServletRequest request, Model model, BannerVO vo) {
+
 		HttpSession session = request.getSession();
-		
-		List<BannerVO> list ; 
+
+		List<BannerVO> list;
 		list = AdminBannerService.b_select(vo);
-		model.addAttribute("list",list);
-		
-		if(session.getAttribute("admincode")!=null) {
+		model.addAttribute("list", list);
+
+		if (session.getAttribute("admincode") != null) {
 			return "eventManagement_dj";
-		}else {
+		} else {
 			return "adminLogin_dj";
 		}
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value="/statuschange.admin", method = { RequestMethod.POST })
-	public Map<String,String> eventbtn(@RequestBody Map<String,String> param, BannerVO vo) {
-		
-		
-		if(param.get("bool").equals("Àç°³½Ã")) {
+	@RequestMapping(value = "/statuschange.admin", method = {RequestMethod.POST})
+	public Map<String, String> eventbtn(@RequestBody Map<String, String> param, BannerVO vo) {
+
+
+		if (param.get("bool").equals("ï¿½ç°³ï¿½ï¿½")) {
 			vo.setBanner_status(true);
-			System.out.println(param.get("Æ®·ç ³Ö¾ú´Ù"));
-		}else if(param.get("bool").equals("ÁßÁö")) {
+			System.out.println(param.get("Æ®ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½"));
+		} else if (param.get("bool").equals("ï¿½ï¿½ï¿½ï¿½")) {
 			vo.setBanner_status(false);
-			System.out.println(param.get("false ³Ö¾ú´Ù"));
+			System.out.println(param.get("false ï¿½Ö¾ï¿½ï¿½ï¿½"));
 		}
-		
+
 		vo.setBanner_id(Integer.parseInt(param.get("item")));
-		
+
 		System.out.println(param.get("item"));
 		System.out.println(param.get("bool"));
-		
+
 		AdminBannerService.b_boolean(vo);
-		
-		// ¸®ÅÏÇÒ¶§ ¸ÊÀ¸·Î ¸®ÅÏÇÏ¿© ajax ¿¡·¯¿Í ÇÔ²² Å×½ºÆ®ÇÏ¿© ¹Þ´Â Áö ¸ø¹Þ´Â Áö Ã¼Å© ÇÒ°Í!!
-		//sysoutÀ¸·Î ½ÇÇà Å×½ºÆ® ÇØº¸±â 
-		//jsonÀº @requestbody
-		Map<String,String> map = new HashMap<String,String>();
+
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ajax ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô²ï¿½ ï¿½×½ï¿½Æ®ï¿½Ï¿ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Þ´ï¿½ ï¿½ï¿½ Ã¼Å© ï¿½Ò°ï¿½!!
+		//sysoutï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ® ï¿½Øºï¿½ï¿½ï¿½ 
+		//jsonï¿½ï¿½ @requestbody
+		Map<String, String> map = new HashMap<String, String>();
 		map.put("item", param.get("item"));
 		map.put("bool", param.get("bool"));
 		return map;
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value="/view.admin", method = { RequestMethod.POST })
-	public List<BannerVO> bannerview(@RequestBody Map<String,String> param,BannerVO vo ){
+	@RequestMapping(value = "/view.admin", method = {RequestMethod.POST})
+	public List<BannerVO> bannerview(@RequestBody Map<String, String> param, BannerVO vo) {
 
 		vo.setBanner_id(Integer.parseInt(param.get("id")));
 		System.out.println(param.get("id"));
 		List<BannerVO> list = AdminBannerService.b_selectone(vo);
-		
+
 		return list;
-		
+
 	}
+
+
+	/* counpon searching + coupon List View */
+	@ResponseBody
+	@RequestMapping(value = "/couponManagement.admin", method = RequestMethod.POST)
+	public String couponSearching(@RequestBody Map<String, String> searchMap, AdminCouponVO cvo, Model model, Criteria cri) {
+
+		System.out.println(searchMap);
+
+		cvo.setCoupon_title(searchMap.get("title"));
+		cvo.setCoupon_subtitle(searchMap.get("content"));
+		cvo.setCoupon_startdate(Timestamp.valueOf(searchMap.get("startdate")));
+		cvo.setCoupon_enddate(Timestamp.valueOf(searchMap.get("enddate")));
+		cvo.setCoupon_create(Timestamp.valueOf(searchMap.get("create")));
+		//cvo.setCoupon_update(Timestamp.valueOf(searchMap.get("update")));
+		//cvo.setCoupon_id(int.AdminCouponVO("code"));
+		cvo.setCoupon_status(searchMap.get("status"));
+
+
+		List<AdminCouponVO> couponList = AdminCouponService.couponListView(cvo);
+		model.addAttribute("couponListView", couponList);
+		model.addAttribute("total count", AdminCouponService.couponListView(cvo));
+
+		return "couponListView";
+
+	}
+
+
+
+
+
 }

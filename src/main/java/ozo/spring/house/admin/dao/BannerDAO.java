@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ozo.spring.house.admin.vo.AdminCouponVO;
 import ozo.spring.house.admin.vo.BannerVO;
 
 @Repository
@@ -22,7 +23,7 @@ public class BannerDAO {
 	}
 	
 	public void b_insert(BannerVO vo) {
-		System.out.println("¾÷·Îµå Çß´Ù ");
+		System.out.println("ï¿½ï¿½ï¿½Îµï¿½ ï¿½ß´ï¿½ ");
 		sessiontemplate.insert("BannerDAO.b_insert", vo);
 		
 	}
@@ -33,16 +34,33 @@ public class BannerDAO {
 	}
 	
 	public void b_boolean(BannerVO vo){
-		System.out.println("¼öÁ¤Çß¾û");
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ß¾ï¿½");
 		sessiontemplate.update("BannerDAO.b_boolean",vo);
 		
 	}
 
 	public List<BannerVO> b_selectone(BannerVO vo) {
-		System.out.println("±ÛÃ£¾Ò¾û");
+		System.out.println("ï¿½ï¿½Ã£ï¿½Ò¾ï¿½");
 		return sessiontemplate.selectList("BannerDAO.b_selectone",vo);
 		 
 	}
 
-	
+
+
+	/*
+	// admin coupon
+	 */
+	public List<AdminCouponVO> couponListView(AdminCouponVO vo){
+		return sessiontemplate.selectList("BannerDAO.couponListView", vo);
+	}
+
+	public void couponInserting(AdminCouponVO vo) {
+		System.out.println("mybatis admin coupon insert");
+		sessiontemplate.insert("BannerDAO.couponInserting", vo);
+	}
+
+	public void couponSearching(AdminCouponVO vo){
+		System.out.println("mybatis admin coupon search");
+		sessiontemplate.selectList("BannerDAO.couponSearching", vo);
+	}
 }
