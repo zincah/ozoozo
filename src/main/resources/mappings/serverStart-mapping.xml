@@ -19,7 +19,9 @@
 	<update id="postingDealUpdate2">
 		UPDATE product_posting set today_deal = false
 		FROM deal_info di
-		WHERE di.deal_status = '종료' AND di.deal_postid = post_id;
+		WHERE di.deal_status = '종료' 
+		AND di.deal_postid = post_id
+		AND (EXTRACT(EPOCH FROM NOW() - di.deal_endtime))::Integer > 0;
 	</update>
 </mapper>
 
