@@ -39,6 +39,13 @@ button, input, select, textarea {font-size: inherit;}
     font-weight: 400;
 }
 
+/* 이미지 업로드 쪽 */
+.upload_img{
+  height: 100%;
+  overflow: hidden;
+
+}
+
 @media (min-width: 375px) {
     .container {margin-right: auto; margin-left: auto; width: calc(100% - 30px); max-width: 100%; box-sizing: border-box; min-height: 1px;}
 }

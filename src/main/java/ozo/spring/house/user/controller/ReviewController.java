@@ -137,13 +137,37 @@ public class ReviewController {
 			List<Map<String, String>> myreviewlist = reviewService.selectMyReview(vo);
 			model.addAttribute("myreviewlist", myreviewlist);
 
-			System.out.println(myreviewlist);
+			//System.out.println(myreviewlist);
 			
 			return "myReview-view";
 			
 		}
 		return "login.com";
 	}
+	
+	// 내 리뷰 수정 전 불러오기
+    @ResponseBody
+    @RequestMapping(value="/getMyReview.com", method= RequestMethod.POST)
+    public String getMyReview(@RequestBody String code, ReviewVO vo){
+
+
+		int review_id = Integer.parseInt(code.replace("\"", ""));
+		vo.setReview_id(review_id);
+    	
+		Map<String, String> map = reviewService.selectMyReviewOne(vo);
+		String jsonmap;
+		try {
+			jsonmap = new ObjectMapper().writeValueAsString(map);
+		}catch(JsonProcessingException e) {
+			jsonmap = null;
+			e.printStackTrace();
+		}
+		
+		System.out.println(jsonmap);
+
+		return jsonmap;
+
+    }
 
 
 

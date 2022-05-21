@@ -239,7 +239,7 @@
               <a class="active select" href="/house/review.com">리뷰쓰기</a>
             </li>
             <li class="mypage-nav-item">
-              <a class="" href="/house/review_view.com" target="self">내가 작성한 리뷰</a>
+              <a class="" href="/house/review_view.com">내가 작성한 리뷰</a>
             </li>
           </ul>
         </nav>

@@ -35,9 +35,8 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDAO.selectMyReview(vo);
 	}
   
-  @Override
-  public void insertview(ReviewVO vo) {
-      reviewDAO.insertreview(vo);
+	public Map<String, String> selectMyReviewOne(ReviewVO vo){
+		return reviewDAO.selectMyReviewOne(vo);
+	}
 
-  }
-
+}
