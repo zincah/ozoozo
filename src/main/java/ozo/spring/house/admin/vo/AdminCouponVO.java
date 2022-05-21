@@ -20,5 +20,7 @@ public class AdminCouponVO {
 	private Timestamp coupon_startdate;
 	private Timestamp coupon_enddate;
 	private String coupon_status;
+	private int coupon_discount;
+	private int coupon_more;
 
 }

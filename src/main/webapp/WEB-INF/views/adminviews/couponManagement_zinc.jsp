@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -54,18 +57,20 @@
               <li class="breadcrumb-item active">Manage coupons</li>
             </ol>
             <div class="container container-option bottomline">
+
               <div class="row optionGroup1">
                 <div class="col-1 category-header-content">
-                  전체<span>0</span>
+                  <span>전체</span><span class="status-value"><fmt:formatNumber
+                          value="${fn:length(couponList)}" pattern="#,###"/></span>
                 </div>
                 <div class="col-1 category-header-content">
-                  대기<span>0</span>
+                  <span>대기</span><span class="status-value"><fmt:formatNumber value="${couponStatus0}" pattern="#,###"/> </span>
                 </div>
                 <div class="col-1 category-header-content">
-                  진행중<span>0</span>
+                  <span>진행중</span><span class="status-value"><fmt:formatNumber value="${couponStatus1}" pattern="#,###"/> </span>
                 </div>
                 <div class="col-1 category-header-content">
-                  종료<span>0</span>
+                  <span>종료</span><span class="status-value"><fmt:formatNumber value="${couponStatus2}" pattern="#,###"/> </span>
                 </div>
               </div>
             </div>
@@ -155,61 +160,25 @@
               </thead>
               <tbody>
                 <!-- for -->
+                <c:forEach var="couponListView" items="${coupon}">
                 <tr class="content-table-content content-hover">
                   <td class="content-table-content-text">
                       <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
                   </td>
                   <td class="content-table-content-text">
                     <a href="#">
-                      <div class="coupon_title">오픈 기념 이벤트 축하쿠폰</div>
-                      <div class="coupon_sub_title">2000원 할인 (10,000원 이상 구매 시)</div>
+                      <div class="coupon_title">${coupon.coupon_title()}</div>
+                      <div class="coupon_sub_title">${coupon.coupon_subtitle()}</div>
                     </a>
                   </td>
-                  <td class="content-table-content-text">쿠폰코드(10자리)</td>
+                  <td class="content-table-content-text">${coupon.coupon_type}</td>
                   <td class="content-table-content-text">0회</td>
-                  <td class="content-table-content-text">2022-04-16 14:00 ~ 2022-04-21 00:00</td>
-                  <td class="content-table-content-text">2022-04-16 14:00</td>
-                  <td class="content-table-content-text">A100000</td>
-                  <td class="content-table-content-text state0">진행중</td>
+                  <td class="content-table-content-text">${coupon.coupon_startdate()}<span>~</span>${coupon.coupon_enddate()}</td>
+                  <td class="content-table-content-text">${coupon.coupon_create()}</td>
+                  <td class="content-table-content-text">${coupon.coupon_id()}</td>
+                  <td class="content-table-content-text state0">${coupon.coupon_status()}</td>
                 </tr>
-
-                <tr class="content-table-content content-hover">
-                  <td class="content-table-content-text">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                  </td>
-                  <td class="content-table-content-text">
-                    <a href="#">
-                      <div class="coupon_title">가구 10% 할인쿠폰</div>
-                      <div class="coupon_sub_title">30000원 이상 구매시 10% 할인</div>
-                    </a>
-                  </td>
-                  <td class="content-table-content-text">고객다운로드</td>
-                  <td class="content-table-content-text">0회/0회</td>
-                  <td class="content-table-content-text">2022-04-16 14:00 ~ 2022-04-21 00:00</td>
-                  <td class="content-table-content-text">2022-04-16 14:00</td>
-                  <td class="content-table-content-text">-</td>
-                  <td class="content-table-content-text state0">진행중</td>
-                </tr>
-
-                <tr class="content-table-content content-hover">
-                  <td class="content-table-content-text">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
-                  </td>
-                  <td class="content-table-content-text">
-                    <a href="#">
-                      <a href="#">
-                        <div class="coupon_title">신규가입 감사쿠폰</div>
-                        <div class="coupon_sub_title">1000원 할인 (5000원 이상 구매시)</div>
-                      </a>
-                    </a>
-                  </td>
-                  <td class="content-table-content-text">자동발행</td>
-                  <td class="content-table-content-text">0회/0회</td>
-                  <td class="content-table-content-text">2022-04-16 14:00 ~ 2022-04-21 00:00</td>
-                  <td class="content-table-content-text">2022-04-16 14:00</td>
-                  <td class="content-table-content-text">-</td>
-                  <td class="content-table-content-text state0">진행중</td>
-                </tr>
+                </c:forEach>
 
 
 
@@ -248,49 +217,25 @@
           </div>
           <form method="post" action="#">
             <table class="table table-box-style content-view-table table-bordered">
+
+              <!-- for -->
+              <c:forEach items="${couponInserting}" var="insert">
               <tbody>
-                
+
                 <tr class="content-table-content">
                   <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">등록일</td>
-                  <td colspan="2" class="content-table-content-text" id="info_date">2022-04-12 13:11</td>
+                  <td colspan="2" class="content-table-content-text" id="info_date">${insert.coupon_create}</td>
                   <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">담당자</td>
-                  <td colspan="2" class="content-table-content-text" id="info_charge">이인하</td>
-                </tr>
-                <tr class="content-table-content">
-                  <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5">쿠폰 형식</td>
-                  <td colspan="2" class="radio-content">
-                    <div class="radio-layer content-flex">
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="couponradio" id="couponradio1" checked>
-                        <label class="form-check-label" for="couponradio1">
-                          고객 다운로드
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="couponradio" id="couponradio2">
-                        <label class="form-check-label" for="couponradio2">
-                          자동 발행
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="couponradio" id="couponradio3">
-                        <label class="form-check-label" for="couponradio3">
-                          쿠폰코드 생성
-                        </label>
-                      </div>
-                    </div>
-                  </td>
-                  <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5">쿠폰 코드</td>
-                  <td colspan="2" class="content-table-content-text"></td>
+                  <td colspan="2" class="content-table-content-text" id="info_charge">${insert.company_name}</td>
                 </tr>
 
                 <tr class="content-table-content">
-                  <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">시작 날짜</td>
+                  <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">${insert.coupon_startdate}</td>
                   <td colspan="2" class="content-table-content-text">
                       <input class="startDate" type="date" id="now_date1" value="">
                       <input class="startDate" type="time">
                   </td>
-                  <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">종료 날짜</td>
+                  <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">${insert.coupon_enddate}</td>
                   <td colspan="2" class="content-table-content-text">
                     <input class="startDate" type="date" id="now_date2" value="">
                     <input class="startDate" type="time">
@@ -307,6 +252,17 @@
                   </td>
                 </tr>
 
+                <tr>
+                  <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">쿠폰 사용조건</td>
+                  <td colspan="2" class="content-table-content-text">
+                    <input type="text" class="form-control table-input" id="coupon_more" style="display: inline-block;">
+                  </td>
+
+                  <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">할인 금액(할인율)</td>
+                  <td colspan="2" class="content-table-content-text">
+                    <input type="text" class="form-control table-input" id="coupon_discount" style="display: inline-block;">
+                  </td>
+                </tr>
 
                 <tr class="content-table-content">
                   <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5">쿠폰 제목</td>
@@ -332,6 +288,7 @@
                   </td>
                 </tr>
               </tbody>
+              </c:forEach>
             </table>
           </form>
 

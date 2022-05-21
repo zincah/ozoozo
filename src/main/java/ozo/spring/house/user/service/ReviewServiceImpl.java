@@ -34,5 +34,10 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<Map<String, String>> selectMyReview(ReviewVO vo) {
 		return reviewDAO.selectMyReview(vo);
 	}
+  
+  @Override
+  public void insertview(ReviewVO vo) {
+      reviewDAO.insertreview(vo);
 
-}
+  }
+
