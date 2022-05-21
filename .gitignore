@@ -6,6 +6,8 @@ gi
 awss3.properties
 email.properties
 awsdb.properties
+naverlogin.properties
+imp.properties
 
 
 ### Eclipse ###

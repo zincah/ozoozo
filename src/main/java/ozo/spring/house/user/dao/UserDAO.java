@@ -44,10 +44,10 @@ public class UserDAO {
 		System.out.println("[LOGO] : mybatis in UserDAO checkUser");
 		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.checkUser", vo);
 		if(passwordEncoder.matches(vo.getUser_pw(), user.getUser_pw())) {
+			System.out.println("hi");
 			return user;
 		}else {
-			return null; 
-			// 예외처리
+			return null;
 		}
 	}
 	public Boolean Duplicate_Check_Email(UserVO vo) {

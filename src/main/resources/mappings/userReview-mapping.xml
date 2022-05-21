@@ -4,26 +4,57 @@
 
 <mapper namespace="ReviewDAO">
 
-    <!-- 전체목록 -->
-    <select id="selectReviewList" resultType="review" >
-        SELECT *FROM review
-    </select>
-
-    <!-- 베스트리뷰 -->
-    <select id="topReviewList" resultType="review">
-        SELECT * FROM review where product_id = #{product_id} order by liked desc
-    </select>
-
-    <!-- 나의 리뷰 -->
-    <select id="myReviewList" resultType="review">
-        select * FROM review where user_num = #{user_num} order by created_at desc
-    </select>
-
-    <!-- test -->
-    <insert id="insertreview" parameterType="review">
-        insert into review (user_num, product_id, seller_id, rating, content, rv_catecode, rv_subcatecode)
-        values (#{user_num}, #{product_id}, #{seller_id}, #{rating}, #{content}, #{rv_catecode}, #{rv_subcatecode});
-    </insert>
+	<!-- 리뷰 쓸 구매확정 목록 -->
+	<select id="listofobject" resultType="HashMap">
+		select uo.order_id, uo.od_postid, uo.seller_id, uo.user_num, uo.order_status, 
+		uo.product_id, op.*, po.post_name, s.company_name, photo.photo_url 
+		from user_order uo
+		inner join product_option op on uo.product_id = op.op_productid
+		inner join product_posting po on uo.od_postid = po.post_id 
+		inner join (select seller_id as sid, company_name from seller) s on s.sid = uo.seller_id
+		inner join (
+			select photo_id, photo_postid, photo_url from product_image 
+		         where (photo_id, photo_postid) 
+		         in (
+		            select MIN(photo_id) as photo_id, photo_postid
+		            from product_image 
+		            group by photo_postid 
+		         )
+		) photo on uo.od_postid = photo.photo_postid
+		where user_num=100002 and order_status='배송완료' order by uo.order_date;
+	</select>
+	
+	<!-- 리뷰버튼 눌렀을 때 셀렉트 -->
+	<select id="getReviewInfo" resultType="HashMap">
+		select uo.order_id, uo.od_postid, uo.seller_id, uo.user_num, uo.order_status, 
+		uo.product_id, op.*, po.post_name, s.company_name, photo.photo_url 
+		from user_order uo
+		inner join product_option op on uo.product_id = op.op_productid
+		inner join product_posting po on uo.od_postid = po.post_id 
+		inner join (select seller_id as sid, company_name from seller) s on s.sid = uo.seller_id
+		inner join (
+			select photo_id, photo_postid, photo_url from product_image 
+		         where (photo_id, photo_postid) 
+		         in (
+		            select MIN(photo_id) as photo_id, photo_postid
+		            from product_image 
+		            group by photo_postid 
+		         )
+		) photo on uo.od_postid = photo.photo_postid
+		where user_num=100002 and order_status='배송완료' and order_id=#{order_id}
+		order by uo.order_date;
+	</select>
+	
+	<!-- 리뷰 등록 -->
+	<select id="insertReview" parameterType="review">
+		insert into review (reuser_num, reproduct_id, reseller_id, rating,
+		review_image, recontent, repost_id) values (#{reuser_num}, #{reproduct_id},
+		#{reseller_id}, #{rating}, #{review_image}, #{recontent}, #{repost_id});
+	</select>
+	
+	<update id="changeReviewStatus" parameterType="review">
+		update user_order set review_status=true where order_id=#{order_id};
+	</update>
 
 </mapper>
 
