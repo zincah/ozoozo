@@ -6,14 +6,20 @@
 	
 	<!-- 배송중 시간에 따른 배송완료 처리 -->
 	<update id="shippingUpdate">
-		UPDATE user_order uo SET order_status = '배송완료', shipfinish_date = now() 
-		WHERE (EXTRACT(EPOCH FROM NOW() - uo.shipstart_date))::Integer > 60 and uo.shipfinish_date = null;
+		UPDATE user_order SET order_status = '배송완료', shipfinish_date = now() 
+		WHERE (EXTRACT(EPOCH FROM NOW() - shipstart_date))::Integer > 60 and shipfinish_date = null;
 	</update>
 
-	<!-- 오늘의딜 자동 마감 처리 -->
-	<update id="postingDealUpdate">
-		UPDATE user_order uo SET order_status = '배송완료', shipfinish_date = now() 
-		WHERE (EXTRACT(EPOCH FROM NOW() - uo.shipstart_date))::Integer > 60 and uo.shipfinish_date = null;
+	<!-- 오늘의딜 자동 마감 처리1 (상태 변경) -->
+	<update id="postingDealUpdate1">
+		UPDATE deal_info SET deal_status = '종료'
+		WHERE (EXTRACT(EPOCH FROM NOW() - deal_endtime))::Integer > 0 AND deal_status = '게시';
+	</update>
+	<!-- 오늘의딜 자동 마감 처리2 (판매글 딜 상태 변경) -->
+	<update id="postingDealUpdate2">
+		UPDATE product_posting set today_deal = false
+		FROM deal_info di
+		WHERE di.deal_status = '종료' AND di.deal_postid = post_id;
 	</update>
 </mapper>
 
