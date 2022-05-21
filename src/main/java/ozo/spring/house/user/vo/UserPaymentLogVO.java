@@ -22,4 +22,7 @@ public class UserPaymentLogVO {
 	private int payment;
 	private int address_id;
 	private int od_postid;
+	
+	// 
+	private int order_id;
 }

@@ -122,6 +122,7 @@ public class UserInfoController {
 		
 		// 이전 페이지 정보를 얻어와서 String url에 저장해준다.
 		if(request.getHeader("Referer")!=null) {
+			System.out.println("이전 url");
 			String referer = request.getHeader("Referer");
 			String[] urls = referer.split("/");
 			String url = urls[urls.length-1];
@@ -199,7 +200,7 @@ public class UserInfoController {
 				}else {
 					url = (String) session.getAttribute("lasturl");
 					System.out.println(url);
-					if(url.equals("signUp.com")) {
+					if(!url.equals("signUp.com")) {
 						return "redirect:"+url;
 					}
 				}
@@ -283,5 +284,7 @@ public class UserInfoController {
 			
 			return "SignUp";
 		}
+		
+		
 
 }
