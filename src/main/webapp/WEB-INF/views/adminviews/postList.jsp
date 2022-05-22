@@ -4,11 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 				<input type="hidden" value="${totalcount}" id="totalcount">
-                <!-- for -->
                 <c:forEach items="${postList }" var="post">
 	                <tr class="content-table-content content-hover">
 	                  <td class="content-table-content-text option-line">
-	                   	  <input type="hidden" value="${post.post_id }"/>
+	                      <input type="hidden" value="${post.post_id }"/>
 	                      <input class="check form-check-input form-check-input-margin" type="checkbox" value="" name="productcheckbox" onchange="checkfunction()"/>
 	                  </td>
 	                  <td class="content-table-content-text option-line">${post.company_name }</td>
@@ -29,13 +28,13 @@
 						</c:choose>
 	                  </td>
 	                  <td class="content-table-content-text option-line">${post.product_created }</td>
-					  <td class="content-table-content-text option-line">
-					  	<c:choose>
+	                  <td class="content-table-content-text option-line">
+		                  <c:choose>
 								<c:when test="${post.deal_status != null}">${post.deal_status }</c:when>
 								<c:when test="${post.deal_status == null}">-</c:when>
 								<c:otherwise>-</c:otherwise>
 						</c:choose>
-					  </td>
+	                  </td>
 	                  <td class="content-table-content-text option-line">
 	                  	<c:choose>
 							<c:when test="${post.best_product == true}">o</c:when>

@@ -94,8 +94,10 @@ public class AdminManageDAO {
 	
 	public int searchListCount(AdminProductVO pvo){
 		System.out.println("--> mybatis in adminmanagedao getproductlist");
-		List<AdminProductVO> list = sqlSessionTemplate.selectList("AdminManageDAO.searchListCount", pvo);
-		return list.size();
+		//List<AdminProductVO> list = sqlSessionTemplate.selectList("AdminManageDAO.searchListCount", pvo);
+		System.out.println("searchlistcount : " + pvo);
+		System.out.println("total : " + sqlSessionTemplate.selectOne("AdminManageDAO.searchListCount", pvo));
+		return sqlSessionTemplate.selectOne("AdminManageDAO.searchListCount", pvo);
 	}
 	
 	public List<UserVO> floatingPopulation() {

@@ -47,8 +47,9 @@ public class AdminProductManageController {
 		List<AdminProductVO> postList = productService.getProductList(pvo);
 		model.addAttribute("postList", postList);
 		model.addAttribute("pageMaker", cri);
+		System.out.println(pvo);
 		model.addAttribute("totalcount", productService.searchListCount(pvo));
-
+		System.out.println(productService.searchListCount(pvo));
 		return "postList";
 	}
 

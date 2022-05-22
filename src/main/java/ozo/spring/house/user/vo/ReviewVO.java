@@ -26,5 +26,8 @@ public class ReviewVO {
     private int order_id;
     private boolean review_status; // ÀÌ°Å ¸ô¶û·î
 
+    // review ¼öÁ¤
+    private String last_review_image;
+
 
 }

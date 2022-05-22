@@ -189,8 +189,8 @@
 	</select>
 	
 	<!-- 총 검색 count -->
-	<select id="searchListCount" parameterType="adminproduct" resultType="adminproduct">
-		SELECT po.post_id as post_id, ss.company_name as company_name, di.deal_status as deal_status, po.best_product as best_product, po.post_name as post_name, pp.product_created as product_created, pp.product_count as product_count, ca.cate_name as cate_name, sc.subcate_name as subcate_name, po.post_status as post_status, po.post_couponid as post_couponid, pc.coupon_title as coupon_title
+	<select id="searchListCount" resultType="int">
+		SELECT count(po.post_id)
 		FROM product_posting po INNER JOIN (
 			SELECT MAX(product_created) AS product_created , count(product_postid) AS product_count, product_postid FROM product GROUP BY product_postid 
 		) pp ON po.post_id = pp.product_postid

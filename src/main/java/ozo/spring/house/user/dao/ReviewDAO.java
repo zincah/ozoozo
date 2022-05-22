@@ -67,4 +67,9 @@ public class ReviewDAO {
     	System.out.println("--> mybatis select my review one");
     	return sqlSessionTemplate.selectOne("ReviewDAO.selectMyReviewOne", vo);
     }
+    
+    public void updateReview(ReviewVO vo) {
+    	System.out.println("--> mybatis update review");
+    	sqlSessionTemplate.update("ReviewDAO.updateMyReview", vo);
+    }
 }
