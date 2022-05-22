@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,7 @@ import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 @Controller
 public class UserController {
-	
+
 	@Autowired
 	UserService userservice;
 	
@@ -95,6 +96,8 @@ public class UserController {
 		
 		return "ozomain_zinc";
 	}
+
+	
 	@RequestMapping(value = "/best.com")
 	public String user_best() {
 		return "ozobest_zinc";

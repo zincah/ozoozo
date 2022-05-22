@@ -70,6 +70,10 @@
    </select>
 
 
+	<!-- time test -->
+	<insert id="insertTest">
+		insert into test values (6, now(), 'hi');
+	</insert>
 
 
 
