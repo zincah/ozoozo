@@ -125,6 +125,7 @@ public class UserPaymentController {
 			int shipfee = pro_li.get(i).getProduct_shipfee() * pro_li.get(i).getCart_quantity();
 			add_vo.setShipfee(shipfee);
 			add_vo.setOrder_status("결제 완료");
+			add_vo.setPost_id(cart_li.get(i).getCart_post());
 			pay_cls.payment_add(add_vo);
 		}
 	}

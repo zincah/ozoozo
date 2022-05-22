@@ -152,8 +152,8 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
 	</insert>
 	<insert id="order_add">
 	<!-- 배송지 ID 넣어야함 -->
-	insert into user_order(order_id,quantity, order_status, product_id, user_num, seller_id, order_num, shipping_fee, payment)
-	values((select coalesce(max(order_id), 0)+1 from user_order),#{quantity},#{order_status},#{product_id},#{UID},#{seller_id},#{merchant_uid},#{shipfee},#{final_price});
+	insert into user_order(order_id,quantity, order_status, product_id, user_num, seller_id, order_num, shipping_fee, payment, od_postid)
+	values((select coalesce(max(order_id), 0)+1 from user_order),#{quantity},#{order_status},#{product_id},#{UID},#{seller_id},#{merchant_uid},#{shipfee},#{final_price}, #{post_id});
 	</insert>
 	
 	<!-- 결제내역 -->
