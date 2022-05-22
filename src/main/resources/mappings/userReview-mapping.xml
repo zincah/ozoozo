@@ -57,6 +57,13 @@
 		update user_order set review_status=true where order_id=#{order_id};
 	</update>
 	
+	<!-- review 쓰면 포인트 500 -->
+	<update id="changeUserPoint" parameterType="review">
+		update user_table set 
+		reccode=500+(select reccode from user_table where user_num=#{reuser_num})
+		where user_num=#{reuser_num};
+	</update>
+	
 	<!-- 내 리뷰 보기 -->
 	<select id="selectMyReview" resultType="HashMap">
 		select re.*, s.company_name, po.post_name, op.* from review re 
