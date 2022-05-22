@@ -18,4 +18,5 @@ public interface ReviewService {
 	public void insertReview(ReviewVO vo);
 	public List<Map<String, String>> selectMyReview(ReviewVO vo);
 	public Map<String, String> selectMyReviewOne(ReviewVO vo);
+	public void updateReview(ReviewVO vo);
 }

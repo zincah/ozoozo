@@ -169,6 +169,31 @@ public class ReviewController {
 
     }
 
+    // 리뷰 수정
+    @RequestMapping(value="/reviewModify.com", method= RequestMethod.POST)
+    public String reviewModify(ReviewVO vo, HttpServletRequest request){
+
+    	HttpSession session = request.getSession();
+    	if(session.getAttribute("User_Num")!=null) {
+    		
+    		System.out.println(vo);
+        	reviewService.updateReview(vo); // 수정처리
+
+        	// 예전 사진 지우는 처리
+    		String[] delurl = vo.getLast_review_image().split("/");
+    		String makeDelUrl = delurl[delurl.length-2] + "/" + delurl[delurl.length-1];
+    		
+    		try {
+    			client.delete(makeDelUrl);
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    		
+    	}
+
+    	return "redirect:review_view.com";
+    }
+
 
 
 }

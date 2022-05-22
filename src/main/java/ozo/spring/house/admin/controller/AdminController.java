@@ -113,7 +113,7 @@ public class AdminController {
 			model.addAttribute("pageMaker", cri);
 			model.addAttribute("totalcount", total);
 			model.addAttribute("couponList", couponList);
-			
+
 			System.out.println(couponList.size());
 
 			return "productManagementList_zinc";

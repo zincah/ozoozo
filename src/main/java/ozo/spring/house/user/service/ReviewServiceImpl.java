@@ -39,4 +39,9 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDAO.selectMyReviewOne(vo);
 	}
 
+	@Override
+	public void updateReview(ReviewVO vo) {
+		reviewDAO.updateReview(vo);
+	}
+
 }

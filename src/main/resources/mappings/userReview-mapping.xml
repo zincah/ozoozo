@@ -21,7 +21,7 @@
 		            group by photo_postid 
 		         )
 		) photo on uo.od_postid = photo.photo_postid
-		where user_num=#{user_num} and order_status='배송완료' and review_status='false'
+		where user_num=#{user_num} and order_status='구매확정' and review_status='false'
 		order by uo.order_date;
 	</select>
 	
@@ -42,7 +42,7 @@
 		            group by photo_postid 
 		         )
 		) photo on uo.od_postid = photo.photo_postid
-		where user_num=#{user_num} and order_status='배송완료' and order_id=#{order_id}
+		where user_num=#{user_num} and order_status='구매확정' and order_id=#{order_id}
 		order by uo.order_date;
 	</select>
 	
@@ -84,6 +84,10 @@
 		where review_id = #{review_id};
 	</select>
 	
+	<update id="updateMyReview" parameterType="review">
+		update review set rating=#{rating},review_image=#{review_image},recontent=#{recontent}
+		where review_id=#{review_id}
+	</update>
 
 </mapper>
 

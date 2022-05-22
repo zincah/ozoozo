@@ -261,7 +261,7 @@
 	
 	function getProductList(page){
 
-		console.log(page);
+		console.log("thispage :" +page);
 		
 		$.ajax({
 	  		url:'getProductList.com',

@@ -109,16 +109,6 @@ public class UserController {
 	}
 
 	
-	
-	
-	@RequestMapping(value = "/myReview_view.com")
-	public String user_Review_V() {
-		return "myReview-view";
-	}
-	@RequestMapping(value = "/myReview_write.com")
-	public String user_Review_W() {
-		return "myReview-write";
-	}
 
 	
 	
@@ -127,10 +117,7 @@ public class UserController {
 		return "customercenter";
 	}
 
-	@RequestMapping(value = "/myreview.com")
-	public String user_myReview_view() {
-		return "myReview-view";
-	}
+
 	
 	//�뜝�룞�삕�뜝�룞�삕
 	//-	�뜝�룞�삕艅섇뜝�떕占� �뜝�룞�삕�뜝�룞�삕
@@ -148,11 +135,7 @@ public class UserController {
 	public String user_edit() {
 		return "ozoedit_zinc";
 	}
-	//�뜝�룞�삕�뜝�뜲�벐�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 
-	@RequestMapping(value = "/myreview_write.com")
-	public String user_myReview_write() {
-		return "myReview-write";
-	}
+
 	//�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕泥�
 	@RequestMapping(value = "/shopApply.com")
 	public String user_shopApply(HttpServletRequest request) {
