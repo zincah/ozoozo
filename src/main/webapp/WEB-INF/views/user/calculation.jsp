@@ -64,8 +64,17 @@
     	} */
     	
     }
-    
+	addr_bln = true;    
+	console.log(addr_bln);
     </script>
+    
+    <c:if test="${address_li.size() ne 0 }" >
+    	<script>
+			addr_bln = false;				
+			
+    	</script>
+    </c:if>
+    
 </head>
 <body>
 	<header>
@@ -161,8 +170,7 @@
 		}
 		var way_payment ="card";
 		function payment_change(this_class){
-			address_add();
-		    $(".css-8sa7n1").addClass("css-1jzgr0t");
+	 		$(".css-8sa7n1").addClass("css-1jzgr0t");
 		    $(".css-8sa7n1").removeClass("css-8sa7n1");
 		    $(this_class).removeClass("css-1jzgr0t");
 			$(this_class).addClass("css-8sa7n1");
@@ -242,7 +250,9 @@
 	    		alert("개인정보 동의를 해주세요.");
 	    		return;
 	    	}
-	    	address_add();
+	    	if(addr_bln){
+	    		address_add();
+	    	}
 			phone_ = $("select[name=phone1]").val() + "-" + $('input[name=phone]').val();	    	
 	    	address = "${address_true.address1}"
 	    	address = address.replace("[","").split("]");
@@ -334,7 +344,7 @@
 			<div class="_2VbEo">
 				<header class="_2CEFF">주문/결제</header>
 				<c:choose>
-					<c:when test="${address_li.size() ne 0 }">
+					<c:when test="${address_li.size() ne 0 }" >
 						<section class="clDqQ">
 							<div class="checkout-container vtJfv">
 								<div class="_2jygH">배송지</div>
@@ -351,7 +361,7 @@
 											<div class="_4du--">기본배송지</div>
 										</div>
 									</div>
-									<div class="_2yz9T">${address_true.address1 },
+									<div class="_2yz9T" >${address_true.address1 },
 										${address_true.address2 }</div>
 									<div class="_3mlQK">
 										<div class="_1HCV8">${address_true.receiver}</div>
