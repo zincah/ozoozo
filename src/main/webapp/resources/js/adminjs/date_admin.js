@@ -15,17 +15,27 @@ var endDate = document.getElementsByClassName("endDate")[0];
 
 // Get today
 //var today = new Date();
+
+let curr;
+let utc
+let KR_TIME_DIFF
+let today;
+
 $(document).ready(function(){
 
 	// 1. 오늘 시간
-	const curr = new Date();
+	curr = new Date();
 	
 	// 2. UTC 시간 계산
-	const utc = curr.getTime() + (curr.getTimezoneOffset() * 60 * 1000);
+	utc = curr.getTime() + (curr.getTimezoneOffset() * 60 * 1000);
 	
 	// 3. UTC to KST (UTC + 9시간)
-	const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
-	const today = new Date(utc + (KR_TIME_DIFF));
+	KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+	today = new Date(utc + (KR_TIME_DIFF));
+	
+	console.log(today);
+	
+	dateBtn8Event();
 
 })
 
@@ -40,7 +50,7 @@ dateBtn7.addEventListener("click", dateBtn7Event);
 dateBtn8.addEventListener("click", dateBtn8Event);
 
 // Window open function
-window.open = dateBtn8Event();
+//window.open = 
 
 // Function
 function dateBtn1Event() {	

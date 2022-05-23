@@ -48,8 +48,8 @@ public class UserCategoryController {
 		System.out.println(topcate_code);
 		
 
-		vo.setTop_catecode(topcate_code); // url로 전달받은 코드
-		int total = userCategoryService.getCategoryCount(vo); // 전체 개수 보내기
+		vo.setTop_catecode(topcate_code); // url濡� �쟾�떖諛쏆� 肄붾뱶
+		int total = userCategoryService.getCategoryCount(vo); // �쟾泥� 媛쒖닔 蹂대궡湲�
 		
 		List<UserCategoryVO> titleList = userCategoryService.printTitle();
 		List<UserCategoryVO> others = new ArrayList<UserCategoryVO>();
@@ -78,7 +78,7 @@ public class UserCategoryController {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //�냼�닔�젏 �븿�닔
 			
 			pro.setSale_price(decFormat.format(sale_price));
 		}
@@ -89,7 +89,7 @@ public class UserCategoryController {
 		List<UserCategoryVO> catename = userCategoryService.getCateName(vo);
 		model.addAttribute("catename", catename);
 		
-		// filter 옵션 가져오기
+		// filter �샃�뀡 媛��졇�삤湲�
 		List<List<FilterVO>> optionList = userCategoryService.getFilterOption(vo);
 		model.addAttribute("optionList", optionList);
 		
@@ -104,7 +104,7 @@ public class UserCategoryController {
 		
 		List<String> cates = wholeList.get(1);
 
-		// category 넣어주기
+		// category �꽔�뼱二쇨린
 		vo.setTop_catecode(Integer.parseInt(cates.get(0)));
 		if(cates.size()>1 && cates.get(1)!="") {
 			vo.setMidcate_code(Integer.parseInt(cates.get(1)));
@@ -114,7 +114,8 @@ public class UserCategoryController {
 		}
 		
 		vo.setFiltering(wholeList.get(0));
-
+		vo.setOrderKind(wholeList.get(2).get(0)); // 순위 넣어주기
+		
 		List<UserProductVO> postList = userCategoryService.getPostList(vo);
 		int filterCount = userCategoryService.filterCount(vo);
 		System.out.println("filtering count" + filterCount);
@@ -123,7 +124,7 @@ public class UserCategoryController {
 			UserProductVO pro = postList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //�냼�닔�젏 �븿�닔
 			
 			pro.setSale_price(decFormat.format(sale_price));
 		}

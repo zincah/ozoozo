@@ -10,6 +10,7 @@ import lombok.ToString;
 public class UserPagingVO {
 	
 	private int thispage;
+	private String orderKind;
 	
 
 

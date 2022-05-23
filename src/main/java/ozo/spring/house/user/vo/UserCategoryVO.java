@@ -44,6 +44,9 @@ public class UserCategoryVO {
 	// paging
 	private int thispage;
 	
+	// ranking
+	private String orderKind;
+	
 	
 	
 }
