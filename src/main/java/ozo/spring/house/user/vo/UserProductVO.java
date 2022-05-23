@@ -80,6 +80,7 @@ public class UserProductVO {
 	
 	private boolean checkit; // scrap
 	
-	// 
+	// paging °ú ranking
+	private int thispage;
 	private String orderKind;
 }

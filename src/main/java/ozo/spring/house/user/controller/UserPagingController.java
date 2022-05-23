@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import ozo.spring.house.user.service.UserCategoryService;
 import ozo.spring.house.user.service.UserMainService;
@@ -131,6 +133,48 @@ public class UserPagingController {
 		//model.addAttribute("pagecount", pagecount);
 		
 		return "cates";
+	}
+	
+	// brand page
+	
+	@RequestMapping(value = "/brandshopPaging.com", method=RequestMethod.POST)
+	public String brandshopRank(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request){
+		
+		vo.setPost_sellerid(Integer.parseInt(searchMap.get("brandcode")));
+		vo.setThispage(Integer.parseInt(searchMap.get("page")));
+		vo.setOrderKind(searchMap.get("ranking"));
+		
+		if(request.getParameter("catecode") != null) {
+			String[] codes = request.getParameter("catecode").split("_");
+			vo.setPo_category(Integer.parseInt(codes[0]));
+			
+			if(codes.length == 2) {
+				System.out.println("subcategory click");
+				int subcate_code = Integer.parseInt(codes[1]);
+				vo.setInt(subcate_code/100*100); // mid
+				
+				if(subcate_code%100 != 0) {
+					vo.setPo_subcate(subcate_code); 
+				}
+			}
+		}
+		
+		List<UserProductVO> shopItemList = userMainService.shopItemList(vo);
+
+		for(int i=0; i<shopItemList.size(); i++){
+			UserProductVO sho = shopItemList.get(i);
+			int sale_price = sho.getWhole_price()*(100-sho.getSale_ratio())/100;
+
+			DecimalFormat decFormat = new DecimalFormat("###,###");
+
+			sho.setSale_price(decFormat.format(sale_price));
+		}
+		
+
+
+		model.addAttribute("shopItemList", shopItemList);
+		
+		return "ozoshop_mainplus";
 	}
 
 }

@@ -134,7 +134,7 @@
 		<if test="orderKind == 'rowpriceRanking'">
 			order by sale_price
 		</if>
-		limit 3 offset #{thispage} * 3
+		limit 12 offset #{thispage} * 12
  	</select>
  	
  	<!-- 필터링 개수 받아오기 -->

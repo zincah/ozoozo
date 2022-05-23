@@ -25,6 +25,9 @@
 		var totalCount;
 		let rank = 'latestRanking'; // 최신순으로 기본 세팅
 		
+    	var firstscroll = 0;
+    	var page = 0;
+		
         $(document).ready(function(){
         	
             $(".filter_btn").on('click', function(){
@@ -144,6 +147,7 @@
             // 인기순 판매순 순위 매기기
     		$(".dropdown_btn").click(function(){
     			
+    			page = 0; // page를 다시 0으로 초기화
     			rank = $(this).val();
     			var ranktext = $(this).text();
     			
@@ -162,8 +166,6 @@
 
         });
         
-    	var firstscroll = 0;
-    	var page = 0;
     	
     	
     	// 무한스크롤 페이징
