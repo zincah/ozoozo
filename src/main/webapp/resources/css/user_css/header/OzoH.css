@@ -447,9 +447,20 @@ fieldset, img {
     vertical-align: bottom;
     
 }
+.layout-navigation-secondary__menu__item--active:before {
+    content: "";
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    margin: 4px -4px 0;
+    height: 2px;
+    background-color: #ff778e;
+}
 .layout-navigation-secondary__menu__item--active:after {
     content: "";
-    display: block;
+    display: none;
     position: absolute;
     left: 0;
     right: 0;
