@@ -20,7 +20,11 @@
       }
     </style>
     <script>
+    history.pushState(null,null,location.href);
+	window.onpopstate=function(event){
+	history.go(1);};
     $(document).ready(function(){
+    	
     	let count = ${list.size()}
     	$(".item_bookmark").click(function(){
     		
