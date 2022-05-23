@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
-	href="resources/css/user_css/header/calculation.css?var=2">
+	href="resources/css/user_css/header/calculation.css?var=1">
 <link rel="stylesheet" href="resources/css/user_css/header/public.css">
 <title>Document</title>
 <!-- jQuery -->
@@ -273,6 +273,7 @@
 	        }, function (rsp) { // callback
 	            if (rsp.success) {
 	                // 결제 성공 시 로직 
+	                console.log("결제 성공");
 	                payment_success(rsp);
 	            } else {
 	                // 결제 실패 시 로직,
@@ -286,7 +287,7 @@
     			url: "payment/ajax.com", // 예: https://www.myservice.com/payments/complete
     			method: "POST",
 	            headers: { "Content-Type": "application/json" },
-	            dataType : 'json',
+	            dataType : 'test',
 	            data: JSON.stringify ({
 	                imp_uid: rsp.imp_uid, //imp 번호
 	                merchant_uid: parseInt(rsp.merchant_uid), //고유번호
@@ -294,10 +295,13 @@
 	                paid_amount: rsp.paid_amount,// 가격
 	                paid_at: rsp.paid_at //결제 승인 시각
 	            }),
-	            success : function(){
+	            success : function(result_Str){
+	            	if(result_Str == 'success'){
+	            	console.log("DB 넣기 성공");
 	            	alert("결제 성공! 이용해 주셔서 감사합니다.");
 	            	payment_after_cart_delete();
 	            	location.href = 'http://localhost:8080/house/myshopping.com';
+	            	}
 	            }
 	        })
 		}  
@@ -727,41 +731,58 @@
 				<section class="clDqQ">
 					<div class="checkout-container vtJfv">
 						<div class="_2jygH">쿠폰</div>
+						<c:if test="${coupon} ne ''}" var="coupon_bln">	
 						<div class="_3KNiw _1T_ur">사용 가능한 쿠폰이 없습니다</div>
+						</c:if>
 					</div>
-					<div class="_254uw">
+					<c:if test="coupon_bln">
+					<div class="css-1msvccc e14xfypx0">
+						<div class="css-5f6omd e16ssckh0">
+							<section class="css-10l9udt ekswbma0">
+								<div>
+								<c:forEach var="i" begin="0" end="${fn:length(coupon)-1}">
+									<label class="_3xqzr _4VN_z"><div class="_2xClz">
+											<input type="radio" class="fs-4H" value=""><span
+												class="_2ekY2"></span>
+										</div>
+										<span class="_1aN3J"><div class="css-1lq8kdu e1sitcwf9">
+												<div class="css-18sv0so e1sitcwf7">
+													<div class="css-9hobe6 e1sitcwf6">20,000원 할인</div>
+													<div class="css-17fh4sh e1sitcwf5">
+														<div class="css-ti31hf e1sitcwf4">${coupon_text[i].coupon_title }</div>
+														<div class="css-1cxm0o7 e1sitcwf3">${coupon_text[i].coupon_subtitle }</div>
+													</div>
+													<div class="css-1tneqej e1sitcwf2">11시간 남음</div>
+												</div>
+											</div>
+										</span>
+									</label>
+									</c:forEach>
+									<label class="_3xqzr _4VN_z"><div class="_2xClz">
+										<input type="radio" class="fs-4H" value="" checked=""><span
+												class="_2ekY2"></span>
+										</div>
+										<span class="_1aN3J"><div class="css-1lq8kdu e1sitcwf9">
+												<div class="css-1wzdv9p e1sitcwf8">사용 안 함</div>
+											</div></span></label>
+								</div>
+							</section>
+						</div>
 						<div class="css-yepsdl e1tvvqht3">
 							<div class="css-q3e0y4 e1tvvqht2">
 								<span>쿠폰 코드가 있으신가요?</span>
 								<div class="css-1wmw4cz e1tvvqht1">
 									<svg width="16" height="17" viewBox="0 0 16 17" fill="none"
 										preserveAspectRatio="xMidYMid meet">
-                                    <path
+										<path
 											d="M3 5.16663L8 9.99908L13 5.16663L14 6.08373L8 11.8333L2 6.08373L3 5.16663Z"
-											fill="#424242"></path>
-                                </svg>
+											fill="#424242"></path></svg>
 								</div>
 							</div>
-							<div class=""
-								style="display: none; height: 0px; overflow: hidden;">
-								<div class="css-drntii e1tvvqht0">
-									<div class="checkout-container">
-										<div class="css-1khn195 eg30oap5">
-											<div class="css-1rz2yl2 eg30oap4">
-												<input class="_3ASDR _1qwAY" value="">
-												<div class="css-1pkqci5 eg30oap3">
-													<button class="_1eWD8 _3SroY _3VwZT">확인</button>
-												</div>
-											</div>
-											<div class="css-zdz8xi eg30oap2">
-												<div class="" style="height: 0px; overflow: hidden;"></div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							<div class="" style="overflow: hidden;"></div>
 						</div>
 					</div>
+					</c:if>
 				</section>
 				<section class="clDqQ">
 					<div class="checkout-container vtJfv">
@@ -777,7 +798,7 @@
 									type="button">전액사용</button>
 							</div>
 							<div class="_2xq8i">
-								사용 가능 포인트<span class="_1xjJk">0 P</span>
+								사용 가능 포인트<span class="_1xjJk">${point} P</span>
 							</div>
 						</div>
 					</div>

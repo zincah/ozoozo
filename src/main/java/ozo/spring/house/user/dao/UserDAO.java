@@ -150,7 +150,20 @@ public class UserDAO {
 		}
 		
 		public CouponVO get_coupon(UserProductVO pvo) {
-			return null;
+			return sqlSessionTemplate.selectOne("UserProduct.get_coupon", pvo);
+		}
+		public boolean user_coupon_bln(CouponVO cvo) {
+			CouponVO exvo = sqlSessionTemplate.selectOne("UserProduct.user_coupon", cvo);
+			System.out.println("불린 값 : " + exvo != null);
+			if(exvo != null) {
+				return true;
+			}else {
+				return false;
+			}
+		}
+		public void coupon_insert(CouponVO cvo) {
+			sqlSessionTemplate.insert("UserProduct.coupon_insert", cvo);
+			System.out.println("쿠폰 다운 성공");
 		}
 		
 	}
@@ -208,6 +221,7 @@ public class UserDAO {
 		List<CartVO> cart_li = new ArrayList<CartVO>();
 		List<UserProductVO> pro_li = new ArrayList<UserProductVO>();
 		List<UserProductVO> post_li = new ArrayList<UserProductVO>();
+		List<CouponVO> coupon_li = new ArrayList<CouponVO>();
 		public payment_class() {
 			
 		}
@@ -249,8 +263,11 @@ public class UserDAO {
 			}
 		}
 		public void payment_add(ImportVO ivo) {
-			sqlSessionTemplate.insert("UserProduct.payment_add",ivo);
 			sqlSessionTemplate.insert("UserProduct.order_add",ivo);
+			int order_id = sqlSessionTemplate.selectOne("UserProduct.order_select", ivo);
+			ivo.setPy_orderid(order_id);
+			sqlSessionTemplate.insert("UserProduct.payment_add",ivo);
+			
 		}
 		public void cart_del(List<CartVO> cvo) {
 			for(int i = 0; i < cvo.size(); i++) {
@@ -261,9 +278,28 @@ public class UserDAO {
 			sqlSessionTemplate.insert("UserProduct.addr_add", uavo);
 			System.out.println("주소 insert");
 		}
+		public UserAddressVO get_addr_true(CartVO cvo) {
+			return sqlSessionTemplate.selectOne("UserProduct.address_true", cvo);
+		}
 		public void addr_default_change(UserAddressVO uavo) {
 			
 		}
+		public int get_user_point(CartVO cvo) {
+			return sqlSessionTemplate.selectOne("UserProduct.get_user_point", cvo);
+		}
+		public List<CouponVO> get_coupon_li(CartVO cvo) {
+			return sqlSessionTemplate.selectList("UserProduct.get_user_coupon", cvo);
+		}
+		public void point_update(ImportVO ivo) {
+			sqlSessionTemplate.update("UserProduct.user_point_update", ivo);
+		}
+		public List<CouponVO> get_coupon_text(List<CouponVO> cvo){
+			for(int i = 0; i < cvo.size(); i++) {
+				coupon_li.add(sqlSessionTemplate.selectOne("userProdcut.get_coupon_text",  cvo.get(i)));
+			}
+			return coupon_li;
+		}
+		
 	}
 	// 결제내역
 	public paymentLog_cls get_paymentLog_class() {
@@ -295,18 +331,6 @@ public class UserDAO {
 		public List<UserProductVO> get_wide_li(){
 			return wide_li;
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		
