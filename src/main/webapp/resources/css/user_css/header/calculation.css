@@ -575,16 +575,6 @@ input, select, textarea {
 [role=button]:disabled, a:disabled, button:disabled, input[type=button]:disabled, input[type=reset]:disabled, input[type=submit]:disabled {
     cursor: default;
 }
-._3VzHU {
-    margin-left: 8px;
-}
-
-._3VwZT {
-    padding: 11px 10px;
-    min-height: 40px;
-}
-
-
 ._1eWD8 {
     user-select: none;
     position: relative;
@@ -607,6 +597,17 @@ input, select, textarea {
     transition: color 0.1s ease 0s, background-color 0.1s ease 0s, border-color 0.1s ease 0s;
     border-radius: 4px;
 }
+._3VzHU {
+    margin-left: 8px;
+}
+
+._3VwZT {
+    padding: 11px 10px;
+    min-height: 40px;
+}
+
+
+
 ._2wuTD {
     background-color: #fff;
     border-color: #ff778e;

@@ -28,17 +28,29 @@
 	select pi2.photo_url, pi2.photo_separate  from product_posting pp 
 		inner join product_image pi2 on pi2.photo_postid = pp.post_id 
 		where pp.post_id = #{post_id} order by pi2.photo_id asc;
-	
+	</select>
+	<!-- product coupon query -->
+	<select id="get_coupon" resultType="usercoupon">
+		select * from product_coupon where coupon_id = #{post_couponid};
 	</select>
 	
+	<insert id="coupon_insert">
+		insert into user_coupon ( user_usernum, user_couponid, user_couponstatus, user_copostid) 
+		values(#{user_usernum}, #{coupon_id},#{user_couponstatus},#{user_copostid})
+	</insert>
+	
+	<select id="user_coupon" resultType="usercoupon">
+		select * from user_coupon where user_usernum = #{user_usernum} and user_couponid = #{coupon_id};
+	</select>
+	<!-- product table -->
 	<select id="product_Get_table" resultType="user_P_table">
-	select * from product_tables 
-	where protable_postid = #{protable_postid};
+		select * from product_tables 
+			where protable_postid = #{protable_postid};
 	</select>
 	
 	<select id="basket_info" resultType="cart">
 		select cart_product, cart_post, cart_quantity from cart c 
-	where cart_user = #{user_num};
+			where cart_user = #{user_num};
 	</select>
 	
 	<select id="product_Get_id" resultType="cart">
@@ -46,6 +58,7 @@
 		inner join product_option po on p.product_id = po.op_productid 
 		where po.option1 = #{option1} and po.option2 = #{option2} and p.product_postid = ${post_id};
 	</select>
+	
 	<!-- 주소 -->
 	<insert id="addr_add">
 	insert into address(address_name, receiver, phone_num, address1, address2, addr_default,user_num)
@@ -146,16 +159,37 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
 	inner join user_table ut on ut.user_num = a.user_num 
 	where a.user_num = #{cart_user};
 	</select>
+	<select id="address_true" resultType="address">
+	select a.* from address a
+	where a.user_num = #{cart_user} and a.addr_default = true;
+	</select>
 	<insert id="payment_add">
-		insert into payment(payment_id,pay_ordernum,payment_way,payment_total, py_sellerid, py_final)
-	values((select coalesce(max(payment_id), 0)+1 from payment),#{ merchant_uid},#{pay_method},#{price},#{seller_id},#{paid_amount});
+		insert into payment(payment_id,pay_ordernum,payment_way,payment_total, py_sellerid, py_final, py_orderid)
+	values((select coalesce(max(payment_id), 0)+1 from payment),#{ merchant_uid},#{pay_method},#{price},#{seller_id},#{paid_amount},#{py_orderid});
 	</insert>
+	<select id="order_select">
+	select order_id from user_order where order_num = #{ merchant_uid} and product_id = #{product_id};
+	</select>
 	<insert id="order_add">
-	<!-- 배송지 ID 넣어야함 -->
-	insert into user_order(order_id,quantity, order_status, product_id, user_num, seller_id, order_num, shipping_fee, payment, od_postid)
-	values((select coalesce(max(order_id), 0)+1 from user_order),#{quantity},#{order_status},#{product_id},#{UID},#{seller_id},#{merchant_uid},#{shipfee},#{final_price}, #{post_id});
+	insert into user_order(order_id,quantity, order_status, product_id, user_num, seller_id, order_num, shipping_fee, payment, od_postid, address_id)
+	values((select coalesce(max(order_id), 0)+1 from user_order),#{quantity},#{order_status},#{product_id},#{UID},#{seller_id},#{merchant_uid},#{shipfee},#{final_price}, #{post_id}, #{address_id});
 	</insert>
-	
+	<!-- 포인트 적립 -->
+	<update id="user_point_update">
+		update user_table set reccode = #{empty_int} where user_num = #{UID};
+	</update>
+	<!-- 포인트 조회 -->
+	<select id="get_user_point" resultType="int">
+		select reccode from user_table where user_num = #{cart_user};
+	</select>
+	<!-- 소지 쿠폰 조회 -->
+	<select id="get_user_coupon" resultType="usercoupon">
+		select * from user_coupon where user_usernum = #{cart_user};
+	</select>
+	<!-- 쿠폰 텍스트 -->
+	<select id="get_coupon_text">
+		select * from product_coupon where coupon_id = #{user_couponid};
+	</select>
 	<!-- 결제내역 -->
 	<select id="get_paymentLogVO" resultType="paymentlog">
 		select * from user_order uo where user_num = #{user_num} order by uo.order_date desc;;
@@ -187,5 +221,7 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
 	<delete id="cart_del">
 	delete from cart where cart_product = #{cart_product};
 	</delete>
+	<select id="wide_user">
 	
+	</select>
 </mapper>

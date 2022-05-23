@@ -2,7 +2,6 @@ package ozo.spring.house.user.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ozo.spring.house.user.dao.UserDAO.payment_class;
 import ozo.spring.house.user.service.UserService;
 import ozo.spring.house.user.vo.CartVO;
+import ozo.spring.house.user.vo.CouponVO;
 import ozo.spring.house.user.vo.ImportVO;
 import ozo.spring.house.user.vo.UserAddressVO;
 import ozo.spring.house.user.vo.UserProductVO;
@@ -35,9 +35,10 @@ public class UserPaymentController {
 	List<UserProductVO> pro_li = new ArrayList<UserProductVO>();
 	List<UserProductVO> post_li = new ArrayList<UserProductVO>();
 	List<UserAddressVO> address_li = new ArrayList<UserAddressVO>();
+	UserAddressVO choice_addr = new UserAddressVO();
 	payment_class pay_cls;
 	Integer userID;
-	
+	CartVO cvo = new CartVO();
 	@RequestMapping(value = "/calculation.com")
 	public void user_calculation(HttpSession session,HttpServletRequest request, HttpServletResponse response) throws IOException {
 		PrintWriter out = response.getWriter();
@@ -52,7 +53,6 @@ public class UserPaymentController {
 		String[] param_li = request.getParameter("Product_ID").split("%");
 		//String[] param_li = {"50003", "50011"};
 		List<CartVO> cvo_li = new ArrayList<CartVO>();
-		CartVO cvo = new CartVO();
 		this.pay_cls = userservice.get_payment_class();
 		for(int i = 0; i < param_li.length; i++) {
 			cvo.setCart_post(Integer.parseInt(param_li[i]));
@@ -72,16 +72,34 @@ public class UserPaymentController {
 		model.addAttribute("pro_li", pro_li);
 		this.address_li = pay_cls.address_check(cvo);
 		model.addAttribute("address_li", address_li);
-		for(int i = 0; i < address_li.size(); i++) {
-			if(address_li.get(i).isAddr_default()) {
-				model.addAttribute("address_true", address_li.get(i));
-			}
-		}
+		
+		this.choice_addr = pay_cls.get_addr_true(cvo);
+		model.addAttribute("address_true", choice_addr);
+		
 		if(address_li.size() == 0 ) {
 			model.addAttribute("addr_boolean", false);
 		}else {
 			model.addAttribute("addr_boolean", true);
 		}
+		//point, coupon
+		int point = pay_cls.get_user_point(cvo);
+		model.addAttribute("point", point);
+		List<CouponVO> coupon_li = pay_cls.get_coupon_li(cvo);
+		List<CouponVO> available_coupon = pay_cls.get_coupon_li(cvo);
+		// post 값과 쿠폰 포스트 값 검사기
+		for(int i = 0; i < param_li.length; i++) {
+			for(int j = 0; j < coupon_li.size(); j++) {
+				if(Integer.parseInt(param_li[i]) == coupon_li.get(j).getUser_copostid()) {
+					if(coupon_li.get(j).isUser_couponstatus()) {
+						available_coupon.add(coupon_li.get(j));
+					}
+				}
+			}
+		}
+		model.addAttribute("coupon", available_coupon);
+		//coupon get text 
+		coupon_li = pay_cls.get_coupon_text(available_coupon);
+		model.addAttribute("coupon_text", coupon_li);
 		/*
 		 * for(int i = 0; i< cart_li.size(); i++) { System.out.println(cart_li.get(i));
 		 * System.out.println(pro_li.get(i)); System.out.println("                  ");
@@ -102,7 +120,7 @@ public class UserPaymentController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/payment/ajax.com", method=RequestMethod.POST)
-	public void payment_json(@RequestBody HashMap<String,Object> ivo ) {
+	public String payment_json(@RequestBody HashMap<String,Object> ivo ) {
 		int merchant_uid = (Integer)ivo.get("merchant_uid");
 		int paid_amount = (Integer)ivo.get("paid_amount");
 		String pay_method = (String)ivo.get("pay_method");
@@ -126,8 +144,14 @@ public class UserPaymentController {
 			add_vo.setShipfee(shipfee);
 			add_vo.setOrder_status("결제 완료");
 			add_vo.setPost_id(cart_li.get(i).getCart_post());
+			add_vo.setAddress_id(choice_addr.getAddress_id());
 			pay_cls.payment_add(add_vo);
+			
+			//point update
+			add_vo.setEmpty_int((int)(paid_amount * 0.003));
+			pay_cls.point_update(add_vo);
 		}
+		return "success";
 	}
 	@ResponseBody
 	@RequestMapping(value = "/cart_delete.com", method=RequestMethod.POST)
@@ -152,5 +176,7 @@ public class UserPaymentController {
 		System.out.println(uavo.isAddr_default());
 		uavo.setPhone_num(addr_li[5]);
 		pay_cls.addr_insert(uavo);
+		
+		this.choice_addr = pay_cls.get_addr_true(cvo);
 	}
 }

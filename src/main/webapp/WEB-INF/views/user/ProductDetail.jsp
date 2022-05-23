@@ -208,7 +208,7 @@
                                         <span class="production-selling-header__price__separator"></span>
                                         <span class="production-selling-header__price__price">
                                             <span class="number">${price_sale}</span>
-                                            <span class="won">원</span>
+                                            <span class="won">원${product[0].post_couponid}</span>
                                             <span class="production-selling-header__price__badge">
                                                 <svg class="icons" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
                                                     <rect width="30" height="20" fill="#F77" rx="4"></rect>
@@ -229,11 +229,12 @@
                                 </div>
                                 
                                 <!-- 쿠폰 기능 -->
-                                 <c:if test="${product[0].post_couponid eq ''}">
+                                <c:forEach  var="i" begin="0" end="0">
+                                 <c:if test="${product[0].post_couponid ne ''}" var="coupon_bln">
                                 <div class="css-72tjgz e1gkvgq70">
                                     <button type="button" class="css-vs55nv emhbdh42" id="couponOn" onclick="openCoupon()" >
                                         <div class="css-px0sae emhbdh41">
-                                            <span>최대 5,000원 할인쿠폰</span>
+                                            <span>${coupon.coupon_title }</span>
                                         </div>
                                         <svg width="28" height="46" fill="none" preserveAspectRatio="xMidYMid meet">
                                             <g>
@@ -250,6 +251,7 @@
                                     </button>
                                 </div>
                                 </c:if>
+                                </c:forEach>
                             </div>
                             
                                 
@@ -1742,6 +1744,7 @@
 
 <!-- Script -->
 <!-- 쿠폰 div -->
+<c:if test="${coupon_bln}">
 <div class="react-modal-dh react-modal--bottom coupon-modal open open-active" id="coupon" style="display: none;">
     <div class="react-modal__content-wrap-dhp">
         <div class="react-modal__content-dh coupon-modal__content-dh">
@@ -1759,11 +1762,11 @@
                     <article class="coupon-modal__item">
                         <div class="coupon-modal__item__content">
                             <p class="coupon-modal__item__price">￦5,000</p>
-                            <p class="coupon-modal__item__title">4월 휴도 오늘의딜 5000원 할인 쿠폰</p>
+                            <p class="coupon-modal__item__title">${coupon.coupon_subtitle }</p>
                             <p class="coupon-modal__item__stat-list"><span class="coupon-modal__item__stat-item">4일
                                     남음&nbsp;</span></p>
                         </div>
-                        <div class="coupon-modal__item__get-wrap"><button
+                        <div class="coupon-modal__item__get-wrap"><button onclick="coupon_down()"
                                 class="button button--color-blue button--size-45 button--shape-4 coupon-modal__item__get"
                                 type="button">받기</button></div>
                     </article>
@@ -1772,6 +1775,7 @@
         </div>
     </div>
 </div>
+</c:if>
 <!-- 카드사 div -->
 <div class="react-modal-dh react-modal--center large-close-modal css-gbg9ls open open-active" style="display: none" id="card">
     <div class="large-close-modal__button-wrap">
@@ -2125,6 +2129,24 @@ $('.production-selling-select-modal').click(function(e) {
         }
     });
 });
+    function coupon_down(){
+    	$.ajax({
+			url:'coupon_down.com',
+			method:'post',
+			data: JSON.stringify(),
+			contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'text',
+		  		success : function(result_Str){
+		  			if(result_Str == "login_false"){
+		  				alert("로그인 후 이용 가능합니다.");
+		  				location.href = 'http://localhost:8080/house/login.com';
+		  			}else{
+		  				console.log("쿠폰 저장 성공");
+		  			}
+		  		}
+		})
+    }
+  
     </script>
 </body>
 </html>

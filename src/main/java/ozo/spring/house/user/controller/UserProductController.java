@@ -28,18 +28,19 @@ public class UserProductController {
 	UserService userservice;
 	
 	product_cls pro_cls;
-	String pro = new String();
+	List<UserProductVO> product_list;
+	int pro;
+	CouponVO coupon = new CouponVO();
 	
 	@RequestMapping(value = "/productPage.com")
 	public String user_product(Model model, UserProductVO vo, UserProduct_tableVO tvo, HttpServletRequest request) {
 		// 상품 아이디
-		this.pro = request.getParameter("p");
+		this.pro = Integer.parseInt(request.getParameter("p"));
 		//System.out.println(pro);  상품 아이디로 전달
 		
-		List<UserProductVO> product_list;
 		List<UserProductVO> product_img_list;
 		UserProductVO uvo = new UserProductVO();
-		uvo.setPost_id(Integer.parseInt(pro));
+		uvo.setPost_id(pro);
 		
 		pro_cls = userservice.get_product_class();
 		
@@ -54,7 +55,6 @@ public class UserProductController {
 		model.addAttribute("price",decFormat.format(price));
 		model.addAttribute("price_sale", decFormat.format(price/100*sale));
 		model.addAttribute("price_first", decFormat.format(price/100*sale-15000));
-		System.out.println("쿠폰 코드 : " + product_list.get(0).getPost_couponid());
 		// img list model 등록
 		product_img_list = userservice.productGet_img(uvo);
 		List<UserProductVO> img_true = new ArrayList<UserProductVO>();
@@ -72,9 +72,15 @@ public class UserProductController {
 		// 테이블 값 넣기
 		UserProduct_tableVO product_table = new UserProduct_tableVO();
 		UserProduct_tableVO product_table2;
-		product_table.setProtable_postid(Integer.parseInt(pro));
+		product_table.setProtable_postid(pro);
 		product_table2 = userservice.productGet_table(product_table);
 		model.addAttribute("table", product_table2);
+		
+		//쿠폰
+		if(product_list.get(0) != null) {
+			this.coupon = pro_cls.get_coupon(product_list.get(0));
+			model.addAttribute("coupon", coupon);
+		}
 		return "ProductDetail";
 	}
 	// get option 2
@@ -84,7 +90,7 @@ public class UserProductController {
 		String option = Option.replace("\"", "");
 		System.out.println("사용자가 보낸 옵션 값 : "+ option +"\n");
 		vo.setOption1(option);
-		vo.setPost_id(Integer.parseInt(pro));
+		vo.setPost_id(pro);
 		List<UserProductVO> option_list = userservice.productGet_option(vo);
 		return option_list;
 	}
@@ -120,7 +126,7 @@ public class UserProductController {
 				ex_li.setOption2(param_arr[1]);
 			}
 			ex_li.setOption1(param_arr[0]);
-			ex_li.setPost_id(Integer.parseInt(pro));
+			ex_li.setPost_id(pro);
 			option_li.add(ex_li);
 		}
 		System.out.println("option_li : "+ option_li);
@@ -129,4 +135,20 @@ public class UserProductController {
 		System.out.println("장바구니 담기 성공!");
 		return null;
 	}
+	//coupon download
+	@ResponseBody
+	@RequestMapping(value = "/coupon_down.com", method=RequestMethod.POST)
+	public String coupon_down(HttpSession session) {
+		if(session.getAttribute("User_Num") == null) {
+			return "login_false";
+		}
+		this.coupon.setUser_usernum((Integer)session.getAttribute("User_Num"));
+		this.coupon.setUser_couponstatus(true);
+		this.coupon.setUser_copostid(pro);
+		pro_cls.user_coupon_bln(coupon);
+		System.out.println(coupon);
+		pro_cls.coupon_insert(coupon);
+		return "success";
+	}
+	
 }
