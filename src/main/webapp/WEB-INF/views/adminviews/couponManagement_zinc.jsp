@@ -97,8 +97,8 @@
                 </div>
                 <div class="col">
                   <div class="paddingLeft1">
-                    <input class="startDate" type="date" id="date" value="" />
-                    <input class="endDate" type="date" id="date" value="" />
+                    <input class="startDate" type="date" id="stdate" value="" />
+                    <input class="endDate" type="date" id="eddate" value="" />
                   </div>
                 </div>
                 <div class="col-3">
@@ -129,7 +129,7 @@
                         <label class="form-check-label" for="flexRadioDefault3"> 진행중 </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked="">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" checked="">
                         <label class="form-check-label" for="flexRadioDefault3"> 종료 </label>
                       </div>
 
@@ -138,7 +138,8 @@
                 
 
             </div>
-            
+            </div>
+          </div>
         </main>
         <!-- content -->
         <div class="content-table">
@@ -147,7 +148,7 @@
               <thead>
                 <tr class="content-table-title">
                   <td class="content-table-title-text" style="width: 1rem;">
-                    <input class="form-check-input form-check-input-margin" type="checkbox" id="flexCheckDefault" onclick="selectAll(this)"/>
+                    <input class="form-check-input form-check-input-margin" type="checkbox" id="flexCheckDefault0" onclick="selectAll(this)"/>
                   </td>
                   <td class="content-table-title-text" style="width: 20rem;">쿠폰명/사용 혜택</td>
                   <td class="content-table-title-text" style="width: 8rem;">쿠폰 형식</td>
@@ -254,12 +255,12 @@
 
                 <tr>
                   <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">쿠폰 사용조건</td>
-                  <td colspan="2" class="content-table-content-text">
+                  <td colspan="2" class="content-table-content-text">${insert.coupon_more}
                     <input type="text" class="form-control table-input" id="coupon_more" style="display: inline-block;">
                   </td>
 
                   <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">할인 금액(할인율)</td>
-                  <td colspan="2" class="content-table-content-text">
+                  <td colspan="2" class="content-table-content-text">${insert.coupon_discount}
                     <input type="text" class="form-control table-input" id="coupon_discount" style="display: inline-block;">
                   </td>
                 </tr>
@@ -267,14 +268,14 @@
                 <tr class="content-table-content">
                   <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5">쿠폰 제목</td>
                   <td colspan="5" class="content-table-content-text">
-                    <div id="coupon_title_select">신규가입 감사쿠폰</div>
+                    <div id="coupon_title_select">${insert.coupon_title}</div>
                     <input type="text" class="form-control table-input" id="coupon_title">
                   </td>
                 </tr>
                 <tr class="content-table-content">
                   <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5">쿠폰 내용</td>
                   <td colspan="5" class="content-table-content-text">
-                    <textarea class="form-control table-input" id="coupon_content" disabled>1000원 할인 (5000원 이상 구매시)</textarea>
+                    <textarea class="form-control table-input" id="coupon_content" disabled>${insert.coupon_subtitle}</textarea>
                   </td>
                 </tr>
                 

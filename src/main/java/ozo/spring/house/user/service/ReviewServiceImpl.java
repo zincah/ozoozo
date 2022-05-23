@@ -12,8 +12,8 @@ import java.util.Map;
 @Service("ReviewService")
 public class ReviewServiceImpl implements ReviewService {
 
-    @Autowired
-    ReviewDAO reviewDAO;
+	@Autowired
+	ReviewDAO reviewDAO;
 
 	@Override
 	public List<Map<String, String>> listofobject(UserPaymentLogVO vo) {
@@ -34,10 +34,4 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<Map<String, String>> selectMyReview(ReviewVO vo) {
 		return reviewDAO.selectMyReview(vo);
 	}
-  
-  @Override
-  public void insertview(ReviewVO vo) {
-      reviewDAO.insertreview(vo);
-
-  }
-
+}
