@@ -14,7 +14,17 @@ var startDate = document.getElementsByClassName("startDate")[0];
 var endDate = document.getElementsByClassName("endDate")[0];
 
 // Get today
-var today = new Date();
+//var today = new Date();
+
+// 1. 오늘 시간
+const curr = new Date();
+
+// 2. UTC 시간 계산
+const utc = curr.getTime() + (curr.getTimezoneOffset() * 60 * 1000);
+
+// 3. UTC to KST (UTC + 9시간)
+const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+const today = new Date(utc + (KR_TIME_DIFF));
 
 // Listen for click
 dateBtn1.addEventListener("click", dateBtn1Event);

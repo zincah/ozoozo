@@ -1,12 +1,14 @@
 package ozo.spring.house.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ozo.spring.house.admin.dao.AdminManageDAO;
 import ozo.spring.house.admin.vo.AdminProductVO;
+import ozo.spring.house.admin.vo.PostingInfoVO;
 import ozo.spring.house.common.Criteria;
 
 @Service("adminProductManageService")
@@ -74,6 +76,13 @@ public class AdminProductManageServiceImpl implements AdminProductManageService 
 	public int registrationHold() {
 		return adminManageDAO.registrationHold();
 	}
+
+	@Override
+	public PostingInfoVO postInfo(int postid) {
+		return adminManageDAO.postInfo(postid);
+	}
+
+
 
 	
 }

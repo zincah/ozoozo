@@ -23,6 +23,17 @@
     <script>
     
     	$(document).ready(function(){
+    		
+    		/* 날짜 세팅 */
+    		// 1. 오늘 시간
+			const curr = new Date();
+			
+			// 2. UTC 시간 계산
+			const utc = curr.getTime() + (curr.getTimezoneOffset() * 60 * 1000);
+			
+			// 3. UTC to KST (UTC + 9시간)
+			const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+			const today = new Date(utc + (KR_TIME_DIFF));
 
     		/* 상품 선택 체크박스 */
     		// 전체 체크박스 체크 여부에 따른 하위 체크박스들 상태 변경
@@ -94,6 +105,7 @@
 			
     		//조건들 받아오기
     		var posttype = $("input[name=posttype]:checked").val();
+    		var dealtype = $("input[name=dealtype]:checked").val();
     		var category = $("#large-select").val();
     		var startdate = $("input[name=datepick1]").val();
     		var enddate = $("input[name=datepick2]").val();
@@ -103,6 +115,7 @@
 
 			searchMap = {
     				"posttype" : posttype,
+    				"dealtype" : dealtype,
     				"category" : category,
     				"startdate" : startdate,
     				"enddate" : enddate,
@@ -140,6 +153,7 @@
     			
         		//조건들 받아오기
         		var posttype = $("input[name=posttype]:checked").val();
+        		var dealtype = $("input[name=dealtype]:checked").val();
         		var category = $("#large-select").val();
         		var startdate = $("input[name=datepick1]").val();
         		var enddate = $("input[name=datepick2]").val();
@@ -149,6 +163,7 @@
 
     			searchMap = {
         				"posttype" : posttype,
+        				"dealtype" : dealtype,
         				"category" : category,
         				"startdate" : startdate,
         				"enddate" : enddate,
@@ -240,6 +255,12 @@
 			
     		//조건들 받아오기
     		var posttype = $("input[name=posttype]:checked").val();
+    		
+    		if(posttype == '신청'){
+    			var dealtype = posttype;
+    			var posttype = '전체';
+    		}
+    		
     		var category = $("#large-select").val();
     		var startdate = $("input[name=datepick1]").val();
     		var enddate = $("input[name=datepick2]").val();
@@ -249,6 +270,7 @@
 
 			searchMap = {
     				"posttype" : posttype,
+    				"dealtype" : dealtype,
     				"category" : category,
     				"startdate" : startdate,
     				"enddate" : enddate,
@@ -528,8 +550,12 @@
                           <label class="form-check-label" for="flexRadioDefault3"> 승인대기 </label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input radio-custom" type="radio" name="posttype" id="flexRadioDefault3" value="판매중">
-                          <label class="form-check-label" for="flexRadioDefault3"> 판매중 </label>
+                          <input class="form-check-input radio-custom" type="radio" name="posttype" id="flexRadioDefault4" value="판매중">
+                          <label class="form-check-label" for="flexRadioDefault4"> 판매중 </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input radio-custom" type="radio" name="posttype" id="flexRadioDefault5" value="신청">
+                          <label class="form-check-label" for="flexRadioDefault5"> 오늘의딜승인대기 </label>
                         </div>
 
                       </div>
@@ -612,7 +638,7 @@
 	                  </td>
 	                  <td class="content-table-content-text option-line">${post.company_name }</td>
 	                  <td class="content-table-content-text option-line">
-	                    <a href="#">${post.post_name }</a>
+	                    <a href="/house/postingInfo.admin?postcode=${post.post_id }" target="_blank">${post.post_name }</a>
 	                    </td>
 	                  <td class="content-table-content-text option-line">${post.cate_name }</td>
 	                  <td class="content-table-content-text option-line">${post.product_count }</td>
