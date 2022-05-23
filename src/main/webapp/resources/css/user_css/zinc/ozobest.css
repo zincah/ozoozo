@@ -314,8 +314,8 @@ a{
 
 
 .ranking-product-item__img-wrap__number__gray {
-    background-image: url(https://image.ohou.se/i/bucketplace-v2-development/uploads/admins/productions/162271212639674765.png);
-    background-color:#808991
+    
+    background-color:#ff77779e
 }
 @media (min-width: 768px){
 .ranking-product-item__img-wrap__number {

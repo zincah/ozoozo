@@ -111,15 +111,16 @@ public class UserDealBestController {
 		//
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		HttpSession session = request.getSession();
+		List<UserProductVO> bestlist = userMainService.bestlist();
 		if(session.getAttribute("User_Num") != null) {
 			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
 			scrap = userscrapservice.userScrapList(svo);
-		}
+		
 		vo.setUser_num((int)session.getAttribute("User_Num"));
 		System.out.println((int)session.getAttribute("User_Num"));
 		
 		uvo.setCheckit(false);
-		List<UserProductVO> bestlist = userMainService.bestlist();
+		
 		
 		for(int i=0; i<bestlist.size(); i++) {
 			UserProductVO pro = bestlist.get(i);
@@ -136,7 +137,9 @@ public class UserDealBestController {
 				}
 			}
 		}
-		
+		}else {
+			
+		}
 		
 		model.addAttribute("bestlist", bestlist);
 		System.out.println("bestlist"+ bestlist.size());

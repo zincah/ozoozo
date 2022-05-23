@@ -11,16 +11,17 @@
     <link rel="stylesheet" href="resources/css/user_css/header/public.css?var=1">
     <link rel="stylesheet" href="resources/css/user_css/header/customer.css?var=1">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
 	integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
 	crossorigin="anonymous"></script>
 	<script>
-		
-		$(document).ready(function(){
+	
+	$(document).ready(function(){
+	
 			
 			$(".getKey").click(function(){
 				var item = $(this).attr('id');
-				
 				var gourl = "getCS.com?key="+item;
 				console.log(gourl);
 				
@@ -56,26 +57,18 @@
 			  		})
 			})
 			
-
-
-			/*
-			// ajax로 데이터 넘기기
-		  	$.ajax({
-	  		url:'',
-	  		method:'post',
-	  		data: JSON.stringify(item),
-	  		contentType : 'application/json; charset=UTF-8',
-	  		dataType : 'json',
-	  		async: false,
-	  		success : function(resp){
-
-	  			
-	  			}
-	  		});
-			*/
 			
+		
+		
+	
 		});
 	
+	
+
+
+	
+	
+		
 	
 	</script>
 	
@@ -107,17 +100,16 @@
                         </section>
                         <section class="col-12 col-md-6 customer-center__faq">
                             <ul class="customer-center__faq__list">
-                                <li><a class="customer-center__faq__item" href="/customer_center#배송관련__배송은+얼마나+걸리나요">배송은 얼마나
+                                <li><a id="s_ship" class="customer-center__faq__item" >배송은 얼마나
                                         걸리나요?</a></li>
-                                <li><a class="customer-center__faq__item" href="/customer_center#취소+환불__주문+취소는+어떻게+하나요">주문 취소는 어떻게
+                                <li><a id="s_order" class="customer-center__faq__item" href="">주문 취소는 어떻게
                                         하나요?</a></li>
-                                <li><a class="customer-center__faq__item"
-                                        href="/customer_center#서비스+기타__제품의+자세한+정보는+어떻게+알+수+있나요">제품의 자세한 정보를 알고 싶어요.</a></li>
-                                <li><a class="customer-center__faq__item"
-                                        href="/customer_center#반품+교환__제품이+불량입니다.+반품+혹은+교환은+어떻게+하나요">제품이 불량일 때는?</a></li>
-                                <li><a class="customer-center__faq__item"
-                                        href="/customer_center#로그인+회원정보__카카오+계정으로+로그인+하면+'이미+카카오로+가입하신+이메일입니다'+라고+나오는데+어떻게+해야+하나요">카카오
-                                        계정으로 로그인하면 이미 가입되었다고 합니다.</a></li>
+                                <li><a id="s_product" class="customer-center__faq__item"
+                                        href="">제품의 자세한 정보를 알고 싶어요.</a></li>
+                                <li><a id="s_error" class="customer-center__faq__item"
+                                        href="">제품이 불량일 때는?</a></li>
+                                <li><a id="s_kakao" class="customer-center__faq__item"
+                                        href="">카카오 계정으로 로그인하면 이미 가입되었다고 합니다.</a></li>
                             </ul>
                         </section>
                     </div>
@@ -155,7 +147,7 @@
                
                     <c:forEach items="${list}" var="CS">
                     <section id="${CS.customer_keyword}" class="faq__contents__item box_${CS.customer_no}">
-                        <div class="faq__contents__item__question cs_${CS.customer_no}" >${CS.customer_question}<svg width="1em" height="1em"
+                        <div id="cs_${CS.customer_no}" class="faq__contents__item__question cs_${CS.customer_no}" >${CS.customer_question}<svg width="1em" height="1em"
                                 viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet"
                                 style="position: absolute; right: 0px; width: 12px; height: 12px; top: 50%; transition: transform 0.2s ease 0s; transform: translateY(-50%);">
                                 <path fill="currentColor" fill-rule="evenodd" d="M2.87 4L1.33 5.5 8 12l6.67-6.5L13.13 4 8 9z">
@@ -181,11 +173,20 @@
                      });
                 	</script>
                     </c:forEach>
+                    
                 </section>
                  
             </article>
         </article>
-        
+        <script>$("#s_ship").on("click",function(){
+			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
+		 	var height = $("#cs_14").offset();
+
+			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
+		    //heigh의 top 위치로 이동 시킨다.
+		    $("html, body").animate({scrollTop: height.top}, 400);
+		    
+		})</script>
         <!--푸터 -->
 <footer>
     	<jsp:include page="./footer/footer.jsp"></jsp:include>
