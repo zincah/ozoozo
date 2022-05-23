@@ -39,6 +39,8 @@ public class UserPaymentController {
 	payment_class pay_cls;
 	Integer userID;
 	CartVO cvo = new CartVO();
+	List<CouponVO> coupon_li = new ArrayList<CouponVO>();
+	
 	@RequestMapping(value = "/calculation.com")
 	public void user_calculation(HttpSession session,HttpServletRequest request, HttpServletResponse response) throws IOException {
 		PrintWriter out = response.getWriter();
@@ -72,7 +74,6 @@ public class UserPaymentController {
 		model.addAttribute("pro_li", pro_li);
 		this.address_li = pay_cls.address_check(cvo);
 		model.addAttribute("address_li", address_li);
-		
 		this.choice_addr = pay_cls.get_addr_true(cvo);
 		model.addAttribute("address_true", choice_addr);
 		
@@ -84,22 +85,27 @@ public class UserPaymentController {
 		//point, coupon
 		int point = pay_cls.get_user_point(cvo);
 		model.addAttribute("point", point);
-		List<CouponVO> coupon_li = pay_cls.get_coupon_li(cvo);
-		List<CouponVO> available_coupon = pay_cls.get_coupon_li(cvo);
+		coupon_li = pay_cls.get_coupon_li(cvo);
 		// post 값과 쿠폰 포스트 값 검사기
-		for(int i = 0; i < param_li.length; i++) {
-			for(int j = 0; j < coupon_li.size(); j++) {
-				if(Integer.parseInt(param_li[i]) == coupon_li.get(j).getUser_copostid()) {
-					if(coupon_li.get(j).isUser_couponstatus()) {
-						available_coupon.add(coupon_li.get(j));
+		for(int i = 0; i < coupon_li.size(); i++) {
+			boolean remove = true;
+			for(int j = 0; j < post_li.size(); j++) {
+				if(post_li.get(j).getPost_couponid() == coupon_li.get(i).getUser_couponid()) {
+					if(coupon_li.get(i).isUser_couponstatus()) {
+						remove = false;
 					}
 				}
 			}
+			if(remove) {
+				coupon_li.remove(i);
+			}
 		}
-		model.addAttribute("coupon", available_coupon);
+		model.addAttribute("coupon", coupon_li);
+		//System.out.println(cvo + "\n");
+		//System.out.println(coupon_li + "\n");
 		//coupon get text 
-		coupon_li = pay_cls.get_coupon_text(available_coupon);
-		model.addAttribute("coupon_text", coupon_li);
+		List<CouponVO> coupon_text = pay_cls.get_coupon_text(coupon_li);
+		model.addAttribute("coupon_text", coupon_text);
 		/*
 		 * for(int i = 0; i< cart_li.size(); i++) { System.out.println(cart_li.get(i));
 		 * System.out.println(pro_li.get(i)); System.out.println("                  ");
@@ -125,11 +131,14 @@ public class UserPaymentController {
 		int paid_amount = (Integer)ivo.get("paid_amount");
 		String pay_method = (String)ivo.get("pay_method");
 		int time = (Integer)ivo.get("paid_at");
+		int coupon_code = (Integer)ivo.get("coupon_code");
+		int point = (Integer)ivo.get("point_num");
+		
 		//List<ImportVO> payment_li = new ArrayList<ImportVO>();
 		for(int i = 0; i < cart_li.size(); i++) {
 			ImportVO add_vo = new ImportVO();
 			add_vo.setMerchant_uid(merchant_uid);
-			add_vo.setPaid_amount(paid_amount);
+			add_vo.setPaid_amount(paid_amount + point);
 			add_vo.setPay_method(pay_method);
 			//add_vo.setPaid_at(time);
 			add_vo.setSeller_id(cart_li.get(i).getCart_seller());
@@ -142,15 +151,30 @@ public class UserPaymentController {
 			add_vo.setQuantity(pro_li.get(i).getCart_quantity());
 			int shipfee = pro_li.get(i).getProduct_shipfee() * pro_li.get(i).getCart_quantity();
 			add_vo.setShipfee(shipfee);
-			add_vo.setOrder_status("결제 완료");
+			add_vo.setOrder_status("결제완료");
 			add_vo.setPost_id(cart_li.get(i).getCart_post());
+			this.choice_addr = pay_cls.get_addr_true(cvo);
 			add_vo.setAddress_id(choice_addr.getAddress_id());
+			add_vo.setCoupon_id(coupon_code);
+			for(CouponVO k : coupon_li) {
+				if(k.getCoupon_id() == coupon_code) {
+					add_vo.setDiscount(k.getCoupon_discount());
+				}
+			}
+			add_vo.setEmpty_int(point);
 			pay_cls.payment_add(add_vo);
-			
-			//point update
-			add_vo.setEmpty_int((int)(paid_amount * 0.003));
-			pay_cls.point_update(add_vo);
 		}
+		
+		//coupont payment_after
+		if(ivo.get("coupon_code") != null) {
+			pay_cls.update_coupon(coupon_code);
+		}
+		//point payment_after
+		int final_point = (Integer)ivo.get("point_num") - (int)(paid_amount * 0.003);
+		ImportVO exvo = new ImportVO();
+		exvo.setUID(userID);
+		exvo.setEmpty_int(final_point);
+		pay_cls.point_update(exvo);
 		return "success";
 	}
 	@ResponseBody
@@ -178,5 +202,6 @@ public class UserPaymentController {
 		pay_cls.addr_insert(uavo);
 		
 		this.choice_addr = pay_cls.get_addr_true(cvo);
+
 	}
 }

@@ -44,11 +44,10 @@ public class UserOrderController {
 			model.addAttribute("pl_li", pl_li);
 			model.addAttribute("date_filter", date_filter);
 			model.addAttribute("wide_li", wide_li);
-			System.out.println(date_filter);
-			System.out.println();
-			System.out.println(pl_li);
-			System.out.println();
-			System.out.println(wide_li);
+			/*
+			 * System.out.println(date_filter); System.out.println();
+			 * System.out.println(pl_li); System.out.println(); System.out.println(wide_li);
+			 */
 			return "my_shopping_status";
 		}else {
 			return "ozoLogin_zinc";	

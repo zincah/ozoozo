@@ -32,5 +32,9 @@ public class ImportVO {
 	private int py_orderid;
 	private int address_id;
 	
+	private int addr_id;
+	private int coupon_id;
+	private int discount;
+	
 	private int empty_int;
 }

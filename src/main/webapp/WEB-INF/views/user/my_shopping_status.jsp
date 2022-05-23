@@ -263,7 +263,7 @@
                                         href="http://127.0.0.1:3000/orders.html">상세보기</a>
                                 </div>
                                <c:forEach var="j" begin="0" end="${fn:length(pl_li)-1}">
-                               <c:if test="${order_num ne pl_li[j].order_num}">
+                               <c:if test="${order_num eq pl_li[j].order_num}">
                                <c:set var="postid" value="${pl_li[j].od_postid }"/>
                                <c:set var="tell_check" value="${pl_li[fn:length(pl_li)-1].seller_id }"/>
                                 <div>
@@ -299,7 +299,7 @@
                                             </div>
                                             <div class="css-1yl0oty e1yy3fi614">
                                             	<button class="css-klr9vj">배송추적</button>
-                                                <button class="css-klr9vj">구매확정</button> <!-- 배송완료된 애들만 보이게 -->
+                                                <c:if test="${pl_li[j].order_status == '배송완료'}"><button disabled="" class="css-klr9vj">구매확정</button></c:if> <!-- 배송완료된 애들만 보이게 -->
                                             </div>
                                         </div>
                                         <c:choose>

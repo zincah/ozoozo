@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
-	href="resources/css/user_css/header/calculation.css?var=1">
+	href="resources/css/user_css/header/calculation.css?var=2">
 <link rel="stylesheet" href="resources/css/user_css/header/public.css">
 <title>Document</title>
 <!-- jQuery -->
@@ -95,20 +97,30 @@
 			}
 			all_price(All_price,shipfee);
 		}
+		
+		
 		var final_price = 0;
 		function all_price(price, shipfee){
 			$(".all_price").text(int_comma(price) + "원");
 			$(".shipfee").text(int_comma(shipfee) + "원");
 			
+			point_num =  $("#point_input").val();
+			if(point_num > 0){
+				$(".point_set").text("-" + int_comma(point_num) + "원");
+			}else{
+				$(".point_set").text(point_num + "원");
+			}
 			
-			final_price = price + shipfee;
+			final_price = price + shipfee - point_num - coupon_price;
 			
 			fp = int_comma(final_price);
 			$(".final_price").text(fp);
+			
 			var point = final_price * 0.003;
 			$(".point").text(Math.floor(point) + " P");
 			$(".payment_Btn").text(fp + "원 결제하기")
 		}
+		
 		function select_email(this_class){
 			$(".emiurti3").remove();
 			$(".emiurti0").addClass("email2");
@@ -252,10 +264,17 @@
 	    	}
 	    	if(addr_bln){
 	    		address_add();
+	    		addresscode = $("#sample6_postcode").val();
+	    		address = $("#sample6_address").val() + ", " + $("#sample6_detailAddress").val();
+	    		
+	    	}else{
+	    		address = "${address_true.address1}"
+	    	    address = address.replace("[","").split("]");
+	    		address = address[1];
+	    		addresscode = address[0];
 	    	}
 			phone_ = $("select[name=phone1]").val() + "-" + $('input[name=phone]').val();	    	
-	    	address = "${address_true.address1}"
-	    	address = address.replace("[","").split("]");
+	    	
 			console.log(address);	    	
 	    	
 	        // IMP.request_pay(param, callback) 결제창 호출
@@ -268,8 +287,8 @@
 	            buyer_email: email,
 	            buyer_name: $('input[name=name]').val(),
 	            buyer_tel: phone_,
-	            buyer_addr: address[1],
-	            buyer_postcode: address[0]
+	            buyer_addr: address,
+	            buyer_postcode: addresscode
 	        }, function (rsp) { // callback
 	            if (rsp.success) {
 	                // 결제 성공 시 로직 
@@ -287,15 +306,18 @@
     			url: "payment/ajax.com", // 예: https://www.myservice.com/payments/complete
     			method: "POST",
 	            headers: { "Content-Type": "application/json" },
-	            dataType : 'test',
+	            dataType : 'text',
 	            data: JSON.stringify ({
 	                imp_uid: rsp.imp_uid, //imp 번호
 	                merchant_uid: parseInt(rsp.merchant_uid), //고유번호
 	                pay_method: way_payment,// 결제 방법
 	                paid_amount: rsp.paid_amount,// 가격
-	                paid_at: rsp.paid_at //결제 승인 시각
+	                paid_at: rsp.paid_at, //결제 승인 시각
+	                coupon_code :  parseInt(coupon_code),
+	            	point_num :  parseInt(point_num)
 	            }),
 	            success : function(result_Str){
+	            	console.log(result_Str);
 	            	if(result_Str == 'success'){
 	            	console.log("DB 넣기 성공");
 	            	alert("결제 성공! 이용해 주셔서 감사합니다.");
@@ -304,10 +326,11 @@
 	            	}
 	            }
 	        })
-		}  
+		}  	
 		function payment_after_cart_delete(){
+			alert("삭제 json 입장");
 			$.ajax({
-    			url: "cart_delete.com", // 예: https://www.myservice.com/payments/complete
+    			url: "cart_delete.com", 
     			method: "POST",
 	            headers: { "Content-Type": "application/json" },
 	            dataType : 'json',
@@ -327,8 +350,53 @@
 			 var randNum = Math.floor(Math.random()*(max-min+1)) + min; 
 			 return randNum; 
 			 }
-
+	//포인트 js
+		var point_num = 0;
+		 function use_point(){
+			$("#point_input").val(${point});
+			point_write();
+		 }
+		  function point_write(){
+			  if($("#point_input").val() > ${point}){
+				  alert("포인트 초과");
+				  $("#point_input").val(${point});
+			  }
+			  if($("#point_input").val() > 0){
+				  $(".point_set").addClass("css-15tpkn8");
+				  $(".point_set").removeClass("_25zAE");
+			  }else if($("#point_input").val() < 0){
+				  alert("범위 값 초과");
+				  $("#point_input").val(0);
+			  }else{
+				  $(".point_set").removeClass("css-15tpkn8");
+				  $(".point_set").addClass("_25zAE");
+			  }	  
+			  each_price();
+		  }
 		  
+	// 쿠폰 js
+		  var coupon_code = null; // 결제 후 넘길 쿠폰 ID 값
+		  var coupon_price = 0;
+		  function coupon_choice(this_class){
+			  console.log(this_class.id);
+			  
+			  if(this_class.id == "null_coupon"){
+				  coupon_price = 0;
+				  $(".coupon_set").removeClass("css-15tpkn8");
+				  $(".coupon_set").addClass("_25zAE");
+				  $(".coupon_set").text(0 + "원");
+				  coupon_code = null;
+				  return;
+			  }
+			  coupon_price = $(this_class).val();
+			  coupon_code = (this_class.id).split("_");
+			  coupon_code = coupon_code[1];
+			  
+			  $(".coupon_set").text("-" + int_comma(coupon_price) + "원");
+			  $(".coupon_set").addClass("css-15tpkn8");
+			  $(".coupon_set").removeClass("_25zAE");
+			each_price();
+		  }
 		  
 		  //결제 정보 전달하기
 	    
@@ -699,7 +767,7 @@
 													<picture> <img class="css-15hitpz e1l2pwkp7"
 														src="${post_li[i].photo_url }"> </picture>
 													<div class="css-17fh4sh e1l2pwkp6">
-														<div class="css-tobrwt e1l2pwkp5">[25%쿠폰]${post_li[i].post_name
+														<div class="css-tobrwt e1l2pwkp5">${post_li[i].post_name
 															}</div>
 														<ul class="css-rvb3re e1l2pwkp4">
 															<li><c:choose>
@@ -731,23 +799,23 @@
 				<section class="clDqQ">
 					<div class="checkout-container vtJfv">
 						<div class="_2jygH">쿠폰</div>
-						<c:if test="${coupon} ne ''}" var="coupon_bln">	
+						<c:if test="${coupon.size() eq 0}" var="coupon_bln">	
 						<div class="_3KNiw _1T_ur">사용 가능한 쿠폰이 없습니다</div>
 						</c:if>
 					</div>
-					<c:if test="coupon_bln">
+					<c:if test="${coupon_bln == false}">
 					<div class="css-1msvccc e14xfypx0">
 						<div class="css-5f6omd e16ssckh0">
 							<section class="css-10l9udt ekswbma0">
 								<div>
 								<c:forEach var="i" begin="0" end="${fn:length(coupon)-1}">
 									<label class="_3xqzr _4VN_z"><div class="_2xClz">
-											<input type="radio" class="fs-4H" value=""><span
+											<input type="radio" class="fs-4H " id="co_${coupon[i].user_couponid} " value="${coupon_text[i].coupon_discount }" name="ra" onclick="coupon_choice(this)"><span
 												class="_2ekY2"></span>
 										</div>
 										<span class="_1aN3J"><div class="css-1lq8kdu e1sitcwf9">
-												<div class="css-18sv0so e1sitcwf7">
-													<div class="css-9hobe6 e1sitcwf6">20,000원 할인</div>
+												<div class="css-18sv0so e1sitcwf 7">
+													<div class="css-9hobe6 e1sitcwf6"><fmt:formatNumber value="${coupon_text[i].coupon_discount }" pattern="#,###" />원 할인</div>
 													<div class="css-17fh4sh e1sitcwf5">
 														<div class="css-ti31hf e1sitcwf4">${coupon_text[i].coupon_title }</div>
 														<div class="css-1cxm0o7 e1sitcwf3">${coupon_text[i].coupon_subtitle }</div>
@@ -759,7 +827,7 @@
 									</label>
 									</c:forEach>
 									<label class="_3xqzr _4VN_z"><div class="_2xClz">
-										<input type="radio" class="fs-4H" value="" checked=""><span
+										<input type="radio" class="fs-4H" value="" checked="" name="ra"  id="null_coupon" onclick="coupon_choice(this)"><span
 												class="_2ekY2"></span>
 										</div>
 										<span class="_1aN3J"><div class="css-1lq8kdu e1sitcwf9">
@@ -787,15 +855,18 @@
 				<section class="clDqQ">
 					<div class="checkout-container vtJfv">
 						<div class="_2jygH">포인트</div>
-						<div class="_3KNiw _1T_ur">사용 가능한 포인트가 없습니다</div>
+						<c:if test="${point eq '0' }" var="point_bln">
+						<div class="_3KNiw _1T_ur">	사용 가능한 포인트가 없습니다</div>
+						</c:if>
 					</div>
 					<div class="_254uw">
 						<div class="checkout-container JsdI1">
 							<div class="Ux4aQ">
-								<input class="_3ASDR _1qwAY _3kWHq _2FPtt" name="mileageCost"
-									type="tel" pattern="\d*" disabled="" value="0">
-								<button class="_1eWD8 _2wuTD _3VwZT _3VzHU _2FPtt" disabled=""
-									type="button">전액사용</button>
+								<input class="_3ASDR _1qwAY _3kWHq _2FPtt" name="mileageCost" id="point_input" onChange="point_write()"
+									type="number" pattern="\d*" <c:if test="${point_bln }">disabled=""</c:if> value="0">
+						
+								<button class="_1eWD8 _2wuTD _3VwZT _3VzHU _2FPtt"  <c:if test="${point_bln }">disabled=""</c:if>
+									type="button" onClick="use_point()">전액사용</button>
 							</div>
 							<div class="_2xq8i">
 								사용 가능 포인트<span class="_1xjJk">${point} P</span>
@@ -936,11 +1007,11 @@
 									</div>
 									<div class="_2JEof">
 										<div class="_34k6S">쿠폰 사용</div>
-										<div class="_25zAE">0원</div>
+										<div class="_25zAE coupon_set">0원</div>
 									</div>
 									<div class="_2JEof">
 										<div class="_34k6S">포인트 사용</div>
-										<div class="_25zAE">0원</div>
+										<div class="_25zAE point_set">0원</div>
 									</div>
 									<div class="_1qFy7">
 										<div class="_3hFjD">최종 결제 금액</div>
