@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-<link href="resources/css/user_css/zinc/ozomain.css?var=3"
+<link href="resources/css/user_css/zinc/ozomain.css?var=2"
 	rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
@@ -17,37 +17,29 @@
 	src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
 <script>
 
+
+
 	$(document).ready(function(){
 		
 		$(".banner_link").click(function(e){
 			e.preventDefault();
 		});
-		
-	/* 북마크 기능 ! */
-		/* $(".item_bookmark").click(function(){
-			var item =  $(this).attr('id')
-			
-			alert(item);
-			
-			$.ajax({
-				url:"userscrap.com",
-				type: 'post',
-				data: JSON.stringify(item),
-				contentType:'application/json; charset=UTF-8',
-				dataType: 'text',
-				success: function(resp){
-					alert("보냇다 ");
-					
-				}
-				})
-				
-		}) */
+	
 		
 		
-		 $(".b_blue").on("click",function(){
+		
+	$(document).on("click",".b_blue",function(){
 		var gun =  $(this).attr('id')
 		
 		
+		
+		
+		
+		
+		/* var uid = sessionStorage.getItem('User_Num');
+		console.log(uid)
+		if(uid !=null){ */
+			
 		
 		
 		 $.ajax({
@@ -57,10 +49,10 @@
 			contentType:'application/json; charset=UTF-8',
 			dataType: 'text',
 			success: function(resp){
-				
+				setTimeout(function(){}, 400);
 				$('#'+gun).find("#blue").css({fill:"#ff778e"});
 				$('#'+gun).remove()
-				$('s_'+gun).after('<button class="item_bookmark b_none" id='+gun+'>'+
+				$('#s_'+gun).append('<button class="item_bookmark b_none" id='+gun+'>'+
 						'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inactive-icon">'+
 						'<defs>'+
  					    '<path id="scrap-icon-3-b" '+
@@ -85,11 +77,19 @@
 				
 			}
 			}) ;
+		 
+		/* }else{
+			alert("로그인 해주세요");
+		} */
 			
 	})
+	
 	 $(document).on("click",".b_none",function(){
 		 var so =  $(this).attr('id')
 			
+		 /* 	var uid = sessionStorage.getItem('User_Num');
+		 	console.log(uid)
+		if(uid !=null){ */
 			
 			$.ajax({
 				url:"scrapdelete.com",
@@ -98,11 +98,11 @@
 				contentType:'application/json; charset=UTF-8',
 				dataType: 'text',
 				success: function(resp){
-					
+					setTimeout(function(){}, 400);
 					$('#'+so).find("#blue").css({fill:"none"});
 					$('#'+so).find("#blueshadow").css({stroke:"#FFF"})
 					$('#'+so).remove()
-					$('#s_'+so).after('<button class="item_bookmark b_blue" id='+so+'>'+
+					$('#s_'+so).append('<button class="item_bookmark b_blue" id='+so+'>'+
 						'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inactive-icon">'+
 						'<defs>'+
  					    '<path id="scrap-icon-3-b" '+
@@ -126,94 +126,13 @@
 					console.log($('#'+so));			
 				}
 				}) 
-				
+	/* 	}else{
+			alert("로그인 해주세요");
+		} */
+	
 		});  
-	/* --------------------------------------------------------------------- */
-		 $(".b_none").on("click",function(){
-			 var so =  $(this).attr('id')
-				
-				
-				$.ajax({
-					url:"scrapdelete.com",
-					type: 'post',
-					data: JSON.stringify(so),
-					contentType:'application/json; charset=UTF-8',
-					dataType: 'text',
-					success: function(resp){
-						
-						$('#'+so).find("#blue").css({fill:"none"});
-						$('#'+so).find("#blueshadow").css({stroke:"#FFF"})
-						$('#'+so).remove()
-						$('#s_'+so).after('<button class="item_bookmark b_blue" id='+so+'>'+
-							'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inactive-icon">'+
-							'<defs>'+
-	 					    '<path id="scrap-icon-3-b" '+
-							'		d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"&gt;'+
-							'<filter id="scrap-icon-3-a" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox">'+
-							'<feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>'+
-							'<feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur>'+
-							'<feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>'+
-							'<feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter>'+
-							'<filter id="scrap-icon-3-c" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox">'+
-							'<feGaussianBlur in="SourceAlpha" result="shadowBlurInner1" stdDeviation="1.5"></feGaussianBlur>'+
-							'<feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>'+
-							'<feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"></feComposite>'+
-							'<feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs>'+
-							'<g id="blue" fill="none" fill-rule="nonzero" transform="matrix(1 0 0 -1 0 24)">'+
-							'<use fill="#000" filter="url(#scrap-icon-3-a)"></use>'+
-							'<use fill="#FFF" fill-opacity=".4"></use>'+
-							'<use fill="#000" filter="url(#scrap-icon-3-c)"></use>'+
-							'<path id="blueshadow" stroke="#FFF" d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>'+
-							'</button>');
-						console.log($('#'+so));			
-					}
-					}) 
-					
-			});
-		 $(document).on("click",".b_blue",function(){
-				var gun =  $(this).attr('id')
-				 
-				
-				 
-				
-				
-				 $.ajax({
-					url:"userscrap.com",
-					type: 'post',
-					data: JSON.stringify(gun),
-					contentType:'application/json; charset=UTF-8',
-					dataType: 'text',
-					success: function(resp){
-						
-						$('#'+gun).find("#blue").css({fill:"#ff778e"});
-						$('#'+gun).remove()
-						$('#s_'+gun).after('<button class="item_bookmark b_none" id='+gun+'>'+
-								'<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inactive-icon">'+
-								'<defs>'+
-		 					    '<path id="scrap-icon-3-b" '+
-								'		d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"&gt;'+
-								'<filter id="scrap-icon-3-a" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox">'+
-								'<feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>'+
-								'<feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur>'+
-								'<feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>'+
-								'<feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter>'+
-								'<filter id="scrap-icon-3-c" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox">'+
-								'<feGaussianBlur in="SourceAlpha" result="shadowBlurInner1" stdDeviation="1.5"></feGaussianBlur>'+
-								'<feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>'+
-								'<feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"></feComposite>'+
-								'<feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs>'+
-								'<g id="blue" fill="#ff778e" fill-rule="nonzero" transform="matrix(1 0 0 -1 0 24)">'+
-								'<use fill="#000" filter="url(#scrap-icon-3-a)"></use>'+
-								'<use fill="#FFF" fill-opacity=".4"></use>'+
-								'<use fill="#000" filter="url(#scrap-icon-3-c)"></use>'+
-								'<path id="blueshadow" stroke="#ff778e" d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>'+
-								'</button>');
-						console.log($('.b_none'));	
-						
-					}
-					}) ;
-					
-			})
+	
+	
 	 
 	});
 	
@@ -348,18 +267,9 @@
 					<c:forEach items="${todayDealList }" var="deal">
 	               <div class="col-12 col-md-4 col-lg-3">
 	                  <div class="deals_list_wrap">
-	                     <article class="deals_item">
-	                        <a href="productPage.com?p=${deal.post_id }&deal=true" style="text-decoration: none; width: 100%;">
-	                           <div class="deals_item_wrap">
-	                              <div class="deals_item_pic_out">
-	                                 <div class="deals_item_pic">
-	                                    <div class="item_ani">
-	                                       <img class="images" src="${deal.photo_url }">
-	                                    </div>
-	                                 </div>
-	                       
-	                                    <c:choose>
+	                  <c:choose>
 	                                    <c:when test="${deal.checkit eq true}">
+	                                   
 	                                    <div class="item_timer b_${deal.post_id }" >
 	                                    <div>1일 남음</div>
 	                                    </div>
@@ -440,6 +350,18 @@
 	                                     </button>
 	                                    </c:when>
 	                                    </c:choose>
+	                     <article class="deals_item">
+	                     
+	                        <a href="productPage.com?p=${deal.post_id }&deal=true" style="text-decoration: none; width: 100%;">
+	                           <div class="deals_item_wrap">
+	                              <div class="deals_item_pic_out">
+	                                 <div class="deals_item_pic">
+	                                    <div class="item_ani">
+	                                       <img class="images" src="${deal.photo_url }">
+	                                    </div>
+	                                 </div>
+	                       
+	                                    
 	                                
 	                              </div>
 	                              <div class="deals_item_content">
@@ -711,19 +633,11 @@
 			
 				  <c:forEach items="${productList }" var="product">
 		               <div class="col-12 col-md-4 col-lg-3">
-		                  <div class="deals_list_wrap">
-		                     <article class="deals_item">
-		                        <a id="${product.post_id }" href="productPage.com?p=${product.post_id }" style="text-decoration: none; width: 100%;">
-		                           <div class="deals_item_wrap">
-		                              <div class="deals_item_pic_out">
-		                                 <div class="deals_item_pic">
-		                                    <div class="item_ani">
-		                                       <img class="images" src="${product.photo_url}">
-		                                       </div>
-		                                        <c:choose>
+		                  <div  class="deals_list_wrap">
+		                    <c:choose>
 		                                    <c:when test="${product.checkit eq true}">
 		                                     <div id="s_${product.post_id}"></div>
-		                                    <button class="item_bookmark b_blue" id="${product.post_id }">
+		                                    <button class="item_bookmark b_none" id="${product.post_id }">
 		                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
 		                                       height="24" viewBox="0 0 24 24" class="inactive-icon">
 		                                    <defs>
@@ -759,7 +673,7 @@
 		                                    </button>
 		                                    </c:when>
 		                                    <c:when test="${product.checkit eq false}">
-		                                     <div id="s_${deal.post_id}"></div>
+		                                    <div id="s_${product.post_id}"></div>
 		                                    <button class="item_bookmark b_blue" id="${product.post_id }">
 		                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
 		                                       height="24" viewBox="0 0 24 24" class="inactive-icon">
@@ -797,6 +711,16 @@
 		                                    </button>
 		                                    </c:when>
 		                                    </c:choose>
+		                     <article class="deals_item">		                     
+		                        <a id="${product.post_id }" href="productPage.com?p=${product.post_id }" style="text-decoration: none; width: 100%;">
+		                           <div class="deals_item_wrap">
+		                              <div class="deals_item_pic_out">
+		                                 <div class="deals_item_pic">
+		                                 
+		                                    <div class="item_ani">
+		                                       <img class="images" src="${product.photo_url}">
+		                                       </div>
+		                                      
 		                                  
 		                                 </div>
 		                              </div>

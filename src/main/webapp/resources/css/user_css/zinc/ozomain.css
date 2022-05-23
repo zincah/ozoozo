@@ -245,9 +245,9 @@ img{
 
 
     position: absolute;
-    bottom: 12px;
-    right: 12px;
-    z-index: 10;
+    top: 10px;
+    right: 17px;
+    z-index: 2;
     width: 24px;
     height: 24px;
     margin: 0;
@@ -255,6 +255,8 @@ img{
     background: none;
     border: none;
     font-size: 18px;
+    background-color: #e0e0e070;
+    border-radius: 6px;
     color: black;
 }
 
