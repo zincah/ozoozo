@@ -52,5 +52,6 @@
 	    <mapper resource="mappings/userScrap-mapping.xml"/>
 	    <mapper resource="mappings/userMyPage-mapping.xml"/>
 	    <mapper resource="mappings/serverStart-mapping.xml"/>
+	    <mapper resource="mappings/sellerSales-mapping.xml"/>
 	</mappers>
 </configuration>

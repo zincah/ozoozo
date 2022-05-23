@@ -150,4 +150,17 @@ public class ProductVO {
 	private String user_birth; // 유저 생일
 	private boolean gender; // 유저 성별
 	// 일단 필요한것만 선언함
+	
+	
+	// 매출 리스트 조회
+	private Timestamp sales_date; // 날짜
+	private int sales_paymentTotal; // 결제금액
+	private int sales_paymentTotalNum; // 결제건수 
+	private int sales_canclePaymentTotal; // 취소금액
+	private int sales_canclePaymentTotalNum; // 취소건수
+	private int sales_submitPaymentTotal; // 정상금액
+	private int sales_submitPaymentTotalNum; // 정상건수
+	private int sales_discount; // 할인금액
+	private int sales_shippingFee; // 배송비
+	private int sales_final; // 판매이익
 }

@@ -1,5 +1,9 @@
 package ozo.spring.house.seller.controller;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +19,7 @@ import ozo.spring.house.seller.service.CategoryService;
 import ozo.spring.house.seller.service.ProductService;
 import ozo.spring.house.seller.service.SellerOrderService;
 import ozo.spring.house.seller.service.SellerPostingService;
+import ozo.spring.house.seller.service.SellerSalesService;
 import ozo.spring.house.seller.vo.CategoryVO;
 import ozo.spring.house.seller.vo.ProductVO;
 
@@ -29,6 +34,8 @@ public class SellerController {
 	SellerPostingService sellerPostingService;
 	@Autowired
 	SellerOrderService sellerOrderService;
+	@Autowired
+	SellerSalesService sellerSalesService;
 	
 	@RequestMapping(value = "/index.seller")
 	public String sellerIndex(HttpServletRequest request) {
@@ -135,10 +142,46 @@ public class SellerController {
 			return "seller-login";
 		}
 	}
-	@RequestMapping(value = "/salesManagement.seller")
-	public String sellerSalesManagement(HttpServletRequest request) {
+	@RequestMapping(value = "/salesManagement.seller", method=RequestMethod.GET)
+	public String sellerSalesManagement(HttpServletRequest request, Model model, ProductVO vo) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
+			
+			// 현재 로컬 날짜 구하기
+			Calendar calMax = Calendar.getInstance();
+			calMax.set(Calendar.DAY_OF_MONTH, calMax.getActualMaximum(Calendar.DAY_OF_MONTH));
+			Calendar calMin = Calendar.getInstance();
+			calMin.set(Calendar.DAY_OF_MONTH, calMin.getActualMinimum(Calendar.DAY_OF_MONTH));
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			String calMaxText = formatter.format(calMax.getTime());
+			String calMinText = formatter.format(calMin.getTime());
+			
+			// 매출 리스트 저장할 변수
+			List<ProductVO> salesList = new ArrayList<ProductVO>();
+			// 검증을 위해 임시 저장할 변수
+			ProductVO tempData = new ProductVO();
+			
+			// 당월 1일부터 마지막 날짜까지 반복
+			while(!calMaxText.equals(calMinText)) { // 해당 월 첫번째 날짜와 값이 일치하면 종료 (최신순 정렬)
+				
+				// 데이터 처리
+				Timestamp date = new Timestamp(calMin.getTimeInMillis());
+				vo.setSales_date(date);
+				tempData = sellerSalesService.selectSalesList(vo);
+				System.out.println(tempData.getSales_final());
+				// 판매이익이 0이 아닐 경우에만 저장
+				if (tempData.getSales_final()!=0) {
+					salesList.add(tempData);
+				}
+				
+				// 1일 더하고 값 업데이트
+				calMax.add(Calendar.DATE, -1);
+				calMaxText = formatter.format(calMax.getTime());
+			}
+			
+			// model에 값 저장
+			model.addAttribute("salesListView", salesList);
+			
 			return "seller-salesManagement";
 		}else {
 			return "seller-login";

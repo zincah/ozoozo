@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="SellerSalesDAO">
+	
+	<!-- 매출 리스트 -->
+	<select id="selectSalesList" resultType="product">
+		SELECT
+		#{sales_date} AS sales_date,
+		SUM(p.payment_total) AS sales_paymentTotal,
+		(SELECT COUNT(*) FROM user_order uo WHERE DATE(uo.order_date) = #{sales_date}) AS sales_paymentTotalNum,
+		SUM(CASE WHEN p.payment_total<![CDATA[<]]>0 THEN p.payment_total ELSE 0 END) AS sales_canclePaymentTotal,
+		(SELECT COUNT(*) FROM user_order uo WHERE DATE(uo.order_date) = #{sales_date} AND uo.payment <![CDATA[<]]> 0) AS sales_canclePaymentTotalNum,
+		SUM(CASE WHEN p.payment_total<![CDATA[>=]]>0 THEN p.payment_total ELSE 0 END) AS sales_submitPaymentTotal,
+		(SELECT COUNT(*) FROM user_order uo WHERE DATE(uo.order_date) = #{sales_date} AND uo.payment <![CDATA[>]]> 0) AS sales_submitPaymentTotalNum,
+		SUM(CASE WHEN p.py_discount=null THEN p.py_discount ELSE 0 END) AS sales_discount,
+		SUM(uo.shipping_fee) AS sales_shippingFee,
+		SUM(p.py_final) AS sales_final
+		FROM user_order uo
+		JOIN payment p ON p.py_orderid = uo.order_id 
+		WHERE DATE(uo.order_date) = #{sales_date};
+	</select>
+</mapper>
+
