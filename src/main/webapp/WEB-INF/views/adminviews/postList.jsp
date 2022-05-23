@@ -12,7 +12,7 @@
 	                  </td>
 	                  <td class="content-table-content-text option-line">${post.company_name }</td>
 	                  <td class="content-table-content-text option-line">
-	                    <a href="#">${post.post_name }</a>
+	                   	<a href="/house/postingInfo.admin?postcode=${post.post_id }" target="_blank">${post.post_name }</a>
 	                    </td>
 	                  <td class="content-table-content-text option-line">${post.cate_name }</td>
 	                  <td class="content-table-content-text option-line">${post.product_count }</td>

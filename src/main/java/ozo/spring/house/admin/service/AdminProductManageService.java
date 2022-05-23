@@ -1,8 +1,10 @@
 package ozo.spring.house.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import ozo.spring.house.admin.vo.AdminProductVO;
+import ozo.spring.house.admin.vo.PostingInfoVO;
 import ozo.spring.house.common.Criteria;
 
 public interface AdminProductManageService {
@@ -25,5 +27,8 @@ public interface AdminProductManageService {
 	// index
 	public int registrationWait();
 	public int registrationHold();
+	
+	// posting Á¤º¸
+	public PostingInfoVO postInfo(int postid);
 
 }

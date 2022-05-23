@@ -159,6 +159,11 @@
 			<if test="post_status != '' and post_status != null">
 				post_status = #{post_status}
 			</if>
+			<if test="deal_status != '' and deal_status != null">
+				<trim prefix="and">
+				deal_status = #{deal_status}
+				</trim>
+			</if>
 			<if test="cate_name != '' and cate_name != null">
 				<trim prefix="and">
 					cate_name = #{cate_name}
@@ -202,6 +207,11 @@
 		<where>
 			<if test="post_status != '' and post_status != null">
 				post_status = #{post_status}
+			</if>
+			<if test="deal_status != '' and deal_status != null">
+				<trim prefix="and">
+				deal_status = #{deal_status}
+				</trim>
 			</if>
 			<if test="cate_name != '' and cate_name != null">
 				<trim prefix="and">
@@ -335,5 +345,31 @@
 	</select>
 	
 	
+	<!-- postinfo 관련 -->
+	<!-- 첫번째 정보 가져오기 -->
+	<select id="postInfo1" resultType="HashMap">
+		select p.*, pp.*, po.*, s.seller_id, s.company_name, s.representative, sc.subcate_name as sub2, sc2.subcate_name as sub1
+		from product p
+		left outer join product_posting pp on p.product_postid = pp.post_id
+		inner join product_option po on p.product_id = po.op_productid 
+		inner join seller s on s.seller_id = pp.post_sellerid
+		inner join sub_category sc on pp.po_subcate = sc.subcate_code
+		inner join sub_category sc2 on (pp.po_subcate/100*100) = sc2.subcate_code
+		where pp.post_id=#{postid};
+	</select>
 	
+	<!-- option 가져오기 -->
+	<select id="postInfo2" resultType="int">
+		select detail_value from product_details where dprodetails_postid=#{postid};
+	</select>
+	
+	<!-- table 가져오기 -->
+	<select id="postInfo3" resultType="productdetail">
+		select * from product_tables where protable_postid=#{postid};
+	</select>	
+	
+	<!-- 사진 링크 가져오기 -->
+	<select id="postInfo4" resultType="HashMap">
+		select * from product_image where photo_postid=#{postid};
+	</select>
 </mapper>

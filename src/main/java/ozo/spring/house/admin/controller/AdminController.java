@@ -20,6 +20,8 @@ import ozo.spring.house.admin.service.AdminUserManageService;
 import ozo.spring.house.admin.vo.AdminProductVO;
 import ozo.spring.house.common.Criteria;
 import ozo.spring.house.common.PageDTO;
+import ozo.spring.house.seller.service.CategoryService;
+import ozo.spring.house.seller.service.ProductService;
 import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.vo.UserVO;
 
@@ -31,6 +33,7 @@ public class AdminController {
 	
 	@Autowired
 	AdminUserManageService userService;
+	
 
 	@RequestMapping(value = "/index.admin")
 	public String adminIndex(HttpServletRequest request, Model model) {
@@ -204,6 +207,7 @@ public class AdminController {
 			return "adminLogin_dj";
 		}
 	}
+	
 
 	
 

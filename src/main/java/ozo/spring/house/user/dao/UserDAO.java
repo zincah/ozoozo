@@ -40,6 +40,7 @@ public class UserDAO {
 		System.out.println("[LOGO] : insert success");
 	}
 	
+	// login
 	public UserVO checkUser(UserVO vo) {
 		System.out.println("[LOGO] : mybatis in UserDAO checkUser");
 		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.checkUser", vo);
