@@ -6,12 +6,13 @@
 <mapper namespace="UserScrapDAO">
 	
 	<insert id="s_insert" parameterType="userscrap">
+	insert into user_scrap (sc_usernum , sc_postid)
+	values (#{sc_usernum},#{sc_postid})
 	
-	INSERT INTO user_scrap ( sc_usernum,sc_postid) VALUES(#{sc_usernum},#{sc_postid})
 	</insert>
 	
 	<select id="us_list" resultType="userscrap">
-	SELECT * FROM user_scrap 
+	SELECT sc_postid FROM user_scrap where sc_usernum =#{sc_usernum} 
 	</select>
 	
 	
@@ -26,7 +27,7 @@
 				FROM product_image 
 				GROUP BY photo_postid 
 			)
-		) pimg ON po.post_id = pimg.photo_postid;
+		) pimg ON po.post_id = pimg.photo_postid order by scrap_num desc;
 	</select>
 	
 	<delete id="s_cancle" parameterType="userscrap">

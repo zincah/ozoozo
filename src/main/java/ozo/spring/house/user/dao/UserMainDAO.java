@@ -133,6 +133,15 @@ public class UserMainDAO {
 		return wholelist;
 	}
 
+	public List<UserProductVO> bestlist(){
+		System.out.println("mybatis in usermaindao todaydeallist");
+		
+		List<UserProductVO> b_list = sqlSessionTemplate.selectList("UserMainDAO.bestlist");
+		System.out.println(b_list.size());
+
+		return b_list;
+	}
+		
 
 
 }

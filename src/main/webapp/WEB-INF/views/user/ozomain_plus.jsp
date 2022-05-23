@@ -8,16 +8,8 @@
 
  <c:forEach items="${productList }" var="product">
 		               <div class="col-12 col-md-4 col-lg-3">
-		                  <div class="deals_list_wrap">
-		                     <article class="deals_item">
-		                        <a id="${product.post_id }" href="productPage.com?p=${product.post_id }" style="text-decoration: none; width: 100%;">
-		                           <div class="deals_item_wrap">
-		                              <div class="deals_item_pic_out">
-		                                 <div class="deals_item_pic">
-		                                    <div class="item_ani">
-		                                       <img class="images" src="${product.photo_url}">
-		                                    </div>
-		                                      <c:choose>
+		                  <div  class="deals_list_wrap">
+		                    <c:choose>
 		                                    <c:when test="${product.checkit eq true}">
 		                                     <div id="s_${product.post_id}"></div>
 		                                    <button class="item_bookmark b_blue" id="${product.post_id }">
@@ -56,7 +48,7 @@
 		                                    </button>
 		                                    </c:when>
 		                                    <c:when test="${product.checkit eq false}">
-		                                     <div id="s_${deal.post_id}"></div>
+		                                    <div id="s_${product.post_id}"></div>
 		                                    <button class="item_bookmark b_blue" id="${product.post_id }">
 		                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
 		                                       height="24" viewBox="0 0 24 24" class="inactive-icon">
@@ -94,6 +86,17 @@
 		                                    </button>
 		                                    </c:when>
 		                                    </c:choose>
+		                     <article class="deals_item">		                     
+		                        <a id="${product.post_id }" href="productPage.com?p=${product.post_id }" style="text-decoration: none; width: 100%;">
+		                           <div class="deals_item_wrap">
+		                              <div class="deals_item_pic_out">
+		                                 <div class="deals_item_pic">
+		                                 
+		                                    <div class="item_ani">
+		                                       <img class="images" src="${product.photo_url}">
+		                                       </div>
+		                                      
+		                                  
 		                                 </div>
 		                              </div>
 		                                 
@@ -134,7 +137,6 @@
 		                              </div>
 		                           </div>
 		                        </a>
-		                        
 		                     </article>
 		                  </div>
 		               </div>
