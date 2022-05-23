@@ -86,8 +86,9 @@ public class UserMyPageController {
 			vo.setUser_num((int)session.getAttribute("User_Num"));
 			System.out.println((int)session.getAttribute("User_Num"));
 			
-			
+			svo.setSc_usernum((int)session.getAttribute("User_Num"));
 			List<ScrapVO> list ;
+			
 			list = userscrapservice.s_scrap(svo);
 			for(int i=0; i<list.size(); i++) {
 				ScrapVO pro = list.get(i);
@@ -98,14 +99,16 @@ public class UserMyPageController {
 				pro.setSale_price(decFormat.format(sale_price));
 			}
 			
-			usvo.setSc_usernum((int)session.getAttribute("User_Num"));
-			List<UserScrapVO> post = userscrapservice.us_list(usvo);
 			
+	
+			//회원정보
 			UserVO info = userMyPageService.mypageinfo(vo);
-			info.setScrap_count(list.size());
+
+			
 			model.addAttribute("info",info); //회원정보
 			model.addAttribute("list", list); //북마크
-			model.addAttribute("post", post); //회원이 갖고있는 북마크 홈화면표시 
+
+
 			
 			return "myPage";
 		}else {
@@ -163,6 +166,7 @@ public class UserMyPageController {
 		System.out.println(param);
 		if(session.getAttribute("User_Num")!=null) {
 			vo.setSc_postid(param);
+			vo.setSc_usernum((int)session.getAttribute("User_Num"));
 			userscrapservice.s_cancle(vo);
 		return "지웠다" ;
 		}else {

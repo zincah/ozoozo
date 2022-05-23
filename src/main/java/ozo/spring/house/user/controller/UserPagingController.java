@@ -1,7 +1,10 @@
 package ozo.spring.house.user.controller;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ozo.spring.house.user.service.UserCategoryService;
 import ozo.spring.house.user.service.UserMainService;
+import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
+import ozo.spring.house.user.vo.UserScrapVO;
 
 @Controller
 public class UserPagingController {
@@ -23,26 +28,45 @@ public class UserPagingController {
 	
 	@Autowired
 	UserCategoryService userCateService;
+	
+	@Autowired
+	UserScrapService userScrapService;
 
 	// main page
 	@RequestMapping(value = "/getProductList.com")
-	public String user_main(@RequestBody String su, UserProductVO vo, UserPagingVO pvo, Model model) {
+	public String user_main(@RequestBody String su, UserProductVO vo, UserPagingVO pvo, UserScrapVO svo,  Model model, HttpSession session) {
 		
-		// product list ªÃ±‚
+		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
+		
+		// product list ÔøΩÎúùÔøΩÎñõÊ∫êÎùøÏÇï
+
+		vo.setCheckit(false);
+		
+		// product list ÎΩëÍ∏∞
 		int pagecount = Integer.parseInt(su);
-		pvo.setThispage(pagecount); // ¿ﬂ∞®
+		pvo.setThispage(pagecount); // ÏûòÍ∞ê
 		
 		List<UserProductVO> productList = userMainService.plusProductList(pvo);
-		
+		if(session.getAttribute("User_Num") != null) {
+			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+			scrap = userScrapService.userScrapList(svo);
+		}
 
 		for(int i=0; i<productList.size(); i++) {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //º“ºˆ¡° «‘ºˆ
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //ÏÜåÏàòÏ†ê Ìï®Ïàò
 			
 			pro.setSale_price(decFormat.format(sale_price));
 			System.out.println(pro.getPost_id());
+			
+			for(int j=0; j<scrap.size(); j++) {
+				UserScrapVO sc = scrap.get(j);
+				if(pro.getPost_id() == sc.getSc_postid()) {
+					pro.setCheckit(true);
+				}
+			}
 		}
 		
 		
@@ -54,13 +78,18 @@ public class UserPagingController {
 	
 	// category page
 	@RequestMapping(value = "/getProductListCate.com")
-	public String user_cate(@RequestBody List<List<String>> wholeList, UserCategoryVO vo, UserPagingVO pvo, Model model) {
+	public String user_cate(@RequestBody List<List<String>> wholeList, UserCategoryVO vo, UserPagingVO pvo, Model model,UserScrapVO svo, HttpSession session) {
 		
+		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
+		if(session.getAttribute("User_Num") != null) {
+			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+			scrap = userScrapService.userScrapList(svo);
+		}
 		System.out.println(wholeList);
 		
 		List<String> cates = wholeList.get(1);
 
-		// category ≥÷æÓ¡÷±‚
+		// category ÎÑ£Ïñ¥Ï£ºÍ∏∞
 		vo.setTop_catecode(Integer.parseInt(cates.get(0)));
 		if(cates.size()>1 && cates.get(1)!="") {
 			vo.setMidcate_code(Integer.parseInt(cates.get(1)));
@@ -81,10 +110,17 @@ public class UserPagingController {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //º“ºˆ¡° «‘ºˆ
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //ÏÜåÏàòÏ†ê Ìï®Ïàò
 			
 			pro.setSale_price(decFormat.format(sale_price));
 			System.out.println(pro.getPost_id());
+			
+			for(int j=0; j<scrap.size(); j++) {
+				UserScrapVO sc = scrap.get(j);
+				if(pro.getPost_id() == sc.getSc_postid()) {
+					pro.setCheckit(true);
+				}
+			}
 		}
 		
 		

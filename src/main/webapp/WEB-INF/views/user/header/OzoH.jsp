@@ -279,13 +279,7 @@
 					<li class="layout-navigation-bar-user-menu__item-wrap"><a
 						class="layout-navigation-bar-user-menu__item"
 						href="/house/myshopping.com">나의 쇼핑</a></li>
-					<li class="layout-navigation-bar-user-menu__item-wrap"><a
-						class="layout-navigation-bar-user-menu__item"
-						href="/house/competitions/feed">이벤트</a></li>
-					<li class="layout-navigation-bar-user-menu__item-wrap"><a
-						class="layout-navigation-bar-user-menu__item"
-						href="/house/shopApply.com">판매자
-							신청</a></li>
+					
 					<li class="layout-navigation-bar-user-menu__item-wrap"><a
 						class="layout-navigation-bar-user-menu__item"
 						href="/house/m_CScenter.com">고객센터</a></li>

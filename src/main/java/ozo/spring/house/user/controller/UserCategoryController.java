@@ -48,8 +48,8 @@ public class UserCategoryController {
 		System.out.println(topcate_code);
 		
 
-		vo.setTop_catecode(topcate_code); // url·Î Àü´Ş¹ŞÀº ÄÚµå
-		int total = userCategoryService.getCategoryCount(vo); // ÀüÃ¼ °³¼ö º¸³»±â
+		vo.setTop_catecode(topcate_code); // urlë¡œ ì „ë‹¬ë°›ì€ ì½”ë“œ
+		int total = userCategoryService.getCategoryCount(vo); // ì „ì²´ ê°œìˆ˜ ë³´ë‚´ê¸°
 		
 		List<UserCategoryVO> titleList = userCategoryService.printTitle();
 		List<UserCategoryVO> others = new ArrayList<UserCategoryVO>();
@@ -78,7 +78,7 @@ public class UserCategoryController {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //¼Ò¼öÁ¡ ÇÔ¼ö
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //ì†Œìˆ˜ì  í•¨ìˆ˜
 			
 			pro.setSale_price(decFormat.format(sale_price));
 		}
@@ -89,7 +89,7 @@ public class UserCategoryController {
 		List<UserCategoryVO> catename = userCategoryService.getCateName(vo);
 		model.addAttribute("catename", catename);
 		
-		// filter ¿É¼Ç °¡Á®¿À±â
+		// filter ì˜µì…˜ ê°€ì ¸ì˜¤ê¸°
 		List<List<FilterVO>> optionList = userCategoryService.getFilterOption(vo);
 		model.addAttribute("optionList", optionList);
 		
@@ -104,7 +104,7 @@ public class UserCategoryController {
 		
 		List<String> cates = wholeList.get(1);
 
-		// category ³Ö¾îÁÖ±â
+		// category ë„£ì–´ì£¼ê¸°
 		vo.setTop_catecode(Integer.parseInt(cates.get(0)));
 		if(cates.size()>1 && cates.get(1)!="") {
 			vo.setMidcate_code(Integer.parseInt(cates.get(1)));
@@ -123,7 +123,7 @@ public class UserCategoryController {
 			UserProductVO pro = postList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //¼Ò¼öÁ¡ ÇÔ¼ö
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //ì†Œìˆ˜ì  í•¨ìˆ˜
 			
 			pro.setSale_price(decFormat.format(sale_price));
 		}
