@@ -26,7 +26,11 @@ public class ImportVO {
 	private int UID;
 	private int quantity;
 	private int shipfee;
+	private int post_id;
 	private String order_status;
 	private Timestamp order_date;
+	private int py_orderid;
+	private int address_id;
 	
+	private int empty_int;
 }

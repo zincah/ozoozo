@@ -9,14 +9,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.dao.UserMainDAO;
 import ozo.spring.house.user.service.UserMainService;
+import ozo.spring.house.user.service.UserScrapService;
+import ozo.spring.house.user.vo.ScrapVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserProductVO;
+import ozo.spring.house.user.vo.UserScrapVO;
+import ozo.spring.house.user.vo.UserVO;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class UserDealBestController {
@@ -24,6 +29,8 @@ public class UserDealBestController {
 	@Autowired
 	UserMainService userMainService;
 
+	@Autowired
+	UserScrapService userscrapservice;
 
 	@RequestMapping(value = "/todaydeal.com")
 	public String main_todayDeal(Model model){
@@ -97,4 +104,44 @@ public class UserDealBestController {
 		
 		return "ozoshop_main";
 	}
+	
+	//실시간 베스트
+	@RequestMapping(value = "/m_best.com")
+	public String main_best(UserVO vo, Model model, HttpServletRequest request, UserProductVO uvo, UserScrapVO svo){
+		//
+		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
+		HttpSession session = request.getSession();
+		if(session.getAttribute("User_Num") != null) {
+			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+			scrap = userscrapservice.userScrapList(svo);
+		}
+		vo.setUser_num((int)session.getAttribute("User_Num"));
+		System.out.println((int)session.getAttribute("User_Num"));
+		
+		uvo.setCheckit(false);
+		List<UserProductVO> bestlist = userMainService.bestlist();
+		
+		for(int i=0; i<bestlist.size(); i++) {
+			UserProductVO pro = bestlist.get(i);
+			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
+			
+			DecimalFormat decFormat = new DecimalFormat("###,###"); 
+			
+			pro.setSale_price(decFormat.format(sale_price));
+		
+			for(int j=0; j<scrap.size(); j++) {
+				UserScrapVO sc = scrap.get(j);
+				if(pro.getPost_id() == sc.getSc_postid()) {
+					pro.setCheckit(true);
+				}
+			}
+		}
+		
+		
+		model.addAttribute("bestlist", bestlist);
+		System.out.println("bestlist"+ bestlist.size());
+		System.out.println("베스트 뿌린다아!");
+		return "ozobest_zinc";
+	}
+	
 }

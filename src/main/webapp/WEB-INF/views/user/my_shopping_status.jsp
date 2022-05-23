@@ -12,9 +12,9 @@
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,viewport-fit=cover">
     <title>예쁜템들 모여사는 오조의집</title>
 
-    <link rel="stylesheet" href="resources/css/user_css/young/my_shopping.css">
+    <link rel="stylesheet" href="resources/css/user_css/young/my_shopping.css?var=13">
     <link rel="stylesheet" href="resources/css/user_css/young/footer.css">
-    <link rel="stylesheet" href="resources/css/user_css/young/my_shopping_status.css?var=1">
+    <link rel="stylesheet" href="resources/css/user_css/young/my_shopping_status.css?var=3">
 
     <style data-emotion="css 1yajzey" data-s="">
         .css-1yajzey {
@@ -74,7 +74,7 @@
 			
 	 }
 	</script>
-
+	
 
 <body>
 
@@ -130,16 +130,16 @@
             <nav class="page-navigation mypage-nav-owner">
                 <ul style="transform: translateX(0px); ">
                      <li class="mypage-nav-item">
-              <a class="active" href="/house/myPage.com" target="self">프로필</a>
+              <a href="/house/myPage.com">프로필</a>
             </li>
             <li class="mypage-nav-item">
-              <a href="/house/myshopping.com" target="self">나의 쇼핑</a>
+              <a class="active" href="/house/myshopping.com">나의 쇼핑</a>
             </li>
             <li class="mypage-nav-item">
-              <a href="/house/myreview.com" target="self">나의 리뷰</a>
+              <a href="/house/myreview.com">나의 리뷰</a>
             </li>
             <li class="mypage-nav-item">
-              <a href="/house/edit.com" target="self">설정</a>
+              <a href="/house/edit.com">설정</a>
             </li>
                 </ul>
             </nav>
@@ -147,19 +147,13 @@
             <nav class="page-navigation mypage-nav-content">
                 <ul style="transform: translateX(0px); margin: 0px">
                     <li class="mypage-nav-item">
-                        <a class="active" href="#" target="self">주문배송내역 조회</a>
+                        <a class="active" href="#">주문배송내역 조회</a>
                     </li>
                     <li class="mypage-nav-item">
-                        <a href="#" target="self">상품문의내역</a>
+                        <a href="#">상품문의내역</a>
                     </li>
                     <li class="mypage-nav-item">
-                        <a href="#" target="self">포인트</a>
-                    </li>
-                    <li class="mypage-nav-item">
-                        <a href="#" target="self">공지사항</a>
-                    </li>
-                    <li class="mypage-nav-item">
-                        <a href="#" target="self">고객센터</a>
+                        <a href="/house/CScenter.com">고객센터</a>
                     </li>
                 </ul>
             </nav>
@@ -303,14 +297,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="css-1yl0oty e1yy3fi614"><button onclick="shippingInfo()"
-                                                    class="css-klr9vj">배송추적</button>
-                                                <script>
-                                                    function shippingInfo() {
-                                                        window.open("http://127.0.0.1:3000/shipping.html", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=0,width=350,height=599");
-                                                    }
-
-                                                </script>
+                                            <div class="css-1yl0oty e1yy3fi614">
+                                            	<button class="css-klr9vj">배송추적</button>
+                                                <button class="css-klr9vj">구매확정</button> <!-- 배송완료된 애들만 보이게 -->
                                             </div>
                                         </div>
                                         <c:choose>

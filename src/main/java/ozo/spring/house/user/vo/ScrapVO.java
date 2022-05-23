@@ -62,4 +62,5 @@ public class ScrapVO {
 		private String option;
 		
 		
+		
 }

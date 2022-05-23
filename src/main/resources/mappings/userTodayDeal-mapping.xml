@@ -22,7 +22,25 @@
         ) di ON po.post_id = di.deal_postid
         ORDER BY di.deal_id DESC;
     </select>
-    
-
-
+    <!--  실시간 best 구매 많은순  -->
+	<select id="bestlist" resultType="userproduct">
+		SELECT po.post_id, s.company_name, po.post_name, c.cate_name, po.whole_price, po.sale_ratio, po.shipping_info1, pimg.photo_url,
+      best.quantity, best.cnt FROM product_posting po
+      INNER JOIN (
+      SELECT COUNT(od_postid) AS cnt, SUM(quantity) AS quantity, od_postid AS bestid
+      FROM user_order GROUP BY od_postid fetch first 30 row only
+      ) best ON po.post_id = best.bestid
+      INNER JOIN category c ON po.po_category = c.cate_code
+      INNER JOIN seller s ON po.post_sellerid = s.seller_id
+      INNER JOIN (
+			SELECT photo_id, photo_postid, photo_url FROM product_image 
+			WHERE (photo_id, photo_postid) 
+			IN (
+				SELECT MIN(photo_id) AS photo_id, photo_postid
+				FROM product_image 
+				GROUP BY photo_postid 
+			)
+		) pimg ON po.post_id = pimg.photo_postid
+      order by best.cnt desc;
+	</select>
 </mapper>

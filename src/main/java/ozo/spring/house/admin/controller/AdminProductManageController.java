@@ -3,6 +3,7 @@ package ozo.spring.house.admin.controller;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ozo.spring.house.admin.service.AdminProductManageService;
 import ozo.spring.house.admin.vo.AdminProductVO;
 import ozo.spring.house.common.Criteria;
+import ozo.spring.house.common.MakeDate;
 import ozo.spring.house.common.PageDTO;
 
 @Controller
@@ -27,17 +29,25 @@ public class AdminProductManageController {
 	
 	@Autowired
 	AdminProductManageService productService;
+
+	@Autowired
+	MakeDate md; // 날짜 하루 더 하는 포맷팅
 	
 	@RequestMapping(value="/movePaging.admin", method=RequestMethod.POST)
 	public String movePaging(@RequestBody Map<String, String> searchMap, Criteria cri, Model model, AdminProductVO pvo) {
 
+		
 		System.out.println(searchMap);
 		int pageNum = Integer.parseInt(searchMap.get("pageNum"));
 		
 		pvo.setPost_status(searchMap.get("posttype"));
+		pvo.setDeal_status(searchMap.get("dealtype"));
 		pvo.setCate_name(searchMap.get("category"));
 		pvo.setStartdate(Date.valueOf(searchMap.get("startdate")));
-		pvo.setEnddate(Date.valueOf(searchMap.get("enddate")));
+		
+		// enddate에서 하루 더한 날짜를 넣어주기
+		String enddate = searchMap.get("enddate");
+		pvo.setEnddate(Date.valueOf(md.makedate(enddate))); 
 		pvo.setPack(searchMap.get("pack"));
 		pvo.setKeyword(searchMap.get("keyword"));
 		
@@ -47,8 +57,9 @@ public class AdminProductManageController {
 		List<AdminProductVO> postList = productService.getProductList(pvo);
 		model.addAttribute("postList", postList);
 		model.addAttribute("pageMaker", cri);
+		System.out.println(pvo);
 		model.addAttribute("totalcount", productService.searchListCount(pvo));
-
+		System.out.println(productService.searchListCount(pvo));
 		return "postList";
 	}
 
@@ -146,9 +157,11 @@ public class AdminProductManageController {
 		System.out.println(searchMap);
 		
 		pvo.setPost_status(searchMap.get("posttype"));
+		pvo.setDeal_status(searchMap.get("dealtype"));
 		pvo.setCate_name(searchMap.get("category"));
 		pvo.setStartdate(Date.valueOf(searchMap.get("startdate")));
-		pvo.setEnddate(Date.valueOf(searchMap.get("enddate")));
+		String enddate = searchMap.get("enddate");
+		pvo.setEnddate(Date.valueOf(md.makedate(enddate))); 
 		pvo.setPack(searchMap.get("pack"));
 		pvo.setKeyword(searchMap.get("keyword"));
 		pvo.setCri(new Criteria());
@@ -167,9 +180,12 @@ public class AdminProductManageController {
 		System.out.println(searchMap);
 		
 		pvo.setPost_status(searchMap.get("posttype"));
+		pvo.setDeal_status(searchMap.get("dealtype"));
 		pvo.setCate_name(searchMap.get("category"));
 		pvo.setStartdate(Date.valueOf(searchMap.get("startdate")));
-		pvo.setEnddate(Date.valueOf(searchMap.get("enddate")));
+		String enddate = searchMap.get("enddate");
+		pvo.setEnddate(Date.valueOf(md.makedate(enddate)));
+		System.out.println(pvo.getEnddate());
 		pvo.setPack(searchMap.get("pack"));
 		pvo.setKeyword(searchMap.get("keyword"));
 		pvo.setCri(new Criteria());
@@ -190,14 +206,12 @@ public class AdminProductManageController {
 		
 		// 오늘의딜 날짜 세팅
 		vo.setStartdate(java.sql.Date.valueOf("2018-01-01"));
-		java.util.Date today = new java.util.Date();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = simpleDateFormat.format(today);
-		vo.setEnddate(Date.valueOf(formattedDate));
+		vo.setEnddate(Date.valueOf(md.makeToday()));
 		
 		if(searchMap != null) {
 			vo.setStartdate(Date.valueOf(searchMap.get("startdate")));
-			vo.setEnddate(Date.valueOf(searchMap.get("enddate")));
+			String enddate = searchMap.get("enddate");
+			vo.setEnddate(Date.valueOf(md.makedate(enddate))); 
 			vo.setKeyword(searchMap.get("keyword"));
 		}
 		
@@ -238,14 +252,12 @@ public class AdminProductManageController {
 
 		// 매출 날짜 세팅
 		vo.setStartdate(java.sql.Date.valueOf("2018-01-01"));
-		java.util.Date today = new java.util.Date();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String formattedDate = simpleDateFormat.format(today);
-		vo.setEnddate(Date.valueOf(formattedDate));
+		vo.setEnddate(Date.valueOf(md.makeToday()));
 		
 		if(searchMap != null) {
 			vo.setStartdate(Date.valueOf(searchMap.get("startdate")));
-			vo.setEnddate(Date.valueOf(searchMap.get("enddate")));
+			String enddate = searchMap.get("enddate");
+			vo.setEnddate(Date.valueOf(md.makedate(enddate))); 
 			vo.setKeyword(searchMap.get("keyword"));
 		}
 

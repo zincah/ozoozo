@@ -79,6 +79,12 @@ public class UserMainServiceImpl implements UserMainService {
 		return userMainDAO.sellerInfo(vo);
 	}
 
+	@Override
+	public List<UserProductVO> bestlist() {
+		return userMainDAO.bestlist();
+		
+	}
+
 
 
   

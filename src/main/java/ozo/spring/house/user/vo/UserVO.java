@@ -44,5 +44,6 @@ public class UserVO {
 	
 	// paging
 	private Criteria cri;
-
+	
+	private int scrap_count;
 }

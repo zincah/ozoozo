@@ -1,6 +1,7 @@
 package ozo.spring.house.admin.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import ozo.spring.house.admin.vo.AdminProductVO;
 import ozo.spring.house.admin.vo.MemberVO;
+import ozo.spring.house.admin.vo.PostingInfoVO;
 import ozo.spring.house.common.Criteria;
 import ozo.spring.house.seller.vo.ProductDetailVO;
 import ozo.spring.house.seller.vo.SellerVO;
@@ -94,8 +96,10 @@ public class AdminManageDAO {
 	
 	public int searchListCount(AdminProductVO pvo){
 		System.out.println("--> mybatis in adminmanagedao getproductlist");
-		List<AdminProductVO> list = sqlSessionTemplate.selectList("AdminManageDAO.searchListCount", pvo);
-		return list.size();
+		//List<AdminProductVO> list = sqlSessionTemplate.selectList("AdminManageDAO.searchListCount", pvo);
+		System.out.println("searchlistcount : " + pvo);
+		System.out.println("total : " + sqlSessionTemplate.selectOne("AdminManageDAO.searchListCount", pvo));
+		return sqlSessionTemplate.selectOne("AdminManageDAO.searchListCount", pvo);
 	}
 	
 	public List<UserVO> floatingPopulation() {
@@ -145,4 +149,18 @@ public class AdminManageDAO {
 		System.out.println("--> mybatis in adminmanagedao registration hold count");
 		return sqlSessionTemplate.selectOne("AdminManageDAO.registrationHold");
 	}
+	
+	// post info 페이지
+	public PostingInfoVO postInfo(int postid){
+		System.out.println("첫번째 정보");
+		PostingInfoVO vo = new PostingInfoVO();
+		System.out.println(postid);
+		vo.setProductlist(sqlSessionTemplate.selectList("AdminManageDAO.postInfo1", postid));
+		vo.setOptionnums(sqlSessionTemplate.selectList("AdminManageDAO.postInfo2", postid));
+		vo.setDetail(sqlSessionTemplate.selectOne("AdminManageDAO.postInfo3", postid));
+		vo.setPhotolist(sqlSessionTemplate.selectList("AdminManageDAO.postInfo4", postid));
+		return vo;
+	}
+	
+
 }

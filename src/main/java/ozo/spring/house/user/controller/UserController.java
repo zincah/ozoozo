@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,7 @@ import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 @Controller
 public class UserController {
-	
+
 	@Autowired
 	UserService userservice;
 	
@@ -95,6 +96,8 @@ public class UserController {
 		
 		return "ozomain_zinc";
 	}
+
+	
 	@RequestMapping(value = "/best.com")
 	public String user_best() {
 		return "ozobest_zinc";
@@ -109,16 +112,6 @@ public class UserController {
 	}
 
 	
-	
-	
-	@RequestMapping(value = "/myReview_view.com")
-	public String user_Review_V() {
-		return "myReview-view";
-	}
-	@RequestMapping(value = "/myReview_write.com")
-	public String user_Review_W() {
-		return "myReview-write";
-	}
 
 	
 	
@@ -127,10 +120,7 @@ public class UserController {
 		return "customercenter";
 	}
 
-	@RequestMapping(value = "/myreview.com")
-	public String user_myReview_view() {
-		return "myReview-view";
-	}
+
 	
 	//�뜝�룞�삕�뜝�룞�삕
 	//-	�뜝�룞�삕艅섇뜝�떕占� �뜝�룞�삕�뜝�룞�삕
@@ -148,11 +138,7 @@ public class UserController {
 	public String user_edit() {
 		return "ozoedit_zinc";
 	}
-	//�뜝�룞�삕�뜝�뜲�벐�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 
-	@RequestMapping(value = "/myreview_write.com")
-	public String user_myReview_write() {
-		return "myReview-write";
-	}
+
 	//�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕泥�
 	@RequestMapping(value = "/shopApply.com")
 	public String user_shopApply(HttpServletRequest request) {

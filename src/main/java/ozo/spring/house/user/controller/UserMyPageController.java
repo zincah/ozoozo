@@ -1,5 +1,6 @@
 package ozo.spring.house.user.controller;
 
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -80,10 +81,11 @@ public class UserMyPageController {
 		HttpSession session = request.getSession();
 		
 		
+		
 		if(session.getAttribute("User_Num")!=null) {
 			vo.setUser_num((int)session.getAttribute("User_Num"));
 			System.out.println((int)session.getAttribute("User_Num"));
-			UserVO info = userMyPageService.mypageinfo(vo);
+			
 			
 			List<ScrapVO> list ;
 			list = userscrapservice.s_scrap(svo);
@@ -96,10 +98,11 @@ public class UserMyPageController {
 				pro.setSale_price(decFormat.format(sale_price));
 			}
 			
+			usvo.setSc_usernum((int)session.getAttribute("User_Num"));
 			List<UserScrapVO> post = userscrapservice.us_list(usvo);
 			
-			
-			
+			UserVO info = userMyPageService.mypageinfo(vo);
+			info.setScrap_count(list.size());
 			model.addAttribute("info",info); //회원정보
 			model.addAttribute("list", list); //북마크
 			model.addAttribute("post", post); //회원이 갖고있는 북마크 홈화면표시 
@@ -118,25 +121,34 @@ public class UserMyPageController {
 	@RequestMapping(value="/userscrap.com", method=RequestMethod.POST)
 	public String Scrappick(@RequestBody int param, UserScrapVO vo, Model model, HttpServletRequest request,UserProductVO pvo) {
 		HttpSession session = request.getSession();
-		System.out.println("scrap 넘어왔어");
+		if(session.getAttribute("User_Num")!=null) {
+		
+		System.out.println("scrap ing");
 		//session.getAttribute("UserMail");
 		System.out.println(session.getAttribute("User_Num"));
 		System.out.println(param);
+
+			vo.setSc_usernum((int)session.getAttribute("User_Num"));
+			vo.setSc_postid(param);
+			userscrapservice.s_insert(vo);
 		
-		if(session.getAttribute("User_Num")!=null) {
-			
-			
-				vo.setSc_usernum((int)session.getAttribute("User_Num"));
-				vo.setSc_postid(param);
+
+			/*
+			 * List<UserScrapVO> goo =userscrapservice.us_list(vo);
+			 * 
+			 * for(int i =0; i<goo.size(); i++) { int[] fofo =new int[100]; fofo[i] =
+			 * goo.get(i).getSc_postid(); }
+			 */
 		
-				userscrapservice.s_insert(vo);
-			
-				
-			//}
-			
+		
+		
+		
+		
+		
+		
 		return "보냈다" ;
 	}else {
-		return "보냈다" ;
+		return "안보냈다" ;
 		}
 	}
 		
@@ -146,8 +158,7 @@ public class UserMyPageController {
 	@RequestMapping(value="/scrapdelete.com", method=RequestMethod.POST)
 	public String Scrapdelete(@RequestBody int param, UserScrapVO vo, Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		System.out.println("지우러 넘어왔어");
-		
+		System.out.println("delete ing");
 		System.out.println(session.getAttribute("User_Num"));
 		System.out.println(param);
 		if(session.getAttribute("User_Num")!=null) {

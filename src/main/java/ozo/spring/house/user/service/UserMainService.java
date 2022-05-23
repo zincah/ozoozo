@@ -20,7 +20,7 @@ public interface UserMainService {
 	public UserVO checkUserByNaver(UserVO vo); // ¿Å°Ü¾ßÇÔ
 	public void lastLoginCheck(UserVO vo); // ¿Å°Ü¾ßÇÔ
 	public List<UserProductVO> todayDealList();
-
+	public List<UserProductVO> bestlist();
 	// 
 	public List<UserProductVO> shopItemList(UserProductVO vo);
 	public SellerVO sellerInfo(UserProductVO vo);

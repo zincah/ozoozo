@@ -21,7 +21,7 @@
 		            group by photo_postid 
 		         )
 		) photo on uo.od_postid = photo.photo_postid
-		where user_num=#{user_num} and order_status='배송완료' and review_status='false'
+		where user_num=#{user_num} and order_status='구매확정' and review_status='false'
 		order by uo.order_date;
 	</select>
 	
@@ -42,7 +42,7 @@
 		            group by photo_postid 
 		         )
 		) photo on uo.od_postid = photo.photo_postid
-		where user_num=#{user_num} and order_status='배송완료' and order_id=#{order_id}
+		where user_num=#{user_num} and order_status='구매확정' and order_id=#{order_id}
 		order by uo.order_date;
 	</select>
 	
@@ -57,6 +57,13 @@
 		update user_order set review_status=true where order_id=#{order_id};
 	</update>
 	
+	<!-- review 쓰면 포인트 500 -->
+	<update id="changeUserPoint" parameterType="review">
+		update user_table set 
+		reccode=500+(select reccode from user_table where user_num=#{reuser_num})
+		where user_num=#{reuser_num};
+	</update>
+	
 	<!-- 내 리뷰 보기 -->
 	<select id="selectMyReview" resultType="HashMap">
 		select re.*, s.company_name, po.post_name, op.* from review re 
@@ -66,6 +73,28 @@
 		where reuser_num=#{reuser_num} order by review_id desc;
 	</select> 
 	
+	<!-- 리뷰 수정하기 위해서 정보 가져오기 -->
+	<select id="selectMyReviewOne" resultType="HashMap">
+		select re.*, s.company_name, po.post_name, op.*, photo.photo_url from review re 
+		inner join seller s on s.seller_id = reseller_id
+		inner join product_posting po on re.repost_id = po.post_id 
+		inner join product_option op on re.reproduct_id = op.op_productid
+		inner join (
+					select photo_id, photo_postid, photo_url from product_image 
+				         where (photo_id, photo_postid) 
+				         in (
+				            select MIN(photo_id) as photo_id, photo_postid
+				            from product_image 
+				            group by photo_postid 
+				         )
+				) photo on re.repost_id = photo.photo_postid
+		where review_id = #{review_id};
+	</select>
+	
+	<update id="updateMyReview" parameterType="review">
+		update review set rating=#{rating},review_image=#{review_image},recontent=#{recontent}
+		where review_id=#{review_id}
+	</update>
 
 </mapper>
 

@@ -8204,14 +8204,14 @@ img {
 }
 
 .layout-navigation-drawer-user.focus-visible:focus {
-    color: #35c5f0
+    color: #ff778e
 }
 
 @media(min-width:768px) {
 
     .layout-navigation-drawer-user:active,
     .layout-navigation-drawer-user:hover {
-        color: #35c5f0
+        color: #ff778e
     }
 }
 
@@ -8545,7 +8545,7 @@ html {
 }
 
 .toggle-icon.checked {
-    background-color: #35c5f0
+    background-color: #ff778e
 }
 
 .toggle-icon.checked .toggle-icon__handle {
@@ -8676,7 +8676,7 @@ html {
     line-height: 18px;
     text-decoration: none;
     text-align: center;
-    color: #35c5f0;
+    color: #ff778e;
     cursor: pointer;
     transition: opacity .1s
 }
@@ -9219,7 +9219,7 @@ html {
 }
 
 .user-rating-criteria__list__text-wrapper__second-segment>span {
-    color: #35c5f0;
+    color: #ff778e;
     font-weight: 700
 }
 
@@ -9391,7 +9391,7 @@ html {
 }
 
 .user-rating-hero__callout__text>span {
-    color: #35c5f0;
+    color: #ff778e;
     font-weight: 700
 }
 
@@ -9669,7 +9669,7 @@ html {
 .order-list__info__wrap--placeholder__content__value--placeholder,
 .order-list__info__wrap__content__value,
 .order-list__info__wrap__content__value--placeholder {
-    color: #35c5f0;
+    color: #ff778e;
     font-weight: 700;
     margin-left: 5px;
     display: inline-block;
@@ -9994,7 +9994,7 @@ html {
 
 .order-list__menu__list__value {
     font-size: 20px;
-    color: #35c5f0
+    color: #ff778e;
 }
 
 @media(max-width:767px) {

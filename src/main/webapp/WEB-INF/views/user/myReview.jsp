@@ -220,7 +220,7 @@
         <nav class="page-navigation mypage-nav-owner">
           <ul style="transform: translateX(0px); margin: 0px">
             <li class="mypage-nav-item">
-              <a href="/house/myPage.com">프로필</a>
+              <a href="/house/m_myPage.com">프로필</a>
             </li>
             <li class="mypage-nav-item">
               <a href="/house/myshopping.com">나의 쇼핑</a>
@@ -229,7 +229,7 @@
               <a class="active" href="/house/review.com">나의 리뷰</a>
             </li>
             <li class="mypage-nav-item">
-              <a href="/house/edit.com">설정</a>
+              <a href="/house/m_edit.com">설정</a>
             </li>
           </ul>
         </nav>
@@ -239,7 +239,7 @@
               <a class="active select" href="/house/review.com">리뷰쓰기</a>
             </li>
             <li class="mypage-nav-item">
-              <a class="" href="/house/review_view.com" target="self">내가 작성한 리뷰</a>
+              <a class="" href="/house/review_view.com">내가 작성한 리뷰</a>
             </li>
           </ul>
         </nav>
@@ -433,7 +433,9 @@
 					</div>
 					</div>
 
-	<div style="margin-bottom: 2rem;"></div>
+		<c:if test="${prereviewlist.size() < 3 or myreviewlist.size() > 0}">
+			<div style="margin-top: 20rem;"></div>
+		</c:if>
 	
     <footer>
 		<jsp:include page="./footer/footer.jsp"></jsp:include>
