@@ -140,7 +140,8 @@ where cart_user=#{cart_user};
 	where product_id = #{cart_product};
 	</select>
 	<select id="get_post" resultType="userproduct">
-		select distinct on(cart_post) c.*,pp.post_name,pp.post_id,pp.post_sellerid,pp.post_shipfee,pimg.photo_url, pp.post_name,s.company_name  from cart c 
+		select distinct on(cart_post) c.*,pp.post_name,pp.post_id,pp.post_sellerid,pp.post_shipfee,pimg.photo_url, pp.post_name,s.company_name, pp.post_couponid 
+		 from cart c 
 	inner join product_posting pp on pp.post_id = c.cart_post 
 	inner join seller s on c.cart_seller  = s.seller_id 
 	  INNER JOIN (
@@ -164,19 +165,19 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
 	where a.user_num = #{cart_user} and a.addr_default = true;
 	</select>
 	<insert id="payment_add">
-		insert into payment(payment_id,pay_ordernum,payment_way,payment_total, py_sellerid, py_final, py_orderid)
-	values((select coalesce(max(payment_id), 0)+1 from payment),#{ merchant_uid},#{pay_method},#{price},#{seller_id},#{paid_amount},#{py_orderid});
+		insert into payment(payment_id,pay_ordernum,payment_way,payment_total, py_sellerid, py_final, py_orderid ,py_couponid, py_discount)
+	values((select coalesce(max(payment_id), 0)+1 from payment),#{ merchant_uid},#{pay_method},#{price},#{seller_id},#{paid_amount},#{py_orderid},#{coupon_id},#{discount} );
 	</insert>
-	<select id="order_select">
-	select order_id from user_order where order_num = #{ merchant_uid} and product_id = #{product_id};
+	<select id="order_select" resultType="int">
+	select order_id from user_order where order_num = #{merchant_uid} and payment = #{final_price};
 	</select>
 	<insert id="order_add">
-	insert into user_order(order_id,quantity, order_status, product_id, user_num, seller_id, order_num, shipping_fee, payment, od_postid, address_id)
-	values((select coalesce(max(order_id), 0)+1 from user_order),#{quantity},#{order_status},#{product_id},#{UID},#{seller_id},#{merchant_uid},#{shipfee},#{final_price}, #{post_id}, #{address_id});
+	insert into user_order(order_id,quantity, order_status, product_id, user_num, seller_id, order_num, shipping_fee, payment, od_postid, address_id, od_point)
+	values((select coalesce(max(order_id), 0)+1 from user_order),#{quantity},#{order_status},#{product_id},#{UID},#{seller_id},#{merchant_uid},#{shipfee},#{final_price}, #{post_id}, #{address_id}, #{empty_int});
 	</insert>
-	<!-- 포인트 적립 -->
+	<!-- 포인트 결제 후 처리 -->
 	<update id="user_point_update">
-		update user_table set reccode = #{empty_int} where user_num = #{UID};
+		update user_table set reccode = #{empty_int} + (select reccode from user_table where user_num=#{UID}) where user_num = #{UID};
 	</update>
 	<!-- 포인트 조회 -->
 	<select id="get_user_point" resultType="int">
@@ -187,9 +188,19 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
 		select * from user_coupon where user_usernum = #{cart_user};
 	</select>
 	<!-- 쿠폰 텍스트 -->
-	<select id="get_coupon_text">
+	<select id="get_coupon_text" resultType="usercoupon">
 		select * from product_coupon where coupon_id = #{user_couponid};
 	</select>
+	<!-- 쿠폰 후 처리 -->
+	<update id="coupon_false">
+		update user_coupon set user_couponstatus = false where user_couponid = #{coupon_id};
+	</update>
+	
+	<delete id="cart_del">
+	delete from cart where cart_product = #{cart_product};
+	</delete>
+	
+	
 	<!-- 결제내역 -->
 	<select id="get_paymentLogVO" resultType="paymentlog">
 		select * from user_order uo where user_num = #{user_num} order by uo.order_date desc;;
@@ -218,9 +229,7 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
       ) pimg ON p.product_postid = pimg.photo_postid
 	where p.product_id = #{product_id}
 	</select>
-	<delete id="cart_del">
-	delete from cart where cart_product = #{cart_product};
-	</delete>
+	
 	<select id="wide_user">
 	
 	</select>

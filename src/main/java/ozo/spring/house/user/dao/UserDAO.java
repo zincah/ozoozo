@@ -265,6 +265,7 @@ public class UserDAO {
 		public void payment_add(ImportVO ivo) {
 			sqlSessionTemplate.insert("UserProduct.order_add",ivo);
 			int order_id = sqlSessionTemplate.selectOne("UserProduct.order_select", ivo);
+			System.out.println("order °ª : "  + order_id);
 			ivo.setPy_orderid(order_id);
 			sqlSessionTemplate.insert("UserProduct.payment_add",ivo);
 			
@@ -295,9 +296,12 @@ public class UserDAO {
 		}
 		public List<CouponVO> get_coupon_text(List<CouponVO> cvo){
 			for(int i = 0; i < cvo.size(); i++) {
-				coupon_li.add(sqlSessionTemplate.selectOne("userProdcut.get_coupon_text",  cvo.get(i)));
+				coupon_li.add(sqlSessionTemplate.selectOne("UserProduct.get_coupon_text",  cvo.get(i)));
 			}
 			return coupon_li;
+		}
+		public void update_coupon(int coupon_id) {
+			sqlSessionTemplate.update("UserProduct.coupon_false", coupon_id);
 		}
 		
 	}
