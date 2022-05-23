@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import ozo.spring.house.admin.service.AdminProductManageService;
+import ozo.spring.house.admin.vo.PostingInfoVO;
 import ozo.spring.house.seller.service.CategoryService;
 import ozo.spring.house.seller.service.ProductService;
 import ozo.spring.house.seller.vo.CategoryVO;
 import ozo.spring.house.seller.vo.FilterVO;
+import ozo.spring.house.seller.vo.ProductDetailVO;
 import ozo.spring.house.seller.vo.ProductVO;
 
 @Controller
@@ -29,6 +32,9 @@ public class CategoryController {
 	
 	@Autowired
 	ProductService productService;
+	
+	@Autowired
+	AdminProductManageService adminProductService;
 	
 	@RequestMapping(value = "/insertProductCate.seller", method=RequestMethod.GET)
 	public String test(CategoryVO vo, Model model, HttpServletRequest request) {
@@ -47,6 +53,49 @@ public class CategoryController {
 		
 		
 		return "seller-insertProduct";
+	}
+	
+	@RequestMapping(value = "/postingInfo.seller", method=RequestMethod.GET)
+	public String postingInfo(CategoryVO vo, Model model, HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("seller")!=null) {
+			
+			int postcode = Integer.parseInt((String)request.getParameter("postcode"));
+			System.out.println(postcode);
+			// 대분류 가져오기
+			List<CategoryVO> cateList = categoryService.getCategoryList(vo);
+			model.addAttribute("cateList", cateList);	
+			
+			PostingInfoVO pvo = adminProductService.postInfo(postcode);
+			List<Map<String, String>> productlist = pvo.getProductlist();
+			model.addAttribute("productlist", productlist);
+			
+			System.out.println(productlist);
+			
+			Map<String, String> product = productlist.get(0);
+			int su = Integer.parseInt(String.valueOf(product.get("po_category")));
+			vo.setCate_code(su);
+			List<List<FilterVO>> wholeList = categoryService.getFilterOption(vo); // filter 가져오는 거
+			model.addAttribute("wholeList", wholeList);
+			
+			List<Integer> optionnums = pvo.getOptionnums(); // 선택된 옵션 보여주기
+			model.addAttribute("optionnums", optionnums); 
+			
+			ProductDetailVO detail = pvo.getDetail(); // 테이블 정보 뿌리기
+			model.addAttribute("detail", detail);
+			
+			List<Map<String, String>> photolist = pvo.getPhotolist();
+			model.addAttribute("photolist", photolist);
+			
+			return "seller-postingInfo";
+
+		}else {
+			return "login";
+		}
+
+		
 	}
 	
 	@ResponseBody

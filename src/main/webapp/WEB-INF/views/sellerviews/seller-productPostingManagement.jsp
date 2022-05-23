@@ -426,8 +426,8 @@
 						</td>
 						<td class="content-table-content-text option-line state0">${postingListView.getPost_id()}</td>
 						<td class="content-table-content-text option-line">${postingListView.getStar_ratio()}</td>
-						<td class="content-table-content-text option-line">
-						${postingListView.getPost_name()}
+						<td class="content-table-content-text option-line"><a href="/house/postingInfo.seller?postcode=${postingListView.getPost_id() }">
+						${postingListView.getPost_name()}</a>
 						<c:if test="${postingListView.isToday_deal()}">
 							<img class="badgeicon" alt="[오늘의딜]" title="오늘의딜" src="https://ozobuc.s3.ap-northeast-2.amazonaws.com/source/badgeIcon-deal.gif">
 						</c:if>

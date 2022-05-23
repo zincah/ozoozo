@@ -5,12 +5,12 @@
 <head>
 <meta charset="EUC-KR">
 <link href="resources/css/user_css/header/500Error.css?var=1" rel="stylesheet" />
-<link href="resources/css/user_css/header/style.css" rel="stylesheet" />
+<link href="resources/css/user_css/header/styles.css?var=1" rel="stylesheet" />
 <title>Insert title here</title>
 </head>
 <body>
 <div id="inform">
-            <div class="error">505</div>
+            <div class="error">500</div>
             <div class="content">
                 요청하신 페이지를 찾을 수 없습니다!
             <svg class="icon" width="101" height="96" preserveAspectRatio="xMidYMid meet">
