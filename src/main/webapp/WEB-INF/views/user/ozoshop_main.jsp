@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ozo_brandshop</title>
-    <link href="resources/css/user_css/zinc/ozoshop_main.css?var=13" rel="stylesheet"/>
+    <link href="resources/css/user_css/zinc/ozoshop_main.css?var=11" rel="stylesheet"/>
     <link href="resources/css/user_css/zinc/ozoper_photo_cate.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
             integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
@@ -53,12 +53,76 @@
             	
             	
             })
-            
-
-            
-
 
         });
+        
+     // 무한 스크롤
+   	var firstscroll = 0;
+   	var page = 0;
+   	
+   	$(window).on("scroll", function(event){
+   		
+   		//console.log("window.innerHeight : ${window.innerHeight}");
+   	    //console.log("window.scrollY : ${window.scrollY}");
+   	    //console.log("document.body.offsetHeight : ${document.body.offsetHeight}");
+   		
+   		var scrollTop = $(window).scrollTop();
+   		//console.log("scrollTop : " + scrollTop);
+
+   		var windowHeight = $(window).height();
+   		//console.log("windowHeight : " + windowHeight);
+   		
+   		var documentHeight = $(document).height();
+   		//console.log("documentHeight : " + documentHeight);
+   		
+   		// scroll 위치...
+   		var isBottom=scrollTop+windowHeight + 100 >= documentHeight;
+
+   		if(isBottom){
+   			
+   			var pag = parseInt(${totalCount}/12);
+   			
+   			if(page == pag){ // productList개수/4 인 몫 값을 가져와야 함
+   				return;
+   			}
+   			
+   			page++;
+   			getProductList(page);
+
+   		}
+   	});
+   	
+   	
+	function getProductList(page){
+	
+		console.log("thispage :" +page);
+		
+		
+		var searchMap = {
+				"page" : page,
+				"ranking" : rank
+		}
+		
+		console.log(searchMap)
+		
+		
+		$.ajax({
+	  		url:'.com',
+	  		method:'post',
+	  		data: JSON.stringify(searchMap),
+	  		contentType : 'application/json; charset=UTF-8',
+	  		dataType : 'html',
+	  		success : function(resp){
+				$("#itemLayer").append(resp);
+	  			
+	  		},
+	  		error : function(request, status, error) {
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+	  		});
+		
+	}
+   	
         
 
 
@@ -243,7 +307,7 @@
 
                 </section>
 
-                <div class="photos row">
+                <div class="photos row" id="itemLayer">
                     <c:forEach items="${shopItemList }" var="shopItem">
                         <div class="deals_list_wrap col-6 col-lg-4">
                             <article class="deals_item">

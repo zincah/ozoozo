@@ -79,4 +79,7 @@ public class UserProductVO {
 	private int Int;
 	
 	private boolean checkit; // scrap
+	
+	// 
+	private String orderKind;
 }

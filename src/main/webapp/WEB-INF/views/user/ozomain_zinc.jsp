@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-<link href="resources/css/user_css/zinc/ozomain.css?var=2"
+<link href="resources/css/user_css/zinc/ozomain.css?var=21"
 	rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
@@ -17,18 +17,15 @@
 	src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
 <script>
 
-
+	let rank = 'latestRanking';
 
 	$(document).ready(function(){
 		
 		$(".banner_link").click(function(e){
 			e.preventDefault();
 		});
-	
 		
-		
-		
-	$(document).on("click",".b_blue",function(){
+		$(document).on("click",".b_blue",function(){
 		var gun =  $(this).attr('id')
 		
 		
@@ -77,12 +74,13 @@
 				
 			}
 			}) ;
+
 		 
 		/* }else{
 			alert("로그인 해주세요");
 		} */
 			
-	})
+		})
 	
 	 $(document).on("click",".b_none",function(){
 		 var so =  $(this).attr('id')
@@ -131,18 +129,55 @@
 		} */
 	
 		});  
+		
+		
+		// 인기순 판매순 순위 매기기
+		$(".dropdown_btn").click(function(){
+			
+			rank = $(this).val();
+			var ranktext = $(this).text();
+			
+			var html = '\
+			<svg class="caret" width="8" height="8" viewBox="0 0 8 8" preserveAspectRatio="xMidYMid meet">\
+			<path fill="#BDBDBD" d="M0 2l4 4 4-4z"></path></svg>'
+			
+			$("#filter_btn").html(ranktext + html);
+			alert(ranktext);
+			
+			
+			var ranking = { "ranking" : rank };
+			
+			$.ajax({
+		  		url:'mainRanking.com',
+		  		method:'post',
+		  		data: JSON.stringify(ranking),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'html',
+		  		success : function(resp){
+					
+		  			$("#itemLayer").html(resp); // filtering data 넣어주기
+		  			
+		  				
+		  		},
+		  		error : function(request, status, error) {
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+		  		});
+			
+			
+			
+		})
+		
+
+		
+		
+		
 	
 	
 	 
 	});
 	
-	
-	
- 	
-	
-
-	
-
+	// 무한 스크롤
 	var firstscroll = 0;
 	var page = 0;
 	
@@ -166,7 +201,7 @@
 
 		if(isBottom){
 			
-			var pag = parseInt(${totalCount}/4);
+			var pag = parseInt(${totalCount}/12);
 			
 			if(page == pag){ // productList개수/4 인 몫 값을 가져와야 함
 				return;
@@ -182,15 +217,24 @@
 
 		console.log("thispage :" +page);
 		
+		
+		var searchMap = {
+				"page" : page,
+				"ranking" : rank
+		}
+		
+		console.log(searchMap)
+		
+		
 		$.ajax({
 	  		url:'getProductList.com',
 	  		method:'post',
-	  		data: JSON.stringify(page),
+	  		data: JSON.stringify(searchMap),
 	  		contentType : 'application/json; charset=UTF-8',
 	  		dataType : 'html',
 	  		success : function(resp){
 				$("#itemLayer").append(resp);
-	  				
+	  			
 	  		},
 	  		error : function(request, status, error) {
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -581,7 +625,7 @@
 			<div class="store_index_best_header">
 				<p class="store_index_best_text" style="color: black;">인기상품</p>
 				<button class="filter_btn" id="filter_btn">
-					인기순
+					최신순
 					<svg class="caret" width="8" height="8" viewBox="0 0 8 8"
 						preserveAspectRatio="xMidYMid meet">
 						<path fill="#BDBDBD" d="M0 2l4 4 4-4z"></path></svg>
@@ -592,25 +636,22 @@
 			<div class="dropdown_wrap" id="dropdown">
 				<ul class="dropdown_list">
 					<li>
-						<button class="dropdown_btn">판매순</button>
+						<button class="dropdown_btn" value="saleRanking">판매순</button>
 					</li>
 					<li>
-						<button class="dropdown_btn">인기순</button>
+						<button class="dropdown_btn" value="popularRanking">인기순</button>
 					</li>
 					<li>
-						<button class="dropdown_btn">많은 리뷰순</button>
+						<button class="dropdown_btn" value="reviewRanking">많은 리뷰순</button>
 					</li>
 					<li>
-						<button class="dropdown_btn">유저사진 많은순</button>
+						<button class="dropdown_btn" value="highpriceRanking">높은 가격순</button>
 					</li>
 					<li>
-						<button class="dropdown_btn">높은 가격순</button>
+						<button class="dropdown_btn" value="rowpriceRanking">낮은 가격순</button>
 					</li>
 					<li>
-						<button class="dropdown_btn">낮은 가격순</button>
-					</li>
-					<li>
-						<button class="dropdown_btn">최신순</button>
+						<button class="dropdown_btn" value="latestRanking">최신순</button>
 					</li>
 				</ul>
 			</div>
