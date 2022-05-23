@@ -42,6 +42,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>
 				WEB-INF/config/seller-management.xml
+				WEB-INF/config/email-context.xml
 				<!-- 각자 만들 context.xml 등록 -->
 			</param-value>
 		</init-param>
