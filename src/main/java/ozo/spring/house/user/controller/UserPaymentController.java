@@ -131,7 +131,6 @@ public class UserPaymentController {
 		int paid_amount = (Integer)ivo.get("paid_amount");
 		String pay_method = (String)ivo.get("pay_method");
 		int time = (Integer)ivo.get("paid_at");
-		int coupon_code = (Integer)ivo.get("coupon_code");
 		int point = (Integer)ivo.get("point_num");
 		
 		//List<ImportVO> payment_li = new ArrayList<ImportVO>();
@@ -155,10 +154,13 @@ public class UserPaymentController {
 			add_vo.setPost_id(cart_li.get(i).getCart_post());
 			this.choice_addr = pay_cls.get_addr_true(cvo);
 			add_vo.setAddress_id(choice_addr.getAddress_id());
-			add_vo.setCoupon_id(coupon_code);
-			for(CouponVO k : coupon_li) {
-				if(k.getCoupon_id() == coupon_code) {
-					add_vo.setDiscount(k.getCoupon_discount());
+			if((Integer)ivo.get("coupon_code") != null) {
+				int coupon_code = (Integer)ivo.get("coupon_code");
+				add_vo.setCoupon_id(coupon_code);
+				for(CouponVO k : coupon_li) {
+					if(k.getCoupon_id() == coupon_code) {
+						add_vo.setDiscount(k.getCoupon_discount());
+					}
 				}
 			}
 			add_vo.setEmpty_int(point);
@@ -167,6 +169,7 @@ public class UserPaymentController {
 		
 		//coupont payment_after
 		if(ivo.get("coupon_code") != null) {
+			int coupon_code = (Integer)ivo.get("coupon_code");
 			pay_cls.update_coupon(coupon_code);
 		}
 		//point payment_after

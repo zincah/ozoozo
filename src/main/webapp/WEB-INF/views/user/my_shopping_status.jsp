@@ -121,6 +121,9 @@
 		$(".ship_success").text(ship_success);
 		$(".buy").text(buy);
 	}
+	function buy_check(){
+		
+	}
 	</script>
 <header>
     	<jsp:include page="./header/OzoH.jsp"></jsp:include>
@@ -299,7 +302,9 @@
                                             </div>
                                             <div class="css-1yl0oty e1yy3fi614">
                                             	<button class="css-klr9vj">배송추적</button>
-                                                <c:if test="${pl_li[j].order_status == '배송완료'}"><button disabled="" class="css-klr9vj">구매확정</button></c:if> <!-- 배송완료된 애들만 보이게 -->
+                                                <c:if test="${pl_li[j].order_status == '배송완료'}">
+                                                <button class="css-klr9vj" onclick="buy_check(${pl_li[j].order_num}_${pl_li[j].product_id})">구매확정</button>
+                                                </c:if> <!-- 배송완료된 애들만 보이게 -->
                                             </div>
                                         </div>
                                         <c:choose>
