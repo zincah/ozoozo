@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+   
 	<input type="hidden" value="${filterCount }" id="filterCount">
 	<c:forEach items="${productList }" var="product">
 	<div class="deals_list_wrap col-6 col-lg-4">
@@ -102,11 +103,25 @@
 					<div class="deals_item_content">
 						<div class="deals_item_header">
 							<span class="deals_item_header_brand">${product.company_name }</span> 
-							<span class="deals_item_header_name">${product.post_name }</span>
+							<span class="deals_item_header_name">
+								<span>
+                               	<c:if test="${product.deal_status eq '게시' }">
+									<span style="color: #f77;">[오늘의 딜]</span>
+                               	</c:if>
+                               	${product.post_name }</span>
+                            </span>
 						</div>
 						<div class="deals_item_body_price">
-							<span class="sale_percent">${product.sale_ratio }%</span> 
-							<span class="price">${product.sale_price }</span>
+							<c:if test="${product.deal_status eq null }">
+                            	<span class="sale_percent">${product.sale_ratio }%</span> 
+                            	<span class="price sale_price">${product.sale_price }</span>
+                            </c:if>
+                            <c:if test="${product.deal_status eq '게시' }">
+                            	<span class="sale_percent">${product.deal_saleratio }%</span> 
+                            	<span class="price sale_price">
+                            		<fmt:formatNumber value="${product.deal_saleprice }" pattern="#,###"/>
+                            	</span>
+                            </c:if>
 						</div>
 						<div class="deals_item_review">
 							<div class="review_icon">

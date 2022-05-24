@@ -70,6 +70,7 @@ public class UserProductVO {
 	// ø¿¥√¿« µÙ table
 	private int deal_id;
 	private int deal_postid;
+	private String deal_status;
 	private int deal_originprice;
 	private int deal_saleratio;
 	private int deal_saleprice;
