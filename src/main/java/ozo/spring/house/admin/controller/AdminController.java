@@ -143,7 +143,7 @@ public class AdminController {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("admincode")!=null) {
 			
-			// ¸ÅÃâ ³¯Â¥ ¼¼ÆÃ
+			// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½ï¿½
 			vo.setStartdate(java.sql.Date.valueOf("2018-01-01"));
 			Date today = new Date();
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -196,17 +196,7 @@ public class AdminController {
 
 
 
-	@RequestMapping(value = "/couponManagement.admin")
-	public String couponManagementView(HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		
-		if(session.getAttribute("admincode")!=null) {
-			return "couponManagement_zinc";
-		}else {
-			return "adminLogin_dj";
-		}
-	}
+
 	
 
 	

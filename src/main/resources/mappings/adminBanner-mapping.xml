@@ -30,7 +30,12 @@
 
 	<!-- coupon list -->
 	<select id="couponListView" resultType="coupon">
-		select * from product_coupon pc
+		select * from product_coupon
+	</select>
+
+
+	<select id="couponViewData" resultType="coupon">
+		select * from product_coupon where coupon_id = #{coupon_id}
 	</select>
 
 

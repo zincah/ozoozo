@@ -92,32 +92,55 @@ public class AdminEventController {
 
 
 	/* counpon searching + coupon List View */
-	@ResponseBody
-	@RequestMapping(value = "/couponManagement.admin", method = RequestMethod.POST)
-	public String couponSearching(@RequestBody Map<String, String> searchMap, AdminCouponVO cvo, Model model, Criteria cri) {
 
-		System.out.println(searchMap);
+	@RequestMapping(value = "/couponManagement.admin")
+	public String couponSearching(AdminCouponVO cvo, Model model, HttpServletRequest request) {
 
-		cvo.setCoupon_title(searchMap.get("title"));
-		cvo.setCoupon_subtitle(searchMap.get("content"));
-		cvo.setCoupon_startdate(Timestamp.valueOf(searchMap.get("startdate")));
-		cvo.setCoupon_enddate(Timestamp.valueOf(searchMap.get("enddate")));
-		cvo.setCoupon_create(Timestamp.valueOf(searchMap.get("create")));
-		//cvo.setCoupon_update(Timestamp.valueOf(searchMap.get("update")));
-		//cvo.setCoupon_id(int.AdminCouponVO("code"));
-		cvo.setCoupon_status(searchMap.get("status"));
+		HttpSession session = request.getSession();
 
+		if (session.getAttribute("admincode") != null) {
 
-		List<AdminCouponVO> couponList = AdminCouponService.couponListView(cvo);
-		model.addAttribute("couponListView", couponList);
-		model.addAttribute("total count", AdminCouponService.couponListView(cvo));
+			//System.out.println(searchMap);
+			/*
+			cvo.setCoupon_title(searchMap.get("title"));
+			cvo.setCoupon_subtitle(searchMap.get("content"));
+			cvo.setCoupon_startdate(Timestamp.valueOf(searchMap.get("startdate")));
+			cvo.setCoupon_enddate(Timestamp.valueOf(searchMap.get("enddate")));
+			cvo.setCoupon_create(Timestamp.valueOf(searchMap.get("create")));
+			//cvo.setCoupon_update(Timestamp.valueOf(searchMap.get("update")));
+			//cvo.setCoupon_id(int.AdminCouponVO("code"));
+			cvo.setCoupon_status(searchMap.get("status"));*/
 
-		return "couponListView";
+			List<AdminCouponVO> couponList = AdminCouponService.couponListView(cvo);
+			System.out.println(couponList);
+			model.addAttribute("couponList", couponList);
+			model.addAttribute("couponStatus0", couponList.stream().filter(list -> list.getCoupon_status().equals("대기")).count());
+			model.addAttribute("couponStatus1", couponList.stream().filter(list -> list.getCoupon_status().equals("사용중")).count());
+			model.addAttribute("couponStatus2", couponList.stream().filter(list -> list.getCoupon_status().equals("종료")).count());
+
+			//model.addAttribute("total count", AdminCouponService.couponListView(cvo));
+			return "couponManagement_zinc";
+		} else {
+			return "adminLogin_dj";
+		}
+
 
 	}
 
+	@RequestMapping(value = "/couponView.admin")
+	public String couponViewData(@RequestBody String coupon, AdminCouponVO cvo, Model model) {
 
+		System.out.println(coupon);
 
+		cvo.setCoupon_id(Integer.parseInt(coupon.replace("\"", "" )));
+
+		AdminCouponVO vo = AdminCouponService.couponViewData(cvo);
+		System.out.println(vo);
+
+		model.addAttribute("couponViewData", vo);
+
+		return "couponInfo";
+	}
 
 
 }
