@@ -132,6 +132,11 @@ public class UserMainDAO {
 
 		return wholelist;
 	}
+	
+	public int shopItemListCount(UserProductVO vo) {
+		System.out.println("--> mybatis in usermaindao shop item list count");
+		return sqlSessionTemplate.selectOne("UserMainDAO.shopItemListCount", vo);
+	}
 
 	public List<UserProductVO> bestlist(){
 		System.out.println("mybatis in usermaindao todaydeallist");

@@ -17,8 +17,18 @@
             crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <script>
+    
+    	let rank = 'latestRanking';
+    	let totalCount;
+    	let brandcode;
+    	
+       	var firstscroll = 0;
+       	var page = 0;
 
         $(document).ready(function(){
+        	
+        	totalCount = ${totalCount};
+        	brandcode = ${seller.seller_id};
 
             $(".filter_btn").on('click', function(){
                 console.log(this.value);
@@ -53,12 +63,52 @@
             	
             	
             })
+            
+            // 인기순 판매순 순위 매기기
+		$(".dropdown_btn").click(function(){
+			
+			page = 0; // page를 다시 0으로 초기화
+			rank = $(this).val();
+			var ranktext = $(this).text();
+			
+			var html = '\
+			<svg class="caret" width="8" height="8" viewBox="0 0 8 8" preserveAspectRatio="xMidYMid meet">\
+			<path fill="#BDBDBD" d="M0 2l4 4 4-4z"></path></svg>'
+			
+			$("#item_filter_btn").html(ranktext + html);
+			alert(ranktext);
+			
+			
+			var searchMap = { 
+					"brandcode" : brandcode,
+					"ranking" : rank 
+			};
+			
+			$.ajax({
+		  		url:'brandshopRank.com',
+		  		method:'post',
+		  		data: JSON.stringify(searchMap),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'html',
+		  		success : function(resp){
+					
+		  			$("#itemLayer").html(resp); // filtering data 넣어주기
+		  			
+		  				
+		  		},
+		  		error : function(request, status, error) {
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+		  		});
+			
+			
+			
+			})
 
         });
         
      // 무한 스크롤
-   	var firstscroll = 0;
-   	var page = 0;
+
    	
    	$(window).on("scroll", function(event){
    		
@@ -80,7 +130,12 @@
 
    		if(isBottom){
    			
-   			var pag = parseInt(${totalCount}/12);
+   			if(totalCount%12 == 0){
+				console.log(totalCount/12)
+				var pag = parseInt(totalCount/12-1); 
+			}else{
+				var pag = parseInt(totalCount/12); 
+			}
    			
    			if(page == pag){ // productList개수/4 인 몫 값을 가져와야 함
    				return;
@@ -99,6 +154,7 @@
 		
 		
 		var searchMap = {
+				"brandcode" : brandcode,
 				"page" : page,
 				"ranking" : rank
 		}
@@ -107,7 +163,7 @@
 		
 		
 		$.ajax({
-	  		url:'.com',
+	  		url:'brandshopPaging.com',
 	  		method:'post',
 	  		data: JSON.stringify(searchMap),
 	  		contentType : 'application/json; charset=UTF-8',
@@ -256,8 +312,8 @@
 
                       
                         <div class="item_count_layer">
-                            <div class="item_count">전체 ${shopItemList.size() }</div>
-                            <button class="item_filter_btn" id="item_filter_btn">인기순
+                            <div class="item_count">전체 ${totalCount }</div>
+                            <button class="item_filter_btn" id="item_filter_btn">최신순
                                 <svg class="caret" width="8" height="8" viewBox="0 0 8 8" preserveAspectRatio="xMidYMid meet"><path fill="#BDBDBD" d="M0 2l4 4 4-4z"></path></svg>
                             </button>
 
@@ -265,23 +321,23 @@
                             <div class="dropdown_wrap" id="dropdown">
                                 <ul class="dropdown_list">
                                     <li>
-                                        <button class="dropdown_btn">판매순</button>
+                                        <button class="dropdown_btn" value="saleRanking">판매순</button>
                                     </li>
                                     <li>
-                                        <button class="dropdown_btn">인기순</button>
+                                        <button class="dropdown_btn" value="popularRanking">인기순</button>
                                     </li>
                                     <li>
-                                        <button class="dropdown_btn">많은 리뷰순</button>
+                                        <button class="dropdown_btn" value="reviewRanking">많은 리뷰순</button>
                                     </li>
 
                                     <li>
-                                        <button class="dropdown_btn">높은 가격순</button>
+                                        <button class="dropdown_btn" value="highpriceRanking">높은 가격순</button>
                                     </li>
                                     <li>
-                                        <button class="dropdown_btn">낮은 가격순</button>
+                                        <button class="dropdown_btn" value="rowpriceRanking">낮은 가격순</button>
                                     </li>
                                     <li>
-                                        <button class="dropdown_btn">최신순</button>
+                                        <button class="dropdown_btn" value="latestRanking">최신순</button>
                                     </li>
                                 </ul>
                             </div>

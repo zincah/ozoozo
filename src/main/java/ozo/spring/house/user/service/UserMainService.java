@@ -19,12 +19,15 @@ public interface UserMainService {
 	
 	public UserVO checkUserByNaver(UserVO vo); // ¿Å°Ü¾ßÇÔ
 	public void lastLoginCheck(UserVO vo); // ¿Å°Ü¾ßÇÔ
-	public List<UserProductVO> todayDealList();
-	public List<UserProductVO> bestlist();
-	// 
+	
+	public List<UserProductVO> todayDealList(); // today deal
+	public List<UserProductVO> bestlist(); // best
+	
+	// brand page
 	public List<UserProductVO> shopItemList(UserProductVO vo);
 	public SellerVO sellerInfo(UserProductVO vo);
 	public List<List<UserCategoryVO>> printCateList(UserProductVO vo);
 	public List<UserCategoryVO> printTop(UserProductVO vo);
+	public int shopItemListCount(UserProductVO vo);
 
 }

@@ -18,8 +18,12 @@
 <script>
 
 	let rank = 'latestRanking';
+	var firstscroll = 0;
+	var page = 0; // 페이징
 
 	$(document).ready(function(){
+		
+		totalCount = ${totalCount};
 		
 		$(".banner_link").click(function(e){
 			e.preventDefault();
@@ -134,6 +138,7 @@
 		// 인기순 판매순 순위 매기기
 		$(".dropdown_btn").click(function(){
 			
+			page = 0;
 			rank = $(this).val();
 			var ranktext = $(this).text();
 			
@@ -178,8 +183,6 @@
 	});
 	
 	// 무한 스크롤
-	var firstscroll = 0;
-	var page = 0;
 	
 	$(window).on("scroll", function(event){
 		
@@ -201,7 +204,12 @@
 
 		if(isBottom){
 			
-			var pag = parseInt(${totalCount}/12);
+			if(totalCount%12 == 0){
+				console.log(totalCount/12)
+				var pag = parseInt(totalCount/12-1); 
+			}else{
+				var pag = parseInt(totalCount/12); 
+			}
 			
 			if(page == pag){ // productList개수/4 인 몫 값을 가져와야 함
 				return;
