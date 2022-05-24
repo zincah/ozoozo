@@ -48,13 +48,13 @@
                         <a href="#" target="self">프로필</a>
                     </li>
                     <li class="mypage-nav-item">
-                        <a class="active" href="#" target="self">나의 쇼핑</a>
+                        <a class="active" href="/house/myshopping.com" target="self">나의 쇼핑</a>
                     </li>
                     <li class="mypage-nav-item">
-                        <a href="#" target="self">나의 리뷰</a>
+                        <a href="/house/review.com" target="self">나의 리뷰</a>
                     </li>
                     <li class="mypage-nav-item">
-                        <a href="#" target="self">설정</a>
+                        <a href="/house/m_edit.com" target="self">설정</a>
                     </li>
                 </ul>
             </nav>

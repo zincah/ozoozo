@@ -102,14 +102,14 @@
                             <ul class="customer-center__faq__list">
                                 <li><a id="s_ship" class="customer-center__faq__item" >배송은 얼마나
                                         걸리나요?</a></li>
-                                <li><a id="s_order" class="customer-center__faq__item" href="">주문 취소는 어떻게
+                                <li><a id="s_order" class="customer-center__faq__item">주문 취소는 어떻게
                                         하나요?</a></li>
                                 <li><a id="s_product" class="customer-center__faq__item"
-                                        href="">제품의 자세한 정보를 알고 싶어요.</a></li>
+                                        >제품의 자세한 정보를 알고 싶어요.</a></li>
                                 <li><a id="s_error" class="customer-center__faq__item"
-                                        href="">제품이 불량일 때는?</a></li>
+                                       >제품이 불량일 때는?</a></li>
                                 <li><a id="s_kakao" class="customer-center__faq__item"
-                                        href="">카카오 계정으로 로그인하면 이미 가입되었다고 합니다.</a></li>
+                                        >카카오 계정으로 로그인하면 이미 가입되었다고 합니다.</a></li>
                             </ul>
                         </section>
                     </div>
@@ -178,15 +178,70 @@
                  
             </article>
         </article>
-        <script>$("#s_ship").on("click",function(){
+        <script>
+     
+        $("#s_ship").on("click",function(){
+        	$(".faq__contents__item__answer").hide();
 			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
-		 	var height = $("#cs_14").offset();
+		 	 var height = $("#cs_14").offset();
 
 			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
 		    //heigh의 top 위치로 이동 시킨다.
-		    $("html, body").animate({scrollTop: height.top}, 400);
+		    $("html, body").animate({scrollTop: height.top-300}, 400); 
+		    $("#cs_14").trigger('click');
+           
 		    
-		})</script>
+		})
+		 $("#s_order").on("click",function(){
+			 $(".faq__contents__item__answer").hide();
+			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
+		 	 var height = $("#cs_35").offset();
+
+			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
+		    //heigh의 top 위치로 이동 시킨다.
+		    $("html, body").animate({scrollTop: height.top-300}, 400); 
+		    $("#cs_35").trigger('click');
+           
+		    
+		})
+		 $("#s_product").on("click",function(){
+			 $(".faq__contents__item__answer").hide();
+			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
+		 	 var height = $("#cs_59").offset();
+
+			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
+		    //heigh의 top 위치로 이동 시킨다.
+		    $("html, body").animate({scrollTop: height.top-300}, 400); 
+		    $("#cs_59").trigger('click');
+           
+		    
+		})
+		 $("#s_error").on("click",function(){
+			 $(".faq__contents__item__answer").hide();
+			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
+		 	 var height = $("#cs_38").offset();
+
+			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
+		    //heigh의 top 위치로 이동 시킨다.
+		    $("html, body").animate({scrollTop: height.top-300}, 400); 
+		    $("#cs_38").trigger('click');
+           
+		    
+		})
+		 $("#s_kakao").on("click",function(){
+			 $(".faq__contents__item__answer").hide();
+			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
+		 	 var height = $("#cs_50").offset();
+
+			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
+		    //heigh의 top 위치로 이동 시킨다.
+		    $("html, body").animate({scrollTop: height.top-300}, 400); 
+		    $("#cs_50").trigger('click');
+           
+		    
+		})
+		 
+		</script>
         <!--푸터 -->
 <footer>
     	<jsp:include page="./footer/footer.jsp"></jsp:include>
