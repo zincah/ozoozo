@@ -49,9 +49,14 @@ public class UserPaymentController {
 
 		out.flush();
 	}
-	@RequestMapping(value = "/cart_payment.com", method=RequestMethod.POST)
+	@RequestMapping(value = {"/cart_payment.com","/ProductPage.com"}, method=RequestMethod.POST)
 	public String load_payment(HttpSession session,Model model, HttpServletRequest request) {
 		userID = (Integer)session.getAttribute("User_Num");
+		
+		if(request.getParameter("Product_ID") == null) {
+			System.out.println(request.getParameter("Product_ID"));
+			return null;
+		}
 		String[] param_li = request.getParameter("Product_ID").split("%");
 		//String[] param_li = {"50003", "50011"};
 		List<CartVO> cvo_li = new ArrayList<CartVO>();
@@ -111,9 +116,9 @@ public class UserPaymentController {
 		 * System.out.println(pro_li.get(i)); System.out.println("                  ");
 		 * }
 		 */
+		model.addAttribute("access", true);
 		return "calculation";
 	}
-	
 	@ResponseBody
 	@RequestMapping(value = "/pro_js.com", method=RequestMethod.POST)
 	public List<UserProductVO> get_pro_li(){
@@ -207,4 +212,6 @@ public class UserPaymentController {
 		this.choice_addr = pay_cls.get_addr_true(cvo);
 
 	}
+	
+	
 }

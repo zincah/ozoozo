@@ -335,7 +335,11 @@ public class UserDAO {
 		public List<UserProductVO> get_wide_li(){
 			return wide_li;
 		}
-		
+		public void buy_check_update(String param) {
+			int order_id = Integer.parseInt(param);
+			sqlSessionTemplate.update("UserProduct.buy_check_update", order_id);
+			System.out.println("구매확정 클릭함");
+		}
 		
 		
 		

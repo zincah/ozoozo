@@ -22,7 +22,10 @@ public class UserPaymentLogVO {
 	private int payment;
 	private int address_id;
 	private int od_postid;
+	private Timestamp shipfinish_date;
 	
 	// 
 	private int order_id;
+	
+	private String day;
 }

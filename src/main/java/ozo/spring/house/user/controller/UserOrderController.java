@@ -1,20 +1,24 @@
 package ozo.spring.house.user.controller;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.user.dao.UserDAO.paymentLog_cls;
 import ozo.spring.house.user.service.UserService;
-import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserPaymentLogVO;
 import ozo.spring.house.user.vo.UserProductVO;
 
@@ -42,6 +46,24 @@ public class UserOrderController {
 			log_cls.set_wide_li(pl_li);
 			this.wide_li = log_cls.get_wide_li();
 			model.addAttribute("pl_li", pl_li);
+			System.out.println(pl_li.get(0).getShipfinish_date());
+			for(int i = 0; i < pl_li.size(); i++) {
+				if(pl_li.get(i).getShipfinish_date() != null) {
+					String Str = String.valueOf(pl_li.get(i).getShipfinish_date());
+					String[] ex = Str.substring(0,10).split("-");
+					LocalDate date = LocalDate.of(Integer.parseInt(ex[0]), Integer.parseInt(ex[1]),Integer.parseInt(ex[2]));
+					DayOfWeek dow = date.getDayOfWeek();
+					pl_li.get(i).setDay(dow.getDisplayName(TextStyle.NARROW, Locale.KOREAN)); 
+				}else {
+					String Str = String.valueOf(pl_li.get(i).getOrder_date());
+					String[] ex = Str.substring(0,10).split("-");
+					LocalDate date = LocalDate.of(Integer.parseInt(ex[0]), Integer.parseInt(ex[1]),Integer.parseInt(ex[2]));
+					DayOfWeek dow = date.getDayOfWeek();
+					pl_li.get(i).setDay(dow.getDisplayName(TextStyle.NARROW, Locale.KOREAN)); 
+					System.out.println("³¯ Â¥ : " + date);
+				}
+			}
+			
 			model.addAttribute("date_filter", date_filter);
 			model.addAttribute("wide_li", wide_li);
 			/*
@@ -68,6 +90,16 @@ public class UserOrderController {
 	public List<UserPaymentLogVO> get_date_filter(){
 		return date_filter;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/buy_check.com", method=RequestMethod.POST)
+	public String buy_check_update(@RequestBody String param) {
+		log_cls.buy_check_update(param);
+		return null;
+	}
+	
+	
+	
 	@RequestMapping(value = "/orders.com")
 	public String user_orders(HttpSession session, Model model) {
 		if(session.getAttribute("UserMail")!=null) {
