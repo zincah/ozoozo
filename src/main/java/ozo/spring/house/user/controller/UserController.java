@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ozo.spring.house.admin.vo.BannerVO;
+import ozo.spring.house.server.service.TodayDealTimer;
 import ozo.spring.house.user.service.UserMainService;
 import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.service.UserService;
@@ -34,11 +35,15 @@ public class UserController {
 	@Autowired
 	UserScrapService userScrapService;
 	
+	@Autowired
+	TodayDealTimer dealTimer;
+	
 	@RequestMapping(value = "/main.com")
 	public String user_main(UserProductVO vo, Model model, HttpSession session, UserScrapVO svo) {
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		
 		// product list �뜝�떛源띿삕
+		//dealTimer.Timer();
 
 		vo.setCheckit(false);
 
