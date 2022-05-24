@@ -23,11 +23,11 @@
 	
 	$(document).ready(function(){
 		
+		// line chart 
 		Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 		Chart.defaults.global.defaultFontColor = "#292b2c";
 
 		// get Date
-		
 		var dateList = ${dateList};
 		var countList = ${countList};
 		
@@ -37,7 +37,7 @@
 		countList = countList.reverse();
 		
 		// Area Chart Example
-		var ctx = document.getElementById("myAreaChart");
+		var ctx = document.getElementById("myAreaChart"); // myBarChart
 		var myLineChart = new Chart(ctx, {
 		  type: "line",
 		  data: {
@@ -244,7 +244,9 @@
                       <p class="margin-zero"><i class="fas fa-chart-bar me-1 icon-margin-right"></i>BEST 상품 판매량</p>
                     </div>
                     <div class="d-flex justify-content-between sub-text">
-                      <div class="card-body padding-zero"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                      <div class="card-body padding-zero">
+                      	<canvas id="myBarChart" width="100%" height="40"></canvas>
+                      </div>
                     </div>
                   </div>
                 </div>
