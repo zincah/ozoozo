@@ -40,11 +40,8 @@
 		// get Date
 		var dateList = ${dateList};
 		var countList = ${countList};
-		
+				
 		var dates = [];
-		
-		dateList = dateList.reverse();
-		countList = countList.reverse();
 		
 		// Area Chart Example
 		var ctx = document.getElementById("myAreaChart");
@@ -88,7 +85,7 @@
 		        {
 		          ticks: {
 		            min: 0,
-		            max: 30,
+		            max: ${maxCount},
 		            maxTicksLimit: 5,
 		          },
 		          gridLines: {
@@ -124,42 +121,42 @@
 							<div class="radio-productCode">
 								<div class="btn-group paddingLeft2" role="group"
 									aria-label="Basic radio toggle button group">
-									<input type="radio" class="btn-check dateBtn-1" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-1 searchDateBtn" name="btnradio"
 										id="btnradio1" autocomplete="off" checked /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio1">오늘</label>
 
-									<input type="radio" class="btn-check dateBtn-2" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-2 searchDateBtn" name="btnradio"
 										id="btnradio2" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio2">3일</label>
 
-									<input type="radio" class="btn-check dateBtn-3" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-3 searchDateBtn" name="btnradio"
 										id="btnradio3" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio3">1주일</label>
 
-									<input type="radio" class="btn-check dateBtn-4" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-4 searchDateBtn" name="btnradio"
 										id="btnradio4" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio4">1개월</label>
 
-									<input type="radio" class="btn-check dateBtn-5" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-5 searchDateBtn" name="btnradio"
 										id="btnradio5" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio5">3개월</label>
 
-									<input type="radio" class="btn-check dateBtn-6" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-6 searchDateBtn" name="btnradio"
 										id="btnradio6" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio6">6개월</label>
 
-									<input type="radio" class="btn-check dateBtn-7" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-7 searchDateBtn" name="btnradio"
 										id="btnradio7" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio7">1년</label>
 
-									<input type="radio" class="btn-check dateBtn-8" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-8 searchDateBtn" name="btnradio"
 										id="btnradio8" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio8">전체</label>
 								</div>
 							</div>
 							<div class="paddingLeft1">
-								<input class="startDate" type="date" id="date" value="" /> <input
-									class="endDate" type="date" id="date" value="" />
+								<input class="startDate" type="date" id="startDate" value="" /> <input
+									class="endDate" type="date" id="endDate" value="" />
 							</div>
 							<div class="radio-productCode paddingLeft1">
 								<div class="form-check">
@@ -189,50 +186,43 @@
 		</div>
 	</main>
 	<!-- content -->
-	<div class="content-table">
-		<div class="content-view-title">
-			<div>
-				<span class="content-view-title-text" id="search-date1">일별</span>
-				<span class="content-view-title-text2"> 매출 리스트 (</span>
-				<span class="content-view-title-text2" id="search-date2">
-					${calMinText}
-				</span>
-				<span class="content-view-title-text2"> ~ </span>
-				<span class="content-view-title-text2" id="search-date3">
-					${calMaxText}
-				</span>
-				<span class="content-view-title-text2">)</span>
-			</div>
-			<div class="content-view-title-right">
-				<div class="btn-group" role="group"
-					aria-label="Basic radio toggle button group">
-					<select class="form-select selectAlign"
-						aria-label="Default select example">
-						<option value="1">최근순</option>
-						<option value="2">오래된순</option>
-					</select>
+	<div id="salesList">
+		<div class="content-table">
+			<div class="content-view-title">
+				<div>
+					<span class="content-view-title-text" id="search-date1">일별</span>
+					<span class="content-view-title-text2"> 매출 리스트 (</span>
+					<span class="content-view-title-text2" id="search-date2">
+						${calMinText}
+					</span>
+					<span class="content-view-title-text2"> ~ </span>
+					<span class="content-view-title-text2" id="search-date3">
+						${calMaxText}
+					</span>
+					<span class="content-view-title-text2">)</span>
 				</div>
-				<div class="d-grid gap-2">
-					<button class="btn btn-secondary excelDownBtn" type="button">엑셀다운</button>
+				<div class="content-view-title-right">
+					<div class="d-grid gap-2">
+						<button class="btn btn-secondary excelDownBtn" type="button">엑셀다운</button>
+					</div>
 				</div>
 			</div>
-		</div>
-		<table class="table table-box-style">
-			<thead>
-				<tr class="content-table-title">
-					<td class="content-table-title-text option-line">날짜</td>
-					<td class="content-table-title-text option-line">결제금액</td>
-					<td class="content-table-title-text option-line">결제건수</td>
-					<td class="content-table-title-text option-line">취소금액</td>
-					<td class="content-table-title-text option-line">취소건수</td>
-					<td class="content-table-title-text option-line">정상금액(판매-취소)</td>
-					<td class="content-table-title-text option-line">정상건수</td>
-					<td class="content-table-title-text option-line">할인</td>
-					<td class="content-table-title-text option-line">배송비</td>
-					<td class="content-table-title-text option-line">판매이익(정상금액-(할인+배송비))</td>
-				</tr>
-			</thead>
-			<tbody id="salesList">
+			<table class="table table-box-style">
+				<thead>
+					<tr class="content-table-title">
+						<td class="content-table-title-text option-line">날짜</td>
+						<td class="content-table-title-text option-line">결제금액</td>
+						<td class="content-table-title-text option-line">결제건수</td>
+						<td class="content-table-title-text option-line">취소금액</td>
+						<td class="content-table-title-text option-line">취소건수</td>
+						<td class="content-table-title-text option-line">정상금액(판매-취소)</td>
+						<td class="content-table-title-text option-line">정상건수</td>
+						<td class="content-table-title-text option-line">할인</td>
+						<td class="content-table-title-text option-line">배송비</td>
+						<td class="content-table-title-text option-line">판매이익(정상금액-(할인+배송비))</td>
+					</tr>
+				</thead>
+				<tbody>
 					<c:forEach var="salesListView" items="${salesListView}" varStatus="status">
 						<tr class="content-table-content content-hover table-hover-self">
 							<td class="content-table-content-text option-line"
@@ -278,36 +268,37 @@
 							</td>
 						</tr>
 					</c:forEach>
-			</tbody>		
-		</table>
-		<div class="row mt-4">
-			<div class="col-xl-6 col-md-6 mb-4">
-				<div class="card h-100">
-					<div class="card-body">
-						<div class="d-flex title-text bottom-line">
-							<p class="margin-zero">
-								<i class="fas fa-chart-area me-1 icon-margin-right"></i>매출 통계
-							</p>
-						</div>
-						<div class="d-flex justify-content-between sub-text">
-							<div class="card-body padding-zero">
-								<canvas id="myAreaChart" width="100%" height="40"></canvas>
+				</tbody>		
+			</table>
+			<div class="row mt-4">
+				<div class="col-xl-6 col-md-6 mb-4">
+					<div class="card h-100">
+						<div class="card-body">
+							<div class="d-flex title-text bottom-line">
+								<p class="margin-zero">
+									<i class="fas fa-chart-area me-1 icon-margin-right"></i>매출 통계
+								</p>
+							</div>
+							<div class="d-flex justify-content-between sub-text">
+								<div class="card-body padding-zero">
+									<canvas id="myAreaChart" width="100%" height="40"></canvas>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-xl-6 col-md-6 mb-4">
-				<div class="card h-100">
-					<div class="card-body">
-						<div class="d-flex title-text bottom-line">
-							<p class="margin-zero">
-								<i class="fas fa-chart-bar me-1 icon-margin-right"></i>상품별 판매 건수
-							</p>
-						</div>
-						<div class="d-flex justify-content-between sub-text">
-							<div class="card-body padding-zero">
-								<canvas id="myBarChart" width="100%" height="40"></canvas>
+				<div class="col-xl-6 col-md-6 mb-4">
+					<div class="card h-100">
+						<div class="card-body">
+							<div class="d-flex title-text bottom-line">
+								<p class="margin-zero">
+									<i class="fas fa-chart-bar me-1 icon-margin-right"></i>상품별 판매 건수
+								</p>
+							</div>
+							<div class="d-flex justify-content-between sub-text">
+								<div class="card-body padding-zero">
+									<canvas id="myBarChart" width="100%" height="40"></canvas>
+								</div>
 							</div>
 						</div>
 					</div>

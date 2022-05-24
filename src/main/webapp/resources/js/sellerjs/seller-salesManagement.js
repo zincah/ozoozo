@@ -55,16 +55,43 @@ $(".initBtn").click(function() {
   document.getElementById("flexRadioDefault1").checked = true;
 })
 
-/* 검색 이벤트 */
-document.getElementsByClassName("submitBtn")[0].addEventListener("click", function () {
-  //일별 or 월별 선택관련
-  if (document.getElementById("flexRadioDefault1").checked == true) {
-    $("#search-date1").text("일별");
-    $("#search-date2").text(startDate.value);
-    $("#search-date3").text(endDate.value);
-  } else {
-    $("#search-date1").text("월별");
-    $("#search-date2").text(startDate.value);
-    $("#search-date3").text(endDate.value);
-  }
+/* 상품 검색 기능 */
+$(document).ready(function () {	
+	// 기간 값 받아오기
+	$(".searchDateBtn").change(function() {
+		getOrderData();
+	});
+	$(".startDate").change(function() {
+		getOrderData();
+	});
+	$(".endDate").change(function() {
+		getOrderData();
+	});
 });
+
+// 검색 처리
+function getOrderData() {
+	
+	// 값 받아오기
+	var startDate = $(".startDate").val();
+	var endDate = $(".endDate").val();
+	
+	// 값 묶어서 저장
+	var searchMap = {
+		"startDate" : startDate,
+		"endDate" : endDate,
+	};
+
+	// 데이터 처리 요청
+	$.ajax({
+  		url:'getSearchSalesList.seller',
+  		type:'post',
+  		data: JSON.stringify(searchMap),
+  		contentType : 'application/json; charset=UTF-8',
+  		dataType : 'html',
+  		success : function(resp){
+			$("#salesList").empty();
+  			$("#salesList").html(resp);
+  		}
+  	});
+}

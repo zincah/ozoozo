@@ -530,13 +530,16 @@
 				<c:forEach var="orderListView" items="${orderListView}"
 					varStatus="status">
 					<tr class="content-table-content content-hover">
-						<td class="content-table-content-text option-line checkTd"><c:if
-								test="${orderListView.getOrder_status() ne '구매확정'}">
-								<input class="form-check-input check" type="checkbox" value="" />
-							</c:if> <c:if test="${orderListView.getOrder_status() eq '구매확정'}">
-								<input class="form-check-input" type="checkbox" value=""
-									disabled />
-							</c:if></td>
+						<td class="content-table-content-text option-line checkTd">
+							<c:choose>
+								<c:when test="${orderListView.getOrder_status() ne '배송완료' and orderListView.getOrder_status() ne '구매확정'}">
+										<input class="form-check-input check" type="checkbox" value="" />
+								</c:when>
+								<c:otherwise>
+										<input class="form-check-input" type="checkbox" value="" disabled />
+								</c:otherwise>
+							</c:choose>
+						</td>
 						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 							data-bs-toggle="modal" data-bs-target="#modal-view-order"><fmt:formatDate
 								value="${orderListView.getOrder_date()}"

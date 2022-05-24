@@ -19,7 +19,7 @@
 		SUM(p.py_final) AS sales_final
 		FROM user_order uo
 		JOIN payment p ON p.py_orderid = uo.order_id 
-		WHERE DATE(uo.order_date) = #{sales_date};
+		WHERE DATE(uo.order_date) = #{sales_date} AND uo.seller_id = #{seller_id};
 	</select>
 </mapper>
 
