@@ -12,4 +12,6 @@ public interface AdminCouponService {
     public void counponViewData(AdminCouponVO vo);
 
     public AdminCouponVO couponViewData(AdminCouponVO vo);
+
+
 }

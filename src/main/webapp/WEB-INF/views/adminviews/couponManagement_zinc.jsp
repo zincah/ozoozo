@@ -50,9 +50,19 @@
               "coupon_discount" : coupon_discount,
               "coupon_create" : coupon_create,
               "coupon_startdate" : coupon_startdate,
-              "coupon_enddate" : coupon_enddate
+              "coupon_enddate" : coupon_enddate}
 
-            };
+              $.ajax({
+                url:'couponInsert.admin',
+                method:'post',
+                data: JSON.stringify(couponInfo),
+                contentType : 'application/json; charset=UTF-8',
+                dataType : 'html',
+                success : function(resp){
+                  $(".couponListLayer").html(resp);
+                  $("")
+                }
+              });
 
           console.log(couponInfo);
 
@@ -75,14 +85,10 @@
           });
         })
 
-        $("#newinfo_date")(function (){
-          var today = new date();
-          var year = today.getFullYear();
-          var month = ('0' + (today.getMonth() + 1)).slice(-2);
-          var day = ('0' + today.getDate()).slice(-2);
 
-          var dateString = year + '-' + month  + '-' + day;
-        })
+
+
+
 
 
       });
@@ -201,7 +207,7 @@
                   <td class="content-table-title-text" style="width: 5rem;">상태</td>
                 </tr>
               </thead>
-              <tbody>
+              <tbody class="couponListLayer">
                 <!-- for -->
 
                 <c:forEach items="${couponList}" var="coupon">
@@ -343,7 +349,8 @@
 
               <tr class="content-table-content">
                 <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">등록일</td>
-                <td colspan="2" class="content-table-content-text" id="newinfo_date"><<fmt:formatDate value="${newinfo_date}" pattern="yyyy-MM-dd" /></td>
+                <td colspan="2" class="content-table-content-text" id="newinfo_date"><fmt:formatDate value="${newinfo_date}" pattern="yyyy-MM-dd" />
+                </td>
                 <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">담당자</td>
                 <td colspan="2" class="content-table-content-text" id="newinfo_charge">이인하</td>
               </tr>

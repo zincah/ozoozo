@@ -83,11 +83,8 @@
 
 	<!-- coupon inserting -->
 	<insert id="couponInserting" parameterType="coupon">
-		INSERT INTO product_coupon (coupont_id, coupon_title, coupon_subtitle, coupon_startdate, coupon_enddate)
-		VALUES (#{coupon_title},#{coupon_subtitle},#{coupon_startdate},#{coupon_enddate},
-		        select coalesce (max (coupon_id), 100)+1
-		        from product_coupon), (select max (coupon_id) from coupon));
-
+		INSERT INTO product_coupon (coupon_id, coupon_title, coupon_subtitle, coupon_startdate, coupon_enddate, coupon_more, coupon_discount)
+		VALUES ((select coalesce (max (coupon_id), 100)+1 from product_coupon),#{coupon_title},#{coupon_subtitle},#{coupon_startdate},#{coupon_enddate},#{coupon_more},${coupon_discount})
 	</insert>
 
 </mapper>
