@@ -63,4 +63,9 @@ public class BannerDAO {
 		System.out.println("mybatis admin coupon search");
 		sessiontemplate.selectList("BannerDAO.couponSearching", vo);
 	}
+
+	public AdminCouponVO couponViewData(AdminCouponVO vo){
+		System.out.println("mybatis admin coupon viewdata");
+		return sessiontemplate.selectOne("BannerDAO.couponViewData", vo);
+	}
 }

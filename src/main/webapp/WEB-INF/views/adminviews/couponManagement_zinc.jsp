@@ -11,10 +11,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - SB Admin</title>
+    <title>관리자 - 쿠폰관리</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="resources/css/admincss/styles.css" rel="stylesheet" />
-    <link href="resources/css/admincss/makeCoupon.css?var=1" rel="stylesheet" />
+    <link href="resources/css/admincss/makeCoupon.css?var=2" rel="stylesheet" />
     <link href="resources/css/admincss/fonts.css?after" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
@@ -22,28 +22,71 @@
     <script>
       $(document).ready(function(){
 
+        console.log(${couponList.size()})
+
         /* 새 공지사항 jquery */
         $("#new_info").click(function(){
+          $(".newcoupon").show()
+          $(".couponbody").hide()
 
-          $(".insert_btn").show();
-          $(".reset_btn").show();
-          $(".modi_btn").hide();
-          $(".del_btn").hide();
-          $(".stop_btn").hide();
 
-          $("#coupon_title").show();
-          $("#coupon_title_select").hide();
-
-          $("#coupon_content").text("");
-          $("#coupon_content").removeAttr("disabled");
-
-          $("input[name='couponradio']").prop("checked", false);
-          $("#couponradio1").prop("checked", true);
         });
+
+        $("#couponInsert").click(function (){
+          var coupon_title = $("#newcoupon_title").val()
+          var coupon_subtitle = $("#newcoupon_content").val()
+          var coupon_more = $("#newcoupon_more").val()
+          var coupon_discount = $("#newcoupon_discount").val()
+          var coupon_create = $("#newinfo_date").val()
+          var coupon_startdate = $("#newnow_date1").val()
+          var coupon_enddate = $("#newnow_date2").val()
+
+
+
+            var couponInfo = {
+              "coupon_title" : coupon_title,
+              "coupon_subtitle" : coupon_subtitle,
+              "coupon_more" : coupon_more,
+              "coupon_discount" : coupon_discount,
+              "coupon_create" : coupon_create,
+              "coupon_startdate" : coupon_startdate,
+              "coupon_enddate" : coupon_enddate
+
+            };
+
+          console.log(couponInfo);
+
+        })
+
+        $(".clickbtn").click(function(){
+
+          var coupon = $(this).val()
+          $.ajax({
+            url:'couponView.admin',
+            method:'post',
+            data: JSON.stringify(coupon),
+            contentType : 'application/json; charset=UTF-8',
+            dataType : 'html',
+            success : function(resp){
+              $(".newcoupon").hide()
+              $(".couponbody").html(resp)
+              $(".couponbody").show()
+            }
+          });
+        })
+
+        $("#newinfo_date")(function (){
+          var today = new date();
+          var year = today.getFullYear();
+          var month = ('0' + (today.getMonth() + 1)).slice(-2);
+          var day = ('0' + today.getDate()).slice(-2);
+
+          var dateString = year + '-' + month  + '-' + day;
+        })
 
 
       });
-    
+
     </script>
   </head>
   		<jsp:include page="header/header.jsp"></jsp:include>
@@ -59,18 +102,17 @@
             <div class="container container-option bottomline">
 
               <div class="row optionGroup1">
-                <div class="col-1 category-header-content">
-                  <span>전체</span><span class="status-value"><fmt:formatNumber
-                          value="${fn:length(couponList)}" pattern="#,###"/></span>
+                <div class="col-1 category-header-content" >
+                  <span>전체</span><span class="status-value" style="color:#ff778e"><fmt:formatNumber value="${fn:length(couponList)}" pattern="#,###"/></span>
                 </div>
                 <div class="col-1 category-header-content">
-                  <span>대기</span><span class="status-value"><fmt:formatNumber value="${couponStatus0}" pattern="#,###"/> </span>
+                  <span>대기</span><span class="status-value" style="color:#ff778e"><fmt:formatNumber value="${couponStatus0}" pattern="#,###"/> </span>
                 </div>
                 <div class="col-1 category-header-content">
-                  <span>진행중</span><span class="status-value"><fmt:formatNumber value="${couponStatus1}" pattern="#,###"/> </span>
+                  <span>진행중</span><span class="status-value" style="color:#ff778e"><fmt:formatNumber value="${couponStatus1}" pattern="#,###" /> </span>
                 </div>
                 <div class="col-1 category-header-content">
-                  <span>종료</span><span class="status-value"><fmt:formatNumber value="${couponStatus2}" pattern="#,###"/> </span>
+                  <span>종료</span><span class="status-value" style="color:#ff778e"><fmt:formatNumber value="${couponStatus2}" pattern="#,###"/></span>
                 </div>
               </div>
             </div>
@@ -122,15 +164,15 @@
                       </div>
                       <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked="">
-                        <label class="form-check-label" for="flexRadioDefault2"> 대기 </label>
+                        <label class="form-check-label" for="flexRadioDefault2"> 대기  </label>
                       </div>
                       <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" checked="">
-                        <label class="form-check-label" for="flexRadioDefault3"> 진행중 </label>
+                        <label class="form-check-label" for="flexRadioDefault3"> 진행중  </label>
                       </div>
                       <div class="form-check">
                         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" checked="">
-                        <label class="form-check-label" for="flexRadioDefault3"> 종료 </label>
+                        <label class="form-check-label" for="flexRadioDefault3"> 종료  </label>
                       </div>
 
                     </div>
@@ -152,7 +194,7 @@
                   </td>
                   <td class="content-table-title-text" style="width: 20rem;">쿠폰명/사용 혜택</td>
                   <td class="content-table-title-text" style="width: 8rem;">쿠폰 형식</td>
-                  <td class="content-table-title-text" style="width: 5rem;">사용/발행</td>
+                  <!--<td class="content-table-title-text" style="width: 5rem;">사용/발행</td>-->
                   <td class="content-table-title-text" style="width: 15rem;">사용기간</td>
                   <td class="content-table-title-text" style="width: 7rem;">등록일</td>
                   <td class="content-table-title-text" style="width: 7rem;">쿠폰코드</td>
@@ -161,26 +203,28 @@
               </thead>
               <tbody>
                 <!-- for -->
-                <c:forEach var="couponListView" items="${coupon}">
+
+                <c:forEach items="${couponList}" var="coupon">
                 <tr class="content-table-content content-hover">
                   <td class="content-table-content-text">
                       <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
                   </td>
                   <td class="content-table-content-text">
-                    <a href="#">
-                      <div class="coupon_title">${coupon.coupon_title()}</div>
-                      <div class="coupon_sub_title">${coupon.coupon_subtitle()}</div>
-                    </a>
+
+                      <div class="coupon_title"><button class="btn clickbtn" value="${coupon.coupon_id}">${coupon.coupon_title}</button>
+
+                      </div>
+                      <div class="coupon_sub_title">${coupon.coupon_subtitle}</div>
+
                   </td>
                   <td class="content-table-content-text">${coupon.coupon_type}</td>
-                  <td class="content-table-content-text">0회</td>
-                  <td class="content-table-content-text">${coupon.coupon_startdate()}<span>~</span>${coupon.coupon_enddate()}</td>
-                  <td class="content-table-content-text">${coupon.coupon_create()}</td>
-                  <td class="content-table-content-text">${coupon.coupon_id()}</td>
-                  <td class="content-table-content-text state0">${coupon.coupon_status()}</td>
+                  <!--<td class="content-table-content-text">0회</td>-->
+                  <td class="content-table-content-text"><fmt:formatDate value="${coupon.coupon_startdate}" pattern="yyyy-MM-dd " /><span>~</span><fmt:formatDate value="${coupon.coupon_enddate}" pattern="yyyy-MM-dd "/> </td>
+                  <td class="content-table-content-text"><fmt:formatDate value="${coupon.coupon_create}" pattern="yyyy-MM-dd "/> </td>
+                  <td class="content-table-content-text">${coupon.coupon_id}</td>
+                  <td class="content-table-content-text state0">${coupon.coupon_status}</td>
                 </tr>
                 </c:forEach>
-
 
 
 
@@ -219,27 +263,27 @@
           <form method="post" action="#">
             <table class="table table-box-style content-view-table table-bordered">
 
-              <!-- for -->
-              <c:forEach items="${couponInserting}" var="insert">
-              <tbody>
+              <!-- 원래 formdata -->
+
+              <tbody class="couponbody" style="display: none;">
 
                 <tr class="content-table-content">
                   <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">등록일</td>
-                  <td colspan="2" class="content-table-content-text" id="info_date">${insert.coupon_create}</td>
+                  <td colspan="2" class="content-table-content-text" id="info_date"></td>
                   <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">담당자</td>
-                  <td colspan="2" class="content-table-content-text" id="info_charge">${insert.company_name}</td>
+                  <td colspan="2" class="content-table-content-text" id="info_charge"></td>
                 </tr>
 
                 <tr class="content-table-content">
-                  <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">${insert.coupon_startdate}</td>
+                  <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">시작일</td>
                   <td colspan="2" class="content-table-content-text">
                       <input class="startDate" type="date" id="now_date1" value="">
-                      <input class="startDate" type="time">
+
                   </td>
-                  <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">${insert.coupon_enddate}</td>
+                  <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">종료일</td>
                   <td colspan="2" class="content-table-content-text">
                     <input class="startDate" type="date" id="now_date2" value="">
-                    <input class="startDate" type="time">
+
                   </td>
 
                     
@@ -255,12 +299,12 @@
 
                 <tr>
                   <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">쿠폰 사용조건</td>
-                  <td colspan="2" class="content-table-content-text">${insert.coupon_more}
+                  <td colspan="2" class="content-table-content-text">
                     <input type="text" class="form-control table-input" id="coupon_more" style="display: inline-block;">
                   </td>
 
                   <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">할인 금액(할인율)</td>
-                  <td colspan="2" class="content-table-content-text">${insert.coupon_discount}
+                  <td colspan="2" class="content-table-content-text">
                     <input type="text" class="form-control table-input" id="coupon_discount" style="display: inline-block;">
                   </td>
                 </tr>
@@ -268,14 +312,14 @@
                 <tr class="content-table-content">
                   <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5">쿠폰 제목</td>
                   <td colspan="5" class="content-table-content-text">
-                    <div id="coupon_title_select">${insert.coupon_title}</div>
+                    <div id="coupon_title_select">쿠폰이름</div>
                     <input type="text" class="form-control table-input" id="coupon_title">
                   </td>
                 </tr>
                 <tr class="content-table-content">
                   <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5">쿠폰 내용</td>
                   <td colspan="5" class="content-table-content-text">
-                    <textarea class="form-control table-input" id="coupon_content" disabled>${insert.coupon_subtitle}</textarea>
+                    <textarea class="form-control table-input" id="coupon_content" disabled></textarea>
                   </td>
                 </tr>
                 
@@ -289,7 +333,78 @@
                   </td>
                 </tr>
               </tbody>
-              </c:forEach>
+
+
+
+              <!-- newcoupon formdata -->
+
+              <tbody class="newcoupon">
+              <jsp:useBean id="newinfo_date" class="java.util.Date"/>
+
+              <tr class="content-table-content">
+                <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">등록일</td>
+                <td colspan="2" class="content-table-content-text" id="newinfo_date"><<fmt:formatDate value="${newinfo_date}" pattern="yyyy-MM-dd" /></td>
+                <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">담당자</td>
+                <td colspan="2" class="content-table-content-text" id="newinfo_charge">이인하</td>
+              </tr>
+
+              <tr class="content-table-content">
+                <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">시작일</td>
+                <td colspan="2" class="content-table-content-text">
+                  <input class="startDate" type="date" id="newnow_date1" value="">
+
+                </td>
+                <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">종료일</td>
+                <td colspan="2" class="content-table-content-text">
+                  <input class="startDate" type="date" id="newnow_date2" value="">
+
+                </td>
+
+
+
+                <!--coupon date-->
+                <script>
+                  document.getElementById('now_date1').valueAsDate = new Date();
+                  document.getElementById('now_date2').valueAsDate = new Date();
+                </script>
+
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">쿠폰 사용조건</td>
+                <td colspan="2" class="content-table-content-text">
+                  <input type="text" class="form-control table-input" id="newcoupon_more" style="display: inline-block;">
+                </td>
+
+                <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5;">할인 금액(할인율)</td>
+                <td colspan="2" class="content-table-content-text">
+                  <input type="text" class="form-control table-input" id="newcoupon_discount" style="display: inline-block;">
+                </td>
+              </tr>
+
+              <tr class="content-table-content">
+                <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5">쿠폰 제목</td>
+                <td colspan="5" class="content-table-content-text">
+                  <div id="newcoupon_title_select"></div>
+                  <input type="text" class="form-control table-input" id="newcoupon_title">
+                </td>
+              </tr>
+              <tr class="content-table-content">
+                <td colspan="1" class="content-table-content-text content-table-title" style="background-color: #f5f5f5">쿠폰 내용</td>
+                <td colspan="5" class="content-table-content-text">
+                  <textarea class="form-control table-input" id="newcoupon_content" ></textarea>
+                </td>
+              </tr>
+
+              <tr class="content-table-content text-end">
+                <td colspan="6">
+
+                  <button type="button" class="btn btn-success insert_btn" id="couponInsert">등록</button>
+                  <button type="reset" class="btn btn-secondary reset_btn">취소</button>
+                </td>
+              </tr>
+              </tbody>
             </table>
           </form>
 

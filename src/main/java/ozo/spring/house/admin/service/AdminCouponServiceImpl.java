@@ -19,12 +19,24 @@ public class AdminCouponServiceImpl implements AdminCouponService {
     }
 
     @Override
+    public void couponSearching(AdminCouponVO vo) {
+        bannerDAO.couponSearching(vo);
+    }
+
+    @Override
     public void couponInserting(AdminCouponVO vo){
         bannerDAO.couponInserting(vo);
     }
 
     @Override
-    public void couponSearching(AdminCouponVO vo){
-        bannerDAO.couponSearching(vo);
+    public void counponViewData(AdminCouponVO vo) {
+        bannerDAO.couponViewData(vo);
     }
+
+
+    @Override
+    public AdminCouponVO couponViewData(AdminCouponVO vo) {
+       return bannerDAO.couponViewData(vo);
+    }
+
 }
