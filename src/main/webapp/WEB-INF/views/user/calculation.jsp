@@ -294,6 +294,7 @@
 	                // 결제 성공 시 로직 
 	                console.log("결제 성공");
 	                payment_success(rsp);
+	                exit = false;
 	            } else {
 	                // 결제 실패 시 로직,
 	                alert("결제에 실패했습니다. 실패 원인: " + rsp.error_msg);
@@ -328,7 +329,6 @@
 	        })
 		}  	
 		function payment_after_cart_delete(){
-			alert("삭제 json 입장");
 			$.ajax({
     			url: "cart_delete.com", 
     			method: "POST",
@@ -398,6 +398,23 @@
 			each_price();
 		  }
 		  
+		  
+		  exit = true;
+		  window.addEventListener('unload', function exit(){
+		  	if(exit){
+		  		$.ajax({
+	    			url: "cart_delete.com", 
+	    			method: "POST",
+		            headers: { "Content-Type": "application/json" },
+		            dataType : 'json',
+		            data: JSON.stringify(),
+		            success : function(){
+		            	console.log("삭제 성공");
+		            }
+		        })
+		  	}
+		  	return;
+		  });
 		  //결제 정보 전달하기
 	    
 	    //결제번호, 주문번호 추출하기

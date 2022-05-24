@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
 <html>
@@ -121,8 +122,22 @@
 		$(".ship_success").text(ship_success);
 		$(".buy").text(buy);
 	}
-	function buy_check(){
-		
+	function buy_check(param, this_class){
+		console.log(param);
+		$(this_class).remove();
+		ex_text = $("#" + param + "_status").text().split("·");
+		ex_text[0] = "구매확정";
+		$("#" + param + "_status").text(ex_text[0] + "·" + ex_text[1]);
+		/*  $.ajax({
+  			url:'buy_check.com',	
+		  		method:'post',
+		  		data: JSON.stringify(param),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'json',
+		  		success : function(){
+		  			
+		  		}
+		 }) */
 	}
 	</script>
 <header>
@@ -271,8 +286,26 @@
                                <c:set var="tell_check" value="${pl_li[fn:length(pl_li)-1].seller_id }"/>
                                 <div>
                                     <div class="css-1ra10s7 e1yy3fi626">
-                                        <h3 class="css-7c5cag e1yy3fi624">${pl_li[j].order_status}<span class=""> ·</span><span> 12/9
-                                                (목)</span><span class="status"> 도착완료</span></h3>
+                                        <h3 class="css-7c5cag e1yy3fi624" id="${pl_li[j].order_id}_status">
+                                        ${pl_li[j].order_status}
+                                        <span class=""> ·</span>
+                                        <span> 
+                                        	<c:choose>
+                                        		<c:when test="${pl_li[j].shipfinish_date ne null }">
+                                        			<fmt:formatDate value="${pl_li[j].shipfinish_date}" pattern="MM/dd" />
+                                        		</c:when>
+                                        		<c:otherwise>
+                                        			<fmt:formatDate value="${pl_li[j].order_date}" pattern="MM/dd" />
+                                        		</c:otherwise>
+                                        	 </c:choose>
+                                                (${pl_li[j].day })
+                                        </span>
+                                        <span class="status">
+                                         <c:if test="${pl_li[j].shipfinish_date ne null }">
+                                          배송완료
+                                         </c:if>
+                                         </span>
+                                         </h3>
                                         <div class="css-gw5lra e1yy3fi625">
                                             <div class="css-5y01s9 e1yy3fi623">
                                                 <picture>
@@ -286,7 +319,7 @@
                                                             class="css-1hnr1vy e1yy3fi619"
                                                             href="/brands/home?query=%EB%AA%A8%EB%82%98%EC%BD%94%EC%98%AC%EB%A6%AC%EB%B8%8C">${wide_li[j].company_name }</a><a
                                                             class="css-g5ex4y e1yy3fi618"
-                                                            href="http://127.0.0.1:3000/orders.html">[12%쿠폰] ${wide_li[j].post_name }</a>
+                                                            href="http://127.0.0.1:3000/orders.html"> ${wide_li[j].post_name }</a>
                                                     </div>
                                                     <div class="css-1jgx3ye e1yy3fi620">
                                                         <div class="css-137xxwq e1yy3fi617">${wide_li[j].option1_name } : ${wide_li[j].option1}
@@ -303,7 +336,7 @@
                                             <div class="css-1yl0oty e1yy3fi614">
                                             	<button class="css-klr9vj">배송추적</button>
                                                 <c:if test="${pl_li[j].order_status == '배송완료'}">
-                                                <button class="css-klr9vj" onclick="buy_check(${pl_li[j].order_num}_${pl_li[j].product_id})">구매확정</button>
+                                                <button class="css-klr9vj" onclick="buy_check(${pl_li[j].order_id}, this)">구매확정</button>
                                                 </c:if> <!-- 배송완료된 애들만 보이게 -->
                                             </div>
                                         </div>

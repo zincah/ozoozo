@@ -134,11 +134,10 @@ public class UserProductController {
 			ex_li.setPost_id(pro);
 			option_li.add(ex_li);
 		}
-		System.out.println("option_li : "+ option_li);
 		U_vo.setUser_num((Integer)session.getAttribute("User_Num"));
 		userservice.basket_add(option_li, U_vo);
 		System.out.println("장바구니 담기 성공!");
-		return null;
+		return "hi";
 	}
 	//coupon download
 	@ResponseBody

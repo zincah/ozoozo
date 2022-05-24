@@ -606,7 +606,7 @@
                                 <button class="button button--color-blue-inverted button--size-55 button--shape-4" type="button" onClick="basket()">
                                     장바구니
                                 </button>
-                                <button class="button button--color-blue button--size-55 button--shape-4" type="button">
+                                <button class="button button--color-blue button--size-55 button--shape-4" type="button" onClick="basket('buy')">
                                     바로구매
                                 </button>
                             </div>
@@ -2026,18 +2026,18 @@
                     class="button button--color-gray-7 button--size-50 button--shape-4 production-selling-select-modal__footer__button"
                     type="button" onClick="basket()">장바구니</button><button
                     class="button button--color-blue button--size-50 button--shape-4 production-selling-select-modal__footer__button"
-                    type="submit">바로구매</button></div>
+                    type="submit" onClick="basket('buy')">바로구매</button></div>
         </div>
     </div>
 </div>
 <script>
-function basket(){
+function basket(param){
 		$.ajax({
 			url:'basket_ajax.com',
 			method:'post',
 			data: JSON.stringify(option_arr),	
 			contentType : 'application/json; charset=UTF-8',
-			dataType : 'json',
+			dataType : 'text',
 			success : function(after){
 				console.log(after);
 				if(after == "error"){
@@ -2045,12 +2045,25 @@ function basket(){
 				}else if(after == "123"){
 					alert("로그인 후 이용해 주세요.");
 					location.href = 'http://localhost:8080/house/login.com';
-				}else if(after == null){
+				}else if(param != null){
+					alert("폼 택");
+					page_move();
+				}else if(after == "hi"){
 					alert("성공적으로 장바구니에 담았습니다.");
 				}
 			}
 		})
 }
+
+function page_move(){
+	var form_param ='<input type="hidden" name="Product_ID" value="'+ ${product[0].product_postid} +'%">';	
+   	$("#actionForm").append(form_param);
+    $("#actionForm").submit(); 
+}
+
+
+
+
 
 $('.production-selling-select-modal').click(function(e) { 
     if($(e.target).hasClass("react-modal__content-wrap-dhp")) {
@@ -2146,7 +2159,8 @@ $('.production-selling-select-modal').click(function(e) {
 		  		}
 		})
     }
-  
     </script>
+    <form action="ProductPage.com" method="post" id="actionForm">
+		</form>
 </body>
 </html>

@@ -6,7 +6,7 @@
 
 	<!-- 상품 상세 페이지 가져오기 -->
 	<select id="product_get" resultType="userproduct">
-		SELECT DISTINCT ON(option1) pp.post_couponid, 	po.option1,c.cate_name,sc.subcate_name, s.company_name,pp.post_name, pp.sale_ratio, pp.whole_price, p.product_id, po.option1_name, po.option2_name from product_posting pp
+		SELECT DISTINCT ON(option1) pp.post_couponid, p.product_postid, 	po.option1,c.cate_name,sc.subcate_name, s.company_name,pp.post_name, pp.sale_ratio, pp.whole_price, p.product_id, po.option1_name, po.option2_name from product_posting pp
 	inner join product p on pp.post_id = p.product_postid 
 	inner join product_option po on p.product_id = po.op_productid
 	inner join seller s on s.seller_id = pp.post_sellerid 
@@ -229,7 +229,9 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
       ) pimg ON p.product_postid = pimg.photo_postid
 	where p.product_id = #{product_id}
 	</select>
-	
+	<update id="buy_check_update">
+		update user_order set order_status = '구매확정', confirm_date = now() where order_id = #{order_id}
+	</update>
 	<select id="wide_user">
 	
 	</select>

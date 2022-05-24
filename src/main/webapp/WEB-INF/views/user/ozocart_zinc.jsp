@@ -48,7 +48,6 @@
   		  		}	
     		})
         }
-        
         /* for(i=0; i < pro_js.length; i++){
 			if(pro_js[i].quantity < 10){
 				console.log("순서3");
