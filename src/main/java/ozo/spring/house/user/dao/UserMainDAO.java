@@ -1,9 +1,11 @@
 package ozo.spring.house.user.dao;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,11 @@ public class UserMainDAO {
 	public List<BannerVO> selectBannerList(){
 		System.out.println("mybatis in usermaindao mainbannerlist");
 		return sqlSessionTemplate.selectList("UserMainDAO.selectBannerList");
+	}
+	
+	public List<Map<String, String>> getDealEndTime(){
+		System.out.println("mybatis in usermaindao getdealendtime");
+		return sqlSessionTemplate.selectList("UserMainDAO.getDealEndTime");
 	}
 	
 	// ¿·±Ò √ﬂ∞°
