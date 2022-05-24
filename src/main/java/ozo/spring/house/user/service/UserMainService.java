@@ -1,6 +1,8 @@
 package ozo.spring.house.user.service;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.seller.vo.SellerVO;
@@ -16,6 +18,7 @@ public interface UserMainService {
 	public List<UserProductVO> plusProductList(UserPagingVO pvo);
 	public List<BannerVO> selectBannerList();
 	public int getProductCount();
+	public List<Map<String, String>> getDealEndTime();
 	
 	public UserVO checkUserByNaver(UserVO vo); // ¿Å°Ü¾ßÇÔ
 	public void lastLoginCheck(UserVO vo); // ¿Å°Ü¾ßÇÔ

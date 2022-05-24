@@ -1,13 +1,20 @@
 package ozo.spring.house.user.controller;
 
 
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,15 +42,26 @@ public class UserController {
 	@Autowired
 	UserScrapService userScrapService;
 	
-	@Autowired
-	TodayDealTimer dealTimer;
-	
+
 	@RequestMapping(value = "/main.com")
 	public String user_main(UserProductVO vo, Model model, HttpSession session, UserScrapVO svo) {
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		
-		// product list �뜝�떛源띿삕
-		//dealTimer.Timer();
+		// timer
+		List<Map<String, String>> list = userMainService.getDealEndTime();
+		List<Map<String, String>> dealtimelist = new ArrayList<Map<String, String>>();
+		System.out.println(list);
+		for(int i=0; i<list.size(); i++) {
+			Map<String, String> dealtime = list.get(i);
+			String t = "\""+String.valueOf(dealtime.get("deal_endtime"))+"\"";
+			String su = t.substring(0, 20) + "\"";
+			dealtime.put("deal_endtime", su);
+			dealtimelist.add(dealtime);
+		}
+		
+		String jsonArray = JSONArray.toJSONString(dealtimelist);
+		model.addAttribute("dealtimelist", jsonArray);
+		
 
 		vo.setCheckit(false);
 

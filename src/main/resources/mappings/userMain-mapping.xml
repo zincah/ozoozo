@@ -113,11 +113,11 @@
       SELECT banner_id, banner_urlbig, banner_urlsm FROM banner;
    </select>
 
-
-	<!-- time test -->
-	<insert id="insertTest">
-		insert into test values (6, now(), 'hi');
-	</insert>
+	<!-- dealtimer -->
+	<select id="getDealEndTime" resultType="HashMap">
+		select deal_postid, deal_endtime from deal_info where deal_status = '게시'
+		order by deal_id desc fetch first 4 rows only;
+	</select>
 
 
 

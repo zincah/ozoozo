@@ -1,6 +1,8 @@
 package ozo.spring.house.user.service;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,8 +56,8 @@ public class UserMainServiceImpl implements UserMainService {
 		return userMainDAO.shopItemList(vo);
 	}
   
-  @Override
-  public UserVO checkUserByNaver(UserVO vo) {
+	@Override
+  	public UserVO checkUserByNaver(UserVO vo) {
 		return userMainDAO.checkUserByNaver(vo); // ¿Å°Ü¾ßÇÔ
 	}
 
@@ -87,6 +89,11 @@ public class UserMainServiceImpl implements UserMainService {
 	@Override
 	public List<UserProductVO> bestlist() {
 		return userMainDAO.bestlist();
+	}
+
+	@Override
+	public List<Map<String, String>> getDealEndTime() {
+		return userMainDAO.getDealEndTime();
 	}
 
 
