@@ -171,13 +171,13 @@ function updatebtn(btn){
               <nav class="page-navigation mypage-nav-owner">
                 <ul style="transform: translateX(0px); margin: 0px">
                    <li class="mypage-nav-item">
-              <a class="active" href="/house/myPage.com" target="self">프로필</a>
+              <a class="active" href="/house/m_myPage.com" target="self">프로필</a>
             </li>
             <li class="mypage-nav-item">
               <a href="/house/myshopping.com" target="self">나의 쇼핑</a>
             </li>
             <li class="mypage-nav-item">
-              <a href="/house/myreview.com" target="self">나의 리뷰</a>
+              <a href="/house/review.com" target="self">나의 리뷰</a>
             </li>
             <li class="mypage-nav-item">
               <a href="/house/edit.com" target="self">설정</a>
