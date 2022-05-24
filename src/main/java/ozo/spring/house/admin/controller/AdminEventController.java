@@ -12,10 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import ozo.spring.house.admin.service.AdminBannerService;
 import ozo.spring.house.admin.service.AdminCouponService;
@@ -142,5 +139,17 @@ public class AdminEventController {
 		return "couponInfo";
 	}
 
+	@RequestMapping(value = "/couponInsert.admin", method = RequestMethod.POST)
+	public String couponInsert(@RequestBody AdminCouponVO cvo, Model model, HttpServletRequest request){
+
+		System.out.println(cvo);
+		AdminCouponService.couponInserting(cvo);
+
+		List<AdminCouponVO> couponList = AdminCouponService.couponListView(cvo);
+		model.addAttribute("couponList", couponList);
+
+		return "couponList";
+
+	}
 
 }
