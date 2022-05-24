@@ -51,10 +51,15 @@ public class UserProductController {
 		// 기본적인거 설정
 		int sale = product_list.get(0).getSale_ratio();
 		model.addAttribute("product", product_list);
-		model.addAttribute("int_price_sale", price/100*sale);
+		model.addAttribute("int_price_sale", price/100*(100-sale));
 		model.addAttribute("price",decFormat.format(price));
-		model.addAttribute("price_sale", decFormat.format(price/100*sale));
-		model.addAttribute("price_first", decFormat.format(price/100*sale-15000));
+		model.addAttribute("price_sale", decFormat.format(price/100*(100-sale)));
+		if(price/100*(100-sale) > 50000) {
+			model.addAttribute("price_first", decFormat.format(price/100*(100-sale)-15000));
+		}else {
+			model.addAttribute("price_first", decFormat.format(price/100*(100-sale)));
+		}
+		
 		// img list model 등록
 		product_img_list = userservice.productGet_img(uvo);
 		List<UserProductVO> img_true = new ArrayList<UserProductVO>();
