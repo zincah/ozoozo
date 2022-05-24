@@ -155,6 +155,12 @@ public class SellerController {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			String calMaxText = formatter.format(calMax.getTime());
 			String calMinText = formatter.format(calMin.getTime());
+			model.addAttribute("calMinText", calMinText);
+			model.addAttribute("calMaxText", calMaxText);
+			
+			// 차트에 출력할 데이터 저장할 변수
+			List<String> dateList = new ArrayList<String>();
+			List<Integer> countList = new ArrayList<Integer>();
 			
 			// 매출 리스트 저장할 변수
 			List<ProductVO> salesList = new ArrayList<ProductVO>();
@@ -165,10 +171,13 @@ public class SellerController {
 			while(!calMaxText.equals(calMinText)) { // 해당 월 첫번째 날짜와 값이 일치하면 종료 (최신순 정렬)
 				
 				// 데이터 처리
-				Timestamp date = new Timestamp(calMin.getTimeInMillis());
+				Timestamp date = new Timestamp(calMax.getTimeInMillis());
 				vo.setSales_date(date);
 				tempData = sellerSalesService.selectSalesList(vo);
-				System.out.println(tempData.getSales_final());
+				
+				// 차트용 데이터 저장
+				//salesList.add();
+				
 				// 판매이익이 0이 아닐 경우에만 저장
 				if (tempData.getSales_final()!=0) {
 					salesList.add(tempData);

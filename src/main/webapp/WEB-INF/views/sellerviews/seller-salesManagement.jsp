@@ -30,6 +30,80 @@
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css" />
+	
+<script>
+	$(document).ready(function(){
+		
+		Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+		Chart.defaults.global.defaultFontColor = "#292b2c";
+	
+		// get Date
+		var dateList = ${dateList};
+		var countList = ${countList};
+		
+		var dates = [];
+		
+		dateList = dateList.reverse();
+		countList = countList.reverse();
+		
+		// Area Chart Example
+		var ctx = document.getElementById("myAreaChart");
+		var myLineChart = new Chart(ctx, {
+		  type: "line",
+		  data: {
+		    labels: dateList,
+		    datasets: [
+		      {
+		        label: "Sessions",
+		        lineTension: 0.3,
+		        backgroundColor: "rgba(255, 119, 142, 0.224)",
+		        borderColor: "rgba(255, 119, 142)",
+		        pointRadius: 5,
+		        pointBackgroundColor: "rgba(255, 119, 142)",
+		        pointBorderColor: "rgba(255,255,255,0.8)",
+		        pointHoverRadius: 5,
+		        pointHoverBackgroundColor: "rgba(255, 119, 142)",
+		        pointHitRadius: 50,
+		        pointBorderWidth: 2,
+		        data: countList,
+		      },
+		    ],
+		  },
+		  options: {
+		    scales: {
+		      xAxes: [
+		        {
+		          time: {
+		            unit: "date",
+		          },
+		          gridLines: {
+		            display: true,
+		          },
+		          ticks: {
+		            maxTicksLimit: 7,
+		          },
+		        },
+		      ],
+		      yAxes: [
+		        {
+		          ticks: {
+		            min: 0,
+		            max: 30,
+		            maxTicksLimit: 5,
+		          },
+		          gridLines: {
+		            color: "rgba(0, 0, 0, .125)",
+		          },
+		        },
+		      ],
+		    },
+		    legend: {
+		      display: false,
+		    },
+		  },
+		});
+	})
+    </script>
 </head>
 
 <jsp:include page="header/header.jsp"></jsp:include>
@@ -118,11 +192,15 @@
 	<div class="content-table">
 		<div class="content-view-title">
 			<div>
-				<span class="content-view-title-text" id="search-date1">일별</span> <span
-					class="content-view-title-text2"> 매출 리스트 (</span> <span
-					class="content-view-title-text2" id="search-date2">2022-04-21</span>
-				<span class="content-view-title-text2"> ~ </span> <span
-					class="content-view-title-text2" id="search-date3">2022-04-21</span>
+				<span class="content-view-title-text" id="search-date1">일별</span>
+				<span class="content-view-title-text2"> 매출 리스트 (</span>
+				<span class="content-view-title-text2" id="search-date2">
+					${calMinText}
+				</span>
+				<span class="content-view-title-text2"> ~ </span>
+				<span class="content-view-title-text2" id="search-date3">
+					${calMaxText}
+				</span>
 				<span class="content-view-title-text2">)</span>
 			</div>
 			<div class="content-view-title-right">
@@ -155,36 +233,51 @@
 				</tr>
 			</thead>
 			<tbody id="salesList">
-				<c:forEach var="salesListView" items="${salesListView}" varStatus="status">
-					<tbody class="content-table-content content-hover table-hover-self">
-						<!-- for -->
-						<tr>
+					<c:forEach var="salesListView" items="${salesListView}" varStatus="status">
+						<tr class="content-table-content content-hover table-hover-self">
 							<td class="content-table-content-text option-line"
-								data-bs-toggle="modal" data-bs-target="#modal-view-sales" rowspan="5">
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 								<fmt:formatDate	value="${salesListView.getSales_date()}"
-								pattern="yyyy-MM-dd HH:mm" />
+								pattern="yyyy-MM-dd" />
 							</td>
 							<td class="content-table-content-text option-line"
-								data-bs-toggle="modal" data-bs-target="#modal-view-sales">${salesListView.getSales_paymentTotal()}</td>
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
+								<fmt:formatNumber value="${salesListView.getSales_paymentTotal()}" pattern="#,###" />
+							</td>
 							<td class="content-table-content-text option-line"
-								data-bs-toggle="modal" data-bs-target="#modal-view-sales">${salesListView.getSales_paymentTotalNum()}</td>
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
+								<fmt:formatNumber value="${salesListView.getSales_paymentTotalNum()}" pattern="#,###" />
+							</td>
 							<td class="content-table-content-text option-line"
-								data-bs-toggle="modal" data-bs-target="#modal-view-sales">${salesListView.getSales_canclePaymentTotal()}</td>
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
+								<fmt:formatNumber value="${salesListView.getSales_canclePaymentTotal()}" pattern="#,###" />
+							</td>
 							<td class="content-table-content-text option-line"
-								data-bs-toggle="modal" data-bs-target="#modal-view-sales">${salesListView.getSales_canclePaymentTotalNum()}</td>
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
+								<fmt:formatNumber value="${salesListView.getSales_canclePaymentTotalNum()}" pattern="#,###" />
+							</td>
 							<td class="content-table-content-text option-line"
-								data-bs-toggle="modal" data-bs-target="#modal-view-sales">${salesListView.getSales_submitPaymentTotal()}</td>
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
+								<fmt:formatNumber value="${salesListView.getSales_submitPaymentTotal()}" pattern="#,###" />
+							</td>
 							<td class="content-table-content-text option-line"
-								data-bs-toggle="modal" data-bs-target="#modal-view-sales">${salesListView.getSales_submitPaymentTotalNum()}</td>
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
+								<fmt:formatNumber value="${salesListView.getSales_submitPaymentTotalNum()}" pattern="#,###" />
+							</td>
 							<td class="content-table-content-text option-line"
-								data-bs-toggle="modal" data-bs-target="#modal-view-sales">${salesListView.getSales_discount()}</td>
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
+								<fmt:formatNumber value="${salesListView.getSales_discount()}" pattern="#,###" />
+							</td>
 							<td class="content-table-content-text option-line"
-								data-bs-toggle="modal" data-bs-target="#modal-view-sales">${salesListView.getSales_shippingFee()}</td>
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
+								<fmt:formatNumber value="${salesListView.getSales_shippingFee()}" pattern="#,###" />
+							</td>
 							<td class="content-table-content-text option-line state0"
-								data-bs-toggle="modal" data-bs-target="#modal-view-sales">${salesListView.getSales_final()}</td>
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
+								<fmt:formatNumber value="${salesListView.getSales_final()}" pattern="#,###" />
+							</td>
 						</tr>
-					</tbody>
-				</c:forEach>
+					</c:forEach>
 			</tbody>		
 		</table>
 		<div class="row mt-4">
@@ -308,12 +401,12 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
 	crossorigin="anonymous"></script>
-<script src="resources/assets/demo/chart-area-demo.js"></script>
+<!-- <script src="resources/assets/demo/chart-area-demo.js"></script> -->
 <script src="resources/assets/demo/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
 	crossorigin="anonymous"></script>
 <script src="resources/js/sellerjs/datatables-simple-demo.js"></script>
 <script src="resources/js/sellerjs/seller-customerInquiry.js"></script>
-<script src="resources/js/sellerjs/seller-salesManagement.js"></script>
+<script src="resources/js/sellerjs/seller-salesManagement.js?t=<%=System.currentTimeMillis()%>"></script>
 </body>
 </html>
