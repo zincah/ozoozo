@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -168,15 +169,17 @@ public class SellerController {
 			ProductVO tempData = new ProductVO();
 			
 			// 당월 1일부터 마지막 날짜까지 반복
-			while(!calMaxText.equals(calMinText)) { // 해당 월 첫번째 날짜와 값이 일치하면 종료 (최신순 정렬)
+			while(true) { 
 				
 				// 데이터 처리
 				Timestamp date = new Timestamp(calMax.getTimeInMillis());
 				vo.setSales_date(date);
+				vo.setSeller_id((int) session.getAttribute("seller_id"));
 				tempData = sellerSalesService.selectSalesList(vo);
 				
 				// 차트용 데이터 저장
-				//salesList.add();
+				dateList.add("\"" + calMaxText.substring(5,10) + "\"");
+				countList.add(tempData.getSales_final());
 				
 				// 판매이익이 0이 아닐 경우에만 저장
 				if (tempData.getSales_final()!=0) {
@@ -186,10 +189,22 @@ public class SellerController {
 				// 1일 더하고 값 업데이트
 				calMax.add(Calendar.DATE, -1);
 				calMaxText = formatter.format(calMax.getTime());
+				
+				// 해당 월 첫번째 날짜와 값이 일치하면 종료 (최신순 정렬)
+				if(calMaxText.equals(calMinText)) {
+					break;
+				}
 			}
 			
 			// model에 값 저장
 			model.addAttribute("salesListView", salesList);
+			Collections.reverse(dateList); // 역순으로 재배열
+			model.addAttribute("dateList", dateList);
+			Collections.reverse(countList); // 역순으로 재배열
+			model.addAttribute("countList", countList);
+			// 리스트 매출의 최대값 저장
+			int maxCount = Collections.max(countList);
+			model.addAttribute("maxCount", maxCount);
 			
 			return "seller-salesManagement";
 		}else {
