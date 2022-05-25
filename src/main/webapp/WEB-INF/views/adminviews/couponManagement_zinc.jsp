@@ -59,8 +59,9 @@
                 contentType : 'application/json; charset=UTF-8',
                 dataType : 'html',
                 success : function(resp){
+                  $(".content-table-content content-hover").hide();
                   $(".couponListLayer").html(resp);
-                  $("")
+                  $(".content-table-content content-hover").show();
                 }
               });
 
