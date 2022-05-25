@@ -30,77 +30,6 @@
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css" />
-	
-<script>
-	$(document).ready(function(){
-		
-		Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-		Chart.defaults.global.defaultFontColor = "#292b2c";
-	
-		// get Date
-		var dateList = ${dateList};
-		var countList = ${countList};
-				
-		var dates = [];
-		
-		// Area Chart Example
-		var ctx = document.getElementById("myAreaChart");
-		var myLineChart = new Chart(ctx, {
-		  type: "line",
-		  data: {
-		    labels: dateList,
-		    datasets: [
-		      {
-		        label: "Sessions",
-		        lineTension: 0.3,
-		        backgroundColor: "rgba(255, 119, 142, 0.224)",
-		        borderColor: "rgba(255, 119, 142)",
-		        pointRadius: 5,
-		        pointBackgroundColor: "rgba(255, 119, 142)",
-		        pointBorderColor: "rgba(255,255,255,0.8)",
-		        pointHoverRadius: 5,
-		        pointHoverBackgroundColor: "rgba(255, 119, 142)",
-		        pointHitRadius: 50,
-		        pointBorderWidth: 2,
-		        data: countList,
-		      },
-		    ],
-		  },
-		  options: {
-		    scales: {
-		      xAxes: [
-		        {
-		          time: {
-		            unit: "date",
-		          },
-		          gridLines: {
-		            display: true,
-		          },
-		          ticks: {
-		            maxTicksLimit: 7,
-		          },
-		        },
-		      ],
-		      yAxes: [
-		        {
-		          ticks: {
-		            min: 0,
-		            max: ${maxCount},
-		            maxTicksLimit: 5,
-		          },
-		          gridLines: {
-		            color: "rgba(0, 0, 0, .125)",
-		          },
-		        },
-		      ],
-		    },
-		    legend: {
-		      display: false,
-		    },
-		  },
-		});
-	})
-    </script>
 </head>
 
 <jsp:include page="header/header.jsp"></jsp:include>
@@ -121,10 +50,6 @@
 							<div class="radio-productCode">
 								<div class="btn-group paddingLeft2" role="group"
 									aria-label="Basic radio toggle button group">
-									<input type="radio" class="btn-check dateBtn-1 searchDateBtn" name="btnradio"
-										id="btnradio1" autocomplete="off" checked /> <label
-										class="btn btn-outline-secondary dateBtn" for="btnradio1">오늘</label>
-
 									<input type="radio" class="btn-check dateBtn-2 searchDateBtn" name="btnradio"
 										id="btnradio2" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio2">3일</label>
@@ -188,6 +113,75 @@
 	<!-- content -->
 	<div id="salesList">
 		<div class="content-table">
+			<script type="text/javascript">
+			$(document).ready(function(){
+				Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+				Chart.defaults.global.defaultFontColor = "#292b2c";
+			
+				// get Date
+				var dateList = ${dateList};
+				var countList = ${countList};
+						
+				var dates = [];
+				
+				// Area Chart Example
+				var ctx = document.getElementById("myAreaChart");
+				var myLineChart = new Chart(ctx, {
+				  type: "line",
+				  data: {
+				    labels: dateList,
+				    datasets: [
+				      {
+				        label: "Sessions",
+				        lineTension: 0.3,
+				        backgroundColor: "rgba(255, 119, 142, 0.224)",
+				        borderColor: "rgba(255, 119, 142)",
+				        pointRadius: 5,
+				        pointBackgroundColor: "rgba(255, 119, 142)",
+				        pointBorderColor: "rgba(255,255,255,0.8)",
+				        pointHoverRadius: 5,
+				        pointHoverBackgroundColor: "rgba(255, 119, 142)",
+				        pointHitRadius: 50,
+				        pointBorderWidth: 2,
+				        data: countList,
+				      },
+				    ],
+				  },
+				  options: {
+				    scales: {
+				      xAxes: [
+				        {
+				          time: {
+				            unit: "date",
+				          },
+				          gridLines: {
+				            display: true,
+				          },
+				          ticks: {
+				            maxTicksLimit: 7,
+				          },
+				        },
+				      ],
+				      yAxes: [
+				        {
+				          ticks: {
+				            min: 0,
+				            max: ${maxCount},
+				            maxTicksLimit: 5,
+				          },
+				          gridLines: {
+				            color: "rgba(0, 0, 0, .125)",
+				          },
+				        },
+				      ],
+				    },
+				    legend: {
+				      display: false,
+				    },
+				  },
+				});
+			})
+			</script>
 			<div class="content-view-title">
 				<div>
 					<span class="content-view-title-text" id="search-date1">일별</span>
@@ -397,7 +391,6 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
 	crossorigin="anonymous"></script>
 <script src="resources/js/sellerjs/datatables-simple-demo.js"></script>
-<script src="resources/js/sellerjs/seller-customerInquiry.js"></script>
 <script src="resources/js/sellerjs/seller-salesManagement.js?t=<%=System.currentTimeMillis()%>"></script>
 </body>
 </html>

@@ -5,6 +5,75 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div class="content-table">
+	<script type="text/javascript">
+	$(document).ready(function(){
+		Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+		Chart.defaults.global.defaultFontColor = "#292b2c";
+	
+		// get Date
+		var dateList = ${dateList};
+		var countList = ${countList};
+				
+		var dates = [];
+		
+		// Area Chart Example
+		var ctx = document.getElementById("myAreaChart");
+		var myLineChart = new Chart(ctx, {
+		  type: "line",
+		  data: {
+		    labels: dateList,
+		    datasets: [
+		      {
+		        label: "Sessions",
+		        lineTension: 0.3,
+		        backgroundColor: "rgba(255, 119, 142, 0.224)",
+		        borderColor: "rgba(255, 119, 142)",
+		        pointRadius: 5,
+		        pointBackgroundColor: "rgba(255, 119, 142)",
+		        pointBorderColor: "rgba(255,255,255,0.8)",
+		        pointHoverRadius: 5,
+		        pointHoverBackgroundColor: "rgba(255, 119, 142)",
+		        pointHitRadius: 50,
+		        pointBorderWidth: 2,
+		        data: countList,
+		      },
+		    ],
+		  },
+		  options: {
+		    scales: {
+		      xAxes: [
+		        {
+		          time: {
+		            unit: "date",
+		          },
+		          gridLines: {
+		            display: true,
+		          },
+		          ticks: {
+		            maxTicksLimit: 7,
+		          },
+		        },
+		      ],
+		      yAxes: [
+		        {
+		          ticks: {
+		            min: 0,
+		            max: ${maxCount},
+		            maxTicksLimit: 5,
+		          },
+		          gridLines: {
+		            color: "rgba(0, 0, 0, .125)",
+		          },
+		        },
+		      ],
+		    },
+		    legend: {
+		      display: false,
+		    },
+		  },
+		});
+	})
+	</script>
 	<div class="content-view-title">
 		<div>
 			<span class="content-view-title-text" id="search-date1">일별</span>
@@ -85,7 +154,7 @@
 					</td>
 				</tr>
 			</c:forEach>
-		</tbody>		
+		</tbody>
 	</table>
 	<div class="row mt-4">
 		<div class="col-xl-6 col-md-6 mb-4">
