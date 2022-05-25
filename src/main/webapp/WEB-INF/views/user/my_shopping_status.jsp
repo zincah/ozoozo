@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="resources/css/user_css/young/my_shopping.css?var=13">
     <link rel="stylesheet" href="resources/css/user_css/young/footer.css">
     <link rel="stylesheet" href="resources/css/user_css/young/my_shopping_status.css?var=3">
-
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
     <style data-emotion="css 1yajzey" data-s="">
         .css-1yajzey {
             margin-top: 50px;
@@ -128,7 +129,7 @@
 		ex_text = $("#" + param + "_status").text().split("·");
 		ex_text[0] = "구매확정";
 		$("#" + param + "_status").text(ex_text[0] + "·" + ex_text[1]);
-		/*  $.ajax({
+		  $.ajax({
   			url:'buy_check.com',	
 		  		method:'post',
 		  		data: JSON.stringify(param),
@@ -137,7 +138,22 @@
 		  		success : function(){
 		  			
 		  		}
-		 }) */
+		 }) 
+	}
+	function refund(UID){
+		jQuery.ajax({
+		      "url": "refunt_request.com", // 예: http://www.myservice.com/payments/cancel
+		      "type": "POST",
+		      "contentType": "application/json",
+		      "data": JSON.stringify({
+		        "merchant_uid": UID, // 예: ORD20180131-0000011
+		        "cancel_request_amount": 100, // 환불금액
+		        "reason": "테스트 결제 환불" // 환불사유
+		      }),
+		      "dataType": "json"
+		    }).done(function(result){
+		    	console.log("환불 성공");
+		    });
 	}
 	</script>
 <header>
@@ -277,8 +293,7 @@
                             <section class="css-idjloq e1yy3fi630">
                                 <div class="css-sw3pq5 e1yy3fi629">
                                     <div class="css-145bbay e1yy3fi628 "><span class="divider">${date_filter[i].order_num }</span><span class="dh_edit ${date_filter[i].order_num }_time">${date_filter[i].order_date}</span>
-                                    </div><a class="css-1buj0y e1yy3fi627"
-                                        href="http://127.0.0.1:3000/orders.html">상세보기</a>
+                                    </div><a class="css-1buj0y e1yy3fi627" onclick="refund(${date_filter[i].order_num })">환불하기</a>
                                 </div>
                                <c:forEach var="j" begin="0" end="${fn:length(pl_li)-1}">
                                <c:if test="${order_num eq pl_li[j].order_num}">

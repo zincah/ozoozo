@@ -97,8 +97,11 @@ public class UserOrderController {
 		log_cls.buy_check_update(param);
 		return null;
 	}
-	
-	
+	@ResponseBody
+	@RequestMapping(value = "/refunt_request.com", method=RequestMethod.POST)
+	public String refund_method() {
+		return null;
+	}
 	
 	@RequestMapping(value = "/orders.com")
 	public String user_orders(HttpSession session, Model model) {
@@ -110,5 +113,4 @@ public class UserOrderController {
 			return "ozoLogin_zinc";	
 		}
 	}
-	
 }
