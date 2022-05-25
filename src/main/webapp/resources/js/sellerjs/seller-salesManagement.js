@@ -1,8 +1,26 @@
+/* 페이지 로딩 */
+$(document).ready(function () {	
+	dateInit();
+	
+	// 기간 값 받아오기
+	$(".searchDateBtn").change(function() {
+		getOrderData();
+	});
+	$(".startDate").change(function() {
+		getOrderData();
+	});
+	$(".endDate").change(function() {
+		getOrderData();
+	});
+});
+
 /* 기간 검색 단축 버튼 */
-$(".dateBtn-1").click(function() {
-	startDate.valueAsDate = today;
-  	endDate.valueAsDate = today;
-})
+// Get input date
+var startDate = document.getElementsByClassName("startDate")[0];
+var endDate = document.getElementsByClassName("endDate")[0];
+// Get today
+var today = new Date();
+
 $(".dateBtn-2").click(function() {
   var calculationDate = new Date();
   calculationDate.setDate(today.getDate() - 3);
@@ -48,28 +66,20 @@ $(".dateBtn-8").click(function() {
 
 /* 상세검색 초기화 클릭 */
 $(".initBtn").click(function() {
-  //기간 초기화
-  document.getElementById("btnradio1").checked = true;
-  startDate.valueAsDate = today;
-  endDate.valueAsDate = today;
-  document.getElementById("flexRadioDefault1").checked = true;
+  dateInit();
 })
 
-/* 상품 검색 기능 */
-$(document).ready(function () {	
-	// 기간 값 받아오기
-	$(".searchDateBtn").change(function() {
-		getOrderData();
-	});
-	$(".startDate").change(function() {
-		getOrderData();
-	});
-	$(".endDate").change(function() {
-		getOrderData();
-	});
-});
+/* 기간 초기화 */
+function dateInit() {
+  document.getElementById("btnradio4").checked = true;
+  var calculationDate = new Date();
+  calculationDate.setMonth(today.getMonth() - 1);
+  startDate.valueAsDate = calculationDate;
+  endDate.valueAsDate = today;
+  document.getElementById("flexRadioDefault1").checked = true;
+}
 
-// 검색 처리
+/* 검색 처리 */
 function getOrderData() {
 	
 	// 값 받아오기
