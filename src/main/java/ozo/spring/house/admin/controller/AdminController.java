@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -45,12 +46,19 @@ public class AdminController {
 			List<String> dateList = new ArrayList<String>();
 			List<Integer> countList = new ArrayList<Integer>();
 			
+			List<Map<String, Integer>> bestOfIndexList = userService.bestProductOfIndex();
+			List<Integer> labelList = new ArrayList<Integer>();
+			List<Integer> totalList = new ArrayList<Integer>();
+			
+			System.out.println(bestOfIndexList);
+			
 			int waitcount = productService.registrationWait();
 			int holdcount = productService.registrationHold();
 			List<Integer> regiList = new ArrayList<Integer>();
 			regiList.add(waitcount);
 			regiList.add(holdcount);
 			
+			// 유입인구 for문
 			for(int i=0; i<floatList.size(); i++) {
 				UserVO vo = floatList.get(i);
 				dateList.add("\""+String.valueOf(vo.getLogin_date())+"\"");
@@ -58,9 +66,14 @@ public class AdminController {
 
 			}
 
-			System.out.println(dateList.size());
-			System.out.println(countList.size());
+			for(int j=0; j<bestOfIndexList.size(); j++) {
+				Map<String, Integer> bestOfIndex = bestOfIndexList.get(j);
+				//labelList.add(bestOfIndex.get("od_postid"));
+				//totalList.add(bestOfIndex.get("total"));
+			}
 			
+			model.addAttribute("labelList", labelList);
+			model.addAttribute("totalList", totalList);
 			model.addAttribute("dateList", dateList);
 			model.addAttribute("countList", countList);
 			model.addAttribute("regiList", regiList);

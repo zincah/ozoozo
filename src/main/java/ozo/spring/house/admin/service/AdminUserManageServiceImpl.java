@@ -1,6 +1,7 @@
 package ozo.spring.house.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,11 @@ public class AdminUserManageServiceImpl implements AdminUserManageService {
 	@Override
 	public int getUserListCount(UserVO vo) {
 		return adminManageDAO.getUserListCount(vo);
+	}
+
+	@Override
+	public List<Map<String, Integer>> bestProductOfIndex() {
+		return adminManageDAO.bestProductOfIndex();
 	}
 
 }
