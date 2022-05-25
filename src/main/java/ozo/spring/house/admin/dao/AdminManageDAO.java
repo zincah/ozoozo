@@ -106,6 +106,11 @@ public class AdminManageDAO {
 		System.out.println("--> mybatis in adminmanagedao floating");
 		return sqlSessionTemplate.selectList("AdminManageDAO.floatingPopulation");
 	}
+	
+	public List<Map<String, Integer>> bestProductOfIndex() { // best 상품 bar 그래프
+		System.out.println("--> mybatis in adminmanagedao best product ratio");
+		return sqlSessionTemplate.selectList("AdminManageDAO.bestProductOfIndex");
+	}
 
 	// 입점신청관련 관련
 	public List<SellerVO> selectSellerList(SellerVO vo){

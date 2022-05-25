@@ -12,6 +12,12 @@
 		LIMIT 7 OFFSET 0 * 7
 	</select>
 	
+	<!-- best 상품 관리 -->
+	<select id="bestProductOfIndex" resultType="HashMap">
+		select (ROW_NUMBER() over(order by sum(payment) desc)) AS ROWNUM, od_postid, sum(payment) as total
+		from user_order group by od_postid order by total desc fetch first 30 row only;
+	</select>
+	
 	<!-- 인덱스 페이지 : 등록 요청 -->
 	<select id="registrationWait" resultType="int">
 		SELECT COUNT(*) FROM product_posting WHERE post_status='승인대기';
