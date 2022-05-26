@@ -14,12 +14,12 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript" src="resources/js/userjs/productDetail.js?var=1"></script>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/public.css'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/overview.css?var=1'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/inform.css'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/overview.css?var=4'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/inform.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/review.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/addInform.css?var=1'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/smallOption.css?var=1'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/detailScript.css?var=1'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/smallOption.css?var=2'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/detailScript.css?var=2'>
    <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="resources/js/userjs/detailbookmark.js?var=1"></script>

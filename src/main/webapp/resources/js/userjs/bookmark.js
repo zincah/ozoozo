@@ -65,11 +65,36 @@ $(document).ready(function(){
 									'<use fill="#000" filter="url(#scrap-icon-3-c)"></use>'+
 									'<path id="blueshadow" stroke="#ff778e" d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>'+
 									'</button>');
-							console.log($('#'+gun));	
+							console.log($('#'+gun));
+		
+								
 							
 						}
 						}) ;
+						$(document).ready(function () {
+								            $(document).on("click",".b_blue",function () {
+								                const Toast = Swal.mixin({
+								                    toast: true,
+								                    position: 'bottom',
+								                    showConfirmButton: false,
+								                    timer: 3000,
+								                    timerProgressBar: true,
+													background: '#ffb0bd',
+								                    didOpen: (toast) => {
+								                        toast.addEventListener('mouseenter', Swal.stopTimer)
+								                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+								                    }
+								                })
+								
+								                Toast.fire({
+								                    
+								                    title: '스크랩 했다잉~'
+								                })
+								            });
+								
+								        });
 					}
+										
 				
 				   
 				
@@ -141,9 +166,38 @@ $(document).ready(function(){
 							'<use fill="#000" filter="url(#scrap-icon-3-c)"></use>'+
 							'<path id="blueshadow" stroke="#FFF" d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>'+
 							'</button>');
-						console.log($('#'+so));			
+						console.log($('#'+so));
+						
+						
+						
+									
 					}
+					
+					
 					}) 
+					$(document).ready(function () {
+	
+	 					$(document).on("click",".b_none",function () {
+				            const Toast = Swal.mixin({
+				                toast: true,
+				                position: 'bottom',
+				                showConfirmButton: false,
+				                timer: 3000,
+				                timerProgressBar: true,
+								background: '#ffb0bd',
+				                didOpen: (toast) => {
+				                    toast.addEventListener('mouseenter', Swal.stopTimer)
+				                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+				                }
+				            })
+				
+				            Toast.fire({
+				                
+				                title: '스크랩 해제 했다잉~'
+				            })
+				        });
+				});
+					
 			}
 			
 		});
@@ -153,47 +207,3 @@ $(document).ready(function(){
        
 
 });
-$(document).ready(function () {
-            $(document).on("click",".b_blue",function () {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'bottom',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-					background: '#ffb0bd',
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
-
-                Toast.fire({
-                    
-                    title: '스크랩 했다잉~'
-                })
-            });
-
-        });
-$(document).ready(function () {
-	
-	 $(document).on("click",".b_none",function () {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'bottom',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-					background: '#ffb0bd',
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
-
-                Toast.fire({
-                    
-                    title: '스크랩 해제 했다잉~'
-                })
-            });
-	});
