@@ -352,7 +352,7 @@
                                                                 </button>
                                                                 <div class="option_item_control ${pro_li[f].product_id}_SSD">
                                                                 	<c:choose>
-                                                                		<c:when test="${cart_li[f].cart_quantity < 9 }" >
+                                                                		<c:when test="${cart_li[f].cart_quantity < 10 }" >
 		                                                                    <div class="option_item_count ${pro_li[f].product_id}_SD">
 		                                                                        <select class="form_control"id="${pro_li[f].product_id}_S" onChange="ea_change(this)">
 		                                                                            <option value="1">1</option>

@@ -1634,3 +1634,8 @@ fieldset, img {
     font-family: Tahoma, sans;
     color: rgb(255, 119, 119);
 }
+input::-webkit-inner-spin-button {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
