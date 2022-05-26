@@ -220,10 +220,16 @@
 			
 		}
 		// 여기서 부터 결제
+		
+		double_click = false;
 		  var IMP = window.IMP; // 생략 가능
 	    IMP.init("imp90839936"); // 예: imp00000000
 	    //결제 요청하기
 	    function requestPay() {
+	    	if(double_click){
+	    		return;
+	    	}
+	    	double_click = true;
 	    	email = $(".email1").val() + "@" + $(".email2").val();
 	    	checkBox = $('input[name=isAgree]').is(':checked');
 	    	if(${post_li.size()} == 1){
@@ -262,17 +268,7 @@
 	    		alert("개인정보 동의를 해주세요.");
 	    		return;
 	    	}
-	    	if(addr_bln){
-	    		address_add();
-	    		addresscode = $("#sample6_postcode").val();
-	    		address = $("#sample6_address").val() + ", " + $("#sample6_detailAddress").val();
-	    		
-	    	}else{
-	    		address = "${address_true.address1}"
-	    	    address = address.replace("[","").split("]");
-	    		address = address[1];
-	    		addresscode = address[0];
-	    	}
+	    	
 			phone_ = $("select[name=phone1]").val() + "-" + $('input[name=phone]').val();	    	
 	    	
 			console.log(address);	    	
@@ -290,13 +286,26 @@
 	            buyer_addr: address,
 	            buyer_postcode: addresscode
 	        }, function (rsp) { // callback
+	        	double_click = false;
 	            if (rsp.success) {
 	                // 결제 성공 시 로직 
+	            	if(addr_bln){
+	    	    		address_add();
+	    	    		addresscode = $("#sample6_postcode").val();
+	    	    		address = $("#sample6_address").val() + ", " + $("#sample6_detailAddress").val();
+	    	    		
+	    	    	}else{
+	    	    		address = "${address_true.address1}"
+	    	    	    address = address.replace("[","").split("]");
+	    	    		address = address[1];
+	    	    		addresscode = address[0];
+	    	    	}
 	                console.log("결제 성공");
 	                payment_success(rsp);
 	                exit = false;
 	            } else {
 	                // 결제 실패 시 로직,
+	                double_click = false;
 	                alert("결제에 실패했습니다. 실패 원인: " + rsp.error_msg);
 	            }
 	        });
@@ -310,9 +319,9 @@
 	            dataType : 'text',
 	            data: JSON.stringify ({
 	                imp_uid: rsp.imp_uid, //imp 번호
-	                merchant_uid: parseInt(rsp.merchant_uid), //고유번호
+	                merchant_uid: parseInt(rsp.merchant_uid), //고유번호 rsp.merchant_uid
 	                pay_method: way_payment,// 결제 방법
-	                paid_amount: rsp.paid_amount,// 가격
+	                paid_amount: parseInt(final_price),//rsp.paid_amount, 가격
 	                paid_at: rsp.paid_at, //결제 승인 시각
 	                coupon_code :  parseInt(coupon_code),
 	            	point_num :  parseInt(point_num)
@@ -398,7 +407,7 @@
 			each_price();
 		  }
 		  
-		  
+		  <c:if test="${cart_bln}">
 		  exit = true;
 		  window.addEventListener('unload', function exit(){
 		  	if(exit){
@@ -415,6 +424,7 @@
 		  	}
 		  	return;
 		  });
+		  </c:if>
 		  //결제 정보 전달하기
 	    
 	    //결제번호, 주문번호 추출하기

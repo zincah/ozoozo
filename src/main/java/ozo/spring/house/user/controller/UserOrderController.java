@@ -1,15 +1,37 @@
 package ozo.spring.house.user.controller;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpSession;
+import javax.xml.crypto.Data;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,13 +39,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import ozo.spring.house.user.dao.UserDAO.paymentLog_cls;
 import ozo.spring.house.user.service.UserService;
 import ozo.spring.house.user.vo.UserPaymentLogVO;
 import ozo.spring.house.user.vo.UserProductVO;
 
 @Controller
+@PropertySource("classpath:config/imp.properties")
 public class UserOrderController {
+	
+	@Value("${imp_secret}")
+	private String secret;
+	
+	@Value("${imp_key}")
+	private String key;
+	
 	@Autowired
 	UserService userservice;
 	
@@ -46,7 +81,6 @@ public class UserOrderController {
 			log_cls.set_wide_li(pl_li);
 			this.wide_li = log_cls.get_wide_li();
 			model.addAttribute("pl_li", pl_li);
-			System.out.println(pl_li.get(0).getShipfinish_date());
 			for(int i = 0; i < pl_li.size(); i++) {
 				if(pl_li.get(i).getShipfinish_date() != null) {
 					String Str = String.valueOf(pl_li.get(i).getShipfinish_date());
@@ -60,7 +94,6 @@ public class UserOrderController {
 					LocalDate date = LocalDate.of(Integer.parseInt(ex[0]), Integer.parseInt(ex[1]),Integer.parseInt(ex[2]));
 					DayOfWeek dow = date.getDayOfWeek();
 					pl_li.get(i).setDay(dow.getDisplayName(TextStyle.NARROW, Locale.KOREAN)); 
-					System.out.println("날 짜 : " + date);
 				}
 			}
 			
@@ -97,12 +130,95 @@ public class UserOrderController {
 		log_cls.buy_check_update(param);
 		return null;
 	}
+	
+	
 	@ResponseBody
 	@RequestMapping(value = "/refunt_request.com", method=RequestMethod.POST)
-	public String refund_method() {
-		return null;
+	public String refund_method(@RequestBody HashMap<String,Object> param)throws IOException {
+		String merchant_uid = (String) param.get("merchant_uid");
+		
+		HttpsURLConnection conn = null;
+		 
+		URL url = new URL("https://api.iamport.kr/users/getToken");
+
+		conn = (HttpsURLConnection) url.openConnection();
+
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-type", "application/json");
+		conn.setRequestProperty("Accept", "application/json");
+		conn.setDoOutput(true);
+		JsonObject json = new JsonObject();
+
+		json.addProperty("imp_key", key);
+		json.addProperty("imp_secret", secret);
+		
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+		
+		bw.write(json.toString());
+		bw.flush();
+		bw.close();
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
+
+		Gson gson = new Gson();
+
+		String response = gson.fromJson(br.readLine(), Map.class).get("response").toString();
+		
+		System.out.println(response);
+
+		String token = gson.fromJson(response, Map.class).get("access_token").toString();
+
+		br.close();
+		conn.disconnect();
+		System.out.println(token);
+		// ========================================================
+		
+		HttpClient client = HttpClientBuilder.create().build();
+		HttpPost post = new HttpPost("https://api.iamport.kr/payments/cancel");
+		Map<String, String> map = new HashMap<String, String>();
+		post.setHeader("Authorization", token);
+		map.put("merchant_uid", merchant_uid);
+		map.put("amount", "80");
+		String asd = "";
+		try {
+			post.setEntity(new UrlEncodedFormEntity(convertParameter(map)));
+			HttpResponse res = client.execute(post);
+			ObjectMapper mapper = new ObjectMapper();
+			String enty = EntityUtils.toString(res.getEntity());
+			JsonNode rootNode = mapper.readTree(enty);
+			asd = rootNode.get("response").asText();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (asd.equals("null")) {
+			System.err.println("환불실패");
+			return "-1";
+		} else {
+			System.err.println("환불성공");
+			return "1";
+		}
+	}
+
+ // Map을 사용해서 Http요청 파라미터를 만들어 주는 함수
+	private List<NameValuePair> convertParameter(Map<String, String> map){
+		List<NameValuePair> paramList = new ArrayList<NameValuePair>();
+		
+		Set<Entry<String,String>> entries = map.entrySet();
+		
+		for(Entry<String,String> entry : entries) {
+			paramList.add(new BasicNameValuePair(entry.getKey(),  entry.getValue()));
+		}
+		
+		return paramList;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/refunt_request_DB.com", method=RequestMethod.POST)	
+	public String refund_DB_update(@RequestBody int merchant_UID) {
+		log_cls.refund_DB(merchant_UID);
+		return null;
+	}
+		
 	@RequestMapping(value = "/orders.com")
 	public String user_orders(HttpSession session, Model model) {
 		if(session.getAttribute("UserMail")!=null) {

@@ -154,6 +154,7 @@ public class ProductVO {
 	
 	// 매출 리스트 조회
 	private Timestamp sales_date; // 날짜
+	private Date sales_dateString; // 날짜(Date 형)
 	private int sales_paymentTotal; // 결제금액
 	private int sales_paymentTotalNum; // 결제건수 
 	private int sales_canclePaymentTotal; // 취소금액
@@ -163,4 +164,9 @@ public class ProductVO {
 	private int sales_discount; // 할인금액
 	private int sales_shippingFee; // 배송비
 	private int sales_final; // 판매이익
+	
+	// barChart 데이터 출력용
+	private Timestamp sales_startDate; // 시작날짜
+	private Timestamp sales_endDate; // 종료날짜
+	private int sales_count; // 판매량
 }

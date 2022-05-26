@@ -52,7 +52,11 @@ public class UserPaymentController {
 	@RequestMapping(value = {"/cart_payment.com","/ProductPage.com"}, method=RequestMethod.POST)
 	public String load_payment(HttpSession session,Model model, HttpServletRequest request) {
 		userID = (Integer)session.getAttribute("User_Num");
-		
+		if(request.getParameter("cart_param") != null) {
+			model.addAttribute("cart_bln", false);
+		}else {
+			model.addAttribute("cart_bln", true);
+		}
 		if(request.getParameter("Product_ID") == null) {
 			System.out.println(request.getParameter("Product_ID"));
 			return null;
@@ -116,7 +120,6 @@ public class UserPaymentController {
 		 * System.out.println(pro_li.get(i)); System.out.println("                  ");
 		 * }
 		 */
-		model.addAttribute("access", true);
 		return "calculation";
 	}
 	@ResponseBody
@@ -148,17 +151,18 @@ public class UserPaymentController {
 			add_vo.setSeller_id(cart_li.get(i).getCart_seller());
 			int price = pro_li.get(i).getProduct_price() * pro_li.get(i).getCart_quantity();
 			add_vo.setPrice(price);
-			int final_price = price; //할인된만큼 뺴기
-			add_vo.setFinal_price(final_price);
+			int final_price = price - point; //할인된만큼 뺴기
+			add_vo.setPayment(final_price);
 			add_vo.setProduct_id(cart_li.get(i).getCart_product()); 	
 			add_vo.setUID(cart_li.get(i).getCart_user());
 			add_vo.setQuantity(pro_li.get(i).getCart_quantity());
 			int shipfee = pro_li.get(i).getProduct_shipfee() * pro_li.get(i).getCart_quantity();
-			add_vo.setShipfee(shipfee);
+			add_vo.setShipping_fee(shipfee);
 			add_vo.setOrder_status("결제완료");
 			add_vo.setPost_id(cart_li.get(i).getCart_post());
 			this.choice_addr = pay_cls.get_addr_true(cvo);
 			add_vo.setAddress_id(choice_addr.getAddress_id());
+			//add_vo.setRefund_id(0);
 			if((Integer)ivo.get("coupon_code") != null) {
 				int coupon_code = (Integer)ivo.get("coupon_code");
 				add_vo.setCoupon_id(coupon_code);

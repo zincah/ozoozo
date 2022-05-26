@@ -16,8 +16,14 @@
     <link rel="stylesheet" href="resources/css/user_css/young/my_shopping.css?var=13">
     <link rel="stylesheet" href="resources/css/user_css/young/footer.css">
     <link rel="stylesheet" href="resources/css/user_css/young/my_shopping_status.css?var=3">
-<script type="text/javascript"
-	src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+	<script
+ 		 src="https://code.jquery.com/jquery-3.3.1.min.js"
+ 		 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  		crossorigin="anonymous">
+	</script>
+	<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <style data-emotion="css 1yajzey" data-s="">
         .css-1yajzey {
             margin-top: 50px;
@@ -146,13 +152,23 @@
 		      "type": "POST",
 		      "contentType": "application/json",
 		      "data": JSON.stringify({
-		        "merchant_uid": UID, // 예: ORD20180131-0000011
-		        "cancel_request_amount": 100, // 환불금액
+		        "merchant_uid": String(UID), // 예: ORD20180131-0000011
+		        "cancel_request_amount": 100, // 환불금액 
 		        "reason": "테스트 결제 환불" // 환불사유
 		      }),
 		      "dataType": "json"
 		    }).done(function(result){
+		    	 console.log(result);
 		    	console.log("환불 성공");
+		    	jQuery.ajax({
+				      "url": "refunt_request_DB.com", // 예: http://www.myservice.com/payments/cancel
+				      "type": "POST",
+				      "contentType": "application/json",
+				      "data": JSON.stringify(Integer(UID)),
+				      "dataType": "json"
+				    }).done(function(result){
+				    	console.log(result);
+				    });
 		    });
 	}
 	</script>
@@ -228,66 +244,6 @@
                 <div>
                     <div>
                         <div class="css-1yajzey ehoya3o0">
-                            <!-- <div class="filter css-rzn8ck">
-                                <div class="filter-bar">
-                                    <div class="filter-bar__control-list">
-                                        <ul class="filter-bar__control-list__left">
-                                            <li
-                                                class="filter-bar__control-list__item filter-bar__control-list__item--icon">
-                                                <button class="filter-bar__control-list__icon" type="button"
-                                                    title="필터 전체"><svg class="icon" width="24" height="24"
-                                                        viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
-                                                        <path fill="#BDBDBD"
-                                                            d="M18.284 4H5.716a.7.7 0 0 0-.61.362.668.668 0 0 0 0 .724l3.963 6.978c.353.632.97 1.348.971 2.076v6.181c.002.24-.054.388.149.558.203.17.343.118.444.095l3.29-1.257c.283-.095.321-.369.317-.676v-4.9c0-.73.338-1.445.69-2.077l3.963-6.978a.668.668 0 0 0 0-.724.7.7 0 0 0-.61-.362z">
-                                                        </path>
-                                                    </svg></button>
-                                            </li>
-                                            <li class="filter-bar__control-list__item">
-                                                <div class="drop-down panel-drop-down filter-bar-control"><button
-                                                        class="button button--color-blue-light-very-more button--size-50 button--shape-4 filter-bar-control__button active">기간<svg
-                                                            class="icon" width="12" height="12" viewBox="0 0 12 12"
-                                                            fill="currentColor" preserveAspectRatio="xMidYMid meet">
-                                                            <path
-                                                                d="M6.069 6.72l4.123-3.783 1.216 1.326-5.32 4.881L.603 4.273l1.196-1.346z">
-                                                            </path>
-                                                        </svg></button></div>
-                                            </li>
-                                            <li class="filter-bar__control-list__item">
-                                                <div class="drop-down panel-drop-down filter-bar-control"><button
-                                                        class="button button--color-blue-light-very-more button--size-50 button--shape-4 filter-bar-control__button active">주문상태<svg
-                                                            class="icon" width="12" height="12" viewBox="0 0 12 12"
-                                                            fill="currentColor" preserveAspectRatio="xMidYMid meet">
-                                                            <path
-                                                                d="M6.069 6.72l4.123-3.783 1.216 1.326-5.32 4.881L.603 4.273l1.196-1.346z">
-                                                            </path>
-                                                        </svg></button></div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <ul class="filter-bar__tag-list">
-                                        <li class="filter-bar__tag-list__item"><button
-                                                class="button button--color-blue button--size-50 button--shape-4 filter-bar__tag"
-                                                type="button">구매확정<svg class="icon" width="12" height="12"
-                                                    viewBox="0 0 12 12" fill="currentColor"
-                                                    preserveAspectRatio="xMidYMid meet">
-                                                    <path
-                                                        d="M6 4.94L3.879 2.817l-1.061 1.06L4.939 6 2.818 8.121l1.06 1.061L6 7.061l2.121 2.121 1.061-1.06L7.061 6l2.121-2.121-1.06-1.061L6 4.939zM6 12A6 6 0 1 1 6 0a6 6 0 0 1 0 12z">
-                                                    </path>
-                                                </svg></button></li>
-                                        <li class="filter-bar__tag-list__item"><button
-                                                class="button button--color-blue button--size-50 button--shape-4 filter-bar__tag"
-                                                type="button">6개월 전<svg class="icon" width="12" height="12"
-                                                    viewBox="0 0 12 12" fill="currentColor"
-                                                    preserveAspectRatio="xMidYMid meet">
-                                                    <path
-                                                        d="M6 4.94L3.879 2.817l-1.061 1.06L4.939 6 2.818 8.121l1.06 1.061L6 7.061l2.121 2.121 1.061-1.06L7.061 6l2.121-2.121-1.06-1.061L6 4.939zM6 12A6 6 0 1 1 6 0a6 6 0 0 1 0 12z">
-                                                    </path>
-                                                </svg></button></li>
-                                        <li class="filter-bar__tag-list__item"><button
-                                                class="filter-bar__tag-list__clear" type="button">초기화</button></li>
-                                    </ul>
-                                </div>
-                            </div> -->
                             <c:forEach var="i" begin="0" end="${fn:length(date_filter)-1}">
                             <c:set var="order_num" value="${date_filter[i].order_num }"/>
                             <section class="css-idjloq e1yy3fi630">

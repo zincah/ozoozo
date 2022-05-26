@@ -21,8 +21,10 @@
 <script>
 
 	let rank = 'latestRanking';
+	let totalCount;
 	var firstscroll = 0;
 	var page = 0; // 페이징
+	
 	
 	// timer 설정하기
 	const getTime =()=>{

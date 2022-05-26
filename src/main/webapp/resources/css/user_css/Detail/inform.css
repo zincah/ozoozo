@@ -66,8 +66,8 @@ li:first-child>.production-selling-navigation__item {
 }
 
 .production-selling-navigation__item.production-selling-navigation__item--active {
-    color: #35c5f0;
-    border-bottom: 3px solid #35c5f0;
+    color: #f77;
+    border-bottom: 3px solid #f77;
     z-index: 1;
 }
 
@@ -88,7 +88,7 @@ li:first-child>.production-selling-navigation__item {
     transition: color .1s;
 }
 .production-selling-navigation__item:hover{
-    color: #35c5f0;
+    color: #f77;
 }
 
 @media (min-width: 768px) {

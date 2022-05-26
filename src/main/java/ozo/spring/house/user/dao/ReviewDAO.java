@@ -74,4 +74,16 @@ public class ReviewDAO {
     	System.out.println("--> mybatis update review");
     	sqlSessionTemplate.update("ReviewDAO.updateMyReview", vo);
     }
+    
+    // 상세페이지 리뷰
+    public List<ReviewVO> getReviewTODetailPage(int pro){
+    	System.out.println("--> mybatis review to detail page");
+    	return sqlSessionTemplate.selectList("ReviewDAO.getReviewTODetailPage", pro);
+    }
+    
+    public int updateLiked(ReviewVO vo){
+    	System.out.println("--> mybatis liked update");
+    	sqlSessionTemplate.update("ReviewDAO.updateLiked", vo);
+    	return sqlSessionTemplate.selectOne("ReviewDAO.getLikedSu", vo);
+    }
 }
