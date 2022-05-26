@@ -11,7 +11,7 @@
 		JOIN product p2 ON p2.product_id = uo.product_id 
 		JOIN address a ON a.address_id = uo.address_id
 		JOIN product_option po ON po.op_productid = uo.product_id
-		WHERE uo.seller_id = #{seller_id}
+		WHERE uo.seller_id = #{seller_id} AND uo.refund_id IS NULL OR (uo.refund_id IS NOT NULL AND uo.order_status = '환불처리')
 		ORDER BY uo.order_id DESC;
 	</select>
 	
