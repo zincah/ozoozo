@@ -18,21 +18,19 @@
     <script type="text/javascript" src="resources/js/userjs/bookmark.js?var=1"></script>	
     
     <script>
-$(document).ready(function(){
+    
+    var dealtimelist = ${dealtimelist};
+    
+	$(document).ready(function(){
 		
 		$(".banner_link").click(function(e){
 			e.preventDefault();
 		});
-	
-		
-		
-		
-	
-	
-	
+
 	 
 	});
     </script>
+    <script type="text/javascript" src="resources/js/userjs/dealTimer.js?var=1"></script>
 </head>
 <body>
 <header>

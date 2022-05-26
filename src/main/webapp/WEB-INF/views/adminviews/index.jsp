@@ -93,18 +93,22 @@
 		  },
 		});
 		
+		var labelList = ${labelList};
+		var totalList = ${totalList};
+		
+		
 		// bar chart
 		var ctx = document.getElementById("myBarChart");
 		var myLineChart = new Chart(ctx, {
 		  type: "horizontalBar",
 		  data: {
-		    labels: ${labelList},
+		    labels: labelList,
 		    datasets: [
 		      {
 		        label: "sales",
 		        backgroundColor: "rgba(255, 119, 142)",
 		        borderColor: "rgba(255, 119, 142)",
-		        data: ${totalList},
+		        data: totalList,
 		      },
 		    ],
 		  },

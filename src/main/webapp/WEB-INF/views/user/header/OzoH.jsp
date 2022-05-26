@@ -225,8 +225,13 @@
 										d="M4 5h18l-2.6 10.5a2 2 0 0 1-2 1.5H8.6a2 2 0 0 1-2-1.5L4 5zm4 15.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0zm7 0a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0z">
                                 </path>
                                 <path d="M1 2h3v3"></path>
-                            </svg> <span
-								class="layout-navigation-bar-icon__ticker">1</span></a>
+                            </svg> 
+                            <!-- 장바구니 -->
+                            <c:if test="${userCartSu ne null }">
+                            <span class="layout-navigation-bar-icon__ticker">
+								${userCartSu}
+							</span>
+							</c:if></a>
 							<div class="drop-down layout-navigation-bar-user-section">
 								<button class="layout-navigation-bar-user-button" type="button"
 									aria-label="우동이형님">

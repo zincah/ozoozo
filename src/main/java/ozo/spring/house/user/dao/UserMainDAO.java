@@ -24,6 +24,12 @@ public class UserMainDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	// header 장바구니 카운트
+	public int checkCartSu(UserVO vo) {
+		System.out.println("--> mybatis in usermaindao checkcartsu");
+		return sqlSessionTemplate.selectOne("UserMainDAO.checkCartSu", vo);
+	}
+	
 	public List<UserProductVO> mainProductList(UserProductVO vo){
 		System.out.println("mybatis in usermaindao mainproductlist");
 		return sqlSessionTemplate.selectList("UserMainDAO.mainProductList", vo);
@@ -87,6 +93,12 @@ public class UserMainDAO {
 		System.out.println(list.size());
 
 		return list;
+	}
+	
+	// deal 시간 추가
+	public List<Map<String, String>> getDealEndTimeAtDealPage(){
+		System.out.println("mybatis in usermaindao getdealendtime at deal page");
+		return sqlSessionTemplate.selectList("UserMainDAO.getDealEndTimeAtDealPage");
 	}
 
 	// brand 관련 잠깐 추가
