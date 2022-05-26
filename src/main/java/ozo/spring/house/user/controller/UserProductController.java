@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.user.dao.UserDAO.product_cls;
 import ozo.spring.house.user.service.ReviewService;
+import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.service.UserService;
 import ozo.spring.house.user.vo.CouponVO;
 import ozo.spring.house.user.vo.ReviewVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserProduct_tableVO;
+import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Controller
@@ -32,13 +34,17 @@ public class UserProductController {
 	@Autowired
 	ReviewService reviewService;
 	
+	@Autowired
+	UserScrapService userScrapService;
+	
 	product_cls pro_cls;
 	List<UserProductVO> product_list;
 	int pro;
 	CouponVO coupon = new CouponVO();
 	
 	@RequestMapping(value = "/productPage.com")
-	public String user_product(Model model, UserProductVO vo, UserProduct_tableVO tvo, HttpServletRequest request) {
+	public String user_product(Model model, UserProductVO vo, UserProduct_tableVO tvo, HttpServletRequest request, HttpSession session, UserScrapVO svo) {
+		
 		// 상품 아이디
 		this.pro = Integer.parseInt(request.getParameter("p"));
 		System.out.println("상품아이디 " +pro);  //상품 아이디로 전달
@@ -52,6 +58,20 @@ public class UserProductController {
 		DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
 		product_list = userservice.productGet(uvo);
 		
+		//스크랩
+				List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
+				vo.setCheckit(false);
+				if(session.getAttribute("User_Num") != null) {
+					svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+					scrap = userScrapService.userScrapList(svo);
+				}
+				for(int j=0; j<scrap.size(); j++) {
+					UserProductVO pro = product_list.get(0);
+					UserScrapVO sc = scrap.get(j);
+					if(pro.getPost_id() == sc.getSc_postid()) {
+						pro.setCheckit(true);
+					}
+				}
 		int price = product_list.get(0).getWhole_price();
 		// 기본적인거 설정
 		int sale = product_list.get(0).getSale_ratio();

@@ -24,7 +24,9 @@
 	let totalCount;
 	var firstscroll = 0;
 	var page = 0; // 페이징
+
 	var dealtimelist = ${dealtimelist};
+
 
 	$(document).ready(function(){
 		

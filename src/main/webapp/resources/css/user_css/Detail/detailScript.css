@@ -239,7 +239,7 @@
     transition: background-color .1s,color .1s;
 }
 .large-close-modal__button:hover {
-    background-color: #35c5f0;
+    background-color: #ff778e;
     color:#fff;
 }
 

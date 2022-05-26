@@ -134,7 +134,6 @@ public class UserMyPageController {
 			vo.setSc_usernum((int)session.getAttribute("User_Num"));
 			vo.setSc_postid(param);
 			userscrapservice.s_insert(vo);
-		
 
 			/*
 			 * List<UserScrapVO> goo =userscrapservice.us_list(vo);
@@ -142,18 +141,43 @@ public class UserMyPageController {
 			 * for(int i =0; i<goo.size(); i++) { int[] fofo =new int[100]; fofo[i] =
 			 * goo.get(i).getSc_postid(); }
 			 */
-		
-		
-		
-		
-		
-		
-		
+	
 		return "º¸³Â´Ù" ;
 	}else {
 		return "¾Èº¸³Â´Ù" ;
 		}
 	}
+	
+	
+	/* detail ½ºÅ©·¦ */
+	@ResponseBody
+	@RequestMapping(value="/userscrapdetail.com", method=RequestMethod.POST)
+	public String detailScrappick(@RequestBody int param, UserScrapVO vo, Model model, HttpServletRequest request,UserProductVO pvo) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("User_Num")!=null) {
+		
+		System.out.println("scrap ing");
+		//session.getAttribute("UserMail");
+		System.out.println(session.getAttribute("User_Num"));
+		System.out.println(param);
+
+			vo.setSc_usernum((int)session.getAttribute("User_Num"));
+			vo.setSc_postid(param);
+			userscrapservice.s_insert(vo);
+
+			/*
+			 * List<UserScrapVO> goo =userscrapservice.us_list(vo);
+			 * 
+			 * for(int i =0; i<goo.size(); i++) { int[] fofo =new int[100]; fofo[i] =
+			 * goo.get(i).getSc_postid(); }
+			 */
+	
+		return "º¸³Â´Ù" ;
+	}else {
+		return "¾Èº¸³Â´Ù" ;
+		}
+	}
+	
 		
 
 	/* ½ºÅ©·¦ Áö¿ì±â */
