@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
-	href="resources/css/user_css/header/calculation.css?var=2">
+	href="resources/css/user_css/header/calculation.css?var=3">
 <link rel="stylesheet" href="resources/css/user_css/header/public.css">
 <title>Document</title>
 <!-- jQuery -->
@@ -229,9 +229,15 @@
 	    	if(double_click){
 	    		return;
 	    	}
+	    	var bln = true;
 	    	double_click = true;
 	    	email = $(".email1").val() + "@" + $(".email2").val();
 	    	checkBox = $('input[name=isAgree]').is(':checked');
+	    	select = /[0-9]{8,9}$/;
+	    	if(select.test($(".2phone"))){
+	    		bln = false;
+	    	}
+	    	
 	    	if(${post_li.size()} == 1){
 	    		title = "${post_li[0].post_name}";
 	    	}else{
@@ -242,30 +248,43 @@
 	    	}
 	    	if($('input[name=name]').val() == ''){
 	    		alert("이름을 입력해 주세요.");
+	    		var double_click = false;
 	    		return;
 	    	}else if($('input[name=email]').val() == ''){
 	    		alert("이메일을 입력해 주세요.");
+	    		var double_click = false;
 	    		return;
 	    	}else if($(".email2").val() == '' ){
 	    		alert("이메일 형식이 올바르지 않습니다.");
+	    		var double_click = false;
 	    		return;
 	    	}else if($('input[name=phone]').val() == ''){
 				alert("핸드폰번호를 작성해 주세요.");
+				var double_click = false;
 				return
 	    	}else if($("#shipID").val() == ''){
 	    		alert("배송지명을 입력해주세요.");
+	    		var double_click = false;
 	    		return;
 	    	}else if($('input[name=recipient]').val() == ''){
 	    		alert("받는분 성함을 입력해주세요.");
+	    		var double_click = false;
 	    		return;
 	    	}else if($(".2phone").val() == ''){
 	    		alert("주문자 핸드폰 번호를 입력해주세요.");
+	    		var double_click = false;
+	    		return;
+	    	}else if(bln){
+	    		alert("주문자 핸드폰 번호 슷자만 입력해주세요.");
+	    		var double_click = false;
 	    		return;
 	    	}else if($('#sample6_postcode').val() == ''){
 	    		alert("주소를 선택해주세요.");
+	    		var double_click = false;
 	    		return;
 	    	}else if(!checkBox){
 	    		alert("개인정보 동의를 해주세요.");
+	    		var double_click = false;
 	    		return;
 	    	}
 	    	if(addr_bln){
@@ -561,7 +580,7 @@
 													</div>
 												</div>
 												<div class="UYZ4Z">
-													<input class="_3ASDR _1qwAY 2phone" type="tel"
+													<input class="_3ASDR _1qwAY 2phone" type="number"
 														placeholder="입력해주세요" size="1" maxlength="9" value="">
 												</div>
 											</div>
