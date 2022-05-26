@@ -74,6 +74,65 @@
 		});
 	})
 	</script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+		Chart.defaults.global.defaultFontColor = "#292b2c";
+		
+		var barDateList = ${barDateList}; // barChart
+		var barCountList = ${barCountList}; // barChart
+		
+		// Bar Chart Example
+		var ctx = document.getElementById("myBarChart");
+		var myLineChart = new Chart(ctx, {
+		  type: "bar",
+		  data: {
+		    labels: barDateList,
+		    datasets: [
+		      {
+		        label: "판매량",
+		        backgroundColor: "rgba(255, 119, 142)",
+		        borderColor: "rgba(255, 119, 142)",
+		        data: barCountList,
+		      },
+		    ],
+		  },
+		  options: {
+		    scales: {
+		      xAxes: [
+		        {
+		          time: {
+		            unit: "month",
+		          },
+		          gridLines: {
+		            display: false,
+		          },
+		          ticks: {
+		        	display : false,
+		            maxTicksLimit: 5,
+		          },
+		        },
+		      ],
+		      yAxes: [
+		        {
+		          ticks: {
+		            min: 0,
+		            max: ${barMaxCount},
+		            maxTicksLimit: 5,
+		          },
+		          gridLines: {
+		            display: true,
+		          },
+		        },
+		      ],
+		    },
+		    legend: {
+		      display: false,
+		    },
+		  },
+		});
+	})
+	</script>
 	<div class="content-view-title">
 		<div>
 			<span class="content-view-title-text" id="search-date1">일별</span>
@@ -111,44 +170,44 @@
 		<tbody>
 			<c:forEach var="salesListView" items="${salesListView}" varStatus="status">
 				<tr class="content-table-content content-hover table-hover-self">
-					<td class="content-table-content-text option-line"
+					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatDate	value="${salesListView.getSales_date()}"
 						pattern="yyyy-MM-dd" />
 					</td>
-					<td class="content-table-content-text option-line"
+					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_paymentTotal()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line"
+					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_paymentTotalNum()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line"
+					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_canclePaymentTotal()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line"
+					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_canclePaymentTotalNum()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line"
+					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_submitPaymentTotal()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line"
+					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_submitPaymentTotalNum()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line"
+					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_discount()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line"
+					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_shippingFee()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line state0"
+					<td class="content-table-content-text option-line state0" onclick="orderDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_final()}" pattern="#,###" />
 					</td>
@@ -178,7 +237,7 @@
 				<div class="card-body">
 					<div class="d-flex title-text bottom-line">
 						<p class="margin-zero">
-							<i class="fas fa-chart-bar me-1 icon-margin-right"></i>상품별 판매 건수
+							<i class="fas fa-chart-bar me-1 icon-margin-right"></i>BEST 상품
 						</p>
 					</div>
 					<div class="d-flex justify-content-between sub-text">

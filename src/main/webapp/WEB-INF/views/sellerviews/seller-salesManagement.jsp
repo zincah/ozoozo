@@ -119,8 +119,8 @@
 				Chart.defaults.global.defaultFontColor = "#292b2c";
 			
 				// get Date
-				var dateList = ${dateList};
-				var countList = ${countList};
+				var dateList = ${dateList}; // areaChart
+				var countList = ${countList}; // areaChart
 						
 				var dates = [];
 				
@@ -132,7 +132,7 @@
 				    labels: dateList,
 				    datasets: [
 				      {
-				        label: "Sessions",
+				        label: "판매이익",
 				        lineTension: 0.3,
 				        backgroundColor: "rgba(255, 119, 142, 0.224)",
 				        borderColor: "rgba(255, 119, 142)",
@@ -148,7 +148,7 @@
 				    ],
 				  },
 				  options: {
-				    scales: {
+				    scales: { 
 				      xAxes: [
 				        {
 				          time: {
@@ -171,6 +171,65 @@
 				          },
 				          gridLines: {
 				            color: "rgba(0, 0, 0, .125)",
+				          },
+				        },
+				      ],
+				    },
+				    legend: {
+				      display: false,
+				    },
+				  },
+				});
+			})
+			</script>
+			<script type="text/javascript">
+			$(document).ready(function(){
+				Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+				Chart.defaults.global.defaultFontColor = "#292b2c";
+				
+				var barDateList = ${barDateList}; // barChart
+				var barCountList = ${barCountList}; // barChart
+				
+				// Bar Chart Example
+				var ctx = document.getElementById("myBarChart");
+				var myLineChart = new Chart(ctx, {
+				  type: "bar",
+				  data: {
+				    labels: barDateList,
+				    datasets: [
+				      {
+				        label: "판매량",
+				        backgroundColor: "rgba(255, 119, 142)",
+				        borderColor: "rgba(255, 119, 142)",
+				        data: barCountList,
+				      },
+				    ],
+				  },
+				  options: {
+				    scales: {
+				      xAxes: [
+				        {
+				          time: {
+				            unit: "month",
+				          },
+				          gridLines: {
+				            display: false,
+				          },
+				          ticks: {
+				        	display : false,
+				            maxTicksLimit: 5,
+				          },
+				        },
+				      ],
+				      yAxes: [
+				        {
+				          ticks: {
+				            min: 0,
+				            max: ${barMaxCount},
+				            maxTicksLimit: 5,
+				          },
+				          gridLines: {
+				            display: true,
 				          },
 				        },
 				      ],
@@ -219,44 +278,44 @@
 				<tbody>
 					<c:forEach var="salesListView" items="${salesListView}" varStatus="status">
 						<tr class="content-table-content content-hover table-hover-self">
-							<td class="content-table-content-text option-line"
-								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
+							<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
+								data-bs-toggle="modal" data-bs-target="#modal-view-sales" name="selectDate${status.index}">
 								<fmt:formatDate	value="${salesListView.getSales_date()}"
 								pattern="yyyy-MM-dd" />
 							</td>
-							<td class="content-table-content-text option-line"
+							<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 								<fmt:formatNumber value="${salesListView.getSales_paymentTotal()}" pattern="#,###" />
 							</td>
-							<td class="content-table-content-text option-line"
+							<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 								<fmt:formatNumber value="${salesListView.getSales_paymentTotalNum()}" pattern="#,###" />
 							</td>
-							<td class="content-table-content-text option-line"
+							<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 								<fmt:formatNumber value="${salesListView.getSales_canclePaymentTotal()}" pattern="#,###" />
 							</td>
-							<td class="content-table-content-text option-line"
+							<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 								<fmt:formatNumber value="${salesListView.getSales_canclePaymentTotalNum()}" pattern="#,###" />
 							</td>
-							<td class="content-table-content-text option-line"
+							<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 								<fmt:formatNumber value="${salesListView.getSales_submitPaymentTotal()}" pattern="#,###" />
 							</td>
-							<td class="content-table-content-text option-line"
+							<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 								<fmt:formatNumber value="${salesListView.getSales_submitPaymentTotalNum()}" pattern="#,###" />
 							</td>
-							<td class="content-table-content-text option-line"
+							<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 								<fmt:formatNumber value="${salesListView.getSales_discount()}" pattern="#,###" />
 							</td>
-							<td class="content-table-content-text option-line"
+							<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 								<fmt:formatNumber value="${salesListView.getSales_shippingFee()}" pattern="#,###" />
 							</td>
-							<td class="content-table-content-text option-line state0"
+							<td class="content-table-content-text option-line state0" onclick="salesDetailView(${status.index})"
 								data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 								<fmt:formatNumber value="${salesListView.getSales_final()}" pattern="#,###" />
 							</td>
@@ -286,7 +345,7 @@
 						<div class="card-body">
 							<div class="d-flex title-text bottom-line">
 								<p class="margin-zero">
-									<i class="fas fa-chart-bar me-1 icon-margin-right"></i>상품별 판매 건수
+									<i class="fas fa-chart-bar me-1 icon-margin-right"></i>BEST 상품
 								</p>
 							</div>
 							<div class="d-flex justify-content-between sub-text">
@@ -314,51 +373,7 @@
 					<div>
 						<span class="content-view-title-text">건별 매출 리스트</span>
 					</div>
-					<div class="modal-delete-select-product">
-						<div class="product-list-group">
-							<table class="table table-box-style">
-								<thead>
-									<tr class="content-table-title">
-										<td class="content-table-title-text option-line">날짜</td>
-										<td class="content-table-title-text option-line">주문번호(그룹)</td>
-										<td class="content-table-title-text option-line">구분</td>
-										<td class="content-table-title-text option-line">결제금액</td>
-										<td class="content-table-title-text option-line">결제건수</td>
-										<td class="content-table-title-text option-line">할인</td>
-										<td class="content-table-title-text option-line">쿠폰</td>
-										<td class="content-table-title-text option-line">배송비</td>
-										<td class="content-table-title-text option-line">판매이익</td>
-									</tr>
-								</thead>
-								<tbody>
-									<!-- for -->
-									<tr class="content-table-content">
-										<td class="content-table-content-text option-line">2022-04-26
-											14:25</td>
-										<td class="content-table-content-text option-line state0">1583921</td>
-										<td class="content-table-content-text option-line">신용카드</td>
-										<td class="content-table-content-text option-line">-20,000</td>
-										<td class="content-table-content-text option-line">-1</td>
-										<td class="content-table-content-text option-line">0</td>
-										<td class="content-table-content-text option-line">0</td>
-										<td class="content-table-content-text option-line">-2,500</td>
-										<td class="content-table-content-text option-line">0</td>
-									</tr>
-									<tr class="content-table-content">
-										<td class="content-table-content-text option-line">2022-04-26
-											13:55</td>
-										<td class="content-table-content-text option-line state0">1583921</td>
-										<td class="content-table-content-text option-line">신용카드</td>
-										<td class="content-table-content-text option-line">20,000</td>
-										<td class="content-table-content-text option-line">1</td>
-										<td class="content-table-content-text option-line">0</td>
-										<td class="content-table-content-text option-line">0</td>
-										<td class="content-table-content-text option-line">2,500</td>
-										<td class="content-table-content-text option-line">17,500</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+					<div id="modal-view-sales-change">
 					</div>
 					<div class="modal-footer"></div>
 				</div>
@@ -387,7 +402,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
 	crossorigin="anonymous"></script>
 <!-- <script src="resources/assets/demo/chart-area-demo.js"></script> -->
-<script src="resources/assets/demo/chart-bar-demo.js"></script>
+<!-- <script src="resources/assets/demo/chart-bar-demo.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
 	crossorigin="anonymous"></script>
 <script src="resources/js/sellerjs/datatables-simple-demo.js"></script>
