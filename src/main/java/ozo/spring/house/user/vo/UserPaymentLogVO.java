@@ -41,4 +41,5 @@ public class UserPaymentLogVO {
 	private int py_discount;
 	private int py_couponid;
 	private int py_orderid;
+	private int merchant_UID;
 }

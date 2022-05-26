@@ -30,11 +30,21 @@
 							(${salesDetailListView.getOrder_num()})
 						</td>
 						<td class="content-table-content-text option-line">${salesDetailListView.getPayment_way()}</td>
-						<td class="content-table-content-text option-line">${salesDetailListView.getPayment_total()}</td>
-						<td class="content-table-content-text option-line">${salesDetailListView.getQuantity()}</td>
-						<td class="content-table-content-text option-line">${salesDetailListView.getPy_discount()}</td>
-						<td class="content-table-content-text option-line">${salesDetailListView.getShipping_fee()}</td>
-						<td class="content-table-content-text option-line">${salesDetailListView.getPy_final()}</td>
+						<td class="content-table-content-text option-line">
+							<fmt:formatNumber value="${salesDetailListView.getPayment_total()}" pattern="#,###" />
+						</td>
+						<td class="content-table-content-text option-line">
+							<fmt:formatNumber value="${salesDetailListView.getQuantity()}" pattern="#,###" />
+						</td>
+						<td class="content-table-content-text option-line">
+							<fmt:formatNumber value="${salesDetailListView.getPy_discount()}" pattern="#,###" />
+						</td>
+						<td class="content-table-content-text option-line">
+							<fmt:formatNumber value="${salesDetailListView.getShipping_fee()}" pattern="#,###" />
+						</td>
+						<td class="content-table-content-text option-line">
+							<fmt:formatNumber value="${salesDetailListView.getPy_final()}" pattern="#,###" />
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

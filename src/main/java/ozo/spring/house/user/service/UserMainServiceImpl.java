@@ -96,6 +96,11 @@ public class UserMainServiceImpl implements UserMainService {
 		return userMainDAO.getDealEndTime();
 	}
 
+	@Override
+	public List<Map<String, String>> getDealEndTimeAtDealPage() {
+		return userMainDAO.getDealEndTimeAtDealPage();
+	}
+
 
 
 

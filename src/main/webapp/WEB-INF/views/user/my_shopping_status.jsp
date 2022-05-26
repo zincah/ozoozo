@@ -158,18 +158,27 @@
 		      }),
 		      "dataType": "json"
 		    }).done(function(result){
-		    	 console.log(result);
-		    	console.log("환불 성공");
-		    	jQuery.ajax({
-				      "url": "refunt_request_DB.com", // 예: http://www.myservice.com/payments/cancel
-				      "type": "POST",
-				      "contentType": "application/json",
-				      "data": JSON.stringify(Integer(UID)),
-				      "dataType": "json"
-				    }).done(function(result){
-				    	console.log(result);
-				    });
+		    	if(result == "1"){
+		    		alert("환불 성공");
+		    		jQuery.ajax({
+					      "url": "refunt_request_DB.com", 
+					      "type": "POST",
+					      "contentType": "application/json",
+					      "data": JSON.stringify(UID),
+					      "dataType": "json"
+					    }).done(function(result){
+					    	console.log(result);
+					    });
+		    		refund_text_change(UID);
+		    	}else {
+		    		alert("환불 실패");
+		    	}
+		    	
 		    });
+	}
+	
+	function refund_text_change(class_name){
+		$("." + class_name + "_status" ).text("환불처리");
 	}
 	</script>
 <header>
@@ -249,7 +258,10 @@
                             <section class="css-idjloq e1yy3fi630">
                                 <div class="css-sw3pq5 e1yy3fi629">
                                     <div class="css-145bbay e1yy3fi628 "><span class="divider">${date_filter[i].order_num }</span><span class="dh_edit ${date_filter[i].order_num }_time">${date_filter[i].order_date}</span>
-                                    </div><a class="css-1buj0y e1yy3fi627" onclick="refund(${date_filter[i].order_num })">환불하기</a>
+                                    </div>
+                                    <c:if test="${date_filter[i].refund_id eq '' }">
+                                    <a class="css-1buj0y e1yy3fi627" onclick="refund(${date_filter[i].order_num })">환불하기</a>
+                                	</c:if>
                                 </div>
                                <c:forEach var="j" begin="0" end="${fn:length(pl_li)-1}">
                                <c:if test="${order_num eq pl_li[j].order_num}">
@@ -257,8 +269,15 @@
                                <c:set var="tell_check" value="${pl_li[fn:length(pl_li)-1].seller_id }"/>
                                 <div>
                                     <div class="css-1ra10s7 e1yy3fi626">
-                                        <h3 class="css-7c5cag e1yy3fi624" id="${pl_li[j].order_id}_status">
+                                        <h3 class="css-7c5cag e1yy3fi624 ${date_filter[i].order_num }_status" id="${pl_li[j].order_id}_status">
+                                        <c:choose>
+                                        <c:when test="${pl_li[j].refund_id eq '' }">
                                         ${pl_li[j].order_status}
+                                        </c:when>
+                                        <c:otherwise>
+                                        환불처리
+                                        </c:otherwise>
+                                        </c:choose>
                                         <span class=""> ·</span>
                                         <span> 
                                         	<c:choose>

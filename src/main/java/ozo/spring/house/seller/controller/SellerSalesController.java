@@ -143,13 +143,9 @@ public class SellerSalesController {
 	public String getSalesDatailView(HttpServletRequest request, Model model, ProductVO vo, @RequestBody String datas) throws ParseException {	
 		HttpSession session = request.getSession();
 		
-		// 데이터 포맷 생성
-//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//		Date date = (Date) formatter.parse(datas);
-		
 		// VO 세팅
 		vo.setSeller_id((int) session.getAttribute("seller_id"));
-		vo.setSales_dateString(Date.valueOf(datas));
+		vo.setSales_dateString(Date.valueOf(datas.replaceAll("\"", "")));
 		
 		// 매출 리스트 저장할 변수
 		List<ProductVO> salesList = sellerSalesService.selectSalesDetailList(vo);

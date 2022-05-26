@@ -346,15 +346,21 @@ public class UserDAO {
 				i.setOrder_status("환불처리");
 				i.setPayment(0 - i.getPayment());
 				i.setEmpty_int(0 - i.getOd_point());
-				sqlSessionTemplate.insert("UserProduct.userorder_refund_add", pvo);
+				i.setMerchant_UID(merchant_UID);
+				sqlSessionTemplate.insert("UserProduct.userorder_refund_add", i);
 				UserPaymentLogVO exvo = sqlSessionTemplate.selectOne("UserProduct.get2_refund", i);
 				sqlSessionTemplate.update("UserProduct.userorder_refund_update", exvo);
-				UserPaymentLogVO payvo = sqlSessionTemplate.selectOne("UserProduct.get_payvo",exvo);
+				UserPaymentLogVO payvo = sqlSessionTemplate.selectOne("UserProduct.get_payvo",i);
 				payvo.setPy_orderid(exvo.getOrder_id());
 				payvo.setPayment_total(0 - payvo.getPayment_total());
 				payvo.setPy_final(0 - payvo.getPy_final());
 				sqlSessionTemplate.insert("UserProduct.payment_add2", payvo);
 			}
+			System.out.println("refund method success");
+		}
+		public List<UserPaymentLogVO> filter(int UID){
+			List<UserPaymentLogVO> filter_order = sqlSessionTemplate.selectList("UserProduct.filter_order", UID);
+			return filter_order;
 		}
 		
 		

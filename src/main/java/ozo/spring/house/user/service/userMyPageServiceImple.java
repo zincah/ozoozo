@@ -48,4 +48,9 @@ public class userMyPageServiceImple implements userMyPageService {
 		
 	}
 
+	@Override
+	public int checkCartSu(UserVO vo) {
+		return UserMyPageDAO.checkCartSu(vo);
+	}
+
 }

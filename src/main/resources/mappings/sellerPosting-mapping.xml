@@ -106,7 +106,7 @@
 		 #{post_id}, 
 		 (SELECT whole_price FROM product_posting pp WHERE pp.post_id = #{post_id}),
 		 (SELECT sale_ratio FROM product_posting pp WHERE pp.post_id = #{post_id})+10,
-		 (SELECT whole_price * ((sale_ratio+10)/100.0) FROM product_posting pp WHERE pp.post_id = #{post_id}),
+		 (SELECT whole_price * (1-((sale_ratio+10)/100.0)) FROM product_posting pp WHERE pp.post_id = #{post_id}),
 		 #{seller_id});
 	</insert>
 </mapper>
