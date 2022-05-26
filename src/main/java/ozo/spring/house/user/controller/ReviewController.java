@@ -1,5 +1,6 @@
 package ozo.spring.house.user.controller;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -194,6 +195,34 @@ public class ReviewController {
     	return "redirect:review_view.com";
     }
 
+    // 상세페이지 리뷰 관리 도움이 돼요
+    @ResponseBody
+    @RequestMapping(value="/likedReview.com", method= RequestMethod.POST)
+    public String likedReview(@RequestBody String reviewid, ReviewVO vo, HttpServletRequest request){
+    	HttpSession session = request.getSession();
+    	
+    	if(session.getAttribute("User_Num")!=null) {
+    		
+    		vo.setReview_id(Integer.parseInt(reviewid.replace("\"", "")));
+    		System.out.println(vo.getReview_id());
+    		
+    		int liked = reviewService.updateLiked(vo);
+    		
+    		Map<String, Integer> changeLike = new HashMap<String, Integer>();
+    		changeLike.put("review_id", vo.getReview_id());
+    		changeLike.put("liked", liked);
+
+    		String jsonmap = JSONObject.toJSONString(changeLike);
+    		return jsonmap;
+    	}else {
+    		Map<String, String> remap = new HashMap<String, String>();
+    		remap.put("fail", "fail");
+    		
+    		String jsonremap = JSONObject.toJSONString(remap);
+    		return jsonremap;
+    	}
+
+    }
 
 
 }

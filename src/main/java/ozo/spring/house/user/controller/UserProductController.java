@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.user.dao.UserDAO.product_cls;
+import ozo.spring.house.user.service.ReviewService;
 import ozo.spring.house.user.service.UserService;
 import ozo.spring.house.user.vo.CouponVO;
+import ozo.spring.house.user.vo.ReviewVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserProduct_tableVO;
 import ozo.spring.house.user.vo.UserVO;
@@ -26,6 +28,9 @@ import ozo.spring.house.user.vo.UserVO;
 public class UserProductController {
 	@Autowired
 	UserService userservice;
+	
+	@Autowired
+	ReviewService reviewService;
 	
 	product_cls pro_cls;
 	List<UserProductVO> product_list;
@@ -36,7 +41,7 @@ public class UserProductController {
 	public String user_product(Model model, UserProductVO vo, UserProduct_tableVO tvo, HttpServletRequest request) {
 		// 상품 아이디
 		this.pro = Integer.parseInt(request.getParameter("p"));
-		//System.out.println(pro);  상품 아이디로 전달
+		System.out.println("상품아이디 " +pro);  //상품 아이디로 전달
 		
 		List<UserProductVO> product_img_list;
 		UserProductVO uvo = new UserProductVO();
@@ -86,6 +91,21 @@ public class UserProductController {
 			this.coupon = pro_cls.get_coupon(product_list.get(0));
 			model.addAttribute("coupon", coupon);
 		}
+		
+		// 리뷰 값 추가
+		List<ReviewVO> reviewList = reviewService.getReviewTODetailPage(pro);
+		model.addAttribute("reviewList", reviewList);
+		
+		double totalRating = 0.0;
+		for(int i=0; i<reviewList.size(); i++) {
+			totalRating += reviewList.get(i).getRating();
+		}
+		totalRating = totalRating + 0.0;
+		totalRating = (Double)(Math.round(totalRating/reviewList.size()*10)/10.0);
+		model.addAttribute("totalRating", totalRating);
+		
+		System.out.println(reviewList);
+		
 		return "ProductDetail";
 	}
 	// get option 2

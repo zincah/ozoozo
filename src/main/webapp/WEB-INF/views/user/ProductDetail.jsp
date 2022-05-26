@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
     <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,13 +16,50 @@
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/public.css'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/overview.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/inform.css'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/review.css'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/review.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/addInform.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/smallOption.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/detailScript.css?var=1'>
 
     <script>
     var select = false
+    </script>
+    
+    <script>
+    	$(document).ready(function(){
+
+    		
+    		$(".production-review-item__help__btn").click(function(){
+
+    			let reviewid = $(this).val();
+    			console.log(reviewid);
+    			
+    			$.ajax({
+    		  		url:'likedReview.com',
+    		  		method:'post',
+    		  		data: JSON.stringify(reviewid),
+    		  		contentType : 'application/json; charset=UTF-8',
+    		  		dataType : 'json',
+    		  		success : function(resp){
+    		  			
+    		  			if(resp.fail == 'fail'){
+    		  				alert("로그인을 해주세요 :)");
+    						return;
+    		  			}
+    		  			
+    		  			$("#s_"+resp.review_id).text(''+resp.liked+'');
+    		  			$(".production-review-item__help__btn__check").show();
+    		  			$(".production-review-item__help__btn").hide();
+    		  			
+    		  		},
+    		  		error : function(request, status, error) {
+    					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    				}
+    		  		});
+
+    		})
+    		
+    	})
     </script>
 </head>
 <body>
@@ -107,7 +145,7 @@
                             <h1 class="production-selling-header__title">
                                 <p class="production-selling-header__title__brand-wrap">
                                     <!-- 업체 명 -->
-                                    <a class="production-selling-header__title__brand" href="">${product[0].company_name } </a>
+                                    <a class="production-selling-header__title__brand" href="/house/brandshop.com?brandcode=${product[0].seller_id }">${product[0].company_name } </a>
                                 </p>
                                 <div class="production-selling-header__title__name-wrap">
                                     <!-- 상품 이름 -->
@@ -208,7 +246,7 @@
                                         <span class="production-selling-header__price__separator"></span>
                                         <span class="production-selling-header__price__price">
                                             <span class="number">${price_sale}</span>
-                                            <span class="won">원${product[0].post_couponid}</span>
+                                            <span class="won">원<!-- ${product[0].post_couponid} --></span>
                                             <span class="production-selling-header__price__badge">
                                                 <svg class="icons" width="30" height="20" viewBox="0 0 30 20" preserveAspectRatio="xMidYMid meet">
                                                     <rect width="30" height="20" fill="#F77" rx="4"></rect>
@@ -772,81 +810,71 @@
                                     <h1 class="production-selling-section__title">
                                         리뷰 
                                         <span class="count">
-                                            11,531
+                                            ${reviewList.size() }
                                         </span>
                                     </h1>
+                                    <!-- 
                                     <div class="production-selling-section__right">
                                         <button type="button">
                                             리뷰쓰기
                                         </button>
-                                    </div>
+                                    </div> -->
                                 </header>
                                 <!-- 리뷰 박스 -->
                                 <div class="production-review-feed">
                                     <!-- 리뷰 별점 박스 -->
+                                    
                                     <div class="production-review-feed__header-v2">
                                         <div class="production-review-feed__header-v2__stars">
                                             <div class="production-review-feed__header-v2__stars__badge">
-                                                <span class="badge__mobile">
-                                                    4.8
-                                                </span>
-                                                <span class="icon" aria-label="별점 4.8점">
-                                                    <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                        <defs>
-                                                            <path id="star-path-0" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                            <clipPath id="star-clip-0">
-                                                                <rect x="0" y="0" width="24" height="24"></rect>
-                                                            </clipPath>
-                                                        </defs>
-                                                        <use xlink:href="#star-path-0" fill="#DBDBDB"></use>
-                                                        <use clip-path="url(#star-clip-0)" xlink:href="#star-path-0"></use>
-                                                    </svg>
-                                                    <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                        <defs>
-                                                            <path id="star-path-1" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                            <clipPath id="star-clip-1">
-                                                                <rect x="0" y="0" width="24" height="24"></rect>
-                                                            </clipPath>
-                                                        </defs>
-                                                        <use xlink:href="#star-path-1" fill="#DBDBDB"></use>
-                                                        <use clip-path="url(#star-clip-1)" xlink:href="#star-path-1"></use>
-                                                    </svg>
-                                                    <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                        <defs>
-                                                            <path id="star-path-2" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                            <clipPath id="star-clip-2">
-                                                                <rect x="0" y="0" width="24" height="24"></rect>
-                                                            </clipPath>
-                                                        </defs>
-                                                        <use xlink:href="#star-path-2" fill="#DBDBDB"></use>
-                                                        <use clip-path="url(#star-clip-2)" xlink:href="#star-path-2"></use>
-                                                    </svg><svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet"
-                                                        viewBox="0 0 24 24">
-                                                        <defs>
-                                                            <path id="star-path-3" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                            <clipPath id="star-clip-3">
-                                                                <rect x="0" y="0" width="24" height="24"></rect>
-                                                            </clipPath>
-                                                        </defs>
-                                                        <use xlink:href="#star-path-3" fill="#DBDBDB"></use>
-                                                        <use clip-path="url(#star-clip-3)" xlink:href="#star-path-3"></use>
-                                                    </svg>
-                                                    <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                        <defs>
-                                                            <path id="star-path-4" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"> </path>
-                                                            <clipPath id="star-clip-4">
-                                                                <rect x="0" y="0" width="18.04735062006764" height="24"></rect>
-                                                            </clipPath>
-                                                        </defs>
-                                                        <use xlink:href="#star-path-4" fill="#DBDBDB"></use>
-                                                        <use clip-path="url(#star-clip-4)" xlink:href="#star-path-4"></use>
-                                                    </svg>
-                                                </span>
+                                                <span style="font-size: 30px">별점 : </span>
                                                 <span class="badge__pc">
-                                                    4.8
+                                                   ${totalRating }
                                                 </span>
                                             </div>
                                             <!-- 별점 박스 우측 -->
+                                            <div class="production-review-feed__header-v2__stars__badge">
+                                                <span class="icon" aria-label="${totalRating }">
+                                                	<c:choose>
+													<c:when test="${totalRating > 4}">
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													</c:when>
+													<c:when test="${totalRating > 3}">
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													</c:when>
+													<c:when test="${totalRating > 2}">
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													</c:when>
+													<c:when test="${totalRating > 1}">
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													</c:when>
+													<c:when test="${totalRating > 0}">
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													</c:when>
+													</c:choose>
+                                                </span>
+                                            </div>
+                                            <!-- 
                                             <div class="production-review-feed__header-v2__stars__avg">
                                                 <div class="production-review-feed__header-v2__stars__avg-warp">
                                                     <div class="production-review-feed__header-v2__stars__avg__container">
@@ -911,6 +939,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            -->
                                         </div>
                                     </div>
                                     <!-- 리뷰 필터 -->
@@ -940,6 +969,7 @@
                                                     </button>
                                                 </div>
                                             </div>
+                                            <!-- 
                                             <ul class="production-review-feed__filter__option-list__pc">
                                                 <li class="filter-bar__control-list__item">
                                                     <div class="drop-down panel-drop-down filter-bar-control">
@@ -962,465 +992,106 @@
                                                     </div>
                                                 </li>
                                             </ul>
+                                                                                             -->
                                         </div>
                                     </div>
                                 </div>
                                 <!-- 리뷰 -->
                                 <div class="production-review-feed__list">
+                                	<c:forEach items="${reviewList }" var="review">
                                     <div class="production-review-item__container">
                                         <article class="production-review-item">
                                             <div class="production-review-item__writer">
                                                 <a href="#">
-                                                    <img src="https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1555217605_gnf59r2B.jpeg/80/80" class="production-review-item__writer__img" alt="">
+                                                    <img src="${review.user_img }" class="production-review-item__writer__img" alt="">
                                                 </a>
                                                 <div class="production-review-item__writer__info">
                                                     <p class="production-review-item__writer__info__name">
-                                                        닉네임
+                                                        ${review.nickname }
                                                     </p>
                                                     <button class="production-review-item__writer__info__total-star-wrap" type="button">
                                                         <span class="production-review-item__writer__info__total-star" aria-label="별점 5.0점">
-                                                            <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                                <defs>
-                                                                    <path id="star-path-5" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                    <clipPath id="star-clip-5">
-                                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                                    </clipPath>
-                                                                </defs>
-                                                                <use xlink:href="#star-path-5" fill="#DBDBDB"></use>
-                                                                <use clip-path="url(#star-clip-5)" xlink:href="#star-path-5"></use>
-                                                            </svg>
-                                                            <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                                <defs>
-                                                                    <path id="star-path-6" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                    <clipPath id="star-clip-6">
-                                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                                    </clipPath>
-                                                                </defs>
-                                                                <use xlink:href="#star-path-6" fill="#DBDBDB"></use>
-                                                                <use clip-path="url(#star-clip-6)" xlink:href="#star-path-6"></use>
-                                                            </svg>
-                                                            <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                                <defs>
-                                                                    <path id="star-path-7" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                    <clipPath id="star-clip-7">
-                                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                                    </clipPath>
-                                                                </defs>
-                                                                <use xlink:href="#star-path-7" fill="#DBDBDB"></use>
-                                                                <use clip-path="url(#star-clip-7)" xlink:href="#star-path-7"></use>
-                                                            </svg>
-                                                            <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                                <defs>
-                                                                    <path id="star-path-8" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                    <clipPath id="star-clip-8">
-                                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                                    </clipPath>
-                                                                </defs>
-                                                                <use xlink:href="#star-path-8" fill="#DBDBDB"></use>
-                                                                <use clip-path="url(#star-clip-8)" xlink:href="#star-path-8"></use>
-                                                            </svg>
-                                                            <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                                <defs>
-                                                                    <path id="star-path-9" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                    <clipPath id="star-clip-9">
-                                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                                    </clipPath>
-                                                                </defs>
-                                                                <use xlink:href="#star-path-9" fill="#DBDBDB"></use>
-                                                                <use clip-path="url(#star-clip-9)" xlink:href="#star-path-9"></use>
-                                                            </svg>
+															<c:if test="${review.rating eq 5}">
+															<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+															<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+															<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+															<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+															<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+															</c:if>
+															<c:if test="${review.rating eq 4}">
+															<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+															<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+															<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+															<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+															<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+															</c:if>
+															<c:if test="${review.rating eq 3}">
+															<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+															<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+															<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+															<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+															<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+															</c:if>
+															<c:if test="${review.rating eq 2}">
+															<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+															<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+															<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+															<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+															<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+															</c:if>
+															<c:if test="${review.rating eq 1}">
+															<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+															<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+															<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+															<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+															<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+															</c:if>
                                                         </span>
                                                     </button>
                                                     <span class="production-review-item__writer__info__date">
-                                                        2022.03.20 ∙ 오늘의집 구매
+                                                        <fmt:formatDate value="${review.created_at }" pattern="yyyy.MM.dd"/>
                                                     </span>
                                                 </div>
                                             </div>
                                             <div class="production-review-item__name">
-                                                <p></p>사이즈: 제주 25cm 필로우탑 본넬스프링 _Q 퀸 / 색상: 실버그레이 (HL01040)
+                                                <p>${review.option1_name }: ${review.option1 } <c:if test="${review.option2 ne '' }">/ ${review.option2_name }: ${review.option2 }</c:if></p>
                                             </div>
+                                            <c:if test="${review.review_image ne null }">
                                             <button type="button" class="production-review-item__img__btn">
-                                                <img class="production-review-item__img" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164770249395815832.jpeg?gif=1&amp;w=144&amp;h=144&amp;c=c"
-                                                    srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164770249395815832.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164770249395815832.jpeg?gif=1&amp;w=320&amp;h=320&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164770249395815832.jpeg?gif=1&amp;w=480&amp;h=480&amp;c=c 3x">
+                                                	<img class="production-review-item__img" src="${review.review_image }"/>
                                             </button>
-                                            <p class="production-review-item__description">건장한 20대 여성이고요^!^ 기존엔 슈퍼싱글도 아닌 완전 초 싱글 써보다 기왕 이사가면서 침대좀 큰거 써 볼까
-                                                싶어서는 무슨. 사실 애인이랑 동거 준비 하려고 샀는데 개뿔 침대 배송 받은 날 헤어졌고요^^ 그 덕에 훌륭한 매트리스라서 받자마자 신나서 방방도 뛰었는데 끄떡 없네요~! 멋찐 매트리스 좋은
-                                                품질와 합리적인 가격 유후 나 혼자 굴러다니면서 쓸거다 하 참나!
+                                            </c:if>
+                                            <p class="production-review-item__description">${review.recontent }
                                             </p>
                                             <div class="production-review-item__help">
-                                                <button type="button" class="production-review-item__help__btn"> 
+                                                <button type="button" class="production-review-item__help__btn likedbtn" value="${review.review_id }"> 
                                                     도움이 돼요
                                                 </button>
+                                                <!-- 리뷰마다 아이디 정리.. -->
+                                                <button type="button" style="display:none;" class="production-review-item__help__btn__check likedbtn" value="${review.review_id }"> 
+                                                    취소
+                                                </button>
                                                 <div class="production-review-item__help__text">
-                                                    <span class="production-review-item__help__text__number">
-                                                        29
+                                                    <span class="production-review-item__help__text__number" id="s_${review.review_id }">
+                                                    	<c:if test="${review.liked ne ''}">
+                                                        	${review.liked }
+                                                        </c:if>
+                                                        <c:if test="${review.liked eq ''}">
+                                                        	0
+                                                        </c:if>
                                                     </span>
                                                     명에게 도움이 되었습니다.
                                                 </div>
                                             </div>
                                         </article>
                                     </div>
-                                    <!-- 리뷰2 -->
-                                    <div class="production-review-item__container">
-                                        <article class="production-review-item">
-                                            <div class="production-review-item__writer">
-                                                <a href="#">
-                                                    <img src="https://image.ohou.se/image/central_crop/bucketplace-v2-development/uploads-users-profile_images1555217605_gnf59r2B.jpeg/80/80" class="production-review-item__writer__img" alt="">
-                                                </a>
-                                                <div class="production-review-item__writer__info">
-                                                    <p class="production-review-item__writer__info__name">
-                                                        닉네임
-                                                    </p>
-                                                    <button class="production-review-item__writer__info__total-star-wrap" type="button">
-                                                        <span class="production-review-item__writer__info__total-star" aria-label="별점 5.0점">
-                                                            <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                                <defs>
-                                                                    <path id="star-path-5" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                    <clipPath id="star-clip-5">
-                                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                                    </clipPath>
-                                                                </defs>
-                                                                <use xlink:href="#star-path-5" fill="#DBDBDB"></use>
-                                                                <use clip-path="url(#star-clip-5)" xlink:href="#star-path-5"></use>
-                                                            </svg>
-                                                            <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                                <defs>
-                                                                    <path id="star-path-6" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                    <clipPath id="star-clip-6">
-                                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                                    </clipPath>
-                                                                </defs>
-                                                                <use xlink:href="#star-path-6" fill="#DBDBDB"></use>
-                                                                <use clip-path="url(#star-clip-6)" xlink:href="#star-path-6"></use>
-                                                            </svg>
-                                                            <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                                <defs>
-                                                                    <path id="star-path-7" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                    <clipPath id="star-clip-7">
-                                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                                    </clipPath>
-                                                                </defs>
-                                                                <use xlink:href="#star-path-7" fill="#DBDBDB"></use>
-                                                                <use clip-path="url(#star-clip-7)" xlink:href="#star-path-7"></use>
-                                                            </svg>
-                                                            <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                                <defs>
-                                                                    <path id="star-path-8" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                    <clipPath id="star-clip-8">
-                                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                                    </clipPath>
-                                                                </defs>
-                                                                <use xlink:href="#star-path-8" fill="#DBDBDB"></use>
-                                                                <use clip-path="url(#star-clip-8)" xlink:href="#star-path-8"></use>
-                                                            </svg>
-                                                            <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                                <defs>
-                                                                    <path id="star-path-9" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                    <clipPath id="star-clip-9">
-                                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                                    </clipPath>
-                                                                </defs>
-                                                                <use xlink:href="#star-path-9" fill="#DBDBDB"></use>
-                                                                <use clip-path="url(#star-clip-9)" xlink:href="#star-path-9"></use>
-                                                            </svg>
-                                                        </span>
-                                                        <svg class="production-review-item__writer__info__total-star__down-icon" width="10" height="10" viewBox="0 0 10 10" fill="currentColor" preserveAspectRatio="xMidYMid meet">
-                                                            <path d="M1.8 2.5l-.97.94L5 7.5l4.17-4.06-.97-.94L5 5.63z"></path>
-                                                        </svg>
-                                                    </button>
-                                                    <span class="production-review-item__writer__info__date">
-                                                        2022.03.20 ∙ 오늘의집 구매
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="production-review-item__writer__info__detail-star">
-                                                <div>
-                                                    <span class="production-review-item__writer__info__detail-star__title">
-                                                        내구성
-                                                    </span>
-                                                    <span class="production-review-item__writer__info__detail-star__item" aria-label="별점 5.0점">
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-30" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-30">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-30" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-30)" xlink:href="#star-path-30"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet"viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-31" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-31">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-31" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-31)" xlink:href="#star-path-31"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-32" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-32">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-32" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-32)" xlink:href="#star-path-32"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-33" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-33">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-33" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-33)" xlink:href="#star-path-33"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-34" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-34">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-34" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-34)" xlink:href="#star-path-34"></use>
-                                                        </svg>
-                                                    </span>
-                                                    <br>
-                                                    <span class="production-review-item__writer__info__detail-star__title">
-                                                        디자인
-                                                    </span>
-                                                    <span class="production-review-item__writer__info__detail-star__item" aria-label="별점 5.0점">
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-35" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-35">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-35" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-35)" xlink:href="#star-path-35"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-36" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-36">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-36" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-36)" xlink:href="#star-path-36"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-37" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-37">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-37" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-37)" xlink:href="#star-path-37"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-38" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-38">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-38" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-38)" xlink:href="#star-path-38"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-39" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-39">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-39" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-39)" xlink:href="#star-path-39"></use>
-                                                        </svg>
-                                                    </span>
-                                                </div>
-                                                <div>
-                                                    <span class="production-review-item__writer__info__detail-star__title">
-                                                        가격
-                                                    </span>
-                                                    <span class="production-review-item__writer__info__detail-star__item" aria-label="별점 5.0점">
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-40" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-40">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-40" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-40)" xlink:href="#star-path-40"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-41" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z">
-                                                                </path>
-                                                                <clipPath id="star-clip-41">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-41" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-41)" xlink:href="#star-path-41"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                           <defs>
-                                                                <path id="star-path-42" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-42">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-42" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-42)" xlink:href="#star-path-42"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-43" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-43">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-43" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-43)" xlink:href="#star-path-43"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-44" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"> </path>
-                                                                <clipPath id="star-clip-44">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-44" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-44)" xlink:href="#star-path-44"></use>
-                                                        </svg>
-                                                    </span>
-                                                    <br>
-                                                    <span class="production-review-item__writer__info__detail-star__title">
-                                                        배송
-                                                    </span>
-                                                    <span class="production-review-item__writer__info__detail-star__item" aria-label="별점 5.0점">
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-45" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-45">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-45" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-45)" xlink:href="#star-path-45"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-46" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-46">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-46" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-46)" xlink:href="#star-path-46"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-47" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-47">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-47" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-47)" xlink:href="#star-path-47"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-48" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                                <clipPath id="star-clip-48">
-                                                                    <rect x="0" y="0" width="24" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-48" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-48)" xlink:href="#star-path-48"></use>
-                                                        </svg>
-                                                        <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="star-path-374"
-                                                                    d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z">
-                                                                </path>
-                                                                <clipPath id="star-clip-374">
-                                                                    <rect x="0" y="0" width="0" height="24"></rect>
-                                                                </clipPath>
-                                                            </defs>
-                                                            <use xlink:href="#star-path-374" fill="#DBDBDB"></use>
-                                                            <use clip-path="url(#star-clip-374)" xlink:href="#star-path-374"></use>
-                                                        </svg>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="production-review-item__name">
-                                                <p></p>사이즈: 제주 25cm 필로우탑 본넬스프링 _Q 퀸 / 색상: 실버그레이 (HL01040)
-                                            </div>
-                                            <button type="button" class="production-review-item__img__btn">
-                                                <img class="production-review-item__img" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164764212253039934.jpeg?gif=1&amp;w=144&amp;h=144&amp;c=c" srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164764212253039934.jpeg?gif=1&amp;w=240&amp;h=240&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164764212253039934.jpeg?gif=1&amp;w=320&amp;h=320&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/cards/snapshots/164764212253039934.jpeg?gif=1&amp;w=480&amp;h=480&amp;c=c 3x">
-                                            </button>
-                                            <p class="production-review-item__description">배송 느리다는 후기가 많아서 걱정했었는데 빨리 왔어요~!! 
-                                                푹신하고 좋아요~ 배송기사님이 너무 불친절했어요 빨리 해주시는 것 
-                                                까지는 좋은데 배송이 밀리신건지,, 뭐에 쫓기듯이,, 바닥이며 침대 
-                                                프라임이며 다 긁히고 부서지게 너무 쾅쾅 놓고 밀고 쓸리고 그랬네요
-                                                 침대커버도 그냥 오자마자 한손으로 자! 이러더니 거의 던지다시피 주심... 
-                                                 아침부터 기분 완전 상한날이었네요
-                                            </p>
-                                            <div class="production-review-item__help">
-                                                <button type="button" class="production-review-item__help__btn"> 
-                                                    도움이 돼요
-                                                </button>
-                                                <div class="production-review-item__help__text">
-                                                    <span class="production-review-item__help__text__number">
-                                                        10
-                                                    </span>
-                                                    명에게 도움이 되었습니다.
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
+                                    </c:forEach>
                                 </div>
-                                <!-- 리뷰 페이지 수 -->
-                                <ul class="_2BEHX production-review__paginator">
-                                    <li class="_1B8WI">
-                                        <button class="_2XI47 _1gwhd" type="button">
-                                            <svg width="1em" height="1em" viewBox="0 0 24 24">
-                                                <path fill="currentColor" d="M6 19.692L8.25 22 18 12 8.25 2 6 4.308 13.5 12z"></path>
-                                            </svg>
-                                        </button>
-                                    </li>
-                                    <li><button class="_3b4ci R16_p" type="button">1</button></li>
-                                    <li><button class="_3b4ci" type="button">2</button></li>
-                                    <li><button class="_3b4ci" type="button">3</button></li>
-                                    <li><button class="_3b4ci" type="button">4</button></li>
-                                    <li><button class="_3b4ci" type="button">5</button></li>
-                                    <li><button class="_3b4ci" type="button">6</button></li>
-                                    <li><button class="_3b4ci" type="button">7</button></li>
-                                    <li><button class="_3b4ci" type="button">8</button></li>
-                                    <li><button class="_3b4ci" type="button">9</button></li>
-                                    <li class="">
-                                        <button class="_2XI47 _3I7ex" type="button">
-                                            <svg width="1em" height="1em" viewBox="0 0 24 24">
-                                                <path fill="currentColor" d="M6 19.692L8.25 22 18 12 8.25 2 6 4.308 13.5 12z"></path>
-                                            </svg>
-                                        </button>
-                                    </li>
-                                </ul>
+                            
                             </section>
                             <!-- 문의 -->
                             <a id="production-selling-question"></a>
-                            <section class="production-selling-section">
+                            <section class="production-selling-section" style="display:none;">
                                 <header class="production-selling-section__header">
                                     <h1 class="production-selling-section__title">
                                         문의 

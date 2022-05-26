@@ -28,6 +28,15 @@ public class ReviewVO {
 
     // review 수정
     private String last_review_image;
-
+    
+    // review 
+    private String nickname; // 유저 닉네임
+    private String user_img; // 유저 사진
+    
+    // option
+    private String option1_name;
+    private String option2_name;
+    private String option1;
+    private String option2;
 
 }

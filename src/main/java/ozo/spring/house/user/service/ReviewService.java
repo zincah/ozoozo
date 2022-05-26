@@ -19,4 +19,7 @@ public interface ReviewService {
 	public List<Map<String, String>> selectMyReview(ReviewVO vo);
 	public Map<String, String> selectMyReviewOne(ReviewVO vo);
 	public void updateReview(ReviewVO vo);
+	
+	public List<ReviewVO> getReviewTODetailPage(int pro);
+	public int updateLiked(ReviewVO vo);
 }

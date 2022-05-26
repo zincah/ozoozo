@@ -5,7 +5,7 @@
    <c:forEach items="${shopItemList }" var="shopItem">
           <div class="deals_list_wrap col-6 col-lg-4">
               <article class="deals_item">
-                  <a href="#" style="text-decoration: none; width: 100%;">
+                  <a href="/house/productPage.com?p=${shopItem.post_id }" style="text-decoration: none; width: 100%;">
                       <div class="deals_item_wrap">
                           <div class="deals_item_pic_out">
                               <div class="deals_item_pic">
