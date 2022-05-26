@@ -69,7 +69,7 @@
 								uo.order_status = '반품'
 							</if>
 							<if test="arr == 9">
-								uo.order_status = '환불'
+								uo.order_status = '환불처리'
 							</if>
 							<if test="arr == 10">
 								uo.order_status = '주문취소'

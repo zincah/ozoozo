@@ -529,48 +529,53 @@
 			<tbody id="orderList">
 				<c:forEach var="orderListView" items="${orderListView}"
 					varStatus="status">
-					<tr class="content-table-content content-hover">
-						<td class="content-table-content-text option-line checkTd">
-							<c:choose>
-								<c:when test="${orderListView.getOrder_status() ne '배송완료' and orderListView.getOrder_status() ne '구매확정'}">
-										<input class="form-check-input check" type="checkbox" value="" />
-								</c:when>
-								<c:otherwise>
-										<input class="form-check-input" type="checkbox" value="" disabled />
-								</c:otherwise>
-							</c:choose>
-						</td>
-						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
-							data-bs-toggle="modal" data-bs-target="#modal-view-order"><fmt:formatDate
-								value="${orderListView.getOrder_date()}"
-								pattern="yyyy-MM-dd HH:mm" /></td>
-						<td class="content-table-content-text option-line state0" onclick="orderDetailView(${status.index})"
-							data-bs-toggle="modal" data-bs-target="#modal-view-order">
-							<span name="orderId${status.index}">${orderListView.getOrder_id()}</span>
-							(<span name="orderNum${status.index}">${orderListView.getOrder_num()}</span>)
-						</td>
-						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
-							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getOrder_status()}</td>
-						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
-							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getProduct_seller_code()}</td>
-						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
-							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getProduct_title()}</td>
-						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
-							data-bs-toggle="modal" data-bs-target="#modal-view-order">
-							${orderListView.getOption1()} <c:if
-								test="${orderListView.getOption2() ne ''}">
-								 / ${orderListView.getOption2()}
-							</c:if>
-						</td>
-						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
-							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getQuantity()}</td>
-						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
-							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getReceiver()}</td>
-						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
-							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getPhone_num()}</td>
-						<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
-							data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getAddress1()}</td>
-					</tr>
+					<c:choose>
+						<c:when test="${orderListView.getRefund_id() ne null and orderListView.getOrder_status() ne '환불처리'}"></c:when>
+						<c:otherwise>
+							<tr class="content-table-content content-hover">
+								<td class="content-table-content-text option-line checkTd">
+									<c:choose>
+										<c:when test="${orderListView.getOrder_status() ne '배송완료' and orderListView.getOrder_status() ne '구매확정'}">
+												<input class="form-check-input check" type="checkbox" value="" />
+										</c:when>
+										<c:otherwise>
+												<input class="form-check-input" type="checkbox" value="" disabled />
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+									data-bs-toggle="modal" data-bs-target="#modal-view-order"><fmt:formatDate
+										value="${orderListView.getOrder_date()}"
+										pattern="yyyy-MM-dd HH:mm" /></td>
+								<td class="content-table-content-text option-line state0" onclick="orderDetailView(${status.index})"
+									data-bs-toggle="modal" data-bs-target="#modal-view-order">
+									<span name="orderId${status.index}">${orderListView.getOrder_id()}</span>
+									(<span name="orderNum${status.index}">${orderListView.getOrder_num()}</span>)
+								</td>
+								<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+									data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getOrder_status()}</td>
+								<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+									data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getProduct_seller_code()}</td>
+								<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+									data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getProduct_title()}</td>
+								<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+									data-bs-toggle="modal" data-bs-target="#modal-view-order">
+									${orderListView.getOption1()} <c:if
+										test="${orderListView.getOption2() ne ''}">
+										 / ${orderListView.getOption2()}
+									</c:if>
+								</td>
+								<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+									data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getQuantity()}</td>
+								<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+									data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getReceiver()}</td>
+								<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+									data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getPhone_num()}</td>
+								<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+									data-bs-toggle="modal" data-bs-target="#modal-view-order">${orderListView.getAddress1()}</td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
 				</c:forEach>
 			</tbody>
 		</table>
