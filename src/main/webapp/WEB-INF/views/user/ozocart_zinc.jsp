@@ -483,6 +483,7 @@
         </c:otherwise>
         </c:choose>
 		<form action="cart_payment.com" method="post" id="actionForm">
+		<input type="hidden" name="cart_param" value="true">
 		</form>
     <!-- 하단 skicky -->
     <div class="sm_footer" style="position: sticky; bottom: 0px; transition: bottom 0.1s ease 0s;">

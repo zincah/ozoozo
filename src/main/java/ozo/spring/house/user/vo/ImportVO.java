@@ -20,12 +20,12 @@ public class ImportVO {
 	
 	private int seller_id;
 	private int price;
-	private int final_price; //patment
+	private int payment; //patment
 	
 	private int product_id;
 	private int UID;
 	private int quantity;
-	private int shipfee;
+	private int shipping_fee;
 	private int post_id;
 	private String order_status;
 	private Timestamp order_date;
@@ -35,6 +35,7 @@ public class ImportVO {
 	private int addr_id;
 	private int coupon_id;
 	private int discount;
-	
 	private int empty_int;
+	
+	private int refund_id;
 }

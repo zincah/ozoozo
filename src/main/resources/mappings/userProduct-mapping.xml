@@ -173,7 +173,7 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
 	</select>
 	<insert id="order_add">
 	insert into user_order(order_id,quantity, order_status, product_id, user_num, seller_id, order_num, shipping_fee, payment, od_postid, address_id, od_point)
-	values((select coalesce(max(order_id), 0)+1 from user_order),#{quantity},#{order_status},#{product_id},#{UID},#{seller_id},#{merchant_uid},#{shipfee},#{final_price}, #{post_id}, #{address_id}, #{empty_int});
+	values((select coalesce(max(order_id), 0)+1 from user_order),#{quantity},#{order_status},#{product_id},#{UID},#{seller_id},#{merchant_uid},#{shipping_fee},#{payment}, #{post_id}, #{address_id}, #{empty_int});
 	</insert>
 	<!-- 포인트 결제 후 처리 -->
 	<update id="user_point_update">
@@ -229,10 +229,34 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
       ) pimg ON p.product_postid = pimg.photo_postid
 	where p.product_id = #{product_id}
 	</select>
+	
 	<update id="buy_check_update">
 		update user_order set order_status = '구매확정', confirm_date = now() where order_id = #{order_id}
 	</update>
-	<select id="wide_user">
 	
+	<select id="get_refund" resultType="paymentlog">
+	 	select * from user_order uo where order_num = #{merchant_UID};
 	</select>
+	
+	<select id="get2_refund" resultType="paymentlog">
+	 	select * from user_order uo where order_num = #{merchant_UID} and product_id = #{product_id} and order_status = '환불처리';
+	</select>
+	
+	<insert id="userorder_refund_add">
+	insert into user_order(order_id,quantity, order_status, product_id, user_num, seller_id, order_num, shipping_fee, payment, od_postid, address_id, od_point, refund_id, order_date)
+	values((select coalesce(max(order_id), 0)+1 from user_order),#{quantity},#{order_status},#{product_id},#{user_num},#{seller_id},#{order_num},#{shipping_fee},#{payment}, #{post_id}, #{address_id}, #{empty_int}, #{order_id}, #{order_date});
+	</insert>
+	
+	<update id="userorder_refund_update">
+	 update user_order set refund_id = #{order_id} where order_num = #{order_num} and product_id = #{product_id} and order_status != '환불처리';
+	</update>
+	
+	<select id="get_payvo" resultType="paymentlog">
+		select * from payment where py_orderid = #{order_id};
+	</select>
+	
+	<insert id="payment_add2">
+		insert into payment(payment_id,pay_ordernum,payment_way,payment_total, py_sellerid, py_final, py_orderid ,py_couponid, py_discount)
+	values((select coalesce(max(payment_id), 0)+1 from payment), #{order_num}, #{payment_total}, #{py_sellerid}, #{py_final}, #{py_orderid}, #{py_couponid}, #{py_discount} );
+	</insert>
 </mapper>

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import ozo.spring.house.seller.vo.ProductVO;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.CouponVO;
 import ozo.spring.house.user.vo.ImportVO;
@@ -341,7 +340,22 @@ public class UserDAO {
 			System.out.println("구매확정 클릭함");
 		}
 		
-		
+		public void refund_DB(int merchant_UID) {
+			List<UserPaymentLogVO> pvo = sqlSessionTemplate.selectList("UserProduct.get_refund", merchant_UID);
+			for(UserPaymentLogVO i : pvo) {
+				i.setOrder_status("환불처리");
+				i.setPayment(0 - i.getPayment());
+				i.setEmpty_int(0 - i.getOd_point());
+				sqlSessionTemplate.insert("UserProduct.userorder_refund_add", pvo);
+				UserPaymentLogVO exvo = sqlSessionTemplate.selectOne("UserProduct.get2_refund", i);
+				sqlSessionTemplate.update("UserProduct.userorder_refund_update", exvo);
+				UserPaymentLogVO payvo = sqlSessionTemplate.selectOne("UserProduct.get_payvo",exvo);
+				payvo.setPy_orderid(exvo.getOrder_id());
+				payvo.setPayment_total(0 - payvo.getPayment_total());
+				payvo.setPy_final(0 - payvo.getPy_final());
+				sqlSessionTemplate.insert("UserProduct.payment_add2", payvo);
+			}
+		}
 		
 		
 		
