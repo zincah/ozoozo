@@ -49,8 +49,9 @@ public class AdminController {
 			List<Map<String, Integer>> bestOfIndexList = userService.bestProductOfIndex();
 			List<Integer> labelList = new ArrayList<Integer>();
 			List<Integer> totalList = new ArrayList<Integer>();
+			//List<Integer> 
 			
-			System.out.println(bestOfIndexList);
+			//System.out.println(bestOfIndexList);
 			
 			int waitcount = productService.registrationWait();
 			int holdcount = productService.registrationHold();
@@ -68,12 +69,9 @@ public class AdminController {
 
 			for(int j=0; j<bestOfIndexList.size(); j++) {
 				Map<String, Integer> bestOfIndex = bestOfIndexList.get(j);
-				System.out.println(bestOfIndex);
+				//System.out.println(bestOfIndex);
 				labelList.add(bestOfIndex.get("od_postid"));
-				//System.out.println(bestOfIndex.get("total"));
 				totalList.add(Integer.parseInt(String.valueOf(bestOfIndex.get("total"))));
-				//System.out.println(total);
-				//totalList.add(lo);
 			}
 			
 			System.out.println(labelList.size());

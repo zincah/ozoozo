@@ -100,7 +100,7 @@
 		// bar chart
 		var ctx = document.getElementById("myBarChart");
 		var myLineChart = new Chart(ctx, {
-		  type: "horizontalBar",
+		  type: "bar",
 		  data: {
 		    labels: labelList,
 		    datasets: [

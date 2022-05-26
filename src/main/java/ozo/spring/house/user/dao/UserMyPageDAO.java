@@ -36,7 +36,12 @@ public class UserMyPageDAO {
 	
 	// 고객 장바구니 상품 수 보이게 하기
 	public int checkCartSu(UserVO vo) {
-		return sqlsessiontemplate.selectOne("UserMyPageDAO.checkCartSu", vo);
+		try {
+			return sqlsessiontemplate.selectOne("UserMyPageDAO.checkCartSu", vo);
+		}catch(Exception e) {
+			return 0; // cart su 를 0으로 return
+		}
+		
 	}
 	
 	
