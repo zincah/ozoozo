@@ -14,6 +14,8 @@ $(document).ready(function () {
 	});
 });
 
+
+
 /* 기간 검색 단축 버튼 */
 // Get input date
 var startDate = document.getElementsByClassName("startDate")[0];
@@ -64,10 +66,14 @@ $(".dateBtn-8").click(function() {
   endDate.valueAsDate = today;
 })
 
+
+
 /* 상세검색 초기화 클릭 */
 $(".initBtn").click(function() {
   dateInit();
 })
+
+
 
 /* 기간 초기화 */
 function dateInit() {
@@ -78,6 +84,8 @@ function dateInit() {
   endDate.valueAsDate = today;
   document.getElementById("flexRadioDefault1").checked = true;
 }
+
+
 
 /* 검색 처리 */
 function getOrderData() {
@@ -102,6 +110,30 @@ function getOrderData() {
   		success : function(resp){
 			$("#salesList").empty();
   			$("#salesList").html(resp);
+  		}
+  	});
+}
+
+
+
+/* 리스트 모달 관련 */
+// 선택한 날짜의 주문건 출력
+function salesDetailView(salesIndex) {
+	
+	// 날짜값 받아오기
+	var temp = 'td[name=selectDate' + salesIndex + ']';
+	var selectDate = $(temp).text().trim();
+	console.log(selectDate);
+	
+	// 데이터 처리 요청
+	$.ajax({
+  		url:'getSalesDatailView.seller',
+  		type:'post',
+  		data: JSON.stringify(selectDate),
+  		contentType : 'application/json; charset=UTF-8',
+  		dataType : 'html',
+  		success : function(resp){
+  			$("#modal-view-sales-change").html(resp);
   		}
   	});
 }

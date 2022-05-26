@@ -8,7 +8,7 @@
 	<select id="selectPostingList" resultType="product">
 		SELECT * FROM product_posting pp
 		JOIN category c ON pp.po_category = c.cate_code
-		LEFT JOIN deal_info di ON pp.post_id = di.deal_postid
+		LEFT JOIN deal_info di ON pp.post_id = di.deal_postid AND (di.deal_status = '게시' OR di.deal_status = '신청')
 		WHERE pp.post_sellerid = #{seller_id}
 		ORDER BY pp.post_id DESC;
 	</select>
@@ -94,7 +94,7 @@
 	<select id="selectSelectPosting" resultType="product">
 		SELECT * FROM product_posting pp
 		JOIN category c ON pp.po_category = c.cate_code
-		LEFT JOIN deal_info di ON pp.post_id = di.deal_postid
+		LEFT JOIN deal_info di ON pp.post_id = di.deal_postid AND (di.deal_status = '게시' OR di.deal_status = '신청')
 		WHERE pp.post_id = #{post_id};
 	</select>
 	
@@ -110,4 +110,3 @@
 		 #{seller_id});
 	</insert>
 </mapper>
-

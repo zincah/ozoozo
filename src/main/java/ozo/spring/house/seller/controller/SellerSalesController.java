@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,9 +33,9 @@ public class SellerSalesController {
 	@Autowired
 	SellerSalesService sellerSalesService;
 	
-	// 판매글 검색 컨트롤러
+	// 매출 검색
 	@RequestMapping(value = "/getSearchSalesList.seller", method=RequestMethod.POST)
-	public String getSearchProductList(HttpServletRequest request, Model model, ProductVO vo, @RequestBody Map<String, String> datas) throws ParseException {	
+	public String getSearchSalesList(HttpServletRequest request, Model model, ProductVO vo, @RequestBody Map<String, String> datas) throws ParseException {	
 		HttpSession session = request.getSession();
 		
 		// 날짜 데이터 처리
@@ -54,13 +55,24 @@ public class SellerSalesController {
 		model.addAttribute("calMaxText", calMaxText);
 
 		// 차트에 출력할 데이터 저장할 변수
-		List<String> dateList = new ArrayList<String>();
-		List<Integer> countList = new ArrayList<Integer>();
+		List<String> dateList = new ArrayList<String>(); // areaChart
+		List<Integer> countList = new ArrayList<Integer>(); // areaChart
+		List<String> barDateList = new ArrayList<String>(); // barChart
+		List<Integer> barCountList = new ArrayList<Integer>(); // barChart
 		
 		// 매출 리스트 저장할 변수
 		List<ProductVO> salesList = new ArrayList<ProductVO>();
 		// 검증을 위한 임시 변수
 		ProductVO tempData = new ProductVO();
+		
+		// VO에 seller id 세팅
+		vo.setSeller_id((int) session.getAttribute("seller_id"));
+		
+		// VO에 barChart용 날짜 세팅
+		Timestamp barMinDate = new Timestamp(calMin.getTimeInMillis());
+		Timestamp barMaxDate = new Timestamp(calMax.getTimeInMillis());
+		vo.setSales_startDate(barMinDate);
+		vo.setSales_endDate(barMaxDate);
 		
 		// 시작~마지막 날짜 까지 반복
 		while(true) { 
@@ -70,7 +82,6 @@ public class SellerSalesController {
 			
 			// vo 셋팅
 			vo.setSales_date(date);
-			vo.setSeller_id((int) session.getAttribute("seller_id"));
 			
 			// 임시변수에 데이터 저장
 			tempData = sellerSalesService.selectSalesList(vo);
@@ -94,20 +105,59 @@ public class SellerSalesController {
 			}
 		}
 		
+		// barChart
+		// 판매량 리스트 저장할 변수 생성
+		List<ProductVO> barChartTotalList = sellerSalesService.selectBarChartTotalList(vo);
+		// 반복문으로 필요한 데이터 뽑아서 각 변수에 저장
+		for(int index = 0; index < barChartTotalList.size(); index++) {
+			barDateList.add(index, barChartTotalList.get(index).getProduct_title());
+			barCountList.add(index, barChartTotalList.get(index).getSales_count());
+		}
+		
 		// 역순으로 재배열
 		Collections.reverse(countList);
 		Collections.reverse(dateList);
+		Collections.reverse(barDateList);
+		Collections.reverse(barCountList);
 		
 		// model에 값 저장
 		model.addAttribute("salesListView", salesList);
 		model.addAttribute("dateList", dateList);
 		model.addAttribute("countList", countList);
+		String jsonArray = JSONArray.toJSONString(barDateList);
+		model.addAttribute("barDateList", jsonArray);
+		model.addAttribute("barCountList", barCountList);
 		
 		// 리스트 매출의 최대값 저장
 		int maxCount = Collections.max(countList);
 		model.addAttribute("maxCount", maxCount);
+		int barMaxCount = Collections.max(barCountList);
+		model.addAttribute("barMaxCount", barMaxCount);
 		
 		// ajax로 부분만 띄워줄 jsp 주소 리턴
 		return "seller-salesManagement-List";
+	}
+	
+	// 매출 상세 조회
+	@RequestMapping(value = "/getSalesDatailView.seller", method=RequestMethod.POST)
+	public String getSalesDatailView(HttpServletRequest request, Model model, ProductVO vo, @RequestBody String datas) throws ParseException {	
+		HttpSession session = request.getSession();
+		
+		// 데이터 포맷 생성
+//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//		Date date = (Date) formatter.parse(datas);
+		
+		// VO 세팅
+		vo.setSeller_id((int) session.getAttribute("seller_id"));
+		vo.setSales_dateString(Date.valueOf(datas));
+		
+		// 매출 리스트 저장할 변수
+		List<ProductVO> salesList = sellerSalesService.selectSalesDetailList(vo);
+		
+		// model에 값 저장
+		model.addAttribute("salesDetailListView", salesList);
+
+		// ajax로 부분만 띄워줄 jsp 주소 리턴
+		return "seller-salesManagement-detail";
 	}
 }
