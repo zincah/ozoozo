@@ -36,6 +36,7 @@ public class ImportVO {
 	private int coupon_id;
 	private int discount;
 	private int empty_int;
+	private int empty_int2;
 	
 	private int refund_id;
 }
