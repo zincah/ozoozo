@@ -59,11 +59,20 @@
                 contentType : 'application/json; charset=UTF-8',
                 dataType : 'html',
                 success : function(resp){
-                  $(".content-table-content content-hover").hide();
-                  $(".couponListLayer").html(resp);
-                  $(".content-table-content content-hover").show();
+                  $(".newcoupon").hide()
+                  $(".couponListLayer").html(resp)
+                  $(".couponbody").show()
+
+                  console.log($(".couponid:nth-last-child(1)").val());
+
+
                 }
               });
+
+          $(".couponListLayer .insert_btn").on("click", function(e){
+            e.preventDefault();
+            $(".couponListLayer li").last().addClass("cLine");
+          });
 
           console.log(couponInfo);
 
@@ -228,7 +237,7 @@
                   <!--<td class="content-table-content-text">0회</td>-->
                   <td class="content-table-content-text"><fmt:formatDate value="${coupon.coupon_startdate}" pattern="yyyy-MM-dd " /><span>~</span><fmt:formatDate value="${coupon.coupon_enddate}" pattern="yyyy-MM-dd "/> </td>
                   <td class="content-table-content-text"><fmt:formatDate value="${coupon.coupon_create}" pattern="yyyy-MM-dd "/> </td>
-                  <td class="content-table-content-text">${coupon.coupon_id}</td>
+                  <td class="content-table-content-text couponid">${coupon.coupon_id}</td>
                   <td class="content-table-content-text state0">${coupon.coupon_status}</td>
                 </tr>
                 </c:forEach>
