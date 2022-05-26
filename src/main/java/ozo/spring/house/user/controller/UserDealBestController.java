@@ -35,9 +35,42 @@ public class UserDealBestController {
 	UserScrapService userscrapservice;
 
 	@RequestMapping(value = "/todaydeal.com")
-	public String main_todayDeal(Model model){
-
+	public String main_todayDeal(Model model,HttpServletRequest request,UserScrapVO svo ){
+		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		List<UserProductVO> todayDealList = userMainService.todayDealList();
+		HttpSession session = request.getSession();
+		if((Integer)session.getAttribute("User_Num")!=null) {
+		svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+		scrap = userscrapservice.userScrapList(svo);
+		
+		
+		for(int i=0; i<todayDealList.size(); i++) {
+			UserProductVO pro = todayDealList.get(i);
+			int sale_price = pro.getDeal_saleprice()*(100-pro.getSale_ratio())/100;
+			
+			DecimalFormat decFormat = new DecimalFormat("###,###"); 
+			
+			pro.setSale_price(decFormat.format(sale_price));
+		
+			for(int j=0; j<scrap.size(); j++) {
+				UserScrapVO sc = scrap.get(j);
+				if(pro.getPost_id() == sc.getSc_postid()) {
+					pro.setCheckit(true);
+				}
+			}
+		}
+		}else {
+			for(int i=0; i<todayDealList.size(); i++) {
+				UserProductVO pro = todayDealList.get(i);
+				int sale_price = pro.getDeal_saleprice()*(100-pro.getSale_ratio())/100;
+				
+				DecimalFormat decFormat = new DecimalFormat("###,###"); 
+				
+				pro.setSale_price(decFormat.format(sale_price));
+			
+				
+			}
+		}
 		model.addAttribute("todayDealList", todayDealList);
 		System.out.println("todaydealListsize"+ todayDealList.size());
 		return "ozotodaydeal_zinc";

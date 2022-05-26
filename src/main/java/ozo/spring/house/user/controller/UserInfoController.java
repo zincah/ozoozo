@@ -284,7 +284,21 @@ public class UserInfoController {
 			
 			return "SignUp";
 		}
+		@RequestMapping(value = "/memberSessionCheck.com",method = RequestMethod.POST)
+		@ResponseBody
+		public int memberSessionCheck (HttpSession session) {
+			if(session.getAttribute("User_Num")!=null) {
+			int User_Num =(int) session.getAttribute("User_Num");
+			System.out.println((int) session.getAttribute("User_Num"));
 		
+				
+				
+				return User_Num;
+				
+			}else {
+				return 0;
+			}
+		}
 		
 
 }

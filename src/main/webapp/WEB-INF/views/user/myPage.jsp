@@ -12,8 +12,10 @@
     <link rel="stylesheet" href="resources/css/user_css/inha/myPage-style.css?var=1" />
     <link rel="stylesheet" href="resources/css/user_css/inha/myPage-nav-style.css" />
     <link rel="stylesheet" href="resources/css/user_css/inha/footer-style.css" />
+    
     <script type="text/javascript"
 	src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style type="text/css">
       address {
         font-style: normal;
@@ -45,6 +47,27 @@
 				})
     		
     	})
+    	$().ready(function () {
+            $(".b_none").click(function () {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+					background: '#ffb0bd',
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+
+                Toast.fire({
+                    
+                    title: '    스크랩 지웠다잉~'
+                })
+            });
+        });
     });
     
     </script>
