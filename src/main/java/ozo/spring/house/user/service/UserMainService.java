@@ -25,6 +25,7 @@ public interface UserMainService {
 	
 	public List<UserProductVO> todayDealList(); // today deal
 	public List<UserProductVO> bestlist(); // best
+	public List<Map<String, String>> getDealEndTimeAtDealPage(); // deal timer
 	
 	// brand page
 	public List<UserProductVO> shopItemList(UserProductVO vo);

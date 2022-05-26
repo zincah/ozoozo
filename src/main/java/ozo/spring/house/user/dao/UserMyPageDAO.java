@@ -34,5 +34,10 @@ public class UserMyPageDAO {
 		sqlsessiontemplate.update("UserMyPageDAO.user_stop",vo);
 	}
 	
+	// 고객 장바구니 상품 수 보이게 하기
+	public int checkCartSu(UserVO vo) {
+		return sqlsessiontemplate.selectOne("UserMyPageDAO.checkCartSu", vo);
+	}
+	
 	
 }

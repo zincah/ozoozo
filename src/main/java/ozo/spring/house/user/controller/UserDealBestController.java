@@ -1,5 +1,6 @@
 package ozo.spring.house.user.controller;
 
+import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +40,21 @@ public class UserDealBestController {
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		List<UserProductVO> todayDealList = userMainService.todayDealList();
 		HttpSession session = request.getSession();
+		
+		// timer
+		List<Map<String, String>> list = userMainService.getDealEndTimeAtDealPage();
+		List<Map<String, String>> dealtimelist = new ArrayList<Map<String, String>>();
+		for(int i=0; i<list.size(); i++) {
+			Map<String, String> dealtime = list.get(i);
+			String t = "\""+String.valueOf(dealtime.get("deal_endtime"))+"\"";
+			String su = t.substring(0, 20) + "\"";
+			dealtime.put("deal_endtime", su);
+			dealtimelist.add(dealtime);
+		}
+		
+		String jsonArray = JSONArray.toJSONString(dealtimelist);
+		model.addAttribute("dealtimelist", jsonArray); // timer 시간 전송
+		
 		if((Integer)session.getAttribute("User_Num")!=null) {
 		svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
 		scrap = userscrapservice.userScrapList(svo);
@@ -219,7 +235,19 @@ public class UserDealBestController {
 				}
 			}
 		}
+		
 		}else {
+			
+			for(int i=0; i<bestlist.size(); i++) {
+				UserProductVO pro = bestlist.get(i);
+				int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
+				
+				DecimalFormat decFormat = new DecimalFormat("###,###"); 
+				
+				pro.setSale_price(decFormat.format(sale_price));
+			
+			
+			}
 			
 		}
 		

@@ -24,68 +24,7 @@
 	let totalCount;
 	var firstscroll = 0;
 	var page = 0; // 페이징
-	
-	
-	// timer 설정하기
-	const getTime =()=>{
-		const now = new Date();
-		let year = now.getFullYear();
-		let month = now.getMonth()+1;
-		let days = now.getDate();
-		let hours = now.getHours();
-// 		let minutes = now.getMinutes();
-		let seconds = now.getSeconds();
-		
-		hours = hours < 10 ? `0`+hours : hours;
-		minutes = minutes < 10 ? `0`+minutes : minutes;
-		seconds = seconds < 10 ? `0`+seconds : seconds;
-		
-		var dealtimelist = ${dealtimelist};
-		
-		for(var i=0; i<dealtimelist.length; i++){
-			var dealtime = dealtimelist[i];
-			var postid = dealtime.deal_postid;
-			var endtime = dealtime.deal_endtime;
-
-			var s_t = endtime.replaceAll('"', '').split(' ');
-
-			var datelayer = s_t[0];
-			var timelayer = s_t[1];
-
-			var s_date = datelayer.split("-");
-			var endY = s_date[0];
-			var endM = s_date[1];
-			var endD = s_date[2];
-			
-			var s_time = timelayer.split(":");
-			var endh = s_time[0];
-			var endm = s_time[1];
-			var ends = s_time[2];
-			
-			var date1 = new Date(year, month, days, hours, minutes, seconds);
-			var date2 = new Date(endY, endM, endD, endh, endm, ends);
-			//console.log("now : " + now);
-			//console.log("date : " + date2);
-			
-			var makeSec = parseInt((date2.getTime() - date1.getTime())/1000%60);
-			var makeMin = parseInt((date2.getTime() - date1.getTime())/1000/60%60);
-			var makeHou = parseInt((date2.getTime() - date1.getTime())/1000/3600);
-			
-			if(makeHou == 0 && makeMin == 0 && makeSec == 0){
-				location.reload();
-			}
-			
-			makeMin = makeMin < 10 ? `0`+makeMin : makeMin;
-			makeSec = makeSec < 10 ? `0`+makeSec : makeSec;
-			
-			var timer = makeHou + ":" + makeMin + ":" + makeSec;
-			$(".b_" + postid).find('div').text(timer);
-
-		}
-	}
-	
-	getTime();
-	setInterval(getTime, 1000);
+	var dealtimelist = ${dealtimelist};
 
 	$(document).ready(function(){
 		
@@ -222,6 +161,7 @@
 	
 
 </script>
+<script type="text/javascript" src="resources/js/userjs/dealTimer.js?var=1"></script>
 </head>
 <body>
 	<header>

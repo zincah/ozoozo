@@ -24,6 +24,7 @@ import ozo.spring.house.admin.vo.MemberVO;
 import ozo.spring.house.user.service.NaverLoginService;
 import ozo.spring.house.user.service.UserMainService;
 import ozo.spring.house.user.service.UserService;
+import ozo.spring.house.user.service.userMyPageService;
 import ozo.spring.house.user.vo.UserVO;
 
 @Controller
@@ -34,6 +35,9 @@ public class UserInfoController {
 	
 	@Autowired
 	UserMainService userMainService;
+	
+	@Autowired
+	userMyPageService mypageService;
 	
 	@Autowired NaverLoginService naverLoginService;
 	
@@ -88,8 +92,10 @@ public class UserInfoController {
 		if(user!=null) {
 			session.setAttribute("UserMail", email);
 			session.setAttribute("User_Num", user.getUser_num());
+			session.setAttribute("User_img", user.getUser_img());
 			vo.setUser_num(user.getUser_num());
 			userMainService.lastLoginCheck(vo);
+			session.setAttribute("userCartSu", checkCartSu(vo));
 			return "redirect:login.com";
 		}else {
 			// 네이버 회원 가입
@@ -155,9 +161,10 @@ public class UserInfoController {
 				if(user!=null) { // 회원정보가 있는 경우
 					session.setAttribute("UserMail", kaemail);
 					session.setAttribute("User_Num", user.getUser_num());
-					//session.setAttribute("User_img", user.getUser_img());
+					session.setAttribute("User_img", user.getUser_img());
 					vo.setUser_num(user.getUser_num());
 					userMainService.lastLoginCheck(vo);
+					session.setAttribute("userCartSu", checkCartSu(vo));
 					return "redirect:login.com";
 					
 				}else { // 회원정보가 없는경우 회원가입
@@ -188,10 +195,12 @@ public class UserInfoController {
 				session.setAttribute("UserMail", user.getUser_email());
 				session.setAttribute("User_Num", user.getUser_num());
 				session.setAttribute("User_img", user.getUser_img());
-				//model.addAttribute("Usercode", vo.getUser_email());
+
 				model.addAttribute("member", vo); // member 정보
 				vo.setUser_num(user.getUser_num());
 				userMainService.lastLoginCheck(vo); // 최종로그인 날짜 업데이트
+				session.setAttribute("userCartSu", checkCartSu(vo));
+				
 				
 				String url = "";
 				// 세션에 저장되어있는 lasturl을 얻어와서 그 페이지로 리다이렉트 시킨다.
@@ -298,6 +307,12 @@ public class UserInfoController {
 			}else {
 				return 0;
 			}
+		}
+		
+		// 고객 장바구니 메소드
+		public int checkCartSu(UserVO vo) {
+			int cartSize = mypageService.checkCartSu(vo);
+			return cartSize;
 		}
 		
 

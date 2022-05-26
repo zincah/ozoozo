@@ -43,4 +43,9 @@
 		) pimg ON po.post_id = pimg.photo_postid
       order by best.cnt desc;
 	</select>
+	
+	<select id="getDealEndTimeAtDealPage" resultType="HashMap">
+		select deal_postid, deal_endtime from deal_info where deal_status = '게시'
+		order by deal_id desc;
+	</select>
 </mapper>
