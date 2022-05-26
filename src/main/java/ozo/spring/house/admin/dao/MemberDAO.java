@@ -20,14 +20,21 @@ public class MemberDAO {
 	
 	public MemberVO checkAdmin(MemberVO vo) {
 		System.out.println("--> mybatis in memberdao checkadmin");
-		MemberVO member = (MemberVO) sqlSessionTemplate.selectOne("MemberDAO.checkAdmin", vo);
-		
-		if(passwordEncoder.matches(vo.getAdmin_password(), member.getAdmin_password())) {
-			return member;
-		}else {
-			return null; 
-			// 抗寇贸府
+
+		try {
+			MemberVO member = (MemberVO) sqlSessionTemplate.selectOne("MemberDAO.checkAdmin", vo);
+			if(passwordEncoder.matches(vo.getAdmin_password(), member.getAdmin_password())) {
+				return member;
+			}else {
+				return null; 
+				// 抗寇贸府
+			}
+
+		}catch(Exception e) {
+			return null;
 		}
+		
+		
 	}
 	
 	public void insertAdmin(MemberVO vo) {

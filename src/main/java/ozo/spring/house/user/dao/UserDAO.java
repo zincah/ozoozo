@@ -42,13 +42,21 @@ public class UserDAO {
 	// login
 	public UserVO checkUser(UserVO vo) {
 		System.out.println("[LOGO] : mybatis in UserDAO checkUser");
-		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.checkUser", vo);
-		if(passwordEncoder.matches(vo.getUser_pw(), user.getUser_pw())) {
-			System.out.println("hi");
-			return user;
-		}else {
+		try {
+			UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.checkUser", vo);
+			
+			if(passwordEncoder.matches(vo.getUser_pw(), user.getUser_pw())) {
+				return user;
+			}else {
+				return null;
+			}
+			
+		}catch(Exception e) {
 			return null;
 		}
+		
+		
+		
 	}
 	public Boolean Duplicate_Check_Email(UserVO vo) {
 		System.out.println("[LOGO] : mybatis in UserDAO Duplicate_Check_Email");

@@ -227,7 +227,7 @@
                                 <path d="M1 2h3v3"></path>
                             </svg> 
                             <!-- 장바구니 -->
-                            <c:if test="${userCartSu ne null }">
+                            <c:if test="${userCartSu ne 0 }">
                             <span class="layout-navigation-bar-icon__ticker">
 								${userCartSu}
 							</span>

@@ -9,8 +9,53 @@
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/block.css?var=1'>
     <link rel="stylesheet" href="resources/css/admincss/fonts.css?var=1">
     <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
+  	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
   
   	<script>
+  	
+		//	fc7fc6f3684227823c32640d578cac9e
+	    // 카카오 로그인 구현
+	    window.Kakao.init("fc7fc6f3684227823c32640d578cac9e");
+	    //console.log(Kakao.isInitialized()); // sdk 초기화?
+	    
+	    function kakaoLogin(){
+	    	
+	    	window.Kakao.Auth.login({
+	    		scope:'profile_nickname,account_email',
+	    		success: function(authObj){
+	    			
+	    			window.Kakao.API.request({
+	    				url: '/v2/user/me',
+	    				success: function(response){
+	    					
+	    					var accessToken = Kakao.Auth.getAccessToken();
+	    					Kakao.Auth.setAccessToken(accessToken);
+	    					
+	    					console.log(JSON.stringify(response));
+	    					
+	    					var email = response.kakao_account.email;
+	    					var name = response.properties.nickname;
+	    					
+	    					console.log(email);
+	    					console.log(name);
+	    					
+	    					$("#kaemail").val(email);
+	    					$("#kanickname").val(name);
+	    					
+	    					$(".login_form").submit();
+	    					
+	    				},
+	    				fail: function(error) {
+	    			        console.log(error);
+	    			    }
+	    			})
+	    		}
+	    		
+	    		
+	    	})
+	    	
+	    	
+	    }
   		
   		function sendEmail(){
   			$(".emailBtn").removeClass('EmailBtn_true');
@@ -130,7 +175,7 @@
                             </a>
                         </li>
                         <li class="sns">
-                            <a href=""><svg width="48" height="48" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet">
+                            <a href="javascript:kakaoLogin();"><svg width="48" height="48" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet">
                                     <g fill="none" fill-rule="evenodd">
                                         <path fill="#FFEB00" d="M0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24z">
                                         </path>

@@ -137,9 +137,7 @@
 	
 	<!-- admin deal 상태 바꾸기 : deal-info, post -->
 	<update id="updateDealStatus">
-		UPDATE deal_info SET deal_status=#{deal_status}, deal_time=now(), 
-		deal_endtime=now()+'1 days' WHERE deal_postid=#{post_id} 
-		and di.deal_status = '신청';
+		UPDATE deal_info SET deal_status=#{deal_status}, deal_time=now(), deal_endtime=now()+'1 days' WHERE deal_postid=#{post_id} and deal_status = '신청';
 	</update>
 	
 	<update id="updateDealStatusOnPost">
