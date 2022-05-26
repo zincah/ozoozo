@@ -69,10 +69,12 @@
                 }
               });
 
-          $(".couponListLayer .insert_btn").on("click", function(e){
+          /*$(".couponListLayer .insert_btn").on("click", function(e){
             e.preventDefault();
             $(".couponListLayer li").last().addClass("cLine");
-          });
+          });*/
+
+          $(".couponListLayer").last().html();
 
           console.log(couponInfo);
 
