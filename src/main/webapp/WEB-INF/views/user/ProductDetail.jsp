@@ -20,6 +20,9 @@
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/addInform.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/smallOption.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/detailScript.css?var=1'>
+   <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="resources/js/userjs/detailbookmark.js?var=1"></script>
 
     <script>
     var select = false
@@ -63,6 +66,7 @@
     	})
 
     </script>
+    
 </head>
 <body>
 <header>
@@ -154,20 +158,27 @@
                                     <span class="production-selling-header__title__name"> ${product[0].post_name}</span>
                                     <!-- 공유하기, 스크랩 -->
                                     <div class="production-selling-header__action">
-                                    
-                                        <button class="production-selling-header__action__button production-selling-header__action__button-scrap" type="button">
+                                     <c:choose>
+	                                    <c:when test="${product[0].checkit eq true}">
+	                                    <div id="s_${product[0].product_postid }"></div>
+                                     	<button id="${product[0].product_postid }"  class="production-selling-header__action__button production-selling-header__action__button-scrap b_blue" type="button">
                                             <svg class="icon--stroke" aria-label="스크랩" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="0.5" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
                                                 <path d="M11.53 18.54l-8.06 4.31A1 1 0 0 1 2 21.97V3.5A1.5 1.5 0 0 1 3.5 2h17A1.5 1.5 0 0 1 22 3.5v18.47a1 1 0 0 1-1.47.88l-8.06-4.31a1 1 0 0 0-.94 0z"></path>
                                             </svg>
-                                            <span class="count">56,279</span>
+                                            
                                         </button>
-                                        <div class="drop-down">
-                                            <button class="production-selling-header__action__button" type="button">
-                                                <svg class="icon" aria-label="공유하기" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" preserveAspectRatio="xMidYMid meet">
-                                                    <path d="M9.64 14.646a4.5 4.5 0 1 1 0-5.292l4.54-2.476a4.5 4.5 0 1 1 .63.795l-4.675 2.55c.235.545.365 1.146.365 1.777s-.13 1.232-.365 1.777l4.675 2.55a4.5 4.5 0 1 1-.63.795l-4.54-2.476zM18 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM6 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM18 23a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"></path>
-                                                </svg>
-                                            </button>
-                                        </div>
+                                        </c:when>
+                                        <c:when test="${product[0].checkit ne true}">
+                                        <div id="s_${product[0].product_postid }"></div>
+                                        <button id="${product[0].product_postid }" class="production-selling-header__action__button production-selling-header__action__button-scrap b_blue" type="button">
+                                            <svg class="icon--stroke" aria-label="스크랩" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="0.5" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+                                                <path d="M11.53 18.54l-8.06 4.31A1 1 0 0 1 2 21.97V3.5A1.5 1.5 0 0 1 3.5 2h17A1.5 1.5 0 0 1 22 3.5v18.47a1 1 0 0 1-1.47.88l-8.06-4.31a1 1 0 0 0-.94 0z"></path>
+                                            </svg>
+                                          
+                                        </button>
+                                        </c:when>
+                                      </c:choose>
+                                       
                                     </div>
                                 </div>
                             </h1>

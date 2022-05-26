@@ -33,7 +33,7 @@
 		let month = now.getMonth()+1;
 		let days = now.getDate();
 		let hours = now.getHours();
-// 		let minutes = now.getMinutes();
+ 		let minutes = now.getMinutes();
 		let seconds = now.getSeconds();
 		
 		hours = hours < 10 ? `0`+hours : hours;

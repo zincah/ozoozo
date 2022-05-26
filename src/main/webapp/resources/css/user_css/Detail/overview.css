@@ -471,7 +471,7 @@ img {
     border-radius: 4px;
 }
 .production-selling-cover-image__list__btn:hover{
-    border-color:#35c5f0;
+    border-color:#ff778e;
 }
 
 @media (min-width: 768px){
@@ -486,7 +486,7 @@ img {
     left: 0;
     right: 0;
     bottom: 0;
-    border: 2px solid #35c5f0;
+    border: 2px solid #ff778e;
     border-radius: 4px;
 }
 .production-selling-cover-image__list__btn>.image {
@@ -740,11 +740,13 @@ img {
     margin: 0 -6px;
 }
 
-.production-selling-header__action__button>.icon--stroke {
-    fill: transparent;
+
+.b_none{
+	fill: #f77;
     /*stroke: #424242;*/
     stroke-width: 1px;
     transition: fill .1s, stroke .1s;
+	
 }
 
 .production-selling-header__action__button>.count {
@@ -822,7 +824,7 @@ img {
 
 .production-selling-header__review__text {
     margin-left: 4px;
-    color: #35c5f0;
+    color: #ff778e;
     font-size: 13px;
     vertical-align: 2px;
 }
@@ -960,7 +962,7 @@ img {
 .production-selling-header__price__coupon {
     display: block;
     margin-top: 4px;
-    color: #35c5f0;
+    color: #ff778e;
 }
 
 .production-selling-header__price__coupon__reason {
@@ -1023,7 +1025,7 @@ img {
     font-size: 15px;
     line-height: 22px;
     font-weight: bold;
-    color: #35c5f0;
+    color: #ff778e;
 }
 
 .css-ggq6e8 {
@@ -1397,7 +1399,7 @@ img {
 
 
 .selling-option-select-input__option.select-input.focused>.form-control {
-    border-color: #35c5f0;
+    border-color: #ff778e;
 }
 
 .selling-option-select-input__option.select-input>.form-control.empty {
@@ -1463,7 +1465,7 @@ img {
 }
 
 .selling-option-select-input__option.select-input.focused .select-input__icon {
-    color: #35c5f0;
+    color: #ff778e;
 }
 
 .select-input__icon {
@@ -1568,12 +1570,12 @@ img {
 
 .button--color-blue-inverted {
     background-color: #fff;
-    border-color: #35c5f0;
-    color: #35c5f0;
+    border-color: #ff778e;
+    color: #ff778e;
 }
 .button--color-blue {
-    background-color: #35c5f0;
-    border-color: #35c5f0;
+    background-color: #ff778e;
+    border-color: #ff778e;
     color: #fff;
 }
 .button--color-blue:hover{
