@@ -95,6 +95,27 @@
 		update review set rating=#{rating},review_image=#{review_image},recontent=#{recontent}
 		where review_id=#{review_id}
 	</update>
+	
+	<!-- 상세페이지 리뷰 -->
+	<select id="getReviewTODetailPage" resultType="review">
+		select re.*, ut.nickname, ut.user_img, po.* from review re 
+		inner join user_table ut on re.reuser_num = ut.user_num
+		inner join product_option po on po.op_productid = re.reproduct_id
+		where repost_id = #{repost_id};
+	</select>
+	
+	<!-- 도움이돼요 -->
+	<update id="updateLiked">
+		update review set liked=(select liked from review where review_id=#{review_id})+1 
+		where review_id=#{review_id};
+	</update>  
+	
+	<select id="getLikedSu" resultType="int">
+		select liked from review where review_id = #{review_id};
+	</select>
+
+	
+	
 
 </mapper>
 

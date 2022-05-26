@@ -137,13 +137,15 @@
 	
 	<!-- admin deal 상태 바꾸기 : deal-info, post -->
 	<update id="updateDealStatus">
-		UPDATE deal_info SET deal_status=#{deal_status},
-		deal_time=now(), deal_endtime=now()+'1 days' WHERE deal_postid=#{post_id};
+		UPDATE deal_info SET deal_status=#{deal_status}, deal_time=now(), 
+		deal_endtime=now()+'1 days' WHERE deal_postid=#{post_id} 
+		and di.deal_status = '신청';
 	</update>
 	
 	<update id="updateDealStatusOnPost">
 		UPDATE product_posting SET today_deal=#{today_deal} WHERE post_id=#{post_id};
 	</update>
+	<!-- update join 되는지 확인해보기 -->
 	
 	<delete id="deleteDeal">
 		UPDATE deal_info SET deal_status#{중지} WHERE deal_postid=#{post_id}
