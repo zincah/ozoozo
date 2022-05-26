@@ -23,6 +23,17 @@
     <script>
     var select = false
     </script>
+    <script>
+    $(document).ready(function(){
+    	
+    	$(document).on("click",".b_blue",function(){
+    		
+    	})
+    	$(document).on("click",".b_none",function(){
+    		
+    	})
+    })
+    </script>
 </head>
 <body>
 <header>
@@ -55,7 +66,7 @@
                         <a class="link" href="">스프링매트리스</a>
                     </li> -->
                 </ol>
-            </nav>
+<!--             </nav> -->
             <div class="product-selling-container row">
                 <div class="product-selling-cover-image-wrap if-1-cover-image if-2-cover-image if-3-cover-image">
                     <div class="product-selling-cover-image-container">
@@ -114,6 +125,7 @@
                                     <span class="production-selling-header__title__name"> ${product[0].post_name}</span>
                                     <!-- 공유하기, 스크랩 -->
                                     <div class="production-selling-header__action">
+                                    
                                         <button class="production-selling-header__action__button production-selling-header__action__button-scrap" type="button">
                                             <svg class="icon--stroke" aria-label="스크랩" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="0.5" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
                                                 <path d="M11.53 18.54l-8.06 4.31A1 1 0 0 1 2 21.97V3.5A1.5 1.5 0 0 1 3.5 2h17A1.5 1.5 0 0 1 22 3.5v18.47a1 1 0 0 1-1.47.88l-8.06-4.31a1 1 0 0 0-.94 0z"></path>
