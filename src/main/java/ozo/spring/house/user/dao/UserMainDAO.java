@@ -60,31 +60,6 @@ public class UserMainDAO {
 		System.out.println("mybatis in usermaindao getdealendtime");
 		return sqlSessionTemplate.selectList("UserMainDAO.getDealEndTime");
 	}
-	
-	// 잠깐 추가
-	public UserVO checkUserByNaver(UserVO vo) {
-		System.out.println("mybatis in userdao naverlogin");
-		return sqlSessionTemplate.selectOne("UserDAO.checkUserByNaver", vo);
-	}
-	
-	// 여기도 잠깐 추가
-	public void lastLoginCheck(UserVO vo) {
-		System.out.println("mybatis in userdao lastlogintimecheck");
-		sqlSessionTemplate.update("UserDAO.lastLoginCheck", vo);
-		
-		System.out.println("회원 넘버 : " + vo.getUser_num());
-		Date date = new Date();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	    String formattedDate = simpleDateFormat.format(date);
-	    
-	    vo.setLogin_date(java.sql.Date.valueOf(formattedDate));
-		UserVO user = sqlSessionTemplate.selectOne("UserDAO.selectLoginCount", vo);
-		
-		if(user == null) {
-			System.out.println("insert");
-			sqlSessionTemplate.insert("UserDAO.insertLoginCount", vo);
-		}
-	}
 
 	public List<UserProductVO> todayDealList(){
 		System.out.println("mybatis in usermaindao todaydeallist");

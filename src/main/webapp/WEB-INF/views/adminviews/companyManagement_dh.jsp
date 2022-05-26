@@ -498,8 +498,8 @@
     <script src="resources/js/adminjs/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="resources/js/adminjs/admin-productManagement_ih.js"></script>
-    <script src="resources/js/adminjs/date_admin.js"></script>
+    <!-- <script src="resources/js/adminjs/admin-productManagement_ih.js"></script> -->
+    <script src="resources/js/adminjs/date_admin.js?var=1"></script>
     <script src="resources/js/adminjs/checkbox.js"></script>
   </body>
 </html>

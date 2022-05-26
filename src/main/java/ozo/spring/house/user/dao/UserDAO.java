@@ -1,7 +1,9 @@
 package ozo.spring.house.user.dao;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -54,10 +56,34 @@ public class UserDAO {
 		}catch(Exception e) {
 			return null;
 		}
-		
-		
-		
+
 	}
+	
+	// naver login
+	public UserVO checkUserByNaver(UserVO vo) {
+		System.out.println("mybatis in userdao naverlogin");
+		return sqlSessionTemplate.selectOne("UserDAO.checkUserByNaver", vo);
+	}
+	
+	// 마지막 로그인 체크
+	public void lastLoginCheck(UserVO vo) {
+		System.out.println("mybatis in userdao lastlogintimecheck");
+		sqlSessionTemplate.update("UserDAO.lastLoginCheck", vo);
+		
+		System.out.println("회원 넘버 : " + vo.getUser_num());
+		Date date = new Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    String formattedDate = simpleDateFormat.format(date);
+	    
+	    vo.setLogin_date(java.sql.Date.valueOf(formattedDate));
+		UserVO user = sqlSessionTemplate.selectOne("UserDAO.selectLoginCount", vo);
+		
+		if(user == null) {
+			System.out.println("insert");
+			sqlSessionTemplate.insert("UserDAO.insertLoginCount", vo);
+		}
+	}
+	
 	public Boolean Duplicate_Check_Email(UserVO vo) {
 		System.out.println("[LOGO] : mybatis in UserDAO Duplicate_Check_Email");
 		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.Duplicate_Check_Email",vo);

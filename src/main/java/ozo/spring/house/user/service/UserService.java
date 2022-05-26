@@ -16,6 +16,9 @@ public interface UserService {
 	public Boolean Duplicate_Check_Email(UserVO vo);
 	public void insertUser(UserVO vo);
 	public UserVO checkUser(UserVO vo);
+	public UserVO checkUserByNaver(UserVO vo); // naver login
+	public void lastLoginCheck(UserVO vo); // 마지막 로그인 유저 체크
+	
 	public void change_pass(UserVO vo);
 	public List<UserProductVO> productGet(UserProductVO vo);
 	public List<UserProductVO> productGet_option(UserProductVO vo);

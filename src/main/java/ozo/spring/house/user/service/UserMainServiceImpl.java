@@ -55,16 +55,6 @@ public class UserMainServiceImpl implements UserMainService {
 	public List<UserProductVO> shopItemList(UserProductVO vo) {
 		return userMainDAO.shopItemList(vo);
 	}
-  
-	@Override
-  	public UserVO checkUserByNaver(UserVO vo) {
-		return userMainDAO.checkUserByNaver(vo); // ¿Å°Ü¾ßÇÔ
-	}
-
-	@Override
-	public void lastLoginCheck(UserVO vo) { 
-		userMainDAO.lastLoginCheck(vo); // ¿Å°Ü¾ßÇÔ
-	}
 
 	@Override
 	public List<List<UserCategoryVO>> printCateList(UserProductVO vo) {

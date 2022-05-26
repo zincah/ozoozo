@@ -87,14 +87,14 @@ public class UserInfoController {
 		System.out.println("email" + email);
 		
 		vo.setUser_email(email);
-		UserVO user = userMainService.checkUserByNaver(vo);
+		UserVO user = userService.checkUserByNaver(vo);
 		
 		if(user!=null) {
 			session.setAttribute("UserMail", email);
 			session.setAttribute("User_Num", user.getUser_num());
 			session.setAttribute("User_img", user.getUser_img());
 			vo.setUser_num(user.getUser_num());
-			userMainService.lastLoginCheck(vo);
+			userService.lastLoginCheck(vo);
 			session.setAttribute("userCartSu", checkCartSu(vo));
 			return "redirect:login.com";
 		}else {
@@ -105,9 +105,9 @@ public class UserInfoController {
 			userService.insertUser(vo);
 			System.out.println("네이버 회원가입 성공");
 			
-			UserVO nuser = userMainService.checkUserByNaver(vo);
+			UserVO nuser = userService.checkUserByNaver(vo);
 			vo.setUser_num(nuser.getUser_num());
-			userMainService.lastLoginCheck(vo);
+			userService.lastLoginCheck(vo);
 			
 			session.setAttribute("UserMail", email);
 			session.setAttribute("User_Num", nuser.getUser_num());
@@ -156,14 +156,14 @@ public class UserInfoController {
 				String kanickname = request.getParameter("kanickname");
 				
 				vo.setUser_email(kaemail);
-				UserVO user = userMainService.checkUserByNaver(vo);
+				UserVO user = userService.checkUserByNaver(vo);
 				
 				if(user!=null) { // 회원정보가 있는 경우
 					session.setAttribute("UserMail", kaemail);
 					session.setAttribute("User_Num", user.getUser_num());
 					session.setAttribute("User_img", user.getUser_img());
 					vo.setUser_num(user.getUser_num());
-					userMainService.lastLoginCheck(vo);
+					userService.lastLoginCheck(vo);
 					session.setAttribute("userCartSu", checkCartSu(vo));
 					return "redirect:login.com";
 					
@@ -175,9 +175,9 @@ public class UserInfoController {
 					userService.insertUser(vo);
 					System.out.println("카카오 회원가입 성공");
 					
-					UserVO nuser = userMainService.checkUserByNaver(vo);
+					UserVO nuser = userService.checkUserByNaver(vo);
 					vo.setUser_num(nuser.getUser_num());
-					userMainService.lastLoginCheck(vo);
+					userService.lastLoginCheck(vo);
 					
 					session.setAttribute("UserMail", kaemail);
 					session.setAttribute("User_Num", nuser.getUser_num());
@@ -198,7 +198,7 @@ public class UserInfoController {
 
 				model.addAttribute("member", vo); // member 정보
 				vo.setUser_num(user.getUser_num());
-				userMainService.lastLoginCheck(vo); // 최종로그인 날짜 업데이트
+				userService.lastLoginCheck(vo); // 최종로그인 날짜 업데이트
 				session.setAttribute("userCartSu", checkCartSu(vo));
 				
 				
