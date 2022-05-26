@@ -1,5 +1,6 @@
 @charset "EUC-KR";
 
+
 .production-selling-floating-wrap {
     z-index: 500;
 }
@@ -24,6 +25,12 @@
     display: -ms-flexbox;
     display: flex;
     padding: 6px;
+}
+.production-selling-floating-content__scrap>.icon--stroke {
+    fill: transparent;
+    stroke: #424242;
+    stroke-width: 1px;
+    transition: fill .1s,stroke .1s;
 }
 .production-selling-floating-content__scrap {
     -webkit-box-flex: 0;
@@ -78,12 +85,12 @@
     cursor: pointer;
 }
 ._3AsCW {
-    background-color: #35c5f0;
-    border-color: #35c5f0;
+    background-color: #ff778e;
+    border-color: #ff778e;
     color: #fff;
 }
 ._3AsCW:hover{
-    background-color: rgb(9, 173, 219);
+    background-color: #ff778e;
 }
 ._1BDvx, ._32u90 {
     line-height: 20px;

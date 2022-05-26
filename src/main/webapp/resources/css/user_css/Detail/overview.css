@@ -1,7 +1,21 @@
-@charset "EUC-KR";
+/* @charset "EUC-KR"; */
 /* 오버뷰 컨테이너  */
-
-
+.production-selling-floating-content__scrap>.icon--stroke {
+    fill: transparent;
+    stroke: #424242;
+    stroke-width: 1px;
+    /* transition: fill .1s,stroke .1s; */
+}
+.production-selling-header__action__button.production-selling-header__action__button--active>.icon--stroke {
+    fill: #35c5f0;
+    stroke: transparent;
+}
+.production-selling-header__action__button>.icon--stroke {
+    fill: transparent;
+    stroke: #424242;
+    stroke-width: 1px;
+    transition: fill .1s,stroke .1s;
+}
 .container {
     margin-right: auto;
     margin-left: auto;
@@ -10,6 +24,7 @@
     box-sizing: border-box;
     min-height: 1px;
 }
+
 
 @media (min-width: 375px) {
     .container {

@@ -1,5 +1,6 @@
 @charset "EUC-KR";
 /* ÄíÆù ÆË¾÷ */
+
 .coupon-modal.react-modal {
     z-index: 10000001;
 }
