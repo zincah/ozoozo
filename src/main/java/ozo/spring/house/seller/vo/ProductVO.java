@@ -120,6 +120,7 @@ public class ProductVO {
 	private int od_postid; // postid 연결 키
 	private Timestamp shipfinish_date; // 배송완료날짜
 	private Timestamp shipstart_date; // 배송시작날짜
+	private String refund_id; // 환불 상대 order_id
 	
 	//payment
 	private int payment_id; // 결제아이디

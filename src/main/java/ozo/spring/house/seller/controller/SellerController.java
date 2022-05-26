@@ -136,7 +136,7 @@ public class SellerController {
 			model.addAttribute("orderStatus4", orderListView.stream().filter(list -> list.getOrder_status().equals("구매확정")).count());
 			model.addAttribute("orderStatus5", orderListView.stream().filter(list -> list.getOrder_status().equals("교환")).count());
 			model.addAttribute("orderStatus6", orderListView.stream().filter(list -> list.getOrder_status().equals("반품")).count());
-			model.addAttribute("orderStatus7", orderListView.stream().filter(list -> list.getOrder_status().equals("환불")).count());
+			model.addAttribute("orderStatus7", orderListView.stream().filter(list -> list.getOrder_status().equals("환불처리")).count());
 			model.addAttribute("orderStatus8", orderListView.stream().filter(list -> list.getOrder_status().equals("주문취소")).count());
 			
 			return "seller-order";
