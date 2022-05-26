@@ -151,6 +151,7 @@ public class UserPaymentController {
 			add_vo.setSeller_id(cart_li.get(i).getCart_seller());
 			int price = pro_li.get(i).getProduct_price() * pro_li.get(i).getCart_quantity();
 			add_vo.setPrice(price);
+			System.out.println();
 			int final_price = price - point; //할인된만큼 뺴기
 			add_vo.setPayment(final_price);
 			add_vo.setProduct_id(cart_li.get(i).getCart_product()); 	
@@ -182,10 +183,12 @@ public class UserPaymentController {
 			pay_cls.update_coupon(coupon_code);
 		}
 		//point payment_after
-		int final_point = (Integer)ivo.get("point_num") - (int)(paid_amount * 0.003);
+		int m_point = (Integer)ivo.get("point_num");
+		int p_point = (int)(paid_amount * 0.003);
 		ImportVO exvo = new ImportVO();
 		exvo.setUID(userID);
-		exvo.setEmpty_int(final_point);
+		exvo.setEmpty_int(m_point);
+		exvo.setEmpty_int2(p_point);
 		pay_cls.point_update(exvo);
 		return "success";
 	}

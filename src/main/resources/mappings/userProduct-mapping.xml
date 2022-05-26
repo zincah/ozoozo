@@ -169,7 +169,7 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
 	values((select coalesce(max(payment_id), 0)+1 from payment),#{ merchant_uid},#{pay_method},#{price},#{seller_id},#{paid_amount},#{py_orderid},#{coupon_id},#{discount} );
 	</insert>
 	<select id="order_select" resultType="int">
-	select order_id from user_order where order_num = #{merchant_uid} and payment = #{final_price};
+	select order_id from user_order where order_num = #{merchant_uid} and payment = #{payment};
 	</select>
 	<insert id="order_add">
 	insert into user_order(order_id,quantity, order_status, product_id, user_num, seller_id, order_num, shipping_fee, payment, od_postid, address_id, od_point)
@@ -177,7 +177,7 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
 	</insert>
 	<!-- 포인트 결제 후 처리 -->
 	<update id="user_point_update">
-		update user_table set reccode = #{empty_int} + (select reccode from user_table where user_num=#{UID}) where user_num = #{UID};
+		update user_table set reccode = (select reccode from user_table where user_num=#{UID}) - #{empty_int} + #{empty_int2} where user_num = #{UID};
 	</update>
 	<!-- 포인트 조회 -->
 	<select id="get_user_point" resultType="int">
@@ -203,11 +203,11 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
 	
 	<!-- 결제내역 -->
 	<select id="get_paymentLogVO" resultType="paymentlog">
-		select * from user_order uo where user_num = #{user_num} order by uo.order_date desc;;
+		select * from user_order uo where user_num = #{user_num} and order_status != '환불처리' order by uo.order_date desc;;
 	</select>
 	
 	<select id="get_date_filter" resultType="paymentlog">
-		select uo.order_num, uo.order_date  from (select distinct on (order_num) *
+		select uo.order_num, uo.order_date, refund_id  from (select distinct on (order_num) *
 	from user_order) uo 
 	where uo.user_num = ${user_num}
 	order by uo.order_date desc;
@@ -230,6 +230,10 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
 	where p.product_id = #{product_id}
 	</select>
 	
+	<select id="filter_order" resultType="paymentlog">
+		select * from user_order where user_num = #{UID} and order_status = '환불처리';
+	</select>
+	
 	<update id="buy_check_update">
 		update user_order set order_status = '구매확정', confirm_date = now() where order_id = #{order_id}
 	</update>
@@ -244,7 +248,7 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
 	
 	<insert id="userorder_refund_add">
 	insert into user_order(order_id,quantity, order_status, product_id, user_num, seller_id, order_num, shipping_fee, payment, od_postid, address_id, od_point, refund_id, order_date)
-	values((select coalesce(max(order_id), 0)+1 from user_order),#{quantity},#{order_status},#{product_id},#{user_num},#{seller_id},#{order_num},#{shipping_fee},#{payment}, #{post_id}, #{address_id}, #{empty_int}, #{order_id}, #{order_date});
+	values((select coalesce(max(order_id), 0)+1 from user_order),#{quantity},#{order_status},#{product_id},#{user_num},#{seller_id},#{order_num},#{shipping_fee},#{payment}, #{od_postid}, #{address_id}, #{empty_int}, #{order_id}, #{order_date});
 	</insert>
 	
 	<update id="userorder_refund_update">
@@ -257,6 +261,6 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
 	
 	<insert id="payment_add2">
 		insert into payment(payment_id,pay_ordernum,payment_way,payment_total, py_sellerid, py_final, py_orderid ,py_couponid, py_discount)
-	values((select coalesce(max(payment_id), 0)+1 from payment), #{order_num}, #{payment_total}, #{py_sellerid}, #{py_final}, #{py_orderid}, #{py_couponid}, #{py_discount} );
+	values((select coalesce(max(payment_id), 0)+1 from payment), #{pay_ordernum},#{payment_way}, #{payment_total}, #{py_sellerid}, #{py_final}, #{py_orderid}, #{py_couponid}, #{py_discount} );
 	</insert>
 </mapper>

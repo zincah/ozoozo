@@ -221,7 +221,7 @@
 		}
 		// 여기서 부터 결제
 		
-		double_click = false;
+		var double_click = false;
 		  var IMP = window.IMP; // 생략 가능
 	    IMP.init("imp90839936"); // 예: imp00000000
 	    //결제 요청하기
@@ -268,7 +268,17 @@
 	    		alert("개인정보 동의를 해주세요.");
 	    		return;
 	    	}
-	    	
+	    	if(addr_bln){
+	    		address_add();
+	    		addresscode = $("#sample6_postcode").val();
+	    		address = $("#sample6_address").val() + ", " + $("#sample6_detailAddress").val();
+	    		
+	    	}else{
+	    		address = "${address_true.address1}"
+	    	    address = address.replace("[","").split("]");
+	    		address = address[1];
+	    		addresscode = address[0];
+	    	}
 			phone_ = $("select[name=phone1]").val() + "-" + $('input[name=phone]').val();	    	
 	    	
 			console.log(address);	    	
@@ -289,17 +299,6 @@
 	        	double_click = false;
 	            if (rsp.success) {
 	                // 결제 성공 시 로직 
-	            	if(addr_bln){
-	    	    		address_add();
-	    	    		addresscode = $("#sample6_postcode").val();
-	    	    		address = $("#sample6_address").val() + ", " + $("#sample6_detailAddress").val();
-	    	    		
-	    	    	}else{
-	    	    		address = "${address_true.address1}"
-	    	    	    address = address.replace("[","").split("]");
-	    	    		address = address[1];
-	    	    		addresscode = address[0];
-	    	    	}
 	                console.log("결제 성공");
 	                payment_success(rsp);
 	                exit = false;

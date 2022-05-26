@@ -178,7 +178,6 @@ public class UserOrderController {
 		Map<String, String> map = new HashMap<String, String>();
 		post.setHeader("Authorization", token);
 		map.put("merchant_uid", merchant_uid);
-		map.put("amount", "80");
 		String asd = "";
 		try {
 			post.setEntity(new UrlEncodedFormEntity(convertParameter(map)));
@@ -216,6 +215,7 @@ public class UserOrderController {
 	@RequestMapping(value = "/refunt_request_DB.com", method=RequestMethod.POST)	
 	public String refund_DB_update(@RequestBody int merchant_UID) {
 		log_cls.refund_DB(merchant_UID);
+		System.out.println("refund ∞¥√º ≥÷¿Ω");
 		return null;
 	}
 		
