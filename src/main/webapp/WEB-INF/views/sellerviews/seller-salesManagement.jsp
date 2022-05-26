@@ -83,18 +83,6 @@
 								<input class="startDate" type="date" id="startDate" value="" /> <input
 									class="endDate" type="date" id="endDate" value="" />
 							</div>
-							<div class="radio-productCode paddingLeft1">
-								<div class="form-check">
-									<input class="form-check-input" type="radio"
-										name="flexRadioDefault" id="flexRadioDefault1" checked /> <label
-										class="form-check-label" for="flexRadioDefault1"> 일별 </label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="radio"
-										name="flexRadioDefault" id="flexRadioDefault2" /> <label
-										class="form-check-label" for="flexRadioDefault2"> 월별 </label>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -401,8 +389,6 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
 	crossorigin="anonymous"></script>
-<!-- <script src="resources/assets/demo/chart-area-demo.js"></script> -->
-<!-- <script src="resources/assets/demo/chart-bar-demo.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
 	crossorigin="anonymous"></script>
 <script src="resources/js/sellerjs/datatables-simple-demo.js"></script>

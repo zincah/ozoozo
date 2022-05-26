@@ -170,44 +170,44 @@
 		<tbody>
 			<c:forEach var="salesListView" items="${salesListView}" varStatus="status">
 				<tr class="content-table-content content-hover table-hover-self">
-					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
-						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
+					<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
+						data-bs-toggle="modal" data-bs-target="#modal-view-sales" name="selectDate${status.index}">
 						<fmt:formatDate	value="${salesListView.getSales_date()}"
 						pattern="yyyy-MM-dd" />
 					</td>
-					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+					<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_paymentTotal()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+					<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_paymentTotalNum()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+					<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_canclePaymentTotal()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+					<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_canclePaymentTotalNum()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+					<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_submitPaymentTotal()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+					<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_submitPaymentTotalNum()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+					<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_discount()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line" onclick="orderDetailView(${status.index})"
+					<td class="content-table-content-text option-line" onclick="salesDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_shippingFee()}" pattern="#,###" />
 					</td>
-					<td class="content-table-content-text option-line state0" onclick="orderDetailView(${status.index})"
+					<td class="content-table-content-text option-line state0" onclick="salesDetailView(${status.index})"
 						data-bs-toggle="modal" data-bs-target="#modal-view-sales">
 						<fmt:formatNumber value="${salesListView.getSales_final()}" pattern="#,###" />
 					</td>

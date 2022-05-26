@@ -1,15 +1,35 @@
 /* 페이지 로딩 */
 $(document).ready(function () {	
-	dateInit();
+	var firstDate = new Date(nowYear, nowMonth, 1);
+	var lastDate = new Date(nowYear, nowMonth+1, 0);
+	firstDate.setDate(firstDate.getDate() + 1);
+	lastDate.setDate(lastDate.getDate() + 1);
+	startDate.valueAsDate = firstDate;
+	endDate.valueAsDate = lastDate;
 	
 	// 기간 값 받아오기
 	$(".searchDateBtn").change(function() {
 		getOrderData();
 	});
 	$(".startDate").change(function() {
+		var stDate = new Date(startDate.value);
+		var enDate = new Date(endDate.value);
+		var dateDif = enDate.getDate() - stDate.getDate();
+		if(startDate.value > endDate.value || dateDif == 1) {
+			
+			stDate.setDate(stDate.getDate()+2);
+			endDate.valueAsDate = stDate;
+		}
 		getOrderData();
 	});
 	$(".endDate").change(function() {
+		var stDate = new Date(startDate.value);
+		var enDate = new Date(endDate.value);
+		var dateDif = enDate.getDate() - stDate.getDate();
+		if(startDate.value > endDate.value || dateDif == 1) {
+			enDate.setDate(enDate.getDate()-2);
+			startDate.valueAsDate = enDate;
+		}
 		getOrderData();
 	});
 });
@@ -22,6 +42,8 @@ var startDate = document.getElementsByClassName("startDate")[0];
 var endDate = document.getElementsByClassName("endDate")[0];
 // Get today
 var today = new Date();
+var nowYear = today.getFullYear();
+var nowMonth = today.getMonth();
 
 $(".dateBtn-2").click(function() {
   var calculationDate = new Date();
@@ -82,7 +104,6 @@ function dateInit() {
   calculationDate.setMonth(today.getMonth() - 1);
   startDate.valueAsDate = calculationDate;
   endDate.valueAsDate = today;
-  document.getElementById("flexRadioDefault1").checked = true;
 }
 
 
@@ -123,7 +144,6 @@ function salesDetailView(salesIndex) {
 	// 날짜값 받아오기
 	var temp = 'td[name=selectDate' + salesIndex + ']';
 	var selectDate = $(temp).text().trim();
-	console.log(selectDate);
 	
 	// 데이터 처리 요청
 	$.ajax({
