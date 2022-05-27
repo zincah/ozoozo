@@ -269,15 +269,6 @@
                                             </span>
                                         </span>
                                     </span>
-                                    <span class="production-selling-header__price__coupon">
-                                        <span class="number">${price_first }</span>
-                                        <span class="won">원</span>
-                                        <a class="production-selling-header__price__coupon__reason" href="#">첫구매할인가 (앱 전용)<!-- --> 
-                                            <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor" preserveAspectRatio="xMidYMid meet">
-                                                <path d="M2.5 8.2L5.63 5 2.5 1.8l.94-.97L7.5 5 3.44 9.17z"></path>
-                                            </svg>
-                                        </a>
-                                    </span>
                                 </div>
                                 
                                 <!-- 쿠폰 기능 -->
@@ -366,7 +357,7 @@
                                 </div>
                             </div>
                             <!-- 브랜드 홈 -->
-                            <a class="css-1jw8uh0 e3xbt9p7" href="#">
+                            <a class="css-1jw8uh0 e3xbt9p7" href="/house/brandshop.com?brandcode=${product[0].seller_id }">${product[0].company_name }">
                                 <div class="css-gshsra e3xbt9p6">
                                     <svg width="24" height="24" fill="none" preserveAspectRatio="xMidYMid meet">
                                         <path d="M3.972 8.694c0-.26.212-.472.472-.472h12.278a.472.472 0 010 .945H4.444a.472.472 0 01-.472-.473z" fill="#35C5F0"></path>
