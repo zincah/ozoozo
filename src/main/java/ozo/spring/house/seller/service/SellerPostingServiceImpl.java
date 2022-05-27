@@ -38,4 +38,14 @@ public class SellerPostingServiceImpl implements SellerPostingService {
 	public void insertPostingDealApp(ProductVO vo) {
 		sellerPostingDAO.insertPostingDealApp(vo);
 	}
+	
+	@Override
+	public ProductVO selectDealId(ProductVO vo) {
+		return sellerPostingDAO.selectDealId(vo);
+	}
+	
+	@Override
+	public void updateDealId(ProductVO vo) {
+		sellerPostingDAO.updateDealId(vo);
+	}
 }

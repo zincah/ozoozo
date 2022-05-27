@@ -38,4 +38,14 @@ public class SellerPostingDAO {
 		System.out.println("--> mybatis in sellerPostingDAO postingDealApp insert");
 		sqlSessionTemplate.insert("SellerPostingDAO.insertPostingDealApp", vo);
 	}
+
+	public ProductVO selectDealId(ProductVO vo) {
+		System.out.println("--> mybatis in sellerPostingDAO dealId select");
+		return sqlSessionTemplate.selectOne("SellerPostingDAO.selectDealId", vo);
+	}
+	
+	public void updateDealId(ProductVO vo) {
+		System.out.println("--> mybatis in sellerPostingDAO dealId update");
+		sqlSessionTemplate.update("SellerPostingDAO.updateDealId", vo);
+	}
 }
