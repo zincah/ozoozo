@@ -55,6 +55,8 @@
 			  				$(".faq__contents__group").append(qna);	
 			  		}
 			  		})
+			  		$("#div 아이디").load("로딩할 페이지 URL", {넘길 파라메터});
+
 			})
 			
 			

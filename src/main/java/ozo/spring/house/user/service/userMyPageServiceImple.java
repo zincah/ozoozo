@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ozo.spring.house.user.dao.UserMyPageDAO;
+import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Service("userMyPageService")
@@ -52,5 +53,7 @@ public class userMyPageServiceImple implements userMyPageService {
 	public int checkCartSu(UserVO vo) {
 		return UserMyPageDAO.checkCartSu(vo);
 	}
+
+	
 
 }

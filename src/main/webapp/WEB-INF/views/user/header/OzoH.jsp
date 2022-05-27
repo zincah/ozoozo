@@ -406,7 +406,7 @@
 						</div>
 						<c:if test="${User_Num ne null}">
 							<!-- 스마일 로그인 아이콘 -->
-							<a class="layout-navigation-drawer-user" href="/users/17136427">
+							<div class="layout-navigation-drawer-user">
 							<span class="layout-navigation-drawer-user__image">
 								<c:if test="${User_img ne null}">
 										<img class="image" src="${User_img}">
@@ -416,7 +416,7 @@
 											src="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=36&amp;h=36&amp;c=c"
 											srcset="https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 1.5x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=72&amp;h=72&amp;c=c 2x,https://image.ohou.se/i/bucketplace-v2-development/uploads/default_images/avatar.png?gif=1&amp;w=144&amp;h=144&amp;c=c 3x">
 									</c:if>
-									</span><div class="layout-navigation-drawer-user__nickname">여기에jstl</div></a>
+									</span><div class="layout-navigation-drawer-user__nickname">여기에jstl</div></div>
 						</c:if>
 					
 						<c:if test="${User_Num eq null}">

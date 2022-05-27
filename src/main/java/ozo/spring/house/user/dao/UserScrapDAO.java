@@ -45,4 +45,9 @@ public class UserScrapDAO {
 		System.out.println("--> mybatis userscrapselect");
 		return sqlsessiontemplate.selectList("UserScrapDAO.userScrapList", vo);
 	}
+	
+	public UserScrapVO duplicate(UserScrapVO vo) {
+		
+		return sqlsessiontemplate.selectOne("UserScrapDAO.duplicate", vo);
+	}
 }

@@ -57,21 +57,26 @@ public class UserProductController {
 		
 		DecimalFormat decFormat = new DecimalFormat("###,###"); //소수점 함수
 		product_list = userservice.productGet(uvo);
-		
+		//System.out.println(product_list.get(0));
 		//스크랩
 				List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 				vo.setCheckit(false);
 				if(session.getAttribute("User_Num") != null) {
-					svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+					svo.setSc_usernum((int)session.getAttribute("User_Num"));
 					scrap = userScrapService.userScrapList(svo);
-				}
-				for(int j=0; j<scrap.size(); j++) {
-					UserProductVO pro = product_list.get(0);
-					UserScrapVO sc = scrap.get(j);
-					if(pro.getPost_id() == sc.getSc_postid()) {
-						pro.setCheckit(true);
+				System.out.println(scrap.size());
+					for(int j=0; j<scrap.size(); j++) {
+						UserProductVO ho = product_list.get(0);
+						UserScrapVO sc = scrap.get(j);
+						if(Integer.parseInt(ho.getProduct_postid())==sc.getSc_postid() ) {
+							ho.setCheckit(true);
+							System.out.println("봐바");
+							System.out.println(product_list.get(0));
+						}
 					}
 				}
+				
+				
 		int price = product_list.get(0).getWhole_price();
 		// 기본적인거 설정
 		int sale = product_list.get(0).getSale_ratio();

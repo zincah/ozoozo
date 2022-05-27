@@ -40,8 +40,10 @@ $(document).ready(function(){
 						data: JSON.stringify(gun),
 						contentType:'application/json; charset=UTF-8',
 						dataType: 'text',
-						success: function(resp){
+						success: function(w){
 							setTimeout(function(){}, 400);
+							
+							if(w=="1"){
 							$('#'+gun).find("#blue").css({fill:"#ff778e"});
 							$('#'+gun).remove()
 							$('#s_'+gun).append('<button class="item_bookmark b_none" id='+gun+' >'+
@@ -66,33 +68,51 @@ $(document).ready(function(){
 									'<path id="blueshadow" stroke="#ff778e" d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>'+
 									'</button>');
 							console.log($('#'+gun));
+			
+		                let Toast = Swal.mixin({
+		                    toast: true,
+		                    position: 'bottom',
+		                    showConfirmButton: false,
+		                    timer: 3000,
+		                    timerProgressBar: true,
+							background: '#ffb0bd',
+		                    didOpen: (toast) => {
+		                        toast.addEventListener('mouseenter', Swal.stopTimer)
+		                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+		                    }
+		                })
 		
+		                Toast.fire({
+		                    
+		                    title: '스크랩 했다잉~ '
+		                })
+
+		
+							}else if(w=="0"){
 								
+		                let Toast = Swal.mixin({
+		                    toast: true,
+		                    position: 'bottom',
+		                    showConfirmButton: false,
+		                    timer: 3000,
+		                    timerProgressBar: true,
+							background: '#ffb0bd',
+		                    didOpen: (toast) => {
+		                        toast.addEventListener('mouseenter', Swal.stopTimer)
+		                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+		                    }
+		                })
+		
+		                Toast.fire({
+		                    
+		                    title: '이미 스크랩 한 게시물입니다 '
+		                })
+
+							}	
 							
 						}
 						}) ;
-						$(document).ready(function () {
-								            $(document).on("click",".b_blue",function () {
-								                const Toast = Swal.mixin({
-								                    toast: true,
-								                    position: 'bottom',
-								                    showConfirmButton: false,
-								                    timer: 3000,
-								                    timerProgressBar: true,
-													background: '#ffb0bd',
-								                    didOpen: (toast) => {
-								                        toast.addEventListener('mouseenter', Swal.stopTimer)
-								                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-								                    }
-								                })
-								
-								                Toast.fire({
-								                    
-								                    title: '스크랩 했다잉~'
-								                })
-								            });
-								
-								        });
+					
 					}
 										
 				
@@ -140,8 +160,11 @@ $(document).ready(function(){
 					data: JSON.stringify(so),
 					contentType:'application/json; charset=UTF-8',
 					dataType: 'text',
-					success: function(resp){
+					success: function(qw){
+						
 						setTimeout(function(){}, 400);
+						
+						if(qw=="1"){
 						$('#'+so).find("#blue").css({fill:"none"});
 						$('#'+so).find("#blueshadow").css({stroke:"#FFF"})
 						$('#'+so).remove()
@@ -168,17 +191,9 @@ $(document).ready(function(){
 							'</button>');
 						console.log($('#'+so));
 						
-						
-						
-									
-					}
 					
-					
-					}) 
-					$(document).ready(function () {
-	
-	 					$(document).on("click",".b_none",function () {
-				            const Toast = Swal.mixin({
+		
+				            let Toast = Swal.mixin({
 				                toast: true,
 				                position: 'bottom',
 				                showConfirmButton: false,
@@ -195,13 +210,45 @@ $(document).ready(function(){
 				                
 				                title: '스크랩 해제 했다잉~'
 				            })
-				        });
-				});
+				
+						}else if(qw =="0" ){
+							
+						
+		               		 let Toast = Swal.mixin({
+		                    toast: true,
+		                    position: 'bottom',
+		                    showConfirmButton: false,
+		                    timer: 3000,
+		                    timerProgressBar: true,
+							background: '#ffb0bd',
+		                    didOpen: (toast) => {
+		                        toast.addEventListener('mouseenter', Swal.stopTimer)
+		                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+		                    }
+		                })
+		
+		                Toast.fire({
+		                    
+		                    title: '이미 해제 한 게시물입니다 '
+		                })
+
+						}
+						
+						
+						
+									
+					}
+					
+					
+					}) 
+					
 					
 			}
+				
 			
 		});
 		
+
 	
            
        

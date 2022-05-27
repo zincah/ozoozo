@@ -59,6 +59,13 @@ public class UserScrapServiceImple implements UserScrapService {
 		return userscrapdao.userScrapList(vo);
 	}
 
+
+	@Override
+	public UserScrapVO duplicate(UserScrapVO vo) {
+		
+		return userscrapdao.duplicate(vo);
+	}
+
 	
 	
 }

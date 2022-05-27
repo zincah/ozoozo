@@ -13,6 +13,7 @@ public interface UserScrapService {
 	public void s_cancle(UserScrapVO vo);
 	public void s_insert(UserScrapVO vo);
 	public List<UserScrapVO> us_list(UserScrapVO vo);
+	public UserScrapVO duplicate(UserScrapVO vo);
 	
 	public List<UserScrapVO> userScrapList(UserScrapVO vo);
 }

@@ -69,7 +69,7 @@ public class UserMyPageController {
 		HttpSession session = request.getSession();
 		System.out.println("여기 넘어왔어~");
 		vo.setUser_num((int)session.getAttribute("User_Num"));
-		vo.setUser_status("활동중");
+		vo.setUser_status("비활동중");
 		
 		userMyPageService.user_stop(vo);
 
@@ -124,28 +124,35 @@ public class UserMyPageController {
 	@RequestMapping(value="/userscrap.com", method=RequestMethod.POST)
 	public String Scrappick(@RequestBody int param, UserScrapVO vo, Model model, HttpServletRequest request,UserProductVO pvo) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("User_Num")!=null) {
 		
-		System.out.println("scrap ing");
-		//session.getAttribute("UserMail");
-		System.out.println(session.getAttribute("User_Num"));
-		System.out.println(param);
-
+			
+			System.out.println("scrap ing");
+			//session.getAttribute("UserMail");
+			System.out.println(session.getAttribute("User_Num"));
+			System.out.println(param);
 			vo.setSc_usernum((int)session.getAttribute("User_Num"));
 			vo.setSc_postid(param);
-			userscrapservice.s_insert(vo);
-
-			/*
-			 * List<UserScrapVO> goo =userscrapservice.us_list(vo);
-			 * 
-			 * for(int i =0; i<goo.size(); i++) { int[] fofo =new int[100]; fofo[i] =
-			 * goo.get(i).getSc_postid(); }
-			 */
-	
-		return "보냈다" ;
-	}else {
-		return "안보냈다" ;
-		}
+			
+				if(userscrapservice.duplicate(vo) == null && session.getAttribute("User_Num")!=null) {
+					System.out.println("여기까지왔어 ");
+					vo.setSc_usernum((int)session.getAttribute("User_Num"));
+					vo.setSc_postid(param);
+					userscrapservice.s_insert(vo);
+					System.out.println("리턴간다 ");
+					return "1";
+				}else {
+					System.out.println("0간다 ");
+				return "0";
+				}
+				/*
+				 * List<UserScrapVO> goo =userscrapservice.us_list(vo);
+				 * 
+				 * for(int i =0; i<goo.size(); i++) { int[] fofo =new int[100]; fofo[i] =
+				 * goo.get(i).getSc_postid(); }
+				 */
+		
+			
+		
 	}
 	
 	
@@ -154,17 +161,27 @@ public class UserMyPageController {
 	@RequestMapping(value="/userscrapdetail.com", method=RequestMethod.POST)
 	public String detailScrappick(@RequestBody int param, UserScrapVO vo, Model model, HttpServletRequest request,UserProductVO pvo) {
 		HttpSession session = request.getSession();
-		if(session.getAttribute("User_Num")!=null) {
+		
 		
 		System.out.println("scrap ing");
 		//session.getAttribute("UserMail");
 		System.out.println(session.getAttribute("User_Num"));
 		System.out.println(param);
-
-			vo.setSc_usernum((int)session.getAttribute("User_Num"));
-			vo.setSc_postid(param);
-			userscrapservice.s_insert(vo);
-
+		
+		vo.setSc_usernum((int)session.getAttribute("User_Num"));
+		vo.setSc_postid(param);
+		
+			if(userscrapservice.duplicate(vo) == null && session.getAttribute("User_Num")!=null) {
+				System.out.println("여기까지왔어 ");
+				vo.setSc_usernum((int)session.getAttribute("User_Num"));
+				vo.setSc_postid(param);
+				userscrapservice.s_insert(vo);
+				System.out.println("리턴간다 ");
+				return "1";
+			}else {
+				System.out.println("0간다 ");
+			return "0";
+			}
 			/*
 			 * List<UserScrapVO> goo =userscrapservice.us_list(vo);
 			 * 
@@ -172,13 +189,9 @@ public class UserMyPageController {
 			 * goo.get(i).getSc_postid(); }
 			 */
 	
-		return "보냈다" ;
-	}else {
-		return "안보냈다" ;
-		}
-	}
-	
 		
+	
+	}
 
 	/* 스크랩 지우기 */
 	@ResponseBody
@@ -188,14 +201,23 @@ public class UserMyPageController {
 		System.out.println("delete ing");
 		System.out.println(session.getAttribute("User_Num"));
 		System.out.println(param);
-		if(session.getAttribute("User_Num")!=null) {
-			vo.setSc_postid(param);
-			vo.setSc_usernum((int)session.getAttribute("User_Num"));
-			userscrapservice.s_cancle(vo);
-		return "지웠다" ;
-		}else {
-		return "로그인이 필요합니다" ;
-		}
+		
+		vo.setSc_usernum((int)session.getAttribute("User_Num"));
+		vo.setSc_postid(param);
+		
+			if(userscrapservice.duplicate(vo) != null && session.getAttribute("User_Num")!=null) {
+				System.out.println("여기까지왔어 ");
+				vo.setSc_usernum((int)session.getAttribute("User_Num"));
+				vo.setSc_postid(param);
+				userscrapservice.s_cancle(vo);
+				System.out.println("리턴간다 ");
+				return "1";
+			}else {
+				System.out.println("0간다 ");
+			return "0";
+			}
+		
+		
 		
 		
 		

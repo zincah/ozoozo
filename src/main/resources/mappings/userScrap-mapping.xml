@@ -11,6 +11,10 @@
 	
 	</insert>
 	
+	<select id="duplicate" resultType="userscrap">
+	SELECT sc_postid FROM user_scrap where sc_postid =#{sc_postid} and sc_usernum =#{sc_usernum} 
+	</select>
+	
 	<select id="us_list" resultType="userscrap">
 	SELECT sc_postid FROM user_scrap where sc_usernum =#{sc_usernum} 
 	</select>
