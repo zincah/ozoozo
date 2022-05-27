@@ -504,6 +504,12 @@
                                 		var empty = 0;
                                 		var div_arr = new Array();
                                 		function buy_item(option_toString){
+                                			if(select == false){
+                                				option1_Str = option_toString[0].split(":");	
+                                			}else{
+                                				option1_Str = option_toString;
+                                			}
+                                			console.log(option_toString);
                                 			count++;
                                 			for(i=0; i < count; i++){
                                 				if(div_arr[i] == null){
@@ -514,7 +520,7 @@
                                 			var html =	'<li id="'+ empty +'_">\
                                 					<article class="selling-option-item">\
                                 					<h2 class="selling-option-item__name h1_'+empty+'">\
-                                						${product[0].option1_name}: '+ option_toString[0] +'\
+                                						${product[0].option1_name}: '+ option1_Str[0] +'\
                                 					</h2>\
                                 					<button class="selling-option-item__delete" id="'+empty+'" type="button" aria-label="삭제" onclick="remove_div(this)">\
                                 					<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet">\
@@ -566,13 +572,18 @@
                                 			}else{
                                 				Str = Str[0].split(":");
                                 				toStr = Str[1];
+                                				toStr = toStr.replace("${product[0].option1_name}", "");
                                 			}
+                                			
+                                			console.log(option_arr);
+                                			console.log(toStr);
                                 			for(i = 0; i < option_arr.length; i++){
-                                				splitStr = option_arr[i].split(":");
+                                				splitStr = option_arr[i].replace(/ /gi, "").split(":");
                                 				if(toStr == splitStr[0]){
                                 					option_arr.splice(i, 1);
                                 				}
                                 			}
+                                			
                                 			div_arr[div_index.id] = null;
                                 			//console.log(option_arr);
                                 			$("#"+div_index.id+"_").remove();
