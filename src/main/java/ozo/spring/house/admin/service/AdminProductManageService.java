@@ -23,6 +23,7 @@ public interface AdminProductManageService {
 	public List<AdminProductVO> todayDealSale(AdminProductVO vo);
 	public List<AdminProductVO> sellerSale(AdminProductVO vo);
 	public List<AdminProductVO> bestSale(AdminProductVO vo);
+	public int bestSaleCount(AdminProductVO vo);
 	
 	// index
 	public int registrationWait();

@@ -221,16 +221,29 @@ public class AdminProductManageController {
 		return "dealsales";
 	}
 	
+	// best30
 	@RequestMapping(value="/getBest30List.admin", method=RequestMethod.POST)
 	public String getBest30List(@RequestBody(required=false) Map<String, String> searchMap, Criteria cri, AdminProductVO vo, Model model) {
 
 		System.out.println(searchMap);
+		
+		if(searchMap.get("pageNum") == "") {
+			System.out.println("첫 페이지 로딩 best");
+			cri = new Criteria(); // 첫 페이지 1로 해서 세팅
+			vo.setCri(cri);
+		}else {
+			int pageNum = Integer.parseInt(searchMap.get("pageNum"));
+			cri = new Criteria(pageNum, 10);
+			vo.setCri(cri);
+		}
+
 		
 		if(searchMap != null) {
 			vo.setKeyword(searchMap.get("keyword"));
 		}
 
 		List<AdminProductVO> bestList = productService.bestSale(vo);
+		int totalCount = productService.bestSaleCount(vo);
 		
 		for(int i=0; i<bestList.size(); i++) {
 			
@@ -240,7 +253,9 @@ public class AdminProductManageController {
 
 		}
 
+		model.addAttribute("pageMaker", cri);
 		model.addAttribute("bestList", bestList);
+		model.addAttribute("totalCount", totalCount); // paging
 
 		return "best30sales";
 	}

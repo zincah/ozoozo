@@ -680,25 +680,27 @@
             <div class="pagi mt-3">
             <nav aria-label="Page navigation example">
               <ul class="pagination">
+              <!-- 
                 <li class="page-item page-outer">
                   <a class="page-link" href="#" aria-label="Previous">
                     <span aria-hidden="true">
                     	<i class="fa-solid fa-angle-left"></i>
                     </span>
                   </a>
-                </li>
+                </li> -->
                 <div class="page-layer">
-                
+                	
                 
                 
                 </div>
+                <!-- 
                 <li class="page-item page-outer">
                   <a class="page-link" href="#" aria-label="Next">
                     <span aria-hidden="true">
                     	<i class="fa-solid fa-angle-right"></i>
                     </span>
                   </a>
-                </li>
+                </li> -->
               </ul>
             </nav>
           </div>

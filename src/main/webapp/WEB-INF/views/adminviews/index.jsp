@@ -95,6 +95,7 @@
 		
 		var labelList = ${labelList};
 		var totalList = ${totalList};
+		//var rankList = ${rankList};
 		
 		
 		// bar chart
@@ -105,7 +106,7 @@
 		    labels: labelList,
 		    datasets: [
 		      {
-		        label: "sales",
+		        label: rankList,
 		        backgroundColor: "rgba(255, 119, 142)",
 		        borderColor: "rgba(255, 119, 142)",
 		        data: totalList,
