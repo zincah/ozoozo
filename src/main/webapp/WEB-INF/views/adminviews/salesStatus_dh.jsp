@@ -17,6 +17,7 @@
     <link href="resources/css/admincss/styles.css" rel="stylesheet" />
     <link href="resources/css/admincss/insertProduct_dh.css?var=1" rel="stylesheet" />
     <link href="resources/css/admincss/saleStatus.css?var=122" rel="stylesheet" />
+    <link href="resources/css/admincss/paging.css?var=12" rel="stylesheet" /> <!-- paging -->
     <link href="resources/css/admincss/seller-productManagement_dh.css?after" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
@@ -24,6 +25,9 @@
   	<script>
   	
   		var searchMap = {}
+  		
+  		let pageNum;
+  		let totalCount;
   		
   		$(document).ready(function(){
   			
@@ -111,6 +115,10 @@
     		$("#search_input").keyup(function(){
     			searching();
     		})
+    		
+    		
+    		// paging
+    		
   			
   			
   		})
@@ -161,7 +169,10 @@
 		  			$("input[name=btnradio]").attr("disabled", true);
 		  			$("input[name=datepick1]").attr("disabled", true);
 		  			
-		  
+		  			pageNum = $("#pageNum").val();
+		  			totalCount = $("#bestCount").val(); // totalcount 넣기
+
+		    		setPage(pageNum);
 
 		  		}
     		});
@@ -267,7 +278,8 @@
 			searchMap = {
     				"startdate" : startdate,
     				"enddate" : enddate,
-    				"keyword" : keyword
+    				"keyword" : keyword,
+    				"pageNum" : pageNum
     		}
 
     		var checking = $("input[name=checktype]:checked").val();
@@ -280,6 +292,117 @@
 			}
 				
 				
+    	}
+    	
+		function setPage(pageNum){ //paging
+    		
+    		var total = totalCount;
+    		console.log(total);
+    		var amount = 10;
+
+    		var endPage = Math.ceil(pageNum/10.0)*10;
+    		var startPage = endPage - 9;
+
+    		if(total == 0){
+    			var realEnd = 1;
+    		}else{
+    			var realEnd = Math.ceil((total*1.0)/amount);
+    		}
+
+    	    if(realEnd < endPage){
+    	    	endPage = realEnd;
+    	    }
+    	    
+    	    var prev = startPage > 1;
+    	    var next = endPage < realEnd; // 쓸지안쓸지
+    	    
+    	    $(".page-layer").html("");
+    	    
+			for(var i=startPage; i<=endPage; i++){
+				
+				if(pageNum == i){
+					var li = '<li class="page-item active"><a class="page-link" href="'+i+'">'+i+'</a></li>';
+				}else{
+					var li = '<li class="page-item"><a class="page-link" href="'+i+'">'+i+'</a></li>';
+				}
+				
+				$(".page-layer").append(li);
+
+			}
+			
+			if(endPage == 1){
+				$(".page-layer").hide();
+				$(".page-outer").hide();
+			}else{
+				$(".page-layer").show();
+				$(".page-outer").show();
+			}
+			
+			
+    		// paging a link click
+        	$(".page-item a").on("click", function(e){
+
+    			e.preventDefault();
+    			var pageNum = $(this).attr("href");
+    			movepage(pageNum);
+    		});
+
+    		
+    	}
+		
+		// page 이동
+    	function movepage(pageNum){
+    		
+    		// checkbox 초기화
+    		$("#allCheck").prop("checked", false);
+			
+    		//조건들 받아오기
+    		var posttype = $("input[name=posttype]:checked").val();
+    		var dealtype;
+    		
+    		if(posttype == '신청'){
+    			var dealtype = posttype;
+    			var posttype = '';
+    		}
+    		
+    		var category = $("#large-select").val();
+    		var startdate = $("input[name=datepick1]").val();
+    		var enddate = $("input[name=datepick2]").val();
+
+			var pack = $("#search_select option:selected").val();
+			var keyword = $("#search_input").val();
+
+			searchMap = {
+    				"posttype" : posttype,
+    				"dealtype" : dealtype,
+    				"category" : category,
+    				"startdate" : startdate,
+    				"enddate" : enddate,
+    				"pack" : pack,
+    				"keyword" : keyword,
+    				"pageNum" : pageNum
+    		}
+    		
+
+    		$.ajax({
+		  		url:'movePaging.admin',
+		  		method:'post',
+		  		data: JSON.stringify(searchMap),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'html',
+		  		success : function(resp){
+		  			
+		  			printTable(resp);
+		  			setPage(pageNum);
+		  			
+
+
+		  		},
+		  		error : function(request, status, error) {
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				}
+    		});
+    		
     	}
   		
   	
@@ -500,6 +623,34 @@
               </tr>
             </tbody>
           </table>
+          
+          <div class="pagi mt-3">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+              <!-- 
+                <li class="page-item page-outer">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">
+                    	<i class="fa-solid fa-angle-left"></i>
+                    </span>
+                  </a>
+                </li> -->
+                <div class="page-layer">
+                	
+                
+                
+                </div>
+                <!-- 
+                <li class="page-item page-outer">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">
+                    	<i class="fa-solid fa-angle-right"></i>
+                    </span>
+                  </a>
+                </li> -->
+              </ul>
+            </nav>
+          </div>
           
         
         </div>

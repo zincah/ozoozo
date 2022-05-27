@@ -144,6 +144,12 @@ public class AdminManageDAO {
 		return sqlSessionTemplate.selectList("AdminManageDAO.bestSale", vo);
 	}
 	
+	public int bestSaleCount(AdminProductVO vo) { // best °³¼ö
+		System.out.println("--> mybatis in adminmanagedao get bestSale");
+		List<AdminProductVO> list = sqlSessionTemplate.selectList("AdminManageDAO.bestSaleCount");
+		return list.size();
+	}
+	
 	// INDEX PAGE
 	public int registrationWait() {
 		System.out.println("--> mybatis in adminmanagedao registration wait count");

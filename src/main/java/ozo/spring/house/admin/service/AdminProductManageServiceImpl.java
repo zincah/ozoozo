@@ -82,6 +82,11 @@ public class AdminProductManageServiceImpl implements AdminProductManageService 
 		return adminManageDAO.postInfo(postid);
 	}
 
+	@Override
+	public int bestSaleCount(AdminProductVO vo) {
+		return adminManageDAO.bestSaleCount(vo);
+	}
+
 
 
 	

@@ -6,6 +6,9 @@
 
 
 	<!-- 현재 사용하는거 회원관리, 총 검색, 회원정보 수정 -->
+	<!-- 공지사항 관리 -->
+	
+	
 	<!-- 유동인구 관리 -->
 	<select id="floatingPopulation" resultType="user">
 		SELECT COUNT(lc_usernum), login_date FROM logincount GROUP BY login_date ORDER BY login_date DESC
@@ -347,7 +350,29 @@
 			</trim>
 		</if>
 		</where>
-		order by best.cnt desc
+		<trim prefix="order by">
+			best.cnt DESC limit #{cri.amount} offset (#{cri.pageNum}-1) * #{cri.amount}
+		</trim>
+	</select>
+	
+	<!-- best30 매출 total count -->
+	<select id="bestSaleCount" resultType="adminproduct">
+		SELECT po.post_id, s.company_name, po.post_name, c.cate_name, po.whole_price, po.sale_ratio, 
+		best.quantity, best.payment, best.cnt, po.post_created, po.today_deal FROM product_posting po
+		INNER JOIN (
+		SELECT COUNT(od_postid) AS cnt, SUM(quantity) AS quantity, SUM(payment) AS payment, od_postid AS bestid
+		FROM user_order GROUP BY od_postid fetch first 30 row only
+		) best ON po.post_id = best.bestid
+		INNER JOIN category c ON po.po_category = c.cate_code
+		INNER JOIN seller s ON po.post_sellerid = s.seller_id
+		<where>
+		<if test="keyword != '' and keyword != null">
+			s.company_name like '%'||#{keyword}||'%'
+			<trim prefix="or">
+			po.post_name like '%'||#{keyword}||'%'
+			</trim>
+		</if>
+		</where>
 	</select>
 	
 	
