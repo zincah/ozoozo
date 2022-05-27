@@ -79,11 +79,6 @@ public class UserProductController {
 		model.addAttribute("int_price_sale", price/100*(100-sale));
 		model.addAttribute("price",decFormat.format(price));
 		model.addAttribute("price_sale", decFormat.format(price/100*(100-sale)));
-		if(price/100*(100-sale) > 50000) {
-			model.addAttribute("price_first", decFormat.format(price/100*(100-sale)-15000));
-		}else {
-			model.addAttribute("price_first", decFormat.format(price/100*(100-sale)));
-		}
 		
 		// img list model µî·Ï
 		product_img_list = userservice.productGet_img(uvo);
