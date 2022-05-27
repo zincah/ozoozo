@@ -13,21 +13,18 @@
 
 	<!-- 오늘의딜 자동 마감 처리1 (상태 변경) -->
 	<update id="postingDealUpdate1">
-		UPDATE 	product_posting set today_deal = false, deal_id = null
+		UPDATE 	deal_info SET deal_status = '종료'
+		WHERE 	(EXTRACT(EPOCH FROM NOW() - deal_endtime))::Integer > 0 
+				AND deal_status = '게시';
+	</update>
+	<!-- 오늘의딜 자동 마감 처리2 (판매글 딜 상태 변경) -->
+	<update id="postingDealUpdate2">
+		UPDATE 	product_posting set today_deal = false
 		FROM 	product_posting pp
 		JOIN	deal_info di ON di.deal_id = pp.deal_id
 		WHERE 	di.deal_status = '종료' 
 				AND	di.deal_id = pp.deal_id
 				AND di.deal_postid = pp.post_id
-				AND (EXTRACT(EPOCH FROM NOW() - di.deal_endtime))::INTEGER > 0;
-	</update>
-	<!-- 오늘의딜 자동 마감 처리2 (판매글 딜 상태 변경) -->
-	<update id="postingDealUpdate2">
-		UPDATE 	product_posting set today_deal = false
-		FROM 	deal_info di
-		WHERE 	di.deal_status = '종료' 
-				AND	di.deal_id = deal_id
-				AND di.deal_postid = post_id
 				AND (EXTRACT(EPOCH FROM NOW() - di.deal_endtime))::Integer > 0;
 	</update>
 </mapper>
