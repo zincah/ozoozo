@@ -274,6 +274,7 @@
     		var startdate = $("input[name=datepick1]").val();
     		var enddate = $("input[name=datepick2]").val();
 			var keyword = $("#search_input").val();
+			var pageNum = $("#pageNum").val();
 			
 			searchMap = {
     				"startdate" : startdate,
