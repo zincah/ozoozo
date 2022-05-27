@@ -95,6 +95,16 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return userDAO.get_productDetail_class();
 	}
+
+	@Override
+	public UserVO checkUserByNaver(UserVO vo) {
+		return userDAO.checkUserByNaver(vo);
+	}
+
+	@Override
+	public void lastLoginCheck(UserVO vo) {
+		userDAO.lastLoginCheck(vo);
+	}
 	
 
 	

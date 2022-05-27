@@ -84,11 +84,11 @@ public class ReviewController {
     @RequestMapping(value="/uploadReview.com", method= RequestMethod.POST)
     public String uploadPhotos(@RequestParam(value="reviewphoto", required = false) MultipartFile review){
 
-        System.out.println("file upload ready");
-        String dirName = "photoReview";
-        String url = "";
-
         if(review != null) {
+        	
+        	System.out.println("file upload ready");
+        	String dirName = "photoReview";
+            String url = "";
         	
         	try {
                 String key = review.getOriginalFilename();
@@ -106,9 +106,11 @@ public class ReviewController {
                 
             }
         	
+        	return url;
+        	
         }
         
-        return url;
+        return "nofile";
 
     }
     
@@ -179,13 +181,15 @@ public class ReviewController {
     		
     		System.out.println(vo);
         	reviewService.updateReview(vo); // 수정처리
-
-        	// 예전 사진 지우는 처리
-    		String[] delurl = vo.getLast_review_image().split("/");
-    		String makeDelUrl = delurl[delurl.length-2] + "/" + delurl[delurl.length-1];
-    		
+        	
     		try {
-    			client.delete(makeDelUrl);
+            	// 예전 사진 지우는 처리
+    			if(!vo.getLast_review_image().equals("")) {
+    				System.out.println("hi");
+            		String[] delurl = vo.getLast_review_image().split("/");
+            		String makeDelUrl = delurl[delurl.length-2] + "/" + delurl[delurl.length-1];
+        			client.delete(makeDelUrl);
+    			}
     		}catch(Exception e) {
     			e.printStackTrace();
     		}

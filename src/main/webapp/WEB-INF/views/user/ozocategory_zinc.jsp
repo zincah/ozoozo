@@ -585,6 +585,7 @@
 								</c:if>
 
 							</c:forEach>
+							<!--  
 							<li class="category_filter_control_list_item">
 								<button class="filter_btn" value="가격">
 									가격
@@ -594,7 +595,7 @@
 										<path d="M0 0h12v12H0z"></path>
 										<path fill="currentColor" fill-rule="nonzero"
 											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
-								</button>
+								</button> 
 							</li>
 							<li class="category_filter_control_list_item">
 								<button class="filter_btn" value="배송">
@@ -605,7 +606,7 @@
 										<path d="M0 0h12v12H0z"></path>
 										<path fill="currentColor" fill-rule="nonzero"
 											d="M2.154 3L1 4.125 6 9l5-4.875L9.846 3 6 6.75z"></path></g></svg>
-								</button>
+								</button>-->
 								<!-- dropdown 배송 -->
 									<div class="dropdown_panel location dropping" id="배송">
 										<ul class="property_filter_dropdown">

@@ -34,6 +34,8 @@
     			alert("작업하던 내용이 유실됩니다.");
     			// modal 띄우는 거로 바꾸기
     			$(".thismodal").hide();
+    			resetReview();
+	  			$(".select-picture").hide();
     		})
     		
     		$(".select-picture__delete").click(function(){
@@ -53,42 +55,56 @@
     		$(".rating-input__star").click(function(){
     			
     			var star = $(this).find('input').val();
-
-    			if(star == 5){
-    				$("#star5").attr('class', 'rating-input__star1');
-    				$("#star4").attr('class', 'rating-input__star1');
-    				$("#star3").attr('class', 'rating-input__star1');
-    				$("#star2").attr('class', 'rating-input__star1');
-    				$("#star1").attr('class', 'rating-input__star1');
-    			}else if(star == 4){
-    				$("#star5").attr('class', 'rating-input__star');
-    				$("#star4").attr('class', 'rating-input__star1');
-    				$("#star3").attr('class', 'rating-input__star1');
-    				$("#star2").attr('class', 'rating-input__star1');
-    				$("#star1").attr('class', 'rating-input__star1');
-    			}else if(star == 3){
-    				$("#star5").attr('class', 'rating-input__star');
-    				$("#star4").attr('class', 'rating-input__star');
-    				$("#star3").attr('class', 'rating-input__star1');
-    				$("#star2").attr('class', 'rating-input__star1');
-    				$("#star1").attr('class', 'rating-input__star1');
-    			}else if(star == 2){
-    				$("#star5").attr('class', 'rating-input__star');
-    				$("#star4").attr('class', 'rating-input__star');
-    				$("#star3").attr('class', 'rating-input__star');
-    				$("#star2").attr('class', 'rating-input__star1');
-    				$("#star1").attr('class', 'rating-input__star1');
-    			}else if(star == 1){
-    				$("#star5").attr('class', 'rating-input__star');
-    				$("#star4").attr('class', 'rating-input__star');
-    				$("#star3").attr('class', 'rating-input__star');
-    				$("#star2").attr('class', 'rating-input__star');
-    				$("#star1").attr('class', 'rating-input__star1');
-    			}
     			
+    			checkStar(star)
+
     		})
     		
+
+    		
     	})
+    	
+    	function checkStar(star){
+    		
+    		if(star == 5){
+				$("#star5").attr('class', 'rating-input__star1');
+				$("#star4").attr('class', 'rating-input__star1');
+				$("#star3").attr('class', 'rating-input__star1');
+				$("#star2").attr('class', 'rating-input__star1');
+				$("#star1").attr('class', 'rating-input__star1');
+			}else if(star == 4){
+				$("#star5").attr('class', 'rating-input__star');
+				$("#star4").attr('class', 'rating-input__star1');
+				$("#star3").attr('class', 'rating-input__star1');
+				$("#star2").attr('class', 'rating-input__star1');
+				$("#star1").attr('class', 'rating-input__star1');
+			}else if(star == 3){
+				$("#star5").attr('class', 'rating-input__star');
+				$("#star4").attr('class', 'rating-input__star');
+				$("#star3").attr('class', 'rating-input__star1');
+				$("#star2").attr('class', 'rating-input__star1');
+				$("#star1").attr('class', 'rating-input__star1');
+			}else if(star == 2){
+				$("#star5").attr('class', 'rating-input__star');
+				$("#star4").attr('class', 'rating-input__star');
+				$("#star3").attr('class', 'rating-input__star');
+				$("#star2").attr('class', 'rating-input__star1');
+				$("#star1").attr('class', 'rating-input__star1');
+			}else if(star == 1){
+				$("#star5").attr('class', 'rating-input__star');
+				$("#star4").attr('class', 'rating-input__star');
+				$("#star3").attr('class', 'rating-input__star');
+				$("#star2").attr('class', 'rating-input__star');
+				$("#star1").attr('class', 'rating-input__star1');
+			}else if(star == 0){ // 이건 리셋때만
+				$("#star5").attr('class', 'rating-input__star');
+				$("#star4").attr('class', 'rating-input__star');
+				$("#star3").attr('class', 'rating-input__star');
+				$("#star2").attr('class', 'rating-input__star');
+				$("#star1").attr('class', 'rating-input__star');
+			}
+    		
+    	}
     	
     	function openmodal(code){
     		
@@ -101,6 +117,8 @@
 		  		contentType : 'application/json; charset=UTF-8',
 		  		dataType : 'json',
 		  		success : function(resp){
+		  			
+		  			
 		  			
 		  			console.log(resp);
 		  			$("#brandimg").attr('src', ''+[resp.photo_url]+'');
@@ -134,33 +152,59 @@
           }
 
         function changeValue(input) {
-          var checkId = input.id;
-          var checkSu = checkId.substr(-1);
+        	
+            var checkId = input.id;
+            var checkSu = checkId.substr(-1);
 
-          var file = input.files[0]; //선택된 파일 가져오기
-
-          //미리 만들어 놓은 div에 text(파일 이름) 추가
-          //var name = document.getElementById('fileName');
-          //name.textContent = file.name;
-
-          //새로운 이미지 div 추가
-          var newImage = document.createElement("img");
-          newImage.setAttribute("class", "upload_img");
-
-          //이미지 source 가져오기
-          newImage.src = URL.createObjectURL(file);
-          newImage.style.visibility = "visible";
-          newImage.style.objectFit = "contain";
-          alert(URL.createObjectURL(file));
-
-          //이미지를 image-show div에 추가
-          var container = $(".select-picture");
-          container.append(newImage);
+            var file = input.files[0]; //선택된 파일 가져오기
+            var filename;
+            if(file != null){
+            	filename = file.name;
+            	console.log(filename);
+            }
+            
+            if (/(\.gif|\.jpg|\.jpeg|\.webp|\.png|\.PNG)$/i.test(filename) == false) {
+          	  $("#review_photo").val("");
+                alert("이미지 형식의 파일을 선택하십시오");
+                
+            }else{
+        
+        	
+		       	if($(".upload_img").length){
+		         	  $(".upload_img").remove();
+		        			if($("input[name=review_image]").length){
+		          			var change = $("input[name=review_image]").val();
+		          			$("input[name=last_review_image]").val(change);
+		          		}
+		           }
+		       	
+		
+		
+		          //미리 만들어 놓은 div에 text(파일 이름) 추가
+		          //var name = document.getElementById('fileName');
+		          //name.textContent = file.name;
+		
+		          //새로운 이미지 div 추가
+		          var newImage = document.createElement("img");
+		          newImage.setAttribute("class", "upload_img");
+		
+		          //이미지 source 가져오기
+		          newImage.src = URL.createObjectURL(file);
+		          newImage.style.visibility = "visible";
+		          newImage.style.objectFit = "contain";
+		          alert(URL.createObjectURL(file));
+		
+		          //이미지를 image-show div에 추가
+		          var container = $(".select-picture");
+		          container.append(newImage);
+            }
 
         }
 
           // 사진업로드 기능
           function photoUpload(){
+        	  
+        	
 
             var formData = new FormData();
             
@@ -180,27 +224,51 @@
             var starcount = $(".rating-input__star1").length;
         	$("input[name=rating]").val(starcount);
         	
+        	if(starcount == 0 || contentarea == ''){
+        		  alert("리뷰 정보가 부족합니다. 다시 입력해주세요");
+        		  event.preventDefault();
+        	}else{
+        	
+	            $.ajax({
+	              url: 'uploadReview.com',
+	              method:'post',
+	              data: formData,
+	              contentType: false,
+	              processData: false,
+	              async: false,
+	              dataType: 'text',
+	              success: function(resp) {
+	                alert("성공!");
+	                console.log(resp);
+	                $("input[name=review_image]").val(resp);
+	                $(".review-modal__form").submit();
+					
+	              },
+	              error: function(jqXHR){
+	                //alert(jqXHR.responseText);
+	                alert("리뷰 등록에 실패했습니다. 다시한번 시도해주세요 ^^")
+	              }
+	            });
+            
+        	}
 
-            $.ajax({
-              url: 'uploadReview.com',
-              method:'post',
-              data: formData,
-              contentType: false,
-              processData: false,
-              async: false,
-              dataType: 'text',
-              success: function(resp) {
-                alert("성공!");
-                console.log(resp);
-                $("input[name=review_image]").val(resp);
-                $(".review-modal__form").submit();
-				
-              },
-              error: function(jqXHR){
-                //alert(jqXHR.responseText);
-                alert("리뷰 등록에 실패했습니다. 다시한번 시도해주세요 ^^")
-              }
-            });
+          }
+          
+          function resetReview(){
+        	  
+        	  // 사진 리셋
+        	  if($(".upload_img").length){
+             	  $(".upload_img").remove();
+            			if($("input[name=review_image]").length){
+            				$("input[name=review_image]").val("");
+              			}
+               }
+        	  
+        	  // star reset
+        	  checkStar(0);
+        	  
+        	  // content reset
+        	  $("#contentarea").val('');
 
           }
     
@@ -260,7 +328,7 @@
     			<span class="areview-my-home__review-list__item__wrap__brand">${prereview.company_name }</span>
     			<span class="areview-my-home__review-list__item__wrap__name">${prereview.post_name }</span>
     			<span class="areview-my-home__review-list__item__wrap__option">${prereview.option1_name }: ${prereview.option1 } 
-    				<c:if test="${prereview.option2 ne null }">
+    				<c:if test="${prereview.option2 ne '' }">
     					/ ${prereview.option2_name }: ${prereview.option2 }
     				</c:if>
     			</span>
@@ -343,7 +411,7 @@
 						</button>
 						</div>
 						<div class="review-modal__point-explain">
-							포토리뷰&nbsp;<span class="review-modal__point-explain__value">500P</span>,&nbsp; 일반리뷰&nbsp;<span class="review-modal__point-explain__value">100P</span>
+							리뷰&nbsp;<span class="review-modal__point-explain__value">500P</span>
 						</div>
 						<form class="review-modal__form" action="reviewInsert.com" method="post">
 							<div class="review-modal__form__product">
@@ -408,7 +476,7 @@
 							</div>
 							<div class="review-modal__section">
 								<div class="review-modal__section__title">리뷰 작성</div>
-								<textarea name="recontent" placeholder="자세하고 솔직한 리뷰는 다른 고객에게 큰 도움이 됩니다. (최소 20자 이상)" class="form-control text-area-input review-modal__form__review-input" style="height: 56px;"></textarea>
+								<textarea name="recontent" id="contentarea" placeholder="자세하고 솔직한 리뷰는 다른 고객에게 큰 도움이 됩니다. (최소 20자 이상)" class="form-control text-area-input review-modal__form__review-input" style="height: 56px;"></textarea>
 							</div>
 							
 							<input type="hidden" name="reproduct_id" value="">

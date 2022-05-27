@@ -33,8 +33,6 @@ $(document).ready(function(){
 	KR_TIME_DIFF = 9 * 60 * 60 * 1000;
 	today = new Date(utc + (KR_TIME_DIFF));
 	
-	console.log(today);
-	
 	dateBtn8Event();
 
 })

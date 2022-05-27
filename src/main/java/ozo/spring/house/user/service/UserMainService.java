@@ -20,9 +20,6 @@ public interface UserMainService {
 	public int getProductCount();
 	public List<Map<String, String>> getDealEndTime();
 	
-	public UserVO checkUserByNaver(UserVO vo); // ¿Å°Ü¾ßÇÔ
-	public void lastLoginCheck(UserVO vo); // ¿Å°Ü¾ßÇÔ
-	
 	public List<UserProductVO> todayDealList(); // today deal
 	public List<UserProductVO> bestlist(); // best
 	public List<Map<String, String>> getDealEndTimeAtDealPage(); // deal timer

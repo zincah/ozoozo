@@ -88,9 +88,7 @@
     	
     	
 		function openmodal(id){
-    		
-    		
-    		
+			
     		$.ajax({
 		  		url:'getMyReview.com',
 		  		method:'post',
@@ -116,7 +114,7 @@
 		  			
 		  			$("#options").text(options);
 		  			
-		  			if([resp.review_image]!=null){
+		  			if([resp.review_image]!=''){
 		  				$(".select-picture").show();
 		  				
 		  				if($(".upload_img").length){
@@ -129,6 +127,8 @@
 			  	      		oriImage.style.objectFit = "contain";
 			  	          	$(".select-picture").append(oriImage);
 		  				}
+		  			}else{
+		  				$(".select-picture").hide();
 		  			}
 		  			
 		  			var text = [resp.recontent][0];
@@ -160,36 +160,53 @@
 		
         function changeValue(input) {
         	
-          if($(".upload_img").length){
-        	  $(".upload_img").remove();
-       			if($("input[name=review_image]").length){
-         			var change = $("input[name=review_image]").val();
-         			$("input[name=last_review_image]").val(change);
-         		}
+        	var checkId = input.id;
+            var checkSu = checkId.substr(-1);
+
+            var file = input.files[0]; //선택된 파일 가져오기
+            var filename;
+            if(file != null){
+            	filename = file.name;
+            	console.log(filename);
+            }
+            
+        	
+          if (/(\.gif|\.jpg|\.jpeg|\.webp|\.png|\.PNG)$/i.test(filename) == false) {
+        	  $("#review_photo").val("");
+              alert("이미지 형식의 파일을 선택하십시오");
+              
+          }else{
+        	  
+        	  if($(".upload_img").length){
+            	  $(".upload_img").remove();
+          			if($("input[name=review_image]").length){
+            			var change = $("input[name=review_image]").val();
+            			$("input[name=last_review_image]").val(change);
+            		}
+              }
+
+              //let files = filename.split(".");
+              //let thfile = files[files.length -1];
+        	  
+              //미리 만들어 놓은 div에 text(파일 이름) 추가
+              //var name = document.getElementById('fileName');
+              //name.textContent = file.name;
+
+              //새로운 이미지 div 추가
+              var newImage = document.createElement("img");
+              newImage.setAttribute("class", "upload_img");
+
+              //이미지 source 가져오기
+              newImage.src = URL.createObjectURL(file);
+              newImage.style.visibility = "visible";
+              newImage.style.objectFit = "contain";
+              alert(URL.createObjectURL(file));
+
+              //이미지를 image-show div에 추가
+              var container = $(".select-picture");
+              container.append(newImage);
+        	  
           }
-
-          var checkId = input.id;
-          var checkSu = checkId.substr(-1);
-
-          var file = input.files[0]; //선택된 파일 가져오기
-
-          //미리 만들어 놓은 div에 text(파일 이름) 추가
-          //var name = document.getElementById('fileName');
-          //name.textContent = file.name;
-
-          //새로운 이미지 div 추가
-          var newImage = document.createElement("img");
-          newImage.setAttribute("class", "upload_img");
-
-          //이미지 source 가져오기
-          newImage.src = URL.createObjectURL(file);
-          newImage.style.visibility = "visible";
-          newImage.style.objectFit = "contain";
-          alert(URL.createObjectURL(file));
-
-          //이미지를 image-show div에 추가
-          var container = $(".select-picture");
-          container.append(newImage);
 
         }
         
@@ -200,42 +217,57 @@
           
           var fileInput = $("#review_photo");
 
-          for (var i = 0; i < fileInput.length; i++) {
-            if (fileInput[i].files.length > 0) {
-              for (var j = 0; j < fileInput[i].files.length; j++) {
-                console.log(" mainFileInput[i].files[j] :::"+ fileInput[i].files[j]);
+           for (var i = 0; i < fileInput.length; i++) {
+               if (fileInput[i].files.length > 0) {
+                 for (var j = 0; j < fileInput[i].files.length; j++) {
+                   console.log(" mainFileInput[i].files[j] :::"+ fileInput[i].files[j]);
 
-                // formData에 'file'이라는 키값으로 fileInput 값을 append 시킨다.
-                formData.append('reviewphoto', $('#review_photo')[i].files[j]);
-              }
-            }
-          }
-          
-          var starcount = $(".rating-input__star1").length;
-      	  $("input[name=rating]").val(starcount);
-      	  
+                   // formData에 'file'이라는 키값으로 fileInput 값을 append 시킨다.
+                   formData.append('reviewphoto', $('#review_photo')[i].files[j]);
+                 }
+               }
+             }
 
-          $.ajax({
-            url: 'uploadReview.com',
-            method:'post',
-            data: formData,
-            contentType: false,
-            processData: false,
-            async: false,
-            dataType: 'text',
-            success: function(resp) {
-              alert("성공!");
-              alert(resp);
-              $("input[name=review_image]").val(resp);
-              $(".review-modal__form").submit();
-              // aws 사진 지워주는 처리 여기서
-				
-            },
-            error: function(jqXHR){
-              //alert(jqXHR.responseText);
-              alert("리뷰 등록에 실패했습니다. 다시한번 시도해주세요 ^^")
-            }
-          });
+             var starcount = $(".rating-input__star1").length;
+         	  $("input[name=rating]").val(starcount);
+         	  
+         	  var contentarea = $("#contentarea").val();
+         	  
+         	  
+         	  if(starcount == 0 || formData == 0 || contentarea == ''){
+         		  alert("리뷰 정보가 부족합니다. 다시 입력해주세요");
+         		  event.preventDefault();
+         	  }else{
+         	 
+   	          $.ajax({
+   	            url: 'uploadReview.com',
+   	            method:'post',
+   	            data: formData,
+   	            contentType: false,
+   	            processData: false,
+   	            async: false,
+   	            dataType: 'text',
+   	            success: function(resp) {
+
+   	              alert("리뷰가 정상적으로 등록되었습니다.");
+   	              //alert(resp);
+   	              if(resp != 'nofile'){
+   	            	  $("input[name=review_image]").val(resp);
+   	              }
+   	              $(".review-modal__form").submit();
+   	              // aws 사진 지워주는 처리 여기서
+   					
+   	            },
+   	            error: function(jqXHR){
+   	              //alert(jqXHR.responseText);
+   	              alert("리뷰 등록에 실패했습니다. 다시한번 시도해주세요 ^^")
+   	            }
+   	          });
+        	}
+        	  
+        	  
+
+
 
         }
   
@@ -294,7 +326,7 @@
 		                </div>
 		                <div class="acss-176vqvk">
 		                  ${myreview.option1_name }: ${myreview.option1 } 
-		    				<c:if test="${myreview.option2 ne null }">
+		    				<c:if test="${myreview.option2 != '' }">
 		    					/ ${myreview.option2_name }: ${myreview.option2 }
 		    				</c:if>
 		                </div>
@@ -479,7 +511,7 @@
 						</button>
 						</div>
 						<div class="review-modal__point-explain">
-							포토리뷰&nbsp;<span class="review-modal__point-explain__value">500P</span>,&nbsp; 일반리뷰&nbsp;<span class="review-modal__point-explain__value">100P</span>
+							리뷰&nbsp;<span class="review-modal__point-explain__value">500P</span>
 						</div>
 						<form class="review-modal__form" action="reviewModify.com" method="post">
 							<div class="review-modal__form__product">
@@ -550,7 +582,7 @@
 							<input type="hidden" name="last_review_image" value="">
 							
 							
-							<button class="button button--color-blue button--size-50 button--shape-4 review-modal__form__submit" onclick="photoUpload()">완료</button>
+							<button type="button" class="button button--color-blue button--size-50 button--shape-4 review-modal__form__submit" onclick="photoUpload()">완료</button>
 						</form>
 						<div class="review-modal__explain">
 							<ul>
