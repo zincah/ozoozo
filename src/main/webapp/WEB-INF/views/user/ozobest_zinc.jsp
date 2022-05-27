@@ -29,10 +29,10 @@
 
 	<div class="container">
 		<ol class="best_list" id="rank_layer">
-			<a class="link_to_rank" href="#">
+		
 				<li id="left"
-				class="ranking_type_filter ranking_type_filter_left ranking_type_filter_left_active">실시간베스트</li>
-			</a>
+				class="ranking_type_filter ranking_type_filter_left ranking_type_filter_left_active">실시간 베스트</li>
+			
 
 		</ol>
 

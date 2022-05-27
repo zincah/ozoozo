@@ -2,6 +2,7 @@ package ozo.spring.house.user.service;
 
 import java.util.List;
 
+import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 
 public interface userMyPageService {
