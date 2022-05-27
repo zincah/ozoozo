@@ -6,22 +6,29 @@
 	
 	<!-- 배송중 시간에 따른 배송완료 처리 -->
 	<update id="shippingUpdate">
-		UPDATE user_order SET order_status = '배송완료', shipfinish_date = now() 
-		WHERE (EXTRACT(EPOCH FROM NOW() - shipstart_date))::Integer > 86400 and shipfinish_date is null;
+		UPDATE 	user_order SET order_status = '배송완료', shipfinish_date = now() 
+		WHERE 	(EXTRACT(EPOCH FROM NOW() - shipstart_date))::Integer > 86400 
+				AND shipfinish_date IS NULL;
 	</update>
 
 	<!-- 오늘의딜 자동 마감 처리1 (상태 변경) -->
 	<update id="postingDealUpdate1">
-		UPDATE deal_info SET deal_status = '종료'
-		WHERE (EXTRACT(EPOCH FROM NOW() - deal_endtime))::Integer > 0 AND deal_status = '게시';
+		UPDATE 	product_posting set today_deal = false, deal_id = null
+		FROM 	product_posting pp
+		JOIN	deal_info di ON di.deal_id = pp.deal_id
+		WHERE 	di.deal_status = '종료' 
+				AND	di.deal_id = pp.deal_id
+				AND di.deal_postid = pp.post_id
+				AND (EXTRACT(EPOCH FROM NOW() - di.deal_endtime))::INTEGER > 0;
 	</update>
 	<!-- 오늘의딜 자동 마감 처리2 (판매글 딜 상태 변경) -->
 	<update id="postingDealUpdate2">
-		UPDATE product_posting set today_deal = false
-		FROM deal_info di
-		WHERE di.deal_status = '종료' 
-		AND di.deal_postid = post_id
-		AND (EXTRACT(EPOCH FROM NOW() - di.deal_endtime))::Integer > 0;
+		UPDATE 	product_posting set today_deal = false
+		FROM 	deal_info di
+		WHERE 	di.deal_status = '종료' 
+				AND	di.deal_id = deal_id
+				AND di.deal_postid = post_id
+				AND (EXTRACT(EPOCH FROM NOW() - di.deal_endtime))::Integer > 0;
 	</update>
 </mapper>
 

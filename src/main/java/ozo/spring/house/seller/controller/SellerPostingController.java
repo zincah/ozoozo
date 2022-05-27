@@ -116,6 +116,8 @@ public class SellerPostingController {
 				vo.setPost_id(Integer.parseInt(postingId));
 				vo.setSeller_id((int) session.getAttribute("seller_id"));
 				sellerPostingService.insertPostingDealApp(vo);
+				ProductVO dealId = sellerPostingService.selectDealId(vo);
+				sellerPostingService.updateDealId(dealId);
 			}
 			return "seller-productPostingManagement-selectList";
 		}else {
