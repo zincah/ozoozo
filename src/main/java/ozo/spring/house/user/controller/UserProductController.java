@@ -144,6 +144,7 @@ public class UserProductController {
 	@RequestMapping(value = "/option_toString.com", method=RequestMethod.POST)
 	public String[] itemBuy(@RequestBody String option_String, Model model) {
 		option_String = option_String.replace("\"", "");
+		System.out.println(option_String);
 		String[] option_toString = option_String.split(",");
 		return option_toString;
 	}
