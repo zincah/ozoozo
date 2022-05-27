@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,6 +20,7 @@ import ozo.spring.house.admin.service.AdminCouponService;
 import ozo.spring.house.admin.vo.AdminCouponVO;
 import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.common.Criteria;
+import ozo.spring.house.user.vo.CouponVO;
 
 @Controller
 public class AdminEventController {
@@ -151,5 +153,19 @@ public class AdminEventController {
 		return "couponList";
 
 	}
+
+	// 쿠폰 수정
+	@RequestMapping(value = "/couponInsert.admin", method = RequestMethod.GET)
+	public String couponUpdate(@RequestBody AdminCouponVO vo, Model model, HttpServletRequest request){
+
+		System.out.println(vo);
+		AdminCouponService.couponViewData(vo); //수정해줘야함
+
+		List<AdminCouponVO> updateList = AdminCouponService.couponListView(vo);
+		model.addAttribute("updateList", updateList);
+
+		return "couponList";
+	}
+
 
 }
