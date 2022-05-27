@@ -274,7 +274,7 @@
 	    		alert("주문자 핸드폰 번호를 입력해주세요.");
 	    		var double_click = false;
 	    		return;
-	    	}else if(bln){
+	    	}else if(bln == false){
 	    		alert("주문자 핸드폰 번호 슷자만 입력해주세요.");
 	    		var double_click = false;
 	    		return;
