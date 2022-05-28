@@ -22,7 +22,7 @@
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/detailScript.css?var=1'>
    <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="text/javascript" src="resources/js/userjs/detailbookmark.js?var=1"></script>
+    <script type="text/javascript" src="resources/js/userjs/detailbookmark.js?var=2"></script>
 
     <script>
     var select = false
@@ -162,7 +162,7 @@
 	                                    <c:when test="${product[0].checkit eq true}">
 	                                    <div id="s_${product[0].product_postid }"></div>
                                      	<button id="${product[0].product_postid }"  class="production-selling-header__action__button production-selling-header__action__button-scrap b_blue" type="button">
-                                            <svg class="icon--stroke" aria-label="스크랩" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="0.5" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+                                            <svg class="icon--stroke" aria-label="스크랩" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="0.5" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style="fill: rgb(255, 119, 142); stroke: rgb(255, 119, 142);">
                                                 <path d="M11.53 18.54l-8.06 4.31A1 1 0 0 1 2 21.97V3.5A1.5 1.5 0 0 1 3.5 2h17A1.5 1.5 0 0 1 22 3.5v18.47a1 1 0 0 1-1.47.88l-8.06-4.31a1 1 0 0 0-.94 0z"></path>
                                             </svg>
                                             

@@ -38,9 +38,6 @@
 			e.preventDefault();
 		});
 		
-		
-		
-		
 		// 인기순 판매순 순위 매기기
 		$(".dropdown_btn").click(function(){
 			
@@ -74,22 +71,9 @@
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
 		  		});
-			
-			
-			
 		})
-		
-		
-	
-
-		
-		
-		
-	
-	
 	 
 	});
-	
 	
 	
 	// 무한 스크롤

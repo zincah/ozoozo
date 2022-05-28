@@ -121,6 +121,7 @@ public class UserInfoController {
 			session.setAttribute("UserMail", email);
 			session.setAttribute("User_Num", user.getUser_num());
 			session.setAttribute("User_img", user.getUser_img());
+			session.setAttribute("User_nickname", user.getNickname());
 			vo.setUser_num(user.getUser_num());
 			userService.lastLoginCheck(vo);
 			return "redirect:login.com";
@@ -189,6 +190,7 @@ public class UserInfoController {
 					session.setAttribute("UserMail", kaemail);
 					session.setAttribute("User_Num", user.getUser_num());
 					session.setAttribute("User_img", user.getUser_img());
+					session.setAttribute("User_nickname", user.getNickname());
 					vo.setUser_num(user.getUser_num());
 					userService.lastLoginCheck(vo);
 					return "redirect:login.com";
@@ -221,7 +223,7 @@ public class UserInfoController {
 				session.setAttribute("UserMail", user.getUser_email());
 				session.setAttribute("User_Num", user.getUser_num());
 				session.setAttribute("User_img", user.getUser_img());
-
+				session.setAttribute("User_nickname", user.getNickname());
 				model.addAttribute("member", vo); // member 정보
 				vo.setUser_num(user.getUser_num());
 				userService.lastLoginCheck(vo); // 최종로그인 날짜 업데이트
