@@ -131,6 +131,13 @@ public class UserMainDAO {
 		System.out.println("--> mybatis in usermaindao shop item list count");
 		return sqlSessionTemplate.selectOne("UserMainDAO.shopItemListCount", vo);
 	}
+	
+	public double setBrandStarRatio(UserProductVO vo) { // brand 별점 체크
+		System.out.println("--> mybatis in usermaindao shop star ratio");
+		double star = sqlSessionTemplate.selectOne("UserMainDAO.setBrandStarRatio", vo);
+		double star_ratio = Math.round(star*10)/10.0;
+		return star_ratio;
+	}
 
 	public List<UserProductVO> bestlist(){
 		System.out.println("mybatis in usermaindao todaydeallist");

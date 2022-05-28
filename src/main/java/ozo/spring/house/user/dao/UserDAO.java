@@ -44,16 +44,22 @@ public class UserDAO {
 	// login
 	public UserVO checkUser(UserVO vo) {
 		System.out.println("[LOGO] : mybatis in UserDAO checkUser");
+		
 		try {
-			UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.checkUser", vo);
-			
-			if(passwordEncoder.matches(vo.getUser_pw(), user.getUser_pw())) {
-				return user;
-			}else {
+			String status = sqlSessionTemplate.selectOne("UserDAO.checkMemberStatus", vo);
+			if(status.equals("비활동중")) {
 				return null;
+			}else {
+				UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.checkUser", vo);
+				
+				if(passwordEncoder.matches(vo.getUser_pw(), user.getUser_pw())) {
+					return user;
+				}else {
+					return null;
+				}
 			}
-			
 		}catch(Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 

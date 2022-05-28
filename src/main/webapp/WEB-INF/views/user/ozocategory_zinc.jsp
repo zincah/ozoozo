@@ -524,7 +524,7 @@
 						<ul class="category_navi_list">
 							<c:forEach items="${wholeList }" var="cateList">
 								<li class="category_navi_list_item">
-									<a href="#"> 
+									<a href="/house/category.com?catecode=${cateList[0].top_catecode }_${cateList[0].subcate_code}"> 
 										<div class="navi_text" id="${cateList[0].subcate_code }">${cateList[0].subcate_name }</div>
 									</a>
 								</li>

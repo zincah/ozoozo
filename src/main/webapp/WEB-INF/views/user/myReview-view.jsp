@@ -505,7 +505,7 @@
 			<div class="_3OUv-">
 				<div tabindex="-1" class="_2mP0n review-modal__modal">
 					<div class="review-modal">
-						<div class="review-modal__title">리뷰 쓰기
+						<div class="review-modal__title">리뷰 수정
 						<button type="button" class="review-modal__close">
 							<i class="fa-solid fa-x"></i>
 						</button>

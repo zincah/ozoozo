@@ -30,5 +30,6 @@ public interface UserMainService {
 	public List<List<UserCategoryVO>> printCateList(UserProductVO vo);
 	public List<UserCategoryVO> printTop(UserProductVO vo);
 	public int shopItemListCount(UserProductVO vo);
+	public double setBrandStarRatio(UserProductVO vo);
 
 }

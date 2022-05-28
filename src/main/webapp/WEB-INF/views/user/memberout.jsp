@@ -30,7 +30,7 @@ function statuschange(){
 	  			
 	  			if(resp == 'success'){
 	  				alert("탈퇴 신청이 완료되었습니다. 몇일 내로 탈퇴가 완료됩니다.");
-	  				document.location = 'http://localhost:8080/house/m_myPage.com'
+	  				document.location = '/house/logout.com'
 	  			}
 	  		},
 	  		error:function(request, status, error){
@@ -64,8 +64,8 @@ function statuschange(){
                     <div class="css-15t02j8 e187gapo7">
                         <h3>회원탈퇴 시 처리내용</h3>
                         <ul>
-                            <li>오늘의집 포인트·쿠폰은 소멸되며 환불되지 않습니다.</li>
-                            <li>오늘의집 구매 정보가 삭제됩니다.</li>
+                            <li>오조의집 포인트·쿠폰은 소멸되며 환불되지 않습니다.</li>
+                            <li>오조의집 구매 정보가 삭제됩니다.</li>
                             <li>소비자보호에 관한 법률 제6조에 의거,계약 또는 청약철회 등에 관한 기록은 5년, 대금결제 및 재화등의 공급에 관한 기록은 5년, 소비자의 불만 또는
                                 분쟁처리에 관한 기록은 3년 동안 보관됩니다. 동 개인정보는 법률에 의한 보유 목적 외에 다른 목적으로는 이용되지 않습니다.</li>
                         </ul>

@@ -137,6 +137,13 @@
 		</where>
 	</select>
 	
+	<!-- 브랜드 별점 가져오기 -->
+	<select id="setBrandStarRatio" resultType="double">
+		select sum(star_ratio)/((select count(star_ratio) from product_posting 
+		where post_sellerid=#{post_sellerid} and post_status='판매중' and star_ratio > 0)+0.0) as star_ratio 
+		from product_posting where post_sellerid=#{post_sellerid} and post_status='판매중';
+	</select>
+	
 	
     
 </mapper>
