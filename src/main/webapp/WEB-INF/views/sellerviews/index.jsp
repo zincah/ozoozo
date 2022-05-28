@@ -57,13 +57,13 @@
 									class="badge rounded-pill bg-pointcolor title-badge-margin-left">0</span>
 							</div>
 							<div class="d-flex justify-content-between sub-text">
-								<p class="small">결제 대기</p>
+								<p class="small">결제 완료</p>
 								<div>
 									<span class="num-text-color">0</span> <span>건</span>
 								</div>
 							</div>
 							<div class="d-flex justify-content-between sub-text">
-								<p class="small">결제 완료</p>
+								<p class="small">구매 확정</p>
 								<div>
 									<span class="num-text-color">0</span> <span>건</span>
 								</div>
@@ -105,7 +105,7 @@
 						<div class="card-body">
 							<div class="d-flex title-text">
 								<p class="margin-zero">
-									<i class="fa-solid fa-arrow-rotate-left icon-margin-right"></i>신규환불
+									<i class="fa-solid fa-arrow-rotate-left icon-margin-right"></i>신규요청
 								</p>
 								<span
 									class="badge rounded-pill bg-pointcolor title-badge-margin-left">0</span>
@@ -136,19 +136,19 @@
 						<div class="card-body">
 							<div class="d-flex title-text">
 								<p class="margin-zero">
-									<i class="fa-solid fa-circle-dollar-to-slot icon-margin-right"></i>정산내역
+									<i class="fa-solid fa-circle-dollar-to-slot icon-margin-right"></i>전체매출
 								</p>
 							</div>
 							<div class="d-flex justify-content-between sub-text">
-								<p class="small">당일 정산</p>
+								<p class="small">정상 건수</p>
 								<div>
 									<span class="num-text-color">0</span> <span>건</span>
 								</div>
 							</div>
 							<div class="d-flex justify-content-between sub-text">
-								<p class="small">정산 예정</p>
+								<p class="small">판매 이익</p>
 								<div>
-									<span class="num-text-color">0</span> <span>건</span>
+									<span class="num-text-color">0</span> <span>원</span>
 								</div>
 							</div>
 						</div>

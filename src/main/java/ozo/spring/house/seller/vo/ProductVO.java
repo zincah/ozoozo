@@ -170,4 +170,17 @@ public class ProductVO {
 	private Timestamp sales_startDate; // 시작날짜
 	private Timestamp sales_endDate; // 종료날짜
 	private int sales_count; // 판매량
+	
+	// index 데이터 출력용
+	private int index_1; // 결제완료 수
+	private int index_2; // 구매확정 수
+	private int index_3; // 배송준비중 수
+	private int index_4; // 배송중 수
+	private int index_5; // 배송완료 수
+	private int index_6; // 신규요청 수
+	private int index_7; // 취소요청 수
+	private int index_8; // 반품요청 수
+	private int index_9; // 교환요청 수
+	private int index_10; // 정상건수 수
+	private int index_11; // 정상금액 수
 }

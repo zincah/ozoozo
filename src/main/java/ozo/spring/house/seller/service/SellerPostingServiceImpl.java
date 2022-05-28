@@ -40,7 +40,7 @@ public class SellerPostingServiceImpl implements SellerPostingService {
 	}
 	
 	@Override
-	public ProductVO selectDealId(ProductVO vo) {
+	public int selectDealId(ProductVO vo) {
 		return sellerPostingDAO.selectDealId(vo);
 	}
 	

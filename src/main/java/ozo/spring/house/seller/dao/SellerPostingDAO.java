@@ -39,7 +39,7 @@ public class SellerPostingDAO {
 		sqlSessionTemplate.insert("SellerPostingDAO.insertPostingDealApp", vo);
 	}
 
-	public ProductVO selectDealId(ProductVO vo) {
+	public int selectDealId(ProductVO vo) {
 		System.out.println("--> mybatis in sellerPostingDAO dealId select");
 		return sqlSessionTemplate.selectOne("SellerPostingDAO.selectDealId", vo);
 	}
