@@ -45,7 +45,7 @@
             <nav class="page-navigation mypage-nav-owner">
                 <ul style="transform: translateX(0px); margin: 0px">
                     <li class="mypage-nav-item">
-                        <a href="#" target="self">프로필</a>
+                        <a href="/house/m_myPage.com" target="self">프로필</a>
                     </li>
                     <li class="mypage-nav-item">
                         <a class="active" href="/house/myshopping.com" target="self">나의 쇼핑</a>

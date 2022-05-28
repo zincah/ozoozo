@@ -30,6 +30,7 @@ function statuschange(){
 	  			
 	  			if(resp == 'success'){
 	  				alert("탈퇴 신청이 완료되었습니다. 몇일 내로 탈퇴가 완료됩니다.");
+	  				document.location = 'http://localhost:8080/house/m_myPage.com'
 	  			}
 	  		},
 	  		error:function(request, status, error){
@@ -42,6 +43,7 @@ function statuschange(){
 	 
 	}else{
 		alert("회원탈퇴 신청내용을 확인하여 체크해주세요.")
+		
 	} 
   		
   	}

@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Document</title>
-<link href="resources/css/user_css/zinc/ozobest.css?var=1"
+<link href="resources/css/user_css/zinc/ozobest.css?var=2"
 	rel="stylesheet" type="text/css" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 	crossorigin="anonymous"></script>
@@ -18,7 +18,7 @@
 	integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
 	crossorigin="anonymous"></script>
 	<script type="text/javascript" src="resources/js/userjs/bookmark.js?var=1"></script>
-	<script type="text/javascript" src="resources/js/userjs/bookmark.js?var=1"></script>	
+		
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>

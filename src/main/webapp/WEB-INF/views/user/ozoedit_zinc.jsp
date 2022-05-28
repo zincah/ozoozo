@@ -191,10 +191,10 @@ function updatebtn(btn){
               <nav class="page-navigation mypage-nav-owner">
                 <ul style="transform: translateX(0px); margin: 0px">
                   <li class="mypage-nav-item">
-                    <a class="active" href="edit.html" target="self" style="font-size: 15px;">회원정보수정</a>
+                    <a class="active" href="m_edit.com" target="self" style="font-size: 15px;">회원정보수정</a>
                   </li>
                   <li class="mypage-nav-item">
-                    <a href="ozopasswordModi_zinc.html" target="self" style="font-size: 15px;">비밀번호변경</a>
+                    <a href="pwReset.com" target="self" style="font-size: 15px;">비밀번호변경</a>
                   </li>
                 </ul>
               </nav>
