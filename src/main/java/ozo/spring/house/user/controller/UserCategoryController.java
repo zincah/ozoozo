@@ -72,7 +72,7 @@ public class UserCategoryController {
 		model.addAttribute("others", others);
 		
 		List<List<UserCategoryVO>> wholeList = userCategoryService.selectCategoryList(vo);
-		System.out.println(wholeList.size());
+		//System.out.println(wholeList);
 
 		model.addAttribute("wholeList", wholeList);
 		

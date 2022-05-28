@@ -30,15 +30,21 @@
 	<select id="Duplicate_Check_Nickname" resultType="user">
 		SELECT nickname FROM user_table WHERE nickname = #{nickname}
 	</select>
+	
 	<!-- 비밀번호 변경 -->
 	<select id="change_pass" resultType="user">
 		UPDATE user_table SET user_pw = #{user_pw} WHERE user_email = #{user_email}
 	</select>
 	
-	<!-- 마지막 로그인 구현 -->
+	<!-- 마지막 로그인 시간 체크 -->
 	<update id="lastLoginCheck" parameterType="user">
 		UPDATE user_table SET last_login=now() WHERE user_email=#{user_email};
 	</update>
+	
+	<!-- 비활동중 멤버 로그인 안되게 하기 : 비활동중 멤버 숫자 1로 리턴-->
+	<select id="checkMemberStatus" resultType="String">
+		select user_status from user_table where user_email=#{user_email};
+	</select>
 	
 	<!-- 유동인구 측정 -->
 	<insert id="insertLoginCount" parameterType="user">

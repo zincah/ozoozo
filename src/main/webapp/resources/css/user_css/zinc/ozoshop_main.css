@@ -214,6 +214,14 @@ button{
     height: 18px;
 }
 
+.fillstar {
+    color: #f77;
+}
+
+.nonestar{
+	color: #bdbdbd;
+}
+
 .brand_profile_action{
     display: block;
     margin: 0 0 14px;
@@ -1061,4 +1069,6 @@ span{
     }
 
 }
+
+
 

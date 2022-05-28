@@ -91,6 +91,11 @@ public class UserMainServiceImpl implements UserMainService {
 		return userMainDAO.getDealEndTimeAtDealPage();
 	}
 
+	@Override
+	public double setBrandStarRatio(UserProductVO vo) {
+		return userMainDAO.setBrandStarRatio(vo);
+	}
+
 
 
 

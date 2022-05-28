@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta property="og:title" content="내가 작성한 리뷰" />
+    <meta property="og:title" content="리뷰 작성" />
     <meta property="og:type" content="website" />
     <link rel="stylesheet" href="resources/css/user_css/inha/myPage-nav-style.css"/>
     <link rel="stylesheet" href="resources/css/user_css/inha/myReview-view-style.css"/>
@@ -20,7 +20,7 @@
         font-style: normal;
       }
     </style>
-    <title>내가 작성한 리뷰</title>
+    <title>리뷰 작성 페이지</title>
     <script>
 
     	$(document).ready(function(){
@@ -126,7 +126,7 @@
 		  			$("#post_name").text(''+[resp.post_name]+'');
 		  			
 		  			var options;
-		  			if([resp.option2] != null){
+		  			if([resp.option2] != ''){
 		  				options = [resp.option1_name] + ':' + [resp.option1] + " / "
 		  				+ [resp.option2_name] + ":" + [resp.option2];
 		  			}else{

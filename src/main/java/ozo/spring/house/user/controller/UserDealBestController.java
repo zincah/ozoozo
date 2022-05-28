@@ -136,7 +136,6 @@ public class UserDealBestController {
 		List<UserCategoryVO> toplist = userMainService.printTop(vo);
 		SellerVO seller = userMainService.sellerInfo(vo);
 		
-		
 		List<UserCategoryVO> others = new ArrayList<UserCategoryVO>();
 		for(int i=0; i<toplist.size(); i++) {
 			UserCategoryVO cate = toplist.get(i);
@@ -147,11 +146,15 @@ public class UserDealBestController {
 				others.add(cate);
 			}
 		}
-		model.addAttribute("others", others);
+		
+		double brandStarRatio = userMainService.setBrandStarRatio(vo);
+		
 		
 		//List<List<UserCategoryVO>> otherlist = userMainService.printCateList(vo);
 
 		//model.addAttribute("otherlist", otherlist);
+		model.addAttribute("brandStarRatio", brandStarRatio);
+		model.addAttribute("others", others);
 		model.addAttribute("seller", seller);
 		model.addAttribute("shopItemList", shopItemList);
 		model.addAttribute("totalCount", totalCount);

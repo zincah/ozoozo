@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ozo_brandshop</title>
-    <link href="resources/css/user_css/zinc/ozoshop_main.css?var=11" rel="stylesheet"/>
+    <link href="resources/css/user_css/zinc/ozoshop_main.css?var=12" rel="stylesheet"/>
     <link href="resources/css/user_css/zinc/ozoper_photo_cate.css" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
             integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
@@ -207,8 +207,52 @@
                     <div class="brand_profile_content">
 
                         <p class="brand_profile_content_title">${seller.company_name}</p>
-                        <p class="brand_profile_overview">
-                            <span class="brand-profile__stars"><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-1.000"><rect x="0" y="0" width="24" height="24"></rect></clipPath></defs><use xlink:href="#star-path-1.000" fill="#DBDBDB"></use><use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use></svg><svg fill="#ff778e" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><defs><path id="star-path-0.752" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path><clipPath id="star-clip-0.752"><rect x="0" y="0" width="18.054293709343312" height="24"></rect></clipPath></defs><use xlink:href="#star-path-0.752" fill="#DBDBDB"></use><use clip-path="url(#star-clip-0.752)" xlink:href="#star-path-0.752"></use></svg></span><span class="brand-profile__count">4.8</span>
+                        <p class="brand_profile_overview" value="${brandStarRatio }">
+                        <c:choose>
+							<c:when test="${brandStarRatio >= 4.5}">
+	                        	<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+								<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+								<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+								<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+								<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+                        	</c:when>
+                        	<c:when test="${brandStarRatio >= 3.5}">
+	                        	<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+								<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+								<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+								<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+								<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+                        	</c:when>
+                        	<c:when test="${brandStarRatio >= 2.5}">
+	                        	<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+								<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+								<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+								<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+								<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+                        	</c:when>
+                        	<c:when test="${brandStarRatio >= 1.5}">
+	                        	<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+								<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+								<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+								<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+								<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+                        	</c:when>
+                        	<c:when test="${brandStarRatio >= 0.5}">
+	                        	<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+								<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+								<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+								<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+								<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+                        	</c:when>
+                        	<c:otherwise>
+                        		<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+								<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+								<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+								<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+								<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+                        	</c:otherwise>
+                        </c:choose>
+                            <span class="brand-profile__count">${brandStarRatio }</span>
                         </p>
                     </div>
 

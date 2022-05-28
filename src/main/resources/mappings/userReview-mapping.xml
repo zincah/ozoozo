@@ -53,15 +53,24 @@
 		#{reseller_id}, #{rating}, #{review_image}, #{recontent}, #{repost_id});
 	</insert>
 	
+	<!-- 리뷰 등록시에 주문 테이블에서 리뷰 썼다고 change  -->
 	<update id="changeReviewStatus" parameterType="review">
 		update user_order set review_status=true where order_id=#{order_id};
 	</update>
+	
 	
 	<!-- review 쓰면 포인트 500 -->
 	<update id="changeUserPoint" parameterType="review">
 		update user_table set 
 		reccode=500+(select reccode from user_table where user_num=#{reuser_num})
 		where user_num=#{reuser_num};
+	</update>
+	
+	<!-- 리뷰 등록시에 product-posting table 별점 바꿔주는 거 -->
+	<update id="changeStarRatio" parameterType="review">
+		update product_posting set star_ratio = 
+		(select sum(rating) from review where repost_id=#{repost_id})/((select count(rating) from review where repost_id=#{repost_id})+0.0)
+		where post_id=#{repost_id};
 	</update>
 	
 	<!-- 내 리뷰 보기 -->

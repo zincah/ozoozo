@@ -54,10 +54,10 @@ public class ReviewDAO {
     
     public void insertReview(ReviewVO vo) {
     	System.out.println("--> mybatis list of object");
-    	sqlSessionTemplate.insert("ReviewDAO.insertReview", vo);
-    	sqlSessionTemplate.update("ReviewDAO.changeReviewStatus", vo);
-    	sqlSessionTemplate.update("ReviewDAO.changeUserPoint", vo);
-    	
+    	sqlSessionTemplate.insert("ReviewDAO.insertReview", vo); // 리뷰 insert
+    	sqlSessionTemplate.update("ReviewDAO.changeReviewStatus", vo); // 구매 리뷰 상태 change
+    	sqlSessionTemplate.update("ReviewDAO.changeUserPoint", vo); // 유저 포인트 +500
+    	sqlSessionTemplate.update("ReviewDAO.changeStarRatio", vo); // posting 별점 change
     }
     
     public List<Map<String, String>> selectMyReview(ReviewVO vo){
