@@ -43,7 +43,7 @@ $(document).ready(function(){
 						success: function(w){
 							setTimeout(function() { }, 400);
 					if(w=="1"){
-//					
+					header_load();
 					$('#' + gun).remove()
 					$('#s_' + gun).append('<button id="'+gun+'" class="production-selling-header__action__button production-selling-header__action__button-scrap b_none" type="button">' +
 						'<svg class="icon--stroke" aria-label="스크랩" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="0.5" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">' +
@@ -151,6 +151,7 @@ $(document).ready(function(){
 						setTimeout(function(){}, 400);
 						
 						if(qw=="1"){
+						header_load();
 						setTimeout(function() { }, 400);
 					$('#' + so).remove()
 					$('#s_' + so).append('<button id="'+so+'" class="production-selling-header__action__button production-selling-header__action__button-scrap b_blue" type="button">' +

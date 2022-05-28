@@ -267,7 +267,8 @@ li:first-child>.production-selling-navigation__item {
     -webkit-align-items: center;
     -moz-align-items: center;
     align-items: center;
-    margin: 20px 0;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
 }
 
 .production-selling-section__header__hidden {

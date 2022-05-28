@@ -18,7 +18,7 @@
 	integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
 	crossorigin="anonymous"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script type="text/javascript" src="resources/js/userjs/bookmark.js?var=1"></script>	
+<script type="text/javascript" src="resources/js/userjs/bookmark.js?var=12"></script>	
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
 
 	crossorigin="anonymous"></script>

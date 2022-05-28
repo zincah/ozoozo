@@ -45,6 +45,12 @@
                 $('.layout-navigation-hamburger-pc__content').hide();
             });
             
+            header_load();
+
+
+        });
+        
+        function header_load(){
             $.ajax({
     			url: "header_load.com", 
     			method: "POST",
@@ -59,7 +65,8 @@
 	            	
 	            }
 	        })
-        });
+        }
+        
 		function cart_logo(cart_int){
 			var html = '<span class="layout-navigation-bar-icon__ticker">'+ cart_int[0] + '</span>'
 			$(".cart_icon").append(html);
