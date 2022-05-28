@@ -58,6 +58,21 @@ public class UserMyPageController {
 		
 	}
 	
+	@RequestMapping(value="/pwReset.com")
+	public String pwreset(UserVO vo,Model model,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		
+		if(session.getAttribute("User_Num")!=null) {
+			
+			 
+			return "ozopasswordModi_zinc";
+		}else {
+			return "ozoLogin_zinc";
+		}
+		
+	}
+	
 	@RequestMapping(value="/out.com")
 	public String memberout() {
 		return "memberout";

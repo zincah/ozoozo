@@ -189,13 +189,13 @@
             <nav class="page-navigation mypage-nav-owner">
                 <ul style="transform: translateX(0px); ">
                      <li class="mypage-nav-item">
-              <a href="/house/myPage.com">프로필</a>
+              <a href="/house/m_myPage.com">프로필</a>
             </li>
             <li class="mypage-nav-item">
-              <a class="active" href="/house/myshopping.com">나의 쇼핑</a>
+              <a class="active" href="/house/shopping.com">나의 쇼핑</a>
             </li>
             <li class="mypage-nav-item">
-              <a href="/house/myreview.com">나의 리뷰</a>
+              <a href="/house/review.com">나의 리뷰</a>
             </li>
             <li class="mypage-nav-item">
               <a href="/house/edit.com">설정</a>

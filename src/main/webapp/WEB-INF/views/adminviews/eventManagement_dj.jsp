@@ -35,6 +35,7 @@
 		// 애초에 새 공지사항 등록 눌려져있게
 		makeNewInfo();
 		
+		
 		$(".modi_btn").hide();
 		$(".del_btn").hide();
 		$(".stop_btn").hide();
@@ -78,6 +79,9 @@
 		/* 등록 버튼  */   
 		$(".insert_btn").click(function() {
 	
+			if( $("#info_newTitle").val() == "" || $('.banner_bigname').length == 0 ||$('.banner_smname').length == 0){
+				alert("제목 또는 이미지를 추가하셔야 합니다 ");
+			}else{
 		    //파일을 포함한 데이터 db로 넘기기
 		    
 		    //form data생성
@@ -135,7 +139,7 @@
 		  
 
 		 })
-			
+			}	
 	});
 		
 	/* 개시 중지 버튼 */

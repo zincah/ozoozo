@@ -55,7 +55,7 @@
 			  				$(".faq__contents__group").append(qna);	
 			  		}
 			  		})
-			  		$("#div 아이디").load("로딩할 페이지 URL", {넘길 파라메터});
+			  		
 
 			})
 			
@@ -181,68 +181,98 @@
             </article>
         </article>
         <script>
-     
-        $("#s_ship").on("click",function(){
-        	$(".faq__contents__item__answer").hide();
-			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
-		 	 var height = $("#cs_14").offset();
+        
+        
+        	
+			$("#s_ship").on("click",function(){
+				
+				 $(".faq__nav__item--active").trigger("click") 
+				 setTimeout(function(){
+					 $(".faq__contents__item__answer").hide();
+					//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
+			 	 var height = $("#cs_14").offset();
+				//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
+			    //heigh의 top 위치로 이동 시킨다.
+			    $("html, body").animate({scrollTop: height.top-300}, 400); 
+			    $("#cs_14").trigger('click');
+			    },3000);
+				
+			
+			});
+	
+    	   $(".faq__nav__item--active").on("click",function(){
+    		   document.location = 'http://localhost:8080/house/CScenter.com'
+    			
+    	   
+    	   });
 
-			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
-		    //heigh의 top 위치로 이동 시킨다.
-		    $("html, body").animate({scrollTop: height.top-300}, 400); 
-		    $("#cs_14").trigger('click');
-           
-		    
-		})
-		 $("#s_order").on("click",function(){
-			 $(".faq__contents__item__answer").hide();
-			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
-		 	 var height = $("#cs_35").offset();
 
-			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
-		    //heigh의 top 위치로 이동 시킨다.
-		    $("html, body").animate({scrollTop: height.top-300}, 400); 
-		    $("#cs_35").trigger('click');
-           
-		    
-		})
-		 $("#s_product").on("click",function(){
-			 $(".faq__contents__item__answer").hide();
-			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
-		 	 var height = $("#cs_59").offset();
+		    $("#s_order").on("click",function(){
+	    		   document.location = 'http://localhost:8080/house/CScenter.com'
+	    	   });
+         
+   		 $("#s_order").on("click",function(){
+   			 $(".faq__contents__item__answer").hide();
+   			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
+   		 	 var height = $("#cs_35").offset();
 
-			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
-		    //heigh의 top 위치로 이동 시킨다.
-		    $("html, body").animate({scrollTop: height.top-300}, 400); 
-		    $("#cs_59").trigger('click');
-           
-		    
-		})
-		 $("#s_error").on("click",function(){
-			 $(".faq__contents__item__answer").hide();
-			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
-		 	 var height = $("#cs_38").offset();
+   			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
+   		    //heigh의 top 위치로 이동 시킨다.
+   		    $("html, body").animate({scrollTop: height.top-300}, 400); 
+   		    $("#cs_35").trigger('click');
+            
+   		})
+   		
+   		 $("#s_product").on("click",function(){
+    		   document.location = 'http://localhost:8080/house/CScenter.com'
+    	   });
+   		 $("#s_product").on("click",function(){
+   			 $(".faq__contents__item__answer").hide();
+   			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
+   		 	 var height = $("#cs_59").offset();
 
-			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
-		    //heigh의 top 위치로 이동 시킨다.
-		    $("html, body").animate({scrollTop: height.top-300}, 400); 
-		    $("#cs_38").trigger('click');
-           
-		    
-		})
-		 $("#s_kakao").on("click",function(){
-			 $(".faq__contents__item__answer").hide();
-			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
-		 	 var height = $("#cs_50").offset();
+   			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
+   		    //heigh의 top 위치로 이동 시킨다.
+   		    $("html, body").animate({scrollTop: height.top-300}, 400); 
+   		    $("#cs_59").trigger('click');
+              
+   		    
+   		})
+   		
+   		 $("#s_error").on("click",function(){
+    		   document.location = 'http://localhost:8080/house/CScenter.com'
+    	   });
+   		 $("#s_error").on("click",function(){
+   			 $(".faq__contents__item__answer").hide();
+   			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
+   		 	 var height = $("#cs_38").offset();
 
-			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
-		    //heigh의 top 위치로 이동 시킨다.
-		    $("html, body").animate({scrollTop: height.top-300}, 400); 
-		    $("#cs_50").trigger('click');
-           
-		    
-		})
-		 
+   			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
+   		    //heigh의 top 위치로 이동 시킨다.
+   		    $("html, body").animate({scrollTop: height.top-300}, 400); 
+   		    $("#cs_38").trigger('click');
+              
+   		    
+   		})
+   		
+   		 $("#s_kakao").on("click",function(){
+    		   document.location = 'http://localhost:8080/house/CScenter.com'
+    	   });
+   		 $("#s_kakao").on("click",function(){
+   			 $(".faq__contents__item__answer").hide();
+   			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
+   		 	 var height = $("#cs_50").offset();
+
+   			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
+   		    //heigh의 top 위치로 이동 시킨다.
+   		    $("html, body").animate({scrollTop: height.top-300}, 400); 
+   		    $("#cs_50").trigger('click');
+              
+   		    
+   		})
+       
+      
+
 		</script>
         <!--푸터 -->
 <footer>
