@@ -72,6 +72,8 @@ public class UserProductController {
 							ho.setCheckit(true);
 							System.out.println("ºÁ¹Ù");
 							System.out.println(product_list.get(0));
+							
+							
 						}
 					}
 				}

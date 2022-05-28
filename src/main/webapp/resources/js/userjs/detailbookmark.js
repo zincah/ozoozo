@@ -25,12 +25,30 @@ $(document).ready(function(){
 			
 			
 			if(User_Num == 0 || User_Num == 'null'){
-				var relogin = confirm('로그인이 필요합니다 확인시 로그인 창으로 이동됩니다 '+ '\n' +'취소시 현재 창이 유지 됩니다.')
+				$(document).ready(function () {		
+							$(document).load("click",".b_none",function () {
+		               		 let Toast = Swal.mixin({
+		                    toast: true,
+		                    position: 'center',
+		                    showConfirmButton: false,
+		                    timer: 3000,
+		                    timerProgressBar: true,
+							background: '#ffb0bd',
+		                    didOpen: (toast) => {
+		                        toast.addEventListener('mouseenter', Swal.stopTimer)
+		                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+		                    }
+		                })
+		
+		                Toast.fire({
+		                    
+		                    title: '어머! 아직도 로그인 안하셨어요 ? 이동하실게요~ '
+		                })
+		            });
+ 		});
 				if(relogin){
 					location.href ='/house/login.com';
-					
-					
-				}
+					}
 			}else{
 				console.log(gun)
 				
@@ -129,13 +147,30 @@ $(document).ready(function(){
 			});
 			
 			
-			if(User_Num == '' || User_Num == 'null'){
-				var relogin = confirm('로그인이 필요합니다 확인시 로그인 창으로 이동됩니다 '+ '\n' +'취소시 현재 창이 유지 됩니다.')
-				if(relogin){
-					location.href ='/house/login.com';
-					
-					
-				}
+			
+				if(User_Num == 0 || User_Num == 'null'){
+				$(document).ready(function () {		
+							$(document).load("click",".b_none",function () {
+		               		 let Toast = Swal.mixin({
+		                    toast: true,
+		                    position: 'center',
+		                    showConfirmButton: false,
+		                    timer: 3000,
+		                    timerProgressBar: true,
+							background: '#ffb0bd',
+		                    didOpen: (toast) => {
+		                        toast.addEventListener('mouseenter', Swal.stopTimer)
+		                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+		                    }
+		                })
+		
+		                Toast.fire({
+		                    
+		                    title: '어머! 아직도 로그인 안하셨어요 ? 이동하실게요~ '
+		                })
+		            });
+ 		});
+								if(relogin){location.href ='/house/login.com';}
 			}else{
 				console.log(so)
 		
@@ -148,7 +183,7 @@ $(document).ready(function(){
 					dataType: 'text',
 					success: function(qw){
 						
-						setTimeout(function(){}, 400);
+						
 						
 						if(qw=="1"){
 						header_load();
@@ -210,22 +245,14 @@ $(document).ready(function(){
 
 						}
 						
-						
-						
 									
 					}
 					
-					
 					}) 
-					
 					
 			}
 				
-			
-		});
-		
-	
-           
-       
 
 });
+});
+

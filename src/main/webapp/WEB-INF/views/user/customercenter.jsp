@@ -209,7 +209,7 @@
 			    $("html, body").animate({scrollTop: height.top-300}, 400); 
 			    $("#cs_14").trigger('click');
 			
-			}
+			
 		
     	})
     	   
