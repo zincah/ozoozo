@@ -7,7 +7,7 @@
     /* transition: fill .1s,stroke .1s; */
 }
 .production-selling-header__action__button.production-selling-header__action__button--active>.icon--stroke {
-    fill: #35c5f0;
+    fill: #ff778e;
     stroke: transparent;
 }
 .production-selling-header__action__button>.icon--stroke {
@@ -1588,13 +1588,20 @@ img {
     border-color: #ff778e;
     color: #ff778e;
 }
+
+.button--color-blue-inverted:hover {
+    background-color: #ff778e;
+    border-color: #ff778e;
+    color: #fff;
+}
+
 .button--color-blue {
     background-color: #ff778e;
     border-color: #ff778e;
     color: #fff;
 }
 .button--color-blue:hover{
-background-color:rgb(9, 173, 219) ;
+background-color: #ff778e;
 }
 /* ¹öÆ° ¹Ø ±¤°í */
 @media (min-width: 768px){

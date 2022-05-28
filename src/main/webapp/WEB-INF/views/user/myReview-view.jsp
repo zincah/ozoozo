@@ -105,7 +105,7 @@
 		  			$("#post_name").text(''+[resp.post_name]+'');
 		  			
 		  			var options;
-		  			if([resp.option2] != null){
+		  			if([resp.option2] != ''){
 		  				options = [resp.option1_name] + ':' + [resp.option1] + " / "
 		  				+ [resp.option2_name] + ":" + [resp.option2];
 		  			}else{

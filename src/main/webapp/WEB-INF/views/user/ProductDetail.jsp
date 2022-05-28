@@ -14,9 +14,9 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript" src="resources/js/userjs/productDetail.js?var=1"></script>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/public.css'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/overview.css?var=1'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/inform.css'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/review.css?var=1'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/overview.css?var=21'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/inform.css?var=12'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/review.css?var=12'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/addInform.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/smallOption.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/detailScript.css?var=1'>
@@ -186,65 +186,61 @@
                             <div class="production-selling-header__content">
                                 <p class="production-selling-header__review-wrap">
                                     <a class="production-selling-header__review" href="#">
-                                        <span class="production-selling-header__review__icon" aria-label="별점 4.8점">
-                                            <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                <defs>
-                                                    <path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                    <clipPath id="star-clip-1.000">
-                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                    </clipPath>
-                                                </defs>
-                                                <use xlink:href="#star-path-1.000" fill="#DBDBDB"></use>
-                                                <use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use>
-                                            </svg>
-                                            <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                <defs>
-                                                    <path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                    <clipPath id="star-clip-1.000">
-                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                    </clipPath>
-                                                </defs>
-                                                <use xlink:href="#star-path-1.000" fill="#DBDBDB"></use>
-                                                <use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use>
-                                            </svg>
-                                            <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                <defs>
-                                                    <path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                    <clipPath id="star-clip-1.000">
-                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                    </clipPath>
-                                                </defs>
-                                                <use xlink:href="#star-path-1.000" fill="#DBDBDB"></use>
-                                                <use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use>
-                                            </svg>
-                                            <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                <defs>
-                                                    <path id="star-path-1.000" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                    <clipPath id="star-clip-1.000">
-                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                    </clipPath>
-                                                </defs>
-                                                <use xlink:href="#star-path-1.000" fill="#DBDBDB"></use>
-                                                <use clip-path="url(#star-clip-1.000)" xlink:href="#star-path-1.000"></use>
-                                            </svg>
-                                            <svg fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                                                <defs>
-                                                    <path id="star-path-0.752" d="M11.9996 19.7201L6.32294 22.1251C5.5626 22.4472 5.005 22.0311 5.0755 21.2188L5.60855 15.0767L1.5671 10.421C1.02579 9.79745 1.24924 9.13855 2.04358 8.95458L8.04973 7.56354L11.2287 2.28121C11.6545 1.57369 12.3502 1.5826 12.7706 2.28121L15.9496 7.56354L21.9557 8.95458C22.7602 9.1409 22.9667 9.8053 22.4322 10.421L18.3907 15.0767L18.9238 21.2188C18.9952 22.0414 18.4271 22.4432 17.6764 22.1251L11.9996 19.7201Z"></path>
-                                                    <clipPath id="star-clip-0.752">
-                                                        <rect x="0" y="0" width="18.04686686339177" height="24"></rect>
-                                                    </clipPath>
-                                                </defs>
-                                                <use xlink:href="#star-path-0.752" fill="#DBDBDB"></use>
-                                                <use clip-path="url(#star-clip-0.752)" xlink:href="#star-path-0.752"></use>
-                                            </svg>
+                                        <span class="production-selling-header__review__icon" aria-label="별점 ${totalRating }점">
+                                            <c:choose>
+													<c:when test="${totalRating > 4}">
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													</c:when>
+													<c:when test="${totalRating > 3}">
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													</c:when>
+													<c:when test="${totalRating > 2}">
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													</c:when>
+													<c:when test="${totalRating > 1}">
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													</c:when>
+													<c:when test="${totalRating > 0}">
+													<span class="fillstar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													</c:when>
+											</c:choose>
                                         </span>
+                                        <c:choose>
+                                        <c:when test="${totalRating > 0 }">
                                         <span class="production-selling-header__review__text">
                                             <span class="number">
-                                                <span class="mobile-wrapper">(</span>11,522
+                                                <span class="mobile-wrapper">(</span>${reviewList.size() }
                                                 <span class="mobile-wrapper">)</span>
                                             </span>
                                             <span class="postfix">개 리뷰</span>
                                         </span>
+                                        </c:when>
+                                        <c:otherwise>
+                                        	<span class="production-selling-header__review__text">
+                                            	<span class="postfix" style="margin-left: -0.5rem;">리뷰가 아직 없습니다:)</span>
+                                        	</span>
+                                        </c:otherwise>
+                                        </c:choose>
                                     </a>
                                 </p>
                                 <div class="production-selling-header__price">
@@ -700,15 +696,15 @@
                                 <a class="production-selling-navigation__item" href="#production-selling-review"id="QuickBtn2" >
                                     리뷰
                                     <span class="production-selling-navigation__item__count">
-                                        11,525
+                                        ${reviewList.size() }
                                     </span>
                                 </a>
                             </li>
                             <li>
-                                <a class="production-selling-navigation__item" href="#production-selling-question" id="QuickBtn3">
+                                <a class="production-selling-navigation__item" href="/house/CScenter.com" id="QuickBtn3">
                                     문의
                                     <span class="production-selling-navigation__item__count">
-                                        11,792
+                                        / 고객센터
                                     </span>
                                 </a>
                             </li>
@@ -842,7 +838,7 @@
                                     <div class="production-review-feed__header-v2">
                                         <div class="production-review-feed__header-v2__stars">
                                             <div class="production-review-feed__header-v2__stars__badge">
-                                                <span style="font-size: 30px">별점 : </span>
+                                                <span style="font-size: 30px;">별점 : </span>
                                                 <span class="badge__pc">
                                                    ${totalRating }
                                                 </span>
@@ -886,6 +882,13 @@
 													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
 													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
 													</c:when>
+													<c:otherwise>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													<span class="nonestar"><i class="fa-solid fa-star"></i></span>
+													</c:otherwise>
 													</c:choose>
                                                 </span>
                                             </div>
@@ -958,6 +961,7 @@
                                         </div>
                                     </div>
                                     <!-- 리뷰 필터 -->
+                                    <c:if test="${reviewList.size() > 0 }">
                                     <div class="filter">
                                         <div class="production-review-feed__filter">
                                             <div class="production-review-feed__filter__order-list">
@@ -1010,7 +1014,9 @@
                                                                                              -->
                                         </div>
                                     </div>
+								</c:if>
                                 </div>
+
                                 <!-- 리뷰 -->
                                 <div class="production-review-feed__list">
                                 	<c:forEach items="${reviewList }" var="review">
@@ -1071,7 +1077,7 @@
                                             <div class="production-review-item__name">
                                                 <p>${review.option1_name }: ${review.option1 } <c:if test="${review.option2 ne '' }">/ ${review.option2_name }: ${review.option2 }</c:if></p>
                                             </div>
-                                            <c:if test="${review.review_image ne null }">
+                                            <c:if test="${review.review_image ne '' }">
                                             <button type="button" class="production-review-item__img__btn">
                                                 	<img class="production-review-item__img" src="${review.review_image }"/>
                                             </button>
@@ -1730,12 +1736,13 @@ function basket(param){
 					alert("최소 하나의 상품을 등록해주세요.");
 				}else if(after == "123"){
 					alert("로그인 후 이용해 주세요.");
-					location.href = 'http://localhost:8080/house/login.com';
+					location.href = 'http://localhost:8080/house/login.com'; 
 				}else if(param != null){
 					alert("폼 택");
 					page_move();
 				}else if(after == "hi"){
 					alert("성공적으로 장바구니에 담았습니다.");
+					header_load();
 				}
 			}
 		})

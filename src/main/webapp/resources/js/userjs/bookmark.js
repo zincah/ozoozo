@@ -44,6 +44,7 @@ $(document).ready(function(){
 							setTimeout(function(){}, 400);
 							
 							if(w=="1"){
+							header_load();
 							$('#'+gun).find("#blue").css({fill:"#ff778e"});
 							$('#'+gun).remove()
 							$('#s_'+gun).append('<button class="item_bookmark b_none" id='+gun+' >'+
@@ -165,6 +166,7 @@ $(document).ready(function(){
 						setTimeout(function(){}, 400);
 						
 						if(qw=="1"){
+						header_load();
 						$('#'+so).find("#blue").css({fill:"none"});
 						$('#'+so).find("#blueshadow").css({stroke:"#FFF"})
 						$('#'+so).remove()
