@@ -14,12 +14,12 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript" src="resources/js/userjs/productDetail.js?var=1"></script>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/public.css'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/overview.css?var=4'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/inform.css?var=1'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/overview.css?var=1'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/inform.css'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/review.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/addInform.css?var=1'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/smallOption.css?var=2'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/detailScript.css?var=2'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/smallOption.css?var=1'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/detailScript.css?var=1'>
    <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="resources/js/userjs/detailbookmark.js?var=1"></script>
@@ -161,8 +161,8 @@
                                      <c:choose>
 	                                    <c:when test="${product[0].checkit eq true}">
 	                                    <div id="s_${product[0].product_postid }"></div>
-                                     	<button id="${product[0].product_postid }"  class="production-selling-header__action__button production-selling-header__action__button-scrap b_none" type="button">
-                                            <svg class="icon--stroke" aria-label="스크랩" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="0.5" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style="fill: rgb(255, 119, 142); stroke: rgb(255, 119, 142);">
+                                     	<button id="${product[0].product_postid }"  class="production-selling-header__action__button production-selling-header__action__button-scrap b_blue" type="button">
+                                            <svg class="icon--stroke" aria-label="스크랩" width="24" height="24" fill="currentColor" stroke="currentColor" stroke-width="0.5" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
                                                 <path d="M11.53 18.54l-8.06 4.31A1 1 0 0 1 2 21.97V3.5A1.5 1.5 0 0 1 3.5 2h17A1.5 1.5 0 0 1 22 3.5v18.47a1 1 0 0 1-1.47.88l-8.06-4.31a1 1 0 0 0-.94 0z"></path>
                                             </svg>
                                             
@@ -357,7 +357,7 @@
                                 </div>
                             </div>
                             <!-- 브랜드 홈 -->
-                            <a class="css-1jw8uh0 e3xbt9p7" href="/house/brandshop.com?brandcode=${product[0].seller_id }">${product[0].company_name }">
+                            <a class="css-1jw8uh0 e3xbt9p7" href="/house/brandshop.com?brandcode=${product[0].seller_id }">
                                 <div class="css-gshsra e3xbt9p6">
                                     <svg width="24" height="24" fill="none" preserveAspectRatio="xMidYMid meet">
                                         <path d="M3.972 8.694c0-.26.212-.472.472-.472h12.278a.472.472 0 010 .945H4.444a.472.472 0 01-.472-.473z" fill="#35C5F0"></path>
@@ -495,23 +495,27 @@
                                 		var empty = 0;
                                 		var div_arr = new Array();
                                 		function buy_item(option_toString){
-                                			if(select == false){
-                                				option1_Str = option_toString[0].split(":");	
-                                			}else{
-                                				option1_Str = option_toString;
-                                			}
-                                			console.log(option_toString);
                                 			count++;
                                 			for(i=0; i < count; i++){
                                 				if(div_arr[i] == null){
                                 					empty = i;
                                 				}
                                 			}
+                                			console.log("why : " + option_toString);
+                                			op_Str = option_toString[0];
+                                			if(select == false){
+                                				console.log("true ");
+                                				option1 = op_Str.split(":");
+                                				option1_name = option1[0];
+                                			}else{
+                                				option1_name = option_toString[0];
+                                			}
+                                			console.log(option_toString);
                                 			div_arr[empty] = 1;
                                 			var html =	'<li id="'+ empty +'_">\
                                 					<article class="selling-option-item">\
                                 					<h2 class="selling-option-item__name h1_'+empty+'">\
-                                						${product[0].option1_name}: '+ option1_Str[0] +'\
+                                						${product[0].option1_name}: '+ option1_name +'\
                                 					</h2>\
                                 					<button class="selling-option-item__delete" id="'+empty+'" type="button" aria-label="삭제" onclick="remove_div(this)">\
                                 					<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" preserveAspectRatio="xMidYMid meet">\
@@ -563,18 +567,13 @@
                                 			}else{
                                 				Str = Str[0].split(":");
                                 				toStr = Str[1];
-                                				toStr = toStr.replace("${product[0].option1_name}", "");
                                 			}
-                                			
-                                			console.log(option_arr);
-                                			console.log(toStr);
                                 			for(i = 0; i < option_arr.length; i++){
-                                				splitStr = option_arr[i].replace(/ /gi, "").split(":");
+                                				splitStr = option_arr[i].split(":");
                                 				if(toStr == splitStr[0]){
                                 					option_arr.splice(i, 1);
                                 				}
                                 			}
-                                			
                                 			div_arr[div_index.id] = null;
                                 			//console.log(option_arr);
                                 			$("#"+div_index.id+"_").remove();

@@ -336,6 +336,9 @@ public class UserDAO {
 		public void update_coupon(int coupon_id) {
 			sqlSessionTemplate.update("UserProduct.coupon_false", coupon_id);
 		}
+		public void default_change(UserAddressVO avo) {
+			sqlSessionTemplate.update("UserProduct.addr_default_change", avo);
+		}
 		
 	}
 	// 결제내역
@@ -381,6 +384,7 @@ public class UserDAO {
 				i.setPayment(0 - i.getPayment());
 				i.setEmpty_int(0 - i.getOd_point());
 				i.setMerchant_UID(merchant_UID);
+				i.setQuantity(0 - i.getQuantity());
 				sqlSessionTemplate.insert("UserProduct.userorder_refund_add", i);
 				UserPaymentLogVO exvo = sqlSessionTemplate.selectOne("UserProduct.get2_refund", i);
 				sqlSessionTemplate.update("UserProduct.userorder_refund_update", exvo);

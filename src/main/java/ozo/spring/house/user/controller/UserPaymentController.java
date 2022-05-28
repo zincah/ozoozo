@@ -219,6 +219,26 @@ public class UserPaymentController {
 		this.choice_addr = pay_cls.get_addr_true(cvo);
 
 	}
-	
-	
+	//주소추가 form
+	@ResponseBody
+	@RequestMapping(value = "/addr_add_insert.com", method=RequestMethod.POST)
+	public int addr_add_insert(@RequestBody HashMap<String,String> db_param) {
+		UserAddressVO uvo = new UserAddressVO();
+		System.out.println(db_param);
+		uvo.setAddress_name(db_param.get("addr_name"));
+		uvo.setReceiver(db_param.get("name"));
+		uvo.setPhone_num(db_param.get("phone"));
+		uvo.setAddress1(db_param.get("addr1"));
+		uvo.setAddress2(db_param.get("addr2"));
+		uvo.setUser_num(this.userID);
+		if(db_param.get("bln") == "true") {
+			uvo.setAddr_default(true);
+			pay_cls.addr_default_change(uvo); //작업 해줘야함
+		}else {
+			uvo.setAddr_default(false);
+		}
+		
+		pay_cls.addr_insert(uvo);
+		return 1;
+	}
 }

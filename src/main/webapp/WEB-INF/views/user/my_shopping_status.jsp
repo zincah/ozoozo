@@ -195,7 +195,7 @@
               <a class="active" href="/house/myshopping.com">나의 쇼핑</a>
             </li>
             <li class="mypage-nav-item">
-              <a href="/house/myreview.com">나의 리뷰</a>
+              <a href="/house/review.com">나의 리뷰</a>
             </li>
             <li class="mypage-nav-item">
               <a href="/house/edit.com">설정</a>

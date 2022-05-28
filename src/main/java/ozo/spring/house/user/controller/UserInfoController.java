@@ -1,9 +1,9 @@
 package ozo.spring.house.user.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
-import ozo.spring.house.admin.vo.MemberVO;
+import ozo.spring.house.user.dao.UserDAO.cart_Allload;
 import ozo.spring.house.user.service.NaverLoginService;
 import ozo.spring.house.user.service.UserMainService;
+import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.service.UserService;
 import ozo.spring.house.user.service.userMyPageService;
+import ozo.spring.house.user.vo.CartVO;
+import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Controller
@@ -39,7 +42,12 @@ public class UserInfoController {
 	@Autowired
 	userMyPageService mypageService;
 	
+	@Autowired 
+	UserScrapService userscrapservice;
+	
 	@Autowired NaverLoginService naverLoginService;
+	
+	
 	
 	@RequestMapping(value="/signUpProc.com", method=RequestMethod.POST)
 	public String signUpProc(UserVO vo, HttpSession session, Model model,
@@ -60,6 +68,26 @@ public class UserInfoController {
 		
 		// return "redirect:signUp.com";
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/header_load.com", method= {RequestMethod.GET, RequestMethod.POST})
+	public int[] get_cart_ea(HttpSession session) {
+		if(session.getAttribute("UserMail")!=null) {
+			cart_Allload cart_cls;
+			CartVO cvo =new CartVO();
+			cvo.setCart_user((Integer)session.getAttribute("User_Num"));
+			cart_cls = userService.get_cart_class(cvo);
+			List<CartVO> cart_li = cart_cls.getCart_li();
+			
+			UserScrapVO vo = new UserScrapVO();
+			vo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+			List<UserScrapVO> scrap_li = userscrapservice.us_list(vo);
+			int[] arr = {cart_li.size(), scrap_li.size()};
+			return arr;
+		}else {
+			return null;
+		}
 	}
 	
 	
@@ -95,7 +123,6 @@ public class UserInfoController {
 			session.setAttribute("User_img", user.getUser_img());
 			vo.setUser_num(user.getUser_num());
 			userService.lastLoginCheck(vo);
-			session.setAttribute("userCartSu", checkCartSu(vo));
 			return "redirect:login.com";
 		}else {
 			// 네이버 회원 가입
@@ -164,7 +191,6 @@ public class UserInfoController {
 					session.setAttribute("User_img", user.getUser_img());
 					vo.setUser_num(user.getUser_num());
 					userService.lastLoginCheck(vo);
-					session.setAttribute("userCartSu", checkCartSu(vo));
 					return "redirect:login.com";
 					
 				}else { // 회원정보가 없는경우 회원가입
@@ -199,8 +225,6 @@ public class UserInfoController {
 				model.addAttribute("member", vo); // member 정보
 				vo.setUser_num(user.getUser_num());
 				userService.lastLoginCheck(vo); // 최종로그인 날짜 업데이트
-				session.setAttribute("userCartSu", checkCartSu(vo));
-				
 				
 				String url = "";
 				// 세션에 저장되어있는 lasturl을 얻어와서 그 페이지로 리다이렉트 시킨다.
