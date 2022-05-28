@@ -104,14 +104,14 @@
 		(deal_id, deal_postid, deal_originprice, deal_saleratio, deal_saleprice, deal_sellerid)
 		 VALUES ((SELECT COALESCE(MAX(deal_id), 0)+1 FROM deal_info), 
 		 #{post_id}, 
-		 (SELECT whole_price FROM product_posting pp WHERE pp.post_id = #{post_id}),
-		 (SELECT sale_ratio FROM product_posting pp WHERE pp.post_id = #{post_id})+10,
-		 (SELECT whole_price * (1-((sale_ratio+10)/100.0)) FROM product_posting pp WHERE pp.post_id = #{post_id}),
+		 (SELECT whole_price FROM product_posting WHERE post_id = #{post_id}),
+		 (SELECT sale_ratio FROM product_posting WHERE post_id = #{post_id})+10,
+		 (SELECT whole_price * (1-((sale_ratio+10)/100.0)) FROM product_posting WHERE post_id = #{post_id}),
 		 #{seller_id});
 	</insert>
 	
 	<!-- 오늘의딜 신청/deal_id 값 조회 -->
-	<select id="selectDealId" resultType="product">
+	<select id="selectDealId" resultType="integer">
 		SELECT	di.deal_id
 		FROM	product_posting pp
 				JOIN deal_info di 
@@ -123,6 +123,7 @@
 	
 	<!-- 오늘의딜 신청/deal_id 값 업데이트 -->
 	<update id="updateDealId" parameterType="product">
-		UPDATE	product_posting pp SET pp.deal_id = #{deal_id}
+		UPDATE	product_posting SET deal_id = #{deal_id}
+		WHERE	post_id = #{post_id};
 	</update>
 </mapper>

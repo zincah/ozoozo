@@ -53,5 +53,6 @@
 	    <mapper resource="mappings/userMyPage-mapping.xml"/>
 	    <mapper resource="mappings/serverStart-mapping.xml"/>
 	    <mapper resource="mappings/sellerSales-mapping.xml"/>
+	    <mapper resource="mappings/sellerIndex-mapping.xml"/>
 	</mappers>
 </configuration>

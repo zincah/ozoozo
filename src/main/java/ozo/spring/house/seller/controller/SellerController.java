@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ozo.spring.house.seller.service.CategoryService;
 import ozo.spring.house.seller.service.ProductService;
+import ozo.spring.house.seller.service.SellerIndexService;
 import ozo.spring.house.seller.service.SellerOrderService;
 import ozo.spring.house.seller.service.SellerPostingService;
 import ozo.spring.house.seller.service.SellerSalesService;
@@ -38,11 +39,23 @@ public class SellerController {
 	SellerOrderService sellerOrderService;
 	@Autowired
 	SellerSalesService sellerSalesService;
+	@Autowired
+	SellerIndexService sellerIndexService;
 	
 	@RequestMapping(value = "/index.seller")
-	public String sellerIndex(HttpServletRequest request) {
+	public String sellerIndex(HttpServletRequest request, ProductVO vo, Model model) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
+			
+			// vo에 seller_id 세팅
+			vo.setSeller_id((int) session.getAttribute("seller_id"));
+			// 화면에 뿌릴 데이터 받아오기
+			ProductVO data = sellerIndexService.selectViewData(vo);
+			// model에 데이터 추가
+			model.addAttribute("data", data);
+			
+			// 차트관련도 해야함 ㅋㅋㅋㅌㅋㅋㅋㄴ모ㅓㅗㅇ터코처
+			
 			return "index";
 		}else {
 			return "seller-login";

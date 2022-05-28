@@ -10,6 +10,6 @@ public interface SellerPostingService {
 	public void updatePostingStatus(ProductVO vo);
 	public ProductVO selectSelectPosting(ProductVO vo);
 	public void insertPostingDealApp(ProductVO vo);
-	public ProductVO selectDealId(ProductVO vo);
+	public int selectDealId(ProductVO vo);
 	public void updateDealId(ProductVO vo);
 }
