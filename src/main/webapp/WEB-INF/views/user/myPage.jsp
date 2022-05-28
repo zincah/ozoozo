@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta property="og:title" content="님의 마이페이지" />
     <meta property="og:type" content="website" />
-    <link rel="stylesheet" href="resources/css/user_css/inha/myPage-style.css?var=1" />
+    <link rel="stylesheet" href="resources/css/user_css/inha/myPage-style.css?var=2" />
     <link rel="stylesheet" href="resources/css/user_css/inha/myPage-nav-style.css" />
     <link rel="stylesheet" href="resources/css/user_css/inha/footer-style.css" />
     
@@ -256,7 +256,11 @@
 
       <div class="row best_production">
         <!-- for 문 ------------------------------------------------------------------>
-
+	<c:if test="${list.size() eq 0 }">
+	<div class="e84dpj00 css-fhjsnf"><p class="css-116kduv">아직 스크랩한
+콘텐츠가 없습니다.</p><p class="css-uotqtd">마음에 드는 콘텐츠를 발견하면 스크랩해보세요.</p></div>
+	
+	</c:if>
  <c:forEach items="${list }" var="s">
 		               <div id="k_${s.post_id}" class="col-12 col-md-4 col-lg-3">
 		                  <div  class="deals_list_wrap">

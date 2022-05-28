@@ -153,3 +153,39 @@ fieldset, img {border: 0;}
 @media (min-width: 1256px) {
   .mypage-profile-container {margin-right: auto; margin-left: auto; width: 1136px; max-width: 100%; box-sizing: border-box; min-height: 1px;}
 }
+.css-fhjsnf {
+    width: 355px;
+    text-align: center;
+    margin: 60px auto 100px;
+}
+@media (min-width: 768px){
+.css-fhjsnf {
+    margin: 76px auto 120px;
+}
+}
+
+@media (min-width: 768px){
+.css-fhjsnf * {
+    white-space: normal;
+}
+}
+.css-116kduv {
+    font-size: 24px;
+    line-height: 32px;
+    color: rgb(47, 52, 56);
+    white-space: pre-wrap;
+}
+
+
+@media (min-width: 768px){
+.css-fhjsnf * {
+    white-space: normal;
+}
+}
+.css-uotqtd {
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 10px;
+    color: rgb(130, 140, 148);
+    white-space: pre-wrap;
+}

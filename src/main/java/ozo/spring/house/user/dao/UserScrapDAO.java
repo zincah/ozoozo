@@ -37,7 +37,7 @@ public class UserScrapDAO {
 	//스크랩 중복확인용 테이블
 	public List<UserScrapVO> us_list(UserScrapVO vo) {
 		
-		return sqlsessiontemplate.selectList("UserScrapDAO.us_list");
+		return sqlsessiontemplate.selectList("UserScrapDAO.us_list",vo);
 	
 	}
 	

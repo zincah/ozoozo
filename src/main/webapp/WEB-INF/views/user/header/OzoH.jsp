@@ -44,8 +44,28 @@
             $('.layout-navigation-hamburger-pc').mouseleave(function () {
                 $('.layout-navigation-hamburger-pc__content').hide();
             });
+            
+            $.ajax({
+    			url: "header_load.com", 
+    			method: "POST",
+	            headers: { "Content-Type": "application/json" },
+	            dataType : 'json',
+	            data: JSON.stringify(),
+	            success : function(result){
+	            	console.log("삭제 성공");
+	            	if(result != null){
+	            		cart_logo(result);
+	            	}
+	            	
+	            }
+	        })
         });
-
+		function cart_logo(cart_int){
+			var html = '<span class="layout-navigation-bar-icon__ticker">'+ cart_int[0] + '</span>'
+			$(".cart_icon").append(html);
+			var html = '<span class="layout-navigation-bar-icon__ticker">'+ cart_int[1] + '</span>'
+			$(".scrap_icon").append(html);
+		}
  
         function kakaoLogout() {
         	 
@@ -108,7 +128,7 @@
 </head>
 
 <body>
-
+	
 	<header class="layout-navigation-bar">
 		<div class="sticky-container layout-navigation-primary-wrap"
 			style="height: 81px;">
@@ -196,7 +216,7 @@
 							<c:if test="${User_Num ne null}">
 
 							<a
-								class="layout-navigation-bar-icon layout-navigation-bar-icon--hide-mobile"
+								class="layout-navigation-bar-icon layout-navigation-bar-icon--hide-mobile scrap_icon"
 								title="스크랩북" aria-label="스크랩북"
 								href="/house/m_myPage.com"><svg class="icon"
 									width="24" height="24" stroke="currentColor"
@@ -205,7 +225,10 @@
 										d="M3 20.967zm0 0V2.5a.5.5 0 01.5-.5h17a.5.5 0 01.5.5v18.467l-8.057-4.309a2 2 0 00-1.886 0L3 20.968z">
                                 </path>
                             </svg></a>
-							<a class="layout-navigation-bar-icon" title="장바구니" style="margin-right: 1rem;"
+
+
+							<a class="layout-navigation-bar-icon cart_icon" title="장바구니" style="margin-right: 1rem;"
+
 								aria-label="장바구니" href="/house/cart.com"><svg class="icon" width="24"
 									height="24" viewBox="0 0 24 24" stroke="currentColor"
 									fill="none" stroke-linejoin="round" stroke-width="2"
@@ -216,11 +239,8 @@
                                 <path d="M1 2h3v3"></path>
                             </svg> 
                             <!-- 장바구니 -->
-                            <c:if test="${userCartSu ne 0 }">
-                            <span class="layout-navigation-bar-icon__ticker">
-								${userCartSu}
-							</span>
-							</c:if></a>
+                </a>
+
 							<a style="display: none;"
 								class="layout-navigation-bar-icon layout-navigation-bar-icon--hide-mobile"
 								title="알림" aria-label="알림" href="/notifications/feed"><svg
@@ -232,6 +252,7 @@
 										d="M10.04 4.19C10.16 3.16 10.6 2 12.05 2c1.35 0 1.78 1.11 1.9 2.13C21.05 5.25 21 13.43 21 19H3c0-5.48-.05-13.48 7.04-14.81zM10 19c0 1.66.9 3 2 3s2-1.34 2-3">
                                 </path>
                             </svg></a>
+
 							<div class="drop-down layout-navigation-bar-user-section">
 								<button class="layout-navigation-bar-user-button" type="button"
 									aria-label="우동이형님">

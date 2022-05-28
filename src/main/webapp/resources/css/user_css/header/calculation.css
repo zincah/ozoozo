@@ -217,10 +217,7 @@ footer, header, main {
 ._3Bt8k ._3K8Q8 {
     padding-right: 30px;
 }
-._1qwAY {
-    padding: 8px 15px 9px;
-}
-
+	
 
 .IgBXR {
     position: absolute;
@@ -494,6 +491,10 @@ footer, header, main {
     border-radius: 4px;
     transition: border-color 0.1s ease 0s, background-color 0.1s ease 0s;
 }
+._1qwAY {
+    padding: 8px 15px 9px;
+}
+
 ._1r4AF {
     display: -webkit-box;
     display: -webkit-flex;
@@ -1638,4 +1639,69 @@ input::-webkit-inner-spin-button {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
+}
+._3vX19 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+._3vX19, .DwZQi {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0 0px;
+    -moz-box-flex: 1;
+    -moz-flex: 1 0 0px;
+    -ms-flex: 1 0 0px;
+    flex: 1 0 0px;
+}
+._3vX19, .DwZQi {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0 0px;
+    -moz-box-flex: 1;
+    -moz-flex: 1 0 0px;
+    -ms-flex: 1 0 0px;
+    flex: 1 0 0px;
+}
+.DwZQi {
+    padding: 16px;
+    overflow-y: auto;
+}
+.css-1a9pxps {
+    display: flex;
+    margin-bottom: 8px;
+}
+._1Nrkw {
+    left: 23px;
+    right: auto;
+}
+._3VwZT, ._16Bs1 {
+    line-height: 18px;
+    font-size: 15px;
+}
+
+._3FdaP {
+    width: 100%;
+}
+._1sWb3 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+    height: 90px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #fff;
 }

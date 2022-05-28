@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
-	href="resources/css/user_css/header/calculation.css?var=3">
+	href="resources/css/user_css/header/calculation.css?var=1">
 <link rel="stylesheet" href="resources/css/user_css/header/public.css">
 <title>Document</title>
 <!-- jQuery -->
@@ -126,7 +126,7 @@
 			$(".emiurti0").addClass("email2");
 		}
 		
-		function sample6_execDaumPostcode() {
+		function sample6_execDaumPostcode(index) {
 	        new daum.Postcode({
 	            oncomplete: function(data) {
 	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -159,11 +159,13 @@
 	                        extraAddr = ' (' + extraAddr + ')';
 	                    }
 	                } 
+	               console.log(index);
 	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                document.getElementById('sample6_postcode').value = data.zonecode;
-	                document.getElementById("sample6_address").value = addr;
-	                // 커서를 상세주소 필드로 이동한다.
-	                document.getElementById("sample6_detailAddress").focus();
+	                	 document.getElementById('sample6_postcode').value = data.zonecode;
+	 	                document.getElementById("sample6_address").value = addr;
+	 	                // 커서를 상세주소 필드로 이동한다.
+	 	                document.getElementById("sample6_detailAddress").focus();
+	               
 	                
 	            }
 	        }).open();
@@ -216,8 +218,17 @@
 	            }
 	        })
 		}
+		
+		// 주소 다이얼 로그
 		function addr_add_btn(){
+			$(".addr_add").css('display','flex');
+			$(".addr_choice").css('display','none');
 			
+		}
+		
+		function addr_choice_div(){
+			$(".addr_add").css('display','none');
+			$(".addr_choice").css('display','flex');
 		}
 		// 여기서 부터 결제
 		
@@ -751,7 +762,7 @@
 											<div>
 												<div class="css-1jq486h e138ry6t2">
 													<button class="_1eWD8 _2wuTD _3VwZT css-1maly7k e138ry6t1"
-														onclick="sample6_execDaumPostcode()" type="button">주소찾기</button>
+														onclick="sample6_execDaumPostcode(1)" type="button">주소찾기</button>
 													<input class="_3ASDR _1qwAY css-1xfkvr7 e138ry6t0"
 														id="sample6_postcode" disabled="" value="">
 												</div>
@@ -1118,7 +1129,8 @@
 		<div class="_1SpqS _1MBhg open open-active">
 			<div class="_3OUv- mHTb_ _2cK_F">
 				<div tabindex="-1" class="_2mP0n _3iCqi y72e_">
-					<div class="Jua8R">
+				<!-- 배송지 선택 -->
+					<div class="Jua8R addr_choice">
 						<header class="_1I4Z6">
 							<div class="_2NWGa">
 								<svg class="_22l5h" width="24" height="24" fill="currentColor"
@@ -1153,7 +1165,7 @@
 												<button class="_1eWD8 _2wYpN _1xT_u _7sIV3" type="button">수정</button>
 											</div>
 											<div class="_1n3SH">
-												<button class="_1eWD8 _3SroY _1xT_u _7sIV3 _3ohIu"
+												<button class="_1eWD8 _3SroY _1xT_u _7sIV3 _3ohIu ${address_li[i].address_id }_addr"
 													type="button">선택</button>
 											</div>
 										</div>
@@ -1165,10 +1177,140 @@
 							</div>
 						</article>
 					</div>
-				</div>
+					<!-- 배송지 추가 -->
+						<div class="Jua8R addr_add" style="display:none;">
+							<header class="_1I4Z6">
+								<div class="_2NWGa _1Nrkw" onclick="addr_choice_div()">
+									<svg class="_22l5h" fill="none" viewBox="0 0 21 18"
+										preserveAspectRatio="xMidYMid meet">
+										<path fill="#424242"
+											d="M2.43 8.45H21v1H2.43L10 16.99l-.71.71L.5 8.95 9.29.2l.71.71-7.57 7.54z"></path></svg>
+								</div>
+								<div class="_37oj5">배송지 추가</div>
+							</header>
+							<article class="_2XEGg">
+								<form class="_3vX19">
+									<div class="DwZQi" id="addr_insert_form" method="post">
+										<label class="css-1icqu5k e126uv4s3"><div
+												class="css-1bp0feq e126uv4s2">배송지명</div>
+											<div class="css-yby15j e126uv4s1">
+												<input class="_3ASDR _1qwAY" name="name" id="addr_name" maxlength="20"
+													value="">
+											</div></label><label class="css-1icqu5k e126uv4s3"><div
+												class="css-1bp0feq e126uv4s2">받는 사람</div>
+											<div class="css-yby15j e126uv4s1">
+												<input class="_3ASDR _1qwAY" name="recipient" id="addr_man" value="">
+											</div></label><label class="css-1icqu5k e126uv4s3"><div
+												class="css-1bp0feq e126uv4s2">연락처</div>
+											<div class="css-yby15j e126uv4s1">
+												<div class="_2Z2K1">
+													<div class="_2ixif">
+														<div class="_3Bt8k">
+															<select class="_3ASDR _1qwAY _3K8Q8" name="phone1" id="addr_phone1"><option
+																	value="" disabled="">선택</option>
+																<option value="0">010</option>
+																<option value="1">011</option>
+																<option value="2">016</option>
+																<option value="3">017</option>
+																<option value="4">018</option>
+																<option value="5">019</option>
+																<option value="6">02</option>
+																<option value="7">031</option>
+																<option value="8">032</option>
+																<option value="9">033</option>
+																<option value="10">041</option>
+																<option value="11">042</option>
+																<option value="12">043</option>
+																<option value="13">044</option>
+																<option value="14">051</option>
+																<option value="15">052</option>
+																<option value="16">053</option>
+																<option value="17">054</option>
+																<option value="18">055</option>
+																<option value="19">061</option>
+																<option value="20">062</option>
+																<option value="21">063</option>
+																<option value="22">064</option>
+																<option value="23">070</option>
+																<option value="24">080</option>
+																<option value="25">050</option>
+																<option value="26">012</option>
+																<option value="27">059</option>
+																<option value="28">직접 입력</option></select>
+															<svg width="1em" height="1em" viewBox="0 0 10 10"
+																fill="currentColor" class="IgBXR yPMDv">
+																<path d="M0 3l5 5 5-5z"></path></svg>
+														</div>
+													</div>
+													<div class="UYZ4Z">
+														<input class="_3ASDR _1qwAY" type="number" id="addr_phone2"
+															placeholder="입력해주세요" size="1" maxlength="9" value="">
+													</div>
+												</div>
+											</div></label><label class="css-1icqu5k e126uv4s3"><div
+												class="css-1bp0feq e126uv4s2">주소</div>
+											<div class="css-yby15j e126uv4s1">
+												<div>
+													<div class="false css-1a9pxps e138ry6t2">
+														<button class="_1eWD8 _2wuTD _3VwZT css-1maly7k e138ry6t1"
+															type="button" onclick="sample6_execDaumPostcode(2)">주소찾기</button>
+														<input class="_3ASDR _1qwAY css-1xfkvr7 e138ry6t0" id="sample6_postcode"
+															disabled="" value="">
+													</div>
+													<div class="css-1a9pxps e138ry6t2">
+														<textarea class="_3ASDR _1qwAY css-1xfkvr7 e138ry6t0" id="sample6_address"
+															disabled="" rows="1"
+															style="overflow: hidden; overflow-wrap: break-word; height: 40px;"></textarea>
+													</div>
+												</div>
+												<input class="_3ASDR _1qwAY" name="extraAddress" id="sample6_detailAddress"
+													placeholder="상세주소 입력" maxlength="50" value=""><label
+													for="is-default-address" class="css-t6mvy9 e1lbmohe1"><div
+														class="_3zqA8 css-tz6wcf e1lbmohe0">
+														<input type="checkbox" class="_3UImz"
+															id="is-default-address" name="isDefaultAddress" value=""><span
+															class="_2mDYR"><svg width="1em" height="1em"
+																viewBox="0 0 16 16" class="_2UftR">
+																<path fill="currentColor"
+																	d="M6.185 10.247l7.079-7.297 1.435 1.393-8.443 8.703L1.3 8.432l1.363-1.464z"></path></svg></span>
+													</div>기본 배송지로 저장</label>
+											</div></label>
+									</div>
+									<div class="_1sWb3">
+										<button class="_1eWD8 _3SroY _3VwZT _3FdaP" onclick="form_request()" >저장</button>
+									</div>
+								</form>
+							</article>
+						</div>
+					</div>
 			</div>
 		</div>
 	</div>
 </c:if>
+<script>
+	function form_request(){
+		$.ajax({
+			url: "addr_add_insert.com", 
+			method: "POST",
+            headers: { "Content-Type": "application/json" },
+            dataType : 'json',
+            data: JSON.stringify({
+            	addr_name : $("#addr_name").val(),
+            	name : $("#addr_man").val(),
+            	phone : $("#addr_phone1").val() + "-" + $("#addr_phone2").val(),
+            	addr1 : "["+ $("#sample6_postcode").val() + "] " + $("#sample6_address").val(),
+            	addr2 : $("#sample6_detailAddress").val(),
+            	bln : $("#is-default-address").is(':checked')
+            }),
+            success : function(result){
+            	if(result == 1){
+            		location.reload();
+            	}
+            	
+            }
+        })
+	}
+
+</script>
 </body>
 </html>
