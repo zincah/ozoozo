@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.seller.vo.FilterVO;
 import ozo.spring.house.user.service.UserCategoryService;
+import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
+import ozo.spring.house.user.vo.UserScrapVO;
 
 @Controller
 public class UserCategoryController {
@@ -30,8 +33,11 @@ public class UserCategoryController {
 	@Autowired
 	UserCategoryService userCategoryService;
 	
+	@Autowired
+	UserScrapService userScrapService;
+	
 	@RequestMapping(value = "/category.com", method=RequestMethod.GET)
-	public String category(UserCategoryVO vo, Model model, HttpServletRequest request) {
+	public String category(UserCategoryVO vo, Model model, HttpServletRequest request, UserScrapVO svo, HttpSession session,UserProductVO pvo) {
 
 		String[] codes = request.getParameter("catecode").split("_");
 		
@@ -73,6 +79,13 @@ public class UserCategoryController {
 		vo.setThispage(0);
 		List<UserProductVO> productList = userCategoryService.selectProductByCate(vo);
 		
+		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
+
+		pvo.setCheckit(false);
+		if(session.getAttribute("User_Num") != null) {
+			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+			scrap = userScrapService.userScrapList(svo);
+		}
 		
 		for(int i=0; i<productList.size(); i++) {
 			UserProductVO pro = productList.get(i);
@@ -81,6 +94,13 @@ public class UserCategoryController {
 			DecimalFormat decFormat = new DecimalFormat("###,###"); //�냼�닔�젏 �븿�닔
 			
 			pro.setSale_price(decFormat.format(sale_price));
+			
+			for(int j=0; j<scrap.size(); j++) {
+				UserScrapVO sc = scrap.get(j);
+				if(pro.getPost_id() == sc.getSc_postid()) {
+					pro.setCheckit(true);
+				}
+			}
 		}
 		
 		model.addAttribute("productList", productList);
