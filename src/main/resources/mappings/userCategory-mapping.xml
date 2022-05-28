@@ -62,18 +62,33 @@
 	<!-- post id 받아오는 부분 -->
 	<select id="getPostList" resultType="ucate">
 		SELECT DISTINCT ON(dprodetails_postid) pd.dprodetails_postid, pd.detail_name, 
-		pd.detail_value, pd.dtop_catecode, fe.filter_depth, fe.filter_name
+		pd.detail_value, pd.dtop_catecode, fe.filter_depth, fe.filter_name, pp.today_deal, pp.shipping_info1
 		FROM product_details pd
-		INNER JOIN filter_element fe 
-		ON pd.detail_value = fe.filter_id
+		INNER JOIN filter_element fe ON pd.detail_value = fe.filter_id
+		inner join product_posting pp on pd.dprodetails_postid = pp.post_id 
 		WHERE fe.filter_depth=2 AND dtop_catecode=#{top_catecode} 
+		<if test="dealCheck == true">
+			<trim prefix="and">
+				today_deal=true
+			</trim>
+		</if>
 		<if test="filtering.size() > 0">
+			<if test="dealCheck == true">
+				<trim prefix="or">
+					fe.filter_name IN 
+					<foreach item="item" collection="filtering" index="index" open="(" close=")" separator=",">
+						#{item}
+					</foreach>
+				</trim>
+			</if>
+			<if test="dealCheck != true">
 				<trim prefix="and">
 					fe.filter_name IN 
 					<foreach item="item" collection="filtering" index="index" open="(" close=")" separator=",">
 						#{item}
 					</foreach>
 				</trim>
+			</if>
 		</if>
 	</select>   
 	
@@ -108,13 +123,28 @@
 					po_subcate=#{subcate_code}
 				</trim>
 			</if>
-			<if test="post_ids.size() > 0">
+			<if test="dealCheck == true">
 				<trim prefix="and">
-					po.post_id IN 
-					<foreach item="item" collection="post_ids" index="index" open="(" close=")" separator=",">
-						#{item}
-					</foreach>
+					today_deal=true
 				</trim>
+			</if>
+			<if test="post_ids.size() > 0">
+				<if test="dealCheck == true">
+					<trim prefix="or">
+						po.post_id IN 
+						<foreach item="item" collection="post_ids" index="index" open="(" close=")" separator=",">
+							#{item}
+						</foreach>
+					</trim>
+				</if>
+				<if test="dealCheck != true">
+					<trim prefix="and">
+						po.post_id IN 
+						<foreach item="item" collection="post_ids" index="index" open="(" close=")" separator=",">
+							#{item}
+						</foreach>
+					</trim>
+				</if>
 			</if>
 			<if test="post_ids.size() == 0">
 				<trim prefix="and">
@@ -158,13 +188,28 @@
 					po_subcate=#{subcate_code}
 				</trim>
 			</if>
-			<if test="post_ids.size() > 0">
+			<if test="dealCheck == true">
 				<trim prefix="and">
-					post_id IN 
-					<foreach item="item" collection="post_ids" index="index" open="(" close=")" separator=",">
-						#{item}
-					</foreach>
+					today_deal=true
 				</trim>
+			</if>
+			<if test="post_ids.size() > 0">
+				<if test="dealCheck == true">
+					<trim prefix="or">
+						post_id IN 
+						<foreach item="item" collection="post_ids" index="index" open="(" close=")" separator=",">
+							#{item}
+						</foreach>
+					</trim>
+				</if>
+				<if test="dealCheck != true">
+					<trim prefix="and">
+						post_id IN 
+						<foreach item="item" collection="post_ids" index="index" open="(" close=")" separator=",">
+							#{item}
+						</foreach>
+					</trim>
+				</if>
 			</if>
 			<if test="post_ids.size() == 0">
 				<trim prefix="and">
