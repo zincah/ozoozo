@@ -97,7 +97,7 @@
                                     style="text-decoration: underline;">이메일 문의하기</a><button
                                     class="customer-center__contact__btn-copy-email" type="button">이메일 주소 복사</button><br>전화
                                 :&nbsp;<a href="tel:1670-0876" style="text-decoration: underline;">1670-0876</a></address><button
-                                class="btn btn-md btn-priority customer-center__contact__btn-inquiry" type="button">1:1 카톡
+                                class="btn btn-md btn-priority customer-center__contact__btn-inquiry" type="button" onclick="popup()">1:1 카톡
                                 상담하기</button>
                         </section>
                         <section class="col-12 col-md-6 customer-center__faq">
@@ -120,7 +120,7 @@
                 <section class="col-12 customer-center__contact--mobile">
                     <p class="customer-center__contact--mobile__operating">운영시간 : 평일 09:00 ~ 18:00 (주말 &amp; 공휴일 제외)</p>
                     <div class="customer-center__contact--mobile__buttons"><button
-                            class="btn btn-sm btn-priority customer-center__contact--mobile__button" type="button">1:1 카톡
+                            class="btn btn-sm btn-priority customer-center__contact--mobile__button" type="button" onclick="popup()">1:1 카톡
                             상담하기</button><a class="btn btn-sm btn-light customer-center__contact--mobile__button"
                             href="/contacts/new">이메일 문의하기</a><a href="tel:1670-0876"
                             class="btn btn-sm btn-light customer-center__contact--mobile__button">전화 문의하기</a></div>
@@ -182,34 +182,40 @@
         </article>
         <script>
         
+        function syncDelay(milliseconds){
+        	 var start = new Date().getTime();
+        	 var end=0;
+        	 while( (end-start) < milliseconds){
+        	     end = new Date().getTime();
+        	 }
+        	}
+        function popup(){
+            var url = "http://pf.kakao.com/_xdFEDb/chat";
+            var name = "popup test";
+            var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+            window.open(url, name, option);
+        }
         
-        	
-			$("#s_ship").on("click",function(){
-				
-				 $(".faq__nav__item--active").trigger("click") 
-				 setTimeout(function(){
-					 $(".faq__contents__item__answer").hide();
-					//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
+        
+        
+        
+        $("#s_ship").on("click",function(){
+    	   		
+				$(".faq__contents__item__answer").hide();
+				//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
 			 	 var height = $("#cs_14").offset();
 				//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
 			    //heigh의 top 위치로 이동 시킨다.
 			    $("html, body").animate({scrollTop: height.top-300}, 400); 
 			    $("#cs_14").trigger('click');
-			    },3000);
-				
 			
-			});
-	
-    	   $(".faq__nav__item--active").on("click",function(){
-    		   document.location = 'http://localhost:8080/house/CScenter.com'
-    			
+			}
+		
+    	})
     	   
-    	   });
+    	 
 
-
-		    $("#s_order").on("click",function(){
-	    		   document.location = 'http://localhost:8080/house/CScenter.com'
-	    	   });
+		    
          
    		 $("#s_order").on("click",function(){
    			 $(".faq__contents__item__answer").hide();
@@ -223,9 +229,7 @@
             
    		})
    		
-   		 $("#s_product").on("click",function(){
-    		   document.location = 'http://localhost:8080/house/CScenter.com'
-    	   });
+   		
    		 $("#s_product").on("click",function(){
    			 $(".faq__contents__item__answer").hide();
    			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
@@ -239,9 +243,7 @@
    		    
    		})
    		
-   		 $("#s_error").on("click",function(){
-    		   document.location = 'http://localhost:8080/house/CScenter.com'
-    	   });
+   		 
    		 $("#s_error").on("click",function(){
    			 $(".faq__contents__item__answer").hide();
    			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
@@ -255,9 +257,7 @@
    		    
    		})
    		
-   		 $("#s_kakao").on("click",function(){
-    		   document.location = 'http://localhost:8080/house/CScenter.com'
-    	   });
+   		
    		 $("#s_kakao").on("click",function(){
    			 $(".faq__contents__item__answer").hide();
    			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
