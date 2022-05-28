@@ -34,7 +34,7 @@
 
         });
 
-        $("#couponInsert").click(function (){
+        $("#couponInsert").click(function () {
           var coupon_title = $("#newcoupon_title").val()
           var coupon_subtitle = $("#newcoupon_content").val()
           var coupon_more = $("#newcoupon_more").val()
@@ -44,32 +44,32 @@
           var coupon_enddate = $("#newnow_date2").val()
 
 
+          var couponInfo = {
+            "coupon_title": coupon_title,
+            "coupon_subtitle": coupon_subtitle,
+            "coupon_more": coupon_more,
+            "coupon_discount": coupon_discount,
+            "coupon_create": coupon_create,
+            "coupon_startdate": coupon_startdate,
+            "coupon_enddate": coupon_enddate
+          }
 
-            var couponInfo = {
-              "coupon_title" : coupon_title,
-              "coupon_subtitle" : coupon_subtitle,
-              "coupon_more" : coupon_more,
-              "coupon_discount" : coupon_discount,
-              "coupon_create" : coupon_create,
-              "coupon_startdate" : coupon_startdate,
-              "coupon_enddate" : coupon_enddate}
+          $.ajax({
+            url: 'couponInsert.admin',
+            method: 'post',
+            data: JSON.stringify(couponInfo),
+            contentType: 'application/json; charset=UTF-8',
+            dataType: 'html',
+            success: function (resp) {
+              $(".newcoupon").hide()
+              $(".couponListLayer").html(resp)
+              $(".couponbody").show()
 
-              $.ajax({
-                url:'couponInsert.admin',
-                method:'post',
-                data: JSON.stringify(couponInfo),
-                contentType : 'application/json; charset=UTF-8',
-                dataType : 'html',
-                success : function(resp){
-                  $(".newcoupon").hide()
-                  $(".couponListLayer").html(resp)
-                  $(".couponbody").show()
-
-                  console.log($(".couponid:nth-last-child(1)").val());
+              console.log($(".couponid:nth-last-child(1)").val());
 
 
-                }
-              });
+            }
+          });
 
           /*$(".couponListLayer .insert_btn").on("click", function(e){
             e.preventDefault();
@@ -80,32 +80,100 @@
 
           console.log(couponInfo);
 
+
+          $("#couponUpdate").click(function (){
+
+
+
+
+
+
+            })
+
+
+
+
         })
 
-        $(".clickbtn").click(function(){
 
-          var coupon = $(this).val()
-          $.ajax({
-            url:'couponView.admin',
-            method:'post',
-            data: JSON.stringify(coupon),
-            contentType : 'application/json; charset=UTF-8',
-            dataType : 'html',
-            success : function(resp){
-              $(".newcoupon").hide()
-              $(".couponbody").html(resp)
-              $(".couponbody").show()
-            }
+
+          $(".clickbtn").click(function () {
+
+            var coupon = $(this).val()
+            makeView(coupon);
+
+
           });
+        });
+
+      function makeView(coupon){
+        $.ajax({
+          url: 'couponView.admin',
+          method: 'post',
+          data: JSON.stringify(coupon),
+          contentType: 'application/json; charset=UTF-8',
+          dataType: 'html',
+          success: function (resp) {
+            $(".newcoupon").hide()
+            $(".couponbody").html(resp)
+            $(".couponbody").show()
+          }
         })
 
 
+      }
 
+      // 동적요소 새롭게 이벤트 넣을 때
+      $(document).on('click', '.clickbtn', function(){
 
-
+        var coupon = $(this).val()
+        makeView(coupon)
 
 
       });
+
+
+      function couponUpdate(coupon) {
+
+        var coupon_id = coupon
+        var coupon_title = $("#coupon_title").val()
+        var coupon_subtitle = $("#coupon_content").val()
+        var coupon_more = $("#coupon_more").val()
+        var coupon_discount = $("#coupon_discount").val()
+
+
+        var couponUpdate = {
+          "coupon_id" : coupon_id,
+          "coupon_title" : coupon_title,
+          "coupon_subtitle" : coupon_subtitle,
+          "coupon_more" : coupon_more,
+          "coupon_discount" : coupon_discount
+        }
+
+        $.ajax({
+          url : 'couponUpdate.admin',
+          method : 'post',
+          data : JSON.stringify(couponUpdate),
+          contentType : 'application/json; charset=UTF-8',
+          dataType : 'html',
+          success :function (resp){
+            console.log(resp);
+            $(".couponbody").hide()
+            $(".couponListLayer").html(resp)
+            $(".newcoupon").show()
+          }
+
+        });
+      }
+
+      $(document).on('click', '.modi_btn', function (){
+
+        var coupon = $(this).val()
+        couponUpdate(coupon);
+
+      });
+
+
 
     </script>
   </head>
@@ -205,6 +273,21 @@
         </main>
         <!-- content -->
         <div class="content-table">
+          <div class="dropdown setting-button text-end">
+            <button class="settingBtn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
+              </svg>
+            </button>
+            <ul class="dropdown-menu settingBtnDropdown" aria-labelledby="dropdownMenuButton1" style="">
+              <li><h6 class="dropdown-header">판매 상품 관리</h6></li>
+              <li>
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-status-select" id="productStatusChange">게시물상태변경</a>
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#coupon_register" id="couponStatusChange">쿠폰등록</a>
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#today_deal_register" id="dealStatusChange">오늘의딜 승인</a>
+              </li>
+            </ul>
+          </div>
           <div class="table_layer">
             <table class="table table-hover table-box-style table-bordered">
               <thead>
@@ -345,7 +428,7 @@
                 
                 <tr class="content-table-content text-end">
                   <td colspan="6">
-                    <button type="button" class="btn btn-secondary modi_btn">수정</button>
+                    <button type="button" class="btn btn-secondary modi_btn" id="couponUpdate">수정</button>
                     <button type="button" class="btn btn-secondary stop_btn">중지</button>
                     <button type="button" class="btn btn-danger del_btn">삭제</button>
                     <button class="btn btn-success insert_btn">등록</button>
