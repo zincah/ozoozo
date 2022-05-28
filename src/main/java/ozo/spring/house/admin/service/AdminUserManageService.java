@@ -11,6 +11,10 @@ public interface AdminUserManageService {
 	public List<UserVO> selectUser(UserVO vo);
 	public void updateUserStatus(UserVO vo);
 	public List<UserVO> getUserList(UserVO vo);
+	
+	// index page
+	public int noticeCount();
+	public int sellerCount();
 	public List<UserVO> floatingPopulation();
 	public List<Map<String, Integer>> bestProductOfIndex();
 	

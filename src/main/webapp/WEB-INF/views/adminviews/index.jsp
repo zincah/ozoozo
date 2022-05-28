@@ -95,7 +95,13 @@
 		
 		var labelList = ${labelList};
 		var totalList = ${totalList};
-		//var rankList = ${rankList};
+		var rankList = ${rankList};
+
+		
+		var max = totalList.reduce(function (previous, current){
+			return previous > current ? previous:current;
+		})
+		console.log(max);
 		
 		
 		// bar chart
@@ -106,11 +112,12 @@
 		    labels: labelList,
 		    datasets: [
 		      {
-		        label: rankList,
-		        backgroundColor: "rgba(255, 119, 142)",
-		        borderColor: "rgba(255, 119, 142)",
-		        data: totalList,
-		      },
+			        label: "rank",
+			        backgroundColor: "rgba(255, 119, 142)",
+			        borderColor: "rgba(255, 119, 142)",
+			        data: totalList,
+			  	}
+		    	
 		    ],
 		  },
 		  options: {
@@ -124,7 +131,7 @@
 		            display: false,
 		          },
 		          ticks: {
-		            maxTicksLimit: 6,
+		            maxTicksLimit: labelList.length,
 		          },
 		        },
 		      ],
@@ -132,7 +139,7 @@
 		        {
 		          ticks: {
 		            min: 0,
-		            max: 15000,
+		            max: max+10000,
 		            maxTicksLimit: 5,
 		          },
 		          gridLines: {
@@ -176,7 +183,7 @@
 	                    <div class="d-flex justify-content-between sub-text">
 	                      <p class="small">게시 중</p>
 	                      <div>
-	                        <span class="num-text-color">0</span>
+	                        <span class="num-text-color">${notice }</span>
 	                        <span>건</span>
 	                      </div>
 	                    </div>
@@ -202,7 +209,7 @@
 	                    <div class="d-flex justify-content-between sub-text">
 	                      <p class="small">활동 업체</p>
 	                      <div>
-	                        <span class="num-text-color">0</span>
+	                        <span class="num-text-color">${seller }</span>
 	                        <span>개</span>
 	                      </div>
 	                    </div>
@@ -282,7 +289,7 @@
                 <div class="card h-100 box-shadow">
                   <div class="card-body">
                     <div class="d-flex title-text bottom-line">
-                      <p class="margin-zero"><i class="fas fa-chart-area me-1 icon-margin-right"></i>유입인구</p>
+                      <p class="margin-zero"><i class="fas fa-chart-area me-1 icon-margin-right"></i>회원 유입인구</p>
                     </div>
                     <div class="d-flex justify-content-between sub-text">
                       <div class="card-body padding-zero">

@@ -203,8 +203,6 @@
 
           // 사진업로드 기능
           function photoUpload(){
-        	  
-        	
 
             var formData = new FormData();
             
@@ -240,7 +238,11 @@
 	              success: function(resp) {
 	                alert("성공!");
 	                console.log(resp);
-	                $("input[name=review_image]").val(resp);
+	                if(resp == nofile){
+	                	$("input[name=review_image]").val("");
+	                }else{
+	                	$("input[name=review_image]").val(resp);
+	                }
 	                $(".review-modal__form").submit();
 					
 	              },
