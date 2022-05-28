@@ -267,4 +267,16 @@ where cart_user=#{cart_user} AND  cart_post= #{cart_post};
 	<update id="addr_default_change">
 		update address set addr_default = false where addr_default = true and user_num = #{user_num};
 	</update>
+	
+	<delete id="addr_delete">
+		delete from address where address_id = #{address_id};
+	</delete>
+	
+	<select id="get_addr" resultType="address">
+		select * from address where address_id = #{address_id};
+	</select>
+	
+	<update id="addr_update">
+		update address set address_name = #{address_name}, receiver = #{receiver}, phone_num = #{phone_num}, address1 = #{address1}, address2 = #{address2}, addr_default = #{addr_default}, user_num = #{user_num} where address_id  = #{address_id};
+	</update>
 </mapper>
