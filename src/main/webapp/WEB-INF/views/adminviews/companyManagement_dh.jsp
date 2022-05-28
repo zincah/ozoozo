@@ -40,31 +40,10 @@
     		});
     		
     		$(".getSellerInfo").click(function(){
-    			
-    			var sellerid = {"seller_id" : $(this).val()}
-    			
-        		$.ajax({
-    		  		url:'getSellerInfo.admin',
-    		  		method:'post',
-    		  		data: JSON.stringify(sellerid),
-    		  		contentType : 'application/json; charset=UTF-8',
-    		  		dataType : 'json',
-    		  		success : function(resp){
 
-    		  			console.log(resp);
-    		  			$('#seller_info_modal').modal('show');
-    		  			
-    		  			$(".company_name").text(resp.company_name);
-    		  			$(".seller_name").text(resp.representative);
-    		  			$(".company_addr").text(resp.address);
-    		  			$(".seller_tell").text(resp.shop_tell);
-    		  			$(".seller_email").text(resp.email);
-    		  			$(".seller_in").text(resp.entry_date);
-    		  			$(".regist_num").text(resp.registration_num);
-    		  			
-    		  		}
-    		  		
-    		  		});
+    			var sellerid = {"seller_id" : $(this).val()}
+    			makeSellerModal(sellerid);
+    			
 
     		});
     		
@@ -100,6 +79,39 @@
     		})
     		
     	});
+    	
+        // 동적요소 새롭게 이벤트 넣을 때
+        $(document).on('click', '.getSellerInfo', function(){
+
+        	var sellerid = {"seller_id" : $(this).val()}
+			makeSellerModal(sellerid);
+        });
+    	
+    	function makeSellerModal(sellerid){
+
+    		$.ajax({
+		  		url:'getSellerInfo.admin',
+		  		method:'post',
+		  		data: JSON.stringify(sellerid),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'json',
+		  		success : function(resp){
+
+		  			console.log(resp);
+		  			$('#seller_info_modal').modal('show');
+		  			
+		  			$(".company_name").text(resp.company_name);
+		  			$(".seller_name").text(resp.representative);
+		  			$(".company_addr").text(resp.address);
+		  			$(".seller_tell").text(resp.shop_tell);
+		  			$(".seller_email").text(resp.email);
+		  			$(".seller_in").text(resp.entry_date);
+		  			$(".regist_num").text(resp.registration_num);
+		  			
+		  		}
+		  		
+		  		});
+    	}
     	
     	function searching(){
     		var search = $("#searchBox").val();

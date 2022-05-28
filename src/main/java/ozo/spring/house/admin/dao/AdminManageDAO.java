@@ -102,6 +102,16 @@ public class AdminManageDAO {
 		return sqlSessionTemplate.selectOne("AdminManageDAO.searchListCount", pvo);
 	}
 	
+	public int noticeCount() {
+		System.out.println("--> mybatis in adminmanagedao noticecount");
+		return sqlSessionTemplate.selectOne("AdminManageDAO.noticeCount");
+	}
+	
+	public int sellerCount() {
+		System.out.println("--> mybatis in adminmanagedao sellerCount");
+		return sqlSessionTemplate.selectOne("AdminManageDAO.sellerCount");
+	}
+	
 	public List<UserVO> floatingPopulation() {
 		System.out.println("--> mybatis in adminmanagedao floating");
 		return sqlSessionTemplate.selectList("AdminManageDAO.floatingPopulation");
@@ -146,7 +156,7 @@ public class AdminManageDAO {
 	
 	public int bestSaleCount(AdminProductVO vo) { // best °³¼ö
 		System.out.println("--> mybatis in adminmanagedao get bestSale");
-		List<AdminProductVO> list = sqlSessionTemplate.selectList("AdminManageDAO.bestSaleCount");
+		List<AdminProductVO> list = sqlSessionTemplate.selectList("AdminManageDAO.bestSaleCount", vo);
 		return list.size();
 	}
 	

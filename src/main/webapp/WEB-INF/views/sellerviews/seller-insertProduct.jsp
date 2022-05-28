@@ -19,7 +19,7 @@
 <link href="resources/css/sellercss/insertProduct.css?var=212" rel="stylesheet" />
 <jsp:include page="header/headerModalView.jsp"></jsp:include>
 <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="resources/js/sellerjs/plus_photo.js?var=1"></script>
+<script type="text/javascript" src="resources/js/sellerjs/plus_photo.js?var=12"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <script>
       $(document).ready(function () {
@@ -160,129 +160,167 @@
 
       /* file 이름 나옴 */
       function changeValue(input) {
+    	  console.log("change")
     	  var checkId = input.id;
     	  var checkSu = checkId.substr(-1);
     	  
         var file = input.files[0]; //선택된 파일 가져오기
+        var filename;
+        if(file != null){
+        	filename = file.name;
+        	console.log(filename);
+        }
+        
+        if (/(\.gif|\.jpg|\.jpeg|\.webp|\.png|\.PNG)$/i.test(filename) == false) {
+        	$('#main_photo'+checkSu).val("");
+            alert("이미지 형식의 파일을 선택하십시오");
+        }else{
+        	
+            //미리 만들어 놓은 div에 text(파일 이름) 추가
+            //var name = document.getElementById('fileName');
+            //name.textContent = file.name;
 
-        //미리 만들어 놓은 div에 text(파일 이름) 추가
-        //var name = document.getElementById('fileName');
-        //name.textContent = file.name;
+            //새로운 이미지 div 추가
+            var newImage = document.createElement("img");
+            newImage.setAttribute("class", "upload_img");
 
-        //새로운 이미지 div 추가
-        var newImage = document.createElement("img");
-        newImage.setAttribute("class", "upload_img");
+            //이미지 source 가져오기
+            newImage.src = URL.createObjectURL(file);
+            newImage.style.visibility = "visible";
+            newImage.style.objectFit = "contain";
+            alert(URL.createObjectURL(file));
 
-        //이미지 source 가져오기
-        newImage.src = URL.createObjectURL(file);
-        newImage.style.visibility = "visible";
-        newImage.style.objectFit = "contain";
-        alert(URL.createObjectURL(file));
-
-        //이미지를 image-show div에 추가
-        var container = document.getElementById('image_show'+checkSu);
-        container.appendChild(newImage);
-        $('#image_show'+checkSu).show();
+            //이미지를 image-show div에 추가
+            var container = document.getElementById('image_show'+checkSu);
+            container.appendChild(newImage);
+            $('#image_show'+checkSu).show();
+        	
+        }
         
       }
 
 
       
       	// 데이터모으기
+      	// 할인율 설정안함 처리 해줘야해
       	
 	    function gatherData(){
       		
-      		checkProduct();
-      		photoUpload();
       		
-      		var wholelist = []
-      		var jsonmove = []
-      		titles = [];
-      		
-      		var checkmap = {};
-      		
-      		var topcate = $("#category").val();
-
-			var cates = {
-					"cate_code" : topcate,
-			}
-      		
-      		$(".checkTitle").each(function(){
-      			var checkTitle = $(this).text();
-      			titles.push(checkTitle);
-      		})
-      		
-      		for(var i=0; i<titles.length; i++){
-      			var checkli = []
-
-      			$('input:checkbox[name='+titles[i]+']:checked').each(function(){
-      				var checkit = $(this).val();
-      				checkli.push(checkit);
-      			});
+      		if($("input[name=post_name]").val()=="" || $("#category").val()==null ||
+      				$("#middle-select").val()==null ||
+      				$("#option1_name").val()=="" || $("#product_title").val()=="" ||
+      				$("#option1").val()=="" || $("#product_price").val()=="" ||
+      				$("#product_quantity").val()=="" || $("#table-productTitle").val()=="" ||
+      				$("#table-kc").val()=="" || $("#table-color").val()=="" || 
+      				$("#table-component").val()=="" || $("#table-material").val()=="" ||
+      				$("#table-manufacturer").val()=="" || $("#table-country").val()=="" ||
+      				$("#table-size").val()=="" ||  $("#table-delivery").val()=="" ||
+      				$("#table-qa").val()=="" || $("#table-cstel").val()=="" ||
+      				$("#represent_price").val()=="" || $("#sale_ratio").val()=="" || 
+      				$("#post_shipfee").val()=="" || $("#shiptable_info").val()=="" ||
+      				$("#shiptable_fee").val()=="" || $("#shiptable_plusfee").val()=="" ||
+      				$("#shiptable_plusfee").val()=="" || $("#shiptable_unable").val()=="" ||
+      				$("#shiptable_propotionalfee").val()=="" || $("#refundtable_fee").val()=="" ||
+      				$("#exchangetable_fee").val()=="" || $("#refundtable_address").val()==""){
       			
-      			var key = titles[i];
-      			checkmap[key] = checkli;
-				
-      		}
-      		
-			/*
-      		if($("#option_input").find("#rental").val() != ""){
-      			checkmap.상품유형 = [$("#option_input").find("#rental").val()];
+      			alert("내용이 제대로 입력되지 않았습니다.");
       		}else{
-      			checkmap.상품유형 = []
+
+          		checkProduct();
+          		photoUpload();
+          		
+          		var wholelist = []
+          		var jsonmove = []
+          		titles = [];
+          		
+          		var checkmap = {};
+          		
+          		var topcate = $("#category").val();
+
+    			var cates = {
+    					"cate_code" : topcate,
+    			}
+          		
+          		$(".checkTitle").each(function(){
+          			var checkTitle = $(this).text();
+          			titles.push(checkTitle);
+          		})
+          		
+          		for(var i=0; i<titles.length; i++){
+          			var checkli = []
+
+          			$('input:checkbox[name='+titles[i]+']:checked').each(function(){
+          				var checkit = $(this).val();
+          				checkli.push(checkit);
+          			});
+          			
+          			var key = titles[i];
+          			checkmap[key] = checkli;
+    				
+          		}
+          		
+    			/*
+          		if($("#option_input").find("#rental").val() != ""){
+          			checkmap.상품유형 = [$("#option_input").find("#rental").val()];
+          		}else{
+          			checkmap.상품유형 = []
+          		}
+          		
+          		if($("#option_input").find("#refurbish").val() != ""){
+          			checkmap.상품유형 = [$("#option_input").find("#rental").val()];
+          		}else{
+          			checkmap.상품유형 = []
+          		}*/
+
+          		
+          		console.log(checkmap);
+    			
+    			var table = {
+    					"table_productTitle" : $("#table-productTitle").val(),
+    					"table_kc" : $("#table-kc").val(),
+    					"table_color" : $("#table-color").val(),
+    					"table_component" : $("#table-component").val(),
+    					"table_material" : $("#table-material").val(),
+    					"table_manufacturer" : $("#table-manufacturer").val(),
+    					"table_country" : $("#table-country").val(),
+    					"table_size" : $("#table-size").val(),
+    					"table_delivery" : $("#table-delivery").val(),
+    					"table_qa" : $("#table-qa").val(),
+    					"table_cstel" : $("#table-cstel").val(),
+    					"shiptable_info" : $("#shiptable_info").val(),
+    					"shiptable_fee" : $("#shiptable_fee").val(),
+    					"shiptable_plusfee" : $("#shiptable_plusfee").val(),
+    					"shiptable_unable" : $("#shiptable_unable").val(),
+    					"shiptable_propotionalfee" : $("#shiptable_propotionalfee").val(),
+    					"refundtable_fee" : $("#refundtable_fee").val(),
+    					"exchangetable_fee" : $("#exchangetable_fee").val(),
+    					"refundtable_address" : $("#refundtable_address").val()
+    			}
+    			
+    			jsonmove.push(checkmap);
+    			jsonmove.push(table);
+    			jsonmove.push(cates);
+    			
+    			console.log(JSON.stringify(jsonmove));
+    			
+    			// ajax로 데이터 넘기기
+    		  	$.ajax({
+    	  		url:'getJson.seller',
+    	  		method:'post',
+    	  		data: JSON.stringify(jsonmove),
+    	  		contentType : 'application/json; charset=UTF-8',
+    	  		dataType : 'json',
+    	  		async: false,
+    	  		success : function(resp){
+    					
+    	  				alert("filter data");
+
+    	  			}
+    	  		});
+      			
       		}
-      		
-      		if($("#option_input").find("#refurbish").val() != ""){
-      			checkmap.상품유형 = [$("#option_input").find("#rental").val()];
-      		}else{
-      			checkmap.상품유형 = []
-      		}*/
 
-      		console.log(checkmap);
-			
-			var table = {
-					"table_productTitle" : $("#table-productTitle").val(),
-					"table_kc" : $("#table-kc").val(),
-					"table_color" : $("#table-color").val(),
-					"table_component" : $("#table-component").val(),
-					"table_material" : $("#table-material").val(),
-					"table_manufacturer" : $("#table-manufacturer").val(),
-					"table_country" : $("#table-country").val(),
-					"table_size" : $("#table-size").val(),
-					"table_delivery" : $("#table-delivery").val(),
-					"table_qa" : $("#table-qa").val(),
-					"table_cstel" : $("#table-cstel").val(),
-					"shiptable_info" : $("#shiptable_info").val(),
-					"shiptable_fee" : $("#shiptable_fee").val(),
-					"shiptable_plusfee" : $("#shiptable_plusfee").val(),
-					"shiptable_unable" : $("#shiptable_unable").val(),
-					"shiptable_propotionalfee" : $("#shiptable_propotionalfee").val(),
-					"refundtable_fee" : $("#refundtable_fee").val(),
-					"exchangetable_fee" : $("#exchangetable_fee").val(),
-					"refundtable_address" : $("#refundtable_address").val()
-			}
-			
-			jsonmove.push(checkmap);
-			jsonmove.push(table);
-			jsonmove.push(cates);
-			
-			console.log(JSON.stringify(jsonmove));
-			
-			// ajax로 데이터 넘기기
-		  	$.ajax({
-	  		url:'getJson.seller',
-	  		method:'post',
-	  		data: JSON.stringify(jsonmove),
-	  		contentType : 'application/json; charset=UTF-8',
-	  		dataType : 'json',
-	  		async: false,
-	  		success : function(resp){
-					
-	  				alert("filter data");
-
-	  			}
-	  		});
-			
 	    }
       	
       	// filtering option 뽑기
@@ -673,10 +711,10 @@
 											</div>
 											<div class="pro_option_flex row">
 												<p class="col-2">가격</p>
-												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" id="product_price" name="product_price"
+												<input type="number" class="col-4 form-control mt-2 option_name_input" style="width:150px" id="product_price" name="product_price"
 												placeholder="(원)" />
 												<p class="col-2">수량</p>
-												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" id="product_quantity" name="product_quantity"
+												<input type="number" class="col-4 form-control mt-2 option_name_input" style="width:150px" id="product_quantity" name="product_quantity"
 												placeholder="(개)" />
 											</div>
 										</div>
@@ -769,7 +807,7 @@
 							<div class="col-2 col-lg-2 status-name-600">판매가</div>
 							<div class="col-10 col-lg-6">
 								<div class="input-group">
-									<input type="text" name="whole_price" id="represent_price"
+									<input type="number" name="whole_price" id="represent_price"
 										class="product_input form-control input-custom"
 										placeholder="판매가" aria-label="whole_price"
 										aria-describedby="basic-addon2" /> 
@@ -803,8 +841,8 @@
 
 								<div class="col-6 mt-2">
 									<div class="input-group input-group-sm">
-										<input type="text" class="sale_percent_input form-control"
-											style="font-size: 11px" placeholder="할인율" name="sale_ratio"
+										<input type="number" class="sale_percent_input form-control"
+											style="font-size: 11px" placeholder="할인율" id="sale_ratio" name="sale_ratio"
 											aria-label="sale_ratio" aria-describedby="basic-addon2" />
 										<span class="input-group-text" id="basic-addon2"
 											style="font-size: 11px">%</span>
@@ -939,7 +977,7 @@
 												화물배송 </label>
 										</div>
 										<div class="form-check">
-											<input style="margin-left: 0.5rem;" class="form-control input-custom" id="post_shipfee" name="post_shipfee" type="text" placeholder="배송비(숫자만)">
+											<input style="margin-left: 0.5rem;" class="form-control input-custom" id="post_shipfee" name="post_shipfee" type="number" placeholder="배송비(숫자만)">
 										</div>
 							
 									</div>
@@ -1050,7 +1088,7 @@
 
 				<div class="text-end mb-5">
 					<button class="btn btn-outline-secondary btn-size" type="reset">취소</button>
-					<button class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
+					<button type="button" class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
 				</div>
 
 			</form>

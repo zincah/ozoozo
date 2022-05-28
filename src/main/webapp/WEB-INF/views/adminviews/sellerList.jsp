@@ -8,7 +8,7 @@
 <tr class="content-table-content content-hover">
   <td class="content-table-content-text option-line">
     <input type="hidden" value="${seller.seller_id }"/>
-<input class="check form-check-input form-check-input-margin" type="checkbox" value="" name="sellerCheckBox" onchange="checkfunction()"/>
+	<input class="check form-check-input form-check-input-margin" type="checkbox" value="" name="sellerCheckBox" onchange="checkfunction()"/>
  </td>
  <td class="content-table-content-text option-line">${seller.seller_id }</td>
 <td class="content-table-content-text option-line"><button class="btn getSellerInfo" style="width: 100%;" value="${seller.seller_id }">${seller.company_name }</button></td>

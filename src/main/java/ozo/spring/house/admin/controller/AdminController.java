@@ -42,6 +42,14 @@ public class AdminController {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("admincode")!=null) {
 
+			int noticeCount = userService.noticeCount();
+			int sellerCount = userService.sellerCount();
+			int waitcount = productService.registrationWait();
+			int holdcount = productService.registrationHold();
+			List<Integer> regiList = new ArrayList<Integer>();
+			regiList.add(waitcount);
+			regiList.add(holdcount);
+			
 			List<UserVO> floatList = userService.floatingPopulation();
 			List<String> dateList = new ArrayList<String>();
 			List<Integer> countList = new ArrayList<Integer>();
@@ -51,14 +59,8 @@ public class AdminController {
 			List<Integer> totalList = new ArrayList<Integer>();
 			List<Integer> rankList = new ArrayList<Integer>();
 			
-			System.out.println(bestOfIndexList);
-			
-			int waitcount = productService.registrationWait();
-			int holdcount = productService.registrationHold();
-			List<Integer> regiList = new ArrayList<Integer>();
-			regiList.add(waitcount);
-			regiList.add(holdcount);
-			
+			//System.out.println(bestOfIndexList);
+
 			// 유입인구 for문
 			for(int i=0; i<floatList.size(); i++) {
 				UserVO vo = floatList.get(i);
@@ -73,11 +75,13 @@ public class AdminController {
 				totalList.add(Integer.parseInt(String.valueOf(bestOfIndex.get("total")))); // long 을 integer로 바꿈
 			}
 			
-			System.out.println(labelList.size());
-			System.out.println(totalList.size());
+			System.out.println(rankList);
 			
+			model.addAttribute("notice", noticeCount);
+			model.addAttribute("seller", sellerCount);
 			model.addAttribute("labelList", labelList);
 			model.addAttribute("totalList", totalList);
+			model.addAttribute("rankList", rankList);
 			model.addAttribute("dateList", dateList);
 			model.addAttribute("countList", countList);
 			model.addAttribute("regiList", regiList);
