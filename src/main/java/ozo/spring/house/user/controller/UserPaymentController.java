@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import ozo.spring.house.user.dao.UserDAO.payment_class;
 import ozo.spring.house.user.service.UserService;
 import ozo.spring.house.user.vo.CartVO;
@@ -41,6 +44,7 @@ public class UserPaymentController {
 	CartVO cvo = new CartVO();
 	List<CouponVO> coupon_li = new ArrayList<CouponVO>();
 	
+	//주소값으로 입력시 오류 메세지
 	@RequestMapping(value = "/calculation.com")
 	public void user_calculation(HttpSession session,HttpServletRequest request, HttpServletResponse response) throws IOException {
 		PrintWriter out = response.getWriter();
@@ -49,6 +53,8 @@ public class UserPaymentController {
 
 		out.flush();
 	}
+	
+	//결제창 띄우기전 메소드
 	@RequestMapping(value = {"/cart_payment.com","/ProductPage.com"}, method=RequestMethod.POST)
 	public String load_payment(HttpSession session,Model model, HttpServletRequest request) {
 		userID = (Integer)session.getAttribute("User_Num");
@@ -122,6 +128,8 @@ public class UserPaymentController {
 		 */
 		return "calculation";
 	}
+	
+	//결제 창에 필요한 js에 쓰일 List
 	@ResponseBody
 	@RequestMapping(value = "/pro_js.com", method=RequestMethod.POST)
 	public List<UserProductVO> get_pro_li(){
@@ -132,6 +140,8 @@ public class UserPaymentController {
 	public List<CartVO> get_cart_li(){
 		return cart_li;
 	}
+	
+	//결제 후 DB 처리
 	@ResponseBody
 	@RequestMapping(value = "/payment/ajax.com", method=RequestMethod.POST)
 	public String payment_json(@RequestBody HashMap<String,Object> ivo ) {
@@ -161,7 +171,7 @@ public class UserPaymentController {
 			add_vo.setShipping_fee(shipfee);
 			add_vo.setOrder_status("결제완료");
 			add_vo.setPost_id(cart_li.get(i).getCart_post());
-			this.choice_addr = pay_cls.get_addr_true(cvo);
+			
 			add_vo.setAddress_id(choice_addr.getAddress_id());
 			//add_vo.setRefund_id(0);
 			if((Integer)ivo.get("coupon_code") != null) {
@@ -192,6 +202,8 @@ public class UserPaymentController {
 		pay_cls.point_update(exvo);
 		return "success";
 	}
+	
+	//결제후 DB 삭제
 	@ResponseBody
 	@RequestMapping(value = "/cart_delete.com", method=RequestMethod.POST)
 	public boolean cart_delete() {
@@ -199,6 +211,8 @@ public class UserPaymentController {
 		pay_cls.cart_del(cart_li);
 		return true;
 	}
+	
+	//결제전 주소 DB 추가
 	@ResponseBody
 	@RequestMapping(value = "/addr_insert.com", method=RequestMethod.POST)
 	public void addr_insert(@RequestBody String[] addr_li) {
@@ -215,14 +229,14 @@ public class UserPaymentController {
 		System.out.println(uavo.isAddr_default());
 		uavo.setPhone_num(addr_li[5]);
 		pay_cls.addr_insert(uavo);
-		
 		this.choice_addr = pay_cls.get_addr_true(cvo);
 
 	}
+	
 	//주소추가 form
 	@ResponseBody
 	@RequestMapping(value = "/addr_add_insert.com", method=RequestMethod.POST)
-	public int addr_add_insert(@RequestBody HashMap<String,String> db_param) {
+	public String addr_add_insert(@RequestBody HashMap<String,String> db_param) {
 		UserAddressVO uvo = new UserAddressVO();
 		System.out.println(db_param);
 		uvo.setAddress_name(db_param.get("addr_name"));
@@ -231,14 +245,39 @@ public class UserPaymentController {
 		uvo.setAddress1(db_param.get("addr1"));
 		uvo.setAddress2(db_param.get("addr2"));
 		uvo.setUser_num(this.userID);
+		System.out.println(this.userID);
 		if(db_param.get("bln") == "true") {
 			uvo.setAddr_default(true);
-			pay_cls.addr_default_change(uvo); //작업 해줘야함
+			pay_cls.addr_default_change(uvo);
 		}else {
 			uvo.setAddr_default(false);
 		}
 		
-		pay_cls.addr_insert(uvo);
-		return 1;
+		
+		if(db_param.get("index") == "0") {
+			pay_cls.addr_insert(uvo);
+		}else {
+			uvo.setAddress_id(Integer.parseInt(db_param.get("index")));
+			System.out.println("address id : "  + uvo.getAddress_id());
+			pay_cls.addr_update(uvo);
+		}
+		return "1";
+	}
+	
+	//주소 DB 삭제
+	@ResponseBody
+	@RequestMapping(value = "/addr_delete.com", method=RequestMethod.POST)
+	public String addr_delete(@RequestBody int addr_id) {
+		pay_cls.addr_delete(addr_id);
+		return "success";
+	}
+	
+	//주소 DB 업데이트
+	@ResponseBody
+	@RequestMapping(value = "/addr_change.com", method=RequestMethod.POST)
+	public String addr_change(@RequestBody int addr_id) throws JsonProcessingException {
+		this.choice_addr = pay_cls.get_address(addr_id);
+		String jsonmap = new ObjectMapper().writeValueAsString(this.choice_addr);
+		return jsonmap;
 	}
 }

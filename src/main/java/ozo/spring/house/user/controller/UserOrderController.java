@@ -67,6 +67,8 @@ public class UserOrderController {
 	List<UserProductVO> wide_li = new ArrayList<UserProductVO>();
 	
 	paymentLog_cls log_cls;
+	
+	//결제 내역
 	@RequestMapping(value = "/myshopping.com")
 	public String user_myShopping(HttpSession session, Model model) {
 		if(session.getAttribute("UserMail")!=null) {
@@ -108,6 +110,8 @@ public class UserOrderController {
 			return "ozoLogin_zinc";	
 		}
 	}
+	
+	//결제 내역 js에 필요한 List
 	@ResponseBody
 	@RequestMapping(value = "/paymentLog_list.com", method=RequestMethod.POST)
 	public List<UserPaymentLogVO> get_pl_li(){
@@ -124,6 +128,7 @@ public class UserOrderController {
 		return date_filter;
 	}
 	
+	//구매확정 DB update
 	@ResponseBody
 	@RequestMapping(value = "/buy_check.com", method=RequestMethod.POST)
 	public String buy_check_update(@RequestBody String param) {
@@ -131,7 +136,7 @@ public class UserOrderController {
 		return null;
 	}
 	
-	
+	//환불
 	@ResponseBody
 	@RequestMapping(value = "/refunt_request.com", method=RequestMethod.POST)
 	public String refund_method(@RequestBody HashMap<String,Object> param)throws IOException {
@@ -211,6 +216,8 @@ public class UserOrderController {
 		return paramList;
 	}
 	
+	
+	//환불 후 DB 처리
 	@ResponseBody
 	@RequestMapping(value = "/refunt_request_DB.com", method=RequestMethod.POST)	
 	public String refund_DB_update(@RequestBody int merchant_UID) {
@@ -218,7 +225,8 @@ public class UserOrderController {
 		System.out.println("refund 객체 넣음");
 		return null;
 	}
-		
+	
+	
 	@RequestMapping(value = "/orders.com")
 	public String user_orders(HttpSession session, Model model) {
 		if(session.getAttribute("UserMail")!=null) {

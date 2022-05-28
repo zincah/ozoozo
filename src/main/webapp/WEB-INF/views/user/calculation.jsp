@@ -454,6 +454,8 @@
 		  	return;
 		  });
 		  </c:if>
+		  
+		 
 		  //결제 정보 전달하기
 	    
 	    //결제번호, 주문번호 추출하기
@@ -485,7 +487,7 @@
 								<div class="checkout-container _1DIXR">
 									<div class="_1F8DA">
 										<div class="_3O4wQ">${address_true.address_name}</div>
-										<div>
+										<div class="default_addr">
 											<div class="_4du--">기본배송지</div>
 										</div>
 									</div>
@@ -1144,7 +1146,7 @@
 						<article class="_2XEGg">
 							<div class="_3tS7D">
 								<c:forEach var="i" begin="0" end="${fn:length(address_li)-1}">
-									<div class="_1wQwu">
+									<div class="_1wQwu ${address_li[i].address_id }_div">
 										<div class="_1-RcR">
 											<div class="_2PF83">${address_li[i].address_name }</div>
 											<c:if test="${address_li[i].addr_default eq true }">
@@ -1161,12 +1163,14 @@
 										</div>
 										<div class="LdTP4">
 											<div class="_1n3SH">
-												<button class="_1eWD8 _2wYpN _1xT_u _7sIV3" type="button">삭제</button>
-												<button class="_1eWD8 _2wYpN _1xT_u _7sIV3" type="button">수정</button>
+											<c:if test="${address_li[i].address_id ne address_true.address_id }">
+												<button class="_1eWD8 _2wYpN _1xT_u _7sIV3 " id="${address_li[i].address_id }_delete" type="button" onclick="addr_delete(this)">삭제</button>
+												</c:if>	
+												<button class="_1eWD8 _2wYpN _1xT_u _7sIV3" type="button" onclick="addr_change_btn(this,2)" id="${address_li[i].address_id }_edit">수정</button>
 											</div>
 											<div class="_1n3SH">
-												<button class="_1eWD8 _3SroY _1xT_u _7sIV3 _3ohIu ${address_li[i].address_id }_addr"
-													type="button">선택</button>
+												<button class="_1eWD8 _3SroY _1xT_u _7sIV3 _3ohIu" id="${address_li[i].address_id }_addr"
+													type="button" onclick="addr_change_btn(this,1)">선택</button>
 											</div>
 										</div>
 									</div>
@@ -1208,35 +1212,35 @@
 														<div class="_3Bt8k">
 															<select class="_3ASDR _1qwAY _3K8Q8" name="phone1" id="addr_phone1"><option
 																	value="" disabled="">선택</option>
-																<option value="0">010</option>
-																<option value="1">011</option>
-																<option value="2">016</option>
-																<option value="3">017</option>
-																<option value="4">018</option>
-																<option value="5">019</option>
-																<option value="6">02</option>
-																<option value="7">031</option>
-																<option value="8">032</option>
-																<option value="9">033</option>
-																<option value="10">041</option>
-																<option value="11">042</option>
-																<option value="12">043</option>
-																<option value="13">044</option>
-																<option value="14">051</option>
-																<option value="15">052</option>
-																<option value="16">053</option>
-																<option value="17">054</option>
-																<option value="18">055</option>
-																<option value="19">061</option>
-																<option value="20">062</option>
-																<option value="21">063</option>
-																<option value="22">064</option>
-																<option value="23">070</option>
-																<option value="24">080</option>
-																<option value="25">050</option>
-																<option value="26">012</option>
-																<option value="27">059</option>
-																<option value="28">직접 입력</option></select>
+																<option >010</option>
+																<option >011</option>
+																<option >016</option>
+																<option >017</option>
+																<option >018</option>
+																<option >019</option>
+																<option >02</option>
+																<option >031</option>
+																<option >032</option>
+																<option >033</option>
+																<option >041</option>
+																<option >042</option>
+																<option >043</option>
+																<option >044</option>
+																<option >051</option>
+																<option >052</option>
+																<option >053</option>
+																<option >054</option>
+																<option >055</option>
+																<option >061</option>
+																<option >062</option>
+																<option >063</option>
+																<option >064</option>
+																<option >070</option>
+																<option >080</option>
+																<option >050</option>
+																<option >012</option>
+																<option >059</option>
+																<option >직접 입력</option></select>
 															<svg width="1em" height="1em" viewBox="0 0 10 10"
 																fill="currentColor" class="IgBXR yPMDv">
 																<path d="M0 3l5 5 5-5z"></path></svg>
@@ -1277,7 +1281,7 @@
 											</div></label>
 									</div>
 									<div class="_1sWb3">
-										<button class="_1eWD8 _3SroY _3VwZT _3FdaP" onclick="form_request()" >저장</button>
+										<button class="_1eWD8 _3SroY _3VwZT _3FdaP" onclick="form_request(0)" >저장</button>
 									</div>
 								</form>
 							</article>
@@ -1288,29 +1292,105 @@
 	</div>
 </c:if>
 <script>
-	function form_request(){
+	function form_request(result){
+		if($("#addr_name").val == ''){
+			alert("배송지명을 입력해주세요.");
+			return;
+		}else if($("#addr_man").val == ''){
+			alert("받는 분 성함을 입력해주세요.");
+			return;
+		}else if($("#addr_phone2").val == ''){
+			alert("핸드폰 번호를 입력해주세요.");
+			return;
+		}else if($("#sample6_postcode").val == ''){
+			alert("주소를 입력해주세요.");
+			return;
+		}
+		if(check_btn == "2"){
+			result = addr_vo.address_id;
+		}
 		$.ajax({
 			url: "addr_add_insert.com", 
 			method: "POST",
             headers: { "Content-Type": "application/json" },
-            dataType : 'json',
+            dataType : 'text',
             data: JSON.stringify({
             	addr_name : $("#addr_name").val(),
             	name : $("#addr_man").val(),
             	phone : $("#addr_phone1").val() + "-" + $("#addr_phone2").val(),
             	addr1 : "["+ $("#sample6_postcode").val() + "] " + $("#sample6_address").val(),
             	addr2 : $("#sample6_detailAddress").val(),
-            	bln : $("#is-default-address").is(':checked')
+            	bln : $("#is-default-address").is(':checked'),
+            	index : result
             }),
             success : function(result){
-            	if(result == 1){
-            		location.reload();
-            	}
-            	
             }
         })
+        if(result == "0"){
+        	location.reload();
+        }
 	}
-
+	 function addr_delete(this_class){
+		 addr_id = (this_class.id).split("_");
+		 $.ajax({
+				url: "addr_delete.com", 
+				method: "POST",
+	            headers: { "Content-Type": "application/json" },
+	            dataType : 'text',
+	            data: JSON.stringify(addr_id[0]),
+	            success : function(result){
+	            	if(result == "success"){
+	            		$("." + addr_id[0] + "_div").remove();
+	            	}
+	            }
+	        })
+	  }
+	 check_btn = 0;
+	 addr_vo = null;
+	 function addr_change_btn(this_class, index){
+		 addr_id = (this_class.id).split("_");
+		 if(index == "1"){
+			 check_btn = 1;
+		 }else{
+			 check_btn = 2;
+		 }
+		 $.ajax({
+				url: "addr_change.com", 
+				method: "POST",
+	            headers: { "Content-Type": "application/json" },
+	            dataType : 'json',
+	            data: JSON.stringify(addr_id[0]),
+	            success : function(result){
+	            	addr_vo = result;
+	            	console.log(addr_vo);
+	            	if(index == "1"){
+	    	        	$("._3O4wQ").text(addr_vo.address_name);
+	    	        	$("._2yz9T").text(addr_vo.address1 + "," + addr_vo.address2);
+	    	        	$("._1HCV8").text(addr_vo.receiver);
+	    	        	$("._27nmi").text(addr_vo.phone_num);
+	    	        	var icon = '<div class="_4du--">기본배송지</div>';
+	    	        	$("._4du--").remove();
+	    	        	if(addr_vo.addr_default == true){
+	    	        		$(".default_addr").append(icon);
+	    	        	} 
+	    	        	 $(".addr_change_div").css('display','none');	
+	    	        }else{
+	    	        	addr_edit(addr_vo);
+	    	        }
+	            }
+	        })
+	      //  console.log(addr_vo.address_name);
+	 }
+	 //주소 수정
+	 function addr_edit(addr_vo){
+		 number = (addr_vo.phone_num).split("_");
+		 $(".addr_add").css('display','flex');
+		 $(".addr_choice").css('display','none');
+		 $("#addr_name").val(addr_vo.address_name);
+		 $("#addr_man").val(addr_vo.receiver);
+		 $("#addr_phone2").val(number[1]);
+		 $("#addr_phone1").val(number[0]);
+	 }
 </script>
 </body>
 </html>

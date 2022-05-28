@@ -315,9 +315,6 @@ public class UserDAO {
 		public UserAddressVO get_addr_true(CartVO cvo) {
 			return sqlSessionTemplate.selectOne("UserProduct.address_true", cvo);
 		}
-		public void addr_default_change(UserAddressVO uavo) {
-			
-		}
 		public int get_user_point(CartVO cvo) {
 			return sqlSessionTemplate.selectOne("UserProduct.get_user_point", cvo);
 		}
@@ -336,8 +333,19 @@ public class UserDAO {
 		public void update_coupon(int coupon_id) {
 			sqlSessionTemplate.update("UserProduct.coupon_false", coupon_id);
 		}
-		public void default_change(UserAddressVO avo) {
+		public void addr_default_change(UserAddressVO avo) {
+			System.out.println("check 2");
 			sqlSessionTemplate.update("UserProduct.addr_default_change", avo);
+		}
+		public void addr_delete(int address_id) {
+			sqlSessionTemplate.delete("UserProduct.addr_delete" , address_id);
+		}
+		public UserAddressVO get_address(int address_id) {
+			UserAddressVO uvo = sqlSessionTemplate.selectOne("UserProduct.get_addr",address_id);
+			return uvo;
+		}
+		public void addr_update(UserAddressVO uvo) {
+			sqlSessionTemplate.update("UserProduct.addr_update", uvo);
 		}
 		
 	}

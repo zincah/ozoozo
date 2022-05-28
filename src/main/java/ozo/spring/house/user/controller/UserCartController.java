@@ -30,6 +30,8 @@ public class UserCartController {
 	CartVO cvo = new CartVO();
 	cart_Allload cart_class;
 	
+	
+	//장바구니 실행 전 메소드
 	@RequestMapping(value = "/cart.com")
 	public String user_cart(HttpSession session, Model model) {
 		if(session.getAttribute("UserMail")!=null) {
@@ -56,6 +58,7 @@ public class UserCartController {
 		}
 	}
 	
+	//장바구니 js에 필요한 List
 	@ResponseBody
 	@RequestMapping(value = "/pro_first.com", method=RequestMethod.POST)
 	public List<UserProductVO> get_pro_li(){
@@ -67,6 +70,7 @@ public class UserCartController {
 		return cart_li;
 	}
 	
+	//장바구니 갯수, 삭제 시 DB 업데이트
 	@ResponseBody
 	@RequestMapping(value = "/update_cart.com", method=RequestMethod.POST)
 	public List<UserProductVO> update_cart(@RequestBody String Str){
@@ -79,7 +83,9 @@ public class UserCartController {
 		pro_li.clear();
 		pro_li = cart_class.getPro_li();
 		return pro_li;
-	}
+	} 
+	
+	//장바구니 다 삭제
 	@ResponseBody
 	@RequestMapping(value = "/delete_cart.com", method=RequestMethod.POST)
 	public List<UserProductVO> delete_cart(@RequestBody int num){
@@ -96,6 +102,8 @@ public class UserCartController {
 		pro_li = cart_class.getPro_li();
 		return pro_li;
 	}
+	
+	//장바구니 체크 삭제
 	@ResponseBody
 	@RequestMapping(value = "/delete_cart_check.com", method=RequestMethod.POST)
 	public List<UserProductVO> delete_cart(@RequestBody int[] num){
