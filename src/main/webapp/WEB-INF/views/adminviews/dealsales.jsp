@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<input type="hidden" value="${totalCount }" id="dealCount">
+<input type="hidden" value="${pageMaker.getPageNum()}" id="pageNum">
 <c:forEach items="${dealList }" var="deal">
 	<tr class="content-table-content content-hover">
 	  <td class="content-table-content-text option-line">

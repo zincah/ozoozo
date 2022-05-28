@@ -227,23 +227,22 @@ public class AdminProductManageController {
 
 		System.out.println(searchMap);
 		
-		if(searchMap.get("pageNum") == "") {
-			System.out.println("첫 페이지 로딩 best");
-			cri = new Criteria(); // 첫 페이지 1로 해서 세팅
-			vo.setCri(cri);
-		}else {
+		if(searchMap != null) {
 			int pageNum = Integer.parseInt(searchMap.get("pageNum"));
 			cri = new Criteria(pageNum, 10);
 			vo.setCri(cri);
+		}else {
+			cri = new Criteria();
+			vo.setCri(cri);
 		}
 
-		
 		if(searchMap != null) {
 			vo.setKeyword(searchMap.get("keyword"));
 		}
 
-		List<AdminProductVO> bestList = productService.bestSale(vo);
-		int totalCount = productService.bestSaleCount(vo);
+		List<AdminProductVO> bestList = productService.bestSale(vo); // 페이징된 리스트
+		int totalCount = productService.bestSaleCount(vo); // 전체 카운트
+		System.out.println("검색 count" + totalCount);
 		
 		for(int i=0; i<bestList.size(); i++) {
 			

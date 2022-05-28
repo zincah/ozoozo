@@ -7,7 +7,14 @@
 
 	<!-- 현재 사용하는거 회원관리, 총 검색, 회원정보 수정 -->
 	<!-- 공지사항 관리 -->
+	<select id="noticeCount" resultType="int">
+		select count(*) from cscenter;
+	</select>
 	
+	<!-- 활동업체 관리 -->
+	<select id="sellerCount" resultType="int">
+		select count(seller_id) from seller where seller_status='입점중';
+	</select>
 	
 	<!-- 유동인구 관리 -->
 	<select id="floatingPopulation" resultType="user">
@@ -292,29 +299,36 @@
 	<!-- 매출 -->
 	<!-- today deal -->
 	<select id="todayDealSale" resultType="adminproduct">
-	SELECT po.post_id as post_id, s.company_name as company_name, 
-	po.post_name as post_name, ca.cate_name as cate_name, 
-	sales.payment as payment, sales.quantity as quantity, 
-	deal.deal_time as deal_time, deal.deal_endtime as deal_endtime, 
-	deal.deal_status as deal_status FROM product_posting po 
-	INNER JOIN (
-	SELECT SUM(uo.payment) AS payment, SUM(uo.quantity) AS quantity, uo.od_postid AS salespoid FROM user_order uo
-	INNER JOIN deal_info di ON uo.od_postid = di.deal_postid GROUP BY od_postid) sales ON po.post_id = sales.salespoid
-	INNER JOIN seller s ON s.seller_id = po.post_sellerid
-	INNER JOIN category ca ON ca.cate_code = po.po_category
-	INNER JOIN deal_info deal ON po.post_id = deal.deal_postid
+	select make.post_id, make.company_name, make.post_name, make.cate_name, make.payment, make.quantity,
+	make.deal_time, make.deal_endtime, make.deal_status from (
+	select pp.post_id as post_id
+	      , s.company_name as company_name
+	      , pp.post_name as post_name
+	      , c.cate_name as cate_name
+	      , SUM(case when uo.order_date between di.deal_time and di.deal_endtime then payment else 0 end) as payment
+	      , SUM(case when uo.order_date between di.deal_time and di.deal_endtime then quantity else 0 end) as quantity
+	      , di.deal_time as deal_time
+	      , di.deal_endtime as deal_endtime
+	      , di.deal_status as deal_status
+	      from product_posting pp
+	      join seller s on s.seller_id = pp.post_sellerid   
+	      join category c on c.cate_code = pp.po_category
+	      join deal_info di on di.deal_postid = pp.post_id
+	      join user_order uo on uo.od_postid = pp.post_id
+	group by pp.post_id, s.company_name, c.cate_name, di.deal_time, di.deal_endtime, di.deal_status
+	order by di.deal_time desc) make
 	<where>
-		deal.deal_time BETWEEN #{startdate} AND #{enddate}		
+		payment > 0 and deal_time BETWEEN #{startdate} AND #{enddate}		
 		<if test="keyword != '' and keyword != null">
 			<trim prefix="and">
 			company_name like '%'||#{keyword}||'%'
-			<trim prefix="or">
-			post_name like '%'||#{keyword}||'%'
-			</trim>
+				<trim prefix="or">
+				post_name like '%'||#{keyword}||'%'
+				</trim>
 			</trim>
 		</if>
 	</where>
-	ORDER BY deal.deal_time DESC;
+	ORDER BY deal_time DESC;
 	</select>
 	
 	<!-- 업체별 매출 -->

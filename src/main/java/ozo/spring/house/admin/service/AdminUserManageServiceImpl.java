@@ -61,4 +61,14 @@ public class AdminUserManageServiceImpl implements AdminUserManageService {
 		return adminManageDAO.bestProductOfIndex();
 	}
 
+	@Override
+	public int noticeCount() {
+		return adminManageDAO.noticeCount();
+	}
+
+	@Override
+	public int sellerCount() {
+		return adminManageDAO.sellerCount();
+	}
+
 }

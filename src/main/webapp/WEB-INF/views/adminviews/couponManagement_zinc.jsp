@@ -29,6 +29,8 @@
           $(".newcoupon").show()
           $(".couponbody").hide()
 
+          $(".table-input").val("");
+
 
         });
 
@@ -74,7 +76,7 @@
             $(".couponListLayer li").last().addClass("cLine");
           });*/
 
-          $(".couponListLayer").last().html();
+          //$(".couponListLayer").last().html();
 
           console.log(couponInfo);
 

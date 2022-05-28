@@ -40,6 +40,9 @@ public class UserCategoryVO {
 	// 배열로 넘기기
 	private List<String> filtering;
 	private List<Integer> post_ids;
+	private boolean dealCheck; // 오늘의딜 체크
+	private String shipinfo; // 무료배송 체크
+	
 	
 	// paging
 	private int thispage;

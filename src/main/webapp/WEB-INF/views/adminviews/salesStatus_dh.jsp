@@ -26,7 +26,7 @@
   	
   		var searchMap = {}
   		
-  		let pageNum;
+  		let pageNum = 1;
   		let totalCount;
   		
   		$(document).ready(function(){
@@ -129,6 +129,7 @@
 			$("#best30").hide();
 			$("#storeSales").show();
 			$("#todayDeal").hide();
+			$("#page-container").hide();
 			
 			console.log(searchMap);
   			
@@ -154,6 +155,7 @@
 			$("#best30").show();
 			$("#storeSales").hide();
 			$("#todayDeal").hide();
+			$("#page-container").show();
 			
 			console.log(searchMap);
   			
@@ -184,6 +186,7 @@
 			$("#todayDeal").show();
 			$("#storeSales").hide();
 			$("#best30").hide();
+			$("#page-container").show();
 			
 			console.log(searchMap);
   			
@@ -271,21 +274,24 @@
     		// checkbox 초기화
     		$("#allCheck").prop("checked", false);
     		
+    		// 검색조건
     		var startdate = $("input[name=datepick1]").val();
     		var enddate = $("input[name=datepick2]").val();
-			var keyword = $("#search_input").val();
-			var pageNum = $("#pageNum").val();
-			
-			searchMap = {
+			var keyword = $("#search_input").val(); 
+
+
+			searchMap = { // 전역변수 
     				"startdate" : startdate,
     				"enddate" : enddate,
     				"keyword" : keyword,
     				"pageNum" : pageNum
     		}
+			
+			console.log(searchMap); // 검색조건 뽑아보기
 
     		var checking = $("input[name=checktype]:checked").val();
 			if(checking == 'deal'){
-				getTodayDeal(searchMap);
+				getTodayDeal(searchMap); // 컨트롤러로 보내기
 			}else if(checking == 'best'){
 				getBest30(searchMap);
 			}else{
@@ -344,20 +350,25 @@
         	$(".page-item a").on("click", function(e){
 
     			e.preventDefault();
-    			var pageNum = $(this).attr("href");
-    			movepage(pageNum);
+    			var changePageNum = $(this).attr("href");
+    			movepage(changePageNum);
     		});
 
     		
     	}
 		
 		// page 이동
-    	function movepage(pageNum){
+    	function movepage(changePageNum){
     		
     		// checkbox 초기화
     		$("#allCheck").prop("checked", false);
+			pageNum = changePageNum;
+			console.log(pageNum);
 			
+			searching();
+    		
     		//조건들 받아오기
+    		/*
     		var posttype = $("input[name=posttype]:checked").val();
     		var dealtype;
     		
@@ -402,7 +413,7 @@
 		  		error : function(request, status, error) {
 					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
-    		});
+    		});*/
     		
     	}
   		
@@ -625,7 +636,7 @@
             </tbody>
           </table>
           
-          <div class="pagi mt-3">
+          <div class="pagi mt-3" id="page-container">
             <nav aria-label="Page navigation example">
               <ul class="pagination">
               <!-- 

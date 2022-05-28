@@ -113,7 +113,21 @@ public class UserCategoryController {
 			}
 		}
 		
-		vo.setFiltering(wholeList.get(0));
+		List<String> list = wholeList.get(0);
+		List<String> filterList = new ArrayList<String>();
+		
+		for(int i=0; i<list.size(); i++) {
+			String check = list.get(i);
+			if(check.equals("오늘의딜")) {
+				vo.setDealCheck(true);
+			}else {
+				filterList.add(check);
+			}
+		}
+		System.out.println(filterList);
+		
+		// list에서 remove 0하면 사라짐
+		vo.setFiltering(filterList);
 		vo.setOrderKind(wholeList.get(2).get(0)); // 순위 넣어주기
 		
 		List<UserProductVO> postList = userCategoryService.getPostList(vo);
