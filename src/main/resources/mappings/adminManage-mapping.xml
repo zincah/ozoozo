@@ -43,7 +43,7 @@
 		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table ORDER BY user_num DESC;
 	</select>
 
-	<!-- 회원상태 변경 -->
+	<!-- 회원관리 : 회원상태 변경 -->
 	<update id="updateUserStatus" parameterType="user">
 		UPDATE user_table SET user_status=#{user_status} WHERE user_num = #{user_num};
 	</update>
@@ -61,7 +61,7 @@
 		</where>
 	</select>
 	
-	<!-- 총 검색 -->
+	<!-- 회원관리 : 검색 조건,페이지 포함 회원 리스트 -->
 	<select id="getUserList" parameterType="user" resultType="user">
 		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table 
 		<where>
@@ -94,7 +94,7 @@
 		</trim>
 	</select>
 	
-	<!-- total count (검색시도 포함) -->
+	<!-- 회원관리 : 검색 조건 포함 회원 total count -->
 	<select id="getUserListCount" parameterType="user" resultType="user">
 		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table 
 		<where>
@@ -255,13 +255,12 @@
 		</where>
 	</select>
 	
-	<!-- 업체 관리 -->
-	
+	<!-- 업체 관리 : 요청 받은 업체 정보 -->
 	<select id="getSellerInfo" resultType="seller">
 		SELECT * FROM seller WHERE seller_id=#{seller_id};
 	</select>
 	
-	<!-- 입점 상태 변경 -->
+	<!-- 업체 관리 : 업체 상태 변경 -->
 	<update id="sellerStatusUpdate" parameterType="seller">
 		UPDATE seller SET seller_status=#{seller_status} 
 		<where>
@@ -272,12 +271,12 @@
 		</where> 
 	</update>
 	
-	<!-- filtering -->
+	<!-- 업체 관리 : 업체 리스트 -->
 	<select id="selectSellerList" resultType="seller">
-		SELECT s1.*, s2.sid_text, po.brandstar FROM seller s1 INNER JOIN 
-		(SELECT seller_id::text sid_text, seller_id FROM seller) s2 ON s1.seller_id = s2.seller_id
-		INNER JOIN (SELECT SUM(star_ratio)/COUNT(post_id) AS brandstar, post_sellerid FROM product_posting 
-		GROUP BY post_sellerid) po ON po.post_sellerid = s1.seller_id
+		select s1.*, s2.sid_text, pp.brandstar from seller s1
+		inner join (select seller_id::text sid_text, seller_id from seller) s2 on s1.seller_id = s2.seller_id 
+		inner join (select sum(star_ratio)/count(post_id) as brandstar, post_sellerid from product_posting where star_ratio > 0 group by post_sellerid) pp
+		on pp.post_sellerid = s1.seller_id
 		<where>
 			<if test="keyword != '' and keyword != null">
 				s2.sid_text like '%'||#{keyword}||'%'

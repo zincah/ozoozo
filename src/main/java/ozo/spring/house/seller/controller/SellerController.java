@@ -24,6 +24,7 @@ import ozo.spring.house.seller.service.SellerOrderService;
 import ozo.spring.house.seller.service.SellerPostingService;
 import ozo.spring.house.seller.service.SellerSalesService;
 import ozo.spring.house.seller.vo.CategoryVO;
+import ozo.spring.house.seller.vo.FilterVO;
 import ozo.spring.house.seller.vo.ProductVO;
 
 @Controller
@@ -61,15 +62,35 @@ public class SellerController {
 			return "seller-login";
 		}
 	}
-	@RequestMapping(value = "/insertProduct.seller")
-	public String sellerInsertProduct(HttpServletRequest request) {
-		HttpSession session = request.getSession();
+	
+	/* 상품 등록 페이지 */
+	@RequestMapping(value = "/insertProduct.seller", method=RequestMethod.GET) 
+	public String test(CategoryVO vo, Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession(); // session 검증
+		
 		if(session.getAttribute("seller")!=null) {
+			
+			List<CategoryVO> cateList = categoryService.getCategoryList(vo); // 대분류 카테고리 세팅
+			model.addAttribute("cateList", cateList);	
+			
+			vo.setCate_code(1); // 처음은 가구로 세팅
+			List<List<FilterVO>> wholeList = categoryService.getFilterOption(vo); // 옵션 가져오기
+			model.addAttribute("wholeList", wholeList);
+			
+			for(int i=0; i<wholeList.size(); i++) {
+				List<FilterVO> list = wholeList.get(i);
+				//System.out.println(list);
+			}
+
 			return "seller-insertProduct";
+			
 		}else {
-			return "seller-login";
+			return "redirect:login.seller";
 		}
 	}
+	
+
 	@RequestMapping(value = "/productManagement.seller", method=RequestMethod.GET)
 	public String sellerProductManagement(HttpServletRequest request, CategoryVO vo, Model model) {
 		HttpSession session = request.getSession();

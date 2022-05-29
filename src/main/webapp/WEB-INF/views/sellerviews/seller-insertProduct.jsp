@@ -11,9 +11,7 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>상품등록</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
-	rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <link href="resources/css/sellercss/fonts.css?var=1" rel="stylesheet" />
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
 <link href="resources/css/sellercss/insertProduct.css?var=212" rel="stylesheet" />
@@ -22,18 +20,20 @@
 <script type="text/javascript" src="resources/js/sellerjs/plus_photo.js?var=12"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <script>
+
       $(document).ready(function () {
     	  
 
-    	  // enter event 제거
-    	  $('form').keydown(function() {
+	   	  // enter event 제거 : 자동 form전송 막기위해서
+	   	  $('form').keydown(function() {
 			    if (event.keyCode === 13) {
 			        event.preventDefault();
 			    }
 			});
 			    	  
+        /* 판매가 입력 관련 js */
         $(".sale_price_layer").hide();
-        // 68%
+
         $(".sale_percent_input").keydown(function (key) {
           if (key.keyCode == 13) {
         	var pri = $("#represent_price").val();
@@ -52,7 +52,6 @@
         });
 
         /* 카테고리 토글 */
-
         var optionMap = new Object();
 
         $(".option_list").click(function () {

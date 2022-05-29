@@ -8,16 +8,18 @@ import ozo.spring.house.user.vo.UserVO;
 
 public interface AdminUserManageService {
 	
+	/* 회원 관리 */
 	public List<UserVO> selectUser(UserVO vo);
 	public void updateUserStatus(UserVO vo);
 	public List<UserVO> getUserList(UserVO vo);
 	
-	// index page
+	/* 첫 페이지 (왜 여깃뉴) */
 	public int noticeCount();
 	public int sellerCount();
 	public List<UserVO> floatingPopulation();
 	public List<Map<String, Integer>> bestProductOfIndex();
 	
+	/* 업체 관리 */
 	public List<SellerVO> selectSellerList(SellerVO vo);
 	public SellerVO getSellerInfo(SellerVO vo);
 	public void sellerStatusUpdate(SellerVO vo);

@@ -18,8 +18,7 @@ public class AdminLoginController {
 	@Autowired
 	MemberService memberService;
 	
-	// login
-	@RequestMapping(value = "/login.admin", method=RequestMethod.GET)
+	@RequestMapping(value = "/login.admin", method=RequestMethod.GET) // admin 로그인 뷰 페이지
 	public String loginView(HttpSession session) {
 		if(session.getAttribute("admincode")!=null) {
 			return "redirect:index.admin";
@@ -28,27 +27,22 @@ public class AdminLoginController {
 		}
 	}
 
-	@RequestMapping(value="/login.admin", method=RequestMethod.POST)
+	@RequestMapping(value="/login.admin", method=RequestMethod.POST) // admin 로그인 페이지
 	public String login(MemberVO vo, Model model, HttpSession session) {
 
-		// log 처리
 		System.out.println("login controller");
-		MemberVO admin = memberService.checkAdmin(vo);
+		MemberVO admin = memberService.checkAdmin(vo); // 로그인 입력값 체크
 		
 		if(admin != null) {
 			session.setAttribute("admincode", admin.getAdmin_code());
-			//model.addAttribute("admincode", vo.getAdmin_code());
-			//model.addAttribute("member", vo); // member 정보
 			return "redirect:index.admin";
 		}else {
-			String msg = "입력하신 정보가 잘못 되었습니다.";
-			model.addAttribute("msg", msg);
 			return "adminLogin_dj";
 		}
 	}
 	
 	// logout
-	@RequestMapping(value = "/logout.admin", method=RequestMethod.GET)
+	@RequestMapping(value = "/logout.admin", method=RequestMethod.GET) // admin 로그아웃 처리
 	public String logout(HttpSession session) {
 
 		session.invalidate();

@@ -21,22 +21,25 @@ public class AdminManageDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	public List<UserVO> selectUser(UserVO vo) { // 안쓸수도
+	public List<UserVO> selectUser(UserVO vo) {
 		System.out.println("--> mybatis in adminmanagedao select user");
 		return sqlSessionTemplate.selectList("AdminManageDAO.selectUser", vo);
 	}
 	
+	/* 회원관리 : get 회원 리스트 */
 	public List<UserVO> getUserList(UserVO vo) {
 		System.out.println("--> mybatis in adminmanagedao getuserlist");
 		return sqlSessionTemplate.selectList("AdminManageDAO.getUserList", vo);
 	}
 	
+	/* 회원관리 : 회원 상태 변경 */
 	public void updateUserStatus(UserVO vo) {
 		System.out.println("--> mybatis in adminmanagedao update user status");
 		sqlSessionTemplate.update("AdminManageDAO.updateUserStatus", vo);
 	}
 	
-	public int getUserListCount(UserVO vo) { // 총 total 개수
+	/* 회원관리 : 페이징 제외 회원 수 반환 */
+	public int getUserListCount(UserVO vo) {
 		System.out.println("--> mybatis in adminmanagedao update user status");
 		List<UserVO> list = sqlSessionTemplate.selectList("AdminManageDAO.getUserListCount", vo);
 		return list.size();
@@ -122,17 +125,27 @@ public class AdminManageDAO {
 		return sqlSessionTemplate.selectList("AdminManageDAO.bestProductOfIndex");
 	}
 
-	// 입점신청관련 관련
+	/* 업체관리 : 업체 리스트 */
 	public List<SellerVO> selectSellerList(SellerVO vo){
 		System.out.println("--> mybatis in adminmanagedao selectseller");
-		return sqlSessionTemplate.selectList("AdminManageDAO.selectSellerList", vo);
+		List<SellerVO> sellerList = sqlSessionTemplate.selectList("AdminManageDAO.selectSellerList", vo);
+		
+		for(int i=0; i<sellerList.size(); i++) { // 업체 별점 계산
+			SellerVO seller = sellerList.get(i);
+			double star = seller.getBrandstar();
+			seller.setBrandstar(Math.round(star*10)/10.0);
+		}
+		
+		return sellerList;
 	}
 	
+	/* 업체관리 : 요청 받은 업체 정보 */
 	public SellerVO getSellerInfo(SellerVO vo) {
 		System.out.println("--> mybatis in adminmanagedao get seller info");
 		return sqlSessionTemplate.selectOne("AdminManageDAO.getSellerInfo", vo);
 	}
 	
+	/* 업체관리 : 업체 상태 변경 */
 	public void sellerStatusUpdate(SellerVO vo) {
 		System.out.println("--> mybatis in adminmanagedao update sellerstatus");
 		sqlSessionTemplate.update("AdminManageDAO.sellerStatusUpdate", vo);
