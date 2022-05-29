@@ -25,7 +25,7 @@ public class SellerVO {
 	private String seller_representpic; // 브랜드 대표 사진
 	private String seller_status; // 사업자 상태
 	
-	private float brandstar; // 브랜드 별점 
+	private double brandstar; // 브랜드 별점 
 	
 	List<Integer> sellerList; // sellerid 정보 저장
 	

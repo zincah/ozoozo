@@ -36,33 +36,7 @@ public class CategoryController {
 	@Autowired
 	AdminProductManageService adminProductService;
 	
-	@RequestMapping(value = "/insertProductCate.seller", method=RequestMethod.GET)
-	public String test(CategoryVO vo, Model model, HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		
-		if(session.getAttribute("seller")!=null) {
-			
-			List<CategoryVO> cateList = categoryService.getCategoryList(vo);
-			model.addAttribute("cateList", cateList);	
-			
-			vo.setCate_code(1); // 처음은 가구로 세팅
-			List<List<FilterVO>> wholeList = categoryService.getFilterOption(vo);
-			model.addAttribute("wholeList", wholeList);
-			
-			for(int i=0; i<wholeList.size(); i++) {
-				List<FilterVO> list = wholeList.get(i);
-				//System.out.println(list);
-			}
 
-			return "seller-insertProduct";
-			
-		}else {
-			return "redirect:login.seller";
-		}
-
-
-	}
 	
 	@RequestMapping(value = "/postingInfo.seller", method=RequestMethod.GET)
 	public String postingInfo(CategoryVO vo, Model model, HttpServletRequest request) {

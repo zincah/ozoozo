@@ -16,8 +16,6 @@ public class MemberDAO {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
-	//BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-	
 	public MemberVO checkAdmin(MemberVO vo) {
 		System.out.println("--> mybatis in memberdao checkadmin");
 

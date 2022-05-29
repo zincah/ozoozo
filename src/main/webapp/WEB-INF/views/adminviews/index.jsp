@@ -95,7 +95,6 @@
 		
 		var labelList = ${labelList};
 		var totalList = ${totalList};
-		var rankList = ${rankList};
 
 		
 		var max = totalList.reduce(function (previous, current){
