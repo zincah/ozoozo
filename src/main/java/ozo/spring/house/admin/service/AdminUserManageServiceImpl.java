@@ -16,10 +16,11 @@ public class AdminUserManageServiceImpl implements AdminUserManageService {
 	@Autowired
 	AdminManageDAO adminManageDAO;
 
+	/*
 	@Override
 	public List<UserVO> selectUser(UserVO vo) {
 		return adminManageDAO.selectUser(vo);
-	}
+	}*/
 
 	@Override
 	public void updateUserStatus(UserVO vo) {
@@ -69,6 +70,11 @@ public class AdminUserManageServiceImpl implements AdminUserManageService {
 	@Override
 	public int sellerCount() {
 		return adminManageDAO.sellerCount();
+	}
+
+	@Override
+	public int userCount() {
+		return adminManageDAO.userCount();
 	}
 
 }

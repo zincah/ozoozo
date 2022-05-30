@@ -174,7 +174,7 @@
             <div class="row">
               <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card h-100 box-shadow">
-	                <a href="information.admin">
+	                <a href="/house/CScenter.com">
 	                  <div class="card-body">
 	                    <div class="d-flex title-text">
 	                      <p class="margin-zero"><i class="bi bi-megaphone-fill icon-margin-right"></i>공지사항</p>
@@ -254,28 +254,29 @@
                 	<a href="reviewManagement.admin">
 	                  <div class="card-body">
 	                    <div class="d-flex title-text">
-	                      <p class="margin-zero"><i class="bi bi-exclamation-circle-fill icon-margin-right"></i>신규신고</p>
+	                      <p class="margin-zero"><i class="bi bi-exclamation-circle-fill icon-margin-right"></i>회원관리</p>
 	                      <span class="badge rounded-pill bg-pointcolor title-badge-margin-left">0</span>
 	                    </div>
 	                    <div class="d-flex justify-content-between sub-text">
-	                      <p class="small">리뷰 신고</p>
+	                      <p class="small">총 회원</p>
 	                      <div>
-	                        <span class="num-text-color">0</span>
-	                        <span>건</span>
+	                       <c:set var="totaluser" value="${user + seller }"/>
+	                        <span class="num-text-color">${totaluser }</span>
+	                        <span>명</span>
 	                      </div>
 	                    </div>
 	                    <div class="d-flex justify-content-between sub-text">
-	                      <p class="small">회원 신고</p>
+	                      <p class="small">일반 회원</p>
 	                      <div>
-	                        <span class="num-text-color">0</span>
-	                        <span>건</span>
+	                        <span class="num-text-color">${user }</span>
+	                        <span>명</span>
 	                      </div>
 	                    </div>
 	                    <div class="d-flex justify-content-between sub-text">
-	                      <p class="small">기타 신고</p>
+	                      <p class="small">판매 회원</p>
 	                      <div>
-	                        <span class="num-text-color">0</span>
-	                        <span>건</span>
+	                        <span class="num-text-color">${seller }</span>
+	                        <span>명</span>
 	                      </div>
 	                    </div>
 	                  </div>

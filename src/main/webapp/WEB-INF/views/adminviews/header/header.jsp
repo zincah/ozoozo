@@ -37,11 +37,11 @@
 
                         <div class="sb-sidenav-menu-heading">seller Management</div>
 
-
+						<!-- 
                         <a class="nav-link" href="information.admin">
                             <div class="sb-nav-link-icon"><i class="bi bi-megaphone-fill"></i></div>
                             공지사항
-                        </a>
+                        </a> -->
                         
                         <a class="nav-link collapsed" href="companyManagement.admin">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
@@ -53,11 +53,12 @@
                             상품등록관리
 
                         </a>
+                        <!-- 
                         <a class="nav-link collapsed" href="reviewManagement.admin">
                             <div class="sb-nav-link-icon"><i class="bi bi-exclamation-circle"></i></div>
                             리뷰신고관리
 
-                        </a>
+                        </a> -->
 
 
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
@@ -92,10 +93,11 @@
                         </a>
 
                         <div class="sb-sidenav-menu-heading">CS Management</div>
+                        <!-- 
                         <a class="nav-link" href="clientInformation.admin">
                             <div class="sb-nav-link-icon"><i class="bi bi-info-square-fill"></i></div>
                             고객센터 공지사항
-                        </a>
+                        </a> -->
                         <a class="nav-link" href="memberManagement.admin">
                             <div class="sb-nav-link-icon">
                                 <i class="bi bi-person-video2"></i>

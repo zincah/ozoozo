@@ -17,6 +17,7 @@ import ozo.spring.house.user.vo.UserVO;
 
 @Repository
 public class AdminManageDAO {
+	/* index, 회원관리, 상품관리, 업체관리, 매출관리, 상품게시글 한개*/
 	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
@@ -51,13 +52,19 @@ public class AdminManageDAO {
 		System.out.println("--> mybatis in adminmanagedao best product ratio");
 		return sqlSessionTemplate.selectList("AdminManageDAO.bestProductOfIndex");
 	}
+	
+	public int userCount() {
+		System.out.println("--> mybatis in adminmanagedao userCount");
+		return sqlSessionTemplate.selectOne("AdminManageDAO.userCount");
+	}
 	/**/
 	
 	/* 회원관리 */
+	/*
 	public List<UserVO> selectUser(UserVO vo) {
 		System.out.println("--> mybatis in adminmanagedao select user");
 		return sqlSessionTemplate.selectList("AdminManageDAO.selectUser", vo);
-	}
+	}*/
 	
 	/* 회원관리 : get 회원 리스트 */
 	public List<UserVO> getUserList(UserVO vo) {
@@ -78,65 +85,55 @@ public class AdminManageDAO {
 		return list.size();
 	}
 	/**/
-	
-	
-	/*
-	public List<AdminProductVO> selectPosting(Criteria cri) {
-		System.out.println("--> mybatis in adminmanagedao selectposting");
-		return sqlSessionTemplate.selectList("AdminManageDAO.selectPosting", cri);
-	}
-	
-	public int selectPostCount() {
-		System.out.println("--> mybatis in adminmanagedao selectpostCount");
-		return sqlSessionTemplate.selectOne("AdminManageDAO.selectPostCount");
-	}*/
-	
-	public void updateProductStatus(AdminProductVO pvo) {
+
+	/* 상품 관리 */
+	public void updateProductStatus(AdminProductVO pvo) { // 상품 상태 변경
 		System.out.println("--> mybatis in adminmanagedao updateproductstatus");
 		sqlSessionTemplate.update("AdminManageDAO.updateProductStatus1", pvo);
 		sqlSessionTemplate.update("AdminManageDAO.updateProductStatus2", pvo);
 	}
 	
-	public List<AdminProductVO> selectCouponList(){
+	public List<AdminProductVO> selectCouponList(){ // 쿠폰 리스트 반환
 		return sqlSessionTemplate.selectList("AdminManageDAO.selectCouponList");
 	}
 	
-	public void updateCouponStatus(AdminProductVO pvo) {
+	public void updateCouponStatus(AdminProductVO pvo) { // 상품 쿠폰 상태 change
 		System.out.println("--> mybatis in adminmanagedao updatecouponstatus");
 		sqlSessionTemplate.update("AdminManageDAO.updateCouponStatus", pvo);
 	}
 	
-	public void updateDealStatus(AdminProductVO pvo) {
+	public void updateDealStatus(AdminProductVO pvo) { // 상품 오늘의딜 상태 change
 		System.out.println("--> mybatis in adminmanagedao updatedealstatus");
 		sqlSessionTemplate.update("AdminManageDAO.updateDealStatus", pvo);
 		sqlSessionTemplate.update("AdminManageDAO.updateDealStatusOnPost", pvo);
 		
+		/*
 		ProductDetailVO vo = new ProductDetailVO();
-		vo.setDetail_name("오늘의딜");
+		vo.setDetail_name("오늘의딜"); // 'todaydeal'
 		vo.setDetail_value(10001);
 		vo.setDtop_catecode(1); // 이건 따로 넣어줘야함 vo부터 바꾸기
 		vo.setDprodetails_postid(pvo.getPost_id());
-		sqlSessionTemplate.insert("ProductDetailDAO.insertDetails", vo);
+		sqlSessionTemplate.insert("ProductDetailDAO.insertDetails", vo); */
 	}
 	
-	public void deleteDeal(AdminProductVO pvo) {
+	public void deleteDeal(AdminProductVO pvo) {  // 오늘의딜 상태 중지, post table에서 dealstatus -> false
 		System.out.println("--> mybatis in adminmanagedao deletedeal");
 		sqlSessionTemplate.delete("AdminManageDAO.deleteDeal", pvo);
 		sqlSessionTemplate.update("AdminManageDAO.updateDealStatusOnPost", pvo);
 	}
 	
-	public List<AdminProductVO> getProductList(AdminProductVO pvo){
+	public List<AdminProductVO> getProductList(AdminProductVO pvo){ // 판매 게시글 리스트
 		System.out.println("--> mybatis in adminmanagedao getproductlist");
 		return sqlSessionTemplate.selectList("AdminManageDAO.getProductList", pvo);
 	}
 	
-	public int searchListCount(AdminProductVO pvo){
+	public int searchListCount(AdminProductVO pvo){ // 판매 게시글 검색된 총 개수 (not paging)
 		System.out.println("--> mybatis in adminmanagedao getproductlist");
-		//List<AdminProductVO> list = sqlSessionTemplate.selectList("AdminManageDAO.searchListCount", pvo);
-		System.out.println("searchlistcount : " + pvo);
-		System.out.println("total : " + sqlSessionTemplate.selectOne("AdminManageDAO.searchListCount", pvo));
+		//System.out.println("searchlistcount : " + pvo);
+		//System.out.println("total : " + sqlSessionTemplate.selectOne("AdminManageDAO.searchListCount", pvo));
 		return sqlSessionTemplate.selectOne("AdminManageDAO.searchListCount", pvo);
 	}
+	/**/
 
 	/* 업체관리 : 업체 리스트 */
 	public List<SellerVO> selectSellerList(SellerVO vo){
@@ -164,18 +161,18 @@ public class AdminManageDAO {
 		sqlSessionTemplate.update("AdminManageDAO.sellerStatusUpdate", vo);
 	}
 	
-	// 매출
-	public List<AdminProductVO> todayDealSale(AdminProductVO vo){
+	/* 매출 관리 */
+	public List<AdminProductVO> todayDealSale(AdminProductVO vo){ // 오늘의 딜 매출
 		System.out.println("--> mybatis in adminmanagedao get todaydealsale");
 		return sqlSessionTemplate.selectList("AdminManageDAO.todayDealSale", vo);
 	}
 	
-	public List<AdminProductVO> sellerSale(AdminProductVO vo){
+	public List<AdminProductVO> sellerSale(AdminProductVO vo){ // 판매자별 매출
 		System.out.println("--> mybatis in adminmanagedao get sellerSale");
 		return sqlSessionTemplate.selectList("AdminManageDAO.sellerSale", vo);
 	}
 	
-	public List<AdminProductVO> bestSale(AdminProductVO vo){
+	public List<AdminProductVO> bestSale(AdminProductVO vo){ // best 매출
 		System.out.println("--> mybatis in adminmanagedao get bestSale");
 		return sqlSessionTemplate.selectList("AdminManageDAO.bestSale", vo);
 	}
@@ -186,6 +183,11 @@ public class AdminManageDAO {
 		return list.size();
 	}
 	
+	public List<Map<String, String>> dailyStoreSales(AdminProductVO vo){ // 일별 매출
+		System.out.println("--> mybatis in adminmanagedao get daily sales list");
+		return sqlSessionTemplate.selectList("AdminManageDAO.dailyStoreSales", vo);
+	}
+	/**/
 
 	
 	/* post information */

@@ -87,6 +87,11 @@ public class AdminProductManageServiceImpl implements AdminProductManageService 
 		return adminManageDAO.bestSaleCount(vo);
 	}
 
+	@Override
+	public List<Map<String, String>> dailyStoreSales(AdminProductVO vo) {
+		return adminManageDAO.dailyStoreSales(vo);
+	}
+
 
 
 	

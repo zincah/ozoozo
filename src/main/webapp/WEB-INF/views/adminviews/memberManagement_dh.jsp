@@ -146,13 +146,6 @@
 
 			}
 			
-			if(endPage == 1){
-				$(".page-layer").hide();
-				$(".page-outer").hide();
-			}else{
-				$(".page-layer").show();
-				$(".page-outer").show();
-			}
 			
 			
     		// paging a link click
@@ -160,9 +153,31 @@
 
     			e.preventDefault();
     			pageNum = $(this).attr("href");
-    			console.log("movepage : "+pageNum);
+    			if(pageNum != 'pre' && pageNum != 'nex'){
+        			console.log("movepage : "+pageNum);
+    			}
+    			
     			movepage(pageNum);
+
     		});
+			
+			$(".page-outer a").on("click", function(e){
+				e.preventDefault();
+				pageOuter = $(this).attr("href");
+				
+				if(pageOuter == 'pre'){
+					if(pageNum != 1){
+						pageNum = pageNum - 1;
+					}
+				}else if(pageOuter == 'nex'){
+					if(pageNum != realEnd){
+						pageNum = pageNum + 1;
+					}
+				}
+				
+				movepage(pageNum);
+				
+			})
 
     	}
     	
@@ -585,8 +600,8 @@
           <div class="pagi mt-3">
             <nav aria-label="Page navigation example">
               <ul class="pagination">
-                <li class="page-item page-outer">
-                  <a class="page-link" href="#" aria-label="Previous">
+                <li class="page-outer">
+                  <a class="page-link" href="pre" aria-label="Previous">
                     <span aria-hidden="true">
                     	<i class="fa-solid fa-angle-left"></i>
                     </span>
@@ -595,8 +610,8 @@
                 <div class="page-layer">
 
                 </div>
-                <li class="page-item page-outer">
-                  <a class="page-link" href="#" aria-label="Next">
+                <li class="page-outer">
+                  <a class="page-link" href="nex" aria-label="Next">
                     <span aria-hidden="true">
                     	<i class="fa-solid fa-angle-right"></i>
                     </span>

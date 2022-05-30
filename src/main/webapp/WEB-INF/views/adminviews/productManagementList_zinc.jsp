@@ -20,7 +20,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- SheetJS CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
+	<!-- FileSaver saveAs CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
     <script>
+    
+    	var excelHandler;
     
     	$(document).ready(function(){
  
@@ -81,8 +87,27 @@
     			$("#search_input").prop("disabled", false);
     			searching();
     		});
+    		
+    		$(".excelDown").click(function(){
+    	    	excelHandler = {
+    	    			getExcelFileName : function(){
+    	    	            return 'table-test.xlsx';
+    	    	        },
+    	    	        getSheetName : function(){
+    	    	            return 'postTable';
+    	    	        },
+    	    	        getExcelData : function(){
+    	    	            return document.getElementById('postTable'); 
+    	    	        },
+    	    	        getWorksheet : function(){
+    	    	            return XLSX.utils.table_to_sheet(this.getExcelData());
+    	    	        }	
+    	    	}
+    			excelExport();
+    		})
 
     	});
+    	
     	
     	function getData(){
     		
@@ -478,6 +503,35 @@
 
     	}
     	
+    	function excelExport(){
+    		
+    		// step 1. workbook 생성
+    	    var wb = XLSX.utils.book_new();
+
+    	    // step 2. 시트 만들기 
+    	    var newWorksheet = excelHandler.getWorksheet();
+    	    
+    	    // step 3. workbook에 새로만든 워크시트에 이름을 주고 붙인다.  
+    	    XLSX.utils.book_append_sheet(wb, newWorksheet, excelHandler.getSheetName());
+
+    	    // step 4. 엑셀 파일 만들기 
+    	    var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+
+    	    // step 5. 엑셀 파일 내보내기 
+    	    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), excelHandler.getExcelFileName());
+    		
+    	}
+    	
+    	// excel download
+    	function s2ab(s) { 
+    	    var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
+    	    var view = new Uint8Array(buf);  //create uint8array as viewer
+    	    for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
+    	    return buf;    
+    	}
+    	
+
+    	
 		
     </script>
   </head>
@@ -596,7 +650,8 @@
         </main>
         <!-- content -->
         <div class="content-table">
-          <div class="dropdown setting-button text-end">
+          <div class="dropdown setting-button text-end" style="margin-bottom: 0.5rem;">
+          	<button class="btn excelDown btn-outline-secondary" style="padding: 0.2rem 0.75rem;">엑셀다운</button>
             <button class="settingBtn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
                    <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
@@ -612,7 +667,7 @@
 			</ul>
           </div>
           <div class="table_layer">
-            <table class="table table-hover table-box-style">
+            <table class="table table-hover table-box-style" id="postTable">
               <thead>
                 <tr class="content-table-title">
                   <td class="content-table-title-text option-line" style="width: 1rem;">
@@ -657,7 +712,9 @@
 							<c:otherwise>-</c:otherwise>
 						</c:choose>
 	                  </td>
-	                  <td class="content-table-content-text option-line">${post.product_created }</td>
+	                  <td class="content-table-content-text option-line">
+	                  	<fmt:formatDate value="${post.product_created }" pattern="yyyy-MM-dd HH:mm" />
+	                  </td>
 	                  <td class="content-table-content-text option-line">
 		                  <c:choose>
 								<c:when test="${post.deal_status != null}">${post.deal_status }</c:when>
