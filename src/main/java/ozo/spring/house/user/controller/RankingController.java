@@ -71,7 +71,7 @@ public class RankingController {
 		model.addAttribute("productList", productList); 
 		//model.addAttribute("pagecount", pagecount);
 
-		return "ozomain_plus";
+		return "oZo_Main_Assist";
 	}
 
 }

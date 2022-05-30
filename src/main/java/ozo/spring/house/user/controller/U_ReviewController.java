@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class ReviewController {
+public class U_ReviewController {
 
     @Autowired
     ReviewService reviewService;
@@ -38,7 +38,7 @@ public class ReviewController {
     @Autowired
     AwsS3 client;
 
-    // 리뷰 첫 페이지 (내가 써야할 리뷰 목록이 보이는 화면)
+    // 由щ럭 泥� �럹�씠吏� (�궡媛� �뜥�빞�븷 由щ럭 紐⑸줉�씠 蹂댁씠�뒗 �솕硫�)
 	@RequestMapping(value = "/review.com")
 	public String writeReview(UserPaymentLogVO vo, Model model, HttpServletRequest request) {
 		
@@ -50,12 +50,12 @@ public class ReviewController {
 			List<Map<String, String>> prereviewlist = reviewService.listofobject(vo);
 			model.addAttribute("prereviewlist", prereviewlist);
 
-			return "myReview";
+			return "oZo_My_Review";
 		}
 		return "login.com";
 	}
 	
-	// 리뷰 쓸 정보 얻어오기
+	// 由щ럭 �벝 �젙蹂� �뼸�뼱�삤湲�
 	@ResponseBody
 	@RequestMapping(value = "/getReviewInfo.com", method=RequestMethod.POST)
 	public String getReviewInfo(@RequestBody String code,UserPaymentLogVO vo, Model model, HttpServletRequest request) {
@@ -79,7 +79,7 @@ public class ReviewController {
 		return jsonmap;
 	}
 
-	// 리뷰 쓰기 사진 업로드
+	// 由щ럭 �벐湲� �궗吏� �뾽濡쒕뱶
     @ResponseBody
     @RequestMapping(value="/uploadReview.com", method= RequestMethod.POST)
     public String uploadPhotos(@RequestParam(value="reviewphoto", required = false) MultipartFile review){
@@ -114,11 +114,11 @@ public class ReviewController {
 
     }
     
-    // 리뷰 작성
+    // 由щ럭 �옉�꽦
     @RequestMapping(value="/reviewInsert.com", method= RequestMethod.POST)
     public String reviewInsert(ReviewVO vo, HttpServletRequest request){
 
-    	//ORDER ID 에 리뷰 썼다고 처리
+    	//ORDER ID �뿉 由щ럭 �띁�떎怨� 泥섎━
     	//REVIEW insert
     	HttpSession session = request.getSession();
     	vo.setReuser_num((Integer)session.getAttribute("User_Num"));
@@ -129,7 +129,7 @@ public class ReviewController {
     	return "redirect:review.com";
     }
     
-	@RequestMapping(value = "/review_view.com")
+	@RequestMapping(value = "/review_Log.com")
 	public String reviewView(HttpServletRequest request, ReviewVO vo, Model model) {
 		
 		HttpSession session = request.getSession();
@@ -142,13 +142,13 @@ public class ReviewController {
 
 			//System.out.println(myreviewlist);
 			
-			return "myReview-view";
+			return "oZo_My_ReviewLog";
 			
 		}
 		return "login.com";
 	}
 	
-	// 내 리뷰 수정 전 불러오기
+	// �궡 由щ럭 �닔�젙 �쟾 遺덈윭�삤湲�
     @ResponseBody
     @RequestMapping(value="/getMyReview.com", method= RequestMethod.POST)
     public String getMyReview(@RequestBody String code, ReviewVO vo){
@@ -172,7 +172,7 @@ public class ReviewController {
 
     }
 
-    // 리뷰 수정
+    // 由щ럭 �닔�젙
     @RequestMapping(value="/reviewModify.com", method= RequestMethod.POST)
     public String reviewModify(ReviewVO vo, HttpServletRequest request){
 
@@ -180,10 +180,10 @@ public class ReviewController {
     	if(session.getAttribute("User_Num")!=null) {
     		
     		System.out.println(vo);
-        	reviewService.updateReview(vo); // 수정처리
+        	reviewService.updateReview(vo); // �닔�젙泥섎━
         	
     		try {
-            	// 예전 사진 지우는 처리
+            	// �삁�쟾 �궗吏� 吏��슦�뒗 泥섎━
     			if(!vo.getLast_review_image().equals("")) {
     				System.out.println("hi");
             		String[] delurl = vo.getLast_review_image().split("/");
@@ -196,10 +196,10 @@ public class ReviewController {
     		
     	}
 
-    	return "redirect:review_view.com";
+    	return "redirect:review_Log.com";
     }
 
-    // 상세페이지 리뷰 관리 도움이 돼요
+    // �긽�꽭�럹�씠吏� 由щ럭 愿�由� �룄���씠 �뤌�슂
     @ResponseBody
     @RequestMapping(value="/likedReview.com", method= RequestMethod.POST)
     public String likedReview(@RequestBody String reviewid, ReviewVO vo, HttpServletRequest request){

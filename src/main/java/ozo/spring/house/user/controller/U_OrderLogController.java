@@ -51,7 +51,7 @@ import ozo.spring.house.user.vo.UserProductVO;
 
 @Controller
 @PropertySource("classpath:config/imp.properties")
-public class UserOrderController {
+public class U_OrderLogController {
 	
 	@Value("${imp_secret}")
 	private String secret;
@@ -105,9 +105,9 @@ public class UserOrderController {
 			 * System.out.println(date_filter); System.out.println();
 			 * System.out.println(pl_li); System.out.println(); System.out.println(wide_li);
 			 */
-			return "my_shopping_status";
+			return "oZo_My_OrderLog.jsp";
 		}else {
-			return "ozoLogin_zinc";	
+			return "oZo_LoginPage";	
 		}
 	}
 	
@@ -232,9 +232,9 @@ public class UserOrderController {
 		if(session.getAttribute("UserMail")!=null) {
 			this.log_cls = userservice.get_Log_class();
 			int userID = (Integer)session.getAttribute("User_Num");
-			return "orders";
+			return "oZo_OrderLog";
 		}else {
-			return "ozoLogin_zinc";	
+			return "oZo_LoginPage";	
 		}
 	}
 }

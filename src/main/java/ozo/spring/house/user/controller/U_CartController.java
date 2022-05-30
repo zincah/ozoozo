@@ -21,7 +21,7 @@ import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserProductVO;
 
 @Controller
-public class UserCartController {
+public class U_CartController {
 	@Autowired
 	UserService userservice;
 	
@@ -52,9 +52,9 @@ public class UserCartController {
 				post_filter_li.get(i).setExStr(decFormat.format(post_filter_li.get(i).getPost_shipfee()));
 			}
 			model.addAttribute("post_li", post_filter_li);
-			return "ozocart_zinc";
+			return "oZo_My_Cart";
 		}else {
-			return "ozoLogin_zinc";	
+			return "oZo_LoginPage";	
 		}
 	}
 	

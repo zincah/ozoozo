@@ -51,7 +51,7 @@ public class UserPagingController {
 
 		// product list pagecount
 		int pagecount = Integer.parseInt(searchMap.get("page"));
-		pvo.setThispage(pagecount); // �옒媛�
+		pvo.setThispage(pagecount); // 占쎌삋揶쏉옙
 		pvo.setOrderKind(searchMap.get("ranking"));
 		
 		List<UserProductVO> productList = userMainService.plusProductList(pvo);
@@ -60,7 +60,7 @@ public class UserPagingController {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //�냼�닔�젏 �븿�닔
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //占쎈꺖占쎈땾占쎌젎 占쎈맙占쎈땾
 			
 			pro.setSale_price(decFormat.format(sale_price));
 			System.out.println(pro.getPost_id());
@@ -77,7 +77,7 @@ public class UserPagingController {
 		model.addAttribute("productList", productList);
 		//model.addAttribute("pagecount", pagecount);
 		
-		return "ozomain_plus";
+		return "oZo_Main_Assist";
 	}
 	
 	// category page
@@ -93,7 +93,7 @@ public class UserPagingController {
 		
 		List<String> cates = wholeList.get(1);
 
-		// category �꽔�뼱二쇨린
+		// category 占쎄퐫占쎈선雅뚯눊由�
 		vo.setTop_catecode(Integer.parseInt(cates.get(0)));
 		if(cates.size()>1 && cates.get(1)!="") {
 			vo.setMidcate_code(Integer.parseInt(cates.get(1)));
@@ -115,7 +115,7 @@ public class UserPagingController {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //�냼�닔�젏 �븿�닔
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //占쎈꺖占쎈땾占쎌젎 占쎈맙占쎈땾
 			
 			pro.setSale_price(decFormat.format(sale_price));
 			System.out.println(pro.getPost_id());
@@ -132,7 +132,7 @@ public class UserPagingController {
 		model.addAttribute("productList", productList);
 		//model.addAttribute("pagecount", pagecount);
 		
-		return "cates";
+		return "oZo_Category_Assist";
 	}
 	
 	// brand page
@@ -174,7 +174,7 @@ public class UserPagingController {
 
 		model.addAttribute("shopItemList", shopItemList);
 		
-		return "ozoshop_mainplus";
+		return "oZo_Shop_Assist";
 	}
 
 }

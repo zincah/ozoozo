@@ -27,7 +27,7 @@ import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Controller
-public class UserProductController {
+public class U_ProductController {
 	@Autowired
 	UserService userservice;
 	
@@ -128,7 +128,7 @@ public class UserProductController {
 		
 		System.out.println(reviewList);
 		
-		return "ProductDetail";
+		return "oZo_ProductDetail";
 	}
 	// get option 2
 	@ResponseBody
