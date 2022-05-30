@@ -358,6 +358,10 @@ $(document).ready(function () {
 	$(".endDate").change(function() {
 		getProductData();
 	});
+	
+	// 페이징 - setpage
+	var pageNum = ${pageMaker.getPageNum()};
+	setPage(pageNum);
 });
 
 // 검색 처리
@@ -365,6 +369,10 @@ function getProductData() {
 	
 	// 상품 선택 checkBox 초기화
 	$("#allCheck").prop("checked", false);
+	
+	// 페이징 - page 정보
+	var thispage = $("#findPage").val();
+	console.log(thispage);
 	
 	// 값 받아오기
 	var searchName = $("#searchName").val();

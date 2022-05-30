@@ -14,6 +14,6 @@ public class SellerIndexDAO {
 	
 	public ProductVO selectViewData(ProductVO vo) {
 		System.out.println("--> mybatis in sellerIndexDAO viewData select");
-		return sqlSessionTemplate.selectOne("sellerIndexDAO.selectViewData", vo);
+		return sqlSessionTemplate.selectOne("SellerIndexDAO.selectViewData", vo);
 	}
 }

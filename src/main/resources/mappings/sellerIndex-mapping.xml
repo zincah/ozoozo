@@ -6,17 +6,17 @@
 	
 	<!-- 판매글 리스트 -->
 	<select id="selectViewData" resultType="product">
-		SELECT 	COUNT(CASE WHEN uo.order_status = '결제완료' THEN 0 END) AS 결제완료,
-				COUNT(CASE WHEN uo.order_status = '구매확정' THEN 0 END) AS 구매확정,
-				COUNT(CASE WHEN uo.order_status = '배송준비중' THEN 0 END) AS 배송준비중,
-				COUNT(CASE WHEN uo.order_status = '배송중' THEN 0 END) AS 배송중,
-				COUNT(CASE WHEN uo.order_status = '배송완료' THEN 0 END) AS 배송완료,
-				COUNT(CASE WHEN uo.order_status = '주문취소' or uo.order_status = '반품' or uo.order_status = '교환' THEN 0 END) AS 신규요청,
-				COUNT(CASE WHEN uo.order_status = '주문취소' THEN 0 END) AS 취소요청,
-				COUNT(CASE WHEN uo.order_status = '반품' THEN 0 END) AS 반품요청,
-				COUNT(CASE WHEN uo.order_status = '교환' THEN 0 END) AS 교환요청,
-				COUNT(CASE WHEN uo.payment > 0 THEN 0 END) AS 정상건수,
-				SUM(p.py_final) AS 정상금액
+		SELECT 	COUNT(CASE WHEN uo.order_status = '결제완료' THEN 0 END) AS index_1,
+				COUNT(CASE WHEN uo.order_status = '구매확정' THEN 0 END) AS index_2,
+				COUNT(CASE WHEN uo.order_status = '배송준비중' THEN 0 END) AS index_3,
+				COUNT(CASE WHEN uo.order_status = '배송중' THEN 0 END) AS index_4,
+				COUNT(CASE WHEN uo.order_status = '배송완료' THEN 0 END) AS index_5,
+				COUNT(CASE WHEN uo.order_status = '주문취소' or uo.order_status = '반품' or uo.order_status = '교환' THEN 0 END) AS index_6,
+				COUNT(CASE WHEN uo.order_status = '주문취소' THEN 0 END) AS index_7,
+				COUNT(CASE WHEN uo.order_status = '반품' THEN 0 END) AS index_8,
+				COUNT(CASE WHEN uo.order_status = '교환' THEN 0 END) AS index_9,
+				COUNT(CASE WHEN uo.payment > 0 THEN 0 END) AS index_10,
+				SUM(p.py_final) AS index_11
 				FROM user_order uo
 				JOIN payment p ON p.py_sellerid = uo.seller_id AND p.py_orderid = uo.order_id
 		WHERE	uo.seller_id = #{seller_id};
