@@ -30,6 +30,7 @@ public class U_MyPageController {
 	
 	@RequestMapping(value="/m_edit.com")
 	public String User_Info(UserVO vo,Model model,HttpServletRequest request) {
+		System.err.println("[Log] --- MyPage Controller >>>>> User_Info Method");
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("User_Num")!=null) {
@@ -50,6 +51,7 @@ public class U_MyPageController {
 	
 	@RequestMapping(value="/pwReset.com")
 	public String pwreset(UserVO vo,Model model,HttpServletRequest request) {
+		System.err.println("[Log] --- MyPage Controller >>>>> pwreset Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("User_Num")!=null) {
 			return "oZo_PasswordChange";
@@ -61,14 +63,15 @@ public class U_MyPageController {
 	
 	@RequestMapping(value="/out.com")
 	public String memberout() {
+		System.err.println("[Log] --- MyPage Controller >>>>> memberout Method");
 		return "memberout";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/stopit.com" , method=RequestMethod.POST)
 	public String user_stop(UserVO vo, HttpServletRequest request ) {
+		System.err.println("[Log] --- MyPage Controller >>>>> user_stop Method");
 		HttpSession session = request.getSession();
-		System.out.println("여기 넘어왔어~");
 		vo.setUser_num((int)session.getAttribute("User_Num"));
 		vo.setUser_status("비활동중");
 		mypageservice.user_stop(vo);
@@ -76,11 +79,11 @@ public class U_MyPageController {
 	}
 	@RequestMapping(value="/m_myPage.com")
 	public String  mypage(UserVO vo, Model model, HttpServletRequest request, ScrapVO svo, UserScrapVO usvo) {
+		System.err.println("[Log] --- MyPage Controller >>>>> mypage Method");
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("User_Num")!=null) {
 			vo.setUser_num((int)session.getAttribute("User_Num"));
-			System.out.println((int)session.getAttribute("User_Num"));
 			svo.setSc_usernum((int)session.getAttribute("User_Num"));
 			List<ScrapVO> list ;
 			list = mypageservice.s_scrap(svo);
@@ -106,23 +109,18 @@ public class U_MyPageController {
 	@ResponseBody
 	@RequestMapping(value="/userscrap.com", method=RequestMethod.POST)
 	public String Scrappick(@RequestBody int param, UserScrapVO vo, Model model, HttpServletRequest request,UserProductVO pvo) {
+		System.err.println("[Log] --- MyPage Controller >>>>> Scrappick Method");
 		HttpSession session = request.getSession();
-			System.out.println("scrap ing");
 			//session.getAttribute("UserMail");
-			System.out.println(session.getAttribute("User_Num"));
-			System.out.println(param);
 			vo.setSc_usernum((int)session.getAttribute("User_Num"));
 			vo.setSc_postid(param);
 			
 				if(mypageservice.duplicate(vo) == null && session.getAttribute("User_Num")!=null) {
-					System.out.println("여기까지왔어 ");
 					vo.setSc_usernum((int)session.getAttribute("User_Num"));
 					vo.setSc_postid(param);
 					mypageservice.s_insert(vo);
-					System.out.println("리턴간다 ");
 					return "1";
 				}else {
-					System.out.println("0간다 ");
 				return "0";
 				}
 	}
@@ -131,24 +129,19 @@ public class U_MyPageController {
 	@ResponseBody
 	@RequestMapping(value="/userscrapdetail.com", method=RequestMethod.POST)
 	public String detailScrappick(@RequestBody int param, UserScrapVO vo, Model model, HttpServletRequest request,UserProductVO pvo) {
+		System.err.println("[Log] --- MyPage Controller >>>>> detailScrappick Method");
 		HttpSession session = request.getSession();
-		System.out.println("scrap ing");
 		//session.getAttribute("UserMail");
-		System.out.println(session.getAttribute("User_Num"));
-		System.out.println(param);
 		
 		vo.setSc_usernum((int)session.getAttribute("User_Num"));
 		vo.setSc_postid(param);
 		
 			if(mypageservice.duplicate(vo) == null && session.getAttribute("User_Num")!=null) {
-				System.out.println("여기까지왔어 ");
 				vo.setSc_usernum((int)session.getAttribute("User_Num"));
 				vo.setSc_postid(param);
 				mypageservice.s_insert(vo);
-				System.out.println("리턴간다 ");
 				return "1";
 			}else {
-				System.out.println("0간다 ");
 			return "0";
 			}
 	}
@@ -157,21 +150,16 @@ public class U_MyPageController {
 	@ResponseBody
 	@RequestMapping(value="/scrapdelete.com", method=RequestMethod.POST)
 	public String Scrapdelete(@RequestBody int param, UserScrapVO vo, Model model, HttpServletRequest request) {
+		System.err.println("[Log] --- MyPage Controller >>>>> Scrapdelete Method");
 		HttpSession session = request.getSession();
-		System.out.println("delete ing");
-		System.out.println(session.getAttribute("User_Num"));
-		System.out.println(param);
 		vo.setSc_usernum((int)session.getAttribute("User_Num"));
 		vo.setSc_postid(param);
 			if(mypageservice.duplicate(vo) != null && session.getAttribute("User_Num")!=null) {
-				System.out.println("여기까지왔어 ");
 				vo.setSc_usernum((int)session.getAttribute("User_Num"));
 				vo.setSc_postid(param);
 				mypageservice.s_cancle(vo);
-				System.out.println("리턴간다 ");
 				return "1";
 			}else {
-				System.out.println("0간다 ");
 			return "0";
 			}
 	}

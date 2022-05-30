@@ -35,6 +35,7 @@ public class U_DealBestController {
 
 	@RequestMapping(value = "/todaydeal.com")
 	public String main_todayDeal(Model model,HttpServletRequest request,UserScrapVO svo ){
+		System.err.println("[Log] --- DealBest Controller >>>>> main_todayDeal Method");
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		List<UserProductVO> todayDealList = userMainService.todayDealList();
 		HttpSession session = request.getSession();
@@ -86,14 +87,13 @@ public class U_DealBestController {
 			}
 		}
 		model.addAttribute("todayDealList", todayDealList);
-		System.out.println("todaydealListsize"+ todayDealList.size());
 		return "oZo_TodayDeal";
 	}
 
 	// 브랜드
 	@RequestMapping(value = "/brandshop.com", method=RequestMethod.GET)
 	public String main_shop(Model model, UserProductVO vo, HttpServletRequest request){
-		
+		System.err.println("[Log] --- DealBest Controller >>>>> main_shop Method");
 		String brandcode = request.getParameter("brandcode");
 		vo.setPost_sellerid(Integer.parseInt(brandcode));
 		
@@ -115,7 +115,6 @@ public class U_DealBestController {
 			
 			List<List<UserCategoryVO>> sublist = userMainService.printCateList(vo);
 			model.addAttribute("sublist", sublist);
-			System.out.println("subli size" + sublist.size());
 		}
 
 		
@@ -163,7 +162,7 @@ public class U_DealBestController {
 	
 	@RequestMapping(value = "/brandshopRank.com", method=RequestMethod.POST)
 	public String brandshopRank(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request){
-		
+		System.err.println("[Log] --- DealBest Controller >>>>> brandshopRank Method");
 		vo.setPost_sellerid(Integer.parseInt(searchMap.get("brandcode")));
 		
 		vo.setThispage(0);
@@ -207,7 +206,7 @@ public class U_DealBestController {
 	//실시간 베스트
 	@RequestMapping(value = "/m_best.com")
 	public String main_best(UserVO vo, Model model, HttpServletRequest request, UserProductVO uvo, UserScrapVO svo){
-		//
+		System.err.println("[Log] --- DealBest Controller >>>>> main_best Method");
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		HttpSession session = request.getSession();
 		List<UserProductVO> bestlist = userMainService.bestlist();

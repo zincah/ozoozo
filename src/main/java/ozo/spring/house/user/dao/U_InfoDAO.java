@@ -20,7 +20,7 @@ public class U_InfoDAO {
 	BCryptPasswordEncoder passwordEncoder;
 
 	public void insertUser(UserVO vo) {
-		System.out.println("[LOGO] : mybatis in userdao insertuser");
+		System.err.println("[Log] --- info DAO >>>>> insertUser Method");
 
 		encodePass = passwordEncoder.encode(vo.getUser_pw());
 		vo.setUser_pw(encodePass);
@@ -31,7 +31,7 @@ public class U_InfoDAO {
 
 	// login
 	public UserVO checkUser(UserVO vo) {
-		System.out.println("[LOGO] : mybatis in UserDAO checkUser");
+		System.err.println("[Log] --- info DAO >>>>> checkUser Method");
 
 		try {
 			String status = sqlSessionTemplate.selectOne("UserDAO.checkMemberStatus", vo);
@@ -55,13 +55,13 @@ public class U_InfoDAO {
 
 	// naver login
 	public UserVO checkUserByNaver(UserVO vo) {
-		System.out.println("mybatis in userdao naverlogin");
+		System.err.println("[Log] --- info DAO >>>>> checkUserByNaver Method");
 		return sqlSessionTemplate.selectOne("UserDAO.checkUserByNaver", vo);
 	}
 
 	// 마지막 로그인 체크
 	public void lastLoginCheck(UserVO vo) {
-		System.out.println("mybatis in userdao lastlogintimecheck");
+		System.err.println("[Log] --- info DAO >>>>> lastLoginCheck Method");
 		sqlSessionTemplate.update("UserDAO.lastLoginCheck", vo);
 
 		System.out.println("회원 넘버 : " + vo.getUser_num());
@@ -79,7 +79,7 @@ public class U_InfoDAO {
 	}
 
 	public Boolean Duplicate_Check_Email(UserVO vo) {
-		System.out.println("[LOGO] : mybatis in UserDAO Duplicate_Check_Email");
+		System.err.println("[Log] --- info DAO >>>>> Duplicate_Check_Email Method");
 		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.Duplicate_Check_Email", vo);
 		// System.out.println(user);
 		if (user == null) {
@@ -90,7 +90,7 @@ public class U_InfoDAO {
 	}
 
 	public Boolean Duplicate_Check_Nickname(UserVO vo) {
-		System.out.println("[LOGO] : mybatis in UserDAO Duplicate_Check_Nickname");
+		System.err.println("[Log] --- info DAO >>>>> Duplicate_Check_Nickname Method");
 		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.Duplicate_Check_Nickname", vo);
 		// System.out.println("select 검색 결과 " + user);
 		if (user == null) {
@@ -101,10 +101,9 @@ public class U_InfoDAO {
 	}
 
 	public void change_pass(UserVO vo) {
-		System.out.println("[LOGO] : Mybatis in UserDAO change_pass");
+		System.err.println("[Log] --- info DAO >>>>> change_pass Method");
 		encodePass = passwordEncoder.encode(vo.getUser_pw());
 		vo.setUser_pw(encodePass);
 		sqlSessionTemplate.update("UserDAO.change_pass", vo);
-		System.out.println("비밀번호 변경 성공");
 	}
 }

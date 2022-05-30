@@ -36,12 +36,13 @@ public class U_ServiceController {
 	
 	@RequestMapping(value = "/main.com")
 	public String user_main(UserProductVO vo, Model model, HttpSession session, UserScrapVO svo) {
+		System.err.println("[Log] --- Service Controller >>>>> user_main Method");
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		
 		// timer
 		List<Map<String, String>> list = userMainService.getDealEndTime();
 		List<Map<String, String>> dealtimelist = new ArrayList<Map<String, String>>();
-		System.out.println(list);
+		//System.out.println(list);
 		for(int i=0; i<list.size(); i++) {
 			Map<String, String> dealtime = list.get(i);
 			String t = "\""+String.valueOf(dealtime.get("deal_endtime"))+"\"";
@@ -61,7 +62,7 @@ public class U_ServiceController {
 		
 		// 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲 list 占쎈쐻占쎈뼓繹먮씮�굲
 		List<UserProductVO> todayDealList = userMainService.mainDealProductList(vo);
-		System.out.println(todayDealList.size());
+		//System.out.println(todayDealList.size());
 		
 		// main banner list 占쎈쐻占쎈뼓繹먮씮�굲
 		List<BannerVO> bannerList = userMainService.selectBannerList();
@@ -115,6 +116,7 @@ public class U_ServiceController {
 	
 	@RequestMapping(value = "/CScenter.com")
 	public String user_CSceneter(Model model,CScenterVO vo) {
+		System.err.println("[Log] --- Service Controller >>>>> user_CSceneter Method");
 		List<CScenterVO> list;
 		list = userservice.csall(vo);
 		model.addAttribute("list",list);
@@ -124,8 +126,9 @@ public class U_ServiceController {
 	@ResponseBody
 	@RequestMapping(value = "/getCS.com", method=RequestMethod.GET)
 	public List<CScenterVO> getCSList(String key,CScenterVO vo) {
+		System.err.println("[Log] --- Service Controller >>>>> getCSList Method");
 		vo.setCustomer_keyword(key);
-		System.out.println(key);
+		//System.out.println(key);
 		List<CScenterVO> list = userservice.cskeyword(vo);
 		
 		return list;
