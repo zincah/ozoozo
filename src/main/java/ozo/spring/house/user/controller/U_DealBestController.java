@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ozo.spring.house.seller.vo.SellerVO;
-import ozo.spring.house.user.dao.UserMainDAO;
-import ozo.spring.house.user.service.UserMainService;
+import ozo.spring.house.user.dao.U_MainDAO;
+import ozo.spring.house.user.service.U_MainService;
 import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.vo.ScrapVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
@@ -30,7 +30,7 @@ import javax.servlet.http.HttpSession;
 public class U_DealBestController {
 
 	@Autowired
-	UserMainService userMainService;
+	U_MainService userMainService;
 
 	@Autowired
 	UserScrapService userscrapservice;

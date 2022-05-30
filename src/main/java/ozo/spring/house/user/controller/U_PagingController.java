@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ozo.spring.house.user.service.UserCategoryService;
-import ozo.spring.house.user.service.UserMainService;
+import ozo.spring.house.user.service.U_CategoryService;
+import ozo.spring.house.user.service.U_MainService;
 import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserPagingVO;
@@ -27,10 +27,10 @@ import ozo.spring.house.user.vo.UserScrapVO;
 public class U_PagingController {
 	
 	@Autowired
-	UserMainService userMainService;
+	U_MainService userMainService;
 	
 	@Autowired
-	UserCategoryService userCateService;
+	U_CategoryService userCateService;
 	
 	@Autowired
 	UserScrapService userScrapService;

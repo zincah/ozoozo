@@ -2,17 +2,19 @@ package ozo.spring.house.user.service;
 
 import java.util.List;
 
-import ozo.spring.house.user.dao.UserDAO.cart_Allload;
-import ozo.spring.house.user.dao.UserDAO.paymentLog_cls;
-import ozo.spring.house.user.dao.UserDAO.payment_class;
-import ozo.spring.house.user.dao.UserDAO.product_cls;
+import ozo.spring.house.user.dao.U_DAO.cart_Allload;
+import ozo.spring.house.user.dao.U_DAO.paymentLog_cls;
+import ozo.spring.house.user.dao.U_DAO.payment_class;
+import ozo.spring.house.user.dao.U_DAO.product_cls;
 import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.CartVO;
+import ozo.spring.house.user.vo.ScrapVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserProduct_tableVO;
+import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 
-public interface UserService {
+public interface U_Service {
 	public Boolean Duplicate_Check_Nickname(UserVO vo);
 	public Boolean Duplicate_Check_Email(UserVO vo);
 	public void insertUser(UserVO vo);
@@ -36,4 +38,6 @@ public interface UserService {
 	//Service Senter
 	public List<CScenterVO> csall(CScenterVO vo);
 	public List<CScenterVO> cskeyword(CScenterVO vo);
+	
+	
 }

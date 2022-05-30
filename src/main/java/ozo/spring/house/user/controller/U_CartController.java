@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ozo.spring.house.user.dao.UserDAO.cart_Allload;
-import ozo.spring.house.user.service.UserService;
+import ozo.spring.house.user.dao.U_DAO.cart_Allload;
+import ozo.spring.house.user.service.U_Service;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserProductVO;
 
 @Controller
 public class U_CartController {
 	@Autowired
-	UserService userservice;
+	U_Service userservice;
 	
 	List<UserProductVO> pro_li = new ArrayList<UserProductVO>();
 	List<CartVO> cart_li = new ArrayList<CartVO>();

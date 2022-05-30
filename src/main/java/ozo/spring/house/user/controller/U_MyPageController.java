@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.service.U_MyPageService;
 import ozo.spring.house.user.vo.ScrapVO;
 import ozo.spring.house.user.vo.UserProductVO;
@@ -26,10 +25,8 @@ import ozo.spring.house.user.vo.UserVO;
 public class U_MyPageController {
 	
 	@Autowired
-	U_MyPageService userMyPageService;
+	U_MyPageService mypageservice;
 	
-	@Autowired 
-	UserScrapService userscrapservice;
 	
 	@RequestMapping(value="/m_edit.com")
 	public String User_Info(UserVO vo,Model model,HttpServletRequest request) {
@@ -38,8 +35,8 @@ public class U_MyPageController {
 		if(session.getAttribute("User_Num")!=null) {
 			vo.setUser_num((int)session.getAttribute("User_Num"));
 			UserVO info;
-			info = userMyPageService.mypageinfo(vo);
-			UserVO mandu = userMyPageService.mypageinfo(vo) ;
+			info = mypageservice.mypageinfo(vo);
+			UserVO mandu = mypageservice.mypageinfo(vo) ;
 			mandu.setUser_email(info.getUser_email().split("@")[1]);
 			info.setUser_email(info.getUser_email().split("@")[0]);
 			 model.addAttribute("info", info);
@@ -74,7 +71,7 @@ public class U_MyPageController {
 		System.out.println("여기 넘어왔어~");
 		vo.setUser_num((int)session.getAttribute("User_Num"));
 		vo.setUser_status("비활동중");
-		userMyPageService.user_stop(vo);
+		mypageservice.user_stop(vo);
 		return "success";
 	}
 	@RequestMapping(value="/m_myPage.com")
@@ -86,7 +83,7 @@ public class U_MyPageController {
 			System.out.println((int)session.getAttribute("User_Num"));
 			svo.setSc_usernum((int)session.getAttribute("User_Num"));
 			List<ScrapVO> list ;
-			list = userscrapservice.s_scrap(svo);
+			list = mypageservice.s_scrap(svo);
 			for(int i=0; i<list.size(); i++) {
 				ScrapVO pro = list.get(i);
 				int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
@@ -95,7 +92,7 @@ public class U_MyPageController {
 			}
 	
 			//회원정보
-			UserVO info = userMyPageService.mypageinfo(vo);
+			UserVO info = mypageservice.mypageinfo(vo);
 			model.addAttribute("info",info); //회원정보
 			model.addAttribute("list", list); //북마크
 			return "oZo_MyPage";
@@ -117,11 +114,11 @@ public class U_MyPageController {
 			vo.setSc_usernum((int)session.getAttribute("User_Num"));
 			vo.setSc_postid(param);
 			
-				if(userscrapservice.duplicate(vo) == null && session.getAttribute("User_Num")!=null) {
+				if(mypageservice.duplicate(vo) == null && session.getAttribute("User_Num")!=null) {
 					System.out.println("여기까지왔어 ");
 					vo.setSc_usernum((int)session.getAttribute("User_Num"));
 					vo.setSc_postid(param);
-					userscrapservice.s_insert(vo);
+					mypageservice.s_insert(vo);
 					System.out.println("리턴간다 ");
 					return "1";
 				}else {
@@ -143,11 +140,11 @@ public class U_MyPageController {
 		vo.setSc_usernum((int)session.getAttribute("User_Num"));
 		vo.setSc_postid(param);
 		
-			if(userscrapservice.duplicate(vo) == null && session.getAttribute("User_Num")!=null) {
+			if(mypageservice.duplicate(vo) == null && session.getAttribute("User_Num")!=null) {
 				System.out.println("여기까지왔어 ");
 				vo.setSc_usernum((int)session.getAttribute("User_Num"));
 				vo.setSc_postid(param);
-				userscrapservice.s_insert(vo);
+				mypageservice.s_insert(vo);
 				System.out.println("리턴간다 ");
 				return "1";
 			}else {
@@ -166,11 +163,11 @@ public class U_MyPageController {
 		System.out.println(param);
 		vo.setSc_usernum((int)session.getAttribute("User_Num"));
 		vo.setSc_postid(param);
-			if(userscrapservice.duplicate(vo) != null && session.getAttribute("User_Num")!=null) {
+			if(mypageservice.duplicate(vo) != null && session.getAttribute("User_Num")!=null) {
 				System.out.println("여기까지왔어 ");
 				vo.setSc_usernum((int)session.getAttribute("User_Num"));
 				vo.setSc_postid(param);
-				userscrapservice.s_cancle(vo);
+				mypageservice.s_cancle(vo);
 				System.out.println("리턴간다 ");
 				return "1";
 			}else {

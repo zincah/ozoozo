@@ -6,7 +6,7 @@ import ozo.spring.house.seller.vo.FilterVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserProductVO;
 
-public interface UserCategoryService {
+public interface U_CategoryService {
 	
 	public List<List<UserCategoryVO>> selectCategoryList(UserCategoryVO vo);
 	public List<UserCategoryVO> printTitle();

@@ -7,23 +7,17 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.seller.vo.FilterVO;
-import ozo.spring.house.user.service.UserCategoryService;
-import ozo.spring.house.user.service.UserScrapService;
-import ozo.spring.house.user.vo.CScenterVO;
+import ozo.spring.house.user.service.U_MyPageService;
+import ozo.spring.house.user.service.U_CategoryService;
 import ozo.spring.house.user.vo.UserCategoryVO;
-import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 
@@ -31,10 +25,10 @@ import ozo.spring.house.user.vo.UserScrapVO;
 public class U_CategoryController {
 	
 	@Autowired
-	UserCategoryService userCategoryService;
+	U_CategoryService userCategoryService;
 	
 	@Autowired
-	UserScrapService userScrapService;
+	U_MyPageService mypageservice;
 	
 	@RequestMapping(value = "/category.com", method=RequestMethod.GET)
 	public String category(UserCategoryVO vo, Model model, HttpServletRequest request, UserScrapVO svo, HttpSession session,UserProductVO pvo) {
@@ -84,7 +78,7 @@ public class U_CategoryController {
 		pvo.setCheckit(false);
 		if(session.getAttribute("User_Num") != null) {
 			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
-			scrap = userScrapService.userScrapList(svo);
+			scrap = mypageservice.userScrapList(svo);
 		}
 		
 		for(int i=0; i<productList.size(); i++) {

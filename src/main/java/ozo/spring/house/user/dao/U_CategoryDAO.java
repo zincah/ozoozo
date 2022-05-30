@@ -14,7 +14,7 @@ import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserProductVO;
 
 @Repository
-public class UserCategoryDAO {
+public class U_CategoryDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;

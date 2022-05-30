@@ -8,7 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,13 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ozo.spring.house.admin.vo.BannerVO;
-import ozo.spring.house.user.dao.UserDAO.cart_Allload;
+import ozo.spring.house.user.dao.U_DAO.cart_Allload;
 import ozo.spring.house.user.service.MailSendService;
-import ozo.spring.house.user.service.UserMainService;
-import ozo.spring.house.user.service.UserScrapService;
-import ozo.spring.house.user.service.UserService;
-import ozo.spring.house.user.vo.CScenterVO;
+import ozo.spring.house.user.service.U_MyPageService;
+import ozo.spring.house.user.service.U_MainService;
+import ozo.spring.house.user.service.U_Service;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserScrapVO;
@@ -31,19 +28,17 @@ import ozo.spring.house.user.vo.UserScrapVO;
 public class U_PublicController {
 	
 	@Autowired
-	UserService userservice;
+	U_Service userservice;
 	
 	@Autowired
-	UserMainService userMainService;
+	U_MainService userMainService;
 	
 	@Autowired
-	UserScrapService userScrapService;
+	U_MyPageService mypageservice;
 	
 	@Autowired
 	MailSendService mailSendService;
 	
-	@Autowired 
-	UserScrapService userscrapservice;
 	
 	//send Emails
 	private String key; // �씠硫붿씪濡� 蹂대궡吏� �궃�닔
@@ -92,7 +87,7 @@ public class U_PublicController {
 			
 			UserScrapVO vo = new UserScrapVO();
 			vo.setSc_usernum((Integer)session.getAttribute("User_Num"));
-			List<UserScrapVO> scrap_li = userscrapservice.us_list(vo);
+			List<UserScrapVO> scrap_li = mypageservice.us_list(vo);
 			int[] arr = {cart_li.size(), scrap_li.size()};
 			return arr;
 		}else {
@@ -109,7 +104,7 @@ public class U_PublicController {
 		
 		if(session.getAttribute("User_Num") != null) {
 			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
-			scrap = userScrapService.userScrapList(svo);
+			scrap = mypageservice.userScrapList(svo);
 		}
 		
 		vo.setOrderKind(rank.get("ranking"));

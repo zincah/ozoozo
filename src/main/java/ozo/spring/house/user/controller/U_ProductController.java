@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ozo.spring.house.user.dao.UserDAO.product_cls;
+import ozo.spring.house.user.dao.U_DAO.product_cls;
 import ozo.spring.house.user.service.U_MyPageService;
-import ozo.spring.house.user.service.UserScrapService;
-import ozo.spring.house.user.service.UserService;
+import ozo.spring.house.user.service.U_Service;
 import ozo.spring.house.user.vo.CouponVO;
 import ozo.spring.house.user.vo.ReviewVO;
 import ozo.spring.house.user.vo.UserProductVO;
@@ -29,10 +28,8 @@ import ozo.spring.house.user.vo.UserVO;
 @Controller
 public class U_ProductController {
 	@Autowired
-	UserService userservice;
+	U_Service userservice;
 	
-	@Autowired
-	UserScrapService userScrapService;
 	
 	@Autowired
 	U_MyPageService mypageservice;
@@ -63,7 +60,7 @@ public class U_ProductController {
 				vo.setCheckit(false);
 				if(session.getAttribute("User_Num") != null) {
 					svo.setSc_usernum((int)session.getAttribute("User_Num"));
-					scrap = userScrapService.userScrapList(svo);
+					scrap = mypageservice.userScrapList(svo);
 				System.out.println(scrap.size());
 					for(int j=0; j<scrap.size(); j++) {
 						UserProductVO ho = product_list.get(0);

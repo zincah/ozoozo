@@ -44,8 +44,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import ozo.spring.house.user.dao.UserDAO.paymentLog_cls;
-import ozo.spring.house.user.service.UserService;
+import ozo.spring.house.user.dao.U_DAO.paymentLog_cls;
+import ozo.spring.house.user.service.U_Service;
 import ozo.spring.house.user.vo.UserPaymentLogVO;
 import ozo.spring.house.user.vo.UserProductVO;
 
@@ -60,7 +60,7 @@ public class U_OrderLogController {
 	private String key;
 	
 	@Autowired
-	UserService userservice;
+	U_Service userservice;
 	
 	List<UserPaymentLogVO> pl_li = new ArrayList<UserPaymentLogVO>();
 	List<UserPaymentLogVO> date_filter = new ArrayList<UserPaymentLogVO>();
