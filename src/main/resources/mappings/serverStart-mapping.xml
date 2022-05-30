@@ -19,13 +19,12 @@
 	</update>
 	<!-- 오늘의딜 자동 마감 처리2 (판매글 딜 상태 변경) -->
 	<update id="postingDealUpdate2">
-		UPDATE 	product_posting set today_deal = false
+		UPDATE 	product_posting set today_deal = false, deal_id = null
 		FROM 	product_posting pp
 		JOIN	deal_info di ON di.deal_id = pp.deal_id
 		WHERE 	di.deal_status = '종료' 
 				AND	di.deal_id = pp.deal_id
-				AND di.deal_postid = pp.post_id
-				AND (EXTRACT(EPOCH FROM NOW() - di.deal_endtime))::Integer > 0;
+				AND di.deal_postid = pp.post_id;
 	</update>
 </mapper>
 

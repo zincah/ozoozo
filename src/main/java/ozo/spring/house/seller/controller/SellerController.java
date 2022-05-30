@@ -43,7 +43,7 @@ public class SellerController {
 	@Autowired
 	SellerIndexService sellerIndexService;
 	
-	@RequestMapping(value = "/index.seller")
+	@RequestMapping(value = "/index.seller", method=RequestMethod.GET)
 	public String sellerIndex(HttpServletRequest request, ProductVO vo, Model model) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
@@ -54,8 +54,104 @@ public class SellerController {
 			ProductVO data = sellerIndexService.selectViewData(vo);
 			// model에 데이터 추가
 			model.addAttribute("data", data);
+			System.out.println(data);
 			
-			// 차트관련도 해야함 ㅋㅋㅋㅌㅋㅋㅋㄴ모ㅓㅗㅇ터코처
+			// 차트관련
+			// 날짜 데이터 처리
+			// 마지막 날짜 Calendar 변수 생성
+			Calendar calMin = Calendar.getInstance();
+			Calendar calMax = Calendar.getInstance();
+			
+			// 데이터 포맷 생성
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			
+			// 날짜를 Calendar 변수에 저장
+			calMin.set(Calendar.DAY_OF_MONTH, calMin.getActualMinimum(Calendar.DAY_OF_MONTH));
+			calMax.set(Calendar.DAY_OF_MONTH, calMax.getActualMaximum(Calendar.DAY_OF_MONTH));
+			
+			// 날짜를 String 값으로 저장
+			String calMinText = formatter.format(calMin.getTime());
+			String calMaxText = formatter.format(calMax.getTime());
+			
+			// 모델에 날짜 텍스트 값 저장
+			model.addAttribute("calMinText", calMinText);
+			model.addAttribute("calMaxText", calMaxText);
+			
+			// 차트에 출력할 데이터 저장할 변수
+			List<String> dateList = new ArrayList<String>(); // areaChart
+			List<Integer> countList = new ArrayList<Integer>(); // areaChart
+			List<String> barDateList = new ArrayList<String>(); // barChart
+			List<Integer> barCountList = new ArrayList<Integer>(); // barChart
+			
+			// VO에 barChart용 날짜 세팅
+			Timestamp barMinDate = new Timestamp(calMin.getTimeInMillis());
+			Timestamp barMaxDate = new Timestamp(calMax.getTimeInMillis());
+			vo.setSales_startDate(barMinDate);
+			vo.setSales_endDate(barMaxDate);
+			
+			// 매출 리스트 저장할 변수
+			List<ProductVO> salesList = new ArrayList<ProductVO>();
+			
+			// 검증을 위해 임시 저장할 변수
+			ProductVO tempData = new ProductVO();
+			
+			// areaChart - 당월 1일부터 마지막 날짜까지 반복
+			while(true) { 
+				
+				// 데이터 처리
+				Timestamp date = new Timestamp(calMax.getTimeInMillis());
+				vo.setSales_date(date);
+				
+				tempData = sellerSalesService.selectSalesList(vo);
+				
+				// 차트용 데이터 저장
+				dateList.add("\"" + calMaxText.substring(5,10) + "\"");
+				countList.add(tempData.getSales_final());
+				
+				// 판매이익이 0이 아닐 경우에만 저장
+				if (tempData.getSales_final()!=0) {
+					salesList.add(tempData);
+				}
+				
+				// 1일 더하고 값 업데이트
+				calMax.add(Calendar.DATE, -1);
+				calMaxText = formatter.format(calMax.getTime());
+				
+				// 해당 월 첫번째 날짜와 값이 일치하면 종료 (최신순 정렬)
+				if(calMaxText.equals(calMinText)) {
+					break;
+				}
+			}
+			
+			// barChart
+			// 판매량 리스트 저장할 변수 생성
+			List<ProductVO> barChartTotalList = sellerSalesService.selectBarChartTotalList(vo);
+			// 반복문으로 필요한 데이터 뽑아서 각 변수에 저장
+			for(int index = 0; index < barChartTotalList.size(); index++) {
+				barDateList.add(index, barChartTotalList.get(index).getProduct_title());
+				barCountList.add(index, barChartTotalList.get(index).getSales_count());
+			}
+			
+			// 역순으로 재배열
+			Collections.reverse(dateList); 
+			Collections.reverse(countList);
+			Collections.reverse(barDateList);
+			Collections.reverse(barCountList);
+			
+			// model에 값 저장
+			model.addAttribute("salesListView", salesList);
+			model.addAttribute("dateList", dateList);
+			model.addAttribute("countList", countList);
+			String jsonArray = JSONArray.toJSONString(barDateList);
+			model.addAttribute("barDateList", jsonArray);
+			model.addAttribute("barCountList", barCountList);
+			
+			// 리스트 매출의 최대값 저장
+			int maxCount = Collections.max(countList);
+			model.addAttribute("maxCount", maxCount);
+			int barMaxCount = Collections.max(barCountList);
+			model.addAttribute("barMaxCount", barMaxCount);
+			
 			
 			return "index";
 		}else {

@@ -222,7 +222,6 @@
 								aria-label="Basic radio toggle button group">
 								<select class="form-select selectDate"
 									aria-label="Default select example" id="selectDate">
-									<!-- <option selected>대분류</option> -->
 									<option value="1">상품 등록일</option>
 									<option value="2">상품 수정일</option>
 								</select>
@@ -273,10 +272,6 @@
 				<div class="container container-option container-option-topPadding">
 					<div class="row optionGroup1">
 						<div class="col search-submitBtn">
-							<!-- <div class="d-grid gap-2">
-								<button class="btn btn-secondary submitBtn" type="button"
-									id="submitBtn">검색</button>
-							</div> -->
 							<div class="d-grid gap-2"> <!-- 비강조 클래스 : btn-outline-secondary -->
 								<button class="btn btn-secondary initBtn" type="button">초기화</button>
 							</div>
@@ -295,15 +290,6 @@
 					class="content-view-title-text2">건)</span>
 			</div>
 			<div class="content-view-title-right">
-				<!-- <div class="btn-group" role="group"
-					aria-label="Basic radio toggle button group">
-					<select class="form-select selectAlign"
-						aria-label="Default select example">
-						<option value="1">상품등록일순</option>
-						<option value="2">상품명순</option>
-						<option value="3">상품번호순</option>
-					</select>
-				</div> -->
 				<div class="d-grid gap-2">
 					<button class="btn btn-secondary excelDownBtn" type="button">엑셀다운</button>
 				</div>
@@ -443,8 +429,10 @@
 		<table class="table table-hover table-box-style" id="productListTable">
 			<thead>
 				<tr class="content-table-title">
-					<td class="content-table-title-text option-line"><input
-						class="form-check-input" type="checkbox" value="" id="allCheck" /></td>
+					<td class="content-table-title-text option-line">
+						<input type="hidden" id="findPage" value=1>
+						<input class="form-check-input" type="checkbox" value="" id="allCheck" />
+					</td>
 					<td class="content-table-title-text option-line">상품고유번호</td>
 					<td class="content-table-title-text option-line">판매자상품코드</td>
 					<td class="content-table-title-text option-line">상품명</td>
@@ -457,6 +445,7 @@
 				</tr>
 			</thead>
 			<tbody id="productList">
+				<input type="hidden" value="${totalcount}" id="totalcount">
 				<c:forEach var="productListView" items="${productListView}">
 					<tr class="content-table-content content-hover">
 						<td class="content-table-content-text option-line checkTd">
@@ -485,6 +474,15 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<div class="pagi mt-3">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <div class="page-layer">
+                
+                </div>
+              </ul>
+            </nav>
+    	</div>
 	</div>
 	<!-- footer -->
 	<footer class="py-4 bg-light mt-auto">
