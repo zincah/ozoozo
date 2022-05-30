@@ -15,6 +15,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
 	integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
 	crossorigin="anonymous"></script>
+	
+	<!-- service center Q&A for loop script -->
 	<script>
 	
 	$(document).ready(function(){
@@ -34,6 +36,67 @@
 			  		success : function(resp){
 			  			$(".faq__contents__group").html("");
 			  			var qna = ""
+			  			var wq = '<script>'+
+	                	'$("#s_ship").on("click",function(){'+
+                		'Location.reload()'+
+                    	'$(".faq__nav__item--active").trigger("click");'+
+                    	'$(".faq__contents__item__answer").hide();'+
+            			'//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.'+
+            		 	 'var height = $("#cs_14").offset();'+
+            			'//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.'+
+            		    '//heigh의 top 위치로 이동 시킨다.'+
+            		    '$("html, body").animate({scrollTop: height.top-300}, 400); '+
+            		    '$("#cs_14").trigger("click");'+
+            			
+                	'})'+
+                	   
+               		 '$("#s_order").on("click",function(){'+
+               			'Location.reload()'+
+               			 '$(".faq__contents__item__answer").hide();'+
+               			'//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.'+
+               		 	 'var height = $("#cs_35").offset();'+
+
+               			'//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.'+
+               		    '//heigh의 top 위치로 이동 시킨다.'+
+               		    '$("html, body").animate({scrollTop: height.top-300}, 400); '+
+               		   ' $("#cs_35").trigger("click");'+
+                        
+               		'})'+
+               		
+               		
+               		 '$("#s_product").on("click",function(){'+
+               			'Location.reload()'+
+               			 '$(".faq__contents__item__answer").hide();'+
+               			'//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.'+
+               		 	' var height = $("#cs_59").offset();'+
+               			'//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.'+
+               		    '//heigh의 top 위치로 이동 시킨다.'+
+               		    '$("html, body").animate({scrollTop: height.top-300}, 400);'+
+               		    '$("#cs_59").trigger("click");'+
+               		'})'+
+               		 '$("#s_error").on("click",function(){'+
+               			'Location.reload()'+
+               			 '$(".faq__contents__item__answer").hide();'+
+               			'//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.'+
+               		 	 'var height = $("#cs_38").offset();'+
+               			'//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.'+
+               		    '//heigh의 top 위치로 이동 시킨다.'+
+               		   '$("html, body").animate({scrollTop: height.top-300}, 400); '+
+               		    '$("#cs_38").trigger("click");'+
+               		'})'+
+               		 '$("#s_kakao").on("click",function(){'+
+               			'Location.reload()'+
+               			 '$(".faq__contents__item__answer").hide();'+
+               			'//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.'+
+               		 	' var height = $("#cs_50").offset();'+
+               			'//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.'+
+               		    '//heigh의 top 위치로 이동 시킨다.'+
+               		    '$("html, body").animate({scrollTop: height.top-300}, 400); '+
+               		   '$("#cs_50").trigger("click");'+
+                          
+               		    
+               		'})'+
+               		'<'+/+'script>'
 			  			
 			  			$.each(resp,function(index,item){
 			  				
@@ -51,27 +114,15 @@
 		                         '});'+
 		                     '});'+
 		                	'<'+'/'+'script>'
+		                	
 			  			})
-			  				$(".faq__contents__group").append(qna);	
+			  				$(".faq__contents__group").append(qna + wq);	
 			  		}
 			  		})
-			  		
 
 			})
 			
-			
-		
-		
-	
 		});
-	
-	
-
-
-	
-	
-		
-	
 	</script>
 	
 	
@@ -102,7 +153,7 @@
                         </section>
                         <section class="col-12 col-md-6 customer-center__faq">
                             <ul class="customer-center__faq__list">
-                                <li><a id="s_ship" class="customer-center__faq__item" >배송은 얼마나
+                                <li><a  id="s_ship" class="customer-center__faq__item" >배송은 얼마나
                                         걸리나요?</a></li>
                                 <li><a id="s_order" class="customer-center__faq__item">주문 취소는 어떻게
                                         하나요?</a></li>
@@ -148,6 +199,7 @@
                 <section id="faq__contents__group" class="faq__contents__group">
                
                     <c:forEach items="${list}" var="CS">
+                    <!-- service center Q&A for loop jsp (used JSTL) -->
                     <section id="${CS.customer_keyword}" class="faq__contents__item box_${CS.customer_no}">
                         <div id="cs_${CS.customer_no}" class="faq__contents__item__question cs_${CS.customer_no}" >${CS.customer_question}<svg width="1em" height="1em"
                                 viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet"
@@ -162,7 +214,7 @@
                     </section>
                     <!-- 원래자리 -->
                    
-                    
+                    <!-- 질문 누르면 답벼나오는 js  -->
                      <script>
                      $(document).ready(function(){
 				           /* 카테고리 토글 */
@@ -197,18 +249,18 @@
         }
         
         
-        
+		/* 1:1채팅옆 주요 질문 클릭시 해당 답변으로 이동 js */
         
         $("#s_ship").on("click",function(){
-    	   		
-				$(".faq__contents__item__answer").hide();
-				//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
-			 	 var height = $("#cs_14").offset();
-				//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
-			    //heigh의 top 위치로 이동 시킨다.
-			    $("html, body").animate({scrollTop: height.top-300}, 400); 
-			    $("#cs_14").trigger('click');
-			
+        	
+        	$('.faq__nav__item--active').trigger('click');
+        	$(".faq__contents__item__answer").hide();
+			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
+		 	 var height = $("#cs_14").offset();
+			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
+		    //heigh의 top 위치로 이동 시킨다.
+		    $("html, body").animate({scrollTop: height.top-300}, 400); 
+		    $("#cs_14").trigger('click');
 			
 		
     	})
@@ -239,9 +291,8 @@
    		    //heigh의 top 위치로 이동 시킨다.
    		    $("html, body").animate({scrollTop: height.top-300}, 400); 
    		    $("#cs_59").trigger('click');
-              
-   		    
-   		})
+         
+   		});
    		
    		 
    		 $("#s_error").on("click",function(){
@@ -255,7 +306,7 @@
    		    $("#cs_38").trigger('click');
               
    		    
-   		})
+   		});
    		
    		
    		 $("#s_kakao").on("click",function(){
@@ -269,7 +320,7 @@
    		    $("#cs_50").trigger('click');
               
    		    
-   		})
+   		});
        
       
 
