@@ -217,9 +217,7 @@
 	                  <c:choose>
 	                                    <c:when test="${deal.checkit eq true}">
 	                                   
-	                                    <div class="item_timer b_${deal.post_id }">
-	                                    	<div id="${deal.post_id }">1일 남음</div>
-	                                    </div>
+	                                   
 	                                    <div id="s_${deal.post_id}"></div>
 	                                    <button class="item_bookmark b_none" id="${deal.post_id }" >
 	                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"

@@ -20,6 +20,7 @@ import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.service.U_MainService;
 import ozo.spring.house.user.service.U_MyPageService;
 import ozo.spring.house.user.vo.UserCategoryVO;
+import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
@@ -36,8 +37,9 @@ public class U_DealBestController {
 	@RequestMapping(value = "/todaydeal.com")
 	public String main_todayDeal(Model model,HttpServletRequest request,UserScrapVO svo ){
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
-		List<UserProductVO> todayDealList = userMainService.todayDealList();
 		HttpSession session = request.getSession();
+		List<UserProductVO> todayDealList = userMainService.todayDealList();
+		
 		
 		// timer
 		List<Map<String, String>> list = userMainService.getDealEndTimeAtDealPage();
@@ -92,7 +94,7 @@ public class U_DealBestController {
 
 	// ºê·£µå
 	@RequestMapping(value = "/brandshop.com", method=RequestMethod.GET)
-	public String main_shop(Model model, UserProductVO vo, HttpServletRequest request){
+	public String main_shop(Model model, UserProductVO vo, HttpServletRequest request, UserPagingVO pvo, UserScrapVO svo, HttpSession session){
 		
 		String brandcode = request.getParameter("brandcode");
 		vo.setPost_sellerid(Integer.parseInt(brandcode));
@@ -118,6 +120,15 @@ public class U_DealBestController {
 			System.out.println("subli size" + sublist.size());
 		}
 
+		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
+		
+		
+		vo.setCheckit(false);
+		
+		if(session.getAttribute("User_Num") != null) {
+			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+			scrap = mypageservice.userScrapList(svo);
+		}
 		
 		List<UserProductVO> shopItemList = userMainService.shopItemList(vo);
 		int totalCount = userMainService.shopItemListCount(vo);
@@ -129,6 +140,13 @@ public class U_DealBestController {
 			DecimalFormat decFormat = new DecimalFormat("###,###");
 
 			sho.setSale_price(decFormat.format(sale_price));
+			
+			for(int j=0; j<scrap.size(); j++) {
+				UserScrapVO sc = scrap.get(j);
+				if(sho.getPost_id() == sc.getSc_postid()) {
+					sho.setCheckit(true);
+				}
+			}
 		}
 		
 		List<UserCategoryVO> toplist = userMainService.printTop(vo);
@@ -162,12 +180,14 @@ public class U_DealBestController {
 	}
 	
 	@RequestMapping(value = "/brandshopRank.com", method=RequestMethod.POST)
-	public String brandshopRank(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request){
+	public String brandshopRank(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request, UserScrapVO svo){
 		
 		vo.setPost_sellerid(Integer.parseInt(searchMap.get("brandcode")));
 		
 		vo.setThispage(0);
 		vo.setOrderKind(searchMap.get("ranking"));
+		
+		
 		
 		if(request.getParameter("catecode") != null) {
 			String[] codes = request.getParameter("catecode").split("_");
@@ -184,6 +204,13 @@ public class U_DealBestController {
 			}
 		}
 		
+		vo.setCheckit(false);
+		HttpSession session = request.getSession();
+		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
+		if(session.getAttribute("User_Num") != null) {
+			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+			scrap = mypageservice.userScrapList(svo);
+		}
 		List<UserProductVO> shopItemList = userMainService.shopItemList(vo);
 
 		for(int i=0; i<shopItemList.size(); i++){
@@ -193,6 +220,13 @@ public class U_DealBestController {
 			DecimalFormat decFormat = new DecimalFormat("###,###");
 
 			sho.setSale_price(decFormat.format(sale_price));
+			
+			for(int j=0; j<scrap.size(); j++) {
+				UserScrapVO sc = scrap.get(j);
+				if(sho.getPost_id() == sc.getSc_postid()) {
+					sho.setCheckit(true);
+				}
+			}
 		}
 		
 
