@@ -21,9 +21,8 @@ import ozo.spring.house.seller.vo.FilterVO;
 import ozo.spring.house.seller.vo.ProductDetailVO;
 
 @Controller
-public class AdminPostingInfoController {
+public class AdminPostingInfoController { // posting 상세 보기 (옮겨야할듯:))
 	
-	// seller part : posting info
 	@Autowired
 	CategoryService categoryService;
 	
@@ -40,34 +39,30 @@ public class AdminPostingInfoController {
 
 		if(session.getAttribute("admincode")!=null) {
 			
-			int postcode = Integer.parseInt((String)request.getParameter("postcode"));
-			
-			// 대분류 가져오기
-			List<CategoryVO> cateList = categoryService.getCategoryList(vo);
-			model.addAttribute("cateList", cateList);	
-			
+			int postcode = Integer.parseInt((String)request.getParameter("postcode")); // get 방식으로 요청된 post_id 
+
+			/* 상품 정보 세팅 */
 			PostingInfoVO pvo = productService.postInfo(postcode);
 			List<Map<String, String>> productlist = pvo.getProductlist();
-			model.addAttribute("productlist", productlist);
 			
-			//System.out.println(productlist);
+			Map<String, String> product = productlist.get(0); // 리스트 중 첫번째를 가져와서 공통된 정보 세팅
+			List<Integer> optionnums = pvo.getOptionnums(); // 선택된 옵션 보여주기
+			ProductDetailVO detail = pvo.getDetail(); // 디테일 테이블 정보 뿌리기
+			List<Map<String, String>> photolist = pvo.getPhotolist(); // 업로드된 사진 리스트
 			
-			Map<String, String> product = productlist.get(0);
+			/* 카테고리 세팅 */
+			List<CategoryVO> cateList = categoryService.getCategoryList(vo);
+			
 			int su = Integer.parseInt(String.valueOf(product.get("po_category")));
 			vo.setCate_code(su);
-			List<List<FilterVO>> wholeList = categoryService.getFilterOption(vo); // filter 가져오는 거
+			List<List<FilterVO>> wholeList = categoryService.getFilterOption(vo); // 각 카테고리의 filter
+			
+			model.addAttribute("cateList", cateList);	
+			model.addAttribute("productlist", productlist);
 			model.addAttribute("wholeList", wholeList);
-			
-			List<Integer> optionnums = pvo.getOptionnums(); // 선택된 옵션 보여주기
 			model.addAttribute("optionnums", optionnums); 
-			
-			ProductDetailVO detail = pvo.getDetail(); // 테이블 정보 뿌리기
 			model.addAttribute("detail", detail);
-			
-			List<Map<String, String>> photolist = pvo.getPhotolist();
 			model.addAttribute("photolist", photolist);
-			
-			//System.out.println(photolist);
 
 			return "postingInfo";
 		}else {

@@ -21,6 +21,39 @@ public class AdminManageDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	/* index page */
+	public int registrationWait() { // 상품 등록 대기
+		System.out.println("--> mybatis in adminmanagedao registration wait count");
+		return sqlSessionTemplate.selectOne("AdminManageDAO.registrationWait");
+	}
+
+	public int registrationHold() { // 상품 등록 보류
+		System.out.println("--> mybatis in adminmanagedao registration hold count");
+		return sqlSessionTemplate.selectOne("AdminManageDAO.registrationHold");
+	}
+	
+	public int noticeCount() { // index : 공지사항 개수
+		System.out.println("--> mybatis in adminmanagedao noticecount");
+		return sqlSessionTemplate.selectOne("AdminManageDAO.noticeCount");
+	}
+	
+	public int sellerCount() { // index : 판매점 개수
+		System.out.println("--> mybatis in adminmanagedao sellerCount");
+		return sqlSessionTemplate.selectOne("AdminManageDAO.sellerCount");
+	}
+	
+	public List<UserVO> floatingPopulation() { // index : 유동인구 line 그래프
+		System.out.println("--> mybatis in adminmanagedao floating");
+		return sqlSessionTemplate.selectList("AdminManageDAO.floatingPopulation");
+	}
+	
+	public List<Map<String, Integer>> bestProductOfIndex() { // best 상품 bar 그래프
+		System.out.println("--> mybatis in adminmanagedao best product ratio");
+		return sqlSessionTemplate.selectList("AdminManageDAO.bestProductOfIndex");
+	}
+	/**/
+	
+	/* 회원관리 */
 	public List<UserVO> selectUser(UserVO vo) {
 		System.out.println("--> mybatis in adminmanagedao select user");
 		return sqlSessionTemplate.selectList("AdminManageDAO.selectUser", vo);
@@ -44,7 +77,7 @@ public class AdminManageDAO {
 		List<UserVO> list = sqlSessionTemplate.selectList("AdminManageDAO.getUserListCount", vo);
 		return list.size();
 	}
-	
+	/**/
 	
 	
 	/*
@@ -104,26 +137,6 @@ public class AdminManageDAO {
 		System.out.println("total : " + sqlSessionTemplate.selectOne("AdminManageDAO.searchListCount", pvo));
 		return sqlSessionTemplate.selectOne("AdminManageDAO.searchListCount", pvo);
 	}
-	
-	public int noticeCount() {
-		System.out.println("--> mybatis in adminmanagedao noticecount");
-		return sqlSessionTemplate.selectOne("AdminManageDAO.noticeCount");
-	}
-	
-	public int sellerCount() {
-		System.out.println("--> mybatis in adminmanagedao sellerCount");
-		return sqlSessionTemplate.selectOne("AdminManageDAO.sellerCount");
-	}
-	
-	public List<UserVO> floatingPopulation() {
-		System.out.println("--> mybatis in adminmanagedao floating");
-		return sqlSessionTemplate.selectList("AdminManageDAO.floatingPopulation");
-	}
-	
-	public List<Map<String, Integer>> bestProductOfIndex() { // best 상품 bar 그래프
-		System.out.println("--> mybatis in adminmanagedao best product ratio");
-		return sqlSessionTemplate.selectList("AdminManageDAO.bestProductOfIndex");
-	}
 
 	/* 업체관리 : 업체 리스트 */
 	public List<SellerVO> selectSellerList(SellerVO vo){
@@ -173,22 +186,14 @@ public class AdminManageDAO {
 		return list.size();
 	}
 	
-	// INDEX PAGE
-	public int registrationWait() {
-		System.out.println("--> mybatis in adminmanagedao registration wait count");
-		return sqlSessionTemplate.selectOne("AdminManageDAO.registrationWait");
-	}
 
-	public int registrationHold() {
-		System.out.println("--> mybatis in adminmanagedao registration hold count");
-		return sqlSessionTemplate.selectOne("AdminManageDAO.registrationHold");
-	}
 	
-	// post info 페이지
+	/* post information */
 	public PostingInfoVO postInfo(int postid){
-		System.out.println("첫번째 정보");
-		PostingInfoVO vo = new PostingInfoVO();
-		System.out.println(postid);
+		System.out.println("--> mybatis in adminmanagedao product detail information : " + postid);
+		
+		PostingInfoVO vo = new PostingInfoVO(); // posting 관련 정보 세팅 vo
+
 		vo.setProductlist(sqlSessionTemplate.selectList("AdminManageDAO.postInfo1", postid));
 		vo.setOptionnums(sqlSessionTemplate.selectList("AdminManageDAO.postInfo2", postid));
 		vo.setDetail(sqlSessionTemplate.selectOne("AdminManageDAO.postInfo3", postid));

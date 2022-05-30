@@ -532,11 +532,12 @@
                           <option selected value="">카테고리 전체</option>
                           <option value="가구">가구</option>
                           <option value="패브릭">패브릭</option>
+                          <!-- 
                           <option value="조명">조명</option>
                           <option value="가전">가전</option>
                           <option value="주방용품">주방용품</option>
                           <option value="데코/식물">데코/식물</option>
-                          <option value="수납/정리">수납/정리</option>
+                          <option value="수납/정리">수납/정리</option> -->
                         </select>
                       </div>
                       <div class="radio_layer paddingLeft1">

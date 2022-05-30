@@ -9,8 +9,7 @@ import ozo.spring.house.common.Criteria;
 
 public interface AdminProductManageService {
 	
-	//public List<AdminProductVO> selectPosting(Criteria cri);
-	//public int selectPostCount();
+	// 상품 관리 
 	public void updateProductStatus(AdminProductVO pvo);
 	public List<AdminProductVO> selectCouponList();
 	public void updateCouponStatus(AdminProductVO pvo);

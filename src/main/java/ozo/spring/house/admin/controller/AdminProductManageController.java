@@ -33,79 +33,72 @@ public class AdminProductManageController {
 	@Autowired
 	MakeDate md; // 날짜 하루 더 하는 포맷팅
 	
-	@RequestMapping(value="/movePaging.admin", method=RequestMethod.POST)
+	/* 판매 게시글 관리 : productManagement */ 
+	@RequestMapping(value="/movePaging.admin", method=RequestMethod.POST) // page 이동 (비동기)
 	public String movePaging(@RequestBody Map<String, String> searchMap, Criteria cri, Model model, AdminProductVO pvo) {
 
+		int pageNum = Integer.parseInt(searchMap.get("pageNum")); // 페이지 정보
+		cri = new Criteria(pageNum, 10); // 페이징 처리
+		pvo.setCri(cri);
 		
-		System.out.println(searchMap);
-		int pageNum = Integer.parseInt(searchMap.get("pageNum"));
-		
-		pvo.setPost_status(searchMap.get("posttype"));
+		pvo.setPost_status(searchMap.get("posttype")); 
 		pvo.setDeal_status(searchMap.get("dealtype"));
 		pvo.setCate_name(searchMap.get("category"));
 		pvo.setStartdate(Date.valueOf(searchMap.get("startdate")));
-		
-		// enddate에서 하루 더한 날짜를 넣어주기
-		String enddate = searchMap.get("enddate");
+		String enddate = searchMap.get("enddate"); // enddate에서 하루 더한 날짜를 넣어주기
 		pvo.setEnddate(Date.valueOf(md.makedate(enddate))); 
 		pvo.setPack(searchMap.get("pack"));
 		pvo.setKeyword(searchMap.get("keyword"));
 		
-		cri = new Criteria(pageNum, 10);
-		pvo.setCri(cri);
-		
-		List<AdminProductVO> postList = productService.getProductList(pvo);
+		List<AdminProductVO> postList = productService.getProductList(pvo); // 상품 리스트
+
 		model.addAttribute("postList", postList);
 		model.addAttribute("pageMaker", cri);
-		System.out.println(pvo);
 		model.addAttribute("totalcount", productService.searchListCount(pvo));
-		System.out.println(productService.searchListCount(pvo));
+
 		return "postList";
 	}
 
 	
-	@RequestMapping(value="/updateProductStatus.admin", method=RequestMethod.POST)
+	@RequestMapping(value="/updateProductStatus.admin", method=RequestMethod.POST) // 상품 상태 변경 (비동기)
 	public String updateProductStatus(@RequestBody List<String> modifyInfo, AdminProductVO pvo, Model model, Criteria cri) {
 
-		System.out.println(modifyInfo);
+		pvo.setPost_status(modifyInfo.get(modifyInfo.size()-1)); // 상품 상태 키워드
 		
-		pvo.setPost_status(modifyInfo.get(modifyInfo.size()-1));
-		
-		for(int i=0; i<modifyInfo.size()-2; i++) {
+		for(int i=0; i<modifyInfo.size()-2; i++) { 
 			pvo.setPost_id(Integer.parseInt(modifyInfo.get(i)));
-			productService.updateProductStatus(pvo);
+			productService.updateProductStatus(pvo); // 상품 상태 변경
 		}
 		
-		cri = new Criteria(Integer.parseInt(modifyInfo.get(modifyInfo.size()-2)), 10);
+		cri = new Criteria(Integer.parseInt(modifyInfo.get(modifyInfo.size()-2)), 10); // 페이징 처리
 		AdminProductVO vo = new AdminProductVO();
 		vo.setCri(cri);
 
 		List<AdminProductVO> postList = productService.getProductList(vo);
+		
 		model.addAttribute("postList", postList);
 		model.addAttribute("pageMaker", cri);
-		System.out.println(productService.searchListCount(vo));
 		model.addAttribute("totalcount", productService.searchListCount(vo));
 		
 		return "postList";
 	}
 	
-	@RequestMapping(value="/updateCouponStatus.admin", method=RequestMethod.POST)
+	@RequestMapping(value="/updateCouponStatus.admin", method=RequestMethod.POST) // 쿠폰 적용 -> 상품(비동기)
 	public String updateCouponStatus(@RequestBody List<String> couponInfo, AdminProductVO pvo, Model model, Criteria cri) {
 
-		System.out.println(couponInfo);
-		
-		pvo.setPost_couponid(Integer.parseInt(couponInfo.get(couponInfo.size()-1)));
+		pvo.setPost_couponid(Integer.parseInt(couponInfo.get(couponInfo.size()-1))); // 쿠폰 아이디
 		
 		for(int i=0; i<couponInfo.size()-2; i++) {
 			pvo.setPost_id(Integer.parseInt(couponInfo.get(i)));
-			productService.updateCouponStatus(pvo);
+			productService.updateCouponStatus(pvo); // 쿠폰 적용
 		}
 		
-		cri = new Criteria(Integer.parseInt(couponInfo.get(couponInfo.size()-2)), 10);
+		cri = new Criteria(Integer.parseInt(couponInfo.get(couponInfo.size()-2)), 10); // 페이징 처리
 		AdminProductVO vo = new AdminProductVO();
 		vo.setCri(cri);
 		
-		List<AdminProductVO> postList = productService.getProductList(vo);
+		List<AdminProductVO> postList = productService.getProductList(vo); 
+		
 		model.addAttribute("postList", postList);
 		model.addAttribute("pageMaker", cri);
 		model.addAttribute("totalcount", productService.searchListCount(vo));
@@ -114,35 +107,36 @@ public class AdminProductManageController {
 	}
 
 	
-	@RequestMapping(value="/updateDealStatus.admin", method=RequestMethod.POST)
+	@RequestMapping(value="/updateDealStatus.admin", method=RequestMethod.POST) // 오늘의딜 상태 변경 (비동기)
 	public String updateDealStatus(@RequestBody List<String> dealInfo, AdminProductVO pvo, Model model, Criteria cri) {
 
-		System.out.println(dealInfo);
-
 		String deal_status = dealInfo.get(dealInfo.size()-1);
+		
 		if(deal_status.equals("게시")) {
 			pvo.setDeal_status(deal_status);
 			pvo.setToday_deal(true);
 			
 			for(int i=0; i<dealInfo.size()-2; i++) {
 				pvo.setPost_id(Integer.parseInt(dealInfo.get(i)));
-				productService.updateDealStatus(pvo);
+				productService.updateDealStatus(pvo); // deal 상태 게시
 			}
+			
 		}else if(deal_status.equals("중지")){
-			// deal_info에서는 삭제
 			pvo.setToday_deal(false);
 			
 			for(int i=0; i<dealInfo.size()-2; i++) {
 				pvo.setPost_id(Integer.parseInt(dealInfo.get(i)));
-				productService.deleteDeal(pvo);
+				productService.deleteDeal(pvo); // deal 상태 중지
 			}
+			
 		}
 		
-		cri = new Criteria(Integer.parseInt(dealInfo.get(dealInfo.size()-2)), 10);
+		cri = new Criteria(Integer.parseInt(dealInfo.get(dealInfo.size()-2)), 10); // 페이징 처리
 		AdminProductVO vo = new AdminProductVO();
 		vo.setCri(cri);
 		
 		List<AdminProductVO> postList = productService.getProductList(vo);
+		
 		model.addAttribute("postList", postList);
 		model.addAttribute("pageMaker", cri);
 		model.addAttribute("totalcount", productService.searchListCount(vo));
@@ -151,7 +145,7 @@ public class AdminProductManageController {
 	}
 	
 	
-	@RequestMapping(value="/productSearchBox.admin", method=RequestMethod.POST)
+	@RequestMapping(value="/productSearchBox.admin", method=RequestMethod.POST) // 상품 검색 처리
 	public String productSearchBox(@RequestBody Map<String, String> searchMap, AdminProductVO pvo, Model model, Criteria cri) {
 
 		System.out.println(searchMap);
@@ -164,7 +158,8 @@ public class AdminProductManageController {
 		pvo.setEnddate(Date.valueOf(md.makedate(enddate))); 
 		pvo.setPack(searchMap.get("pack"));
 		pvo.setKeyword(searchMap.get("keyword"));
-		pvo.setCri(new Criteria());
+		
+		pvo.setCri(new Criteria()); // 페이징 처리
 		
 		List<AdminProductVO> postList = productService.getProductList(pvo);
 		model.addAttribute("postList", postList);
