@@ -1,18 +1,24 @@
 package ozo.spring.house.user.service;
 
-import ozo.spring.house.user.vo.ReviewVO;
-import ozo.spring.house.user.vo.UserPaymentLogVO;
-
 import java.util.List;
 import java.util.Map;
 
-public interface ReviewService {
-	/*
-    public List<ReviewVO> selectReviewList(ReviewVO vo);
-    public List<ReviewVO> topReviewList(ReviewVO vo);
-    public List<ReviewVO> myReviewList(ReviewVO vo);
-    public void insertview(ReviewVO vo);*/
+import ozo.spring.house.user.vo.ReviewVO;
+import ozo.spring.house.user.vo.UserPaymentLogVO;
+import ozo.spring.house.user.vo.UserScrapVO;
+import ozo.spring.house.user.vo.UserVO;
+
+public interface U_MyPageService {
+
+	public UserVO mypageinfo(UserVO vo);
+	public void user_edit(UserVO vo);
+	public void user_urlnone(UserVO vo);
+	public void user_stop(UserVO vo);
 	
+	// 고객 장바구니 상품 수
+	public int checkCartSu(UserVO vo);
+	
+	//Reivew
 	public List<Map<String, String>> listofobject(UserPaymentLogVO vo);
 	public Map<String, String> getReviewInfo(UserPaymentLogVO vo);
 	public void insertReview(ReviewVO vo);

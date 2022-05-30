@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.user.dao.UserDAO.product_cls;
-import ozo.spring.house.user.service.ReviewService;
+import ozo.spring.house.user.service.U_MyPageService;
 import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.service.UserService;
 import ozo.spring.house.user.vo.CouponVO;
@@ -32,10 +32,10 @@ public class U_ProductController {
 	UserService userservice;
 	
 	@Autowired
-	ReviewService reviewService;
+	UserScrapService userScrapService;
 	
 	@Autowired
-	UserScrapService userScrapService;
+	U_MyPageService mypageservice;
 	
 	product_cls pro_cls;
 	List<UserProductVO> product_list;
@@ -115,7 +115,7 @@ public class U_ProductController {
 		}
 		
 		// ¸®ºä °ª Ãß°¡
-		List<ReviewVO> reviewList = reviewService.getReviewTODetailPage(pro);
+		List<ReviewVO> reviewList = mypageservice.getReviewTODetailPage(pro);
 		model.addAttribute("reviewList", reviewList);
 		
 		double totalRating = 0.0;

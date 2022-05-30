@@ -25,7 +25,7 @@ import ozo.spring.house.user.service.NaverLoginService;
 import ozo.spring.house.user.service.UserMainService;
 import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.service.UserService;
-import ozo.spring.house.user.service.userMyPageService;
+import ozo.spring.house.user.service.U_MyPageService;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
@@ -40,7 +40,7 @@ public class U_InfoController {
 	UserMainService userMainService;
 	
 	@Autowired
-	userMyPageService mypageService;
+	U_MyPageService mypageService;
 	
 	@Autowired 
 	UserScrapService userscrapservice;
@@ -70,25 +70,7 @@ public class U_InfoController {
 		
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/header_load.com", method= {RequestMethod.GET, RequestMethod.POST})
-	public int[] get_cart_ea(HttpSession session) {
-		if(session.getAttribute("UserMail")!=null) {
-			cart_Allload cart_cls;
-			CartVO cvo =new CartVO();
-			cvo.setCart_user((Integer)session.getAttribute("User_Num"));
-			cart_cls = userService.get_cart_class(cvo);
-			List<CartVO> cart_li = cart_cls.getCart_li();
-			
-			UserScrapVO vo = new UserScrapVO();
-			vo.setSc_usernum((Integer)session.getAttribute("User_Num"));
-			List<UserScrapVO> scrap_li = userscrapservice.us_list(vo);
-			int[] arr = {cart_li.size(), scrap_li.size()};
-			return arr;
-		}else {
-			return null;
-		}
-	}
+	
 	
 	
 	// 네이버 로그인 callback 메소드
@@ -264,7 +246,7 @@ public class U_InfoController {
 			HttpSession session = request.getSession();
 			
 			if(session.getAttribute("UserMail")!=null) {
-				return "oZo_My_Page";
+				return "oZo_MyPage";
 			}else {
 				String msg = "로그인후 이용 가능합니다.";
 				model.addAttribute("msg", msg);

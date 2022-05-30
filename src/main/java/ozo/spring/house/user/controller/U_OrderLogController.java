@@ -105,7 +105,7 @@ public class U_OrderLogController {
 			 * System.out.println(date_filter); System.out.println();
 			 * System.out.println(pl_li); System.out.println(); System.out.println(wide_li);
 			 */
-			return "oZo_My_OrderLog.jsp";
+			return "oZo_MyOrderLog.jsp";
 		}else {
 			return "oZo_LoginPage";	
 		}

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.admin.vo.BannerVO;
-import ozo.spring.house.user.service.CScenterService;
 import ozo.spring.house.user.service.UserMainService;
 import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.service.UserService;
@@ -61,11 +60,11 @@ public class U_ServiceController {
 		List<UserProductVO> productList = userMainService.mainProductList(vo);
 		int total = userMainService.getProductCount();
 		
-		// �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕 list �뜝�떛源띿삕
+		// 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲 list 占쎈쐻占쎈뼓繹먮씮�굲
 		List<UserProductVO> todayDealList = userMainService.mainDealProductList(vo);
 		System.out.println(todayDealList.size());
 		
-		// main banner list �뜝�떛源띿삕
+		// main banner list 占쎈쐻占쎈뼓繹먮씮�굲
 		List<BannerVO> bannerList = userMainService.selectBannerList();
 		
 		if(session.getAttribute("User_Num") != null) {
@@ -114,13 +113,11 @@ public class U_ServiceController {
 	}
 	
 	// service_senter
-	@Autowired
-	CScenterService csservice;
 	
 	@RequestMapping(value = "/CScenter.com")
 	public String user_CSceneter(Model model,CScenterVO vo) {
 		List<CScenterVO> list;
-		list =csservice.csall(vo);
+		list = userservice.csall(vo);
 		model.addAttribute("list",list);
 		return "oZo_Service_Senter";
 	}
@@ -130,7 +127,7 @@ public class U_ServiceController {
 	public List<CScenterVO> getCSList(String key,CScenterVO vo) {
 		vo.setCustomer_keyword(key);
 		System.out.println(key);
-		List<CScenterVO> list = csservice.cskeyword(vo);
+		List<CScenterVO> list = userservice.cskeyword(vo);
 		
 		return list;
 	}

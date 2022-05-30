@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ozo.spring.house.user.dao.CScenterDAO;
 import ozo.spring.house.user.dao.UserDAO;
 import ozo.spring.house.user.dao.UserDAO.cart_Allload;
 import ozo.spring.house.user.dao.UserDAO.paymentLog_cls;
 import ozo.spring.house.user.dao.UserDAO.payment_class;
 import ozo.spring.house.user.dao.UserDAO.product_cls;
+import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserProduct_tableVO;
@@ -105,7 +107,26 @@ public class UserServiceImpl implements UserService {
 	public void lastLoginCheck(UserVO vo) {
 		userDAO.lastLoginCheck(vo);
 	}
+	//Service Senter
+	@Autowired
+	CScenterDAO CScenterDAO;
 	
+	//swtter
+	public void setCScenterDAO(CScenterDAO CScenterDAO) {
+		this.CScenterDAO = CScenterDAO;
+	}
+
+	@Override
+	public List<CScenterVO> csall(CScenterVO vo) {
+		return CScenterDAO.csall(vo);
+		
+	}
+
+	@Override
+	public List<CScenterVO> cskeyword(CScenterVO vo) {
+		return CScenterDAO.cskeyword(vo);
+		 
+	}
 
 	
 }
