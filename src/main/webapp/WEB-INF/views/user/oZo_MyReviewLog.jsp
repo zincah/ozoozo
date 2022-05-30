@@ -264,15 +264,7 @@
    	            }
    	          });
         	}
-        	  
-        	  
-
-
-
         }
-  
-    
-    
     </script>
   </head>
   <body>
@@ -441,7 +433,6 @@
 			</c:forEach>
 	      </div>
 	    </div>
-	    
 	      <c:if test="${myreviewlist.size() == 0 }">
     		<div style="margin-bottom: 10rem; display:flex; flex-direction: column; align-items: center;">
     			<svg class="icon" width="101" height="96" preserveAspectRatio="xMidYMid meet">

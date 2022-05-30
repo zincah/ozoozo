@@ -71,6 +71,7 @@ public class U_OrderLogController {
 	//搬力 郴开
 	@RequestMapping(value = "/myshopping.com")
 	public String user_myShopping(HttpSession session, Model model) {
+		System.err.println("[Log] --- OrderLog Controller >>>>> user_myShopping Method");
 		if(session.getAttribute("UserMail")!=null) {
 			this.log_cls = userservice.get_Log_class();
 			int userID = (Integer)session.getAttribute("User_Num");
@@ -115,16 +116,19 @@ public class U_OrderLogController {
 	@ResponseBody
 	@RequestMapping(value = "/paymentLog_list.com", method=RequestMethod.POST)
 	public List<UserPaymentLogVO> get_pl_li(){
+		System.err.println("[Log] --- OrderLog Controller >>>>> get_pl_li Method");
 		return pl_li;
 	}
 	@ResponseBody
 	@RequestMapping(value = "/wide_list.com", method=RequestMethod.POST)
 	public List<UserProductVO> get_wide_li(){
+		System.err.println("[Log] --- OrderLog Controller >>>>> get_wide_li Method");
 		return wide_li;
 	}
 	@ResponseBody
 	@RequestMapping(value = "/date_filter.com", method=RequestMethod.POST)
 	public List<UserPaymentLogVO> get_date_filter(){
+		System.err.println("[Log] --- OrderLog Controller >>>>> get_date_filter Method");
 		return date_filter;
 	}
 	
@@ -132,6 +136,7 @@ public class U_OrderLogController {
 	@ResponseBody
 	@RequestMapping(value = "/buy_check.com", method=RequestMethod.POST)
 	public String buy_check_update(@RequestBody String param) {
+		System.err.println("[Log] --- OrderLog Controller >>>>> buy_check_update Method");
 		log_cls.buy_check_update(param);
 		return null;
 	}
@@ -140,6 +145,7 @@ public class U_OrderLogController {
 	@ResponseBody
 	@RequestMapping(value = "/refunt_request.com", method=RequestMethod.POST)
 	public String refund_method(@RequestBody HashMap<String,Object> param)throws IOException {
+		System.err.println("[Log] --- OrderLog Controller >>>>> refund_method Method");
 		String merchant_uid = (String) param.get("merchant_uid");
 		
 		HttpsURLConnection conn = null;
@@ -221,6 +227,7 @@ public class U_OrderLogController {
 	@ResponseBody
 	@RequestMapping(value = "/refunt_request_DB.com", method=RequestMethod.POST)	
 	public String refund_DB_update(@RequestBody int merchant_UID) {
+		System.err.println("[Log] --- OrderLog Controller >>>>> refund_DB_update Method");
 		log_cls.refund_DB(merchant_UID);
 		System.out.println("refund 按眉 持澜");
 		return null;
@@ -229,6 +236,7 @@ public class U_OrderLogController {
 	
 	@RequestMapping(value = "/orders.com")
 	public String user_orders(HttpSession session, Model model) {
+		System.err.println("[Log] --- OrderLog Controller >>>>> user_orders Method");
 		if(session.getAttribute("UserMail")!=null) {
 			this.log_cls = userservice.get_Log_class();
 			int userID = (Integer)session.getAttribute("User_Num");

@@ -46,16 +46,18 @@ public class U_PublicController {
 	@ResponseBody
 	@RequestMapping(value = "/sendEmail.com", method=RequestMethod.POST)
 	public String sendEmail(@RequestBody Map<String, String> map) {
-		System.out.println(map.get("email"));
+		System.err.println("[Log] --- Public Controller >>>>> sendEmail Method");
+		//System.out.println(map.get("email"));
 		String email = map.get("email");
 		key = mailSendService.sendAuthEmail(email);
-		System.out.println("�씠硫붿씪 �씤利� 肄붾뱶 : " + key);
+		System.out.println("send key : " + key);
 		return key;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/email_code_check.com", method=RequestMethod.POST)
 	public Boolean checkCode(@RequestBody String Code) {
+		System.err.println("[Log] --- Public Controller >>>>> checkCode Method");
 		String code = Code.replace("\"", "");
 		//System.out.println("�궗�슜�옄媛� �엯�젰�븳 Code : "+code + "\n�썝�옒 肄붾뱶 : " + key);
 		if(key.equals(code)) {
@@ -67,17 +69,20 @@ public class U_PublicController {
 	
 	@RequestMapping(value = "/error404.com")
 	public String error404() {
+		System.err.println("[Log] --- Public Controller >>>>> error404 Method");
 		return "error/404Error";
 	}
 	
 	@RequestMapping(value = "/error500.com")
 	public String error500() {
+		System.err.println("[Log] --- Public Controller >>>>> error500 Method");
 		return "error/500Error";
 	}
 	//header load
 	@ResponseBody
 	@RequestMapping(value="/header_load.com", method= {RequestMethod.GET, RequestMethod.POST})
 	public int[] get_cart_ea(HttpSession session) {
+		System.err.println("[Log] --- Public Controller >>>>> get_cart_ea Method");
 		if(session.getAttribute("UserMail")!=null) {
 			cart_Allload cart_cls;
 			CartVO cvo =new CartVO();
@@ -97,7 +102,7 @@ public class U_PublicController {
 	
 	@RequestMapping(value = "/mainRanking.com")
 	public String user_main(@RequestBody Map<String, String> rank, UserProductVO vo, UserScrapVO svo, Model model, HttpSession session) {
-		
+		System.err.println("[Log] --- Public Controller >>>>> user_main Method");
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 
 		vo.setCheckit(false);
@@ -118,7 +123,7 @@ public class U_PublicController {
 			DecimalFormat decFormat = new DecimalFormat("###,###"); //占쎈꺖占쎈땾占쎌젎 占쎈맙占쎈땾
 			
 			pro.setSale_price(decFormat.format(sale_price));
-			System.out.println(pro.getPost_id());
+			//System.out.println(pro.getPost_id());
 			
 			for(int j=0; j<scrap.size(); j++) {
 				UserScrapVO sc = scrap.get(j);
@@ -138,7 +143,7 @@ public class U_PublicController {
 	// 남는 거
 	@RequestMapping(value = "/shopApply.com")
 	public String user_shopApply(HttpServletRequest request) {
-		
+		System.err.println("[Log] --- Public Controller >>>>> user_shopApply Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("User_Num")!=null) {
 			return "ShopApply";
@@ -149,11 +154,13 @@ public class U_PublicController {
 	
 	@RequestMapping(value = "/passwordReset.com")
 	public String user_passwordReset() {
+		System.err.println("[Log] --- Public Controller >>>>> user_passwordReset Method");
 		return "passwordReset";
 	}
 	
 	@RequestMapping(value = "/shoptest.com")
 	public String shop() {
+		System.err.println("[Log] --- Public Controller >>>>> shop Method");
 		return "shop";
 	}
 }

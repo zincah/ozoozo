@@ -20,10 +20,9 @@ public class U_CategoryDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public List<List<UserCategoryVO>> selectCategoryList(UserCategoryVO vo) {
-		System.out.println("--> mybatis category checkcount");
+		System.err.println("[Log] --- Category DAO >>>>> selectCategoryList Method");
 		int count = sqlSessionTemplate.selectOne("UserCategoryDAO.checkCount", vo);
 		
-		System.out.println("--> mybatis category selectcatelist");
 		
 		List<List<UserCategoryVO>> wholeList = new ArrayList<List<UserCategoryVO>>();
 		List<UserCategoryVO> perList = new ArrayList<UserCategoryVO>();
@@ -41,20 +40,22 @@ public class U_CategoryDAO {
 	}
 	
 	public List<UserCategoryVO> printTitle(){
+		System.err.println("[Log] --- Category DAO >>>>> printTitle Method");
 		return sqlSessionTemplate.selectList("UserCategoryDAO.printTitle");
 	}
 	
 	public List<UserProductVO> selectProductByCate(UserCategoryVO vo){
-		System.out.println("--> mybatis select product");
+		System.err.println("[Log] --- Category DAO >>>>> selectProductByCate Method");
 		return sqlSessionTemplate.selectList("UserCategoryDAO.selectProductByCate", vo);
 	}
 	
 	public List<UserCategoryVO> getCateName(UserCategoryVO vo){
+		System.err.println("[Log] --- Category DAO >>>>> getCateName Method");
 		return sqlSessionTemplate.selectList("UserCategoryDAO.getCateName", vo);
 	}
 	
 	public List<UserProductVO> getPostList(UserCategoryVO vo){
-		System.out.println("--> mybatis getpostlist");
+		System.err.println("[Log] --- Category DAO >>>>> getPostList Method");
 		List<UserCategoryVO> list = sqlSessionTemplate.selectList("UserCategoryDAO.getPostList", vo);
 		List<Integer> postids = new ArrayList<Integer>();
 		
@@ -65,13 +66,13 @@ public class U_CategoryDAO {
 		}
 		
 		vo.setPost_ids(postids);
-		System.out.println("postids : " + postids.size());
+		//System.out.println("postids : " + postids.size());
 
 		return sqlSessionTemplate.selectList("UserCategoryDAO.selectProductByFilter", vo);
 	}
 	
 	public int filteringCount(UserCategoryVO vo) {
-		System.out.println("--> mybatis in usercategorydao get filtercount");
+		System.err.println("[Log] --- Category DAO >>>>> filteringCount Method");
 		List<UserCategoryVO> list = sqlSessionTemplate.selectList("UserCategoryDAO.getPostList", vo);
 		List<Integer> postids = new ArrayList<Integer>();
 		
@@ -82,16 +83,17 @@ public class U_CategoryDAO {
 		}
 		
 		vo.setPost_ids(postids);
-		System.out.println("postids : " + postids.size());
+		//System.out.println("postids : " + postids.size());
 		return sqlSessionTemplate.selectOne("UserCategoryDAO.filteringCount",vo);
 	}
 	
 	public int getCategoryCount(UserCategoryVO vo) {
+		System.err.println("[Log] --- Category DAO >>>>> getCategoryCount Method");
 		return sqlSessionTemplate.selectOne("UserCategoryDAO.getCategoryCount", vo);
 	}
 	
 	public List<List<FilterVO>> getFilterOption(UserCategoryVO vo) {
-		System.out.println("--> mybatis in userCategorydao getfilteroption");
+		System.err.println("[Log] --- Category DAO >>>>> getFilterOption Method");
 		
 		
 		List<List<FilterVO>> list = new ArrayList<List<FilterVO>>();
@@ -103,7 +105,7 @@ public class U_CategoryDAO {
 		
 		for(int i=0; i<total; i++) {
 			vo.setChecksub(su);
-			System.out.println(vo.getChecksub());
+			//System.out.println(vo.getChecksub());
 			perList = sqlSessionTemplate.selectList("UserCategoryDAO.getFilterOption", vo);
 			if(perList.size() != 0) {
 				list.add(perList);

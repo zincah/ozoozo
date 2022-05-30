@@ -39,7 +39,7 @@ public class U_ReviewController {
     // �뵳�됰윮 筌ｏ옙 占쎈읂占쎌뵠筌욑옙 (占쎄땀揶쏉옙 占쎈쑅占쎈튊占쎈막 �뵳�됰윮 筌뤴뫖以됵옙�뵠 癰귣똻�뵠占쎈뮉 占쎌넅筌롳옙)
 	@RequestMapping(value = "/review.com")
 	public String writeReview(UserPaymentLogVO vo, Model model, HttpServletRequest request) {
-		
+		System.err.println("[Log] --- Review Controller >>>>> writeReview Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("User_Num")!=null) {
 			
@@ -57,7 +57,7 @@ public class U_ReviewController {
 	@ResponseBody
 	@RequestMapping(value = "/getReviewInfo.com", method=RequestMethod.POST)
 	public String getReviewInfo(@RequestBody String code,UserPaymentLogVO vo, Model model, HttpServletRequest request) {
-		
+		System.err.println("[Log] --- Review Controller >>>>> getReviewInfo Method");
 		HttpSession session = request.getSession();
 		int user_num = (Integer)session.getAttribute("User_Num");
 		vo.setUser_num(user_num);
@@ -81,23 +81,21 @@ public class U_ReviewController {
     @ResponseBody
     @RequestMapping(value="/uploadReview.com", method= RequestMethod.POST)
     public String uploadPhotos(@RequestParam(value="reviewphoto", required = false) MultipartFile review){
-
+    	System.err.println("[Log] --- Review Controller >>>>> uploadPhotos Method");
         if(review != null) {
         	
-        	System.out.println("file upload ready");
         	String dirName = "photoReview";
             String url = "";
         	
         	try {
                 String key = review.getOriginalFilename();
-                System.out.println("filename --> " +key);
+                //System.out.println("filename --> " +key);
                 InputStream is = review.getInputStream();
                 String contentType = review.getContentType();
                 long contentLength = review.getSize();
 
                 url = client.upload(is, key, contentType, contentLength, dirName);
-                System.out.println(url);
-                System.out.println("aws main file upload complete");
+               // System.out.println(url);
 
             }catch(Exception e) {
                 e.printStackTrace();
@@ -115,13 +113,13 @@ public class U_ReviewController {
     // �뵳�됰윮 占쎌삂占쎄쉐
     @RequestMapping(value="/reviewInsert.com", method= RequestMethod.POST)
     public String reviewInsert(ReviewVO vo, HttpServletRequest request){
-
+    	System.err.println("[Log] --- Review Controller >>>>> reviewInsert Method");
     	//ORDER ID 占쎈퓠 �뵳�됰윮 占쎈쓠占쎈뼄�⑨옙 筌ｌ꼶�봺
     	//REVIEW insert
     	HttpSession session = request.getSession();
     	vo.setReuser_num((Integer)session.getAttribute("User_Num"));
     	
-    	System.out.println(vo);
+    	//System.out.println(vo);
     	mypageservice.insertReview(vo);
 
     	return "redirect:review.com";
@@ -129,7 +127,7 @@ public class U_ReviewController {
     
 	@RequestMapping(value = "/reviewLog.com")
 	public String reviewView(HttpServletRequest request, ReviewVO vo, Model model) {
-		
+		System.err.println("[Log] --- Review Controller >>>>> reviewView Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("User_Num")!=null) {
 			
@@ -150,7 +148,7 @@ public class U_ReviewController {
     @ResponseBody
     @RequestMapping(value="/getMyReview.com", method= RequestMethod.POST)
     public String getMyReview(@RequestBody String code, ReviewVO vo){
-
+    	System.err.println("[Log] --- Review Controller >>>>> getMyReview Method");
 
 		int review_id = Integer.parseInt(code.replace("\"", ""));
 		vo.setReview_id(review_id);
@@ -164,7 +162,7 @@ public class U_ReviewController {
 			e.printStackTrace();
 		}
 		
-		System.out.println(jsonmap);
+		//System.out.println(jsonmap);
 
 		return jsonmap;
 
@@ -173,17 +171,16 @@ public class U_ReviewController {
     // �뵳�됰윮 占쎈땾占쎌젟
     @RequestMapping(value="/reviewModify.com", method= RequestMethod.POST)
     public String reviewModify(ReviewVO vo, HttpServletRequest request){
-
+    	System.err.println("[Log] --- Review Controller >>>>> reviewModify Method");
     	HttpSession session = request.getSession();
     	if(session.getAttribute("User_Num")!=null) {
     		
-    		System.out.println(vo);
+    		//System.out.println(vo);
     		mypageservice.updateReview(vo); // 占쎈땾占쎌젟筌ｌ꼶�봺
         	
     		try {
             	// 占쎌굙占쎌읈 占쎄텢筌욑옙 筌욑옙占쎌뒭占쎈뮉 筌ｌ꼶�봺
     			if(!vo.getLast_review_image().equals("")) {
-    				System.out.println("hi");
             		String[] delurl = vo.getLast_review_image().split("/");
             		String makeDelUrl = delurl[delurl.length-2] + "/" + delurl[delurl.length-1];
         			client.delete(makeDelUrl);
@@ -201,12 +198,13 @@ public class U_ReviewController {
     @ResponseBody
     @RequestMapping(value="/likedReview.com", method= RequestMethod.POST)
     public String likedReview(@RequestBody String reviewid, ReviewVO vo, HttpServletRequest request){
+    	System.err.println("[Log] --- Review Controller >>>>> likedReview Method");
     	HttpSession session = request.getSession();
     	
     	if(session.getAttribute("User_Num")!=null) {
     		
     		vo.setReview_id(Integer.parseInt(reviewid.replace("\"", "")));
-    		System.out.println(vo.getReview_id());
+    		//System.out.println(vo.getReview_id());
     		
     		int liked = mypageservice.updateLiked(vo);
     		

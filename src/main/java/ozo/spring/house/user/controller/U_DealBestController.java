@@ -36,6 +36,7 @@ public class U_DealBestController {
 
 	@RequestMapping(value = "/todaydeal.com")
 	public String main_todayDeal(Model model,HttpServletRequest request,UserScrapVO svo ){
+		System.err.println("[Log] --- DealBest Controller >>>>> main_todayDeal Method");
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		HttpSession session = request.getSession();
 		List<UserProductVO> todayDealList = userMainService.todayDealList();
@@ -53,7 +54,7 @@ public class U_DealBestController {
 		}
 		
 		String jsonArray = JSONArray.toJSONString(dealtimelist);
-		model.addAttribute("dealtimelist", jsonArray); // timer ½Ã°£ Àü¼Û
+		model.addAttribute("dealtimelist", jsonArray); // timer ì‹œê°„ ì „ì†¡
 		
 		if((Integer)session.getAttribute("User_Num")!=null) {
 		svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
@@ -88,14 +89,13 @@ public class U_DealBestController {
 			}
 		}
 		model.addAttribute("todayDealList", todayDealList);
-		System.out.println("todaydealListsize"+ todayDealList.size());
 		return "oZo_TodayDeal";
 	}
 
-	// ºê·£µå
+	// ë¸Œëžœë“œ
 	@RequestMapping(value = "/brandshop.com", method=RequestMethod.GET)
 	public String main_shop(Model model, UserProductVO vo, HttpServletRequest request, UserPagingVO pvo, UserScrapVO svo, HttpSession session){
-		
+    System.err.println("[Log] --- DealBest Controller >>>>> main_shop Method");
 		String brandcode = request.getParameter("brandcode");
 		vo.setPost_sellerid(Integer.parseInt(brandcode));
 		
@@ -117,7 +117,6 @@ public class U_DealBestController {
 			
 			List<List<UserCategoryVO>> sublist = userMainService.printCateList(vo);
 			model.addAttribute("sublist", sublist);
-			System.out.println("subli size" + sublist.size());
 		}
 
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
@@ -181,7 +180,8 @@ public class U_DealBestController {
 	
 	@RequestMapping(value = "/brandshopRank.com", method=RequestMethod.POST)
 	public String brandshopRank(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request, UserScrapVO svo){
-		
+		System.err.println("[Log] --- DealBest Controller >>>>> brandshopRank Method");
+
 		vo.setPost_sellerid(Integer.parseInt(searchMap.get("brandcode")));
 		
 		vo.setThispage(0);
@@ -238,10 +238,10 @@ public class U_DealBestController {
 	
 	
 	
-	//½Ç½Ã°£ º£½ºÆ®
+	//ì‹¤ì‹œê°„ ë² ìŠ¤íŠ¸
 	@RequestMapping(value = "/m_best.com")
 	public String main_best(UserVO vo, Model model, HttpServletRequest request, UserProductVO uvo, UserScrapVO svo){
-		//
+		System.err.println("[Log] --- DealBest Controller >>>>> main_best Method");
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		HttpSession session = request.getSession();
 		List<UserProductVO> bestlist = userMainService.bestlist();

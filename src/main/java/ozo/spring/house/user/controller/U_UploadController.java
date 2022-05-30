@@ -33,7 +33,7 @@ public class U_UploadController {
 	@ResponseBody
 	@RequestMapping(value="/mypageupload.com", method=RequestMethod.POST)
 	public String bannerupload( @RequestPart(value = "key", required=false) Map<String, String> param, @RequestPart(value="myphoto", required=false) List<MultipartFile> myphoto, UserVO vo, HttpServletRequest request) {
-	
+		System.err.println("[Log] --- Upload Controller >>>>> bannerupload Method");
 	// 넘어온 file list 가 없을 때 인식해주기
 		HttpSession session = request.getSession();
 			System.out.println("file upload ready");
