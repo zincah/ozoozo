@@ -16,6 +16,10 @@
             integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
             crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <script type="text/javascript"
+	src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="resources/js/userjs/bookmark.js?var=12"></script>
     <script>
     
     	let rank = 'latestRanking';
@@ -410,6 +414,82 @@
                 <div class="photos row" id="itemLayer">
                     <c:forEach items="${shopItemList }" var="shopItem">
                         <div class="deals_list_wrap col-6 col-lg-4">
+                        <c:choose>
+	                                    <c:when test="${shopItem.checkit eq true}">
+	                                    <div id="s_${shopItem.post_id}"></div>
+	                                    <button class="item_bookmark b_none" id="${shopItem.post_id }" >
+	                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+	                                       height="24" viewBox="0 0 24 24" class="inactive-icon">
+	                                    <defs>
+	                                    <path id="scrap-icon-3-b"
+	                                          d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path>
+	                                    <filter id="scrap-icon-3-a" width="150%" height="150%"
+	                                          x="-25%" y="-25%" filterUnits="objectBoundingBox">
+	                                    <feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+	                                    <feGaussianBlur in="shadowOffsetOuter1"
+	                                          result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur>
+	                                    <feComposite in="shadowBlurOuter1" in2="SourceAlpha"
+	                                          operator="out" result="shadowBlurOuter1"></feComposite>
+	                                    <feColorMatrix in="shadowBlurOuter1"
+	                                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter>
+	                                    <filter id="scrap-icon-3-c" width="150%" height="150%"
+	                                          x="-25%" y="-25%" filterUnits="objectBoundingBox">
+	                                    <feGaussianBlur in="SourceAlpha" result="shadowBlurInner1"
+	                                          stdDeviation="1.5"></feGaussianBlur>
+	                                    <feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+	                                    <feComposite in="shadowOffsetInner1" in2="SourceAlpha"
+	                                          k2="-1" k3="1" operator="arithmetic"
+	                                          result="shadowInnerInner1"></feComposite>
+	                                    <feColorMatrix in="shadowInnerInner1"
+	                                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs>
+	                                    <g id="blue" fill="#ff778e" fill-rule="nonzero"
+	                                                transform="matrix(1 0 0 -1 0 24)">
+	                                    <use fill="#000" filter="url(#scrap-icon-3-a)" ></use>
+	                                    <use fill="#FFF" fill-opacity=".4" ></use>
+	                                    <use fill="#000" filter="url(#scrap-icon-3-c)" ></use>
+	                                    <path id="blueshadow" stroke="#ff778e"
+	                                                d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
+	                                     </button>
+	                                    </c:when>
+	                                    <c:when test="${shopItem.checkit eq false}">
+	                                    <div id="s_${shopItem.post_id}"></div>
+	                                    <button class="item_bookmark b_blue" id="${shopItem.post_id }"  >
+	                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+	                                       height="24" viewBox="0 0 24 24" class="inactive-icon">
+	                                    <defs>
+	                                     <path id="scrap-icon-3-b" >
+	                                          d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path>
+	                                    <filter id="scrap-icon-3-a" width="150%" height="150%"
+	                                          x="-25%" y="-25%" filterUnits="objectBoundingBox">
+	                                    <feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+	                                    <feGaussianBlur in="shadowOffsetOuter1"
+	                                          result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur>
+	                                    <feComposite in="shadowBlurOuter1" in2="SourceAlpha"
+	                                          operator="out" result="shadowBlurOuter1"></feComposite>
+	                                    <feColorMatrix in="shadowBlurOuter1"
+	                                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter>
+	                                    <filter id="scrap-icon-3-c" width="150%" height="150%"
+	                                          x="-25%" y="-25%" filterUnits="objectBoundingBox">
+	                                    <feGaussianBlur in="SourceAlpha" result="shadowBlurInner1"
+	                                          stdDeviation="1.5"></feGaussianBlur>
+	                                    <feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+	                                    <feComposite in="shadowOffsetInner1" in2="SourceAlpha"
+	                                          k2="-1" k3="1" operator="arithmetic"
+	                                          result="shadowInnerInner1"></feComposite>
+	                                    <feColorMatrix in="shadowInnerInner1"
+	                                          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs>
+	                                    <g id="blue" fill="none" fill-rule="nonzero"
+	                                          transform="matrix(1 0 0 -1 0 24)">
+	                                    <use fill="#000" filter="url(#scrap-icon-3-a)"
+	                                          ></use>
+	                                    <use fill="#FFF" fill-opacity=".4"></use>
+	                                    <use fill="#000" filter="url(#scrap-icon-3-c)"
+	                                          ></use>
+	                                    <path id="blueshadow" stroke="#FFF"
+	                                          d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
+	                                     </button>
+	                                    </c:when>
+	                                    </c:choose>
                             <article class="deals_item">
                                 <a href="/house/productPage.com?p=${shopItem.post_id }" style="text-decoration: none; width: 100%;">
                                     <div class="deals_item_wrap">
@@ -419,9 +499,6 @@
                                                     <img class="images" src="${shopItem.photo_url }">
                                                 </div>
                                             </div>
-                                            <button class="item_bookmark">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="inactive-icon"><defs><path id="scrap-icon-3-b" d="M12.472 6.93l7.056-3.811A1 1 0 0 1 21 4.002v15.496c0 .83-.672 1.502-1.5 1.502h-15c-.828 0-1.5-.673-1.5-1.502V4.002a1 1 0 0 1 1.472-.883l7.056 3.811a.999.999 0 0 0 .944 0z"></path><filter id="scrap-icon-3-a" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feOffset in="SourceAlpha" result="shadowOffsetOuter1"></feOffset><feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1.5"></feGaussianBlur><feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite><feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"></feColorMatrix></filter><filter id="scrap-icon-3-c" width="150%" height="150%" x="-25%" y="-25%" filterUnits="objectBoundingBox"><feGaussianBlur in="SourceAlpha" result="shadowBlurInner1" stdDeviation="1.5"></feGaussianBlur><feOffset in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset><feComposite in="shadowOffsetInner1" in2="SourceAlpha" k2="-1" k3="1" operator="arithmetic" result="shadowInnerInner1"></feComposite><feColorMatrix in="shadowInnerInner1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"></feColorMatrix></filter></defs><g fill="none" fill-rule="nonzero" transform="matrix(1 0 0 -1 0 24)"><use fill="#000" filter="url(#scrap-icon-3-a)" href="#scrap-icon-3-b"></use><use fill="#FFF" fill-opacity=".4" href="#scrap-icon-3-b"></use><use fill="#000" filter="url(#scrap-icon-3-c)" href="#scrap-icon-3-b"></use><path stroke="#FFF" d="M12.71 7.37h-.002a1.5 1.5 0 0 1-1.417 0L4.236 3.56a.499.499 0 0 0-.736.442v15.496c0 .553.448 1.002 1 1.002h15c.552 0 1-.449 1-1.002V4.002a.499.499 0 0 0-.734-.443l-7.057 3.81zm-.475-.88h-.001z"></path></g></svg>
-                                            </button>
                                         </div>
                                         <div class="deals_item_content">
                                             <div class="deals_item_header">
