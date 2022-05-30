@@ -132,7 +132,7 @@
 
       });
 
-
+      // 쿠폰 상태 변경
       function couponUpdate(coupon) {
 
         var coupon_id = coupon
@@ -272,6 +272,13 @@
           </div>
         </main>
         <!-- content -->
+
+  <style>
+    .settingBtn {
+      background-color: transparent;
+      border: 0px;
+    }
+  </style>
         <div class="content-table">
           <div class="dropdown setting-button text-end">
             <button class="settingBtn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -280,13 +287,43 @@
               </svg>
             </button>
             <ul class="dropdown-menu settingBtnDropdown" aria-labelledby="dropdownMenuButton1" style="">
-              <li><h6 class="dropdown-header">판매 상품 관리</h6></li>
+              <li><h6 class="dropdown-header">쿠폰 관리</h6></li>
               <li>
-                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-status-select" id="productStatusChange">게시물상태변경</a>
-                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#coupon_register" id="couponStatusChange">쿠폰등록</a>
-                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#today_deal_register" id="dealStatusChange">오늘의딜 승인</a>
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-status-select" id="couponStatusChange">쿠폰상태변경</a>
+
               </li>
             </ul>
+          </div>
+          <!-- 쿠폰 상태변경 modal -->
+          <div class="modal fade" id="modal-status-select" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-modal="true" role="dialog" style="display: block;">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <p class="modal-title" id="">쿠폰 상태변경</p>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body modal-status-select-product">
+                  <div class="modal-status-select-product-num">
+                    <span>선택된 쿠폰 수 : </span>
+                    <span class="modal-status-select-product-num-value productNum select-num">0</span>
+                    <span>개</span>
+                  </div>
+                  <div class="modal-status-select">
+                    <div class="btn-group modal-status-select-btn-group" role="group" aria-label="Basic radio toggle button group">
+                      <select class="form-select modal-status-select-option" aria-label="Default select example" id="productStatusOption">
+                        <option value="판매중">진행중</option>
+                        <option value="승인대기">승인대기</option>
+                        <option value="보류중">종료</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                  <button type="button" class="btn modal-status-select-submit-button" onclick="updatePostStatus()">변경</button>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="table_layer">
             <table class="table table-hover table-box-style table-bordered">
