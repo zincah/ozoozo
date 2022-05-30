@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import ozo.spring.house.admin.vo.AdminProductVO;
+import ozo.spring.house.common.Criteria;
 import ozo.spring.house.seller.service.ProductService;
 import ozo.spring.house.seller.vo.ProductVO;
 
@@ -42,6 +44,54 @@ public class SellerProductController {
 		}else {
 			return "seller-login";
 		}
+	}
+	
+	@RequestMapping(value="/movePaging.seller", method=RequestMethod.POST) // page 이동 (비동기)
+	public String movePaging(HttpServletRequest request, Model model, ProductVO vo, Criteria cri, @RequestBody Map<String, Object> datas) {
+
+		HttpSession session = request.getSession();
+		
+		@SuppressWarnings("unchecked")
+		Map<String,String> searchMap = (Map<String, String>) datas.get("searchMap");
+		@SuppressWarnings("unchecked")
+		ArrayList<String> searchStatus = (ArrayList<String>) datas.get("searchStatus");
+		
+		int pageNum = Integer.parseInt(searchMap.get("pageNum")); // 페이지 정보
+		cri = new Criteria(pageNum, 10); // 페이징 처리
+		vo.setCri(cri);
+		
+		// productVO에 데이터 추가
+		vo.setSc_searchName(searchMap.get("searchName").trim());
+		vo.setSc_searchNameStatus(searchMap.get("searchNameStatus"));
+		vo.setSc_searchStatus(searchStatus);
+		if(searchMap.get("category").equals("대분류")) {
+			vo.setSc_category(0);
+		} else {
+			vo.setSc_category(Integer.parseInt(searchMap.get("category")));
+		}
+		if(searchMap.get("middleSelect").equals("중분류")) {
+			vo.setSc_middleSelect(0);
+		} else {
+			vo.setSc_middleSelect(Integer.parseInt(searchMap.get("middleSelect")));
+		}
+		if(searchMap.get("smallSelect").equals("소분류")) {
+			vo.setSc_smallSelect(0);
+		} else {
+			vo.setSc_smallSelect(Integer.parseInt(searchMap.get("smallSelect")));
+		}
+		vo.setSc_selectDate(searchMap.get("selectDate"));
+		vo.setSc_startDate(Date.valueOf(searchMap.get("startDate")));
+		vo.setSc_endDate(Date.valueOf(searchMap.get("endDate")));
+		vo.setSeller_id((int) session.getAttribute("seller_id"));
+
+		// DB를 통해 리스트 추출 후 배열에 저장
+		List<ProductVO> searchProductList = (productService.selectSearchProduct(vo));
+		// model에 값 저장
+		model.addAttribute("searchProductList", searchProductList);
+		model.addAttribute("pageMaker", cri);
+		model.addAttribute("totalcount", productService.selectSearchProductCount(vo));
+
+		return "seller-productManagement-List";
 	}
 	
 	@RequestMapping(value = "/selectProductList.seller", method=RequestMethod.POST)
@@ -77,13 +127,16 @@ public class SellerProductController {
 	
 
 	@RequestMapping(value = "/getSearchProductList.seller", method=RequestMethod.POST) // @RequestParam(value="searchMap", required = false) Map<String, String> searchMap,  @RequestParam(value="searchStatus", required = false) ArrayList<String> searchStatus
-	public String getSearchProductList(HttpServletRequest request, Model model, ProductVO vo, @RequestBody Map<String, Object> datas) {	
+	public String getSearchProductList(HttpServletRequest request, Model model, ProductVO vo, Criteria cri, @RequestBody Map<String, Object> datas) {	
+		
 		HttpSession session = request.getSession();
 		
 		@SuppressWarnings("unchecked")
 		Map<String,String> searchMap = (Map<String, String>) datas.get("searchMap");
 		@SuppressWarnings("unchecked")
 		ArrayList<String> searchStatus = (ArrayList<String>) datas.get("searchStatus");
+		
+		vo.setCri(new Criteria());
 		
 		// productVO에 데이터 추가
 		vo.setSc_searchName(searchMap.get("searchName").trim());
@@ -113,6 +166,8 @@ public class SellerProductController {
 		List<ProductVO> searchProductList = (productService.selectSearchProduct(vo));
 		// model에 값 저장
 		model.addAttribute("searchProductList", searchProductList);
+		model.addAttribute("pageMaker", cri);
+		model.addAttribute("totalcount", productService.selectSearchProductCount(vo));	
 		
 		// ajax로 부분만 띄워줄 jsp 주소 리턴
 		return "seller-productManagement-List";

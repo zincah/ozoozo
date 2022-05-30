@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import ozo.spring.house.common.Criteria;
 import ozo.spring.house.seller.service.CategoryService;
 import ozo.spring.house.seller.service.ProductService;
 import ozo.spring.house.seller.service.SellerIndexService;
@@ -152,7 +153,6 @@ public class SellerController {
 			int barMaxCount = Collections.max(barCountList);
 			model.addAttribute("barMaxCount", barMaxCount);
 			
-			
 			return "index";
 		}else {
 			return "seller-login";
@@ -186,38 +186,37 @@ public class SellerController {
 		}
 	}
 	
-
+	/* 상품관리 페이지 */
 	@RequestMapping(value = "/productManagement.seller", method=RequestMethod.GET)
-	public String sellerProductManagement(HttpServletRequest request, CategoryVO vo, Model model) {
+	public String sellerProductManagement(HttpServletRequest request, CategoryVO vo, Criteria cri, ProductVO pvo, Model model) {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
+			
+			// 페이징(new Criteria())
+			pvo.setCri(cri); 
+			pvo.setSeller_id((int) session.getAttribute("seller_id"));
+			
 			// 카테고리 목록 불러오기
 			List<CategoryVO> cateList = categoryService.getCategoryList(vo);
 			model.addAttribute("cateList", cateList);
 			
 			// 상품 목록 불러오기
-			List<ProductVO> productList = productService.selectProduct((int) session.getAttribute("seller_id"));
-			// 상품 목록(테이블 출력용) 불러오기
-			List<ProductVO> productListView = productService.selectProductView((int) session.getAttribute("seller_id"));
+			List<ProductVO> productListView = productService.selectProductView(pvo);
 			
-			System.out.println("============## productList ##============");
-			for(ProductVO list : productList) {
-				System.out.println(list);
-			}
-			System.out.println("============## productListView ##============");
-			for(ProductVO list : productListView) {
-				System.out.println(list);
-			}
+			// 총 상품리스트 count
+			int total = productService.selectListCount(pvo);
 			
-			model.addAttribute("productList", productList);
-			model.addAttribute("productStatus0", productList.stream().filter(list -> list.getStatus().equals("판매대기")).count());
-			model.addAttribute("productStatus1", productList.stream().filter(list -> list.getStatus().equals("판매중")).count());
-			model.addAttribute("productStatus2", productList.stream().filter(list -> list.getStatus().equals("품절")).count());
-			model.addAttribute("productStatus3", productList.stream().filter(list -> list.getStatus().equals("승인대기")).count());
-			model.addAttribute("productStatus4", productList.stream().filter(list -> list.getStatus().equals("판매중지")).count());
-			model.addAttribute("productStatus5", productList.stream().filter(list -> list.getStatus().equals("판매종료")).count());
-			model.addAttribute("productStatus6", productList.stream().filter(list -> list.getStatus().equals("판매금지")).count());
+			model.addAttribute("productStatus0", productListView.stream().filter(list -> list.getStatus().equals("판매대기")).count());
+			model.addAttribute("productStatus1", productListView.stream().filter(list -> list.getStatus().equals("판매중")).count());
+			model.addAttribute("productStatus2", productListView.stream().filter(list -> list.getStatus().equals("품절")).count());
+			model.addAttribute("productStatus3", productListView.stream().filter(list -> list.getStatus().equals("승인대기")).count());
+			model.addAttribute("productStatus4", productListView.stream().filter(list -> list.getStatus().equals("판매중지")).count());
+			model.addAttribute("productStatus5", productListView.stream().filter(list -> list.getStatus().equals("판매종료")).count());
+			model.addAttribute("productStatus6", productListView.stream().filter(list -> list.getStatus().equals("판매금지")).count());
 			model.addAttribute("productListView", productListView);
+			model.addAttribute("pageMaker", cri);
+			model.addAttribute("totalcount", total);
+			
 			return "seller-productManagement";
 		}else {
 			return "seller-login";

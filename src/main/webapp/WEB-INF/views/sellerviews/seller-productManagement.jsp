@@ -18,6 +18,7 @@
 	rel="stylesheet" />
 <link href="resources/css/sellercss/fonts.css?after" rel="stylesheet" />
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
+<link href="resources/css/sellercss/paging.css" rel="stylesheet" />
 <link href="resources/css/sellercss/insertProduct.css" rel="stylesheet" />
 <link href="resources/css/sellercss/seller-productManagement.css"
 	rel="stylesheet" />
@@ -41,7 +42,7 @@
 				<div class="row optionGroup1">
 					<div class="col status-name">
 						<span>전체</span> <span class="status-value"><fmt:formatNumber
-								value="${fn:length(productList)}" pattern="#,###" /></span>
+								value="${fn:length(productListView)}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
 						<span>판매대기</span> <span class="status-value"><fmt:formatNumber
@@ -429,23 +430,25 @@
 		<table class="table table-hover table-box-style" id="productListTable">
 			<thead>
 				<tr class="content-table-title">
-					<td class="content-table-title-text option-line">
+					<td class="content-table-title-text option-line" style="width : 1rem">
 						<input type="hidden" id="findPage" value=1>
 						<input class="form-check-input" type="checkbox" value="" id="allCheck" />
 					</td>
-					<td class="content-table-title-text option-line">상품고유번호</td>
-					<td class="content-table-title-text option-line">판매자상품코드</td>
-					<td class="content-table-title-text option-line">상품명</td>
-					<td class="content-table-title-text option-line">판매가</td>
-					<td class="content-table-title-text option-line">카테고리</td>
-					<td class="content-table-title-text option-line">판매상태</td>
-					<td class="content-table-title-text option-line">재고</td>
-					<td class="content-table-title-text option-line">등록일</td>
-					<td class="content-table-title-text option-line">수정일</td>
+					<td class="content-table-title-text option-line" style="width : 5rem">상품고유번호</td>
+					<td class="content-table-title-text option-line" style="width : 5rem">판매자상품코드</td>
+					<td class="content-table-title-text option-line" style="width : 20rem">상품명</td>
+					<td class="content-table-title-text option-line" style="width : 3rem">판매가</td>
+					<td class="content-table-title-text option-line" style="width : 3rem">카테고리</td>
+					<td class="content-table-title-text option-line" style="width : 3rem">판매상태</td>
+					<td class="content-table-title-text option-line" style="width : 2rem">재고</td>
+					<td class="content-table-title-text option-line" style="width : 5rem">등록일</td>
+					<td class="content-table-title-text option-line" style="width : 5rem">수정일</td>
 				</tr>
 			</thead>
 			<tbody id="productList">
 				<input type="hidden" value="${totalcount}" id="totalcount">
+				<input type="hidden" value="${pageMaker.getPageNum()}" id="pageMakerGetPageNum">
+				<input type="hidden" value="${pageMaker.getAmount()}" id="pageMakerGetAmount">
 				<c:forEach var="productListView" items="${productListView}">
 					<tr class="content-table-content content-hover">
 						<td class="content-table-content-text option-line checkTd">

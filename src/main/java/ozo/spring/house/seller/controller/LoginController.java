@@ -28,7 +28,7 @@ public class LoginController {
 	@RequestMapping(value = "/login.seller", method=RequestMethod.GET)
 	public String loginView(HttpSession session) {
 		if(session.getAttribute("seller")!=null) {
-			return "index";
+			return "redirect:index.seller";
 		}else {
 			return "seller-login";
 		}
@@ -46,7 +46,7 @@ public class LoginController {
 			session.setAttribute("entrydate", new SimpleDateFormat("yyyy-MM-dd").format(seller.getEntry_date())); // 판매자 아이디
 			session.setAttribute("seller_id", seller.getSeller_id());
 			
-			return "index";
+			return "redirect:index.seller";
 		}else {
 			String msg = "입력하신 정보가 잘못 되었습니다.";
 			model.addAttribute("msg", msg);

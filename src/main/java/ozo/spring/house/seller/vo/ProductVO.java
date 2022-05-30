@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ozo.spring.house.common.Criteria;
 
 @Getter
 @Setter
@@ -183,4 +184,7 @@ public class ProductVO {
 	private int index_9; // 교환요청 수
 	private int index_10; // 정상건수 수
 	private int index_11; // 정상금액 수
+	
+	// paging 넣어주기
+	private Criteria cri;
 }
