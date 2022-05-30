@@ -52,7 +52,7 @@ public class U_CartController {
 				post_filter_li.get(i).setExStr(decFormat.format(post_filter_li.get(i).getPost_shipfee()));
 			}
 			model.addAttribute("post_li", post_filter_li);
-			return "oZo_My_Cart";
+			return "oZo_MyCart";
 		}else {
 			return "oZo_LoginPage";	
 		}

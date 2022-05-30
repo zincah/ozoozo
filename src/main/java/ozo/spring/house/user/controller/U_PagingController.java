@@ -24,7 +24,7 @@ import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 
 @Controller
-public class UserPagingController {
+public class U_PagingController {
 	
 	@Autowired
 	UserMainService userMainService;
@@ -77,7 +77,7 @@ public class UserPagingController {
 		model.addAttribute("productList", productList);
 		//model.addAttribute("pagecount", pagecount);
 		
-		return "oZo_Main_Assist";
+		return "oZo_MainAssist";
 	}
 	
 	// category page
@@ -132,7 +132,7 @@ public class UserPagingController {
 		model.addAttribute("productList", productList);
 		//model.addAttribute("pagecount", pagecount);
 		
-		return "oZo_Category_Assist";
+		return "oZo_CategoryAssist";
 	}
 	
 	// brand page
@@ -174,7 +174,7 @@ public class UserPagingController {
 
 		model.addAttribute("shopItemList", shopItemList);
 		
-		return "oZo_Shop_Assist";
+		return "oZo_ShopAssist";
 	}
 
 }

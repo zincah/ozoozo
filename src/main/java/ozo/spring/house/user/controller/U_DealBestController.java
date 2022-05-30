@@ -201,7 +201,7 @@ public class U_DealBestController {
 
 		model.addAttribute("shopItemList", shopItemList);
 		
-		return "oZo_Shop_Assist";
+		return "oZo_ShopAssist";
 	}
 	
 	
@@ -255,8 +255,6 @@ public class U_DealBestController {
 		}
 		
 		model.addAttribute("bestlist", bestlist);
-		System.out.println("bestlist"+ bestlist.size());
-		System.out.println("베스트 뿌린다아!");
 		return "oZo_BestShop";
 	}
 	
