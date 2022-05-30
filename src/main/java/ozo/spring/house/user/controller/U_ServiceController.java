@@ -118,7 +118,7 @@ public class U_ServiceController {
 		List<CScenterVO> list;
 		list = userservice.csall(vo);
 		model.addAttribute("list",list);
-		return "oZo_Service_Senter";
+		return "oZo_ServiceSenter";
 	}
 	
 	@ResponseBody

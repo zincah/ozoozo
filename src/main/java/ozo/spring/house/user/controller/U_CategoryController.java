@@ -32,7 +32,7 @@ public class U_CategoryController {
 	
 	@RequestMapping(value = "/category.com", method=RequestMethod.GET)
 	public String category(UserCategoryVO vo, Model model, HttpServletRequest request, UserScrapVO svo, HttpSession session,UserProductVO pvo) {
-
+		System.err.println("[Log] --- Category Controller >>>>> category Method");
 		String[] codes = request.getParameter("catecode").split("_");
 		
 		if(codes.length == 2) {
@@ -43,10 +43,7 @@ public class U_CategoryController {
 				vo.setSubcate_code(subcate_code);
 			}
 		}
-
 		int topcate_code = Integer.parseInt(codes[0]);
-		System.out.println(topcate_code);
-		
 
 		vo.setTop_catecode(topcate_code); // url�슖�댙�삕 �뜝�럩�쓧�뜝�럥堉롧뛾�룇猷뉐뜝占� 占쎄턀�겫�뼔援�
 		int total = userCategoryService.getCategoryCount(vo); // �뜝�럩�쓧嶺뚳퐦�삕 �뤆�룇裕뉛옙�빢 �솻洹ｏ옙亦끸넂臾얍뜝占�
@@ -113,8 +110,7 @@ public class U_CategoryController {
 
 	@RequestMapping(value = "/getFilterList.com", method=RequestMethod.POST)
 	public String getFilterList(@RequestBody List<List<String>> wholeList, UserCategoryVO vo, Model model) {
-		
-		System.out.println(wholeList);
+		System.err.println("[Log] --- Category Controller >>>>> getFilterList Method");
 		
 		List<String> cates = wholeList.get(1);
 
@@ -138,7 +134,6 @@ public class U_CategoryController {
 				filterList.add(check);
 			}
 		}
-		System.out.println(filterList);
 		
 		// list占쎈퓠占쎄퐣 remove 0占쎈릭筌롳옙 占쎄텢占쎌뵬筌욑옙
 		vo.setFiltering(filterList);
@@ -146,7 +141,6 @@ public class U_CategoryController {
 		
 		List<UserProductVO> postList = userCategoryService.getPostList(vo);
 		int filterCount = userCategoryService.filterCount(vo);
-		System.out.println("filtering count" + filterCount);
 		
 		for(int i=0; i<postList.size(); i++) {
 			UserProductVO pro = postList.get(i);

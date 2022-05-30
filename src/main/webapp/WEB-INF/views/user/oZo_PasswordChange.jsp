@@ -23,16 +23,16 @@
           <nav class="page-navigation mypage-nav-owner">
             <ul style="transform: translateX(0px); margin: 0px">
               <li class="mypage-nav-item">
-                <a href="#" target="self">프로필</a>
+                <a href="/house/m_myPage.com" target="self">프로필</a>
               </li>
               <li class="mypage-nav-item">
-                <a href="#" target="self">나의 쇼핑</a>
+                <a href="/house/myshopping.com" target="self">나의 쇼핑</a>
               </li>
               <li class="mypage-nav-item">
-                <a href="#" target="self">나의 리뷰</a>
+                <a href="/house/review.com" target="self">나의 리뷰</a>
               </li>
               <li class="mypage-nav-item">
-                <a class="active" href="#" target="self">설정</a>
+                <a class="active" href="/house/edit.com" target="self">설정</a>
               </li>
             </ul>
           </nav>
@@ -43,7 +43,7 @@
           <nav class="page-navigation mypage-nav-owner">
             <ul style="transform: translateX(0px); margin: 0px">
               <li class="mypage-nav-item">
-                <a href="ozoedit_zinc.html" target="self" style="font-size: 15px;">회원정보수정</a>
+                <a href="/house/m_edit.com" target="self" style="font-size: 15px;">회원정보수정</a>
               </li>
               <li class="mypage-nav-item">
                 <a class="active" href="#" target="self" style="font-size: 15px;">비밀번호변경</a>
