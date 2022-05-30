@@ -13,8 +13,8 @@
     <meta name="author" content="" />
     <title>관리자 - 쿠폰관리</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-    <link href="resources/css/admincss/styles.css" rel="stylesheet" />
-    <link href="resources/css/admincss/makeCoupon.css?var=2" rel="stylesheet" />
+    <link href="resources/css/admincss/styles.css?after" rel="stylesheet" />
+        <link href="resources/css/admincss/makeCoupon.css?var=444eeee" rel="stylesheet" />
     <link href="resources/css/admincss/fonts.css?after" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
@@ -71,12 +71,12 @@
             }
           });
 
-          /*$(".couponListLayer .insert_btn").on("click", function(e){
+          $(".couponListLayer .insert_btn").on("click", function(e){
             e.preventDefault();
             $(".couponListLayer li").last().addClass("cLine");
-          });*/
+          });
 
-          //$(".couponListLayer").last().html();
+          $(".couponListLayer").last().html();
 
           console.log(couponInfo);
 
@@ -132,7 +132,7 @@
 
       });
 
-      // 쿠폰 상태 변경
+      // 쿠폰 상태 변경(상세내용)
       function couponUpdate(coupon) {
 
         var coupon_id = coupon
@@ -172,6 +172,55 @@
         couponUpdate(coupon);
 
       });
+
+      // 쿠폰 상태 변경(모달)
+      function couponStatus(){
+
+        var couponNumList = []
+
+        $("input:checkbox[name=couponcheckbox]:checked").each(function () {
+          var checkit = $(this).prev().val();
+          couponNumList.push(checkit);
+        });
+
+        couponNumList.push($("#findPage").val());
+        couponNumList.push($("#couponStatusOption").val());
+
+        $.ajax({
+          url:'updateCouponStatus.admin',
+          method : 'post',
+          data : JSON.stringify(couponNumList),
+          contentType : 'application/json; charset=UTF-8',
+          dataType : 'html',
+          success : function (resp){
+
+            $(".modal").modal('hide');
+            $(".modal-status-select-option option:eq(0)").prop("selected", true);
+            $("#select-num").text("0");
+
+            printTable(resp);
+            setPage($("#findPage").val());
+            clickReset();
+          }
+        });
+
+      }
+
+      // 선택된 쿠폰 개수에 따른 숫자값 변경
+      function checkfunction() {
+
+        if ($(".check:checked").length == $(".check").length && $(".check").length != 0){
+
+          $("#allCheck").prop("checkd", true);
+          $(".select-num").text($(".check:checked").length);
+
+        } else {
+          $("#allCheck").prop("checkd", false);
+          $(".select-num").text($(".check:checked").length);
+
+        }
+      }
+
 
 
 
@@ -279,52 +328,23 @@
       border: 0px;
     }
   </style>
-        <div class="content-table">
-          <div class="dropdown setting-button text-end">
-            <button class="settingBtn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
-              </svg>
-            </button>
-            <ul class="dropdown-menu settingBtnDropdown" aria-labelledby="dropdownMenuButton1" style="">
-              <li><h6 class="dropdown-header">쿠폰 관리</h6></li>
-              <li>
-                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-status-select" id="couponStatusChange">쿠폰상태변경</a>
 
-              </li>
-            </ul>
-          </div>
-          <!-- 쿠폰 상태변경 modal -->
-          <div class="modal fade" id="modal-status-select" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-modal="true" role="dialog" style="display: block;">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <p class="modal-title" id="">쿠폰 상태변경</p>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body modal-status-select-product">
-                  <div class="modal-status-select-product-num">
-                    <span>선택된 쿠폰 수 : </span>
-                    <span class="modal-status-select-product-num-value productNum select-num">0</span>
-                    <span>개</span>
-                  </div>
-                  <div class="modal-status-select">
-                    <div class="btn-group modal-status-select-btn-group" role="group" aria-label="Basic radio toggle button group">
-                      <select class="form-select modal-status-select-option" aria-label="Default select example" id="productStatusOption">
-                        <option value="판매중">진행중</option>
-                        <option value="승인대기">승인대기</option>
-                        <option value="보류중">종료</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                  <button type="button" class="btn modal-status-select-submit-button" onclick="updatePostStatus()">변경</button>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class="dropdown setting-button text-end">
+    <button class="settingBtn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+        <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"></path>
+      </svg>
+    </button>
+    <ul class="dropdown-menu settingBtnDropdown" aria-labelledby="dropdownMenuButton1" style="">
+      <li><h6 class="dropdown-header">쿠폰 관리</h6></li>
+      <li>
+        <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#modal-status-select" id="couponStatusChange">쿠폰상태변경</a>
+
+      </li>
+    </ul>
+  </div>
+
+
           <div class="table_layer">
             <table class="table table-hover table-box-style table-bordered">
               <thead>
@@ -347,9 +367,10 @@
                 <c:forEach items="${couponList}" var="coupon">
                 <tr class="content-table-content content-hover">
                   <td class="content-table-content-text">
-                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault" />
+                      <input class="form-check-input form-check-input-margin" type="checkbox" value="" id="flexCheckDefault"  name="couponcheckbox" onchange="couponStatus()"/>
                   </td>
                   <td class="content-table-content-text">
+
 
                       <div class="coupon_title"><button class="btn clickbtn" value="${coupon.coupon_id}">${coupon.coupon_title}</button>
 
@@ -393,7 +414,7 @@
               </ul>
             </nav>
           </div>
-        </div>
+
 
         <div class="content-table">
           <div class="content-view-title content-header">
@@ -548,14 +569,52 @@
               </tbody>
             </table>
           </form>
-
-          
         </div>
-      
+
+
+
+
+
+
+
+
+
+
 
 
         <div class="my-5"></div>
-          
+          <!-- 쿠폰 상태변경 modal -->
+          <div class="modal fade" id="modal-status-select" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-modal="true" role="dialog" style="/*display: block; */">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <p class="modal-title" id="">쿠폰 상태변경</p>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body modal-status-select-coupon">
+                  <div class="modal-status-select-coupon-num">
+                    <span>선택된 쿠폰 수 : </span>
+                    <span class="modal-status-select-coupon-num-value couponNum select-num">0</span>
+                    <span>개</span>
+                  </div>
+                  <div class="modal-status-select">
+                    <div class="btn-group modal-status-select-btn-group" role="group" aria-label="Basic radio toggle button group">
+                      <select class="form-select modal-status-select-option" aria-label="Default select example" id="couponStatusOption">
+                        <option value="대기">대기</option>
+                        <option value="사용중">사용중</option>
+                        <option value="종료">종료</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                  <button type="button" class="btn modal-status-select-submit-button" onclick="updatePostStatus()">변경</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
 
         <!-- footer -->
         <footer class="py-4 bg-light mt-auto">
