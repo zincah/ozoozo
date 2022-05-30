@@ -28,7 +28,7 @@ import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 
 @Controller
-public class UserCategoryController {
+public class U_CategoryController {
 	
 	@Autowired
 	UserCategoryService userCategoryService;
@@ -54,8 +54,8 @@ public class UserCategoryController {
 		System.out.println(topcate_code);
 		
 
-		vo.setTop_catecode(topcate_code); // url濡� �쟾�떖諛쏆� 肄붾뱶
-		int total = userCategoryService.getCategoryCount(vo); // �쟾泥� 媛쒖닔 蹂대궡湲�
+		vo.setTop_catecode(topcate_code); // url嚥∽옙 占쎌읈占쎈뼎獄쏆룇占� �굜遺얜굡
+		int total = userCategoryService.getCategoryCount(vo); // 占쎌읈筌ｏ옙 揶쏆뮇�땾 癰귣�沅→묾占�
 		
 		List<UserCategoryVO> titleList = userCategoryService.printTitle();
 		List<UserCategoryVO> others = new ArrayList<UserCategoryVO>();
@@ -91,7 +91,7 @@ public class UserCategoryController {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //�냼�닔�젏 �븿�닔
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //占쎈꺖占쎈땾占쎌젎 占쎈맙占쎈땾
 			
 			pro.setSale_price(decFormat.format(sale_price));
 			
@@ -109,11 +109,11 @@ public class UserCategoryController {
 		List<UserCategoryVO> catename = userCategoryService.getCateName(vo);
 		model.addAttribute("catename", catename);
 		
-		// filter �샃�뀡 媛��졇�삤湲�
+		// filter 占쎌긿占쎈�� 揶쏉옙占쎌죬占쎌궎疫뀐옙
 		List<List<FilterVO>> optionList = userCategoryService.getFilterOption(vo);
 		model.addAttribute("optionList", optionList);
 		
-		return "ozocategory_zinc";
+		return "oZo_Category";
 	}
 	
 
@@ -124,7 +124,7 @@ public class UserCategoryController {
 		
 		List<String> cates = wholeList.get(1);
 
-		// category �꽔�뼱二쇨린
+		// category 占쎄퐫占쎈선雅뚯눊由�
 		vo.setTop_catecode(Integer.parseInt(cates.get(0)));
 		if(cates.size()>1 && cates.get(1)!="") {
 			vo.setMidcate_code(Integer.parseInt(cates.get(1)));
@@ -138,7 +138,7 @@ public class UserCategoryController {
 		
 		for(int i=0; i<list.size(); i++) {
 			String check = list.get(i);
-			if(check.equals("오늘의딜")) {
+			if(check.equals("�삤�뒛�쓽�뵜")) {
 				vo.setDealCheck(true);
 			}else {
 				filterList.add(check);
@@ -146,9 +146,9 @@ public class UserCategoryController {
 		}
 		System.out.println(filterList);
 		
-		// list에서 remove 0하면 사라짐
+		// list�뿉�꽌 remove 0�븯硫� �궗�씪吏�
 		vo.setFiltering(filterList);
-		vo.setOrderKind(wholeList.get(2).get(0)); // 순위 넣어주기
+		vo.setOrderKind(wholeList.get(2).get(0)); // �닚�쐞 �꽔�뼱二쇨린
 		
 		List<UserProductVO> postList = userCategoryService.getPostList(vo);
 		int filterCount = userCategoryService.filterCount(vo);
@@ -158,7 +158,7 @@ public class UserCategoryController {
 			UserProductVO pro = postList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //�냼�닔�젏 �븿�닔
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //占쎈꺖占쎈땾占쎌젎 占쎈맙占쎈땾
 			
 			pro.setSale_price(decFormat.format(sale_price));
 		}
@@ -166,7 +166,7 @@ public class UserCategoryController {
 		model.addAttribute("filterCount", filterCount);
 		model.addAttribute("productList", postList);
 		
-		return "cates";
+		return "oZo_Category_Assist";
 	}
 	
 }

@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml", "file:src/main/webapp/WEB-INF/config/user-management.xml","file:src/main/webapp/WEB-INF/config/email-context.xml" })
-public class ReviewControllerTest extends TestCase {
+public class U_ReviewControllerTest extends TestCase {
 
     @Autowired
     ReviewService reviewService;
@@ -29,7 +29,7 @@ public class ReviewControllerTest extends TestCase {
         vo.setProduct_id(3);
         vo.setSeller_id(500001);
         vo.setRating(1);
-        vo.setContent("ï¿½ë€žï¿½ê½­ï¿½ìŠ‚");
+        vo.setContent("ï¿½ë?žï¿½ê½?ï¿½ìŠ‚");
         vo.setRv_catecode(2);
         vo.setRv_subcatecode(10003);*/
 

@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class UserDealBestController {
+public class U_DealBestController {
 
 	@Autowired
 	UserMainService userMainService;
@@ -89,7 +89,7 @@ public class UserDealBestController {
 		}
 		model.addAttribute("todayDealList", todayDealList);
 		System.out.println("todaydealListsize"+ todayDealList.size());
-		return "ozotodaydeal_zinc";
+		return "oZo_TodayDeal";
 	}
 
 	// 브랜드
@@ -160,7 +160,7 @@ public class UserDealBestController {
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("toplist", toplist);
 		
-		return "ozoshop_main";
+		return "oZo_ShopPage";
 	}
 	
 	@RequestMapping(value = "/brandshopRank.com", method=RequestMethod.POST)
@@ -201,7 +201,7 @@ public class UserDealBestController {
 
 		model.addAttribute("shopItemList", shopItemList);
 		
-		return "ozoshop_mainplus";
+		return "oZo_Shop_Assist";
 	}
 	
 	
@@ -257,7 +257,7 @@ public class UserDealBestController {
 		model.addAttribute("bestlist", bestlist);
 		System.out.println("bestlist"+ bestlist.size());
 		System.out.println("베스트 뿌린다아!");
-		return "ozobest_zinc";
+		return "oZo_BestShop";
 	}
 	
 }

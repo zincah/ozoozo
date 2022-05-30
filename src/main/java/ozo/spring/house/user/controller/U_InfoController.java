@@ -31,7 +31,7 @@ import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Controller
-public class UserInfoController {
+public class U_InfoController {
 	
 	@Autowired
 	UserService userService;
@@ -167,7 +167,7 @@ public class UserInfoController {
 		if(session.getAttribute("UserMail")!=null) {
 			return "forward:main.com";
 		}else {
-			return "ozoLogin_zinc";
+			return "oZo_LoginPage";
 		}
 	}
 	
@@ -246,7 +246,7 @@ public class UserInfoController {
 			
 			String msg = "입력하신 정보가 잘못 되었습니다.";
 			model.addAttribute("msg", msg);
-			return "ozoLogin_zinc";
+			return "oZo_LoginPage";
 
 		}
 		
@@ -264,11 +264,11 @@ public class UserInfoController {
 			HttpSession session = request.getSession();
 			
 			if(session.getAttribute("UserMail")!=null) {
-				return "myPage";
+				return "oZo_My_Page";
 			}else {
 				String msg = "로그인후 이용 가능합니다.";
 				model.addAttribute("msg", msg);
-				return "ozoLogin_zinc";
+				return "oZo_LoginPage";
 			}
 		}
 		
@@ -317,7 +317,7 @@ public class UserInfoController {
 			// 구글
 			
 			
-			return "SignUp";
+			return "oZo_SignUp";
 		}
 		@RequestMapping(value = "/memberSessionCheck.com",method = RequestMethod.POST)
 		@ResponseBody

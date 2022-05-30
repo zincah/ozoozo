@@ -30,7 +30,7 @@ import ozo.spring.house.user.vo.UserAddressVO;
 import ozo.spring.house.user.vo.UserProductVO;
 
 @Controller
-public class UserPaymentController {
+public class U_PaymentController {
 	@Autowired
 	UserService userservice;
 	
@@ -126,7 +126,7 @@ public class UserPaymentController {
 		 * System.out.println(pro_li.get(i)); System.out.println("                  ");
 		 * }
 		 */
-		return "calculation";
+		return "oZo_PaymentPage";
 	}
 	
 	//결제 창에 필요한 js에 쓰일 List

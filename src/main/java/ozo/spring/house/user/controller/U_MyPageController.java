@@ -23,7 +23,7 @@ import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Controller
-public class UserMyPageController {
+public class U_MyPageController {
 	
 	@Autowired
 	userMyPageService userMyPageService;
@@ -51,9 +51,9 @@ public class UserMyPageController {
 			 model.addAttribute("info", info);
 			 model.addAttribute("mandu", mandu);
 			 
-			return "ozoedit_zinc";
+			return "oZo_My_InformEdit";
 		}else {
-			return "ozoLogin_zinc";
+			return "oZo_LoginPage";
 		}
 		
 	}
@@ -66,9 +66,9 @@ public class UserMyPageController {
 		if(session.getAttribute("User_Num")!=null) {
 			
 			 
-			return "ozopasswordModi_zinc";
+			return "oZo_Password_Change";
 		}else {
-			return "ozoLogin_zinc";
+			return "oZo_LoginPage";
 		}
 		
 	}
@@ -125,9 +125,9 @@ public class UserMyPageController {
 
 
 			
-			return "myPage";
+			return "oZo_My_Page";
 		}else {
-			return "ozoLogin_zinc";
+			return "oZo_LoginPage";
 		}
 		
 	}

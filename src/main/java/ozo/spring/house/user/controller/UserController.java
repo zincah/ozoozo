@@ -43,126 +43,12 @@ public class UserController {
 	UserScrapService userScrapService;
 	
 
-	@RequestMapping(value = "/main.com")
-	public String user_main(UserProductVO vo, Model model, HttpSession session, UserScrapVO svo) {
-		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
-		
-		// timer
-		List<Map<String, String>> list = userMainService.getDealEndTime();
-		List<Map<String, String>> dealtimelist = new ArrayList<Map<String, String>>();
-		System.out.println(list);
-		for(int i=0; i<list.size(); i++) {
-			Map<String, String> dealtime = list.get(i);
-			String t = "\""+String.valueOf(dealtime.get("deal_endtime"))+"\"";
-			String su = t.substring(0, 20) + "\"";
-			dealtime.put("deal_endtime", su);
-			dealtimelist.add(dealtime);
-		}
-		
-		String jsonArray = JSONArray.toJSONString(dealtimelist);
-		model.addAttribute("dealtimelist", jsonArray);
-		
-
-		vo.setCheckit(false);
-
-		List<UserProductVO> productList = userMainService.mainProductList(vo);
-		int total = userMainService.getProductCount();
-		
-		// �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕 list �뜝�떛源띿삕
-		List<UserProductVO> todayDealList = userMainService.mainDealProductList(vo);
-		System.out.println(todayDealList.size());
-		
-		// main banner list �뜝�떛源띿삕
-		List<BannerVO> bannerList = userMainService.selectBannerList();
-		
-		if(session.getAttribute("User_Num") != null) {
-			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
-			scrap = userScrapService.userScrapList(svo);
-		}
-		
-		for(int i=0; i<productList.size(); i++) {
-			UserProductVO pro = productList.get(i);
-			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
-			
-
-			DecimalFormat decFormat = new DecimalFormat("###,###"); 
-			
-			pro.setSale_price(decFormat.format(sale_price));
-			
-			for(int j=0; j<scrap.size(); j++) {
-				UserScrapVO sc = scrap.get(j);
-				if(pro.getPost_id() == sc.getSc_postid()) {
-					pro.setCheckit(true);
-				}
-			}
-		}
-		
-		for(int i=0; i<todayDealList.size(); i++) {
-			UserProductVO pro = todayDealList.get(i);
-			int sale_price = pro.getDeal_saleprice()*(100-pro.getSale_ratio())/100;
-			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); 
-			pro.setSale_price(decFormat.format(sale_price));
-			
-			for(int j=0; j<scrap.size(); j++) {
-				UserScrapVO sc = scrap.get(j);
-				if(pro.getPost_id() == sc.getSc_postid()) {
-					pro.setCheckit(true);
-				}
-			}
-		}
-
-		model.addAttribute("totalCount", total);
-		model.addAttribute("productList", productList);
-		model.addAttribute("todayDealList", todayDealList);
-		model.addAttribute("bannerList", bannerList);
-		
-		return "ozomain_zinc";
-	}
-
 	
-	@RequestMapping(value = "/best.com")
-	public String user_best() {
-		return "ozobest_zinc";
-	}
-
+	
 	
 
 	
-	@RequestMapping(value = "/shop.com")
-	public String user_shop() {
-		return "ozoshop_main";
-	}
 
-	
-
-	
-	
-	@RequestMapping(value = "/customercenter.com")
-	public String user_customercenter() {
-		return "customercenter";
-	}
-
-
-	
-	//�뜝�룞�삕�뜝�룞�삕
-	//-	�뜝�룞�삕艅섇뜝�떕占� �뜝�룞�삕�뜝�룞�삕
-	
-	@RequestMapping(value = "/password_m.com")
-	public String user_P_M(HttpSession session) {
-		if(session.getAttribute("Usercode")!=null) {
-			return "ozopasswordModi_zinc";
-		}else {
-			return "ozoLogin_zinc";
-		}
-	}
-	//-�쉶�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕�뜝�룞�삕
-	@RequestMapping(value = "/edit.com")
-	public String user_edit() {
-		return "ozoedit_zinc";
-	}
-
-	//�뜝�룞�삕�뜝�룞�삕�뜝�룞�삕泥�
 	@RequestMapping(value = "/shopApply.com")
 	public String user_shopApply(HttpServletRequest request) {
 		
@@ -173,7 +59,31 @@ public class UserController {
 			return "redirect:login.com";
 		}
 	}
-	//�뜝�떥源띿삕�뜝�룞�삕 �솕�뜝�띂�뿉�뜝�룞�삕 �뜝�룞�삕艅섇뜝�떕占� �뜝�뜾�꽕�뜝�룞�삕
+	
+	/*
+	 * @RequestMapping(value = "/edit.com") public String user_edit() { return
+	 * "ozoedit_zinc"; }
+	 */
+	
+	/*
+	 * @RequestMapping(value = "/password_m.com") public String user_P_M(HttpSession
+	 * session) { if(session.getAttribute("Usercode")!=null) { return
+	 * "oZo_Password_Forgot"; }else { return "oZo_LoginPage"; } }
+	 */
+	
+	/*
+	 * @RequestMapping(value = "/best.com") public String user_best() { return
+	 * "oZo_BestShop"; }
+	 * 
+	 * @RequestMapping(value = "/shop.com") public String user_shop() { return
+	 * "oZo_BestShop"; }
+	 */
+	
+	/*
+	 * @RequestMapping(value = "/customercenter.com") public String
+	 * user_customercenter() { return "customercenter"; }
+	 */
+	
 	@RequestMapping(value = "/passwordReset.com")
 	public String user_passwordReset() {
 		return "passwordReset";
