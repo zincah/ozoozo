@@ -27,7 +27,9 @@
 							<c:otherwise>-</c:otherwise>
 						</c:choose>
 	                  </td>
-	                  <td class="content-table-content-text option-line">${post.product_created }</td>
+	                  <td class="content-table-content-text option-line">
+	                  	<fmt:formatDate value="${post.product_created }" pattern="yyyy-MM-dd HH:mm" />
+	                  </td>
 	                  <td class="content-table-content-text option-line">
 		                  <c:choose>
 								<c:when test="${post.deal_status != null}">${post.deal_status }</c:when>

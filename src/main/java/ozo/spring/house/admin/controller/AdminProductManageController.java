@@ -31,26 +31,26 @@ public class AdminProductManageController {
 	AdminProductManageService productService;
 
 	@Autowired
-	MakeDate md; // 날짜 하루 더 하는 포맷팅
+	MakeDate md; // one more day format
 	
-	/* 판매 게시글 관리 : productManagement */ 
-	@RequestMapping(value="/movePaging.admin", method=RequestMethod.POST) // page 이동 (비동기)
+	/* productManagement */ 
+	@RequestMapping(value="/movePaging.admin", method=RequestMethod.POST) // page move (asynchronism)
 	public String movePaging(@RequestBody Map<String, String> searchMap, Criteria cri, Model model, AdminProductVO pvo) {
 
-		int pageNum = Integer.parseInt(searchMap.get("pageNum")); // 페이지 정보
-		cri = new Criteria(pageNum, 10); // 페이징 처리
+		int pageNum = Integer.parseInt(searchMap.get("pageNum")); // page number
+		cri = new Criteria(pageNum, 10); // paging
 		pvo.setCri(cri);
 		
 		pvo.setPost_status(searchMap.get("posttype")); 
 		pvo.setDeal_status(searchMap.get("dealtype"));
 		pvo.setCate_name(searchMap.get("category"));
 		pvo.setStartdate(Date.valueOf(searchMap.get("startdate")));
-		String enddate = searchMap.get("enddate"); // enddate에서 하루 더한 날짜를 넣어주기
+		String enddate = searchMap.get("enddate"); // date format
 		pvo.setEnddate(Date.valueOf(md.makedate(enddate))); 
 		pvo.setPack(searchMap.get("pack"));
 		pvo.setKeyword(searchMap.get("keyword"));
 		
-		List<AdminProductVO> postList = productService.getProductList(pvo); // 상품 리스트
+		List<AdminProductVO> postList = productService.getProductList(pvo); // product list
 
 		model.addAttribute("postList", postList);
 		model.addAttribute("pageMaker", cri);
@@ -60,17 +60,17 @@ public class AdminProductManageController {
 	}
 
 	
-	@RequestMapping(value="/updateProductStatus.admin", method=RequestMethod.POST) // 상품 상태 변경 (비동기)
+	@RequestMapping(value="/updateProductStatus.admin", method=RequestMethod.POST) // update product status (asynchronism)
 	public String updateProductStatus(@RequestBody List<String> modifyInfo, AdminProductVO pvo, Model model, Criteria cri) {
 
-		pvo.setPost_status(modifyInfo.get(modifyInfo.size()-1)); // 상품 상태 키워드
+		pvo.setPost_status(modifyInfo.get(modifyInfo.size()-1)); 
 		
 		for(int i=0; i<modifyInfo.size()-2; i++) { 
 			pvo.setPost_id(Integer.parseInt(modifyInfo.get(i)));
-			productService.updateProductStatus(pvo); // 상품 상태 변경
+			productService.updateProductStatus(pvo); // update 
 		}
 		
-		cri = new Criteria(Integer.parseInt(modifyInfo.get(modifyInfo.size()-2)), 10); // 페이징 처리
+		cri = new Criteria(Integer.parseInt(modifyInfo.get(modifyInfo.size()-2)), 10); // paging
 		AdminProductVO vo = new AdminProductVO();
 		vo.setCri(cri);
 
@@ -83,17 +83,17 @@ public class AdminProductManageController {
 		return "postList";
 	}
 	
-	@RequestMapping(value="/updateCouponStatus.admin", method=RequestMethod.POST) // 쿠폰 적용 -> 상품(비동기)
+	@RequestMapping(value="/updateCouponStatus.admin", method=RequestMethod.POST) // product coupon registration
 	public String updateCouponStatus(@RequestBody List<String> couponInfo, AdminProductVO pvo, Model model, Criteria cri) {
 
-		pvo.setPost_couponid(Integer.parseInt(couponInfo.get(couponInfo.size()-1))); // 쿠폰 아이디
+		pvo.setPost_couponid(Integer.parseInt(couponInfo.get(couponInfo.size()-1))); 
 		
 		for(int i=0; i<couponInfo.size()-2; i++) {
 			pvo.setPost_id(Integer.parseInt(couponInfo.get(i)));
-			productService.updateCouponStatus(pvo); // 쿠폰 적용
+			productService.updateCouponStatus(pvo); 
 		}
 		
-		cri = new Criteria(Integer.parseInt(couponInfo.get(couponInfo.size()-2)), 10); // 페이징 처리
+		cri = new Criteria(Integer.parseInt(couponInfo.get(couponInfo.size()-2)), 10); // paging
 		AdminProductVO vo = new AdminProductVO();
 		vo.setCri(cri);
 		
@@ -106,32 +106,33 @@ public class AdminProductManageController {
 		return "postList";
 	}
 
-	
-	@RequestMapping(value="/updateDealStatus.admin", method=RequestMethod.POST) // 오늘의딜 상태 변경 (비동기)
+	@ResponseBody
+	@RequestMapping(value="/updateDealStatus.admin", method=RequestMethod.POST) // deal status change
 	public String updateDealStatus(@RequestBody List<String> dealInfo, AdminProductVO pvo, Model model, Criteria cri) {
 
 		String deal_status = dealInfo.get(dealInfo.size()-1);
 		
-		if(deal_status.equals("게시")) {
+		
+		if(deal_status.equals("게시")) { // 'posting'
 			pvo.setDeal_status(deal_status);
 			pvo.setToday_deal(true);
 			
 			for(int i=0; i<dealInfo.size()-2; i++) {
 				pvo.setPost_id(Integer.parseInt(dealInfo.get(i)));
-				productService.updateDealStatus(pvo); // deal 상태 게시
+				productService.updateDealStatus(pvo); 
 			}
 			
-		}else if(deal_status.equals("중지")){
+		}else if(deal_status.equals("중지")){ // 'stop'
 			pvo.setToday_deal(false);
 			
 			for(int i=0; i<dealInfo.size()-2; i++) {
 				pvo.setPost_id(Integer.parseInt(dealInfo.get(i)));
-				productService.deleteDeal(pvo); // deal 상태 중지
+				productService.deleteDeal(pvo); 
 			}
 			
 		}
 		
-		cri = new Criteria(Integer.parseInt(dealInfo.get(dealInfo.size()-2)), 10); // 페이징 처리
+		cri = new Criteria(Integer.parseInt(dealInfo.get(dealInfo.size()-2)), 10); // paging
 		AdminProductVO vo = new AdminProductVO();
 		vo.setCri(cri);
 		
@@ -145,7 +146,7 @@ public class AdminProductManageController {
 	}
 	
 	
-	@RequestMapping(value="/productSearchBox.admin", method=RequestMethod.POST) // 상품 검색 처리
+	@RequestMapping(value="/productSearchBox.admin", method=RequestMethod.POST) // input layer -> search
 	public String productSearchBox(@RequestBody Map<String, String> searchMap, AdminProductVO pvo, Model model, Criteria cri) {
 
 		System.out.println(searchMap);
@@ -159,7 +160,7 @@ public class AdminProductManageController {
 		pvo.setPack(searchMap.get("pack"));
 		pvo.setKeyword(searchMap.get("keyword"));
 		
-		pvo.setCri(new Criteria()); // 페이징 처리
+		pvo.setCri(new Criteria()); // original paging
 		
 		List<AdminProductVO> postList = productService.getProductList(pvo);
 		model.addAttribute("postList", postList);
@@ -169,7 +170,7 @@ public class AdminProductManageController {
 		return "postList";
 	}
 	
-	@RequestMapping(value="/productSearch.admin", method=RequestMethod.POST)
+	@RequestMapping(value="/productSearch.admin", method=RequestMethod.POST) // search condition
 	public String productSearch(@RequestBody Map<String, String> searchMap, AdminProductVO pvo, Model model, Criteria cri) {
 
 		System.out.println(searchMap);
@@ -180,12 +181,13 @@ public class AdminProductManageController {
 		pvo.setStartdate(Date.valueOf(searchMap.get("startdate")));
 		String enddate = searchMap.get("enddate");
 		pvo.setEnddate(Date.valueOf(md.makedate(enddate)));
-		System.out.println(pvo.getEnddate());
 		pvo.setPack(searchMap.get("pack"));
 		pvo.setKeyword(searchMap.get("keyword"));
-		pvo.setCri(new Criteria());
+		
+		pvo.setCri(new Criteria()); // original paging
 		
 		List<AdminProductVO> postList = productService.getProductList(pvo);
+		
 		model.addAttribute("postList", postList);
 		model.addAttribute("pageMaker", cri);
 		model.addAttribute("totalcount", productService.searchListCount(pvo));
@@ -193,14 +195,14 @@ public class AdminProductManageController {
 		return "postList";
 	}
 	
-	/* 매출 관리 */
-	@RequestMapping(value="/getTodayDealList.admin", method=RequestMethod.POST)
+	
+	/* Sales management */
+	@RequestMapping(value="/getTodayDealList.admin", method=RequestMethod.POST) // today deal sale
 	public String getTodayDealList(@RequestBody(required=false) Map<String, String> searchMap, Criteria cri, AdminProductVO vo, Model model) {
 
 		System.out.println("todayDeal" + searchMap);
 		
-		// 오늘의딜 날짜 세팅
-		vo.setStartdate(java.sql.Date.valueOf("2018-01-01"));
+		vo.setStartdate(java.sql.Date.valueOf("2018-01-01")); // early date setting
 		vo.setEnddate(Date.valueOf(md.makeToday()));
 		
 		if(searchMap != null) {
@@ -216,8 +218,7 @@ public class AdminProductManageController {
 		return "dealsales";
 	}
 	
-	// best30
-	@RequestMapping(value="/getBest30List.admin", method=RequestMethod.POST)
+	@RequestMapping(value="/getBest30List.admin", method=RequestMethod.POST) // best 30 sale
 	public String getBest30List(@RequestBody(required=false) Map<String, String> searchMap, Criteria cri, AdminProductVO vo, Model model) {
 
 		System.out.println(searchMap);
@@ -235,9 +236,8 @@ public class AdminProductManageController {
 			vo.setKeyword(searchMap.get("keyword"));
 		}
 
-		List<AdminProductVO> bestList = productService.bestSale(vo); // 페이징된 리스트
-		int totalCount = productService.bestSaleCount(vo); // 전체 카운트
-		System.out.println("검색 count" + totalCount);
+		List<AdminProductVO> bestList = productService.bestSale(vo); // best sale
+		int totalCount = productService.bestSaleCount(vo); // best total count
 		
 		for(int i=0; i<bestList.size(); i++) {
 			
@@ -249,17 +249,16 @@ public class AdminProductManageController {
 
 		model.addAttribute("pageMaker", cri);
 		model.addAttribute("bestList", bestList);
-		model.addAttribute("totalCount", totalCount); // paging
+		model.addAttribute("totalCount", totalCount); 
 
 		return "best30sales";
 	}
 	
-	@RequestMapping(value="/getStoreSaleList.admin", method=RequestMethod.POST)
+	@RequestMapping(value="/getStoreSaleList.admin", method=RequestMethod.POST) // store sale
 	public String getStoreSaleList(@RequestBody(required=false) Map<String, String> searchMap, Criteria cri, AdminProductVO vo, Model model) {
 
 		System.out.println("storesale : " + searchMap);
 
-		// 매출 날짜 세팅
 		vo.setStartdate(java.sql.Date.valueOf("2018-01-01"));
 		vo.setEnddate(Date.valueOf(md.makeToday()));
 		

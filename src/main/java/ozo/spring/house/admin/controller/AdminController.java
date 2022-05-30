@@ -41,6 +41,7 @@ public class AdminController {
 			int sellerCount = userService.sellerCount(); // 판매점 개수
 			int waitcount = productService.registrationWait(); // 상품등록대기 개수
 			int holdcount = productService.registrationHold(); // 상품등록보류 개수
+			int userCount = userService.userCount(); // 일반회원 수
 			List<Integer> regiList = new ArrayList<Integer>();
 			regiList.add(waitcount);
 			regiList.add(holdcount);
@@ -70,6 +71,7 @@ public class AdminController {
 			
 			model.addAttribute("notice", noticeCount);
 			model.addAttribute("seller", sellerCount);
+			model.addAttribute("user", userCount);
 			model.addAttribute("labelList", labelList);
 			model.addAttribute("totalList", totalList);
 			model.addAttribute("dateList", dateList);
@@ -159,6 +161,8 @@ public class AdminController {
 			vo.setEnddate(java.sql.Date.valueOf(enddate)); 
 			
 			List<AdminProductVO> sellerSaleList = productService.sellerSale(vo); // 매장별 매출 리스트
+			List<Map<String, String>> dailyStoreSaleList = productService.dailyStoreSales(vo); // 일별 매출 리스트
+			System.out.println(dailyStoreSaleList);
 			
 			for(int i=0; i<sellerSaleList.size(); i++) { // 수수료 처리한 브랜드 수익(5%)
 				AdminProductVO ch = sellerSaleList.get(i);
@@ -168,7 +172,13 @@ public class AdminController {
 				ch.setRealPayment(realPayment);
 			}
 			
+			for(int i=0; i<dailyStoreSaleList.size(); i++) {
+				Map<String, String> dailyStoreSale = dailyStoreSaleList.get(i);
+				// seller id 로 먼저 받아오는게 나을듯
+			}
+			
 			model.addAttribute("sellerSaleList", sellerSaleList);
+			//model.addAttribute("dailyStoreSaleList", dailyStoreSaleList);
 			
 			return "salesStatus_dh";
 		}else {

@@ -307,6 +307,15 @@
 		    <artifactId>quartz</artifactId>
 		    <version>2.3.2</version>
 		</dependency>
+		
+		<!-- excel -->
+		<!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>5.2.2</version>
+		</dependency>
+		
 				
 	</dependencies>
 	<!--  import -->

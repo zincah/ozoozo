@@ -16,12 +16,14 @@
     <link href="resources/css/admincss/fonts.css?after" rel="stylesheet" />
     <link href="resources/css/admincss/styles.css" rel="stylesheet" />
     <link href="resources/css/admincss/insertProduct_dh.css?var=1" rel="stylesheet" />
+    <link href="resources/css/admincss/mychart.css?var=1" rel="stylesheet" />
     <link href="resources/css/admincss/saleStatus.css?var=122" rel="stylesheet" />
     <link href="resources/css/admincss/paging.css?var=12" rel="stylesheet" /> <!-- paging -->
     <link href="resources/css/admincss/seller-productManagement_dh.css?after" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
     <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="resources/js/adminjs/saleStatusStoreSaleChart.js?var=1"></script>
   	<script>
   	
   		var searchMap = {}
@@ -30,6 +32,8 @@
   		let totalCount;
   		
   		$(document).ready(function(){
+  			
+  			$("#page-container").hide();
   			
   			/* 상품 선택 체크박스 */
     		// 전체 체크박스 체크 여부에 따른 하위 체크박스들 상태 변경
@@ -116,11 +120,7 @@
     			searching();
     		})
     		
-    		
-    		// paging
-    		
-  			
-  			
+
   		})
   		
   		function getStoreSale(searchMap){
@@ -130,6 +130,7 @@
 			$("#storeSales").show();
 			$("#todayDeal").hide();
 			$("#page-container").hide();
+			$("#storeSaleGraph").show();
 			
 			console.log(searchMap);
   			
@@ -156,6 +157,7 @@
 			$("#storeSales").hide();
 			$("#todayDeal").hide();
 			$("#page-container").show();
+			$("#storeSaleGraph").hide();
 			
 			console.log(searchMap);
   			
@@ -186,7 +188,8 @@
 			$("#todayDeal").show();
 			$("#storeSales").hide();
 			$("#best30").hide();
-			$("#page-container").show();
+			$("#page-container").hide();
+			$("#storeSaleGraph").hide();
 			
 			console.log(searchMap);
   			
@@ -367,53 +370,6 @@
 			
 			searching();
     		
-    		//조건들 받아오기
-    		/*
-    		var posttype = $("input[name=posttype]:checked").val();
-    		var dealtype;
-    		
-    		if(posttype == '신청'){
-    			var dealtype = posttype;
-    			var posttype = '';
-    		}
-    		
-    		var category = $("#large-select").val();
-    		var startdate = $("input[name=datepick1]").val();
-    		var enddate = $("input[name=datepick2]").val();
-
-			var pack = $("#search_select option:selected").val();
-			var keyword = $("#search_input").val();
-
-			searchMap = {
-    				"posttype" : posttype,
-    				"dealtype" : dealtype,
-    				"category" : category,
-    				"startdate" : startdate,
-    				"enddate" : enddate,
-    				"pack" : pack,
-    				"keyword" : keyword,
-    				"pageNum" : pageNum
-    		}
-    		
-
-    		$.ajax({
-		  		url:'movePaging.admin',
-		  		method:'post',
-		  		data: JSON.stringify(searchMap),
-		  		contentType : 'application/json; charset=UTF-8',
-		  		dataType : 'html',
-		  		success : function(resp){
-		  			
-		  			printTable(resp);
-		  			setPage(pageNum);
-		  			
-
-
-		  		},
-		  		error : function(request, status, error) {
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				}
-    		});*/
     		
     	}
   		
@@ -539,11 +495,15 @@
                   <input class="form-check-input form-check-input-margin check1" type="checkbox" value="" onclick="checkfunction()">
                 </td>
                 <td class="content-table-content-text option-line">${sellerSale.seller_id }</td>
-                <td class="content-table-content-text option-line">${sellerSale.company_name }</td>
+                <td class="content-table-content-text option-line">
+                	<input type="hidden" name="companyName" value="${sellerSale.company_name }">
+                	${sellerSale.company_name }
+                </td>
                 <td class="content-table-content-text option-line">${sellerSale.representative }</td>
                 <td class="content-table-content-text option-line">${sellerSale.registration_num }</td>
                 <td class="content-table-content-text option-line">${sellerSale.quantity }</td>
                 <td class="content-table-content-text option-line">
+                	<input type="hidden" name="storePayment" value="${sellerSale.payment}">
            			<fmt:formatNumber type="number" maxFractionDigits="3" value="${sellerSale.payment}" var="payment"/>
            				${payment }
            		</td>
@@ -639,33 +599,51 @@
           <div class="pagi mt-3" id="page-container">
             <nav aria-label="Page navigation example">
               <ul class="pagination">
-              <!-- 
-                <li class="page-item page-outer">
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">
-                    	<i class="fa-solid fa-angle-left"></i>
-                    </span>
-                  </a>
-                </li> -->
                 <div class="page-layer">
                 	
                 
                 
                 </div>
-                <!-- 
-                <li class="page-item page-outer">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">
-                    	<i class="fa-solid fa-angle-right"></i>
-                    </span>
-                  </a>
-                </li> -->
               </ul>
             </nav>
           </div>
           
-        
+          <!-- 매출 그래프 -->
+          <div class="row mt-4" id="storeSaleGraph">
+              <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card h-100 box-shadow">
+                  <div class="card-body">
+                    <div class="d-flex title-text bottom-line">
+                      <p class="margin-zero"><i class="fas fa-chart-area me-1 icon-margin-right"></i>매장별 매출</p>
+                    </div>
+                    <div class="d-flex justify-content-between sub-text">
+                      <div class="card-body padding-zero">
+                      <canvas id="myPieChart" width="100%" height="40"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card h-100 box-shadow">
+                  <div class="card-body">
+                    <div class="d-flex title-text bottom-line">
+                      <p class="margin-zero"><i class="fas fa-chart-area me-1 icon-margin-right"></i>일별 판매 추이</p>
+                    </div>
+                    <div class="d-flex justify-content-between sub-text">
+                      <div class="card-body padding-zero">
+                      	<canvas id="myAreaChart" width="100%" height="40"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+
         </div>
+        
+        
         
         <!-- footer -->
         <footer class="py-4 bg-light mt-auto">

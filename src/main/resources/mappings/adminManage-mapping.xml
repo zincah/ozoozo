@@ -5,7 +5,7 @@
 <mapper namespace="AdminManageDAO">
 
 
-	<!-- 현재 사용하는거 회원관리, 총 검색, 회원정보 수정 -->
+	<!-- index -->
 	<!-- 공지사항 관리 -->
 	<select id="noticeCount" resultType="int">
 		select count(*) from cscenter;
@@ -37,11 +37,17 @@
 	<select id="registrationHold" resultType="int">
 		SELECT COUNT(*) FROM product_posting WHERE post_status='보류중';
 	</select>
+	
+	<!-- 인덱스 페이지 : 일반 회원 수 -->
+	<select id="userCount" resultType="int">
+		SELECT COUNT(user_num) FROM user_table WHERE user_type='일반회원';
+	</select>
 
 	<!-- 회원관리 -->
+	<!-- 
 	<select id="selectUser" resultType="user">
 		SELECT user_num, user_email, nickname, gender, reccode, last_login, join_date, user_status, user_type FROM user_table ORDER BY user_num DESC;
-	</select>
+	</select> -->
 
 	<!-- 회원관리 : 회원상태 변경 -->
 	<update id="updateUserStatus" parameterType="user">
@@ -124,7 +130,7 @@
 		</where>
 	</select>
 	
-	
+	<!-- product management -->
 	<!-- admin 상품 상태 바꾸기 : product-posting -->
 	<update id="updateProductStatus1">
 		UPDATE product_posting SET post_status=#{post_status} WHERE post_id=#{post_id};
@@ -150,16 +156,16 @@
 		UPDATE deal_info SET deal_status=#{deal_status}, deal_time=now(), deal_endtime=now()+'1 days' WHERE deal_postid=#{post_id} and deal_status = '신청';
 	</update>
 	
+	<!-- admin deal 상태 바꾸면서 product_posting dealstatus change -->
 	<update id="updateDealStatusOnPost">
 		UPDATE product_posting SET today_deal=#{today_deal} WHERE post_id=#{post_id};
 	</update>
-	<!-- update join 되는지 확인해보기 -->
 	
+	<!-- admin deal status stop -->
 	<delete id="deleteDeal">
 		UPDATE deal_info SET deal_status#{중지} WHERE deal_postid=#{post_id}
 	</delete>
 
-	
 	<!-- 총 검색 -->
 	<select id="getProductList" parameterType="adminproduct" resultType="adminproduct">
 		SELECT po.post_id as post_id, ss.company_name as company_name, di.deal_status as deal_status, po.best_product as best_product, po.post_name as post_name, pp.product_created as product_created, pp.product_count as product_count, ca.cate_name as cate_name, sc.subcate_name as subcate_name, po.post_status as post_status, po.post_couponid as post_couponid, pc.coupon_title as coupon_title
@@ -255,6 +261,7 @@
 		</where>
 	</select>
 	
+	<!-- 업체 관리 -->
 	<!-- 업체 관리 : 요청 받은 업체 정보 -->
 	<select id="getSellerInfo" resultType="seller">
 		SELECT * FROM seller WHERE seller_id=#{seller_id};
@@ -387,6 +394,17 @@
 		</if>
 		</where>
 	</select>
+	
+	<!-- 일별 매출 정리 -->
+	<select id="dailyStoreSales" resultType="HashMap">
+		select seller_id, sum(payment), to_char(order_date :: date, 'yyyy-MM-dd') as odate 
+		from user_order
+		where to_char(order_date :: date, 'yyyy-MM-dd') 
+		between '2022-05-01' and '2022-05-31'
+		group by odate, seller_id
+		order by seller_id asc, odate asc;	
+	</select>
+	
 	
 	
 	<!-- postinfo 관련 -->
