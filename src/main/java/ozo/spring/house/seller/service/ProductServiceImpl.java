@@ -45,8 +45,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<ProductVO> selectProductView(int vo) {
+	public List<ProductVO> selectProductView(ProductVO vo) {
 		return productDAO.selectProductView(vo);
+	}
+
+	@Override
+	public int selectListCount(ProductVO vo) {
+		return productDAO.selectListCount(vo);
 	}
 	
 	@Override
@@ -72,6 +77,11 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductVO> selectSearchProduct(ProductVO vo) {
 		return productDAO.selectSearchProduct(vo);
+	}
+	
+	@Override
+	public int selectSearchProductCount(ProductVO vo) {
+		return productDAO.selectSearchProductCount(vo);
 	}
 
 }

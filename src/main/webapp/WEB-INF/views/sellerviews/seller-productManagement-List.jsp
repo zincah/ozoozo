@@ -4,6 +4,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<input type="hidden" value="${totalcount}" id="totalcount">
+<input type="hidden" value="${pageMaker.getPageNum()}" id="pageMakerGetPageNum">
+<input type="hidden" value="${pageMaker.getAmount()}" id="pageMakerGetAmount">
 <c:forEach var="searchProductList" items="${searchProductList}">
 	<tr class="content-table-content content-hover">
 		<td class="content-table-content-text option-line checkTd">
