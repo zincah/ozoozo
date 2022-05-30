@@ -50,5 +50,30 @@ public class MakeDate {
         return strDate;
 
 	}
+	
+	// 달의 첫째날과 마지막 날 얻어오는 메소드
+	public String findFirstDay(int year, int month) {
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Calendar cal = Calendar.getInstance();
+			
+			cal.set(year, month, 1);
+			
+			String firstDay = dateFormat.format(cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+			
+			return firstDay;
+	}
+	
+	public String findLastDay(int year, int month) {
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		
+		cal.set(year, month, 1);
+		
+		String lastDay = dateFormat.format(cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+		
+		return lastDay;
+	}
 
 }

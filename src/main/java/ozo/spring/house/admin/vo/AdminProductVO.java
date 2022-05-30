@@ -68,6 +68,8 @@ public class AdminProductVO {
 	private Timestamp deal_time;
 	private Timestamp deal_endtime;
 
+	private Date firstday;
+	private Date lastday;
 	
 
 }
