@@ -1,58 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta property="og:title" content="내가 작성한 리뷰" />
+    <meta property="og:title" content="리뷰 작성" />
     <meta property="og:type" content="website" />
-    <link rel="stylesheet" href="resources/css/user_css/inha/myPage-nav-style.css" />
-    <link rel="stylesheet" href="resources/css/user_css/inha/myReview-view-style.css?var=23" />
-    <link rel="stylesheet" href="resources/css/user_css/zinc/reviewmodal.css?var=2" />
-    <link rel="stylesheet" href="resources/css/user_css/inha/footer-style.css" />
+    <link rel="stylesheet" href="resources/css/user_css/inha/myPage-nav-style.css"/>
+    <link rel="stylesheet" href="resources/css/user_css/inha/myReview-view-style.css"/>
+    <link rel="stylesheet" href="resources/css/user_css/zinc/myreview.css?var=12"/>
+    <link rel="stylesheet" href="resources/css/user_css/inha/footer-style.css"/>
+    <link rel="stylesheet" href="resources/css/admincss/fonts.css?var=1" rel="stylesheet" />
     <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
     <style type="text/css">
       address {
         font-style: normal;
       }
     </style>
-    <title>내가 작성한 리뷰</title>
+    <title>리뷰 작성 페이지</title>
     <script>
 
     	$(document).ready(function(){
     		
-    		$(".modifybtn").click(function(){
-    			var id = $(this).next().val();
-    			console.log(id);
-    			openmodal(id);
-    			$(".thismodal").show();
+    		$(".upload-button").click(function(){
+    			upload_photo();
+    			$(".select-picture").show();
     		})
     		
     		$(".review-modal__close").click(function(){
     			alert("작업하던 내용이 유실됩니다.");
     			// modal 띄우는 거로 바꾸기
     			$(".thismodal").hide();
+    			resetReview();
+	  			$(".select-picture").hide();
+    		})
+    		
+    		$(".select-picture__delete").click(function(){
+    			alert("사진이 삭제됩니다.");
+    			$("input[name=main_photo]").val("");
+    			$(".upload_img").remove();
+    			$(".select-picture").hide();
+    		})
+    		
+    		$(".openmodal").click(function(){
+    			
+    			var code = $(this).val();
+    			openmodal(code);
+    			$(".thismodal").show();
     		})
     		
     		$(".rating-input__star").click(function(){
+    			
     			var star = $(this).find('input').val();
-    			checkstar(star);
+    			
+    			checkStar(star)
+
     		})
     		
-    		$(".upload-button").click(function(){
-    			upload_photo();
-    			if($(".select-picture").hide()){
-    				$(".select-picture").show();
-    			}
-    		})
 
-    	});
+    		
+    	})
     	
-    	function checkstar(star){
+    	function checkStar(star){
+    		
     		if(star == 5){
 				$("#star5").attr('class', 'rating-input__star1');
 				$("#star4").attr('class', 'rating-input__star1');
@@ -83,23 +96,31 @@
 				$("#star3").attr('class', 'rating-input__star');
 				$("#star2").attr('class', 'rating-input__star');
 				$("#star1").attr('class', 'rating-input__star1');
+			}else if(star == 0){ // 이건 리셋때만
+				$("#star5").attr('class', 'rating-input__star');
+				$("#star4").attr('class', 'rating-input__star');
+				$("#star3").attr('class', 'rating-input__star');
+				$("#star2").attr('class', 'rating-input__star');
+				$("#star1").attr('class', 'rating-input__star');
 			}
+    		
     	}
     	
-    	
-		function openmodal(id){
-			
+    	function openmodal(code){
+    		
+    		
+    		
     		$.ajax({
-		  		url:'getMyReview.com',
+		  		url:'getReviewInfo.com',
 		  		method:'post',
-		  		data: JSON.stringify(id),
+		  		data: JSON.stringify(code),
 		  		contentType : 'application/json; charset=UTF-8',
 		  		dataType : 'json',
 		  		success : function(resp){
 		  			
 		  			
+		  			
 		  			console.log(resp);
-
 		  			$("#brandimg").attr('src', ''+[resp.photo_url]+'');
 		  			$("#company_name").text(''+[resp.company_name]+'');
 		  			$("#post_name").text(''+[resp.post_name]+'');
@@ -114,53 +135,25 @@
 		  			
 		  			$("#options").text(options);
 		  			
-		  			if([resp.review_image]!=''){
-		  				$(".select-picture").show();
-		  				
-		  				if($(".upload_img").length){
-		  					
-		  				}else{
-			  				var oriImage = document.createElement("img");
-			  	          	oriImage.setAttribute("class", "upload_img");
-			  	          	oriImage.src = [resp.review_image];
-			  	        	oriImage.style.visibility = "visible";
-			  	      		oriImage.style.objectFit = "contain";
-			  	          	$(".select-picture").append(oriImage);
-		  				}
-		  			}else{
-		  				$(".select-picture").hide();
-		  			}
 		  			
-		  			var text = [resp.recontent][0];
-		  			$("#contentarea").val(text);
-		  			
-		  			var star = [resp.rating];
-		  			checkstar(star);
-
 		  			// input setting
-		  			$("input[name=review_id]").val([resp.review_id]);
-		  			
-		  			if([resp.review_image]!=null){
-		  				$("input[name=review_image]").val([resp.review_image]);
-		  			}
-		  			
-		  			
-		  			if(resp == null){
-		  				alert("창을 끄고 다시한번 시도해주세요");
-		  			}
+		  			$("input[name=reproduct_id]").val([resp.product_id]);
+		  			$("input[name=reseller_id]").val([resp.seller_id]);
+		  			$("input[name=repost_id]").val([resp.od_postid]);
+		  			$("input[name=order_id]").val([resp.order_id]);
 		  			
 		  		}
     		});
+
     	}
-		
-		function upload_photo(){
+    	
+        function upload_photo(){
             $("#review_photo").click();
           }
 
-		
         function changeValue(input) {
         	
-        	var checkId = input.id;
+            var checkId = input.id;
             var checkSu = checkId.substr(-1);
 
             var file = input.files[0]; //선택된 파일 가져오기
@@ -170,107 +163,118 @@
             	console.log(filename);
             }
             
-        	
-          if (/(\.gif|\.jpg|\.jpeg|\.webp|\.png|\.PNG)$/i.test(filename) == false) {
-        	  $("#review_photo").val("");
-              alert("이미지 형식의 파일을 선택하십시오");
-              
-          }else{
-        	  
-        	  if($(".upload_img").length){
-            	  $(".upload_img").remove();
-          			if($("input[name=review_image]").length){
-            			var change = $("input[name=review_image]").val();
-            			$("input[name=last_review_image]").val(change);
-            		}
-              }
-
-              //let files = filename.split(".");
-              //let thfile = files[files.length -1];
-        	  
-              //미리 만들어 놓은 div에 text(파일 이름) 추가
-              //var name = document.getElementById('fileName');
-              //name.textContent = file.name;
-
-              //새로운 이미지 div 추가
-              var newImage = document.createElement("img");
-              newImage.setAttribute("class", "upload_img");
-
-              //이미지 source 가져오기
-              newImage.src = URL.createObjectURL(file);
-              newImage.style.visibility = "visible";
-              newImage.style.objectFit = "contain";
-              alert(URL.createObjectURL(file));
-
-              //이미지를 image-show div에 추가
-              var container = $(".select-picture");
-              container.append(newImage);
-        	  
-          }
-
-        }
+            if (/(\.gif|\.jpg|\.jpeg|\.webp|\.png|\.PNG)$/i.test(filename) == false) {
+          	  $("#review_photo").val("");
+                alert("이미지 형식의 파일을 선택하십시오");
+                
+            }else{
         
-     	// 사진업로드 기능
-        function photoUpload(){
-
-          var formData = new FormData();
-          
-          var fileInput = $("#review_photo");
-
-           for (var i = 0; i < fileInput.length; i++) {
-               if (fileInput[i].files.length > 0) {
-                 for (var j = 0; j < fileInput[i].files.length; j++) {
-                   console.log(" mainFileInput[i].files[j] :::"+ fileInput[i].files[j]);
-
-                   // formData에 'file'이라는 키값으로 fileInput 값을 append 시킨다.
-                   formData.append('reviewphoto', $('#review_photo')[i].files[j]);
-                 }
-               }
-             }
-
-             var starcount = $(".rating-input__star1").length;
-         	  $("input[name=rating]").val(starcount);
-         	  
-         	  var contentarea = $("#contentarea").val();
-         	  
-         	  
-         	  if(starcount == 0 || formData == 0 || contentarea == ''){
-         		  alert("리뷰 정보가 부족합니다. 다시 입력해주세요");
-         		  event.preventDefault();
-         	  }else{
-         	 
-   	          $.ajax({
-   	            url: 'uploadReview.com',
-   	            method:'post',
-   	            data: formData,
-   	            contentType: false,
-   	            processData: false,
-   	            async: false,
-   	            dataType: 'text',
-   	            success: function(resp) {
-
-   	              alert("리뷰가 정상적으로 등록되었습니다.");
-   	              //alert(resp);
-   	              if(resp != 'nofile'){
-   	            	  $("input[name=review_image]").val(resp);
-   	              }
-   	              $(".review-modal__form").submit();
-   	              // aws 사진 지워주는 처리 여기서
-   					
-   	            },
-   	            error: function(jqXHR){
-   	              //alert(jqXHR.responseText);
-   	              alert("리뷰 등록에 실패했습니다. 다시한번 시도해주세요 ^^")
-   	            }
-   	          });
-        	}
-        	  
-        	  
-
-
+        	
+		       	if($(".upload_img").length){
+		         	  $(".upload_img").remove();
+		        			if($("input[name=review_image]").length){
+		          			var change = $("input[name=review_image]").val();
+		          			$("input[name=last_review_image]").val(change);
+		          		}
+		           }
+		       	
+		
+		
+		          //미리 만들어 놓은 div에 text(파일 이름) 추가
+		          //var name = document.getElementById('fileName');
+		          //name.textContent = file.name;
+		
+		          //새로운 이미지 div 추가
+		          var newImage = document.createElement("img");
+		          newImage.setAttribute("class", "upload_img");
+		
+		          //이미지 source 가져오기
+		          newImage.src = URL.createObjectURL(file);
+		          newImage.style.visibility = "visible";
+		          newImage.style.objectFit = "contain";
+		          alert(URL.createObjectURL(file));
+		
+		          //이미지를 image-show div에 추가
+		          var container = $(".select-picture");
+		          container.append(newImage);
+            }
 
         }
-  
+
+          // 사진업로드 기능
+          function photoUpload(){
+
+            var formData = new FormData();
+            
+            var fileInput = $("#review_photo");
+
+            for (var i = 0; i < fileInput.length; i++) {
+              if (fileInput[i].files.length > 0) {
+                for (var j = 0; j < fileInput[i].files.length; j++) {
+                  console.log(" mainFileInput[i].files[j] :::"+ fileInput[i].files[j]);
+
+                  // formData에 'file'이라는 키값으로 fileInput 값을 append 시킨다.
+                  formData.append('reviewphoto', $('#review_photo')[i].files[j]);
+                }
+              }
+            }
+            
+            var starcount = $(".rating-input__star1").length;
+        	$("input[name=rating]").val(starcount);
+        	
+        	if(starcount == 0 || contentarea == ''){
+        		  alert("리뷰 정보가 부족합니다. 다시 입력해주세요");
+        		  event.preventDefault();
+        	}else{
+        	
+	            $.ajax({
+	              url: 'uploadReview.com',
+	              method:'post',
+	              data: formData,
+	              contentType: false,
+	              processData: false,
+	              async: false,
+	              dataType: 'text',
+	              success: function(resp) {
+	                alert("성공!");
+	                console.log(resp);
+	                if(resp == nofile){
+	                	$("input[name=review_image]").val("");
+	                }else{
+	                	$("input[name=review_image]").val(resp);
+	                }
+	                $(".review-modal__form").submit();
+					
+	              },
+	              error: function(jqXHR){
+	                //alert(jqXHR.responseText);
+	                alert("리뷰 등록에 실패했습니다. 다시한번 시도해주세요 ^^")
+	              }
+	            });
+            
+        	}
+
+          }
+          
+          function resetReview(){
+        	  
+        	  // 사진 리셋
+        	  if($(".upload_img").length){
+             	  $(".upload_img").remove();
+            			if($("input[name=review_image]").length){
+            				$("input[name=review_image]").val("");
+              			}
+               }
+        	  
+        	  // star reset
+        	  checkStar(0);
+        	  
+        	  // content reset
+        	  $("#contentarea").val('');
+
+          }
+    
+    
     
     
     </script>
@@ -278,20 +282,21 @@
   <body>
   <header>
     	<jsp:include page="./header/OzoH.jsp"></jsp:include>
-    </header>
+  </header>
+  
     <div class="area-position-mypage">
       <!-- nav -->
       <div class="mypage-nav">
         <nav class="page-navigation mypage-nav-owner">
           <ul style="transform: translateX(0px); margin: 0px">
             <li class="mypage-nav-item">
-              <a class="active" href="/house/m_myPage.com">프로필</a>
+              <a href="/house/m_myPage.com">프로필</a>
             </li>
             <li class="mypage-nav-item">
               <a href="/house/myshopping.com">나의 쇼핑</a>
             </li>
             <li class="mypage-nav-item">
-              <a href="/house/review.com">나의 리뷰</a>
+              <a class="active" href="/house/review.com">나의 리뷰</a>
             </li>
             <li class="mypage-nav-item">
               <a href="/house/m_edit.com">설정</a>
@@ -301,148 +306,44 @@
         <nav class="page-navigation mypage-nav-content">
           <ul style="transform: translateX(0px); margin: 0px">
             <li class="mypage-nav-item">
-              <a class="" href="/house/review.com">리뷰쓰기</a>
+              <a class="active select" href="/house/review.com">리뷰쓰기</a>
             </li>
             <li class="mypage-nav-item">
-              <a class="active select" href="/house/review_view.com">내가 작성한 리뷰</a>
+              <a class="" href="/house/reviewLog.com">내가 작성한 리뷰</a>
             </li>
           </ul>
         </nav>
       </div>
     </div>
     
-	    <!-- content -->
-	    <div class="my-review-list container">
-	      <div class="virtualized-list my-review-list__list" style="padding-top: 0px; padding-bottom: 0px; transform: translateY(0px);">
-
-			<c:forEach items="${myreviewlist }" var="myreview">
-				<div>
-		          <div class="my-review-list__list__item">
-		            <div class="my-review-list__list__item__wrap">
-		              <div class="my-review-list__list__item__product">
-		                <a class="my-review-list__list__item__product__name" href="productPage.com?p=${myreview.repost_id }">
-		                <div class="my-review-list__list__item__product__explain">
-		                  [${myreview.company_name }]${myreview.post_name }
-		                </div>
-		                <div class="acss-176vqvk">
-		                  ${myreview.option1_name }: ${myreview.option1 } 
-		    				<c:if test="${myreview.option2 != '' }">
-		    					/ ${myreview.option2_name }: ${myreview.option2 }
-		    				</c:if>
-		                </div>
-		                <div class="my-review-list__list__item__product__info">
-		                  <span class="my-review-list__list__item__product__info__star" aria-label="별점 점">
-		                  	<!-- 별 for문 -->
-							<c:if test="${myreview.rating eq 5 }">
-								<div class="my-review-list__list__item__product__info__text__fill">
-			                  		<i class="fa-solid fa-star"></i>
-			                  	</div>
-			                  	<div class="my-review-list__list__item__product__info__text__fill">
-			                  		<i class="fa-solid fa-star"></i>
-			                  	</div>
-			                  	<div class="my-review-list__list__item__product__info__text__fill">
-			                  		<i class="fa-solid fa-star"></i>
-			                  	</div>
-			                  	<div class="my-review-list__list__item__product__info__text__fill">
-			                  		<i class="fa-solid fa-star"></i>
-			                  	</div>
-			                  	<div class="my-review-list__list__item__product__info__text__fill">
-			                  		<i class="fa-solid fa-star"></i>
-			                  	</div>
-							</c:if>
-							<c:if test="${myreview.rating eq 4 }">
-							<div class="my-review-list__list__item__product__info__text__fill">
-		                  		<i class="fa-solid fa-star"></i>
-		                  	</div>
-		                  	<div class="my-review-list__list__item__product__info__text__fill">
-		                  		<i class="fa-solid fa-star"></i>
-		                  	</div>
-		                  	<div class="my-review-list__list__item__product__info__text__fill">
-		                  		<i class="fa-solid fa-star"></i>
-		                  	</div>
-		                  	<div class="my-review-list__list__item__product__info__text__fill">
-		                  		<i class="fa-solid fa-star"></i>
-		                  	</div>
-		                  	<div class="my-review-list__list__item__product__info__text">
-			                  		<i class="fa-solid fa-star"></i>
-			                </div>
-							</c:if>
-							<c:if test="${myreview.rating eq 3 }">
-							<div class="my-review-list__list__item__product__info__text__fill">
-		                  		<i class="fa-solid fa-star"></i>
-		                  	</div>
-		                  	<div class="my-review-list__list__item__product__info__text__fill">
-		                  		<i class="fa-solid fa-star"></i>
-		                  	</div>
-		                  	<div class="my-review-list__list__item__product__info__text__fill">
-		                  		<i class="fa-solid fa-star"></i>
-		                  	</div>
-		                  	<div class="my-review-list__list__item__product__info__text">
-			                  		<i class="fa-solid fa-star"></i>
-			                </div>
-		                  	<div class="my-review-list__list__item__product__info__text">
-			                  		<i class="fa-solid fa-star"></i>
-			                </div>
-							</c:if>
-							<c:if test="${myreview.rating eq 2 }">
-							<div class="my-review-list__list__item__product__info__text__fill">
-		                  		<i class="fa-solid fa-star"></i>
-		                  	</div>
-		                  	<div class="my-review-list__list__item__product__info__text__fill">
-		                  		<i class="fa-solid fa-star"></i>
-		                  	</div>
-		                  	<div class="my-review-list__list__item__product__info__text">
-			                  		<i class="fa-solid fa-star"></i>
-			                </div>
-			                <div class="my-review-list__list__item__product__info__text">
-			                  		<i class="fa-solid fa-star"></i>
-			                </div>
-			                <div class="my-review-list__list__item__product__info__text">
-			                  		<i class="fa-solid fa-star"></i>
-			                </div>
-							</c:if>
-							<c:if test="${myreview.rating eq 1 }">
-							<div class="my-review-list__list__item__product__info__text__fill">
-		                  		<i class="fa-solid fa-star"></i>
-		                  	</div>
-		                  	<div class="my-review-list__list__item__product__info__text">
-			                  		<i class="fa-solid fa-star"></i>
-			                </div>
-			                <div class="my-review-list__list__item__product__info__text">
-			                  		<i class="fa-solid fa-star"></i>
-			                </div>
-			                <div class="my-review-list__list__item__product__info__text">
-			                  		<i class="fa-solid fa-star"></i>
-			                </div>
-			                <div class="my-review-list__list__item__product__info__text">
-			                  		<i class="fa-solid fa-star"></i>
-			                </div>
-							</c:if>
-		                  </span>
-		                  <div class="my-review-list__list__item__product__info__text" style="margin-left: 1rem;">
-		                  	<fmt:formatDate value="${myreview.created_at }" pattern="yyyy.MM.dd" />
-		                  </div>
-		                </div>
-		                <div class="my-review-list__list__item__product__content">
-		                  ${myreview.recontent }
-		                </div>
-		                </a>
-		              </div>
-		              <div>
-		                <div class="my-review-list__list__item__insert modifybtn">수정</div>
-		                <input type="hidden" value="${myreview.review_id }" id="review_id">
-		                <c:if test="${myreview.review_image ne null }">
-		                	<img style="width:100px" src="${myreview.review_image }">
-		                </c:if>
-		              </div>
-		            </div>
-		          </div>
-		        </div>	
-			</c:forEach>
-	      </div>
-	    </div>
-	    
-	      <c:if test="${myreviewlist.size() == 0 }">
+    
+    
+    
+    <!-- content -->
+    <div class="my-review-list container">
+    	
+    	<c:forEach items="${prereviewlist }" var="prereview">
+    	<div class="reviewlayer" style="margin-bottom: 2rem;">
+    		<div class="areview-my-home__review-list__item">
+    			<img class="areview-my-home__review-list__item__image" src="${prereview.photo_url }">
+    			<a class="areview-my-home__review-list__item__wrap" href="productPage.com?p=${prereview.od_postid }">
+    			<span class="areview-my-home__review-list__item__wrap__brand">${prereview.company_name }</span>
+    			<span class="areview-my-home__review-list__item__wrap__name">${prereview.post_name }</span>
+    			<span class="areview-my-home__review-list__item__wrap__option">${prereview.option1_name }: ${prereview.option1 } 
+    				<c:if test="${prereview.option2 ne '' }">
+    					/ ${prereview.option2_name }: ${prereview.option2 }
+    				</c:if>
+    			</span>
+    			<span class="areview-my-home__review-list__item__wrap__point-info">포토 500P 일반 100P</span></a>
+    			<div class="areview-my-home__review-list__item__review-btn">
+    			<div class="areview-my-home__review-list__item__review-btn__from">오조의집 구매</div>
+    			<button class="a_3Z6oR a_1myYS a_1BDvx areview-my-home__review-list__item__review-btn__button review_write_btn openmodal" value="${prereview.order_id }">리뷰쓰기</button>
+    			</div>
+    		</div>
+    	</div>
+    	</c:forEach>
+    	
+    	<c:if test="${prereviewlist.size() == 0 }">
     		<div style="margin-bottom: 10rem; display:flex; flex-direction: column; align-items: center;">
     			<svg class="icon" width="101" height="96" preserveAspectRatio="xMidYMid meet">
                 <g fill="none" fill-rule="evenodd">
@@ -498,14 +399,15 @@
 	            </span>
     		</div>
     	</c:if>
-	    
-	    <!-- modal -->
-	   <div class="thismodal" style="display:none;">
+
+    </div>
+    
+	<div class="thismodal" style="display:none;">
 		<div class="_1SpqS review-modal__modal__wrap open open-active">
 			<div class="_3OUv-">
 				<div tabindex="-1" class="_2mP0n review-modal__modal">
 					<div class="review-modal">
-						<div class="review-modal__title">리뷰 수정
+						<div class="review-modal__title">리뷰 쓰기
 						<button type="button" class="review-modal__close">
 							<i class="fa-solid fa-x"></i>
 						</button>
@@ -513,7 +415,7 @@
 						<div class="review-modal__point-explain">
 							리뷰&nbsp;<span class="review-modal__point-explain__value">500P</span>
 						</div>
-						<form class="review-modal__form" action="reviewModify.com" method="post">
+						<form class="review-modal__form" action="reviewInsert.com" method="post">
 							<div class="review-modal__form__product">
 								<img class="review-modal__form__product__image" id="brandimg" src="">
 								<div class="review-modal__form__product__contents">
@@ -563,6 +465,9 @@
 								<div class="review-modal__section__explain">사진을 첨부해주세요. (최대 1장)</div>
 								<div class="select-picture" style="display:none;">
 									<img class="select-picture__contents" src="">
+									<button class="button button--color-blue button--size-50 button--shape-4 select-picture__delete" type="button">
+										삭제
+									</button>
 								</div>
 								<input type="file" name="main_photo" id="review_photo" class="main_photo"
 			                       style="display: none" onchange="changeValue(this)"
@@ -576,13 +481,15 @@
 								<textarea name="recontent" id="contentarea" placeholder="자세하고 솔직한 리뷰는 다른 고객에게 큰 도움이 됩니다. (최소 20자 이상)" class="form-control text-area-input review-modal__form__review-input" style="height: 56px;"></textarea>
 							</div>
 							
-							<input type="hidden" name="review_id" value="">
+							<input type="hidden" name="reproduct_id" value="">
+							<input type="hidden" name="reseller_id" value="">
+							<input type="hidden" name="order_id" value="">
+							<input type="hidden" name="repost_id" value="">
 							<input type="hidden" name="rating" value="1">
 							<input type="hidden" name="review_image" value="">
-							<input type="hidden" name="last_review_image" value="">
 							
 							
-							<button type="button" class="button button--color-blue button--size-50 button--shape-4 review-modal__form__submit" onclick="photoUpload()">완료</button>
+							<button class="button button--color-blue button--size-50 button--shape-4 review-modal__form__submit" onclick="photoUpload()">완료</button>
 						</form>
 						<div class="review-modal__explain">
 							<ul>
@@ -595,11 +502,11 @@
 					</div>
 					</div>
 					</div>
-					
-		<c:if test="${myreviewlist.size() < 3 or myreviewlist.size() > 0}">
+
+		<c:if test="${prereviewlist.size() < 3 or myreviewlist.size() > 0}">
 			<div style="margin-top: 20rem;"></div>
 		</c:if>
-
+	
     <footer>
 		<jsp:include page="./footer/footer.jsp"></jsp:include>
     </footer>

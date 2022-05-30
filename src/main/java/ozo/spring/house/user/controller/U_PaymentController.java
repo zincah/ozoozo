@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ozo.spring.house.user.dao.UserDAO.payment_class;
-import ozo.spring.house.user.service.UserService;
+import ozo.spring.house.user.dao.U_DAO.payment_class;
+import ozo.spring.house.user.service.U_Service;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.CouponVO;
 import ozo.spring.house.user.vo.ImportVO;
@@ -32,7 +32,7 @@ import ozo.spring.house.user.vo.UserProductVO;
 @Controller
 public class U_PaymentController {
 	@Autowired
-	UserService userservice;
+	U_Service userservice;
 	
 	List<CartVO> cart_li = new ArrayList<CartVO>();
 	List<UserProductVO> pro_li = new ArrayList<UserProductVO>();
@@ -47,6 +47,7 @@ public class U_PaymentController {
 	//주소값으로 입력시 오류 메세지
 	@RequestMapping(value = "/calculation.com")
 	public void user_calculation(HttpSession session,HttpServletRequest request, HttpServletResponse response) throws IOException {
+		System.err.println("[Log] --- Payment Controller >>>>> user_calculation Method");
 		PrintWriter out = response.getWriter();
 
 		out.println("<script>alert('잘못된 접근 입니다.'); self.close();</script>");
@@ -57,6 +58,7 @@ public class U_PaymentController {
 	//결제창 띄우기전 메소드
 	@RequestMapping(value = {"/cart_payment.com","/ProductPage.com"}, method=RequestMethod.POST)
 	public String load_payment(HttpSession session,Model model, HttpServletRequest request) {
+		System.err.println("[Log] --- Payment Controller >>>>> load_payment Method");
 		userID = (Integer)session.getAttribute("User_Num");
 		if(request.getParameter("cart_param") != null) {
 			model.addAttribute("cart_bln", false);
@@ -64,7 +66,7 @@ public class U_PaymentController {
 			model.addAttribute("cart_bln", true);
 		}
 		if(request.getParameter("Product_ID") == null) {
-			System.out.println(request.getParameter("Product_ID"));
+			//System.out.println(request.getParameter("Product_ID"));
 			return null;
 		}
 		String[] param_li = request.getParameter("Product_ID").split("%");
@@ -133,11 +135,13 @@ public class U_PaymentController {
 	@ResponseBody
 	@RequestMapping(value = "/pro_js.com", method=RequestMethod.POST)
 	public List<UserProductVO> get_pro_li(){
+		System.err.println("[Log] --- Payment Controller >>>>> get_pro_li Method");
 		return pro_li;
 	}
 	@ResponseBody
 	@RequestMapping(value = "/cart_js.com", method=RequestMethod.POST)
 	public List<CartVO> get_cart_li(){
+		System.err.println("[Log] --- Payment Controller >>>>> get_cart_li Method");
 		return cart_li;
 	}
 	
@@ -145,6 +149,7 @@ public class U_PaymentController {
 	@ResponseBody
 	@RequestMapping(value = "/payment/ajax.com", method=RequestMethod.POST)
 	public String payment_json(@RequestBody HashMap<String,Object> ivo ) {
+		System.err.println("[Log] --- Payment Controller >>>>> payment_json Method");
 		int merchant_uid = (Integer)ivo.get("merchant_uid");
 		int paid_amount = (Integer)ivo.get("paid_amount");
 		String pay_method = (String)ivo.get("pay_method");
@@ -161,7 +166,6 @@ public class U_PaymentController {
 			add_vo.setSeller_id(cart_li.get(i).getCart_seller());
 			int price = pro_li.get(i).getProduct_price() * pro_li.get(i).getCart_quantity();
 			add_vo.setPrice(price);
-			System.out.println();
 			int final_price = price - point; //할인된만큼 뺴기
 			add_vo.setPayment(final_price);
 			add_vo.setProduct_id(cart_li.get(i).getCart_product()); 	
@@ -207,7 +211,7 @@ public class U_PaymentController {
 	@ResponseBody
 	@RequestMapping(value = "/cart_delete.com", method=RequestMethod.POST)
 	public boolean cart_delete() {
-		System.out.println("calcul check potin");
+		System.err.println("[Log] --- Payment Controller >>>>> cart_delete Method");
 		pay_cls.cart_del(cart_li);
 		return true;
 	}
@@ -216,17 +220,14 @@ public class U_PaymentController {
 	@ResponseBody
 	@RequestMapping(value = "/addr_insert.com", method=RequestMethod.POST)
 	public void addr_insert(@RequestBody String[] addr_li) {
+		System.err.println("[Log] --- Payment Controller >>>>> addr_insert Method");
 		UserAddressVO uavo = new UserAddressVO();
-		for(int i = 0; i < addr_li.length; i++) {
-			System.out.println(addr_li[i]);
-		}
 		uavo.setAddress_name(addr_li[0]);
 		uavo.setReceiver(addr_li[1]);
 		uavo.setAddress1("[" + addr_li[2] + "] " + addr_li[3] );
 		uavo.setAddress2(addr_li[4]);
 		uavo.setUser_num(userID);
 		uavo.setAddr_default(true);
-		System.out.println(uavo.isAddr_default());
 		uavo.setPhone_num(addr_li[5]);
 		pay_cls.addr_insert(uavo);
 		this.choice_addr = pay_cls.get_addr_true(cvo);
@@ -237,15 +238,14 @@ public class U_PaymentController {
 	@ResponseBody
 	@RequestMapping(value = "/addr_add_insert.com", method=RequestMethod.POST)
 	public String addr_add_insert(@RequestBody HashMap<String,String> db_param) {
+		System.err.println("[Log] --- Payment Controller >>>>> addr_add_insert Method");
 		UserAddressVO uvo = new UserAddressVO();
-		System.out.println(db_param);
 		uvo.setAddress_name(db_param.get("addr_name"));
 		uvo.setReceiver(db_param.get("name"));
 		uvo.setPhone_num(db_param.get("phone"));
 		uvo.setAddress1(db_param.get("addr1"));
 		uvo.setAddress2(db_param.get("addr2"));
 		uvo.setUser_num(this.userID);
-		System.out.println(this.userID);
 		if(db_param.get("bln") == "true") {
 			uvo.setAddr_default(true);
 			pay_cls.addr_default_change(uvo);
@@ -258,7 +258,6 @@ public class U_PaymentController {
 			pay_cls.addr_insert(uvo);
 		}else {
 			uvo.setAddress_id(Integer.parseInt(db_param.get("index")));
-			System.out.println("address id : "  + uvo.getAddress_id());
 			pay_cls.addr_update(uvo);
 		}
 		return "1";
@@ -268,6 +267,7 @@ public class U_PaymentController {
 	@ResponseBody
 	@RequestMapping(value = "/addr_delete.com", method=RequestMethod.POST)
 	public String addr_delete(@RequestBody int addr_id) {
+		System.err.println("[Log] --- Payment Controller >>>>> addr_delete Method");
 		pay_cls.addr_delete(addr_id);
 		return "success";
 	}
@@ -276,6 +276,7 @@ public class U_PaymentController {
 	@ResponseBody
 	@RequestMapping(value = "/addr_change.com", method=RequestMethod.POST)
 	public String addr_change(@RequestBody int addr_id) throws JsonProcessingException {
+		System.err.println("[Log] --- Payment Controller >>>>> addr_change Method");
 		this.choice_addr = pay_cls.get_address(addr_id);
 		String jsonmap = new ObjectMapper().writeValueAsString(this.choice_addr);
 		return jsonmap;

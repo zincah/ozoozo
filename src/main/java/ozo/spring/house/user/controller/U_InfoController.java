@@ -20,12 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
-import ozo.spring.house.user.dao.UserDAO.cart_Allload;
+import ozo.spring.house.user.dao.U_DAO.cart_Allload;
 import ozo.spring.house.user.service.NaverLoginService;
-import ozo.spring.house.user.service.UserMainService;
-import ozo.spring.house.user.service.UserScrapService;
-import ozo.spring.house.user.service.UserService;
-import ozo.spring.house.user.service.userMyPageService;
+import ozo.spring.house.user.service.U_MainService;
+import ozo.spring.house.user.service.U_Service;
+import ozo.spring.house.user.service.U_MyPageService;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
@@ -34,16 +33,16 @@ import ozo.spring.house.user.vo.UserVO;
 public class U_InfoController {
 	
 	@Autowired
-	UserService userService;
+	U_Service userService;
 	
 	@Autowired
-	UserMainService userMainService;
+	U_MainService userMainService;
 	
 	@Autowired
-	userMyPageService mypageService;
+	U_MyPageService mypageService;
 	
 	@Autowired 
-	UserScrapService userscrapservice;
+	U_MyPageService mypageservice;
 	
 	@Autowired NaverLoginService naverLoginService;
 	
@@ -54,7 +53,7 @@ public class U_InfoController {
 			@RequestParam(value="user_email1")String email1, 
 			@RequestParam(value="user_email2")String email2,
 			@RequestParam(value="user_email3")String email3) {
-	
+		System.err.println("[Log] --- Info Controller >>>>> signUpProc Method");
 		
 		
 		if(email2.equals("manual")) {
@@ -70,38 +69,18 @@ public class U_InfoController {
 		
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="/header_load.com", method= {RequestMethod.GET, RequestMethod.POST})
-	public int[] get_cart_ea(HttpSession session) {
-		if(session.getAttribute("UserMail")!=null) {
-			cart_Allload cart_cls;
-			CartVO cvo =new CartVO();
-			cvo.setCart_user((Integer)session.getAttribute("User_Num"));
-			cart_cls = userService.get_cart_class(cvo);
-			List<CartVO> cart_li = cart_cls.getCart_li();
-			
-			UserScrapVO vo = new UserScrapVO();
-			vo.setSc_usernum((Integer)session.getAttribute("User_Num"));
-			List<UserScrapVO> scrap_li = userscrapservice.us_list(vo);
-			int[] arr = {cart_li.size(), scrap_li.size()};
-			return arr;
-		}else {
-			return null;
-		}
-	}
+	
 	
 	
 	// 네이버 로그인 callback 메소드
 	@RequestMapping(value="/nalogin.com", method={ RequestMethod.GET, RequestMethod.POST })
 	public String callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, UserVO vo) 
 			throws IOException, ParseException{
-		
-		System.out.println("naver callback");
+		System.err.println("[Log] --- Info Controller >>>>> callback Method");
 		OAuth2AccessToken oauthToken;
 		oauthToken = naverLoginService.getAccessToken(session, code, state);
 		
 		String apiResult = naverLoginService.getUserProfile(oauthToken);
-		System.out.println(apiResult);
 		
 		JSONParser parser = new JSONParser();
 		Object obj = parser.parse(apiResult);
@@ -110,9 +89,6 @@ public class U_InfoController {
 		JSONObject response_obj = (JSONObject) jsonObj.get("response");
 		String nickname = (String) response_obj.get("nickname");
 		String email = (String) response_obj.get("email");
-		
-		System.out.println("nick" + nickname);
-		System.out.println("email" + email);
 		
 		vo.setUser_email(email);
 		UserVO user = userService.checkUserByNaver(vo);
@@ -148,7 +124,7 @@ public class U_InfoController {
 	// 네이버 로그인 메소드
 	@RequestMapping(value = "/login.com", method=RequestMethod.GET)
 	public String loginView(HttpSession session, HttpServletRequest request, Model model) {
-
+		System.err.println("[Log] --- Info Controller >>>>> loginView Method");
 		String naverAuthUrl = naverLoginService.getAuthorizationUrl(session);
 		//System.out.println("네이버:"+naverAuthUrl);
 		model.addAttribute("naverurl", naverAuthUrl);
@@ -156,7 +132,6 @@ public class U_InfoController {
 		
 		// 이전 페이지 정보를 얻어와서 String url에 저장해준다.
 		if(request.getHeader("Referer")!=null) {
-			System.out.println("이전 url");
 			String referer = request.getHeader("Referer");
 			String[] urls = referer.split("/");
 			String url = urls[urls.length-1];
@@ -173,9 +148,8 @@ public class U_InfoController {
 	
 		@RequestMapping(value="/login.com", method=RequestMethod.POST)
 		public String login(UserVO vo, Model model, HttpSession session, HttpServletRequest request) {
-
+			System.err.println("[Log] --- Info Controller >>>>> login Method");
 			// log 처리
-			System.out.println("login controller");
 			
 			// 카카오 로그인 구현
 			if(request.getParameter("kanickname")!="") {
@@ -234,7 +208,6 @@ public class U_InfoController {
 					
 				}else {
 					url = (String) session.getAttribute("lasturl");
-					System.out.println(url);
 					if(!url.equals("signUp.com")) {
 						return "redirect:"+url;
 					}
@@ -253,7 +226,7 @@ public class U_InfoController {
 		// logout
 		@RequestMapping(value = "/logout.com", method=RequestMethod.GET)
 		public String logout(HttpSession session) {
-
+			System.err.println("[Log] --- Info Controller >>>>> logout Method");
 			//(http://nid.naver.com/nidlogin.logout)
 			session.invalidate();
 			return "redirect:login.com";
@@ -261,10 +234,11 @@ public class U_InfoController {
 		
 		@RequestMapping(value = "/myPage.com")
 		public String mypageView(HttpServletRequest request, Model model) {
+			System.err.println("[Log] --- Info Controller >>>>> mypageView Method");
 			HttpSession session = request.getSession();
 			
 			if(session.getAttribute("UserMail")!=null) {
-				return "oZo_My_Page";
+				return "oZo_MyPage";
 			}else {
 				String msg = "로그인후 이용 가능합니다.";
 				model.addAttribute("msg", msg);
@@ -275,8 +249,8 @@ public class U_InfoController {
 		@ResponseBody
 		@RequestMapping(value = "/Duplicate_Check_Email.com", method=RequestMethod.POST)
 		public Boolean checkEmail(@RequestBody String Email, UserVO vo) {
+			System.err.println("[Log] --- Info Controller >>>>> checkEmail Method");
 			String email = Email.replace("\"", "");
-			System.out.println("사용자가 입력한 E-mail : "+ email);
 			vo.setUser_email(email);
 			return userService.Duplicate_Check_Email(vo);
 		}
@@ -284,8 +258,8 @@ public class U_InfoController {
 		@ResponseBody
 		@RequestMapping(value = "/Duplicate_Check_Nickname.com", method=RequestMethod.POST)
 		public Boolean checkNickname(@RequestBody String Nickname, UserVO vo) {
+			System.err.println("[Log] --- Info Controller >>>>> checkNickname Method");
 			String nickname = Nickname.replace("\"", "");
-			System.out.println("사용자가 입력한 nickname : "+ nickname);
 			vo.setNickname(nickname);
 			return userService.Duplicate_Check_Nickname(vo);
 		}
@@ -293,10 +267,9 @@ public class U_InfoController {
 		@ResponseBody
 		@RequestMapping(value = "/userPassword_change.com", method=RequestMethod.POST)
 		public String changePassword(@RequestParam("change_pass") String change_pass, UserVO vo, HttpSession session) {
+			System.err.println("[Log] --- Info Controller >>>>> changePassword Method");
 			String pass = change_pass.replace("\"", "");
-			System.out.println("바꾸고자 하는 비밀번호 : "+ pass +"\n");
 			String email = (String) session.getAttribute("UserMail");
-			System.out.println(email);
 			vo.setUser_pw(pass);
 			vo.setUser_email(email);
 			userService.change_pass(vo);
@@ -306,40 +279,25 @@ public class U_InfoController {
 		//회원가입 페이지
 		@RequestMapping(value = "/signUp.com")
 		public String user_signUp(UserVO vo, Model model, HttpSession session) {
-			
+			System.err.println("[Log] --- Info Controller >>>>> user_signUp Method");
 			// 네이버 로그인 버튼 클릭시
 			String naverAuthUrl = naverLoginService.getAuthorizationUrl(session);
 			//System.out.println("네이버:"+naverAuthUrl);
 			model.addAttribute("naverurl", naverAuthUrl);
-			
 			// 카카오
-			
 			// 구글
-			
-			
 			return "oZo_SignUp";
 		}
 		@RequestMapping(value = "/memberSessionCheck.com",method = RequestMethod.POST)
 		@ResponseBody
 		public int memberSessionCheck (HttpSession session) {
+			System.err.println("[Log] --- Info Controller >>>>> memberSessionCheck Method");
 			if(session.getAttribute("User_Num")!=null) {
 			int User_Num =(int) session.getAttribute("User_Num");
-			System.out.println((int) session.getAttribute("User_Num"));
-		
-				
-				
 				return User_Num;
 				
 			}else {
 				return 0;
 			}
 		}
-		
-		// 고객 장바구니 메소드
-		public int checkCartSu(UserVO vo) {
-			int cartSize = mypageService.checkCartSu(vo);
-			return cartSize;
-		}
-		
-
 }

@@ -18,22 +18,22 @@ import org.springframework.web.multipart.MultipartFile;
 import ozo.spring.house.admin.service.AdminBannerService;
 import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.seller.service.AwsS3;
-import ozo.spring.house.user.service.userMyPageService;
+import ozo.spring.house.user.service.U_MyPageService;
 import ozo.spring.house.user.vo.UserVO;
 
 @Controller
-public class UserUploadController {
+public class U_UploadController {
 	
 	@Autowired
 	AwsS3 awss3Client;
 	
 	@Autowired
-	userMyPageService usermypageservice;
+	U_MyPageService usermypageservice;
 	
 	@ResponseBody
 	@RequestMapping(value="/mypageupload.com", method=RequestMethod.POST)
 	public String bannerupload( @RequestPart(value = "key", required=false) Map<String, String> param, @RequestPart(value="myphoto", required=false) List<MultipartFile> myphoto, UserVO vo, HttpServletRequest request) {
-	
+		System.err.println("[Log] --- Upload Controller >>>>> bannerupload Method");
 	// 넘어온 file list 가 없을 때 인식해주기
 		HttpSession session = request.getSession();
 			System.out.println("file upload ready");

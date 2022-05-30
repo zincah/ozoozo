@@ -11,7 +11,7 @@ import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserVO;
 
-public interface UserMainService {
+public interface U_MainService {
 	
 	public List<UserProductVO> mainProductList(UserProductVO vo);
 	public List<UserProductVO> mainDealProductList(UserProductVO vo);

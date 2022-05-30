@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ozo.spring.house.user.dao.UserDAO.product_cls;
-import ozo.spring.house.user.service.ReviewService;
-import ozo.spring.house.user.service.UserScrapService;
-import ozo.spring.house.user.service.UserService;
+import ozo.spring.house.user.dao.U_DAO.product_cls;
+import ozo.spring.house.user.service.U_MyPageService;
+import ozo.spring.house.user.service.U_Service;
 import ozo.spring.house.user.vo.CouponVO;
 import ozo.spring.house.user.vo.ReviewVO;
 import ozo.spring.house.user.vo.UserProductVO;
@@ -29,13 +28,11 @@ import ozo.spring.house.user.vo.UserVO;
 @Controller
 public class U_ProductController {
 	@Autowired
-	UserService userservice;
+	U_Service userservice;
+	
 	
 	@Autowired
-	ReviewService reviewService;
-	
-	@Autowired
-	UserScrapService userScrapService;
+	U_MyPageService mypageservice;
 	
 	product_cls pro_cls;
 	List<UserProductVO> product_list;
@@ -44,10 +41,10 @@ public class U_ProductController {
 	
 	@RequestMapping(value = "/productPage.com")
 	public String user_product(Model model, UserProductVO vo, UserProduct_tableVO tvo, HttpServletRequest request, HttpSession session, UserScrapVO svo) {
-		
+		System.err.println("[Log] --- Product Controller >>>>> user_product Method");
 		// 상품 아이디
 		this.pro = Integer.parseInt(request.getParameter("p"));
-		System.out.println("상품아이디 " +pro);  //상품 아이디로 전달
+		//System.out.println("상품아이디 " +pro);  //상품 아이디로 전달
 		
 		List<UserProductVO> product_img_list;
 		UserProductVO uvo = new UserProductVO();
@@ -63,15 +60,12 @@ public class U_ProductController {
 				vo.setCheckit(false);
 				if(session.getAttribute("User_Num") != null) {
 					svo.setSc_usernum((int)session.getAttribute("User_Num"));
-					scrap = userScrapService.userScrapList(svo);
-				System.out.println(scrap.size());
+					scrap = mypageservice.userScrapList(svo);
 					for(int j=0; j<scrap.size(); j++) {
 						UserProductVO ho = product_list.get(0);
 						UserScrapVO sc = scrap.get(j);
 						if(Integer.parseInt(ho.getProduct_postid())==sc.getSc_postid() ) {
 							ho.setCheckit(true);
-							System.out.println("봐바");
-							System.out.println(product_list.get(0));
 							
 							
 						}
@@ -115,7 +109,7 @@ public class U_ProductController {
 		}
 		
 		// 리뷰 값 추가
-		List<ReviewVO> reviewList = reviewService.getReviewTODetailPage(pro);
+		List<ReviewVO> reviewList = mypageservice.getReviewTODetailPage(pro);
 		model.addAttribute("reviewList", reviewList);
 		
 		double totalRating = 0.0;
@@ -126,7 +120,6 @@ public class U_ProductController {
 		totalRating = (Double)(Math.round(totalRating/reviewList.size()*10)/10.0);
 		model.addAttribute("totalRating", totalRating);
 		
-		System.out.println(reviewList);
 		
 		return "oZo_ProductDetail";
 	}
@@ -134,8 +127,8 @@ public class U_ProductController {
 	@ResponseBody
 	@RequestMapping(value = "/option_send.com", method=RequestMethod.POST)
 	public List<UserProductVO> get_option2(@RequestBody String Option,UserProductVO vo, HttpSession session,HttpServletRequest request) {
+		System.err.println("[Log] --- Product Controller >>>>> get_option2 Method");
 		String option = Option.replace("\"", "");
-		System.out.println("사용자가 보낸 옵션 값 : "+ option +"\n");
 		vo.setOption1(option);
 		vo.setPost_id(pro);
 		List<UserProductVO> option_list = userservice.productGet_option(vo);
@@ -145,8 +138,8 @@ public class U_ProductController {
 	@ResponseBody
 	@RequestMapping(value = "/option_toString.com", method=RequestMethod.POST)
 	public String[] itemBuy(@RequestBody String option_String, Model model) {
+		System.err.println("[Log] --- Product Controller >>>>> itemBuy Method");
 		option_String = option_String.replace("\"", "");
-		System.out.println(option_String);
 		String[] option_toString = option_String.split(",");
 		return option_toString;
 	}
@@ -155,6 +148,7 @@ public class U_ProductController {
 	@ResponseBody
 	@RequestMapping(value = "/basket_ajax.com", method=RequestMethod.POST)
 	public String basket_add(@RequestBody String[] option_arr, HttpSession session, HttpServletRequest request) {
+		System.err.println("[Log] --- Product Controller >>>>> basket_add Method");
 		if(session.getAttribute("User_Num")==null) {
 			return "123";
 		}
@@ -164,7 +158,6 @@ public class U_ProductController {
 		
 		List<UserProductVO> option_li = new ArrayList<UserProductVO>();
 		UserVO U_vo = new UserVO();
-		System.out.println(option_arr[0]);
 		for(int i = 0; i < option_arr.length; i++) {
 			UserProductVO ex_li = new UserProductVO();
 			String[] Num = option_arr[i].split(":");
@@ -179,13 +172,13 @@ public class U_ProductController {
 		}
 		U_vo.setUser_num((Integer)session.getAttribute("User_Num"));
 		userservice.basket_add(option_li, U_vo);
-		System.out.println("장바구니 담기 성공!");
 		return "hi";
 	}
 	//coupon download
 	@ResponseBody
 	@RequestMapping(value = "/coupon_down.com", method=RequestMethod.POST)
 	public String coupon_down(HttpSession session) {
+		System.err.println("[Log] --- Product Controller >>>>> coupon_down Method");
 		if(session.getAttribute("User_Num") == null) {
 			return "login_false";
 		}
@@ -193,7 +186,6 @@ public class U_ProductController {
 		this.coupon.setUser_couponstatus(true);
 		this.coupon.setUser_copostid(pro);
 		pro_cls.user_coupon_bln(coupon);
-		System.out.println(coupon);
 		pro_cls.coupon_insert(coupon);
 		return "success";
 	}

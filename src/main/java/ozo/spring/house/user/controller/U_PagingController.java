@@ -15,43 +15,42 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ozo.spring.house.user.service.UserCategoryService;
-import ozo.spring.house.user.service.UserMainService;
-import ozo.spring.house.user.service.UserScrapService;
+import ozo.spring.house.user.service.U_CategoryService;
+import ozo.spring.house.user.service.U_MainService;
+import ozo.spring.house.user.service.U_MyPageService;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 
 @Controller
-public class UserPagingController {
+public class U_PagingController {
 	
 	@Autowired
-	UserMainService userMainService;
+	U_MainService userMainService;
 	
 	@Autowired
-	UserCategoryService userCateService;
+	U_CategoryService userCateService;
 	
 	@Autowired
-	UserScrapService userScrapService;
+	U_MyPageService mypageService;
 
 	// main page
 	@RequestMapping(value = "/getProductList.com")
 	public String user_main(@RequestBody Map<String, String> searchMap, UserProductVO vo, UserPagingVO pvo, UserScrapVO svo,  Model model, HttpSession session) {
-		
+		System.err.println("[Log] --- Paging Controller >>>>> user_main Method");
 		// scrap
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		vo.setCheckit(false);
 		if(session.getAttribute("User_Num") != null) {
 			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
-			scrap = userScrapService.userScrapList(svo);
+			scrap = mypageService.userScrapList(svo);
 		}
 		
-		System.out.println(searchMap);
 
 		// product list pagecount
 		int pagecount = Integer.parseInt(searchMap.get("page"));
-		pvo.setThispage(pagecount); // 占쎌삋揶쏉옙
+		pvo.setThispage(pagecount);
 		pvo.setOrderKind(searchMap.get("ranking"));
 		
 		List<UserProductVO> productList = userMainService.plusProductList(pvo);
@@ -60,10 +59,9 @@ public class UserPagingController {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //占쎈꺖占쎈땾占쎌젎 占쎈맙占쎈땾
+			DecimalFormat decFormat = new DecimalFormat("###,###"); 
 			
 			pro.setSale_price(decFormat.format(sale_price));
-			System.out.println(pro.getPost_id());
 			
 			for(int j=0; j<scrap.size(); j++) {
 				UserScrapVO sc = scrap.get(j);
@@ -73,27 +71,25 @@ public class UserPagingController {
 			}
 		}
 		
-		
 		model.addAttribute("productList", productList);
 		//model.addAttribute("pagecount", pagecount);
 		
-		return "oZo_Main_Assist";
+		return "oZo_MainAssist";
 	}
 	
 	// category page
 	@RequestMapping(value = "/getProductListCate.com")
 	public String user_cate(@RequestBody List<List<String>> wholeList, UserCategoryVO vo, UserPagingVO pvo, Model model,UserScrapVO svo, HttpSession session) {
-		
+		System.err.println("[Log] --- Paging Controller >>>>> user_cate Method");
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		if(session.getAttribute("User_Num") != null) {
 			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
-			scrap = userScrapService.userScrapList(svo);
+			scrap = mypageService.userScrapList(svo);
 		}
-		System.out.println(wholeList);
 		
 		List<String> cates = wholeList.get(1);
 
-		// category 占쎄퐫占쎈선雅뚯눊由�
+		// category 
 		vo.setTop_catecode(Integer.parseInt(cates.get(0)));
 		if(cates.size()>1 && cates.get(1)!="") {
 			vo.setMidcate_code(Integer.parseInt(cates.get(1)));
@@ -106,19 +102,16 @@ public class UserPagingController {
 		vo.setThispage(Integer.parseInt(wholeList.get(2).get(0)));
 		vo.setOrderKind(wholeList.get(3).get(0)); // ranking
 		
-		
 		//List<UserProductVO> productList = userCateService.selectProductByCate(vo);
 		List<UserProductVO> productList = userCateService.getPostList(vo);
-		System.out.println(productList.size());
 		
 		for(int i=0; i<productList.size(); i++) {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //占쎈꺖占쎈땾占쎌젎 占쎈맙占쎈땾
+			DecimalFormat decFormat = new DecimalFormat("###,###"); 
 			
 			pro.setSale_price(decFormat.format(sale_price));
-			System.out.println(pro.getPost_id());
 			
 			for(int j=0; j<scrap.size(); j++) {
 				UserScrapVO sc = scrap.get(j);
@@ -127,19 +120,16 @@ public class UserPagingController {
 				}
 			}
 		}
-		
-		
 		model.addAttribute("productList", productList);
 		//model.addAttribute("pagecount", pagecount);
-		
-		return "oZo_Category_Assist";
+		return "oZo_CategoryAssist";
 	}
 	
 	// brand page
-	
 	@RequestMapping(value = "/brandshopPaging.com", method=RequestMethod.POST)
-	public String brandshopRank(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request){
-		
+	public String brandshopRank(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request,UserScrapVO svo, HttpSession session){
+		System.err.println("[Log] --- Paging Controller >>>>> brandshopRank Method");
+
 		vo.setPost_sellerid(Integer.parseInt(searchMap.get("brandcode")));
 		vo.setThispage(Integer.parseInt(searchMap.get("page")));
 		vo.setOrderKind(searchMap.get("ranking"));
@@ -149,7 +139,6 @@ public class UserPagingController {
 			vo.setPo_category(Integer.parseInt(codes[0]));
 			
 			if(codes.length == 2) {
-				System.out.println("subcategory click");
 				int subcate_code = Integer.parseInt(codes[1]);
 				vo.setInt(subcate_code/100*100); // mid
 				
@@ -159,6 +148,11 @@ public class UserPagingController {
 			}
 		}
 		
+		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
+		if(session.getAttribute("User_Num") != null) {
+			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+			scrap = mypageService.userScrapList(svo);
+		}
 		List<UserProductVO> shopItemList = userMainService.shopItemList(vo);
 
 		for(int i=0; i<shopItemList.size(); i++){
@@ -168,13 +162,16 @@ public class UserPagingController {
 			DecimalFormat decFormat = new DecimalFormat("###,###");
 
 			sho.setSale_price(decFormat.format(sale_price));
+			
+			for(int j=0; j<scrap.size(); j++) {
+				UserScrapVO sc = scrap.get(j);
+				if(sho.getPost_id() == sc.getSc_postid()) {
+					sho.setCheckit(true);
+				}
+			}
 		}
-		
-
-
 		model.addAttribute("shopItemList", shopItemList);
-		
-		return "oZo_Shop_Assist";
+		return "oZo_ShopAssist";
 	}
 
 }

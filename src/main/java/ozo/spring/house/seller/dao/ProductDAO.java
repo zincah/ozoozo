@@ -56,9 +56,14 @@ public class ProductDAO {
 		return sqlSessionTemplate.selectList("ProductDAO.selectProduct", vo);
 	}
 	
-	public List<ProductVO> selectProductView(int vo) {
+	public List<ProductVO> selectProductView(ProductVO vo) {
 		System.out.println("--> mybatis in productDAO productView select");
 		return sqlSessionTemplate.selectList("ProductDAO.selectProductView", vo);
+	}
+
+	public int selectListCount(ProductVO vo) {
+		System.out.println("--> mybatis in productDAO ListCount select");
+		return sqlSessionTemplate.selectOne("ProductDAO.selectListCount", vo);
 	}
 	
 	public void updateProductStatus(ProductVO vo) {
@@ -85,5 +90,9 @@ public class ProductDAO {
 		System.out.println("--> mybatis in productDAO searchProduct select");
 		return sqlSessionTemplate.selectList("ProductDAO.selectSearchProduct", vo);
 	}
-
+	
+	public int selectSearchProductCount(ProductVO vo) {
+		System.out.println("--> mybatis in productDAO searchProductCount select");
+		return sqlSessionTemplate.selectOne("ProductDAO.selectSearchProductCount", vo);
+	}
 }

@@ -11,16 +11,14 @@ import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.admin.vo.BannerVO;
-import ozo.spring.house.user.service.CScenterService;
-import ozo.spring.house.user.service.UserMainService;
-import ozo.spring.house.user.service.UserScrapService;
-import ozo.spring.house.user.service.UserService;
+import ozo.spring.house.user.service.U_MyPageService;
+import ozo.spring.house.user.service.U_MainService;
+import ozo.spring.house.user.service.U_Service;
 import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserScrapVO;
@@ -28,22 +26,23 @@ import ozo.spring.house.user.vo.UserScrapVO;
 public class U_ServiceController {
 	
 	@Autowired
-	UserService userservice;
+	U_Service userservice;
 	
 	@Autowired
-	UserMainService userMainService;
+	U_MainService userMainService;
 	
 	@Autowired
-	UserScrapService userScrapService;
+	U_MyPageService mypageservice;
 	
 	@RequestMapping(value = "/main.com")
 	public String user_main(UserProductVO vo, Model model, HttpSession session, UserScrapVO svo) {
+		System.err.println("[Log] --- Service Controller >>>>> user_main Method");
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		
 		// timer
 		List<Map<String, String>> list = userMainService.getDealEndTime();
 		List<Map<String, String>> dealtimelist = new ArrayList<Map<String, String>>();
-		System.out.println(list);
+		//System.out.println(list);
 		for(int i=0; i<list.size(); i++) {
 			Map<String, String> dealtime = list.get(i);
 			String t = "\""+String.valueOf(dealtime.get("deal_endtime"))+"\"";
@@ -61,16 +60,16 @@ public class U_ServiceController {
 		List<UserProductVO> productList = userMainService.mainProductList(vo);
 		int total = userMainService.getProductCount();
 		
-		// �뜝�룞�삕�뜝�룞�삕�뜝�룞�삕 �뜝�룞�삕 list �뜝�떛源띿삕
+		// 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲 list 占쎈쐻占쎈뼓繹먮씮�굲
 		List<UserProductVO> todayDealList = userMainService.mainDealProductList(vo);
-		System.out.println(todayDealList.size());
+		//System.out.println(todayDealList.size());
 		
-		// main banner list �뜝�떛源띿삕
+		// main banner list 占쎈쐻占쎈뼓繹먮씮�굲
 		List<BannerVO> bannerList = userMainService.selectBannerList();
 		
 		if(session.getAttribute("User_Num") != null) {
 			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
-			scrap = userScrapService.userScrapList(svo);
+			scrap = mypageservice.userScrapList(svo);
 		}
 		
 		for(int i=0; i<productList.size(); i++) {
@@ -114,23 +113,23 @@ public class U_ServiceController {
 	}
 	
 	// service_senter
-	@Autowired
-	CScenterService csservice;
 	
 	@RequestMapping(value = "/CScenter.com")
 	public String user_CSceneter(Model model,CScenterVO vo) {
+		System.err.println("[Log] --- Service Controller >>>>> user_CSceneter Method");
 		List<CScenterVO> list;
-		list =csservice.csall(vo);
+		list = userservice.csall(vo);
 		model.addAttribute("list",list);
-		return "oZo_Service_Senter";
+		return "oZo_ServiceSenter";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/getCS.com", method=RequestMethod.GET)
 	public List<CScenterVO> getCSList(String key,CScenterVO vo) {
+		System.err.println("[Log] --- Service Controller >>>>> getCSList Method");
 		vo.setCustomer_keyword(key);
-		System.out.println(key);
-		List<CScenterVO> list = csservice.cskeyword(vo);
+		//System.out.println(key);
+		List<CScenterVO> list = userservice.cskeyword(vo);
 		
 		return list;
 	}

@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ozo.spring.house.user.dao.UserDAO.cart_Allload;
-import ozo.spring.house.user.service.UserService;
+import ozo.spring.house.user.dao.U_DAO.cart_Allload;
+import ozo.spring.house.user.service.U_Service;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserProductVO;
 
 @Controller
 public class U_CartController {
 	@Autowired
-	UserService userservice;
+	U_Service userservice;
 	
 	List<UserProductVO> pro_li = new ArrayList<UserProductVO>();
 	List<CartVO> cart_li = new ArrayList<CartVO>();
@@ -34,6 +34,7 @@ public class U_CartController {
 	//장바구니 실행 전 메소드
 	@RequestMapping(value = "/cart.com")
 	public String user_cart(HttpSession session, Model model) {
+		System.err.println("[Log] --- Cart Controller >>>>> user_cart Method");
 		if(session.getAttribute("UserMail")!=null) {
 			int userID = (Integer)session.getAttribute("User_Num");
 			this.cvo.setCart_user(userID);
@@ -52,7 +53,7 @@ public class U_CartController {
 				post_filter_li.get(i).setExStr(decFormat.format(post_filter_li.get(i).getPost_shipfee()));
 			}
 			model.addAttribute("post_li", post_filter_li);
-			return "oZo_My_Cart";
+			return "oZo_MyCart";
 		}else {
 			return "oZo_LoginPage";	
 		}
@@ -62,11 +63,13 @@ public class U_CartController {
 	@ResponseBody
 	@RequestMapping(value = "/pro_first.com", method=RequestMethod.POST)
 	public List<UserProductVO> get_pro_li(){
+		System.err.println("[Log] --- Cart Controller >>>>> get_pro_li Method");
 		return pro_li;
 	}
 	@ResponseBody
 	@RequestMapping(value = "/cart_first.com", method=RequestMethod.POST)
 	public List<CartVO> get_cart_li(){
+		System.err.println("[Log] --- Cart Controller >>>>> get_cart_li Method");
 		return cart_li;
 	}
 	
@@ -74,6 +77,7 @@ public class U_CartController {
 	@ResponseBody
 	@RequestMapping(value = "/update_cart.com", method=RequestMethod.POST)
 	public List<UserProductVO> update_cart(@RequestBody String Str){
+		System.err.println("[Log] --- Cart Controller >>>>> update_cart Method");
 		String[] param = Str.replace("\"","").split("/");
 		CartVO update_cvo = new CartVO();
 		update_cvo.setCart_product(Integer.parseInt(param[0]));
@@ -88,7 +92,8 @@ public class U_CartController {
 	//장바구니 다 삭제
 	@ResponseBody
 	@RequestMapping(value = "/delete_cart.com", method=RequestMethod.POST)
-	public List<UserProductVO> delete_cart(@RequestBody int num){
+	public List<UserProductVO> Alldelete_cart(@RequestBody int num){
+		System.err.println("[Log] --- Cart Controller >>>>> Alldelete_cart Method");
 		CartVO cvo_2 = new CartVO();
 		if(num >= 50000) {
 			cvo_2.setCart_post(num);
@@ -107,6 +112,7 @@ public class U_CartController {
 	@ResponseBody
 	@RequestMapping(value = "/delete_cart_check.com", method=RequestMethod.POST)
 	public List<UserProductVO> delete_cart(@RequestBody int[] num){
+		System.err.println("[Log] --- Cart Controller >>>>> delete_cart Method");
 		CartVO cvo_2 = new CartVO();
 		System.out.print(num);
 		for(int i = 0; i < num.length; i++) {

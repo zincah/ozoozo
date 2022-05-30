@@ -21,7 +21,7 @@ import ozo.spring.house.user.vo.UserProduct_tableVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Repository("userDAO")
-public class UserDAO {
+public class U_DAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
@@ -29,117 +29,27 @@ public class UserDAO {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
-	private String encodePass;
 	
-	public void insertUser(UserVO vo) {
-		System.out.println("[LOGO] : mybatis in userdao insertuser");
-		
-		encodePass = passwordEncoder.encode(vo.getUser_pw());
-		vo.setUser_pw(encodePass);
-		sqlSessionTemplate.insert("UserDAO.insertUser", vo);
-		
-		System.out.println("[LOGO] : insert success");
-	}
-	
-	// login
-	public UserVO checkUser(UserVO vo) {
-		System.out.println("[LOGO] : mybatis in UserDAO checkUser");
-		
-		try {
-			String status = sqlSessionTemplate.selectOne("UserDAO.checkMemberStatus", vo);
-			if(status.equals("비활동중")) {
-				return null;
-			}else {
-				UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.checkUser", vo);
-				
-				if(passwordEncoder.matches(vo.getUser_pw(), user.getUser_pw())) {
-					return user;
-				}else {
-					return null;
-				}
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-
-	}
-	
-	// naver login
-	public UserVO checkUserByNaver(UserVO vo) {
-		System.out.println("mybatis in userdao naverlogin");
-		return sqlSessionTemplate.selectOne("UserDAO.checkUserByNaver", vo);
-	}
-	
-	// 마지막 로그인 체크
-	public void lastLoginCheck(UserVO vo) {
-		System.out.println("mybatis in userdao lastlogintimecheck");
-		sqlSessionTemplate.update("UserDAO.lastLoginCheck", vo);
-		
-		System.out.println("회원 넘버 : " + vo.getUser_num());
-		Date date = new Date();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	    String formattedDate = simpleDateFormat.format(date);
-	    
-	    vo.setLogin_date(java.sql.Date.valueOf(formattedDate));
-		UserVO user = sqlSessionTemplate.selectOne("UserDAO.selectLoginCount", vo);
-		
-		if(user == null) {
-			System.out.println("insert");
-			sqlSessionTemplate.insert("UserDAO.insertLoginCount", vo);
-		}
-	}
-	
-	public Boolean Duplicate_Check_Email(UserVO vo) {
-		System.out.println("[LOGO] : mybatis in UserDAO Duplicate_Check_Email");
-		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.Duplicate_Check_Email",vo);
-		//System.out.println(user);
-		if (user == null) {
-			return true;
-		}else{
-			return false;
-		}
-	}
-	public Boolean Duplicate_Check_Nickname(UserVO vo) {
-		System.out.println("[LOGO] : mybatis in UserDAO Duplicate_Check_Nickname");
-		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.Duplicate_Check_Nickname",vo);
-		//System.out.println("select 검색 결과 " + user);
-		if (user == null) {
-			return true;
-		}else{
-			return false;
-		}
-	}
-	public void change_pass(UserVO vo) {
-		System.out.println("[LOGO] : Mybatis in UserDAO change_pass");
-		encodePass = passwordEncoder.encode(vo.getUser_pw());
-		vo.setUser_pw(encodePass);
-		sqlSessionTemplate.update("UserDAO.change_pass", vo);
-		System.out.println("비밀번호 변경 성공");
-	}
 	public List<UserProductVO> product_Get(UserProductVO vo) {
-		System.out.println("[LOGO] : Mybatis in UserDAO product_Get");
+		System.err.println("[Log] --- U DAO >>>>> product_Get Method (4 Method)");
 		List<UserProductVO> posting = sqlSessionTemplate.selectList("UserProduct.product_get",vo);
 		return posting;
 	}
 	//product_detail
 	public List<UserProductVO> product_Get_option(UserProductVO vo){
-		System.out.println("[LOGO] : Mybatis in UserDAO product_Get_option2");
 		List<UserProductVO> option_list = sqlSessionTemplate.selectList("UserProduct.product_option2_get", vo);
 		return option_list;
 	}
 	public List<UserProductVO> product_Get_img(UserProductVO vo){
-		System.out.println("[LOGO] : Mybatis in UserDAO product_Get_img");
 		List<UserProductVO> img_list = sqlSessionTemplate.selectList("UserProduct.product_Get_img", vo);
 		return img_list;
 	}
 	public UserProduct_tableVO product_Get_table(UserProduct_tableVO tvo){
-		System.out.println("[LOGO] : Mybatis in UserDAO product_Get_table");
 		UserProduct_tableVO table_list = sqlSessionTemplate.selectOne("UserProduct.product_Get_table", tvo);
 		return table_list;
 	}
 	public boolean basket_add(List<UserProductVO> vo, UserVO uvo) {
-		System.out.println("[LOGO] : Mybatis in UserDAO basket_add");
+		System.err.println("[Log] --- U DAO >>>>> basket_add Method");
 		List<CartVO> cart_li = sqlSessionTemplate.selectList("UserProduct.basket_info", uvo); // 저장되어 있는 장바구니 체크
 		List<CartVO> test = new ArrayList<CartVO>(); // 방금 불러온 장바구니 (ID, EA) 리스트
 		
@@ -189,9 +99,11 @@ public class UserDAO {
 		}
 		
 		public CouponVO get_coupon(UserProductVO pvo) {
+			System.err.println("[Log] --- U DAO >>>>> get_coupon Method");
 			return sqlSessionTemplate.selectOne("UserProduct.get_coupon", pvo);
 		}
 		public boolean user_coupon_bln(CouponVO cvo) {
+			System.err.println("[Log] --- U DAO >>>>> user_coupon_bln Method");
 			CouponVO exvo = sqlSessionTemplate.selectOne("UserProduct.user_coupon", cvo);
 			System.out.println("불린 값 : " + exvo != null);
 			if(exvo != null) {
@@ -201,6 +113,7 @@ public class UserDAO {
 			}
 		}
 		public void coupon_insert(CouponVO cvo) {
+			System.err.println("[Log] --- U DAO >>>>> coupon_insert Method");
 			sqlSessionTemplate.insert("UserProduct.coupon_insert", cvo);
 			System.out.println("쿠폰 다운 성공");
 		}
@@ -219,6 +132,7 @@ public class UserDAO {
 		public cart_Allload() {
 		}
 		public cart_Allload(CartVO cvo) {
+			System.err.println("[Log] --- U DAO >>>>> cart_Allload Method");
 			this.cart_li = sqlSessionTemplate.selectList("UserProduct.cart_Get", cvo);
 		}
 		public List<CartVO> getCart_li() {
@@ -242,13 +156,16 @@ public class UserDAO {
 			return product_list;
 		}
 		public void update_cart(CartVO cvo) {
+			System.err.println("[Log] --- U DAO >>>>> update_cart Method");
 			sqlSessionTemplate.update("UserProduct.cart_update", cvo);
 		}
 		public void delete_cart_post(CartVO cvo) {
+			System.err.println("[Log] --- U DAO >>>>> delete_cart_post Method");
 			sqlSessionTemplate.delete("UserProduct.cart_delete_post", cvo);
 			
 		}
 		public void delete_cart_pro(CartVO cvo) {
+			System.err.println("[Log] --- U DAO >>>>> delete_cart_pro Method");
 			sqlSessionTemplate.delete("UserProduct.cart_delete_pro", cvo);
 		}
 	}
@@ -265,6 +182,7 @@ public class UserDAO {
 			
 		}
 		public void set_payment_list(CartVO cvo) {
+			System.err.println("[Log] --- U DAO >>>>> set_payment_list Method");
 			this.cart_li.addAll(sqlSessionTemplate.selectList("UserProduct.payment_cart_get", cvo));
 		}
 		public List<CartVO> get_payment_list() {
@@ -302,6 +220,7 @@ public class UserDAO {
 			}
 		}
 		public void payment_add(ImportVO ivo) {
+			System.err.println("[Log] --- U DAO >>>>> payment_add Method");
 			sqlSessionTemplate.insert("UserProduct.order_add",ivo);
 			int order_id = sqlSessionTemplate.selectOne("UserProduct.order_select", ivo);
 			System.out.println("order 값 : "  + order_id);
@@ -310,47 +229,57 @@ public class UserDAO {
 			
 		}
 		public void cart_del(List<CartVO> cvo) {
+			System.err.println("[Log] --- U DAO >>>>> cart_del Method");
 			for(int i = 0; i < cvo.size(); i++) {
 				sqlSessionTemplate.delete("UserProduct.cart_del", cvo.get(i));
 			}
 		}
 		public void addr_insert(UserAddressVO uavo) {
+			System.err.println("[Log] --- U DAO >>>>> addr_insert Method");
 			sqlSessionTemplate.insert("UserProduct.addr_add", uavo);
-			System.out.println("주소 insert");
 		}
 		public UserAddressVO get_addr_true(CartVO cvo) {
+			System.err.println("[Log] --- U DAO >>>>> get_addr_true Method");
 			return sqlSessionTemplate.selectOne("UserProduct.address_true", cvo);
 		}
 		public int get_user_point(CartVO cvo) {
+			System.err.println("[Log] --- U DAO >>>>> get_user_point Method");
 			return sqlSessionTemplate.selectOne("UserProduct.get_user_point", cvo);
 		}
 		public List<CouponVO> get_coupon_li(CartVO cvo) {
+			System.err.println("[Log] --- U DAO >>>>> get_coupon_li Method");
 			return sqlSessionTemplate.selectList("UserProduct.get_user_coupon", cvo);
 		}
 		public void point_update(ImportVO ivo) {
+			System.err.println("[Log] --- U DAO >>>>> point_update Method");
 			sqlSessionTemplate.update("UserProduct.user_point_update", ivo);
 		}
 		public List<CouponVO> get_coupon_text(List<CouponVO> cvo){
+			System.err.println("[Log] --- U DAO >>>>> get_coupon_text Method");
 			for(int i = 0; i < cvo.size(); i++) {
 				coupon_li.add(sqlSessionTemplate.selectOne("UserProduct.get_coupon_text",  cvo.get(i)));
 			}
 			return coupon_li;
 		}
 		public void update_coupon(int coupon_id) {
+			System.err.println("[Log] --- U DAO >>>>> update_coupon Method");
 			sqlSessionTemplate.update("UserProduct.coupon_false", coupon_id);
 		}
 		public void addr_default_change(UserAddressVO avo) {
-			System.out.println("check 2");
+			System.err.println("[Log] --- U DAO >>>>> addr_default_change Method");
 			sqlSessionTemplate.update("UserProduct.addr_default_change", avo);
 		}
 		public void addr_delete(int address_id) {
+			System.err.println("[Log] --- U DAO >>>>> addr_delete Method");
 			sqlSessionTemplate.delete("UserProduct.addr_delete" , address_id);
 		}
 		public UserAddressVO get_address(int address_id) {
+			System.err.println("[Log] --- U DAO >>>>> get_address Method");
 			UserAddressVO uvo = sqlSessionTemplate.selectOne("UserProduct.get_addr",address_id);
 			return uvo;
 		}
 		public void addr_update(UserAddressVO uvo) {
+			System.err.println("[Log] --- U DAO >>>>> addr_update Method");
 			sqlSessionTemplate.update("UserProduct.addr_update", uvo);
 		}
 		
@@ -383,15 +312,17 @@ public class UserDAO {
 			}
 		}
 		public List<UserProductVO> get_wide_li(){
+			System.err.println("[Log] --- U DAO >>>>> get_wide_li Method");
 			return wide_li;
 		}
 		public void buy_check_update(String param) {
+			System.err.println("[Log] --- U DAO >>>>> buy_check_update Method");
 			int order_id = Integer.parseInt(param);
 			sqlSessionTemplate.update("UserProduct.buy_check_update", order_id);
-			System.out.println("구매확정 클릭함");
 		}
 		
 		public void refund_DB(int merchant_UID) {
+			System.err.println("[Log] --- U DAO >>>>> refund_DB Method");
 			List<UserPaymentLogVO> pvo = sqlSessionTemplate.selectList("UserProduct.get_refund", merchant_UID);
 			for(UserPaymentLogVO i : pvo) {
 				i.setOrder_status("환불처리");
@@ -408,26 +339,10 @@ public class UserDAO {
 				payvo.setPy_final(0 - payvo.getPy_final());
 				sqlSessionTemplate.insert("UserProduct.payment_add2", payvo);
 			}
-			System.out.println("refund method success");
 		}
 		public List<UserPaymentLogVO> filter(int UID){
 			List<UserPaymentLogVO> filter_order = sqlSessionTemplate.selectList("UserProduct.filter_order", UID);
 			return filter_order;
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 }

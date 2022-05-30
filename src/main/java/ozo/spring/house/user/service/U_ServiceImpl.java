@@ -5,49 +5,58 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ozo.spring.house.user.dao.UserDAO;
-import ozo.spring.house.user.dao.UserDAO.cart_Allload;
-import ozo.spring.house.user.dao.UserDAO.paymentLog_cls;
-import ozo.spring.house.user.dao.UserDAO.payment_class;
-import ozo.spring.house.user.dao.UserDAO.product_cls;
+import ozo.spring.house.user.dao.U_DAO;
+import ozo.spring.house.user.dao.U_DAO.cart_Allload;
+import ozo.spring.house.user.dao.U_DAO.paymentLog_cls;
+import ozo.spring.house.user.dao.U_DAO.payment_class;
+import ozo.spring.house.user.dao.U_DAO.product_cls;
+import ozo.spring.house.user.dao.U_InfoDAO;
+import ozo.spring.house.user.dao.U_MainDAO;
+import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserProduct_tableVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Service("userService")
-public class UserServiceImpl implements UserService {
+public class U_ServiceImpl implements U_Service {
 
 	@Autowired
-	UserDAO userDAO;
+	U_DAO userDAO;
+	
+	@Autowired
+	U_InfoDAO infoDAO;
+	
+	@Autowired
+	U_MainDAO mainDAO;
 	
 	// set method
-	public void setUserDAO(UserDAO userDAO) {
+	public void setUserDAO(U_DAO userDAO) {
 		this.userDAO = userDAO;
 	}
 	
 	@Override
 	public void insertUser(UserVO vo) {
-		userDAO.insertUser(vo);
+		infoDAO.insertUser(vo);
 	}
 	@Override
 	public UserVO checkUser(UserVO vo) {
-		return userDAO.checkUser(vo);
+		return infoDAO.checkUser(vo);
 	}
 
 	@Override
 	public Boolean Duplicate_Check_Email(UserVO vo) {
-		return userDAO.Duplicate_Check_Email(vo);
+		return infoDAO.Duplicate_Check_Email(vo);
 	}
 
 	@Override
 	public Boolean Duplicate_Check_Nickname(UserVO vo) {
-		return userDAO.Duplicate_Check_Nickname(vo);
+		return infoDAO.Duplicate_Check_Nickname(vo);
 	}
 
 	@Override
 	public void change_pass(UserVO vo) {
-		userDAO.change_pass(vo);
+		infoDAO.change_pass(vo);
 	}
 
 	@Override
@@ -98,14 +107,27 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserVO checkUserByNaver(UserVO vo) {
-		return userDAO.checkUserByNaver(vo);
+		return infoDAO.checkUserByNaver(vo);
 	}
 
 	@Override
 	public void lastLoginCheck(UserVO vo) {
-		userDAO.lastLoginCheck(vo);
+		infoDAO.lastLoginCheck(vo);
 	}
-	
+	//Service Senter
+	//swtter
+	public void setCScenterDAO(U_MainDAO CScenterDAO) {
+		this.mainDAO = CScenterDAO;
+	}
 
-	
+	@Override
+	public List<CScenterVO> csall(CScenterVO vo) {
+		return mainDAO.csall(vo);
+	}
+
+	@Override
+	public List<CScenterVO> cskeyword(CScenterVO vo) {
+		return mainDAO.cskeyword(vo);
+	}
+
 }

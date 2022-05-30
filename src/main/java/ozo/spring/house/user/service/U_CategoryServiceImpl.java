@@ -7,18 +7,18 @@ import org.springframework.stereotype.Service;
 
 import ozo.spring.house.seller.vo.CategoryVO;
 import ozo.spring.house.seller.vo.FilterVO;
-import ozo.spring.house.user.dao.UserCategoryDAO;
+import ozo.spring.house.user.dao.U_CategoryDAO;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserProductVO;
 
 @Service("userCategoryService")
-public class UserCategoryServiceImpl implements UserCategoryService{
+public class U_CategoryServiceImpl implements U_CategoryService{
 	
 	@Autowired
-	UserCategoryDAO userCategoryDAO;
+	U_CategoryDAO userCategoryDAO;
 	
 	//setter
-	public void setUserCategoryDAO(UserCategoryDAO userCategoryDAO) {
+	public void setUserCategoryDAO(U_CategoryDAO userCategoryDAO) {
 		userCategoryDAO = userCategoryDAO;
 	}
 

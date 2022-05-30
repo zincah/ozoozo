@@ -13,96 +13,83 @@ import org.springframework.stereotype.Repository;
 
 import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.seller.vo.SellerVO;
+import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Repository
-public class UserMainDAO {
+public class U_MainDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	// header 장바구니 카운트
-	public int checkCartSu(UserVO vo) {
-		System.out.println("--> mybatis in usermaindao checkcartsu");
-		return sqlSessionTemplate.selectOne("UserMainDAO.checkCartSu", vo);
-	}
-	
 	public List<UserProductVO> mainProductList(UserProductVO vo){
-		System.out.println("mybatis in usermaindao mainproductlist");
+		System.err.println("[Log] --- Main DAO >>>>> mainProductList Method");
 		return sqlSessionTemplate.selectList("UserMainDAO.mainProductList", vo);
 	}
 	
 	public List<UserProductVO> mainDealProductList(UserProductVO vo){
-		System.out.println("mybatis in usermaindao maindealproductlist");
+		System.err.println("[Log] --- Main DAO >>>>> mainDealProductList Method");
 		return sqlSessionTemplate.selectList("UserMainDAO.mainDealProductList", vo);
 	}
 	
 	public List<UserProductVO> plusProductList(UserPagingVO pvo){
-		System.out.println("mybatis in usermaindao maindealproductlist");
-		System.out.println(pvo.getThispage());
+		System.err.println("[Log] --- Main DAO >>>>> plusProductList Method");
 		return sqlSessionTemplate.selectList("UserMainDAO.plusProductList", pvo);
 	}
 	
 	public int getProductCount() {
-		System.out.println("mybatis in usermaindao getproduct total count");
+		System.err.println("[Log] --- Main DAO >>>>> getProductCount Method");
 		return sqlSessionTemplate.selectOne("UserMainDAO.getProductCount");
 	}
 	
 	public List<BannerVO> selectBannerList(){
-		System.out.println("mybatis in usermaindao mainbannerlist");
+		System.err.println("[Log] --- Main DAO >>>>> selectBannerList Method");
 		return sqlSessionTemplate.selectList("UserMainDAO.selectBannerList");
 	}
 	
 	public List<Map<String, String>> getDealEndTime(){
-		System.out.println("mybatis in usermaindao getdealendtime");
+		System.err.println("[Log] --- Main DAO >>>>> getDealEndTime Method");
 		return sqlSessionTemplate.selectList("UserMainDAO.getDealEndTime");
 	}
 
 	public List<UserProductVO> todayDealList(){
-		System.out.println("mybatis in usermaindao todaydeallist");
+		System.err.println("[Log] --- Main DAO >>>>> todayDealList Method");
 		
 		List<UserProductVO> list = sqlSessionTemplate.selectList("UserMainDAO.todayDealList");
-		System.out.println(list.size());
 
 		return list;
 	}
 	
 	// deal 시간 추가
 	public List<Map<String, String>> getDealEndTimeAtDealPage(){
-		System.out.println("mybatis in usermaindao getdealendtime at deal page");
+		System.err.println("[Log] --- Main DAO >>>>> getDealEndTimeAtDealPage Method");
 		return sqlSessionTemplate.selectList("UserMainDAO.getDealEndTimeAtDealPage");
 	}
 
 	// brand 관련 잠깐 추가
 	public List<UserProductVO> shopItemList(UserProductVO vo){
-		System.out.println("mybatis in usermaindao shopitemlist");
-		
-		System.out.println("mid값" + vo.getInt());
+		System.err.println("[Log] --- Main DAO >>>>> shopItemList Method");
 		List<UserProductVO> list = sqlSessionTemplate.selectList("UserMainDAO.shopItemList", vo);
-		System.out.println(list.size());
 		return list;
 	}
 	
 	public SellerVO sellerInfo(UserProductVO vo) {
-		System.out.println("--> mybatis in usermaindao sellerinfo");
+		System.err.println("[Log] --- Main DAO >>>>> sellerInfo Method");
 		return sqlSessionTemplate.selectOne("UserMainDAO.sellerInfo", vo);
 	}
 	
 	public List<UserCategoryVO> printTop(UserProductVO vo){
-		System.out.println("--> mybatis in usermaindao printtop");
+		System.err.println("[Log] --- Main DAO >>>>> printTop Method");
 		return sqlSessionTemplate.selectList("UserMainDAO.printTopCate", vo);
 	}
 
 	public List<List<UserCategoryVO>> printCateList(UserProductVO vo){
-		System.out.println("--> mybatis in usermaindao printcatelist");
-		
+		System.err.println("[Log] --- Main DAO >>>>> printCateList Method");
 		List<UserCategoryVO> mid = sqlSessionTemplate.selectList("UserMainDAO.printMidCate", vo);
 		List<UserCategoryVO> sm = sqlSessionTemplate.selectList("UserMainDAO.printSmCate", vo);
-		System.out.println(mid.size());
-		System.out.println(sm.size());
 
 		List<List<UserCategoryVO>> wholelist = new ArrayList<List<UserCategoryVO>>();
 
@@ -128,26 +115,33 @@ public class UserMainDAO {
 	}
 	
 	public int shopItemListCount(UserProductVO vo) {
-		System.out.println("--> mybatis in usermaindao shop item list count");
+		System.err.println("[Log] --- Main DAO >>>>> shopItemListCount Method");
 		return sqlSessionTemplate.selectOne("UserMainDAO.shopItemListCount", vo);
 	}
 	
 	public double setBrandStarRatio(UserProductVO vo) { // brand 별점 체크
-		System.out.println("--> mybatis in usermaindao shop star ratio");
+		System.err.println("[Log] --- Main DAO >>>>> setBrandStarRatio Method");
 		double star = sqlSessionTemplate.selectOne("UserMainDAO.setBrandStarRatio", vo);
 		double star_ratio = Math.round(star*10)/10.0;
 		return star_ratio;
 	}
 
 	public List<UserProductVO> bestlist(){
-		System.out.println("mybatis in usermaindao todaydeallist");
+		System.err.println("[Log] --- Main DAO >>>>> bestlist Method");
 		
 		List<UserProductVO> b_list = sqlSessionTemplate.selectList("UserMainDAO.bestlist");
-		System.out.println(b_list.size());
 
 		return b_list;
 	}
 		
-
+	public List<CScenterVO> csall(CScenterVO vo) {
+		System.err.println("[Log] --- Main DAO >>>>> csall Method");
+		return sqlSessionTemplate.selectList("CScenterDAO.csall",vo);
+	}
+	
+	public List<CScenterVO> cskeyword(CScenterVO vo) {
+		System.err.println("[Log] --- Main DAO >>>>> cskeyword Method");
+		return sqlSessionTemplate.selectList("CScenterDAO.cskeyword", vo);
+	}
 
 }

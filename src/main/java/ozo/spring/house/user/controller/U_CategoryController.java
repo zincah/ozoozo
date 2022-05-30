@@ -7,23 +7,17 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.seller.vo.FilterVO;
-import ozo.spring.house.user.service.UserCategoryService;
-import ozo.spring.house.user.service.UserScrapService;
-import ozo.spring.house.user.vo.CScenterVO;
+import ozo.spring.house.user.service.U_MyPageService;
+import ozo.spring.house.user.service.U_CategoryService;
 import ozo.spring.house.user.vo.UserCategoryVO;
-import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 
@@ -31,14 +25,14 @@ import ozo.spring.house.user.vo.UserScrapVO;
 public class U_CategoryController {
 	
 	@Autowired
-	UserCategoryService userCategoryService;
+	U_CategoryService userCategoryService;
 	
 	@Autowired
-	UserScrapService userScrapService;
+	U_MyPageService mypageservice;
 	
 	@RequestMapping(value = "/category.com", method=RequestMethod.GET)
 	public String category(UserCategoryVO vo, Model model, HttpServletRequest request, UserScrapVO svo, HttpSession session,UserProductVO pvo) {
-
+		System.err.println("[Log] --- Category Controller >>>>> category Method");
 		String[] codes = request.getParameter("catecode").split("_");
 		
 		if(codes.length == 2) {
@@ -49,10 +43,7 @@ public class U_CategoryController {
 				vo.setSubcate_code(subcate_code);
 			}
 		}
-
 		int topcate_code = Integer.parseInt(codes[0]);
-		System.out.println(topcate_code);
-		
 
 		vo.setTop_catecode(topcate_code); // url�슖�댙�삕 �뜝�럩�쓧�뜝�럥堉롧뛾�룇猷뉐뜝占� 占쎄턀�겫�뼔援�
 		int total = userCategoryService.getCategoryCount(vo); // �뜝�럩�쓧嶺뚳퐦�삕 �뤆�룇裕뉛옙�빢 �솻洹ｏ옙亦끸넂臾얍뜝占�
@@ -84,7 +75,7 @@ public class U_CategoryController {
 		pvo.setCheckit(false);
 		if(session.getAttribute("User_Num") != null) {
 			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
-			scrap = userScrapService.userScrapList(svo);
+			scrap = mypageservice.userScrapList(svo);
 		}
 		
 		for(int i=0; i<productList.size(); i++) {
@@ -119,8 +110,7 @@ public class U_CategoryController {
 
 	@RequestMapping(value = "/getFilterList.com", method=RequestMethod.POST)
 	public String getFilterList(@RequestBody List<List<String>> wholeList, UserCategoryVO vo, Model model) {
-		
-		System.out.println(wholeList);
+		System.err.println("[Log] --- Category Controller >>>>> getFilterList Method");
 		
 		List<String> cates = wholeList.get(1);
 
@@ -138,13 +128,12 @@ public class U_CategoryController {
 		
 		for(int i=0; i<list.size(); i++) {
 			String check = list.get(i);
-			if(check.equals("占쎌궎占쎈뮎占쎌벥占쎈턀")) {
+			if(check.equals("오늘의 딜")) {
 				vo.setDealCheck(true);
 			}else {
 				filterList.add(check);
 			}
 		}
-		System.out.println(filterList);
 		
 		// list占쎈퓠占쎄퐣 remove 0占쎈릭筌롳옙 占쎄텢占쎌뵬筌욑옙
 		vo.setFiltering(filterList);
@@ -152,7 +141,6 @@ public class U_CategoryController {
 		
 		List<UserProductVO> postList = userCategoryService.getPostList(vo);
 		int filterCount = userCategoryService.filterCount(vo);
-		System.out.println("filtering count" + filterCount);
 		
 		for(int i=0; i<postList.size(); i++) {
 			UserProductVO pro = postList.get(i);
