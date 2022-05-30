@@ -88,7 +88,7 @@ public class AdminProductManageServiceImpl implements AdminProductManageService 
 	}
 
 	@Override
-	public List<Map<String, String>> dailyStoreSales(AdminProductVO vo) {
+	public List<List<Map<String,String>>> dailyStoreSales(AdminProductVO vo) {
 		return adminManageDAO.dailyStoreSales(vo);
 	}
 

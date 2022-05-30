@@ -127,7 +127,7 @@ public class U_PagingController {
 	
 	// brand page
 	@RequestMapping(value = "/brandshopPaging.com", method=RequestMethod.POST)
-	public String brandshopRank(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request,UserScrapVO svo, HttpSession session){
+	public String brandshopPaging(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request,UserScrapVO svo, HttpSession session){
 		System.err.println("[Log] --- Paging Controller >>>>> brandshopRank Method");
 
 		vo.setPost_sellerid(Integer.parseInt(searchMap.get("brandcode")));

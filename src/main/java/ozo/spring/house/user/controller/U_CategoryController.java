@@ -45,8 +45,8 @@ public class U_CategoryController {
 		}
 		int topcate_code = Integer.parseInt(codes[0]);
 
-		vo.setTop_catecode(topcate_code); // url�슖�댙�삕 �뜝�럩�쓧�뜝�럥堉롧뛾�룇猷뉐뜝占� 占쎄턀�겫�뼔援�
-		int total = userCategoryService.getCategoryCount(vo); // �뜝�럩�쓧嶺뚳퐦�삕 �뤆�룇裕뉛옙�빢 �솻洹ｏ옙亦끸넂臾얍뜝占�
+		vo.setTop_catecode(topcate_code); // url占쎌뒙占쎈뙔占쎌굲 占쎈쐻占쎈윪占쎌벁占쎈쐻占쎈윥�젆濡㏓쎗占쎈즵�뙴�뎽�쐻�뜝占� �뜝�럡��占쎄껀占쎈폇�뤃占�
+		int total = userCategoryService.getCategoryCount(vo); // 占쎈쐻占쎈윪占쎌벁癲ル슪�맔占쎌굲 占쎈쨬占쎈즵獒뺣돍�삕占쎈묄 占쎌녃域뱄퐦�삕雅��겦�꼥�눧�뼃�쐻�뜝占�
 		
 		List<UserCategoryVO> titleList = userCategoryService.printTitle();
 		List<UserCategoryVO> others = new ArrayList<UserCategoryVO>();
@@ -82,7 +82,7 @@ public class U_CategoryController {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //�뜝�럥爰뽩뜝�럥�빢�뜝�럩�젍 �뜝�럥留쇿뜝�럥�빢
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //占쎈쐻占쎈윥�댆戮⑸쐻占쎈윥占쎈묄占쎈쐻占쎈윪占쎌젌 占쎈쐻占쎈윥筌띿눨�쐻占쎈윥占쎈묄
 			
 			pro.setSale_price(decFormat.format(sale_price));
 			
@@ -100,7 +100,7 @@ public class U_CategoryController {
 		List<UserCategoryVO> catename = userCategoryService.getCateName(vo);
 		model.addAttribute("catename", catename);
 		
-		// filter �뜝�럩湲욕뜝�럥占쏙옙 �뤆�룊�삕�뜝�럩二у뜝�럩沅롧뼨�먯삕
+		// filter 占쎈쐻占쎈윪疫뀁슃�쐻占쎈윥�뜝�룞�삕 占쎈쨬占쎈즸占쎌굲占쎈쐻占쎈윪雅뚎껊쐻占쎈윪亦낅¨堉⑨옙癒��굲
 		List<List<FilterVO>> optionList = userCategoryService.getFilterOption(vo);
 		model.addAttribute("optionList", optionList);
 		
@@ -114,7 +114,7 @@ public class U_CategoryController {
 		
 		List<String> cates = wholeList.get(1);
 
-		// category �뜝�럡�맜�뜝�럥�꽑�썒�슣�닁�뵳占�
+		// category 占쎈쐻占쎈윞占쎈쭨占쎈쐻占쎈윥占쎄퐨占쎌뜏占쎌뒩占쎈땫占쎈뎨�뜝占�
 		vo.setTop_catecode(Integer.parseInt(cates.get(0)));
 		if(cates.size()>1 && cates.get(1)!="") {
 			vo.setMidcate_code(Integer.parseInt(cates.get(1)));
@@ -128,16 +128,16 @@ public class U_CategoryController {
 		
 		for(int i=0; i<list.size(); i++) {
 			String check = list.get(i);
-			if(check.equals("오늘의 딜")) {
+			if(check.equals("오늘의딜")) {
 				vo.setDealCheck(true);
 			}else {
 				filterList.add(check);
 			}
 		}
 		
-		// list占쎈퓠占쎄퐣 remove 0占쎈릭筌롳옙 占쎄텢占쎌뵬筌욑옙
+		// list�뜝�럥�뱺�뜝�럡�맋 remove 0�뜝�럥由�嶺뚮〕�삕 �뜝�럡�뀬�뜝�럩逾х춯�쉻�삕
 		vo.setFiltering(filterList);
-		vo.setOrderKind(wholeList.get(2).get(0)); // 占쎈떄占쎌맄 占쎄퐫占쎈선雅뚯눊由�
+		vo.setOrderKind(wholeList.get(2).get(0)); // �뜝�럥�뻹�뜝�럩留� �뜝�럡�맜�뜝�럥�꽑�썒�슣�닁�뵳占�
 		
 		List<UserProductVO> postList = userCategoryService.getPostList(vo);
 		int filterCount = userCategoryService.filterCount(vo);
@@ -146,7 +146,7 @@ public class U_CategoryController {
 			UserProductVO pro = postList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //�뜝�럥爰뽩뜝�럥�빢�뜝�럩�젍 �뜝�럥留쇿뜝�럥�빢
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //占쎈쐻占쎈윥�댆戮⑸쐻占쎈윥占쎈묄占쎈쐻占쎈윪占쎌젌 占쎈쐻占쎈윥筌띿눨�쐻占쎈윥占쎈묄
 			
 			pro.setSale_price(decFormat.format(sale_price));
 		}
@@ -154,7 +154,7 @@ public class U_CategoryController {
 		model.addAttribute("filterCount", filterCount);
 		model.addAttribute("productList", postList);
 		
-		return "oZo_Category_Assist";
+		return "oZo_CategoryAssist";
 	}
 	
 }

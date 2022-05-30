@@ -1,5 +1,6 @@
 package ozo.spring.house.admin.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -183,9 +184,18 @@ public class AdminManageDAO {
 		return list.size();
 	}
 	
-	public List<Map<String, String>> dailyStoreSales(AdminProductVO vo){ // 일별 매출
+	public List<List<Map<String,String>>> dailyStoreSales(AdminProductVO vo){ // 일별 매출
 		System.out.println("--> mybatis in adminmanagedao get daily sales list");
-		return sqlSessionTemplate.selectList("AdminManageDAO.dailyStoreSales", vo);
+		List<Integer> slist = sqlSessionTemplate.selectList("AdminManageDAO.sellerListForStoreSales");
+		List<List<Map<String,String>>> dailyStoreSalesList = new ArrayList<List<Map<String,String>>>();
+		for (int i=0; i<slist.size(); i++) {
+			vo.setSeller_id(slist.get(i));
+			System.out.println(vo.getFirstday());
+			System.out.println(vo.getLastday());
+			List<Map<String,String>> list = sqlSessionTemplate.selectList("AdminManageDAO.dailyStoreSales", vo);
+			dailyStoreSalesList.add(list);
+		}
+		return dailyStoreSalesList;
 	}
 	/**/
 

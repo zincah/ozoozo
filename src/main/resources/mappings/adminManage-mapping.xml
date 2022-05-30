@@ -395,14 +395,19 @@
 		</where>
 	</select>
 	
+	<!-- seller list -->
+	<select id="sellerListForStoreSales" resultType="int">
+		select seller_id from seller;
+	</select>
+	
 	<!-- 일별 매출 정리 -->
 	<select id="dailyStoreSales" resultType="HashMap">
-		select seller_id, sum(payment), to_char(order_date :: date, 'yyyy-MM-dd') as odate 
+		select seller_id, sum(payment) as payment, to_char(order_date :: date, 'yyyy-MM-dd') as odate
 		from user_order
-		where to_char(order_date :: date, 'yyyy-MM-dd') 
-		between '2022-05-01' and '2022-05-31'
+		where seller_id=#{seller_id} and order_date
+		between #{firstday} and #{lastday}
 		group by odate, seller_id
-		order by seller_id asc, odate asc;	
+		order by odate asc;
 	</select>
 	
 	
