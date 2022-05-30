@@ -209,9 +209,6 @@
                         <a class="active" href="#">주문배송내역 조회</a>
                     </li>
                     <li class="mypage-nav-item">
-                        <a href="#">상품문의내역</a>
-                    </li>
-                    <li class="mypage-nav-item">
                         <a href="/house/CScenter.com">고객센터</a>
                     </li>
                 </ul>
@@ -253,6 +250,7 @@
                 <div>
                     <div>
                         <div class="css-1yajzey ehoya3o0">
+                        <c:if test="${date_filter.size() ne 0 }">
                             <c:forEach var="i" begin="0" end="${fn:length(date_filter)-1}">
                             <c:set var="order_num" value="${date_filter[i].order_num }"/>
                             <section class="css-idjloq e1yy3fi630">
@@ -352,6 +350,7 @@
                                 </c:forEach>
                             </section>
                             </c:forEach>
+                            </c:if>
                         </div>
                     </div>
                 </div>
