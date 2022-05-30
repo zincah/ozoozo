@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ozo.spring.house.admin.service.AdminBannerService;
 import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.seller.service.AwsS3;
-import ozo.spring.house.user.service.userMyPageService;
+import ozo.spring.house.user.service.UserMyPageService;
 import ozo.spring.house.user.vo.UserVO;
 
 @Controller
@@ -28,7 +28,7 @@ public class UserUploadController {
 	AwsS3 awss3Client;
 	
 	@Autowired
-	userMyPageService usermypageservice;
+	UserMyPageService usermypageservice;
 	
 	@ResponseBody
 	@RequestMapping(value="/mypageupload.com", method=RequestMethod.POST)

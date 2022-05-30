@@ -138,7 +138,7 @@ public class UserPagingController {
 	// brand page
 	
 	@RequestMapping(value = "/brandshopPaging.com", method=RequestMethod.POST)
-	public String brandshopRank(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request){
+	public String brandshopRank(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request, UserScrapVO svo, HttpSession session){
 		
 		vo.setPost_sellerid(Integer.parseInt(searchMap.get("brandcode")));
 		vo.setThispage(Integer.parseInt(searchMap.get("page")));
@@ -159,8 +159,13 @@ public class UserPagingController {
 			}
 		}
 		
+		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
+		if(session.getAttribute("User_Num") != null) {
+			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+			scrap = userScrapService.userScrapList(svo);
+		}
 		List<UserProductVO> shopItemList = userMainService.shopItemList(vo);
-
+		vo.setCheckit(false);
 		for(int i=0; i<shopItemList.size(); i++){
 			UserProductVO sho = shopItemList.get(i);
 			int sale_price = sho.getWhole_price()*(100-sho.getSale_ratio())/100;
@@ -168,6 +173,13 @@ public class UserPagingController {
 			DecimalFormat decFormat = new DecimalFormat("###,###");
 
 			sho.setSale_price(decFormat.format(sale_price));
+			
+			for(int j=0; j<scrap.size(); j++) {
+				UserScrapVO sc = scrap.get(j);
+				if(sho.getPost_id() == sc.getSc_postid()) {
+					sho.setCheckit(true);
+				}
+			}
 		}
 		
 

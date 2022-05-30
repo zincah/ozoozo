@@ -25,7 +25,7 @@ import ozo.spring.house.user.service.NaverLoginService;
 import ozo.spring.house.user.service.UserMainService;
 import ozo.spring.house.user.service.UserScrapService;
 import ozo.spring.house.user.service.UserService;
-import ozo.spring.house.user.service.userMyPageService;
+import ozo.spring.house.user.service.UserMyPageService;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
@@ -40,7 +40,7 @@ public class UserInfoController {
 	UserMainService userMainService;
 	
 	@Autowired
-	userMyPageService mypageService;
+	UserMyPageService mypageService;
 	
 	@Autowired 
 	UserScrapService userscrapservice;

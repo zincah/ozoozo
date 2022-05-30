@@ -10,7 +10,7 @@ import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Service("userMyPageService")
-public class userMyPageServiceImple implements userMyPageService {
+public class UserMyPageServiceImpl implements UserMyPageService {
 
 	@Autowired
 	UserMyPageDAO UserMyPageDAO;

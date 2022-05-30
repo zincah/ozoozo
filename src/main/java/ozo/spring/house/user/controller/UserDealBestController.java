@@ -94,7 +94,7 @@ public class UserDealBestController {
 
 	// 브랜드
 	@RequestMapping(value = "/brandshop.com", method=RequestMethod.GET)
-	public String main_shop(Model model, UserProductVO vo, HttpServletRequest request){
+	public String main_shop(Model model, UserProductVO vo, HttpServletRequest request, HttpSession session, UserScrapVO svo){
 		
 		String brandcode = request.getParameter("brandcode");
 		vo.setPost_sellerid(Integer.parseInt(brandcode));
@@ -119,7 +119,13 @@ public class UserDealBestController {
 			model.addAttribute("sublist", sublist);
 			System.out.println("subli size" + sublist.size());
 		}
-
+		
+		vo.setCheckit(false);
+		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
+		if(session.getAttribute("User_Num") != null) {
+			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+			scrap = userscrapservice.userScrapList(svo);
+		}
 		
 		List<UserProductVO> shopItemList = userMainService.shopItemList(vo);
 		int totalCount = userMainService.shopItemListCount(vo);
@@ -131,6 +137,16 @@ public class UserDealBestController {
 			DecimalFormat decFormat = new DecimalFormat("###,###");
 
 			sho.setSale_price(decFormat.format(sale_price));
+			
+			for(int j=0; j<scrap.size(); j++) {
+				UserScrapVO sc = scrap.get(j);
+				if(sho.getPost_id() == sc.getSc_postid()) {
+					sho.setCheckit(true);
+				}
+			}
+			
+			
+			
 		}
 		
 		List<UserCategoryVO> toplist = userMainService.printTop(vo);
@@ -164,7 +180,7 @@ public class UserDealBestController {
 	}
 	
 	@RequestMapping(value = "/brandshopRank.com", method=RequestMethod.POST)
-	public String brandshopRank(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request){
+	public String brandshopRank(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request, HttpSession session, UserScrapVO svo){
 		
 		vo.setPost_sellerid(Integer.parseInt(searchMap.get("brandcode")));
 		
@@ -186,15 +202,34 @@ public class UserDealBestController {
 			}
 		}
 		
+		
+		
+		
+		
+		vo.setCheckit(false);
+		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
+		if(session.getAttribute("User_Num") != null) {
+			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+			scrap = userscrapservice.userScrapList(svo);
+		}
+		
 		List<UserProductVO> shopItemList = userMainService.shopItemList(vo);
-
 		for(int i=0; i<shopItemList.size(); i++){
-			UserProductVO sho = shopItemList.get(i);
-			int sale_price = sho.getWhole_price()*(100-sho.getSale_ratio())/100;
-
+			UserProductVO shoe = shopItemList.get(i);
+			int sale_price = shoe.getWhole_price()*(100-shoe.getSale_ratio())/100;
+			System.out.println("포문 여기왔어?");
+			
 			DecimalFormat decFormat = new DecimalFormat("###,###");
 
-			sho.setSale_price(decFormat.format(sale_price));
+			shoe.setSale_price(decFormat.format(sale_price));
+			
+			for(int j=0; j<scrap.size(); j++) {
+				System.out.println("여기왔어?");
+				UserScrapVO sc = scrap.get(j);
+				if(shoe.getPost_id() == sc.getSc_postid()) {
+					shoe.setCheckit(true);
+				}
+			}
 		}
 		
 

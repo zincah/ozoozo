@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.user.service.UserScrapService;
-import ozo.spring.house.user.service.userMyPageService;
+import ozo.spring.house.user.service.UserMyPageService;
 import ozo.spring.house.user.vo.ScrapVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserScrapVO;
@@ -26,7 +26,7 @@ import ozo.spring.house.user.vo.UserVO;
 public class UserMyPageController {
 	
 	@Autowired
-	userMyPageService userMyPageService;
+	UserMyPageService userMyPageService;
 	
 	@Autowired 
 	UserScrapService userscrapservice;

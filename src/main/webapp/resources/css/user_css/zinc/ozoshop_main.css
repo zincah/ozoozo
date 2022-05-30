@@ -28,6 +28,34 @@ blockquote, body, code, dd, div, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6,
 }
 
 
+/* 북마크 버튼 효과 */
+.item_bookmark{
+	
+
+
+    position: absolute;
+    top: 10px;
+    right: 17px;
+    z-index: 2;
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 18px;
+    background-color: #e0e0e070;
+    border-radius: 6px;
+    color: black;
+}
+
+.item_bookmark:hover{
+    background-color: #828282;
+    border-radius: 4px;
+    opacity: 0.3;
+}
+
+
 a{
     text-decoration: none;
     cursor: pointer;

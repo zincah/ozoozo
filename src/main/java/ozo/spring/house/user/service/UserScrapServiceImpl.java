@@ -10,7 +10,7 @@ import ozo.spring.house.user.vo.ScrapVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 
 @Service("userScrapService")
-public class UserScrapServiceImple implements UserScrapService {
+public class UserScrapServiceImpl implements UserScrapService {
 
 	
 	@Autowired

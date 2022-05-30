@@ -5,7 +5,7 @@ import java.util.List;
 import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 
-public interface userMyPageService {
+public interface UserMyPageService {
 
 	public UserVO mypageinfo(UserVO vo);
 	public void user_edit(UserVO vo);
