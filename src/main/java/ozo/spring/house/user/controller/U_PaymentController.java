@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ozo.spring.house.user.dao.UserDAO.payment_class;
-import ozo.spring.house.user.service.UserService;
+import ozo.spring.house.user.dao.U_DAO.payment_class;
+import ozo.spring.house.user.service.U_Service;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.CouponVO;
 import ozo.spring.house.user.vo.ImportVO;
@@ -32,7 +32,7 @@ import ozo.spring.house.user.vo.UserProductVO;
 @Controller
 public class U_PaymentController {
 	@Autowired
-	UserService userservice;
+	U_Service userservice;
 	
 	List<CartVO> cart_li = new ArrayList<CartVO>();
 	List<UserProductVO> pro_li = new ArrayList<UserProductVO>();

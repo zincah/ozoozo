@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ozo.spring.house.user.service.UserCategoryService;
-import ozo.spring.house.user.service.UserMainService;
-import ozo.spring.house.user.service.UserScrapService;
+import ozo.spring.house.user.service.U_CategoryService;
+import ozo.spring.house.user.service.U_MainService;
+import ozo.spring.house.user.service.U_MyPageService;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
@@ -27,13 +27,13 @@ import ozo.spring.house.user.vo.UserScrapVO;
 public class U_PagingController {
 	
 	@Autowired
-	UserMainService userMainService;
+	U_MainService userMainService;
 	
 	@Autowired
-	UserCategoryService userCateService;
+	U_CategoryService userCateService;
 	
 	@Autowired
-	UserScrapService userScrapService;
+	U_MyPageService mypageService;
 
 	// main page
 	@RequestMapping(value = "/getProductList.com")
@@ -44,7 +44,7 @@ public class U_PagingController {
 		vo.setCheckit(false);
 		if(session.getAttribute("User_Num") != null) {
 			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
-			scrap = userScrapService.userScrapList(svo);
+			scrap = mypageService.userScrapList(svo);
 		}
 		
 		System.out.println(searchMap);
@@ -87,7 +87,7 @@ public class U_PagingController {
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		if(session.getAttribute("User_Num") != null) {
 			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
-			scrap = userScrapService.userScrapList(svo);
+			scrap = mypageService.userScrapList(svo);
 		}
 		System.out.println(wholeList);
 		

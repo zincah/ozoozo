@@ -13,22 +13,17 @@ import org.springframework.stereotype.Repository;
 
 import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.seller.vo.SellerVO;
+import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Repository
-public class UserMainDAO {
+public class U_MainDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	
-	// header 장바구니 카운트
-	public int checkCartSu(UserVO vo) {
-		System.out.println("--> mybatis in usermaindao checkcartsu");
-		return sqlSessionTemplate.selectOne("UserMainDAO.checkCartSu", vo);
-	}
 	
 	public List<UserProductVO> mainProductList(UserProductVO vo){
 		System.out.println("mybatis in usermaindao mainproductlist");
@@ -148,6 +143,14 @@ public class UserMainDAO {
 		return b_list;
 	}
 		
-
+	public List<CScenterVO> csall(CScenterVO vo) {
+		System.out.println("맞는데...11");
+		return sqlSessionTemplate.selectList("CScenterDAO.csall",vo);
+	}
+	
+	public List<CScenterVO> cskeyword(CScenterVO vo) {
+		System.out.println("맞는데...1");
+		return sqlSessionTemplate.selectList("CScenterDAO.cskeyword", vo);
+	}
 
 }

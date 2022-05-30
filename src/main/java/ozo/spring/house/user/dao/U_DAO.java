@@ -21,7 +21,7 @@ import ozo.spring.house.user.vo.UserProduct_tableVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Repository("userDAO")
-public class UserDAO {
+public class U_DAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
@@ -29,94 +29,7 @@ public class UserDAO {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 	
-	private String encodePass;
 	
-	public void insertUser(UserVO vo) {
-		System.out.println("[LOGO] : mybatis in userdao insertuser");
-		
-		encodePass = passwordEncoder.encode(vo.getUser_pw());
-		vo.setUser_pw(encodePass);
-		sqlSessionTemplate.insert("UserDAO.insertUser", vo);
-		
-		System.out.println("[LOGO] : insert success");
-	}
-	
-	// login
-	public UserVO checkUser(UserVO vo) {
-		System.out.println("[LOGO] : mybatis in UserDAO checkUser");
-		
-		try {
-			String status = sqlSessionTemplate.selectOne("UserDAO.checkMemberStatus", vo);
-			if(status.equals("비활동중")) {
-				return null;
-			}else {
-				UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.checkUser", vo);
-				
-				if(passwordEncoder.matches(vo.getUser_pw(), user.getUser_pw())) {
-					return user;
-				}else {
-					return null;
-				}
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-
-	}
-	
-	// naver login
-	public UserVO checkUserByNaver(UserVO vo) {
-		System.out.println("mybatis in userdao naverlogin");
-		return sqlSessionTemplate.selectOne("UserDAO.checkUserByNaver", vo);
-	}
-	
-	// 마지막 로그인 체크
-	public void lastLoginCheck(UserVO vo) {
-		System.out.println("mybatis in userdao lastlogintimecheck");
-		sqlSessionTemplate.update("UserDAO.lastLoginCheck", vo);
-		
-		System.out.println("회원 넘버 : " + vo.getUser_num());
-		Date date = new Date();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	    String formattedDate = simpleDateFormat.format(date);
-	    
-	    vo.setLogin_date(java.sql.Date.valueOf(formattedDate));
-		UserVO user = sqlSessionTemplate.selectOne("UserDAO.selectLoginCount", vo);
-		
-		if(user == null) {
-			System.out.println("insert");
-			sqlSessionTemplate.insert("UserDAO.insertLoginCount", vo);
-		}
-	}
-	
-	public Boolean Duplicate_Check_Email(UserVO vo) {
-		System.out.println("[LOGO] : mybatis in UserDAO Duplicate_Check_Email");
-		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.Duplicate_Check_Email",vo);
-		//System.out.println(user);
-		if (user == null) {
-			return true;
-		}else{
-			return false;
-		}
-	}
-	public Boolean Duplicate_Check_Nickname(UserVO vo) {
-		System.out.println("[LOGO] : mybatis in UserDAO Duplicate_Check_Nickname");
-		UserVO user = (UserVO) sqlSessionTemplate.selectOne("UserDAO.Duplicate_Check_Nickname",vo);
-		//System.out.println("select 검색 결과 " + user);
-		if (user == null) {
-			return true;
-		}else{
-			return false;
-		}
-	}
-	public void change_pass(UserVO vo) {
-		System.out.println("[LOGO] : Mybatis in UserDAO change_pass");
-		encodePass = passwordEncoder.encode(vo.getUser_pw());
-		vo.setUser_pw(encodePass);
-		sqlSessionTemplate.update("UserDAO.change_pass", vo);
-		System.out.println("비밀번호 변경 성공");
-	}
 	public List<UserProductVO> product_Get(UserProductVO vo) {
 		System.out.println("[LOGO] : Mybatis in UserDAO product_Get");
 		List<UserProductVO> posting = sqlSessionTemplate.selectList("UserProduct.product_get",vo);
@@ -414,20 +327,5 @@ public class UserDAO {
 			List<UserPaymentLogVO> filter_order = sqlSessionTemplate.selectList("UserProduct.filter_order", UID);
 			return filter_order;
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	}
 }

@@ -11,15 +11,14 @@ import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ozo.spring.house.admin.vo.BannerVO;
-import ozo.spring.house.user.service.UserMainService;
-import ozo.spring.house.user.service.UserScrapService;
-import ozo.spring.house.user.service.UserService;
+import ozo.spring.house.user.service.U_MyPageService;
+import ozo.spring.house.user.service.U_MainService;
+import ozo.spring.house.user.service.U_Service;
 import ozo.spring.house.user.vo.CScenterVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserScrapVO;
@@ -27,13 +26,13 @@ import ozo.spring.house.user.vo.UserScrapVO;
 public class U_ServiceController {
 	
 	@Autowired
-	UserService userservice;
+	U_Service userservice;
 	
 	@Autowired
-	UserMainService userMainService;
+	U_MainService userMainService;
 	
 	@Autowired
-	UserScrapService userScrapService;
+	U_MyPageService mypageservice;
 	
 	@RequestMapping(value = "/main.com")
 	public String user_main(UserProductVO vo, Model model, HttpSession session, UserScrapVO svo) {
@@ -69,7 +68,7 @@ public class U_ServiceController {
 		
 		if(session.getAttribute("User_Num") != null) {
 			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
-			scrap = userScrapService.userScrapList(svo);
+			scrap = mypageservice.userScrapList(svo);
 		}
 		
 		for(int i=0; i<productList.size(); i++) {

@@ -20,11 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
-import ozo.spring.house.user.dao.UserDAO.cart_Allload;
+import ozo.spring.house.user.dao.U_DAO.cart_Allload;
 import ozo.spring.house.user.service.NaverLoginService;
-import ozo.spring.house.user.service.UserMainService;
-import ozo.spring.house.user.service.UserScrapService;
-import ozo.spring.house.user.service.UserService;
+import ozo.spring.house.user.service.U_MainService;
+import ozo.spring.house.user.service.U_Service;
 import ozo.spring.house.user.service.U_MyPageService;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserScrapVO;
@@ -34,16 +33,16 @@ import ozo.spring.house.user.vo.UserVO;
 public class U_InfoController {
 	
 	@Autowired
-	UserService userService;
+	U_Service userService;
 	
 	@Autowired
-	UserMainService userMainService;
+	U_MainService userMainService;
 	
 	@Autowired
 	U_MyPageService mypageService;
 	
 	@Autowired 
-	UserScrapService userscrapservice;
+	U_MyPageService mypageservice;
 	
 	@Autowired NaverLoginService naverLoginService;
 	
@@ -288,17 +287,12 @@ public class U_InfoController {
 		//회원가입 페이지
 		@RequestMapping(value = "/signUp.com")
 		public String user_signUp(UserVO vo, Model model, HttpSession session) {
-			
 			// 네이버 로그인 버튼 클릭시
 			String naverAuthUrl = naverLoginService.getAuthorizationUrl(session);
 			//System.out.println("네이버:"+naverAuthUrl);
 			model.addAttribute("naverurl", naverAuthUrl);
-			
 			// 카카오
-			
 			// 구글
-			
-			
 			return "oZo_SignUp";
 		}
 		@RequestMapping(value = "/memberSessionCheck.com",method = RequestMethod.POST)
@@ -307,21 +301,10 @@ public class U_InfoController {
 			if(session.getAttribute("User_Num")!=null) {
 			int User_Num =(int) session.getAttribute("User_Num");
 			System.out.println((int) session.getAttribute("User_Num"));
-		
-				
-				
 				return User_Num;
 				
 			}else {
 				return 0;
 			}
 		}
-		
-		// 고객 장바구니 메소드
-		public int checkCartSu(UserVO vo) {
-			int cartSize = mypageService.checkCartSu(vo);
-			return cartSize;
-		}
-		
-
 }

@@ -9,17 +9,17 @@ import org.springframework.stereotype.Service;
 
 import ozo.spring.house.admin.vo.BannerVO;
 import ozo.spring.house.seller.vo.SellerVO;
-import ozo.spring.house.user.dao.UserMainDAO;
+import ozo.spring.house.user.dao.U_MainDAO;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserPagingVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Service("userMainService")
-public class UserMainServiceImpl implements UserMainService {
+public class U_MainServiceImpl implements U_MainService {
 	
 	@Autowired
-	UserMainDAO userMainDAO;
+	U_MainDAO userMainDAO;
 
 	@Override
 	public List<UserProductVO> mainProductList(UserProductVO vo) {

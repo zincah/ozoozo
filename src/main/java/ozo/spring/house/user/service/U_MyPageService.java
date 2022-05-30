@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import ozo.spring.house.user.vo.ReviewVO;
+import ozo.spring.house.user.vo.ScrapVO;
 import ozo.spring.house.user.vo.UserPaymentLogVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
@@ -15,9 +16,6 @@ public interface U_MyPageService {
 	public void user_urlnone(UserVO vo);
 	public void user_stop(UserVO vo);
 	
-	// 고객 장바구니 상품 수
-	public int checkCartSu(UserVO vo);
-	
 	//Reivew
 	public List<Map<String, String>> listofobject(UserPaymentLogVO vo);
 	public Map<String, String> getReviewInfo(UserPaymentLogVO vo);
@@ -28,4 +26,13 @@ public interface U_MyPageService {
 	
 	public List<ReviewVO> getReviewTODetailPage(int pro);
 	public int updateLiked(ReviewVO vo);
+	
+	//scrap
+		public List<ScrapVO> s_scrap(ScrapVO vo);
+		public void s_cancle(UserScrapVO vo);
+		public void s_insert(UserScrapVO vo);
+		public List<UserScrapVO> us_list(UserScrapVO vo);
+		public UserScrapVO duplicate(UserScrapVO vo);
+		
+		public List<UserScrapVO> userScrapList(UserScrapVO vo);
 }

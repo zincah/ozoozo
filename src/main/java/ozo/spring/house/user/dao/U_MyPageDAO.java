@@ -1,48 +1,70 @@
 package ozo.spring.house.user.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.mybatis.spring.SqlSessionTemplate;
-
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import ozo.spring.house.user.vo.ReviewVO;
+import ozo.spring.house.user.vo.ScrapVO;
 import ozo.spring.house.user.vo.UserPaymentLogVO;
+import ozo.spring.house.user.vo.UserScrapVO;
+import ozo.spring.house.user.vo.UserVO;
 
-@Repository("reviewDAO")
-public class ReviewDAO {
+@Repository("userMyPageDAO")
+public class U_MyPageDAO {
 
-    @Autowired
-    private SqlSessionTemplate sqlSessionTemplate;
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
 
-    /*
-    public List<ReviewVO> selectReviewList(ReviewVO vo){
-        System.out.println("--> mybatis in reviewdao selectReviewList");
-        return sqlSessionTemplate.selectList("ReviewDAO.selectReviewList", vo);
-    }
-
-    public List<ReviewVO> topReviewList(ReviewVO vo){
-        System.out.println("--> mybatis in reviewdao topReviewList");
-        return sqlSessionTemplate.selectList("ReviewDAO.topReviewList", vo);
-    }
-
-    public List<ReviewVO> myReviewList(ReviewVO vo){
-        System.out.println("--> mybatis in reviewdao myReviewList");
-        return sqlSessionTemplate.selectList("ReviewDAO.myReviewList", vo);
-    }
-
-    public List<Object> deleteReview(ReviewVO vo){
-        System.out.println("r u sure?");
-        return sqlSessionTemplate.selectList("ReviewDAO.deleteReview", vo);
-    }
-
-    public void insertreview(ReviewVO vo){
-        System.out.println("ok");
-        sqlSessionTemplate.insert("ReviewDAO.insertreview", vo);
-    }*/
-    
-    public List<Map<String, String>> listofobject(UserPaymentLogVO vo) {
+	//회원정보 수정
+	public UserVO mypageinfo(UserVO vo) {
+		System.out.println("--> this is mybatis");
+		System.out.println(vo.getUser_num());
+		return sqlSessionTemplate.selectOne("UserMyPageDAO.selectUser",vo);
+	}
+	
+	public void user_edit(UserVO vo) {
+		sqlSessionTemplate.update("UserMyPageDAO.user_edit",vo);
+	}
+	public void user_urlnone(UserVO vo) {
+		sqlSessionTemplate.update("UserMyPageDAO.user_urlnone",vo);
+	}
+	public void user_stop(UserVO vo) {
+		sqlSessionTemplate.update("UserMyPageDAO.user_stop",vo);
+	}
+	
+	//scrap
+public List<ScrapVO> s_scrap(ScrapVO svo) {
+		return sqlSessionTemplate.selectList("UserScrapDAO.s_scrap",svo);
+	}
+	
+	public void s_cancle(UserScrapVO vo) {
+		sqlSessionTemplate.delete("UserScrapDAO.s_cancle",vo);
+	}
+	
+	//스크랩 
+	public void s_insert(UserScrapVO vo) {
+		sqlSessionTemplate.insert("UserScrapDAO.s_insert",vo);
+	}
+	
+	//스크랩 중복확인용 테이블
+	public List<UserScrapVO> us_list(UserScrapVO vo) {
+		return sqlSessionTemplate.selectList("UserScrapDAO.us_list",vo);
+	}
+	
+	public List<UserScrapVO> userScrapList(UserScrapVO vo){
+		System.out.println("--> mybatis userscrapselect");
+		return sqlSessionTemplate.selectList("UserScrapDAO.userScrapList", vo);
+	}
+	
+	public UserScrapVO duplicate(UserScrapVO vo) {
+		return sqlSessionTemplate.selectOne("UserScrapDAO.duplicate", vo);
+	}
+	//review
+	public List<Map<String, String>> listofobject(UserPaymentLogVO vo) {
     	System.out.println("--> mybatis list of object");
     	return sqlSessionTemplate.selectList("ReviewDAO.listofobject", vo);
     }
