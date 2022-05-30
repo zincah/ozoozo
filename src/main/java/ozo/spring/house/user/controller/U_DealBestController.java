@@ -1,5 +1,13 @@
 package ozo.spring.house.user.controller;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,22 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import ozo.spring.house.seller.vo.SellerVO;
-import ozo.spring.house.user.dao.U_MainDAO;
 import ozo.spring.house.user.service.U_MainService;
-import ozo.spring.house.user.service.UserScrapService;
-import ozo.spring.house.user.vo.ScrapVO;
+import ozo.spring.house.user.service.U_MyPageService;
 import ozo.spring.house.user.vo.UserCategoryVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
-
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class U_DealBestController {
@@ -33,7 +31,7 @@ public class U_DealBestController {
 	U_MainService userMainService;
 
 	@Autowired
-	UserScrapService userscrapservice;
+	U_MyPageService mypageservice;
 
 	@RequestMapping(value = "/todaydeal.com")
 	public String main_todayDeal(Model model,HttpServletRequest request,UserScrapVO svo ){
@@ -57,7 +55,7 @@ public class U_DealBestController {
 		
 		if((Integer)session.getAttribute("User_Num")!=null) {
 		svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
-		scrap = userscrapservice.userScrapList(svo);
+		scrap = mypageservice.userScrapList(svo);
 		
 		
 		for(int i=0; i<todayDealList.size(); i++) {
@@ -215,7 +213,7 @@ public class U_DealBestController {
 		List<UserProductVO> bestlist = userMainService.bestlist();
 		if(session.getAttribute("User_Num") != null) {
 			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
-			scrap = userscrapservice.userScrapList(svo);
+			scrap = mypageservice.userScrapList(svo);
 		
 		vo.setUser_num((int)session.getAttribute("User_Num"));
 		System.out.println((int)session.getAttribute("User_Num"));
