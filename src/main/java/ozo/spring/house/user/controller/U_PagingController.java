@@ -50,7 +50,7 @@ public class U_PagingController {
 
 		// product list pagecount
 		int pagecount = Integer.parseInt(searchMap.get("page"));
-		pvo.setThispage(pagecount); // 占쎌삋揶쏉옙
+		pvo.setThispage(pagecount);
 		pvo.setOrderKind(searchMap.get("ranking"));
 		
 		List<UserProductVO> productList = userMainService.plusProductList(pvo);
@@ -59,7 +59,7 @@ public class U_PagingController {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //占쎈꺖占쎈땾占쎌젎 占쎈맙占쎈땾
+			DecimalFormat decFormat = new DecimalFormat("###,###"); 
 			
 			pro.setSale_price(decFormat.format(sale_price));
 			
@@ -89,7 +89,7 @@ public class U_PagingController {
 		
 		List<String> cates = wholeList.get(1);
 
-		// category 占쎄퐫占쎈선雅뚯눊由�
+		// category 
 		vo.setTop_catecode(Integer.parseInt(cates.get(0)));
 		if(cates.size()>1 && cates.get(1)!="") {
 			vo.setMidcate_code(Integer.parseInt(cates.get(1)));
@@ -109,7 +109,7 @@ public class U_PagingController {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //占쎈꺖占쎈땾占쎌젎 占쎈맙占쎈땾
+			DecimalFormat decFormat = new DecimalFormat("###,###"); 
 			
 			pro.setSale_price(decFormat.format(sale_price));
 			
@@ -126,10 +126,10 @@ public class U_PagingController {
 	}
 	
 	// brand page
-	
 	@RequestMapping(value = "/brandshopPaging.com", method=RequestMethod.POST)
-	public String brandshopRank(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request){
+	public String brandshopRank(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request,UserScrapVO svo, HttpSession session){
 		System.err.println("[Log] --- Paging Controller >>>>> brandshopRank Method");
+
 		vo.setPost_sellerid(Integer.parseInt(searchMap.get("brandcode")));
 		vo.setThispage(Integer.parseInt(searchMap.get("page")));
 		vo.setOrderKind(searchMap.get("ranking"));
@@ -148,6 +148,11 @@ public class U_PagingController {
 			}
 		}
 		
+		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
+		if(session.getAttribute("User_Num") != null) {
+			svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
+			scrap = mypageService.userScrapList(svo);
+		}
 		List<UserProductVO> shopItemList = userMainService.shopItemList(vo);
 
 		for(int i=0; i<shopItemList.size(); i++){
@@ -157,6 +162,13 @@ public class U_PagingController {
 			DecimalFormat decFormat = new DecimalFormat("###,###");
 
 			sho.setSale_price(decFormat.format(sale_price));
+			
+			for(int j=0; j<scrap.size(); j++) {
+				UserScrapVO sc = scrap.get(j);
+				if(sho.getPost_id() == sc.getSc_postid()) {
+					sho.setCheckit(true);
+				}
+			}
 		}
 		model.addAttribute("shopItemList", shopItemList);
 		return "oZo_ShopAssist";
