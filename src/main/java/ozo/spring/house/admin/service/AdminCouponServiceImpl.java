@@ -39,4 +39,14 @@ public class AdminCouponServiceImpl implements AdminCouponService {
        return bannerDAO.couponViewData(vo);
     }
 
+    @Override
+    public AdminCouponVO couponUpdate(AdminCouponVO vo) {
+        return bannerDAO.couponUpdate(vo);
+    }
+
+    @Override
+    public AdminCouponVO updateCouponStatus(AdminCouponVO vo) {
+        return bannerDAO.couponUpdate(vo);
+    }
+
 }

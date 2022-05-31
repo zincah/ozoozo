@@ -87,4 +87,18 @@
 		VALUES ((select coalesce (max (coupon_id), 100)+1 from product_coupon),#{coupon_title},#{coupon_subtitle},#{coupon_startdate},#{coupon_enddate},#{coupon_more},${coupon_discount})
 	</insert>
 
+	<!-- coupon update -->
+	<update id="couponUpdate" parameterType="coupon">
+		update product_coupon
+		set coupon_more  = #{coupon_more}, coupon_discount = #{coupon_discount},
+			coupon_title = #{coupon_title}, coupon_subtitle = #{coupon_subtitle},
+		    coupon_update = now()
+		where coupon_id = #{coupon_id};
+	</update>
+
+	<!-- coupon status update -->
+	<update id="updateCouponStatus" parameterType="coupon">
+		update product_coupon AS coupon_status SET coupon_status=#{coupon_status} WHERE coupon_id=#{coupon_id};
+	</update>
+
 </mapper>

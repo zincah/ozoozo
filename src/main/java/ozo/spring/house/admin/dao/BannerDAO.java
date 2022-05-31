@@ -68,4 +68,14 @@ public class BannerDAO {
 		System.out.println("mybatis admin coupon viewdata");
 		return sessiontemplate.selectOne("BannerDAO.couponViewData", vo);
 	}
+
+	public AdminCouponVO couponUpdate(AdminCouponVO vo){
+		System.out.println("mybatis admin coupon update");
+		return sessiontemplate.selectOne("BannerDAO.couponUpdate", vo);
+	}
+
+	public AdminCouponVO updateCouponStatus(AdminCouponVO vo){
+		System.out.println("mybatis admin coupon status update");
+		return sessiontemplate.selectOne("BannerDAO.updateCouponStatus",vo);
+	}
 }

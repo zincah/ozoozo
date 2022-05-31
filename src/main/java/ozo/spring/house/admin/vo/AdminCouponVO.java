@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ozo.spring.house.common.Criteria;
 
 @Getter
 @Setter
@@ -23,4 +24,6 @@ public class AdminCouponVO {
 	private int coupon_discount;
 	private int coupon_more;
 
+	public void setCri(Criteria cri) {
+	}
 }

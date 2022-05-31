@@ -89,9 +89,13 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 	display: none;
 }
 
-.insert_btn, .reset_btn {
-
+.insert_btn {
+	color: #fff;
+	background-color: #ff778e;
+	border: 1px solid #ff778e;
 }
+
+
 
 #info_title {
 	margin-bottom: 0;
@@ -332,4 +336,43 @@ input[type="date"] {
 /* table */
 .table_layer {
 	overflow: auto;
+}
+
+.dropdown-item {
+	font-size: 13px;
+}
+
+.dropdown-header {
+	font-size: 13px;
+}
+
+.modal-title {
+	font-size: 16px;
+}
+
+.modal-status-select-coupon-num{
+	padding-bottom: 0.3rem;
+}
+.modal-status-select-coupon-num>span {
+	font-size: 11px;
+}
+
+.modal-status-select-coupon-num-value {
+	color: #ff778e;
+}
+
+.modal-status-select-option {
+	font-size: 11px;
+	height: 2rem;
+	/*padding: 0.375rem 0.75rem;*/
+	border-radius: 0.25rem;
+	border: 1px solid #ced4da;
+	color: #444;
+	width: 100%;
+}
+
+.modal-status-select-submit-button {
+	color: #fff;
+	background-color: #ff778e;
+	border: 1px solid #ff778e;
 }
