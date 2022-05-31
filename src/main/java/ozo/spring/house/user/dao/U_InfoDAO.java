@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import ozo.spring.house.user.vo.UserVO;
 
-@Repository()
+@Repository
 public class U_InfoDAO {
 	private String encodePass;
 	@Autowired
