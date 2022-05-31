@@ -217,7 +217,9 @@
 	                  <div class="deals_list_wrap">
 	                  <c:choose>
 	                                    <c:when test="${deal.checkit eq true}">
-	                                   
+	                                   <div class="item_timer b_${deal.post_id }" >
+	                                    <div>1일 남음</div>
+	                                    </div>
 	                                   
 	                                    <div id="s_${deal.post_id}"></div>
 	                                    <button class="item_bookmark b_none" id="${deal.post_id }" >

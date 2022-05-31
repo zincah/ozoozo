@@ -24,6 +24,7 @@ import ozo.spring.house.user.service.U_Service;
 import ozo.spring.house.user.vo.CartVO;
 import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserScrapVO;
+import ozo.spring.house.user.vo.UserVO;
 @Controller
 public class U_PublicController {
 	
@@ -41,7 +42,7 @@ public class U_PublicController {
 	
 	
 	//send Emails
-	private String key; // �씠硫붿씪濡� 蹂대궡吏� �궃�닔
+	private String key; // 占쎌뵠筌롫뗄�뵬嚥∽옙 癰귣�沅∽쭪占� 占쎄텆占쎈땾
 	
 	@ResponseBody
 	@RequestMapping(value = "/sendEmail.com", method=RequestMethod.POST)
@@ -59,7 +60,7 @@ public class U_PublicController {
 	public Boolean checkCode(@RequestBody String Code) {
 		System.err.println("[Log] --- Public Controller >>>>> checkCode Method");
 		String code = Code.replace("\"", "");
-		//System.out.println("�궗�슜�옄媛� �엯�젰�븳 Code : "+code + "\n�썝�옒 肄붾뱶 : " + key);
+		//System.out.println("占쎄텢占쎌뒠占쎌쁽揶쏉옙 占쎌뿯占쎌젾占쎈립 Code : "+code + "\n占쎌뜚占쎌삋 �굜遺얜굡 : " + key);
 		if(key.equals(code)) {
 			return true;
 		}else {
@@ -81,7 +82,7 @@ public class U_PublicController {
 	//header load
 	@ResponseBody
 	@RequestMapping(value="/header_load.com", method= {RequestMethod.GET, RequestMethod.POST})
-	public int[] get_cart_ea(HttpSession session) {
+	public String[] get_cart_ea(HttpSession session) {
 		System.err.println("[Log] --- Public Controller >>>>> get_cart_ea Method");
 		if(session.getAttribute("UserMail")!=null) {
 			cart_Allload cart_cls;
@@ -93,7 +94,12 @@ public class U_PublicController {
 			UserScrapVO vo = new UserScrapVO();
 			vo.setSc_usernum((Integer)session.getAttribute("User_Num"));
 			List<UserScrapVO> scrap_li = mypageservice.us_list(vo);
-			int[] arr = {cart_li.size(), scrap_li.size()};
+			
+			UserVO uvo = new UserVO();
+			uvo.setUser_num((Integer)session.getAttribute("User_Num"));
+			UserVO img = mypageservice.mypageinfo(uvo);
+			String[] arr = {String.valueOf(cart_li.size()), String.valueOf(scrap_li.size()), img.getUser_img()};
+			
 			return arr;
 		}else {
 			return null;
@@ -120,7 +126,7 @@ public class U_PublicController {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //占쎈꺖占쎈땾占쎌젎 占쎈맙占쎈땾
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //�뜝�럥爰뽩뜝�럥�빢�뜝�럩�젍 �뜝�럥留쇿뜝�럥�빢
 			
 			pro.setSale_price(decFormat.format(sale_price));
 			//System.out.println(pro.getPost_id());
@@ -140,7 +146,7 @@ public class U_PublicController {
 		return "oZo_MainAssist";
 	}
 	
-	// 남는 거
+	// �궓�뒗 嫄�
 	@RequestMapping(value = "/shopApply.com")
 	public String user_shopApply(HttpServletRequest request) {
 		System.err.println("[Log] --- Public Controller >>>>> user_shopApply Method");
