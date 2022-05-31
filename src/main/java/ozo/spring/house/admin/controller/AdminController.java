@@ -168,7 +168,7 @@ public class AdminController {
 			vo.setFirstday(java.sql.Date.valueOf(fday));
 			vo.setLastday(java.sql.Date.valueOf(lday));
 			
-			// 한달 단위 날짜 세팅하기
+			// 한달 단위 날짜 세팅하기(5월 세팅 중)
 			List<String> monthList = makeDate.makeWholeMonth(2022, 5);
 			
 			List<AdminProductVO> sellerSaleList = productService.sellerSale(vo); // 매장별 매출 리스트
