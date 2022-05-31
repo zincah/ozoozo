@@ -183,8 +183,9 @@ public class AdminController {
 				ch.setRealPayment(realPayment);
 			}
 			
-			makeJson(dailyStoreSaleList, monthList);
+			String json = makeJson(dailyStoreSaleList, monthList);
 			
+			model.addAttribute("json", json);
 			model.addAttribute("sellerSaleList", sellerSaleList);
 			//model.addAttribute("dailyStoreSaleList", dailyStoreSaleList);
 			
@@ -262,20 +263,26 @@ public class AdminController {
 			
 			// data 구하는 for문
 			List<Integer> data = new ArrayList<Integer>();
-			for(int j=0; j<list.size(); j++) {
-				Map<String, String> map = list.get(j);
+			for(int j=0; j<monthList.size(); j++) {
 				
-				for(int k=0; k<monthList.size(); k++) {
-					
-					int payment = 0;
-					if(String.valueOf(map.get("odate")).equals(monthList.get(k))) {
+				int payment = 0;
+				
+				for(int k=0; k<list.size(); k++) {
+					Map<String, String> map = list.get(k);
+					if(monthList.get(j).equals(map.get("odate"))) {
 						payment = Integer.parseInt(String.valueOf(map.get("payment")));
 						data.add(payment);
-						break;
-					}else {
-						data.add(payment);
+						continue;
 					}
 				}
+				
+				if(payment != 0) {
+					
+				}else {
+					data.add(payment);
+				}
+
+				
 			}
 			
 			dataset.put("data", data);

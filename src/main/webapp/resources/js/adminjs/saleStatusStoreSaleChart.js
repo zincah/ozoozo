@@ -21,8 +21,8 @@ $(document).ready(function(){
 		companyNameList[i] = $("input[name=companyName]").eq(i).val();
 	}
 	
-	// Area Chart Example
-	var ctx = document.getElementById("myPieChart"); // myBarChart
+	// Pie Chart Example
+	var ctx = document.getElementById("myPieChart"); 
 	var myLineChart = new Chart(ctx, {
 	  type: "pie",
 	  data: {
@@ -38,6 +38,19 @@ $(document).ready(function(){
 	      
 	      }
 	    ]
+	  }
+	 
+	});
+	
+	// Line Chart Example
+	var json = $("input[name=getJson]").val();
+
+	
+	var lct = document.getElementById("myAreaChart"); 
+	var myLineChart = new Chart(lct, {
+	  type: "line",
+	  data: {
+		
 	  }
 	 
 	});
