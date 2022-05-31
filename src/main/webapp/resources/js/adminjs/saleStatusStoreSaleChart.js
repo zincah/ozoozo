@@ -42,17 +42,5 @@ $(document).ready(function(){
 	 
 	});
 	
-	// Line Chart Example
-	var json = $("input[name=getJson]").val();
-
-	
-	var lct = document.getElementById("myAreaChart"); 
-	var myLineChart = new Chart(lct, {
-	  type: "line",
-	  data: {
-		
-	  }
-	 
-	});
 	
 })

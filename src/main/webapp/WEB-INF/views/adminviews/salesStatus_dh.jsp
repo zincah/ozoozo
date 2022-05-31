@@ -123,6 +123,34 @@
 
   		})
   		
+  		$(document).ready(function(){
+  			// line chart
+  			Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+  			Chart.defaults.global.defaultFontColor = "#292b2c";
+  			
+  			var json = ${json}
+  			console.log(json.data.labels);
+  			
+  			var lct = document.getElementById("myAreaChart"); 
+  			var myLineChart = new Chart(lct, {
+  			  type: "line",
+  			  data: {
+  				  labels : json.data.labels,
+  				  datasets : json.data.datasets
+  			  },
+  			
+  			  options: {
+  			    title: {
+  			      display: true,
+  			      text: 'World population per region (in millions)'
+  			    }
+  			  }
+  			 
+  			});
+  			
+  		})
+  		
+  		
   		function getStoreSale(searchMap){
   			
 			$("#table_subject").text("업체별 매출");
@@ -628,11 +656,11 @@
                 <div class="card h-100 box-shadow">
                   <div class="card-body">
                     <div class="d-flex title-text bottom-line">
-                      <p class="margin-zero"><i class="fas fa-chart-area me-1 icon-margin-right"></i>일별 판매 추이</p>
+                      <p class="margin-zero"><i class="fas fa-chart-area me-1 icon-margin-right"></i>5월 일별 판매 추이</p>
                     </div>
                     <div class="d-flex justify-content-between sub-text">
                       <div class="card-body padding-zero">
-              			<input type="hidden" value="${json }" id="getJson">
+              			<input type="hidden" value="${json }" name="getJson">
                       	<canvas id="myAreaChart" width="100%" height="40"></canvas>
                       </div>
                     </div>
