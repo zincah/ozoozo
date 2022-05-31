@@ -223,7 +223,7 @@
 		function addr_add_btn(){
 			$(".addr_add").css('display','flex');
 			$(".addr_choice").css('display','none');
-			
+			 check_btn = 0;
 		}
 		
 		function addr_choice_div(){
@@ -1329,9 +1329,9 @@
             success : function(result){
             }
         })
-        if(result == "0"){
+        /* if(result == "0"){
         	location.reload();
-        }
+        } */
 	}
 	 function addr_delete(this_class){
 		 addr_id = (this_class.id).split("_");

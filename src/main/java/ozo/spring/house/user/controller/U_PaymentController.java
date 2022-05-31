@@ -252,9 +252,9 @@ public class U_PaymentController {
 		}else {
 			uvo.setAddr_default(false);
 		}
+		System.out.println(db_param);
 		
-		
-		if(db_param.get("index") == "0") {
+		if(db_param.get("index").equals("0")) {
 			pay_cls.addr_insert(uvo);
 		}else {
 			uvo.setAddress_id(Integer.parseInt(db_param.get("index")));
