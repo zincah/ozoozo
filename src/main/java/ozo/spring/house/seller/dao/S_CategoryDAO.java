@@ -12,7 +12,7 @@ import ozo.spring.house.seller.vo.FilterVO;
 
 
 @Repository("categoryDAO")
-public class CategoryDAO {
+public class S_CategoryDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;

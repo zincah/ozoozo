@@ -26,7 +26,7 @@ import ozo.spring.house.seller.service.SellerSalesService;
 import ozo.spring.house.seller.vo.ProductVO;
 
 @Controller
-public class SellerSalesController {
+public class S_SalesController {
 	
 	@Autowired
 	CategoryService categoryService;

@@ -29,7 +29,7 @@ import ozo.spring.house.seller.vo.FilterVO;
 import ozo.spring.house.seller.vo.ProductVO;
 
 @Controller
-public class SellerController {
+public class S_Controller {
 	
 	@Autowired
 	CategoryService categoryService;
@@ -46,6 +46,7 @@ public class SellerController {
 	
 	@RequestMapping(value = "/index.seller", method=RequestMethod.GET)
 	public String sellerIndex(HttpServletRequest request, ProductVO vo, Model model) {
+		System.err.println("[Log] --- Seller 	Controller >>>>> sellerIndex 	Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
 			
@@ -162,7 +163,7 @@ public class SellerController {
 	/* 상품 등록 페이지 */
 	@RequestMapping(value = "/insertProduct.seller", method=RequestMethod.GET) 
 	public String test(CategoryVO vo, Model model, HttpServletRequest request) {
-		
+		System.err.println("[Log] --- Seller 	Controller >>>>> test 			Method");
 		HttpSession session = request.getSession(); // session 검증
 		
 		if(session.getAttribute("seller")!=null) {
@@ -189,6 +190,7 @@ public class SellerController {
 	/* 상품관리 페이지 */
 	@RequestMapping(value = "/productManagement.seller", method=RequestMethod.GET)
 	public String sellerProductManagement(HttpServletRequest request, CategoryVO vo, Criteria cri, ProductVO pvo, Model model) {
+		System.err.println("[Log] --- Seller 	Controller >>>>> sellerProductManagement Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
 			
@@ -224,6 +226,7 @@ public class SellerController {
 	}
 	@RequestMapping(value = "/productPostingManagement.seller", method=RequestMethod.GET)
 	public String sellerProductPostingManagement(HttpServletRequest request, CategoryVO cvo, Model model, ProductVO vo) {
+		System.err.println("[Log] --- Seller 	Controller >>>>> sellerProductPostingManagement 	Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
 			// 카테고리 목록 불러오기
@@ -247,6 +250,7 @@ public class SellerController {
 	}
 	@RequestMapping(value = "/order.seller", method=RequestMethod.GET)
 	public String sellerOrder(HttpServletRequest request, CategoryVO cvo, Model model, ProductVO vo) {
+		System.err.println("[Log] --- Seller 	Controller >>>>> sellerProductPostingManagement 	Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
 			// 카테고리 목록 불러오기
@@ -275,6 +279,7 @@ public class SellerController {
 	}
 	@RequestMapping(value = "/salesManagement.seller", method=RequestMethod.GET)
 	public String sellerSalesManagement(HttpServletRequest request, Model model, ProductVO vo) {
+		System.err.println("[Log] --- Seller 	Controller >>>>> sellerSalesManagement 		Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
 			
@@ -378,6 +383,7 @@ public class SellerController {
 	}
 	@RequestMapping(value = "/review.seller")
 	public String sellerReview(HttpServletRequest request) {
+		System.err.println("[Log] --- Seller 	Controller >>>>> sellerReview 		Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
 			return "seller-review";
@@ -387,6 +393,7 @@ public class SellerController {
 	}
 	@RequestMapping(value = "/notice.seller")
 	public String sellerNotice(HttpServletRequest request) {
+		System.err.println("[Log] --- Seller 	Controller >>>>> sellerNotice 		Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
 			return "seller-notice";
