@@ -211,7 +211,7 @@
 								</div>
 							</div>
 						</div>
-						 <button
+						<%--  <button
 							class="layout-navigation-bar-icon layout-navigation-bar-search-button"
 							title="검색" aria-label="검색" type="button">
 							<svg id="s_icon" class="icon" width="24" height="24"
@@ -221,7 +221,7 @@
                                 <circle id="search_btn" cx="11" cy="11"
 									r="8"></circle>
                             </svg>
-						</button> 
+						</button>  --%>
 
 							<c:if test="${User_Num ne null}">
 
@@ -390,7 +390,7 @@
 						href="/house/main.com">스토어홈</a> <a id= "1"
 						class="layout-navigation-primary__menu__item layout-navigation-primary__menu__item--active 
                         layout-navigation-primary__menu__item--open"
-						href="/house/category.com">카테고리</a> <a
+						href="/house/category.com?catecode=1">카테고리</a> <a
 						class="layout-navigation-primary__menu__item"
 						href="/house/m_best.com">베스트</a> <a
 						class="layout-navigation-primary__menu__item"
@@ -410,7 +410,7 @@
 						<div class="layout-navigation-drawer-header">
 							<a
 								class="layout-navigation-logo layout-navigation-drawer-header__logo"
-								aria-label="오늘의집" href="/main.com"><svg class="icon"
+								aria-label="오늘의집" href="/house/main.com"><svg class="icon"
 									width="74" height="30" viewBox="0 0 74 30"
 									preserveAspectRatio="xMidYMid meet">
                                         <g fill="none"
@@ -618,17 +618,15 @@
 							<ul class="layout-navigation-drawer-user-menu">
 								<li class="layout-navigation-drawer-user-menu__item-wrap"><a
 									class="layout-navigation-drawer-user-menu__item"
-									href="/users/17136427">마이페이지</a></li>
+									href="/house/m_myPage.com">마이페이지</a></li>
 								<li class="layout-navigation-drawer-user-menu__item-wrap"><a
 									class="layout-navigation-drawer-user-menu__item"
-									href="/user_shopping_pages/order_list">나의 쇼핑</a></li>
+									href="/house/myshopping.com">나의 쇼핑</a></li>
 								<li class="layout-navigation-drawer-user-menu__item-wrap"><a
 									class="layout-navigation-drawer-user-menu__item"
-									href="/users/17136427/collections">스크랩북</a></li>
+									href="/house/m_myPage.com">스크랩북</a></li>
 
-								<li class="layout-navigation-drawer-user-menu__item-wrap"><a
-									class="layout-navigation-drawer-user-menu__item"
-									href="/competitions/feed">이벤트</a></li>
+								
 
 								<li class="layout-navigation-drawer-user-menu__item-wrap"><a
 									class="layout-navigation-drawer-user-menu__item"
