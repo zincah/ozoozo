@@ -13,7 +13,7 @@ import ozo.spring.house.user.vo.UserPaymentLogVO;
 import ozo.spring.house.user.vo.UserScrapVO;
 import ozo.spring.house.user.vo.UserVO;
 
-@Repository("userMyPageDAO")
+@Repository()
 public class U_MyPageDAO {
 
 	@Autowired

@@ -20,7 +20,7 @@ import ozo.spring.house.user.vo.UserProductVO;
 import ozo.spring.house.user.vo.UserProduct_tableVO;
 import ozo.spring.house.user.vo.UserVO;
 
-@Repository("userDAO")
+@Repository()
 public class U_DAO {
 
 	@Autowired
