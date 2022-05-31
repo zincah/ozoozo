@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import ozo.spring.house.seller.vo.ProductVO;
 
 @Repository("sellerIndexDAO")
-public class SellerIndexDAO {
+public class S_IndexDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;

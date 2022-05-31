@@ -10,7 +10,7 @@ import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Repository("sellerDAO")
-public class SellerDAO {
+public class S_DAO {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 

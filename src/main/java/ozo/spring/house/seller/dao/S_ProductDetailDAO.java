@@ -10,7 +10,7 @@ import ozo.spring.house.seller.vo.ProductDetailVO;
 import ozo.spring.house.seller.vo.ProductVO;
 
 @Repository("productDetailDAO")
-public class ProductDetailDAO {
+public class S_ProductDetailDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;

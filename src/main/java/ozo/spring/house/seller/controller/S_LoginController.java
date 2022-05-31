@@ -17,7 +17,7 @@ import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Controller
-public class LoginController {
+public class S_LoginController {
 
 	@Autowired
 	SellerService sellerService;
@@ -27,6 +27,7 @@ public class LoginController {
 	// login
 	@RequestMapping(value = "/login.seller", method=RequestMethod.GET)
 	public String loginView(HttpSession session) {
+		System.err.println("[Log] --- S_Login 	Controller >>>>> loginView 		Method");
 		if(session.getAttribute("seller")!=null) {
 			return "redirect:index.seller";
 		}else {
@@ -36,7 +37,7 @@ public class LoginController {
 
 	@RequestMapping(value="/login.seller", method=RequestMethod.POST)
 	public String login(UserVO vo, Model model, HttpSession session) {
-
+		System.err.println("[Log] --- S_Login 	Controller >>>>> login 		Method");
 		// log Ã³¸®
 		System.out.println("--> login controller");
 		SellerVO seller = sellerService.checkSeller(vo);
@@ -57,7 +58,7 @@ public class LoginController {
 	// logout
 	@RequestMapping(value = "/logout.seller", method=RequestMethod.GET)
 	public String logout(HttpSession session) {
-
+		System.err.println("[Log] --- S_Login 	Controller >>>>> logout 		Method");
 		session.invalidate();
 		return "redirect:login.seller";
 	}

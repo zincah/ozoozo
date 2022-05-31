@@ -22,7 +22,7 @@ import ozo.spring.house.seller.service.SellerPostingService;
 import ozo.spring.house.seller.vo.ProductVO;
 
 @Controller
-public class SellerPostingController {
+public class S_PostingController {
 	
 	@Autowired
 	CategoryService categoryService;

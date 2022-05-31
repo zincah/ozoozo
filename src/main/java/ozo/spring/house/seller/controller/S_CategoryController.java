@@ -25,7 +25,7 @@ import ozo.spring.house.seller.vo.ProductDetailVO;
 import ozo.spring.house.seller.vo.ProductVO;
 
 @Controller
-public class CategoryController {
+public class S_CategoryController {
 	
 	@Autowired
 	CategoryService categoryService;
@@ -40,13 +40,13 @@ public class CategoryController {
 	
 	@RequestMapping(value = "/postingInfo.seller", method=RequestMethod.GET)
 	public String postingInfo(CategoryVO vo, Model model, HttpServletRequest request) {
-
+		System.err.println("[Log] --- S_Category 	Controller >>>>> postingInfo 	Method");
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("seller")!=null) {
 			
 			int postcode = Integer.parseInt((String)request.getParameter("postcode"));
-			System.out.println(postcode);
+			//System.out.println(postcode);
 			// 대분류 가져오기
 			List<CategoryVO> cateList = categoryService.getCategoryList(vo);
 			model.addAttribute("cateList", cateList);	
@@ -55,7 +55,7 @@ public class CategoryController {
 			List<Map<String, String>> productlist = pvo.getProductlist();
 			model.addAttribute("productlist", productlist);
 			
-			System.out.println(productlist);
+			//System.out.println(productlist);
 			
 			Map<String, String> product = productlist.get(0);
 			int su = Integer.parseInt(String.valueOf(product.get("po_category")));
@@ -84,6 +84,7 @@ public class CategoryController {
 	@ResponseBody
 	@RequestMapping(value = "/getMiddleCategory.seller", method=RequestMethod.POST)
 	public List<CategoryVO> midcate(@RequestBody CategoryVO vo) {
+		System.err.println("[Log] --- S_Category 	Controller >>>>> midcate 	Method");
 		vo.setTop_catecode(vo.getCate_code());
 		vo.setDepth(1);
 		List<CategoryVO> midList = categoryService.getMidCategoryList(vo);
@@ -95,6 +96,7 @@ public class CategoryController {
 	@ResponseBody
 	@RequestMapping(value = "/getBottomCategory.seller", method=RequestMethod.POST)
 	public List<CategoryVO> botcate(@RequestBody CategoryVO vo) {
+		System.err.println("[Log] --- S_Category 	Controller >>>>> botcate 	Method");
 		vo.setDepth(2);
 		List<CategoryVO> botList = categoryService.getBotCategoryList(vo);
 		return botList;
@@ -103,20 +105,22 @@ public class CategoryController {
 	// 상품등록시 
 	@RequestMapping(value = "/putProduct.seller", method=RequestMethod.POST)
 	public String insertPost(ProductVO vo) {
-		System.out.println("update 전");
-		System.out.println(vo.getPo_category());
-		System.out.println(vo.getPo_subcate());
+		System.err.println("[Log] --- S_Category Controller >>>>> insertPost Method");
+		/*
+		 * System.out.println("update 전"); System.out.println(vo.getPo_category());
+		 * System.out.println(vo.getPo_subcate());
+		 */
 		productService.updatePost(vo);
 		
-		System.out.println("update 후");
+		//System.out.println("update 후");
 		return "index";
 	}
 
 	// filter를 가져오는 부분
 	@RequestMapping(value="/getFilterOption.seller", method=RequestMethod.POST)
 	public String getFilterOption(@RequestBody CategoryVO vo, Model model) {
-		
-		System.out.println(vo.getCate_code());
+		System.err.println("[Log] --- S_Category 	Controller >>>>> insertPost 	Method");
+		//System.out.println(vo.getCate_code());
 		
 		List<List<FilterVO>> wholeList = categoryService.getFilterOption(vo);
 		model.addAttribute("wholeList", wholeList);

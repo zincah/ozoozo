@@ -277,7 +277,7 @@
 	    		alert("배송지명을 입력해주세요.");
 	    		var double_click = false;
 	    		return;
-	    	}else if($('input[name=recipient]').val() == ''){
+	    	}else if($('#addr_man').val() == ''){
 	    		alert("받는분 성함을 입력해주세요.");
 	    		var double_click = false;
 	    		return;
@@ -289,20 +289,20 @@
 	    		alert("주문자 핸드폰 번호 슷자만 입력해주세요.");
 	    		var double_click = false;
 	    		return;
-	    	}else if($('#sample6_postcode').val() == ''){
-	    		alert("주소를 선택해주세요.");
-	    		var double_click = false;
-	    		return;
 	    	}else if(!checkBox){
 	    		alert("개인정보 동의를 해주세요.");
 	    		var double_click = false;
 	    		return;
 	    	}
+	    	
 	    	if(addr_bln){
-	    		address_add();
 	    		addresscode = $("#sample6_postcode").val();
 	    		address = $("#sample6_address").val() + ", " + $("#sample6_detailAddress").val();
-	    		
+	    		if($('#sample6_postcode').val() == ''){
+		    		alert("주소를 선택해주세요.");
+		    		var double_click = false;
+		    		return;
+		    	}
 	    	}else{
 	    		address = "${address_true.address1}"
 	    	    address = address.replace("[","").split("]");
@@ -332,6 +332,9 @@
 	                console.log("결제 성공");
 	                payment_success(rsp);
 	                exit = false;
+	                if(addr_bln){
+	                	address_add();
+	                }
 	            } else {
 	                // 결제 실패 시 로직,
 	                double_click = false;

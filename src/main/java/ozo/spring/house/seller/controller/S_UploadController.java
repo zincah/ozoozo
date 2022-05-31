@@ -19,7 +19,7 @@ import ozo.spring.house.seller.service.ProductService;
 import ozo.spring.house.seller.vo.ProductVO;
 
 @Controller
-public class UploadController {
+public class S_UploadController {
 	
 	@Autowired
 	AwsS3 awss3Client;

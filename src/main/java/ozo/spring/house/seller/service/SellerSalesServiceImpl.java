@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ozo.spring.house.seller.dao.SellerSalesDAO;
+import ozo.spring.house.seller.dao.S_SalesDAO;
 import ozo.spring.house.seller.vo.ProductVO;
 
 @Service("sellerSalesService")
 public class SellerSalesServiceImpl implements SellerSalesService {
 	
 	@Autowired
-	SellerSalesDAO sellerSalesDAO;
+	S_SalesDAO sellerSalesDAO;
 	
 	@Override
 	public ProductVO selectSalesList(ProductVO vo) {
