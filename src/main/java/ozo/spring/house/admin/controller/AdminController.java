@@ -2,12 +2,15 @@ package ozo.spring.house.admin.controller;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -165,6 +168,9 @@ public class AdminController {
 			vo.setFirstday(java.sql.Date.valueOf(fday));
 			vo.setLastday(java.sql.Date.valueOf(lday));
 			
+			// 한달 단위 날짜 세팅하기
+			List<String> monthList = makeDate.makeWholeMonth(2022, 5);
+			
 			List<AdminProductVO> sellerSaleList = productService.sellerSale(vo); // 매장별 매출 리스트
 			List<List<Map<String,String>>> dailyStoreSaleList = productService.dailyStoreSales(vo); // 일별 매출 리스트
 			System.out.println(dailyStoreSaleList);
@@ -177,8 +183,9 @@ public class AdminController {
 				ch.setRealPayment(realPayment);
 			}
 			
-			//makeJson(dailyStoreSaleList);
+			String json = makeJson(dailyStoreSaleList, monthList);
 			
+			model.addAttribute("json", json);
 			model.addAttribute("sellerSaleList", sellerSaleList);
 			//model.addAttribute("dailyStoreSaleList", dailyStoreSaleList);
 			
@@ -234,19 +241,69 @@ public class AdminController {
 		}
 	}
 	
-	private String makeJson(List<List<Map<String,String>>> dailyStoreSaleList) {
-		
-		List<String> labelList = new ArrayList<String>();
-		List<String> dateList = new ArrayList<String>(); 
-		
-		for(int i=0; i<dailyStoreSaleList.size(); i++) {
-			
-			
 
+	private String makeJson(List<List<Map<String,String>>> dailyStoreSaleList, List<String> monthList) {
+		
+		Map<String, Object> wholeMap = new HashMap<String, Object>();
+		wholeMap.put("labels", monthList);
+		
+		int size = dailyStoreSaleList.size();
+		int i = 0;
+		
+		
+		List<Map<String, Object>> datasetList = new ArrayList<Map<String,Object>>();
+		
+		while(i<size) {
+			Map<String, Object> dataset = new HashMap<String, Object>();
+			
+			List<Map<String,String>> list = dailyStoreSaleList.get(i);
+			
+			// seller id 가져오기
+			String seller = String.valueOf(dailyStoreSaleList.get(i).get(i).get("seller_id"));
+			
+			// data 구하는 for문
+			List<Integer> data = new ArrayList<Integer>();
+			for(int j=0; j<monthList.size(); j++) {
+				
+				int payment = 0;
+				
+				for(int k=0; k<list.size(); k++) {
+					Map<String, String> map = list.get(k);
+					if(monthList.get(j).equals(map.get("odate"))) {
+						payment = Integer.parseInt(String.valueOf(map.get("payment")));
+						data.add(payment);
+						continue;
+					}
+				}
+				
+				if(payment != 0) {
+					
+				}else {
+					data.add(payment);
+				}
+
+				
+			}
+			
+			dataset.put("data", data);
+			dataset.put("label", seller);
+			dataset.put("borderColor", "#f77");
+			dataset.put("fill", false);
+
+			datasetList.add(dataset);
+			i++;
 		}
+
 		
+		wholeMap.put("datasets", datasetList);
+
+		JSONObject jsonMap = new JSONObject();
+		jsonMap.put("data", wholeMap);
+		String json = jsonMap.toJSONString();
 		
-		return null;
+		System.out.println(json);
+
+		return json;
 	}
 
 

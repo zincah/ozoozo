@@ -632,6 +632,7 @@
                     </div>
                     <div class="d-flex justify-content-between sub-text">
                       <div class="card-body padding-zero">
+              			<input type="hidden" value="${json }" id="getJson">
                       	<canvas id="myAreaChart" width="100%" height="40"></canvas>
                       </div>
                     </div>
