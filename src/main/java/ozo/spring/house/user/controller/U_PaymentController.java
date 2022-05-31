@@ -175,8 +175,8 @@ public class U_PaymentController {
 			add_vo.setShipping_fee(shipfee);
 			add_vo.setOrder_status("결제완료");
 			add_vo.setPost_id(cart_li.get(i).getCart_post());
-			
-			add_vo.setAddress_id(choice_addr.getAddress_id());
+				
+			add_vo.setAddress_id(this.choice_addr.getAddress_id());
 			//add_vo.setRefund_id(0);
 			if((Integer)ivo.get("coupon_code") != null) {
 				int coupon_code = (Integer)ivo.get("coupon_code");

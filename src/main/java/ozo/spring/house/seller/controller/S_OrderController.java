@@ -100,7 +100,7 @@ public class S_OrderController {
 	// 선택된 주문건 리스트(메뉴 모달용)
 	@RequestMapping(value = "/selectOrderList.seller", method=RequestMethod.POST)
 	public String selectOrderList(HttpServletRequest request, Model model, ProductVO vo, @RequestBody ArrayList<String> datas) {	
-		System.err.println("[Log] --- S_Order 	Controller >>>>> getOrderDatailView 	Method");
+		System.err.println("[Log] --- S_Order 	Controller >>>>> selectOrderList 	Method");
 		HttpSession session = request.getSession();
 		
 		// 하나씩 출력될 주문건 리스트를 저장할 변수
@@ -124,7 +124,7 @@ public class S_OrderController {
 	@ResponseBody
 	@RequestMapping(value = "/orderCheckUpdate.seller", method=RequestMethod.POST)
 	public String orderCheckUpdate(HttpServletRequest request, Model model, ProductVO vo, @RequestBody ArrayList<String> datas) {	
-		System.err.println("[Log] --- S_Order 	Controller >>>>> getOrderDatailView 	Method");
+		System.err.println("[Log] --- S_Order 	Controller >>>>> orderCheckUpdate 	Method");
 		HttpSession session = request.getSession();
 		
 		// 주문건 상태가 '결제완료'가 아닐경우 실패 처리
@@ -151,6 +151,7 @@ public class S_OrderController {
 	@ResponseBody
 	@RequestMapping(value = "/orderSendUpdate.seller", method=RequestMethod.POST)
 	public String orderSendUpdate(HttpServletRequest request, Model model, ProductVO vo, @RequestBody Map<String, Object> datas) {	
+		System.err.println("[Log] --- S_Order 	Controller >>>>> orderSendUpdate 	Method");
 		HttpSession session = request.getSession();
 		
 		@SuppressWarnings("unchecked")
