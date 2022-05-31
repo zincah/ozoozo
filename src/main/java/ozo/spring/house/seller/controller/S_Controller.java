@@ -163,7 +163,7 @@ public class S_Controller {
 	/* 상품 등록 페이지 */
 	@RequestMapping(value = "/insertProduct.seller", method=RequestMethod.GET) 
 	public String test(CategoryVO vo, Model model, HttpServletRequest request) {
-		System.err.println("[Log] --- Seller 	Controller >>>>> test 			Method");
+		System.err.println("[Log] --- Seller 	Controller >>>>> test 	Method");
 		HttpSession session = request.getSession(); // session 검증
 		
 		if(session.getAttribute("seller")!=null) {
@@ -190,7 +190,7 @@ public class S_Controller {
 	/* 상품관리 페이지 */
 	@RequestMapping(value = "/productManagement.seller", method=RequestMethod.GET)
 	public String sellerProductManagement(HttpServletRequest request, CategoryVO vo, Criteria cri, ProductVO pvo, Model model) {
-		System.err.println("[Log] --- Seller 	Controller >>>>> sellerProductManagement Method");
+		System.err.println("[Log] --- Seller 	Controller >>>>> sellerProductManagement 	Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
 			
@@ -383,7 +383,7 @@ public class S_Controller {
 	}
 	@RequestMapping(value = "/review.seller")
 	public String sellerReview(HttpServletRequest request) {
-		System.err.println("[Log] --- Seller 	Controller >>>>> sellerReview 		Method");
+		System.err.println("[Log] --- Seller 	Controller >>>>> sellerReview 	Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
 			return "seller-review";
@@ -393,7 +393,7 @@ public class S_Controller {
 	}
 	@RequestMapping(value = "/notice.seller")
 	public String sellerNotice(HttpServletRequest request) {
-		System.err.println("[Log] --- Seller 	Controller >>>>> sellerNotice 		Method");
+		System.err.println("[Log] --- Seller 	Controller >>>>> sellerNotice 	Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
 			return "seller-notice";

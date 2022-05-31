@@ -74,8 +74,8 @@ public class U_PaymentController {
 		List<CartVO> cvo_li = new ArrayList<CartVO>();
 		this.pay_cls = userservice.get_payment_class();
 		for(int i = 0; i < param_li.length; i++) {
-			cvo.setCart_post(Integer.parseInt(param_li[i]));
-			cvo.setCart_user(userID);
+			this.cvo.setCart_post(Integer.parseInt(param_li[i]));
+			this.cvo.setCart_user(userID);
 			cvo_li.add(cvo);
 			pay_cls.set_payment_list(cvo);
 			pay_cls.set_post_list(cvo);
@@ -175,8 +175,8 @@ public class U_PaymentController {
 			add_vo.setShipping_fee(shipfee);
 			add_vo.setOrder_status("결제완료");
 			add_vo.setPost_id(cart_li.get(i).getCart_post());
-			
-			add_vo.setAddress_id(choice_addr.getAddress_id());
+			this.choice_addr = pay_cls.get_addr_true(cvo);
+			add_vo.setAddress_id(this.choice_addr.getAddress_id());
 			//add_vo.setRefund_id(0);
 			if((Integer)ivo.get("coupon_code") != null) {
 				int coupon_code = (Integer)ivo.get("coupon_code");

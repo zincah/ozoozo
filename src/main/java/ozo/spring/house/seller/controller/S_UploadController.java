@@ -30,7 +30,7 @@ public class S_UploadController {
 	@ResponseBody
 	@RequestMapping(value="/uploadPhotos.seller", method=RequestMethod.POST)
 	public String uploadPhotos(@RequestParam(value="mainfile") List<MultipartFile> main, @RequestParam(value="file", required=false) List<MultipartFile> multi, ProductVO vo) {
-		
+		System.err.println("[Log] --- S_Upload 	Controller >>>>> uploadPhotos 	Method");
 		// 넘어온 file list 가 없을 때 인식해주기
 		
 		System.out.println("file upload ready");

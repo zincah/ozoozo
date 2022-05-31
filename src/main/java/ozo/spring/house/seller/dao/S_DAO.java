@@ -21,7 +21,7 @@ public class S_DAO {
 	SellerService sellerService;
 
 	public SellerVO checkSeller(UserVO vo) {
-		System.out.println("--> mybatis in sellerdao checkseller");
+		System.err.println("[Log] --- S 	DAO >>>>> checkSeller 	Method");
 		try {
 			SellerVO seller = (SellerVO) sqlSessionTemplate.selectOne("SellerDAO.checkSeller", vo);
 			UserVO user = checkSellerUser(vo);
@@ -37,20 +37,20 @@ public class S_DAO {
 	}
 
 	public UserVO checkSellerUser(UserVO vo) {
-		System.out.println("--> mybatis in sellerdao checkselleruser");
+		System.err.println("[Log] --- S 	DAO >>>>> checkSellerUser 	Method");
 		UserVO user = (UserVO) sqlSessionTemplate.selectOne("SellerDAO.checkSellerUser", vo);
 		return user;
 	}
 
 	public void insertSeller(SellerVO vo) {
-		System.out.println("--> mybatis in sellerdao insertseller");
+		System.err.println("[Log] --- S 	DAO >>>>> insertSeller 	Method");
 		sqlSessionTemplate.insert("SellerDAO.insertSeller", vo);
 		//sqlSessionTemplate.commit();
 		System.out.println("--> insert success");
 	}
 
 	public UserVO userDataSeller(int user_id) {
-		System.out.println("--> mybatis in sellerdao userdataseller");
+		System.err.println("[Log] --- S 	DAO >>>>> userDataSeller 	Method");
 		UserVO user = (UserVO) sqlSessionTemplate.selectOne("SellerDAO.userDataSeller", user_id);
 		return user;
 	}

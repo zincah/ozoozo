@@ -27,7 +27,7 @@ public class S_LoginController {
 	// login
 	@RequestMapping(value = "/login.seller", method=RequestMethod.GET)
 	public String loginView(HttpSession session) {
-		System.err.println("[Log] --- S_Login 	Controller >>>>> loginView 		Method");
+		System.err.println("[Log] --- S_Login 	Controller >>>>> loginView 	Method");
 		if(session.getAttribute("seller")!=null) {
 			return "redirect:index.seller";
 		}else {
@@ -37,7 +37,7 @@ public class S_LoginController {
 
 	@RequestMapping(value="/login.seller", method=RequestMethod.POST)
 	public String login(UserVO vo, Model model, HttpSession session) {
-		System.err.println("[Log] --- S_Login 	Controller >>>>> login 		Method");
+		System.err.println("[Log] --- S_Login 	Controller >>>>> login 	Method");
 		// log Ã³¸®
 		System.out.println("--> login controller");
 		SellerVO seller = sellerService.checkSeller(vo);
@@ -58,7 +58,7 @@ public class S_LoginController {
 	// logout
 	@RequestMapping(value = "/logout.seller", method=RequestMethod.GET)
 	public String logout(HttpSession session) {
-		System.err.println("[Log] --- S_Login 	Controller >>>>> logout 		Method");
+		System.err.println("[Log] --- S_Login 	Controller >>>>> logout 	Method");
 		session.invalidate();
 		return "redirect:login.seller";
 	}

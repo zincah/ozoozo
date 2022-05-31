@@ -15,37 +15,37 @@ public class S_PostingDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public List<ProductVO> selectPostingList(ProductVO vo) {
-		System.out.println("--> mybatis in sellerPostingDAO PostingList select");
+		System.err.println("[Log] --- S_Posting 	DAO >>>>> selectPostingList 	Method");
 		return sqlSessionTemplate.selectList("SellerPostingDAO.selectPostingList", vo);
 	}
 	
 	public List<ProductVO> selectSearchPosting(ProductVO vo) {
-		System.out.println("--> mybatis in sellerPostingDAO searchPosting select");
+		System.err.println("[Log] --- S_Posting 	DAO >>>>> selectSearchPosting 	Method");
 		return sqlSessionTemplate.selectList("SellerPostingDAO.selectSearchPosting", vo);
 	}
 	
 	public void updatePostingStatus(ProductVO vo) {
-		System.out.println("--> mybatis in sellerPostingDAO updateStatus update");
+		System.err.println("[Log] --- S_Posting 	DAO >>>>> updatePostingStatus 	Method");
 		sqlSessionTemplate.update("SellerPostingDAO.updatePostingStatus", vo);
 	}
 	
 	public ProductVO selectSelectPosting(ProductVO vo) {
-		System.out.println("--> mybatis in sellerPostingDAO selectPosting select");
+		System.err.println("[Log] --- S_Posting 	DAO >>>>> selectSelectPosting 	Method");
 		return sqlSessionTemplate.selectOne("SellerPostingDAO.selectSelectPosting", vo);
 	}
 	
 	public void insertPostingDealApp(ProductVO vo) {
-		System.out.println("--> mybatis in sellerPostingDAO postingDealApp insert");
+		System.err.println("[Log] --- S_Posting 	DAO >>>>> insertPostingDealApp 	Method");
 		sqlSessionTemplate.insert("SellerPostingDAO.insertPostingDealApp", vo);
 	}
 
 	public int selectDealId(ProductVO vo) {
-		System.out.println("--> mybatis in sellerPostingDAO dealId select");
+		System.err.println("[Log] --- S_Posting 	DAO >>>>> selectDealId 	Method");
 		return sqlSessionTemplate.selectOne("SellerPostingDAO.selectDealId", vo);
 	}
 	
 	public void updateDealId(ProductVO vo) {
-		System.out.println("--> mybatis in sellerPostingDAO dealId update");
+		System.err.println("[Log] --- S_Posting 	DAO >>>>> updateDealId 	Method");
 		sqlSessionTemplate.update("SellerPostingDAO.updateDealId", vo);
 	}
 }
