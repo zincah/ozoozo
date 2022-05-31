@@ -4,8 +4,10 @@ package ozo.spring.house.common;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -57,9 +59,8 @@ public class MakeDate {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			Calendar cal = Calendar.getInstance();
 			
-			cal.set(year, month, 1);
-			
-			String firstDay = dateFormat.format(cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+			cal.set(year, month-1, 1);
+			String firstDay = dateFormat.format(cal.getTime());
 			
 			return firstDay;
 	}
@@ -70,10 +71,41 @@ public class MakeDate {
 		Calendar cal = Calendar.getInstance();
 		
 		cal.set(year, month, 1);
+		int lDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 		
-		String lastDay = dateFormat.format(cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-		
+		cal.set(year, month, lDay);
+		String lastDay = dateFormat.format(cal.getTime());
+
 		return lastDay;
+	}
+	
+	public List<String> makeWholeMonth(int year, int month) {
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+
+		// 해당 월의 1일 세팅
+		int day = 1;
+		cal.set(year, month-1, 1);
+		int lday = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+		List<String> monthList = new ArrayList<String>();
+		
+		while(true) {
+
+			if(lday <= day) {
+				break;
+			}
+			
+			cal.set(year, month-1, day);
+			String strDate = dateFormat.format(cal.getTime());
+			monthList.add(strDate);
+			
+			day++;
+			
+		}
+
+		return monthList;
 	}
 
 }
