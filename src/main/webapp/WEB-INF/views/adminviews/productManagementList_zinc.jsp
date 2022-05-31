@@ -399,7 +399,7 @@
     		
     		
     		$.ajax({
-		  		url:'updateCouponStatus.admin',
+		  		url:'updateCoupon.admin',
 		  		method:'post',
 		  		data: JSON.stringify(postNumList),
 		  		contentType : 'application/json; charset=UTF-8',

@@ -83,7 +83,7 @@ public class AdminProductManageController {
 		return "postList";
 	}
 	
-	@RequestMapping(value="/updateCouponStatus.admin", method=RequestMethod.POST) // product coupon registration
+	@RequestMapping(value="/updateCoupon.admin", method=RequestMethod.POST) // product coupon registration
 	public String updateCouponStatus(@RequestBody List<String> couponInfo, AdminProductVO pvo, Model model, Criteria cri) {
 
 		pvo.setPost_couponid(Integer.parseInt(couponInfo.get(couponInfo.size()-1))); 
