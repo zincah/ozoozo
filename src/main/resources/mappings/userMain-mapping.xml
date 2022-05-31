@@ -7,7 +7,7 @@
 	<!-- main화면에 상품 뿌리기 -->
    <select id="mainProductList" resultType="userproduct">
      SELECT po.post_id, po.post_status, po.star_ratio, po.post_name, po.whole_price*(1-po.sale_ratio/100.0) as sale_price, po.sale_ratio, 
-     po.whole_price, po.shipping_info1, po.po_category, po.po_subcate, s.company_name, pimg.photo_url, od.payment, scount,
+     po.whole_price, po.shipping_info1, po.po_category, po.po_subcate, s.company_name, pimg.photo_url, od.payment, scount, rcount,
      di.deal_saleratio, di.deal_saleprice, di.deal_status
       FROM product_posting po INNER JOIN seller s ON po.post_sellerid = s.seller_id
       INNER JOIN (
@@ -21,6 +21,7 @@
       ) pimg ON po.post_id = pimg.photo_postid
 	  left outer join (select od_postid, sum(payment) as payment from user_order group by od_postid) od on po.post_id = od.od_postid
 	  left outer join (select count(sc_postid) as scount, sc_postid from user_scrap group by sc_postid) sc on po.post_id = sc_postid
+	  left outer join (select count(review_id) as rcount, repost_id from review group by repost_id) r on po.post_id = r.repost_id
 	  left outer join (select * from deal_info where deal_status='게시') di on di.deal_postid = po.post_id 
       WHERE po.post_status='판매중'
       <if test="orderKind == 'latestRanking' or orderKind == null">
@@ -33,7 +34,7 @@
       	order by scount is null asc, scount desc
       </if>
       <if test="orderKind == 'reviewRanking'">
-      	order by po.post_id desc
+      	order by rcount is null asc, rcount desc
       </if>
       <if test="orderKind == 'highpriceRanking'">
       	order by sale_price desc
@@ -66,7 +67,7 @@
    <!-- main화면에 상품 뿌리기 -->
    <select id="plusProductList" resultType="userproduct">
       SELECT po.post_id, po.post_status, po.star_ratio, po.post_name, po.whole_price*(1-po.sale_ratio/100.0) as sale_price, po.sale_ratio, 
-     po.whole_price, po.shipping_info1, po.po_category, po.po_subcate, s.company_name, pimg.photo_url, od.payment, scount,
+     po.whole_price, po.shipping_info1, po.po_category, po.po_subcate, s.company_name, pimg.photo_url, od.payment, scount, rcount,
      di.deal_saleratio, di.deal_saleprice, di.deal_status
       FROM product_posting po INNER JOIN seller s ON po.post_sellerid = s.seller_id
       INNER JOIN (
@@ -80,6 +81,7 @@
       ) pimg ON po.post_id = pimg.photo_postid
 	  left outer join (select od_postid, sum(payment) as payment from user_order group by od_postid) od on po.post_id = od.od_postid
 	  left outer join (select count(sc_postid) as scount, sc_postid from user_scrap group by sc_postid) sc on po.post_id = sc_postid
+	  left outer join (select count(review_id) as rcount, repost_id from review group by repost_id) r on po.post_id = r.repost_id
 	  left outer join (select * from deal_info where deal_status='게시') di on di.deal_postid = po.post_id 
       WHERE po.post_status='판매중'
       <if test="orderKind == 'latestRanking' or orderKind == null">
@@ -92,7 +94,7 @@
       	order by scount is null asc, scount desc
       </if>
       <if test="orderKind == 'reviewRanking'">
-      	order by po.post_id desc
+      	order by rcount is null asc, rcount desc
       </if>
       <if test="orderKind == 'highpriceRanking'">
       	order by sale_price desc

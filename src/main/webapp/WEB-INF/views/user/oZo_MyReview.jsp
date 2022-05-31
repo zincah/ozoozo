@@ -207,9 +207,12 @@
             var formData = new FormData();
             
             var fileInput = $("#review_photo");
+            
+            
 
             for (var i = 0; i < fileInput.length; i++) {
               if (fileInput[i].files.length > 0) {
+            	  console.log(fileInput[i].files.length);
                 for (var j = 0; j < fileInput[i].files.length; j++) {
                   console.log(" mainFileInput[i].files[j] :::"+ fileInput[i].files[j]);
 
@@ -222,35 +225,45 @@
             var starcount = $(".rating-input__star1").length;
         	$("input[name=rating]").val(starcount);
         	
+        	var contentarea = $("#contentarea").val();
+        	
         	if(starcount == 0 || contentarea == ''){
         		  alert("리뷰 정보가 부족합니다. 다시 입력해주세요");
         		  event.preventDefault();
         	}else{
-        	
-	            $.ajax({
-	              url: 'uploadReview.com',
-	              method:'post',
-	              data: formData,
-	              contentType: false,
-	              processData: false,
-	              async: false,
-	              dataType: 'text',
-	              success: function(resp) {
-	                alert("성공!");
-	                console.log(resp);
-	                if(resp == nofile){
-	                	$("input[name=review_image]").val("");
-	                }else{
-	                	$("input[name=review_image]").val(resp);
-	                }
-	                $(".review-modal__form").submit();
-					
-	              },
-	              error: function(jqXHR){
-	                //alert(jqXHR.responseText);
-	                alert("리뷰 등록에 실패했습니다. 다시한번 시도해주세요 ^^")
-	              }
-	            });
+
+        		//var filecheck = $("#review_photo").val();
+
+   	            $.ajax({
+   		              url: 'uploadReview.com',
+   		              method:'post',
+   		              data: formData,
+   		              contentType: false,
+   		              processData: false,
+   		              async: false,
+   		              dataType: 'text',
+   		              success: function(resp) {
+   		            	
+   		                alert("리뷰가 성공적으로 등록되었습니다.");
+   		                console.log(resp);
+   		                
+   		                if(resp == 'nofile'){
+   		                	$("input[name=review_image]").val("");
+   		                }else{
+   		                	$("input[name=review_image]").val(resp);
+   		                }
+   		                
+   		                // review form submit
+   		                $(".review-modal__form").submit();
+   						
+   		              },
+   		              error: function(jqXHR){
+   		                //alert(jqXHR.responseText);
+   		                alert("리뷰 등록에 실패했습니다. 다시한번 시도해주세요 ^^")
+   		              }
+   		            });
+
+
             
         	}
 
@@ -489,7 +502,7 @@
 							<input type="hidden" name="review_image" value="">
 							
 							
-							<button class="button button--color-blue button--size-50 button--shape-4 review-modal__form__submit" onclick="photoUpload()">완료</button>
+							<button type="button" class="button button--color-blue button--size-50 button--shape-4 review-modal__form__submit" onclick="photoUpload()">완료</button>
 						</form>
 						<div class="review-modal__explain">
 							<ul>

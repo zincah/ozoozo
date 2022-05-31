@@ -338,7 +338,7 @@
 			</div>
 
 			<!-- 반응형 오늘의 딜 버튼 -->
-			<a href="#">
+			<a href="/house/todaydeal.com">
 				<div class="move_deals_btn">
 					<span>오늘의 딜 더보기</span>
 				</div>
