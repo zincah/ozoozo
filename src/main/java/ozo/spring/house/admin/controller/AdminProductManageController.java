@@ -106,7 +106,6 @@ public class AdminProductManageController {
 		return "postList";
 	}
 
-	@ResponseBody
 	@RequestMapping(value="/updateDealStatus.admin", method=RequestMethod.POST) // deal status change
 	public String updateDealStatus(@RequestBody List<String> dealInfo, AdminProductVO pvo, Model model, Criteria cri) {
 

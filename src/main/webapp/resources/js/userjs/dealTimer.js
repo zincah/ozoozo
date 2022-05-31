@@ -6,7 +6,7 @@
 	const getTime =()=>{
 		const now = new Date();
 		let year = now.getFullYear();
-		let month = now.getMonth()+1;
+		let month = now.getMonth();
 		let days = now.getDate();
 		let hours = now.getHours();
  		let minutes = now.getMinutes();
@@ -39,10 +39,11 @@
 			var ends = s_time[2];
 			
 			var date1 = new Date(year, month, days, hours, minutes, seconds);
-			var date2 = new Date(endY, endM, endD, endh, endm, ends);
-			//console.log("now : " + now);
-			//console.log("date : " + date2);
+			var date2 = new Date(endY, endM-1, endD, endh, endm, ends);
 			
+			if(endM < month || endD  < days){
+				//console.log("date1 " + date1 + " date2 " + date2);
+			}
 			var makeSec = parseInt((date2.getTime() - date1.getTime())/1000%60);
 			var makeMin = parseInt((date2.getTime() - date1.getTime())/1000/60%60);
 			var makeHou = parseInt((date2.getTime() - date1.getTime())/1000/3600);
@@ -62,3 +63,4 @@
 	
 	getTime();
 	setInterval(getTime, 1000);
+	

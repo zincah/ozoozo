@@ -30,7 +30,7 @@
 	 
 	});
     </script>
-    <script type="text/javascript" src="resources/js/userjs/dealTimer.js?var=1"></script>
+    <script type="text/javascript" src="resources/js/userjs/dealTimer.js?var=2"></script>
 </head>
 <body>
 <header>
