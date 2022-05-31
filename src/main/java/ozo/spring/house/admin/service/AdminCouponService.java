@@ -12,6 +12,8 @@ public interface AdminCouponService {
     public void counponViewData(AdminCouponVO vo);
 
     public AdminCouponVO couponViewData(AdminCouponVO vo);
+    public AdminCouponVO couponUpdate(AdminCouponVO vo);
+    public AdminCouponVO updateCouponStatus(AdminCouponVO vo);
 
 
 }

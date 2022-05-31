@@ -97,10 +97,11 @@ public class AdminEventController {
 
 		HttpSession session = request.getSession();
 
+
 		if (session.getAttribute("admincode") != null) {
 
-			//System.out.println(searchMap);
-			/*
+			/*System.out.println(searchMap);
+
 			cvo.setCoupon_title(searchMap.get("title"));
 			cvo.setCoupon_subtitle(searchMap.get("content"));
 			cvo.setCoupon_startdate(Timestamp.valueOf(searchMap.get("startdate")));
@@ -117,7 +118,7 @@ public class AdminEventController {
 			model.addAttribute("couponStatus1", couponList.stream().filter(list -> list.getCoupon_status().equals("사용중")).count());
 			model.addAttribute("couponStatus2", couponList.stream().filter(list -> list.getCoupon_status().equals("종료")).count());
 
-			//model.addAttribute("total count", AdminCouponService.couponListView(cvo));
+			model.addAttribute("total count", AdminCouponService.couponListView(cvo));
 			return "couponManagement_zinc";
 		} else {
 			return "adminLogin_dj";
@@ -125,6 +126,8 @@ public class AdminEventController {
 
 
 	}
+
+	// 쿠폰 상세 정보보기
 
 	@RequestMapping(value = "/couponView.admin")
 	public String couponViewData(@RequestBody String coupon, AdminCouponVO cvo, Model model) {
@@ -141,6 +144,9 @@ public class AdminEventController {
 		return "couponInfo";
 	}
 
+
+	//쿠폰 생성
+
 	@RequestMapping(value = "/couponInsert.admin", method = RequestMethod.POST)
 	public String couponInsert(@RequestBody AdminCouponVO cvo, Model model, HttpServletRequest request){
 
@@ -155,14 +161,39 @@ public class AdminEventController {
 	}
 
 	// 쿠폰 수정
-	@RequestMapping(value = "/couponInsert.admin", method = RequestMethod.GET)
+	@RequestMapping(value = "/couponUpdate.admin", method = RequestMethod.POST)
 	public String couponUpdate(@RequestBody AdminCouponVO vo, Model model, HttpServletRequest request){
 
 		System.out.println(vo);
-		AdminCouponService.couponViewData(vo); //수정해줘야함
+		AdminCouponService.couponUpdate(vo);
 
 		List<AdminCouponVO> updateList = AdminCouponService.couponListView(vo);
-		model.addAttribute("updateList", updateList);
+		model.addAttribute("couponList", updateList);
+		System.out.println(updateList);
+
+		return "couponList";
+	}
+
+	// 쿠폰 상태 변경
+	@RequestMapping(value = "/updateCouponStatus.admin", method = RequestMethod.POST)
+	public String updateCouponStatus(@RequestBody List<String> modifyInfo, AdminCouponVO svo, Model model, Criteria cri) {
+
+		svo.setCoupon_status(modifyInfo.get(modifyInfo.size() - 1));
+
+		for (int i = 0; i < modifyInfo.size() - 2; i++) {
+			svo.setCoupon_id(Integer.parseInt(modifyInfo.get(i)));
+			AdminCouponService.updateCouponStatus(svo);
+		}
+
+		cri = new Criteria(Integer.parseInt(modifyInfo.get(modifyInfo.size() - 2)), 10);
+		AdminCouponVO vo = new AdminCouponVO();
+		vo.setCri(cri);
+
+		List<AdminCouponVO> couponList = AdminCouponService.couponListView(vo);
+
+		model.addAttribute("couponList", couponList);
+		model.addAttribute("pageMaker", cri);
+		//model.addAttribute("totalcount", AdminCouponService.)
 
 		return "couponList";
 	}
