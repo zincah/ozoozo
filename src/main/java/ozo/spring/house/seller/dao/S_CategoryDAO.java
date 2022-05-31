@@ -18,22 +18,22 @@ public class S_CategoryDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public List<CategoryVO> getCategoryList(CategoryVO vo) {
-		System.out.println("--> mybatis in categorydao getcategorylist");
+		System.err.println("[Log] --- S_Category 	DAO >>>>> getCategoryList 	Method");
 		return sqlSessionTemplate.selectList("CategoryDAO.getCategoryList", vo);
 	}
 	
 	public List<CategoryVO> getMidCategoryList(CategoryVO vo) {
-		System.out.println("--> mybatis in categorydao getmidcategorylist");
+		System.err.println("[Log] --- S_Category 	DAO >>>>> getMidCategoryList 	Method");
 		return sqlSessionTemplate.selectList("CategoryDAO.getMidCategoryList", vo);
 	}
 	
 	public List<CategoryVO> getBotCategoryList(CategoryVO vo) {
-		System.out.println("--> mybatis in categorydao getbotcategorylist");
+		System.err.println("[Log] --- S_Category 	DAO >>>>> getBotCategoryList 	Method");
 		return sqlSessionTemplate.selectList("CategoryDAO.getBotCategoryList", vo);
 	}
 	
 	public List<List<FilterVO>> getFilterOption(CategoryVO vo) {
-		System.out.println("--> mybatis in categorydao getfilteroption");
+		System.err.println("[Log] --- S_Category 	DAO >>>>> getFilterOption 	Method");
 		int count = 7;
 		
 		List<List<FilterVO>> wholeList = new ArrayList<List<FilterVO>>();

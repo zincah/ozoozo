@@ -36,6 +36,7 @@ public class S_SalesController {
 	// 매출 검색
 	@RequestMapping(value = "/getSearchSalesList.seller", method=RequestMethod.POST)
 	public String getSearchSalesList(HttpServletRequest request, Model model, ProductVO vo, @RequestBody Map<String, String> datas) throws ParseException {	
+		System.err.println("[Log] --- S_Sales 	Controller >>>>> getSearchSalesList 	Method");
 		HttpSession session = request.getSession();
 		
 		// 날짜 데이터 처리
@@ -141,6 +142,7 @@ public class S_SalesController {
 	// 매출 상세 조회
 	@RequestMapping(value = "/getSalesDatailView.seller", method=RequestMethod.POST)
 	public String getSalesDatailView(HttpServletRequest request, Model model, ProductVO vo, @RequestBody String datas) throws ParseException {	
+		System.err.println("[Log] --- S_Sales 	Controller >>>>> getSalesDatailView 	Method");
 		HttpSession session = request.getSession();
 		
 		// VO 세팅

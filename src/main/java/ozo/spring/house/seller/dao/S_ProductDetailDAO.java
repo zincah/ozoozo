@@ -16,17 +16,17 @@ public class S_ProductDetailDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public void insertTables(ProductDetailVO vo) {
-		System.out.println("--> mybatis in productDetailDAO tables insert");
+		System.err.println("[Log] --- S_ProductDetail 	DAO >>>>> insertTables 	Method");
 		sqlSessionTemplate.insert("ProductDetailDAO.insertTables", vo);
 	}
 	
 	public List<ProductDetailVO> selectFilter(ProductDetailVO vo){
-		System.out.println("--> mybatis in productDetailDAO filter select");
+		System.err.println("[Log] --- S_ProductDetail 	DAO >>>>> selectFilter 	Method");
 		return sqlSessionTemplate.selectList("ProductDetailDAO.selectFilter", vo);
 	}
 	
 	public void insertDetails(ProductDetailVO vo) {
-		System.out.println("--> mybatis in productDetailDAO detail insert");
+		System.err.println("[Log] --- S_ProductDetail 	DAO >>>>> insertDetails 	Method");
 		sqlSessionTemplate.insert("ProductDetailDAO.insertDetails", vo);
 	}
 	

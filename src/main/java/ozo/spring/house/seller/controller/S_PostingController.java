@@ -32,6 +32,7 @@ public class S_PostingController {
 	// 판매글 검색 컨트롤러
 	@RequestMapping(value = "/getSearchPostingList.seller", method=RequestMethod.POST)
 	public String getSearchProductList(HttpServletRequest request, Model model, ProductVO vo, @RequestBody Map<String, Object> datas) {	
+		System.err.println("[Log] --- S_Posting 	Controller >>>>> getSearchProductList 	Method");
 		HttpSession session = request.getSession();
 		
 		@SuppressWarnings("unchecked")
@@ -76,6 +77,7 @@ public class S_PostingController {
 	@ResponseBody
 	@RequestMapping(value = "/postingStatusUpdate.seller", method=RequestMethod.POST)
 	public String postingStatusUpdate(HttpServletRequest request, ProductVO vo, @RequestParam(value="pscList[]") ArrayList<String> listPostingId, @RequestParam(value="statusOption") String status) {
+		System.err.println("[Log] --- S_Posting 	Controller >>>>> postingStatusUpdate 	Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
 			for(String postingId : listPostingId) {
@@ -92,6 +94,7 @@ public class S_PostingController {
 	// 선택된 판매글 리스트 (오늘의딜 신청 버튼 모달에 있는 테이블)
 	@RequestMapping(value = "/selectPostingList.seller", method=RequestMethod.POST)
 	public String selectProductList(HttpServletRequest request, Model model, ProductVO vo, @RequestBody ArrayList<String> listPostingId) {
+		System.err.println("[Log] --- S_Posting 	Controller >>>>> selectProductList 	Method");
 		HttpSession session = request.getSession();
 		List<ProductVO> selectPostingListView = new ArrayList<ProductVO>();
 		if(session.getAttribute("seller")!=null) {
@@ -110,6 +113,7 @@ public class S_PostingController {
 	@ResponseBody
 	@RequestMapping(value = "/PostingDealAppUpdate.seller", method=RequestMethod.POST)
 	public String PostingDealAppUpdate(HttpServletRequest request, ProductVO vo, @RequestBody ArrayList<String> listPostingId) {
+		System.err.println("[Log] --- S_Posting 	Controller >>>>> PostingDealAppUpdate 	Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
 			for(String postingId : listPostingId) {

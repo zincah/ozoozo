@@ -32,6 +32,7 @@ public class S_ProductController {
 	@ResponseBody
 	@RequestMapping(value = "/productStatusUpdate.seller", method=RequestMethod.POST)
 	public String productStatusUpdate(HttpServletRequest request, ProductVO vo, @RequestParam(value="pscList[]") ArrayList<String> listProductId, @RequestParam(value="statusOption") String status) {
+		System.err.println("[Log] --- S_Product 	Controller >>>>> productStatusUpdate 	Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
 			for(String productId : listProductId) {
@@ -48,7 +49,7 @@ public class S_ProductController {
 	
 	@RequestMapping(value="/movePaging.seller", method=RequestMethod.POST) // page 이동 (비동기)
 	public String movePaging(HttpServletRequest request, Model model, ProductVO vo, Criteria cri, @RequestBody Map<String, Object> datas) {
-
+		System.err.println("[Log] --- S_Product 	Controller >>>>> movePaging 	Method");
 		HttpSession session = request.getSession();
 		
 		@SuppressWarnings("unchecked")
@@ -96,6 +97,7 @@ public class S_ProductController {
 	
 	@RequestMapping(value = "/selectProductList.seller", method=RequestMethod.POST)
 	public String selectProductList(HttpServletRequest request, Model model, ProductVO vo, @RequestBody ArrayList<String> listProductId) {
+		System.err.println("[Log] --- S_Product 	Controller >>>>> selectProductList 	Method");
 		HttpSession session = request.getSession();
 		List<ProductVO> selectProductListView = new ArrayList<ProductVO>();
 		if(session.getAttribute("seller")!=null) {
@@ -113,6 +115,7 @@ public class S_ProductController {
 	@ResponseBody
 	@RequestMapping(value = "/selectProductDelete.seller", method=RequestMethod.POST)
 	public String selectProductDelete(HttpServletRequest request, ProductVO vo, @RequestBody ArrayList<String> listProductId) {
+		System.err.println("[Log] --- S_Product 	Controller >>>>> selectProductDelete 	Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("seller")!=null) {
 			for(String productId : listProductId) {
@@ -128,7 +131,7 @@ public class S_ProductController {
 
 	@RequestMapping(value = "/getSearchProductList.seller", method=RequestMethod.POST) // @RequestParam(value="searchMap", required = false) Map<String, String> searchMap,  @RequestParam(value="searchStatus", required = false) ArrayList<String> searchStatus
 	public String getSearchProductList(HttpServletRequest request, Model model, ProductVO vo, Criteria cri, @RequestBody Map<String, Object> datas) {	
-		
+		System.err.println("[Log] --- S_Product 	Controller >>>>> getSearchProductList 	Method");
 		HttpSession session = request.getSession();
 		
 		@SuppressWarnings("unchecked")

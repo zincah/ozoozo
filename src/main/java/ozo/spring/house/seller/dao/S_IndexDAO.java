@@ -13,7 +13,7 @@ public class S_IndexDAO {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	public ProductVO selectViewData(ProductVO vo) {
-		System.out.println("--> mybatis in sellerIndexDAO viewData select");
+		System.err.println("[Log] --- S_Index 	DAO >>>>> selectViewData 	Method");
 		return sqlSessionTemplate.selectOne("SellerIndexDAO.selectViewData", vo);
 	}
 }
