@@ -526,7 +526,7 @@
 									<label class="lQNTs css-1icqu5k e126uv4s3">
 										<div class="css-1bp0feq e126uv4s2">이름</div>
 										<div class="css-14o29br e126uv4s1">
-											<input class="_3ASDR _1qwAY" name="name" maxlength="10"
+											<input class="_3ASDR _1qwAY" name="name" maxlength="10" id="addr_man"
 												value="${address_true.receiver}">
 										</div>
 									</label><label class="css-1icqu5k e126uv4s3">
