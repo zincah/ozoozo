@@ -147,7 +147,8 @@
 	
 
 </script>
-<script type="text/javascript" src="resources/js/userjs/dealTimer.js?var=1"></script>
+<script type="text/javascript" src="resources/js/userjs/dealTimer.js?var=3"></script>
+
 </head>
 <body>
 	<header>
