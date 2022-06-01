@@ -50,7 +50,7 @@
 			<path fill="#BDBDBD" d="M0 2l4 4 4-4z"></path></svg>'
 			
 			$("#filter_btn").html(ranktext + html);
-			alert(ranktext);
+			//alert(ranktext);
 			
 			
 			var ranking = { "ranking" : rank };

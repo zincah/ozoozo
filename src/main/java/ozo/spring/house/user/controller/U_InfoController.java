@@ -188,6 +188,7 @@ public class U_InfoController {
 				}
 			}
 
+			System.out.println("user info" + vo);
 			UserVO user = userService.checkUser(vo);
 			//System.out.println(user.getUser_num());
 			

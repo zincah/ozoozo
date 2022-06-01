@@ -168,7 +168,7 @@
 			<ol class="breadcrumb mb-4">
 				<li class="breadcrumb-item active">Center Home</li>
 			</ol>
-			<a href="seller-notice.html">
+			<a href="/house/notice.seller">
 				<div class="card text-black mb-4 box-shadow">
 					<div class="card-body2">
 						<i class="bi bi-megaphone-fill"></i> <span class="notice-view">CJ

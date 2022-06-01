@@ -80,7 +80,7 @@
 			<path fill="#BDBDBD" d="M0 2l4 4 4-4z"></path></svg>'
 			
 			$("#item_filter_btn").html(ranktext + html);
-			alert(ranktext);
+			//alert(ranktext);
 			
 			
 			var searchMap = { 

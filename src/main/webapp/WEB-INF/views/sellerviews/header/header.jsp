@@ -85,7 +85,7 @@
 								<i class="fas fa-chart-area"></i>
 							</div> 매출내역
 						</a>
-
+						<!-- 
 						<div class="sb-sidenav-menu-heading">CS Management</div>
 						<a class="nav-link" href="#">
 							<div class="sb-nav-link-icon">
@@ -100,7 +100,11 @@
 								<i class="bi bi-megaphone-fill"></i>
 							</div> 공지사항
 						</a>
-					</div>
+					</div> -->
+					
+					<div class="my-5"></div>
+					<div class="my-5"></div>
+					<div class="my-4"></div>
 				</div>
 
 				<div class="sb-sidenav-footer">

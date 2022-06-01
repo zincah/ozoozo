@@ -60,11 +60,11 @@ public class U_ServiceController {
 		List<UserProductVO> productList = userMainService.mainProductList(vo);
 		int total = userMainService.getProductCount();
 		
-		// 占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲占쎈쐻占쎈짗占쎌굲 占쎈쐻占쎈짗占쎌굲 list 占쎈쐻占쎈뼓繹먮씮�굲
+		// �뜝�럥�맶�뜝�럥吏쀥뜝�럩援꿨뜝�럥�맶�뜝�럥吏쀥뜝�럩援꿨뜝�럥�맶�뜝�럥吏쀥뜝�럩援� �뜝�럥�맶�뜝�럥吏쀥뜝�럩援� list �뜝�럥�맶�뜝�럥堉볡뭐癒��뵰占쎄뎡
 		List<UserProductVO> todayDealList = userMainService.mainDealProductList(vo);
 		//System.out.println(todayDealList.size());
 		
-		// main banner list 占쎈쐻占쎈뼓繹먮씮�굲
+		// main banner list �뜝�럥�맶�뜝�럥堉볡뭐癒��뵰占쎄뎡
 		List<BannerVO> bannerList = userMainService.selectBannerList();
 		
 		if(session.getAttribute("User_Num") != null) {
@@ -120,7 +120,7 @@ public class U_ServiceController {
 		List<CScenterVO> list;
 		list = userservice.csall(vo);
 		model.addAttribute("list",list);
-		return "oZo_ServiceSenter";
+		return "oZo_ServiceCenter";
 	}
 	
 	@ResponseBody
