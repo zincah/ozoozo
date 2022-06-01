@@ -22,7 +22,7 @@
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/detailScript.css?var=2'>
    <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type="text/javascript" src="resources/js/userjs/detailbookmark.js?var=2"></script>
+    <script type="text/javascript" src="resources/js/userjs/detailbookmark.js?var=1"></script>
 
     <script>
     var select = false

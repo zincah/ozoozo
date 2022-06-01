@@ -65,12 +65,23 @@
 			  			})
 			  				$(".faq__contents__group").append(qna);	
 			  			 $("." + check).trigger('click');
+			  			
 			  		}
 			  		})
 
 			}
 			
 		//});
+	
+			function copyEmailAdd() {
+				var copyText = document.createElement("textarea");
+				document.body.appendChild(copyText);
+				copyText.value = 'ozohousepost@gmail.com';
+				copyText.select();
+				document.execCommand('copy');
+				document.body.removeChild(copyText);
+				alert(copyText.value + '\n이메일 주소 복사 완료!');
+			}
 	</script>
 	
 	
@@ -92,9 +103,9 @@
                     <h1 class="customer-center__title">고객센터</h1>
                     <div class="row">
                         <section class="col-12 col-md-6 customer-center__contact">
-                            <address>운영시간 : 평일 09:00 ~ 18:00 (주말 &amp; 공휴일 제외)<br>이메일 :&nbsp;<a href="/contacts/new"
+                            <address>운영시간 : 평일 09:00 ~ 18:00 (주말 &amp; 공휴일 제외)<br>이메일 :&nbsp;<a href="mailto: ozohousepost@gamil.com?subject=문의드립니다 (키워드 추가 입력 ex(주문 배송 취소 반품등 )..)"
                                     style="text-decoration: underline;">이메일 문의하기</a><button
-                                    class="customer-center__contact__btn-copy-email" type="button">이메일 주소 복사</button><br>전화
+                                    class="customer-center__contact__btn-copy-email" type="button" id="email" onclick="copyEmailAdd();">이메일 주소 복사</button><br>전화
                                 :&nbsp;<a href="tel:1670-0876" style="text-decoration: underline;">1670-0876</a></address><button
                                 class="btn btn-md btn-priority customer-center__contact__btn-inquiry" type="button" onclick="popup()">1:1 카톡
                                 상담하기</button>
@@ -207,7 +218,7 @@
 		 	 var height = $(".cs_14").offset();
 			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
 		    //heigh의 top 위치로 이동 시킨다.
-		    $("html, body").animate({scrollTop: height.top}, 500); 
+		    $("html, body").animate({scrollTop: height.top-400}, 400); 
 			
 		
     	})
@@ -224,7 +235,7 @@
 
    			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
    		    //heigh의 top 위치로 이동 시킨다.
-   		    $("html, body").animate({scrollTop: height.top}, 500); 
+   		    $("html, body").animate({scrollTop: height.top-400}, 500); 
    		   
             
    		})
@@ -238,7 +249,7 @@
 
    			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
    		    //heigh의 top 위치로 이동 시킨다.
-   		    $("html, body").animate({scrollTop: height.top}, 400); 
+   		    $("html, body").animate({scrollTop: height.top-400}, 400); 
    		   
          
    		});
@@ -252,7 +263,7 @@
 			console.log(height)
    			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
    		    //heigh의 top 위치로 이동 시킨다.
-   		    $("html, body").animate({scrollTop: height.top}, 400); 
+   		    $("html, body").animate({scrollTop: height.top-400}, 400); 
    		   
               
    		    
@@ -267,7 +278,7 @@
 
    			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
    		    //heigh의 top 위치로 이동 시킨다.
-   		    $("html, body").animate({scrollTop: height.top}, 400); 
+   		    $("html, body").animate({scrollTop: height.top-400}, 400); 
    		    
               
    		    
@@ -276,102 +287,7 @@
       
 
 		</script>
-<!-- 		<script >
-		
-		
-		
-			
-		var num =0;
-		
-		function ship(){
-	  	
-	  	num =1
-	  	return  fun(num);
-    	}
-    
-   		 $("#s_order").on("click",function(){
-   		 
-   			num = 2
-   		
-   		})
-   		 $("#s_product").on("click",function(){
-   		  location.reload();
-   		return num = 3;
-   		});
-   		 $("#s_error").on("click",function(){
-   		  location.reload();
-   		return num = 4;
-   		});
-   		 $("#s_kakao").on("click",function(){
-   			 location.reload()
-   			 return num = 5;
-   		});
-   		
-		
-   		 console.log(num)
-   		
-   		 function fun(){
-   		switch(num) {
-   	    case 1:
-   	    	$('.faq__nav__item--active').trigger('click');
-        	$(".faq__contents__item__answer").hide();
-			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
-		 	 var height = $("#cs_14").offset();
-			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
-		    //heigh의 top 위치로 이동 시킨다.
-		    $("html, body").animate({scrollTop: height.top-300}, 400); 
-		    $("#cs_14").trigger('click');
-   	        break;
-   	    case 2:
-   	    	$(".faq__contents__item__answer").hide();
-   			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
-   		 	 var height = $("#cs_35").offset();
 
-   			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
-   		    //heigh의 top 위치로 이동 시킨다.
-   		    $("html, body").animate({scrollTop: height.top-300}, 400); 
-   		    $("#cs_35").trigger('click');
-   		 
-   	        break;
-   	    case 3 :
-   	     $(".faq__contents__item__answer").hide();
-			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
-		 	 var height = $("#cs_59").offset();
-
-			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
-		    //heigh의 top 위치로 이동 시킨다.
-		    $("html, body").animate({scrollTop: height.top-300}, 400); 
-		    $("#cs_59").trigger('click');
-		    break;
-   	    case 4:
-   		 $(".faq__contents__item__answer").hide();
-			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
-		 	 var height = $("#cs_38").offset();
-
-			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
-		    //heigh의 top 위치로 이동 시킨다.
-		    $("html, body").animate({scrollTop: height.top-300}, 400); 
-		    $("#cs_38").trigger('click');
-		    break;
-   	    case 5:
-   	     location.reload();
-			 $(".faq__contents__item__answer").hide();
-			//height 라는 변수에 t1 이라는 이름의 클래스명을 가진 위치값을 받아온다.
-		 	 var height = $("#cs_50").offset();
-
-			//animate의안에 들어가는 매개 변수는 1번째는 움직일 위치 2번째는 속도이다.
-		    //heigh의 top 위치로 이동 시킨다.
-		    $("html, body").animate({scrollTop: height.top-300}, 400); 
-		    $("#cs_50").trigger('click');
-		    break;
-          
-   	    default:
-   	       
-   	        break;
-   		}
-   		 }
-		
-		</script> -->
         <!--푸터 -->
 <footer>
     	<jsp:include page="./footer/footer.jsp"></jsp:include>

@@ -439,9 +439,9 @@
 	<div class="">
 		<div class="content-table">
 			<div class="content-view-title content-header">
-				<span class="content-view-title-text">공지 내용 보기</span>
-				<button class="btn btn-outline-secondary" id="new_info" onclick="makeNewInfo()">새
-					공지사항 등록</button>
+				<span class="content-view-title-text">이벤트 내용 보기</span>
+				<button class="btn btn-outline-secondary" id="new_info" onclick="makeNewInfo()">
+					새로운 이벤트 등록</button>
 			</div>
 			<form method="post" action="#" >
 				<table class="table table-box-style content-view-table">
