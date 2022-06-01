@@ -117,6 +117,10 @@ public class U_DAO {
 			sqlSessionTemplate.insert("UserProduct.coupon_insert", cvo);
 			System.out.println("쿠폰 다운 성공");
 		}
+		public CouponVO get_carry_coupon(CouponVO cvo) {
+			System.err.println("[Log] --- U DAO >>>>> get_coupon Method");
+			return sqlSessionTemplate.selectOne("UserProduct.user_coupon", cvo);
+		}
 		
 	}
 	

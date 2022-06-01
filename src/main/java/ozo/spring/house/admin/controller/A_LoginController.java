@@ -13,13 +13,14 @@ import ozo.spring.house.admin.service.MemberService;
 import ozo.spring.house.admin.vo.MemberVO;
 
 @Controller
-public class AdminLoginController {
+public class A_LoginController {
 
 	@Autowired
 	MemberService memberService;
 	
 	@RequestMapping(value = "/login.admin", method=RequestMethod.GET) // admin 로그인 뷰 페이지
 	public String loginView(HttpSession session) {
+		System.err.println("[Log] --- Login 	Controller >>>>> loginView 	Method");
 		if(session.getAttribute("admincode")!=null) {
 			return "redirect:index.admin";
 		}else {
@@ -29,8 +30,7 @@ public class AdminLoginController {
 
 	@RequestMapping(value="/login.admin", method=RequestMethod.POST) // admin 로그인 페이지
 	public String login(MemberVO vo, Model model, HttpSession session) {
-
-		System.out.println("login controller");
+		System.err.println("[Log] --- Login 	Controller >>>>> login 	Method");
 		MemberVO admin = memberService.checkAdmin(vo); // 로그인 입력값 체크
 		
 		if(admin != null) {
@@ -44,7 +44,7 @@ public class AdminLoginController {
 	// logout
 	@RequestMapping(value = "/logout.admin", method=RequestMethod.GET) // admin 로그아웃 처리
 	public String logout(HttpSession session) {
-
+		System.err.println("[Log] --- Login 	Controller >>>>> logout 	Method");
 		session.invalidate();
 		return "redirect:login.admin";
 	}

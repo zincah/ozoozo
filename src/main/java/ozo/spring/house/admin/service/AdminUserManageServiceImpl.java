@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ozo.spring.house.admin.dao.AdminManageDAO;
+import ozo.spring.house.admin.dao.A_ManageDAO;
 import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.vo.UserVO;
 
@@ -14,7 +14,7 @@ import ozo.spring.house.user.vo.UserVO;
 public class AdminUserManageServiceImpl implements AdminUserManageService {
 	
 	@Autowired
-	AdminManageDAO adminManageDAO;
+	A_ManageDAO adminManageDAO;
 
 	/*
 	@Override

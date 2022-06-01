@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import ozo.spring.house.admin.vo.MemberVO;
 
 @Repository("memberDAO")
-public class MemberDAO {
+public class A_MemberDAO {
 	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
@@ -17,7 +17,7 @@ public class MemberDAO {
 	BCryptPasswordEncoder passwordEncoder;
 	
 	public MemberVO checkAdmin(MemberVO vo) {
-		System.out.println("--> mybatis in memberdao checkadmin");
+		System.err.println("[Log] --- Member 	Controller >>>>> checkAdmin 	Method");
 
 		try {
 			MemberVO member = (MemberVO) sqlSessionTemplate.selectOne("MemberDAO.checkAdmin", vo);
@@ -27,19 +27,14 @@ public class MemberDAO {
 				return null; 
 				// 예외처리
 			}
-
 		}catch(Exception e) {
 			return null;
 		}
-		
-		
 	}
 	
 	public void insertAdmin(MemberVO vo) {
-		System.out.println("--> mybatis in memberdao insertadmin");
+		System.err.println("[Log] --- Member 	Controller >>>>> checkAdmin 	Method");
 		sqlSessionTemplate.insert("MemberDAO.insertAdmin", vo);
-		//sqlSessionTemplate.commit();
-		System.out.println("--> insert success");
 	}
 	
 	

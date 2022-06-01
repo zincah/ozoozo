@@ -25,7 +25,7 @@ import ozo.spring.house.common.MakeDate;
 import ozo.spring.house.common.PageDTO;
 
 @Controller
-public class AdminProductManageController {
+public class A_ProductManageController {
 	
 	@Autowired
 	AdminProductManageService productService;
@@ -36,7 +36,7 @@ public class AdminProductManageController {
 	/* productManagement */ 
 	@RequestMapping(value="/movePaging.admin", method=RequestMethod.POST) // page move (asynchronism)
 	public String movePaging(@RequestBody Map<String, String> searchMap, Criteria cri, Model model, AdminProductVO pvo) {
-
+		System.err.println("[Log] --- ProductManage 	Controller >>>>> movePaging 	Method");
 		int pageNum = Integer.parseInt(searchMap.get("pageNum")); // page number
 		cri = new Criteria(pageNum, 10); // paging
 		pvo.setCri(cri);
@@ -62,7 +62,7 @@ public class AdminProductManageController {
 	
 	@RequestMapping(value="/updateProductStatus.admin", method=RequestMethod.POST) // update product status (asynchronism)
 	public String updateProductStatus(@RequestBody List<String> modifyInfo, AdminProductVO pvo, Model model, Criteria cri) {
-
+		System.err.println("[Log] --- ProductManage 	Controller >>>>> updateProductStatus 	Method");
 		pvo.setPost_status(modifyInfo.get(modifyInfo.size()-1)); 
 		
 		for(int i=0; i<modifyInfo.size()-2; i++) { 
@@ -85,7 +85,7 @@ public class AdminProductManageController {
 	
 	@RequestMapping(value="/updateCoupon.admin", method=RequestMethod.POST) // product coupon registration
 	public String updateCouponStatus(@RequestBody List<String> couponInfo, AdminProductVO pvo, Model model, Criteria cri) {
-
+		System.err.println("[Log] --- ProductManage 	Controller >>>>> updateCouponStatus 	Method");
 		pvo.setPost_couponid(Integer.parseInt(couponInfo.get(couponInfo.size()-1))); 
 		
 		for(int i=0; i<couponInfo.size()-2; i++) {
@@ -108,7 +108,7 @@ public class AdminProductManageController {
 
 	@RequestMapping(value="/updateDealStatus.admin", method=RequestMethod.POST) // deal status change
 	public String updateDealStatus(@RequestBody List<String> dealInfo, AdminProductVO pvo, Model model, Criteria cri) {
-
+		System.err.println("[Log] --- ProductManage 	Controller >>>>> updateDealStatus 	Method");
 		String deal_status = dealInfo.get(dealInfo.size()-1);
 		
 		
@@ -147,8 +147,7 @@ public class AdminProductManageController {
 	
 	@RequestMapping(value="/productSearchBox.admin", method=RequestMethod.POST) // input layer -> search
 	public String productSearchBox(@RequestBody Map<String, String> searchMap, AdminProductVO pvo, Model model, Criteria cri) {
-
-		System.out.println(searchMap);
+		System.err.println("[Log] --- ProductManage 	Controller >>>>> productSearchBox 	Method");
 		
 		pvo.setPost_status(searchMap.get("posttype"));
 		pvo.setDeal_status(searchMap.get("dealtype"));
@@ -171,8 +170,7 @@ public class AdminProductManageController {
 	
 	@RequestMapping(value="/productSearch.admin", method=RequestMethod.POST) // search condition
 	public String productSearch(@RequestBody Map<String, String> searchMap, AdminProductVO pvo, Model model, Criteria cri) {
-
-		System.out.println(searchMap);
+		System.err.println("[Log] --- ProductManage 	Controller >>>>> productSearch 	Method");
 		
 		pvo.setPost_status(searchMap.get("posttype"));
 		pvo.setDeal_status(searchMap.get("dealtype"));
@@ -198,8 +196,7 @@ public class AdminProductManageController {
 	/* Sales management */
 	@RequestMapping(value="/getTodayDealList.admin", method=RequestMethod.POST) // today deal sale
 	public String getTodayDealList(@RequestBody(required=false) Map<String, String> searchMap, Criteria cri, AdminProductVO vo, Model model) {
-
-		System.out.println("todayDeal" + searchMap);
+		System.err.println("[Log] --- ProductManage 	Controller >>>>> getTodayDealList 	Method");
 		
 		vo.setStartdate(java.sql.Date.valueOf("2018-01-01")); // early date setting
 		vo.setEnddate(Date.valueOf(md.makeToday()));
@@ -219,8 +216,7 @@ public class AdminProductManageController {
 	
 	@RequestMapping(value="/getBest30List.admin", method=RequestMethod.POST) // best 30 sale
 	public String getBest30List(@RequestBody(required=false) Map<String, String> searchMap, Criteria cri, AdminProductVO vo, Model model) {
-
-		System.out.println(searchMap);
+		System.err.println("[Log] --- ProductManage 	Controller >>>>> getBest30List 	Method");
 		
 		if(searchMap != null) {
 			int pageNum = Integer.parseInt(searchMap.get("pageNum"));
@@ -255,8 +251,7 @@ public class AdminProductManageController {
 	
 	@RequestMapping(value="/getStoreSaleList.admin", method=RequestMethod.POST) // store sale
 	public String getStoreSaleList(@RequestBody(required=false) Map<String, String> searchMap, Criteria cri, AdminProductVO vo, Model model) {
-
-		System.out.println("storesale : " + searchMap);
+		System.err.println("[Log] --- ProductManage 	Controller >>>>> getStoreSaleList 	Method");
 
 		vo.setStartdate(java.sql.Date.valueOf("2018-01-01"));
 		vo.setEnddate(Date.valueOf(md.makeToday()));

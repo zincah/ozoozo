@@ -38,7 +38,7 @@ public class U_ProductController {
 	List<UserProductVO> product_list;
 	int pro;
 	CouponVO coupon = new CouponVO();
-	
+	CouponVO carry_coupon = new CouponVO();
 	@RequestMapping(value = "/productPage.com")
 	public String user_product(Model model, UserProductVO vo, UserProduct_tableVO tvo, HttpServletRequest request, HttpSession session, UserScrapVO svo) {
 		System.err.println("[Log] --- Product Controller >>>>> user_product Method");
@@ -106,6 +106,16 @@ public class U_ProductController {
 		if(product_list.get(0) != null) {
 			this.coupon = pro_cls.get_coupon(product_list.get(0));
 			model.addAttribute("coupon", coupon);
+		}
+		if(session.getAttribute("User_Num")!=null) {
+			if(coupon != null) {
+			CouponVO cvo = new CouponVO();
+			cvo.setCoupon_id(coupon.getCoupon_id());
+			cvo.setUser_usernum((Integer)session.getAttribute("User_Num"));
+			carry_coupon = pro_cls.get_carry_coupon(cvo);
+			System.out.println(coupon);
+			model.addAttribute("carry_coupon", carry_coupon);
+			}
 		}
 		
 		// ¸®ºä °ª Ãß°¡

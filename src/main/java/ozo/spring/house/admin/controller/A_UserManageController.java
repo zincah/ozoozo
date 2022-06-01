@@ -23,7 +23,7 @@ import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Controller
-public class AdminUserManageController {
+public class A_UserManageController {
 	
 	@Autowired
 	AdminUserManageService userManage;
@@ -32,7 +32,7 @@ public class AdminUserManageController {
 	@ResponseBody
 	@RequestMapping(value = "/getSellerInfo.admin", method=RequestMethod.POST) // 업체 정보 받아오는 controller
 	public SellerVO getSellerInfo(@RequestBody Map<String, String> sellercode, SellerVO vo) {
-		
+		System.err.println("[Log] --- UserManage 	Controller >>>>> getSellerInfo 	Method");
 		vo.setSeller_id(Integer.parseInt(sellercode.get("seller_id")));
 		SellerVO seller = userManage.getSellerInfo(vo); // 업체 정보
 
@@ -42,7 +42,7 @@ public class AdminUserManageController {
 
 	@RequestMapping(value = "/updateSellerStatus.admin", method=RequestMethod.POST) // 판매자 정보 변경
 	public String updateSellerStatus(@RequestBody List<String> sellercode, SellerVO vo, Model model) {
-		
+		System.err.println("[Log] --- UserManage 	Controller >>>>> updateSellerStatus 	Method");
 		List<Integer> sellerList = new ArrayList<Integer>();
 		vo.setSeller_status(sellercode.get(0)); // 변경할 상태
 		
@@ -62,7 +62,7 @@ public class AdminUserManageController {
 	
 	@RequestMapping(value = "/sellerSearchBox.admin", method=RequestMethod.POST) // 검색처리 method
 	public String sellerSearchBox(@RequestBody Map<String, String> searchMap, SellerVO vo, Model model) {
-		
+		System.err.println("[Log] --- UserManage 	Controller >>>>> sellerSearchBox 	Method");
 		vo.setSeller_status(searchMap.get("status"));
 		vo.setRanking(searchMap.get("ranking"));
 		vo.setStartdate(Date.valueOf(searchMap.get("startdate")));
@@ -81,7 +81,7 @@ public class AdminUserManageController {
 	/* 회원관리 */
 	@RequestMapping(value = "/getUserList.admin", method=RequestMethod.POST) // 검색어 제외 검색 정보
 	public String getUserList(@RequestBody Map<String, String> searchMap, UserVO vo, Model model, Criteria cri) {
-		
+		System.err.println("[Log] --- UserManage 	Controller >>>>> getUserList 	Method");
 		List<UserVO> userList = new ArrayList<UserVO>();
 
 		/*페이징*/
@@ -108,7 +108,7 @@ public class AdminUserManageController {
 	
 	@RequestMapping(value = "/updateUserStatus.admin", method=RequestMethod.POST) // 회원 상태 변경
 	public String updateUserStatus(@RequestBody List<String> usernumlist, UserVO vo, Model model, Criteria cri) {
-
+		System.err.println("[Log] --- UserManage 	Controller >>>>> updateUserStatus 	Method");
 		/*회원 상태 변경*/
 		String user_status = usernumlist.get(usernumlist.size()-1);
 		vo.setUser_status(user_status);
@@ -133,7 +133,7 @@ public class AdminUserManageController {
 	
 	@RequestMapping(value = "/useSearchBox.admin", method=RequestMethod.POST) // 검색 박스 처리시
 	public String useSearchBox(@RequestBody Map<String, String> searchMap, UserVO vo, Criteria cri, Model model) {
-
+		System.err.println("[Log] --- UserManage 	Controller >>>>> useSearchBox 	Method");
 		/*페이징*/
 		int pageNum = Integer.parseInt(searchMap.get("pageNum"));
 		cri = new Criteria(pageNum, 10);
@@ -158,7 +158,7 @@ public class AdminUserManageController {
 	
 	@RequestMapping(value = "/moveUserPaging.admin", method=RequestMethod.POST) // 페이지 이동시
 	public String moveUserPaging(@RequestBody Map<String, String> searchMap, UserVO vo, Criteria cri, Model model) {
-
+		System.err.println("[Log] --- UserManage 	Controller >>>>> moveUserPaging 	Method");
 		/*페이징*/
 		int pageNum = Integer.parseInt(searchMap.get("pageNum"));
 		cri = new Criteria(pageNum, 10);
