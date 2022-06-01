@@ -293,7 +293,7 @@
                                 </div>
                             </span>
                             <span class="cart_main_content_header_right">
-                                <button class="cart_product_delete" onClick="check_delete()">선택삭제</button>
+                                <button class="cart_product_delete" onClick="check_delete()">전체삭제</button>
                             </span>
                         </div>
                         <ul class="cart_main_content_list all_pro">
