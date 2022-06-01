@@ -34,7 +34,14 @@ public class U_InfoDAO {
 		System.err.println("[Log] --- info DAO >>>>> checkUser Method");
 
 		try {
-			String status = sqlSessionTemplate.selectOne("UserDAO.checkMemberStatus", vo);
+			String status = "";
+			
+			if(sqlSessionTemplate.selectOne("UserDAO.checkMemberStatus", vo) != null) {
+				status = sqlSessionTemplate.selectOne("UserDAO.checkMemberStatus", vo);
+			}else {
+				return null;
+			}
+
 			if (status.equals("비활동중")) {
 				return null;
 			} else {
