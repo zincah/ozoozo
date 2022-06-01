@@ -23,7 +23,7 @@ import ozo.spring.house.common.Criteria;
 import ozo.spring.house.user.vo.CouponVO;
 
 @Controller
-public class AdminEventController {
+public class A_EventController {
 
 	@Autowired
 	AdminBannerService AdminBannerService;
@@ -34,7 +34,7 @@ public class AdminEventController {
 
 	@RequestMapping(value = "/m_eventManagement.admin")
 	public String eventManagementView(HttpServletRequest request, Model model, BannerVO vo) {
-
+		System.err.println("[Log] --- Event 	Controller >>>>> eventManagementView 	Method");
 		HttpSession session = request.getSession();
 
 		List<BannerVO> list;
@@ -51,20 +51,16 @@ public class AdminEventController {
 	@ResponseBody
 	@RequestMapping(value = "/statuschange.admin", method = {RequestMethod.POST})
 	public Map<String, String> eventbtn(@RequestBody Map<String, String> param, BannerVO vo) {
-
+		System.err.println("[Log] --- Event 	Controller >>>>> eventbtn 	Method");
 
 		if (param.get("bool").equals("ï¿½ç°³ï¿½ï¿½")) {
 			vo.setBanner_status(true);
-			System.out.println(param.get("Æ®ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½"));
 		} else if (param.get("bool").equals("ï¿½ï¿½ï¿½ï¿½")) {
 			vo.setBanner_status(false);
-			System.out.println(param.get("false ï¿½Ö¾ï¿½ï¿½ï¿½"));
 		}
 
 		vo.setBanner_id(Integer.parseInt(param.get("item")));
 
-		System.out.println(param.get("item"));
-		System.out.println(param.get("bool"));
 
 		AdminBannerService.b_boolean(vo);
 
@@ -80,9 +76,8 @@ public class AdminEventController {
 	@ResponseBody
 	@RequestMapping(value = "/view.admin", method = {RequestMethod.POST})
 	public List<BannerVO> bannerview(@RequestBody Map<String, String> param, BannerVO vo) {
-
+		System.err.println("[Log] --- Event 	Controller >>>>> bannerview 	Method");
 		vo.setBanner_id(Integer.parseInt(param.get("id")));
-		System.out.println(param.get("id"));
 		List<BannerVO> list = AdminBannerService.b_selectone(vo);
 
 		return list;
@@ -94,7 +89,7 @@ public class AdminEventController {
 
 	@RequestMapping(value = "/couponManagement.admin")
 	public String couponSearching(AdminCouponVO cvo, Model model, HttpServletRequest request) {
-
+		System.err.println("[Log] --- Event 	Controller >>>>> couponSearching 	Method");
 		HttpSession session = request.getSession();
 
 
@@ -112,10 +107,9 @@ public class AdminEventController {
 			cvo.setCoupon_status(searchMap.get("status"));*/
 
 			List<AdminCouponVO> couponList = AdminCouponService.couponListView(cvo);
-			System.out.println(couponList);
 			model.addAttribute("couponList", couponList);
-			model.addAttribute("couponStatus0", couponList.stream().filter(list -> list.getCoupon_status().equals("ëŒ€ê¸°")).count());
-			model.addAttribute("couponStatus1", couponList.stream().filter(list -> list.getCoupon_status().equals("ì‚¬ìš©ì¤‘")).count());
+			model.addAttribute("couponStatus0", couponList.stream().filter(list -> list.getCoupon_status().equals("??ê¸?")).count());
+			model.addAttribute("couponStatus1", couponList.stream().filter(list -> list.getCoupon_status().equals("?‚¬?š©ì¤?")).count());
 			model.addAttribute("couponStatus2", couponList.stream().filter(list -> list.getCoupon_status().equals("ì¢…ë£Œ")).count());
 
 			model.addAttribute("total count", AdminCouponService.couponListView(cvo));
@@ -127,17 +121,15 @@ public class AdminEventController {
 
 	}
 
-	// ì¿ í° ìƒì„¸ ì •ë³´ë³´ê¸°
+	// ì¿ í° ?ƒ?„¸ ? •ë³´ë³´ê¸?
 
 	@RequestMapping(value = "/couponView.admin")
 	public String couponViewData(@RequestBody String coupon, AdminCouponVO cvo, Model model) {
-
-		System.out.println(coupon);
+		System.err.println("[Log] --- Event 	Controller >>>>> couponViewData 	Method");
 
 		cvo.setCoupon_id(Integer.parseInt(coupon.replace("\"", "" )));
 
 		AdminCouponVO vo = AdminCouponService.couponViewData(cvo);
-		System.out.println(vo);
 
 		model.addAttribute("couponViewData", vo);
 
@@ -145,12 +137,11 @@ public class AdminEventController {
 	}
 
 
-	//ì¿ í° ìƒì„±
+	//ì¿ í° ?ƒ?„±
 
 	@RequestMapping(value = "/couponInsert.admin", method = RequestMethod.POST)
 	public String couponInsert(@RequestBody AdminCouponVO cvo, Model model, HttpServletRequest request){
-
-		System.out.println(cvo);
+		System.err.println("[Log] --- Event 	Controller >>>>> couponInsert 	Method");
 		AdminCouponService.couponInserting(cvo);
 
 		List<AdminCouponVO> couponList = AdminCouponService.couponListView(cvo);
@@ -160,24 +151,22 @@ public class AdminEventController {
 
 	}
 
-	// ì¿ í° ìˆ˜ì •
+	// ì¿ í° ?ˆ˜? •
 	@RequestMapping(value = "/couponUpdate.admin", method = RequestMethod.POST)
 	public String couponUpdate(@RequestBody AdminCouponVO vo, Model model, HttpServletRequest request){
-
-		System.out.println(vo);
+		System.err.println("[Log] --- Event 	Controller >>>>> couponUpdate 	Method");
 		AdminCouponService.couponUpdate(vo);
 
 		List<AdminCouponVO> updateList = AdminCouponService.couponListView(vo);
 		model.addAttribute("couponList", updateList);
-		System.out.println(updateList);
 
 		return "couponList";
 	}
 
-	// ì¿ í° ìƒíƒœ ë³€ê²½
+	// ì¿ í° ?ƒ?ƒœ ë³?ê²?
 	@RequestMapping(value = "/updateCouponStatus.admin", method = RequestMethod.POST)
 	public String updateCouponStatus(@RequestBody List<String> modifyInfo, AdminCouponVO svo, Model model, Criteria cri) {
-
+		System.err.println("[Log] --- Event 	Controller >>>>> updateCouponStatus 	Method");
 		svo.setCoupon_status(modifyInfo.get(modifyInfo.size() - 1));
 
 		for (int i = 0; i < modifyInfo.size() - 2; i++) {

@@ -19,7 +19,7 @@
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/review.css?var=12'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/addInform.css?var=1'>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/smallOption.css?var=1'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/detailScript.css?var=1'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/Detail/detailScript.css?var=2'>
    <script type="text/javascript" src="resources/js/adminjs/jquery-3.6.0.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="resources/js/userjs/detailbookmark.js?var=2"></script>
@@ -1453,14 +1453,23 @@
                 <li>
                     <article class="coupon-modal__item">
                         <div class="coupon-modal__item__content">
-                            <p class="coupon-modal__item__price">￦5,000</p>
+                            <p class="coupon-modal__item__price"><fmt:formatNumber value="${coupon.coupon_discount }" pattern="￦#,###" /></p>
                             <p class="coupon-modal__item__title">${coupon.coupon_subtitle }</p>
-                            <p class="coupon-modal__item__stat-list"><span class="coupon-modal__item__stat-item">4일
-                                    남음&nbsp;</span></p>
+                            <p class="coupon-modal__item__stat-list"><span class="coupon-modal__item__stat-item">&nbsp;</span></p>
                         </div>
-                        <div class="coupon-modal__item__get-wrap"><button onclick="coupon_down()"
+                        <div class="coupon-modal__item__get-wrap">
+                         <c:choose>
+                         <c:when test="${carry_coupon.user_couponid ne null }"><button onclick="coupon_down()"
+                                class="button button--color-blue button--size-45 button--shape-4 coupon-modal__item__get" disabled
+                                type="button">받았음</button></c:when>
+						<c:otherwise>
+                        <button onclick="coupon_down()"
                                 class="button button--color-blue button--size-45 button--shape-4 coupon-modal__item__get"
-                                type="button">받기</button></div>
+                                type="button">받기</button>
+                        </c:otherwise>
+                        </c:choose>
+                        
+                        </div>
                     </article>
                 </li>
             </ul>
@@ -1851,6 +1860,8 @@ $('.production-selling-select-modal').click(function(e) {
 		  			}
 		  		}
 		})
+		$(".button--size-45").attr("disabled", true);
+		$(".button--size-45").text("받았음");
     }
     </script>
     <form action="ProductPage.com" method="post" id="actionForm">

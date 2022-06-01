@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ozo.spring.house.admin.dao.AdminManageDAO;
+import ozo.spring.house.admin.dao.A_ManageDAO;
 import ozo.spring.house.admin.vo.AdminProductVO;
 import ozo.spring.house.admin.vo.PostingInfoVO;
 import ozo.spring.house.common.Criteria;
@@ -15,7 +15,7 @@ import ozo.spring.house.common.Criteria;
 public class AdminProductManageServiceImpl implements AdminProductManageService {
 	
 	@Autowired
-	AdminManageDAO adminManageDAO;
+	A_ManageDAO adminManageDAO;
 
 	@Override
 	public void updateProductStatus(AdminProductVO pvo) {

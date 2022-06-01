@@ -21,7 +21,7 @@ import ozo.spring.house.seller.vo.FilterVO;
 import ozo.spring.house.seller.vo.ProductDetailVO;
 
 @Controller
-public class AdminPostingInfoController { // posting 상세 보기 (옮겨야할듯:))
+public class A_PostingInfoController { // posting 상세 보기 (옮겨야할듯:))
 	
 	@Autowired
 	CategoryService categoryService;
@@ -34,7 +34,7 @@ public class AdminPostingInfoController { // posting 상세 보기 (옮겨야할듯:))
 	
 	@RequestMapping(value = "/postingInfo.admin", method=RequestMethod.GET)
 	public String postingInfoView(CategoryVO vo, Model model, HttpServletRequest request) {
-		
+		System.err.println("[Log] --- PostingInfo 	Controller >>>>> postingInfoView 	Method");
 		HttpSession session = request.getSession();
 
 		if(session.getAttribute("admincode")!=null) {

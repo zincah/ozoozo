@@ -25,7 +25,7 @@ import ozo.spring.house.seller.vo.SellerVO;
 import ozo.spring.house.user.vo.UserVO;
 
 @Controller
-public class AdminController {
+public class A_Controller {
 	
 	@Autowired
 	AdminProductManageService productService; // admin 상품 관리 service
@@ -36,7 +36,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/index.admin") // admin 첫 페이지
 	public String adminIndex(HttpServletRequest request, Model model) {
-		
+		System.err.println("[Log] --- A 	Controller >>>>> adminIndex 	Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("admincode")!=null) {
 
@@ -90,7 +90,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/information.admin") // admin -> seller 공지사항 페이지
 	public String informationView(HttpServletRequest request) {
-		
+		System.err.println("[Log] --- A 	Controller >>>>> informationView 	Method");
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("admincode")!=null) {
@@ -103,7 +103,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/companyManagement.admin") // admin 업체관리 페이지
 	public String companyManageView(HttpServletRequest request, Model model, SellerVO vo) {
-		
+		System.err.println("[Log] --- A 	Controller >>>>> companyManageView 	Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("admincode")!=null) {
 			
@@ -118,7 +118,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/productManagementList.admin") // admin 상품등록관리 페이지
 	public String productManageView(HttpServletRequest request, Model model, Criteria cri, AdminProductVO pvo) {
-		
+		System.err.println("[Log] --- A 	Controller >>>>> productManageView 	Method");
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("admincode")!=null) {
@@ -141,7 +141,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/reviewManagement.admin") // admin 리뷰신고 관리 페이지
 	public String reviewManageView(HttpServletRequest request) {
-		
+		System.err.println("[Log] --- A 	Controller >>>>> reviewManageView 	Method");
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("admincode")!=null) {
@@ -153,7 +153,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/salesStatus.admin") // 매출현황(매장별 매출, best30매출, deal매출)
 	public String saleStatusView(HttpServletRequest request, AdminProductVO vo, Model model) {
-		
+		System.err.println("[Log] --- A 	Controller >>>>> saleStatusView 	Method");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("admincode")!=null) {
 
@@ -197,7 +197,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/calculateManagement.admin") // 관리자 정산내역 페이지 -> 안씀
 	public String calculateManageView(HttpServletRequest request) {
-		
+		System.err.println("[Log] --- A 	Controller >>>>> calculateManageView 	Method");
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("admincode")!=null) {
@@ -209,7 +209,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/clientInformation.admin") // // admin -> user 공지사항 페이지
 	public String clientInformationView(HttpServletRequest request) {
-		
+		System.err.println("[Log] --- A 	Controller >>>>> clientInformationView 	Method");
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("admincode")!=null) {
@@ -222,7 +222,7 @@ public class AdminController {
 
 	@RequestMapping(value = "/memberManagement.admin") // 회원 관리 페이지
 	public String memberManagementView(HttpServletRequest request, UserVO vo, Model model, Criteria cri) {
-		
+		System.err.println("[Log] --- A 	Controller >>>>> memberManagementView 	Method");
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("admincode")!=null) {
@@ -243,7 +243,7 @@ public class AdminController {
 	
 
 	private String makeJson(List<List<Map<String,String>>> dailyStoreSaleList, List<String> monthList) {
-		
+		System.err.println("[Log] --- A 	Controller >>>>> makeJson 	Method");
 		Map<String, Object> wholeMap = new HashMap<String, Object>();
 		wholeMap.put("labels", monthList);
 		

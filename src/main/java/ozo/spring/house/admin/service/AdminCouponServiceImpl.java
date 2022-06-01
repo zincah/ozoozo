@@ -2,7 +2,7 @@ package ozo.spring.house.admin.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ozo.spring.house.admin.dao.BannerDAO;
+import ozo.spring.house.admin.dao.A_BannerDAO;
 import ozo.spring.house.admin.vo.AdminCouponVO;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 public class AdminCouponServiceImpl implements AdminCouponService {
 
     @Autowired
-    BannerDAO bannerDAO;
+    A_BannerDAO bannerDAO;
 
     @Override
     public List<AdminCouponVO> couponListView(AdminCouponVO vo){

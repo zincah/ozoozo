@@ -7,14 +7,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ozo.spring.house.admin.dao.BannerDAO;
+import ozo.spring.house.admin.dao.A_BannerDAO;
 import ozo.spring.house.admin.vo.BannerVO;
 
 @Service("adminBannerService")
 public class AdminBannerServiceImple implements AdminBannerService  {
 
 	@Autowired
-	BannerDAO bannerDAO;
+	A_BannerDAO bannerDAO;
 	
 	@Override
 	public void b_insert(BannerVO vo) {

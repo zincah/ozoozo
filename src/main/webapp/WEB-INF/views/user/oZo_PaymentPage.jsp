@@ -398,6 +398,9 @@
 			point_write();
 		 }
 		  function point_write(){
+			  if($("#point_input").val() == ''){
+				  $("#point_input").val(0);
+			  }
 			  if($("#point_input").val() > ${point}){
 				  alert("포인트 초과");
 				  $("#point_input").val(${point});
@@ -427,6 +430,7 @@
 				  $(".coupon_set").addClass("_25zAE");
 				  $(".coupon_set").text(0 + "원");
 				  coupon_code = null;
+				  each_price();
 				  return;
 			  }
 			  coupon_price = $(this_class).val();
@@ -892,7 +896,7 @@
 												class="_2ekY2"></span>
 										</div>
 										<span class="_1aN3J"><div class="css-1lq8kdu e1sitcwf9">
-												<div class="css-1wzdv9p e1sitcwf8">사용 안 함</div>
+												<div class="css-1wzdv9p e1sitcwf8" >사용 안 함</div>
 											</div></span></label>
 								</div>
 							</section>
@@ -1196,7 +1200,6 @@
 								<div class="_37oj5">배송지 추가</div>
 							</header>
 							<article class="_2XEGg">
-								<form class="_3vX19">
 									<div class="DwZQi" id="addr_insert_form" method="post">
 										<label class="css-1icqu5k e126uv4s3"><div
 												class="css-1bp0feq e126uv4s2">배송지명</div>
@@ -1286,7 +1289,6 @@
 									<div class="_1sWb3">
 										<button class="_1eWD8 _3SroY _3VwZT _3FdaP" onclick="form_request(0)" >저장</button>
 									</div>
-								</form>
 							</article>
 						</div>
 					</div>
@@ -1329,9 +1331,10 @@
             success : function(result){
             }
         })
-        /* if(result == "0"){
+         if(result == "0"){
+        	alert("배송지가 추가되었습니다.");
         	location.reload();
-        } */
+        } 
 	}
 	 function addr_delete(this_class){
 		 addr_id = (this_class.id).split("_");
