@@ -264,7 +264,7 @@ public class U_InfoController {
 			return userService.Duplicate_Check_Nickname(vo);
 		}
 		
-		@ResponseBody
+
 		@RequestMapping(value = "/userPassword_change.com", method=RequestMethod.POST)
 		public String changePassword(@RequestParam("change_pass") String change_pass, UserVO vo, HttpSession session) {
 			System.err.println("[Log] --- Info Controller >>>>> changePassword Method");
@@ -273,7 +273,7 @@ public class U_InfoController {
 			vo.setUser_pw(pass);
 			vo.setUser_email(email);
 			userService.change_pass(vo);
-			return "redirect:mypage.com";
+			return "forward:m_myPage.com";
 		}
 		
 		//회원가입 페이지

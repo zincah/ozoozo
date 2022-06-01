@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="resources/css/user_css/zinc/ozocart.css?var=2" rel="stylesheet"/>
+    <link href="resources/css/user_css/zinc/ozocart.css?var=3" rel="stylesheet"/>
     <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
 	integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY="
 	crossorigin="anonymous"></script>
@@ -293,7 +293,7 @@
                                 </div>
                             </span>
                             <span class="cart_main_content_header_right">
-                                <button class="cart_product_delete" onClick="check_delete()">선택삭제</button>
+                                <button class="cart_product_delete" onClick="check_delete()">전체삭제</button>
                             </span>
                         </div>
                         <ul class="cart_main_content_list all_pro">
