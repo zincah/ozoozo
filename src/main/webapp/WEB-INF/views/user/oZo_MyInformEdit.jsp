@@ -155,8 +155,7 @@ function updatebtn(btn){
     	   
     	   alert("정보가 변경되었습니다.");
        }
-  
-
+  	location.reload();
  })  
 }
 
