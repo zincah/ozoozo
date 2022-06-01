@@ -85,26 +85,23 @@
 								<i class="fas fa-chart-area"></i>
 							</div> 매출내역
 						</a>
-						<!-- 
-						<div class="sb-sidenav-menu-heading">CS Management</div>
+						
+						<div class="sb-sidenav-menu-heading"><!-- CS Management --></div>
 						<a class="nav-link" href="#">
 							<div class="sb-nav-link-icon">
-								<i class="bi bi-pencil-square"></i>
-							</div> 고객문의
+								<!-- <i class="bi bi-pencil-square"></i> -->
+							</div> <!-- 고객문의 -->
 						</a> <a class="nav-link" href="review.seller">
 							<div class="sb-nav-link-icon">
-								<i class="bi bi-pencil-square"></i>
-							</div> 리뷰관리
+								<!-- <i class="bi bi-pencil-square"></i> -->
+							</div> <!-- 리뷰관리 -->
 						</a> <a class="nav-link" href="notice.seller">
 							<div class="sb-nav-link-icon">
-								<i class="bi bi-megaphone-fill"></i>
-							</div> 공지사항
+								<!-- <i class="bi bi-megaphone-fill"></i> -->
+							</div> <!-- 공지사항 -->
 						</a>
-					</div> -->
-					
-					<div class="my-5"></div>
-					<div class="my-5"></div>
-					<div class="my-4"></div>
+					</div>
+
 				</div>
 
 				<div class="sb-sidenav-footer">

@@ -656,7 +656,7 @@
                 <div class="card h-100 box-shadow">
                   <div class="card-body">
                     <div class="d-flex title-text bottom-line">
-                      <p class="margin-zero"><i class="fas fa-chart-area me-1 icon-margin-right"></i>5월 일별 판매 추이</p>
+                      <p class="margin-zero"><i class="fas fa-chart-area me-1 icon-margin-right"></i>일별 판매 추이</p>
                     </div>
                     <div class="d-flex justify-content-between sub-text">
                       <div class="card-body padding-zero">
