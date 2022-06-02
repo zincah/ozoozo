@@ -69,6 +69,7 @@ public class U_PaymentController {
 			//System.out.println(request.getParameter("Product_ID"));
 			return null;
 		}
+		System.out.println(request.getParameter("Product_ID"));
 		String[] param_li = request.getParameter("Product_ID").split("%");
 		//String[] param_li = {"50003", "50011"};
 		List<CartVO> cvo_li = new ArrayList<CartVO>();
