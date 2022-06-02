@@ -176,7 +176,9 @@
 		INNER JOIN category ca ON po.po_category = ca.cate_code
 		INNER JOIN sub_category sc ON po.po_subcate = sc.subcate_code
 		LEFT OUTER JOIN product_coupon pc ON po.post_couponid = pc.coupon_id 
-		LEFT OUTER JOIN deal_info di ON po.post_id = di.deal_postid
+		LEFT OUTER JOIN (select di1.deal_postid as deal_postid, di1.deal_status as deal_status, di1.deal_endtime from deal_info di1
+		inner join (select max(deal_endtime) as timemax, deal_postid from deal_info group by deal_postid) di2
+		on di2.timemax=di1.deal_endtime and di1.deal_postid=di2.deal_postid) di on di.deal_postid = po.post_id
 		<where>
 			<if test="post_status != '' and post_status != null">
 				post_status = #{post_status}
@@ -225,7 +227,9 @@
 		INNER JOIN category ca ON po.po_category = ca.cate_code
 		INNER JOIN sub_category sc ON po.po_subcate = sc.subcate_code
 		LEFT OUTER JOIN product_coupon pc ON po.post_couponid = pc.coupon_id 
-		LEFT OUTER JOIN deal_info di ON po.post_id = di.deal_postid
+		LEFT OUTER JOIN (select di1.deal_postid as deal_postid, di1.deal_status as deal_status, di1.deal_endtime from deal_info di1
+		inner join (select max(deal_endtime) as timemax, deal_postid from deal_info group by deal_postid) di2
+		on di2.timemax=di1.deal_endtime and di1.deal_postid=di2.deal_postid) di on di.deal_postid = po.post_id
 		<where>
 			<if test="post_status != '' and post_status != null">
 				post_status = #{post_status}
