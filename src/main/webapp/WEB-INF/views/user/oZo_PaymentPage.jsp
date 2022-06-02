@@ -196,7 +196,7 @@
 			$(son).removeClass("css-10z9090");
 			way_payment = this_class.id;
 		}
-		function address_add(){
+		function address_add(rsp){
 			addr_li = [];
 			addr_li.push($("#shipID").val()); //배송지명
 			addr_li.push($(".recipient").val()); //받는 사람
@@ -212,9 +212,13 @@
     			url: "addr_insert.com", 
     			method: "POST",
 	            headers: { "Content-Type": "application/json" },
-	            dataType : 'json',
+	            dataType : 'text',
 	            data: JSON.stringify(addr_li),
-	            success : function(){
+	            success : function(result){
+	            	if(result == "success"){
+	            		console.log(result);
+	            		payment_success(rsp);
+	            	}
 	            }
 	        })
 		}
@@ -330,10 +334,9 @@
 	            if (rsp.success) {
 	                // 결제 성공 시 로직 
 	                console.log("결제 성공");
-	                payment_success(rsp);
 	                exit = false;
 	                if(addr_bln){
-	                	address_add();
+	                	address_add(rsp);
 	                }
 	            } else {
 	                // 결제 실패 시 로직,

@@ -220,19 +220,19 @@ public class U_PaymentController {
 	//결제전 주소 DB 추가
 	@ResponseBody
 	@RequestMapping(value = "/addr_insert.com", method=RequestMethod.POST)
-	public void addr_insert(@RequestBody String[] addr_li) {
+	public String addr_insert(@RequestBody String[] addr_li) {
 		System.err.println("[Log] --- Payment Controller >>>>> addr_insert Method");
 		UserAddressVO uavo = new UserAddressVO();
 		uavo.setAddress_name(addr_li[0]);
 		uavo.setReceiver(addr_li[1]);
 		uavo.setAddress1("[" + addr_li[2] + "] " + addr_li[3] );
 		uavo.setAddress2(addr_li[4]);
-		uavo.setUser_num(userID);
+		uavo.setUser_num(this.userID);
 		uavo.setAddr_default(true);
 		uavo.setPhone_num(addr_li[5]);
 		pay_cls.addr_insert(uavo);
 		this.choice_addr = pay_cls.get_addr_true(cvo);
-
+		return "success";
 	}
 	
 	//주소추가 form
