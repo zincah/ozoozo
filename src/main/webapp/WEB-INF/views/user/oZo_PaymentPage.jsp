@@ -67,7 +67,7 @@
     	
     }
 	addr_bln = true;    
-	console.log(addr_bln);
+	console.log("addr_bln : " + addr_bln);
     </script>
     
     <c:if test="${address_li.size() ne 0 }" >
@@ -337,6 +337,8 @@
 	                exit = false;
 	                if(addr_bln){
 	                	address_add(rsp);
+	                }else{
+	                	payment_success(rsp); // 아연 추가(배송지 추가 안할 때)
 	                }
 	            } else {
 	                // 결제 실패 시 로직,
