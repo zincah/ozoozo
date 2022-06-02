@@ -6,7 +6,7 @@
     <meta charset='utf-8'>
     <title>SignUp Page</title>
     <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/DivSignUp.css?var=1'>
-    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/block.css?var=1'>
+    <link rel='stylesheet' type='text/css'  href='resources/css/user_css/dh/block.css?var=12'>
     <link rel="stylesheet" href="resources/css/admincss/fonts.css?var=1">
     <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
   	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
@@ -164,7 +164,7 @@
                         <h5 class="snsLogo">SNS계정으로 간편하게 회원가입</h5>
                     </div>
                     <ul class="snsList">
-                        <li class="sns">
+                        <li class="sns" style="display:none;">
                             <a href="">
                                 <svg width="48" height="48" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet">
                                     <g fill="none" fill-rule="evenodd">

@@ -38,7 +38,7 @@
 
 <body>
 <header>
-    	<jsp:include page="./header/OzoH.jsp"></jsp:include>
+
     </header>
     <div class="area-position-mypage">
         <div class="mypage-nav">
@@ -162,7 +162,6 @@
     </div>
    
      <footer>
-    	<jsp:include page="./footer/footer.jsp"></jsp:include>
     </footer>
 
 </body>

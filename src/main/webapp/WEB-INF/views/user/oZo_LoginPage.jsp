@@ -96,7 +96,7 @@
                 <div class="social_text">SNS계정으로 간편 로그인/회원가입</div>
                 
                 <div class="social_icon">
-                    <div>
+                    <div style="display:none;">
                         <a datatype="facebook" class="css-l0qndx e1ufx3to0" href="/users/auth/facebook"><svg width="48" height="48" viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet"><g fill="none" fill-rule="evenodd"><path fill="#3B5998" d="M0 24C0 10.745 10.745 0 24 0s24 10.745 24 24-10.745 24-24 24S0 37.255 0 24z"></path><path fill="#FFF" d="M25.77 35V24h3.384v-3.385h-3.385v-2.538c-.012-.756.08-1.285 1.693-1.692h1.692V13h-3.385c-3.25 0-4.52 1.84-4.23 5.077v2.538H19V24h2.538v11h4.231z"></path></g></svg></a>
                     </div>
                     <div>
@@ -107,9 +107,9 @@
                     </div>
                 </div>
                 <!--고객센터로 이동-->
-                <a class="move_cs_center" href="#">로그인에 문제가 있으신가요?</a>
+                <a class="move_cs_center" href="/house/CScenter.com">로그인에 문제가 있으신가요?</a>
                 
-                <section class="nonmember_layer">
+                <section class="nonmember_layer" style="display:none;">
                      <button id="nonmember_btn" type="button" class="nonmember_order_btn">비회원 주문 조회하기</button>
                      <div id="nonmember" class="login_non_member hide" sytle="overflow: hidden;">
                         <form>
@@ -130,10 +130,7 @@
             . All Rights Reserved  
         </footer>
     </div>
-<footer>
-    	<jsp:include page="./footer/footer.jsp"></jsp:include>
-    </footer>
-    
+
 </body>
 </html>
 

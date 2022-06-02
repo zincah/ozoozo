@@ -107,6 +107,12 @@ public class A_Controller {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("admincode")!=null) {
 			
+			// 날짜 세팅
+			vo.setStartdate(java.sql.Date.valueOf("2018-01-01"));
+			MakeDate makeDate = new MakeDate(); // 날짜 포맷 클래스
+	        String enddate = makeDate.makeToday();
+			vo.setEnddate(java.sql.Date.valueOf(enddate)); 
+			
 			List<SellerVO> sellerList = userService.selectSellerList(vo); // 현재 등록된 판매점 list
 			model.addAttribute("sellerList", sellerList);
 			

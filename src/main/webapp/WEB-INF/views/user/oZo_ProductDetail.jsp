@@ -1745,9 +1745,9 @@ function basket(param){
 					alert("최소 하나의 상품을 등록해주세요.");
 				}else if(after == "123"){
 					alert("로그인 후 이용해 주세요.");
-					location.href = 'http://localhost:8080/house/login.com'; 
+					location.href = '/house/login.com'; 
 				}else if(param != null){
-					alert("폼 택");
+					//alert("바로구매");
 					page_move();
 				}else if(after == "hi"){
 					alert("성공적으로 장바구니에 담았습니다.");
