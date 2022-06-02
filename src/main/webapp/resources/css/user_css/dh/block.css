@@ -200,8 +200,8 @@ button, input[type=email], input[type=file], input[type=number], input[type=pass
     height: 1em;
 }
 ._3UImz:checked+._2mDYR {
-    border-color: #35c5f0;
-    background-color: #35c5f0;
+    border-color: #ff778e;
+    background-color: #ff778e;
     color: #fff;
 }
 ._4VN_z {
@@ -221,7 +221,7 @@ button, input[type=email], input[type=file], input[type=number], input[type=pass
     font-weight: bold;
 }
 .agreeP{
-    color: #35c5f0;
+    color: #ff778e;
     font-size: 12px;
     margin-left: 4px;
 }
@@ -468,6 +468,6 @@ input[type=text]:focus {
 }
 .EmailBtn_true {
     background-color: #fff;
-    border-color: #35c5f0;
-    color: #35c5f0;
+    border-color: #f77;
+    color: #f77;
 }

@@ -11,7 +11,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet"
-	href="resources/css/user_css/header/calculation.css?var=1">
+	href="resources/css/user_css/header/calculation.css?var=21">
 <link rel="stylesheet" href="resources/css/user_css/header/public.css">
 <title>Document</title>
 <!-- jQuery -->
@@ -364,7 +364,7 @@
 	            	console.log("DB 넣기 성공");
 	            	alert("결제 성공! 이용해 주셔서 감사합니다.");
 	            	payment_after_cart_delete();
-	            	location.href = 'http://localhost:8080/house/myshopping.com';
+	            	location.href = '/house/myshopping.com';
 	            	}
 	            }
 	        })

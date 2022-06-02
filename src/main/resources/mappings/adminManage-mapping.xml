@@ -303,6 +303,11 @@
 					s1.seller_status = #{seller_status}
 				</trim>
 			</if>
+			<if test="startdate != null and enddate != null">
+				<trim prefix="and">
+					s1.entry_date between #{startdate} and #{enddate}
+				</trim>
+			</if>
 		</where>
 	</select>
 	

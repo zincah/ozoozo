@@ -274,7 +274,7 @@
                   </div>
                 </div>
               </div>
-              <div class="container container-option container-option-topPadding bottomline">
+              <div class="container container-option container-option-topPadding bottomline" style="display:none;">
                 <div class="row optionGroup1">
                   <div class="col-1 status-name">분류</div>
                   <div class="col search-check-group">

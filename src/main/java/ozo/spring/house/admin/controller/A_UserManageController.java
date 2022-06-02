@@ -68,6 +68,8 @@ public class A_UserManageController {
 		vo.setStartdate(Date.valueOf(searchMap.get("startdate")));
 		vo.setEnddate(Date.valueOf(searchMap.get("enddate")));
 		vo.setKeyword(searchMap.get("keyword"));
+		
+		System.out.println(vo);
 
 		List<SellerVO> sellerList = userManage.selectSellerList(vo); // 검색조건을 가지고 변경된 리스트
 		model.addAttribute("sellerList", sellerList);
