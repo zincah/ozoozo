@@ -307,7 +307,7 @@
                                                             class="css-1hnr1vy e1yy3fi619"
                                                             href="/brands/home?query=%EB%AA%A8%EB%82%98%EC%BD%94%EC%98%AC%EB%A6%AC%EB%B8%8C">${wide_li[j].company_name }</a><a
                                                             class="css-g5ex4y e1yy3fi618"
-                                                            href="http://127.0.0.1:3000/orders.html"> ${wide_li[j].post_name }</a>
+                                                            href="/house/productPage.com?p=${wide_li[j].post_id }"> ${wide_li[j].post_name }</a>
                                                     </div>
                                                     <div class="css-1jgx3ye e1yy3fi620">
                                                         <div class="css-137xxwq e1yy3fi617">${wide_li[j].option1_name } : ${wide_li[j].option1}
