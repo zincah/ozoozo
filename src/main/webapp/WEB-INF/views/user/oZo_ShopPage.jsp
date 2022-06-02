@@ -25,6 +25,7 @@
     	let rank = 'latestRanking';
     	let totalCount;
     	let brandcode;
+    	let catecode;
     	
        	var firstscroll = 0;
        	var page = 0;
@@ -33,6 +34,7 @@
         	
         	totalCount = ${totalCount};
         	brandcode = ${seller.seller_id};
+        	catecode = $("#thisCateCode").val();
 
             $(".filter_btn").on('click', function(){
                 console.log(this.value);
@@ -82,8 +84,10 @@
 			$("#item_filter_btn").html(ranktext + html);
 			//alert(ranktext);
 			
+			catecode = $("#thisCateCode").val();
 			
-			var searchMap = { 
+			var searchMap = {
+					"catecode" : catecode,
 					"brandcode" : brandcode,
 					"ranking" : rank 
 			};
@@ -155,9 +159,10 @@
 	function getProductList(page){
 	
 		console.log("thispage :" +page);
-		
+		catecode = $("#thisCateCode").val();
 		
 		var searchMap = {
+				"catecode" : catecode,
 				"brandcode" : brandcode,
 				"page" : page,
 				"ranking" : rank
@@ -209,7 +214,7 @@
 	                 </c:if>
 
                     <div class="brand_profile_content">
-
+                        <input type="hidden" value="${catecode }" id="thisCateCode">
                         <p class="brand_profile_content_title">${seller.company_name}</p>
                         <p class="brand_profile_overview" value="${brandStarRatio }">
                         <c:choose>

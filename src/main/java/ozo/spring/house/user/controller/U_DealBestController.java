@@ -54,7 +54,7 @@ public class U_DealBestController {
 		}
 		
 		String jsonArray = JSONArray.toJSONString(dealtimelist);
-		model.addAttribute("dealtimelist", jsonArray); // timer 시간 전송
+		model.addAttribute("dealtimelist", jsonArray); // timer �떆媛� �쟾�넚
 		
 		if((Integer)session.getAttribute("User_Num")!=null) {
 		svo.setSc_usernum((Integer)session.getAttribute("User_Num"));
@@ -92,16 +92,18 @@ public class U_DealBestController {
 		return "oZo_TodayDeal";
 	}
 
-	// 브랜드
+	// 釉뚮옖�뱶
 	@RequestMapping(value = "/brandshop.com", method=RequestMethod.GET)
 	public String main_shop(Model model, UserProductVO vo, HttpServletRequest request, UserPagingVO pvo, UserScrapVO svo, HttpSession session){
     System.err.println("[Log] --- DealBest Controller >>>>> main_shop Method");
 		String brandcode = request.getParameter("brandcode");
 		vo.setPost_sellerid(Integer.parseInt(brandcode));
+		String catecode = "";
 		
 		vo.setThispage(0);
 		
 		if(request.getParameter("catecode") != null) {
+			catecode = request.getParameter("catecode");
 			String[] codes = request.getParameter("catecode").split("_");
 			vo.setPo_category(Integer.parseInt(codes[0]));
 			
@@ -167,7 +169,7 @@ public class U_DealBestController {
 		
 		//List<List<UserCategoryVO>> otherlist = userMainService.printCateList(vo);
 
-		//model.addAttribute("otherlist", otherlist);
+		model.addAttribute("catecode", catecode);
 		model.addAttribute("brandStarRatio", brandStarRatio);
 		model.addAttribute("others", others);
 		model.addAttribute("seller", seller);
@@ -181,16 +183,16 @@ public class U_DealBestController {
 	@RequestMapping(value = "/brandshopRank.com", method=RequestMethod.POST)
 	public String brandshopRank(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request, UserScrapVO svo){
 		System.err.println("[Log] --- DealBest Controller >>>>> brandshopRank Method");
-
+		String catecode = searchMap.get("catecode");
+		
 		vo.setPost_sellerid(Integer.parseInt(searchMap.get("brandcode")));
 		
 		vo.setThispage(0);
 		vo.setOrderKind(searchMap.get("ranking"));
 		
-		
-		
-		if(request.getParameter("catecode") != null) {
-			String[] codes = request.getParameter("catecode").split("_");
+
+		if(!catecode.equals("")) {
+			String[] codes = catecode.split("_");
 			vo.setPo_category(Integer.parseInt(codes[0]));
 			
 			if(codes.length == 2) {
@@ -203,7 +205,7 @@ public class U_DealBestController {
 				}
 			}
 		}
-		
+
 		vo.setCheckit(false);
 		HttpSession session = request.getSession();
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
@@ -238,7 +240,7 @@ public class U_DealBestController {
 	
 	
 	
-	//실시간 베스트
+	//�떎�떆媛� 踰좎뒪�듃
 	@RequestMapping(value = "/m_best.com")
 	public String main_best(UserVO vo, Model model, HttpServletRequest request, UserProductVO uvo, UserScrapVO svo){
 		System.err.println("[Log] --- DealBest Controller >>>>> main_best Method");

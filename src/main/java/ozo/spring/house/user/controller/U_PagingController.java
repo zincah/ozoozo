@@ -129,13 +129,14 @@ public class U_PagingController {
 	@RequestMapping(value = "/brandshopPaging.com", method=RequestMethod.POST)
 	public String brandshopPaging(@RequestBody Map<String, String> searchMap, Model model, UserProductVO vo, HttpServletRequest request,UserScrapVO svo, HttpSession session){
 		System.err.println("[Log] --- Paging Controller >>>>> brandshopRank Method");
-
+		String catecode = searchMap.get("catecode");
+		
 		vo.setPost_sellerid(Integer.parseInt(searchMap.get("brandcode")));
 		vo.setThispage(Integer.parseInt(searchMap.get("page")));
 		vo.setOrderKind(searchMap.get("ranking"));
 		
-		if(request.getParameter("catecode") != null) {
-			String[] codes = request.getParameter("catecode").split("_");
+		if(!catecode.equals("")) {
+			String[] codes = catecode.split("_");
 			vo.setPo_category(Integer.parseInt(codes[0]));
 			
 			if(codes.length == 2) {

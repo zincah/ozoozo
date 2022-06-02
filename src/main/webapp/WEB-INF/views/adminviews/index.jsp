@@ -251,7 +251,7 @@
               </div>
               <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card h-100 box-shadow">
-                	<a href="reviewManagement.admin">
+                	<a href="/house/memberManagement.admin">
 	                  <div class="card-body">
 	                    <div class="d-flex title-text">
 	                      <p class="margin-zero"><i class="bi bi-exclamation-circle-fill icon-margin-right"></i>회원관리</p>
