@@ -59,26 +59,37 @@
  	</select>
 
 	<!-- 대망의 filtering -->
-	<!-- post id 받아오는 부분 -->
+	<!-- post id 받아오는 부분 --> <!-- 여기 수정해야함 -->
 	<select id="getPostList" resultType="ucate">
-		SELECT DISTINCT ON(dprodetails_postid) pd.dprodetails_postid, pd.detail_name, 
+		SELECT DISTINCT ON(dprodetails_postid) pd.dprodetails_postid, pd.detail_name, pp.po_subcate,
 		pd.detail_value, pd.dtop_catecode, fe.filter_depth, fe.filter_name, pp.today_deal, pp.shipping_info1
 		FROM product_details pd
 		INNER JOIN filter_element fe ON pd.detail_value = fe.filter_id
 		inner join product_posting pp on pd.dprodetails_postid = pp.post_id 
-		WHERE fe.filter_depth=2 AND dtop_catecode=#{top_catecode} 
-		<if test="dealCheck == true">
+		WHERE fe.filter_depth=2 AND dtop_catecode=#{top_catecode}
+		<if test="midcate_code != 0">
+			<trim prefix="and">
+				po_subcate/100=#{midcate_code}
+			</trim>
+		</if>
+		<if test="subcate_code != 0">
+			<trim prefix="and">
+				po_subcate=#{subcate_code}
+			</trim>
+		</if>
+		<if test="filtering.size() == 0 and dealCheck == true">
 			<trim prefix="and">
 				today_deal=true
 			</trim>
 		</if>
 		<if test="filtering.size() > 0">
 			<if test="dealCheck == true">
-				<trim prefix="or">
-					fe.filter_name IN 
+				<trim prefix="and">
+					(today_deal=true or fe.filter_name IN 
 					<foreach item="item" collection="filtering" index="index" open="(" close=")" separator=",">
 						#{item}
 					</foreach>
+					)
 				</trim>
 			</if>
 			<if test="dealCheck != true">
@@ -92,7 +103,7 @@
 		</if>
 	</select>   
 	
-	<!-- 그 post id에 따른 게시물 받아오기 --> 
+	<!-- 그 post id에 따른 게시물 받아오기 --> <!-- 이 쿼리문으로 세부 눌렀을 때 post id 필터 체크하기 -->
  	<select id="selectProductByFilter" resultType="userproduct">
  		SELECT po.post_id, po.star_ratio, po.post_name, po.whole_price*(1-po.sale_ratio/100.0) as sale_price, po.sale_ratio, 
 		po.whole_price, po.shipping_info1, po.po_category, po.po_subcate, 
@@ -124,18 +135,14 @@
 					po_subcate=#{subcate_code}
 				</trim>
 			</if>
-			<if test="dealCheck == true">
-				<trim prefix="and">
-					today_deal=true
-				</trim>
-			</if>
 			<if test="post_ids.size() > 0">
 				<if test="dealCheck == true">
-					<trim prefix="or">
-						po.post_id IN 
+					<trim prefix="and">
+						(today_deal=true or po.post_id IN 
 						<foreach item="item" collection="post_ids" index="index" open="(" close=")" separator=",">
 							#{item}
 						</foreach>
+						)
 					</trim>
 				</if>
 				<if test="dealCheck != true">

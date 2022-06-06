@@ -54,6 +54,7 @@ public class U_CategoryDAO {
 		return sqlSessionTemplate.selectList("UserCategoryDAO.getCateName", vo);
 	}
 	
+	// filtering
 	public List<UserProductVO> getPostList(UserCategoryVO vo){
 		System.err.println("[Log] --- Category DAO >>>>> getPostList Method");
 		List<UserCategoryVO> list = sqlSessionTemplate.selectList("UserCategoryDAO.getPostList", vo);
@@ -64,10 +65,9 @@ public class U_CategoryDAO {
 			int post = postid.getDprodetails_postid();
 			postids.add(post);
 		}
-		
-		vo.setPost_ids(postids);
-		//System.out.println("postids : " + postids.size());
 
+		vo.setPost_ids(postids);
+		//System.out.println("postids size : " + postids.size() + " postids : " + postids);
 		return sqlSessionTemplate.selectList("UserCategoryDAO.selectProductByFilter", vo);
 	}
 	
