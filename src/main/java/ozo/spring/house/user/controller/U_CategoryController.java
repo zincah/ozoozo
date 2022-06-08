@@ -113,8 +113,9 @@ public class U_CategoryController {
 		System.err.println("[Log] --- Category Controller >>>>> getFilterList Method");
 		
 		List<String> cates = wholeList.get(1);
+		System.out.println("category " + cates);
 
-		// category 占쎈쐻占쎈윞占쎈쭨占쎈쐻占쎈윥占쎄퐨占쎌뜏占쎌뒩占쎈땫占쎈뎨�뜝占�
+		// category 
 		vo.setTop_catecode(Integer.parseInt(cates.get(0)));
 		if(cates.size()>1 && cates.get(1)!="") {
 			vo.setMidcate_code(Integer.parseInt(cates.get(1)));
@@ -135,9 +136,9 @@ public class U_CategoryController {
 			}
 		}
 		
-		// list�뜝�럥�뱺�뜝�럡�맋 remove 0�뜝�럥由�嶺뚮〕�삕 �뜝�럡�뀬�뜝�럩逾х춯�쉻�삕
+		// filter 조건 넣어주기
 		vo.setFiltering(filterList);
-		vo.setOrderKind(wholeList.get(2).get(0)); // �뜝�럥�뻹�뜝�럩留� �뜝�럡�맜�뜝�럥�꽑�썒�슣�닁�뵳占�
+		vo.setOrderKind(wholeList.get(2).get(0)); 
 		
 		List<UserProductVO> postList = userCategoryService.getPostList(vo);
 		int filterCount = userCategoryService.filterCount(vo);
@@ -146,7 +147,7 @@ public class U_CategoryController {
 			UserProductVO pro = postList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //占쎈쐻占쎈윥�댆戮⑸쐻占쎈윥占쎈묄占쎈쐻占쎈윪占쎌젌 占쎈쐻占쎈윥筌띿눨�쐻占쎈윥占쎈묄
+			DecimalFormat decFormat = new DecimalFormat("###,###");
 			
 			pro.setSale_price(decFormat.format(sale_price));
 		}

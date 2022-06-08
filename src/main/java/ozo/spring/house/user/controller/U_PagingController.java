@@ -87,6 +87,8 @@ public class U_PagingController {
 			scrap = mypageService.userScrapList(svo);
 		}
 		
+		System.out.println("wholeList" + wholeList);
+		
 		List<String> cates = wholeList.get(1);
 
 		// category 
@@ -98,7 +100,20 @@ public class U_PagingController {
 			}
 		}
 		
-		vo.setFiltering(wholeList.get(0));
+		List<String> list = wholeList.get(0);
+		List<String> filterList = new ArrayList<String>();
+		
+		// filtering
+		for(int i=0; i<list.size(); i++) {
+			String check = list.get(i);
+			if(check.equals("¿À´ÃÀÇµô")) {
+				vo.setDealCheck(true);
+			}else {
+				filterList.add(check);
+			}
+		}
+		
+		vo.setFiltering(filterList);
 		vo.setThispage(Integer.parseInt(wholeList.get(2).get(0)));
 		vo.setOrderKind(wholeList.get(3).get(0)); // ranking
 		
@@ -121,7 +136,7 @@ public class U_PagingController {
 			}
 		}
 		model.addAttribute("productList", productList);
-		//model.addAttribute("pagecount", pagecount);
+
 		return "oZo_CategoryAssist";
 	}
 	

@@ -205,7 +205,7 @@
     	});
     	
 		function getProductList(thispage, filterList){
-
+			console.log("getProductList");
 			var whole = [];
         	var cates = [];
         	var page = [];
@@ -365,6 +365,7 @@
     				
     	  			$("#product-layer").html(resp);
     	  			totalCount = $("#filterCount").val();
+    	  			console.log(totalCount);
                 	$(".item_count").text("전체 " + totalCount);
 
     	  				
