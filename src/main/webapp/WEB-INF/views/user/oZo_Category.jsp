@@ -24,8 +24,9 @@
 	crossorigin="anonymous"></script>
 <script>
 
-		var filterList = [];
-		var totalCount;
+		
+		var filterList = []; // 옵션 선택 저장 list
+		var totalCount; // 총 상품 개수 
 		let rank = 'latestRanking'; // 최신순으로 기본 세팅
 		
     	var firstscroll = 0;
@@ -33,12 +34,10 @@
 		
         $(document).ready(function(){
         	
+        	/*
             $(".filter_btn").on('click', function(){
-                console.log(this.value);
-                
                 var filter = $(this).val();
-
-            });
+            });*/
             
             
             $("input[name=checking]").change(function(){
@@ -205,7 +204,8 @@
     	});
     	
 		function getProductList(thispage, filterList){
-			console.log("getProductList");
+			//console.log("getProductList");
+			
 			var whole = [];
         	var cates = [];
         	var page = [];
@@ -245,11 +245,10 @@
         
         // 체크박스를 체크했을 때 리스트에 추가해주는 jquery
         function plusList(filter){
+        	
         	filterList.push(filter);
-        	console.log("plus");
-			console.log(filterList);
 			
-			if(filterList.length == 1){
+			if(filterList.length == 1){ // 옵션이 하나라도 선택되면 영역 나타나게 하기
 				$(".category_filter_output_wrap").show(); 
 			}
 
@@ -538,6 +537,7 @@
 						<ul class="category_filter_control_list">
 							<!--for문-->
 							<c:forEach items="${optionList }" var="option">
+								<!-- 오늘의딜 버튼 -->
 								<c:if test="${option[0].filter_name == '오늘의딜'}">
 									<li class="category_filter_control_list_item">
 										<button class="filter_btn" value="${option[0].filter_name }">

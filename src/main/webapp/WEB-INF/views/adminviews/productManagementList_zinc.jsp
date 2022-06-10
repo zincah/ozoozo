@@ -27,6 +27,7 @@
     <script>
     
     	var excelHandler;
+    	var pageNum; // pageNum setting
     
     	$(document).ready(function(){
  
@@ -46,7 +47,7 @@
     		});
 
     		// setpage
-			var pageNum = ${pageMaker.getPageNum()};
+			pageNum = ${pageMaker.getPageNum()};
     		setPage(pageNum);
     		
     		// 검색 기능
@@ -236,7 +237,7 @@
     	    }
     	    
     	    var prev = startPage > 1;
-    	    var next = endPage < realEnd; // 쓸지안쓸지
+    	    var next = endPage < realEnd; 
     	    
     	    $(".page-layer").html("");
     	    
@@ -252,24 +253,47 @@
 
 			}
 			
+			/*
 			if(endPage == 1){
 				$(".page-layer").hide();
 				$(".page-outer").hide();
 			}else{
 				$(".page-layer").show();
 				$(".page-outer").show();
-			}
+			}*/
 			
 			
     		// paging a link click
         	$(".page-item a").on("click", function(e){
 
     			e.preventDefault();
-    			var pageNum = $(this).attr("href");
+    			pageNum = $(this).attr("href");
+    			if(pageNum != 'pre' && pageNum != 'nex'){
+        			console.log("movepage : "+pageNum);
+    			}
+    			
     			$("#findPage").val(pageNum);
     			console.log($("#findPage").val(pageNum));
     			movepage(pageNum);
     		});
+			
+			$(".page-outer a").on("click", function(e){
+				e.preventDefault();
+				pageOuter = $(this).attr("href");
+				
+				if(pageOuter == 'pre'){
+					if(pageNum != 1){
+						pageNum = pageNum - 1;
+					}
+				}else if(pageOuter == 'nex'){
+					if(pageNum != realEnd){
+						pageNum = pageNum + 1;
+					}
+				}
+				
+				movepage(pageNum);
+				
+			})
 
     		
     	}
@@ -738,27 +762,24 @@
             <div class="pagi mt-3">
             <nav aria-label="Page navigation example">
               <ul class="pagination">
-              <!-- 
-                <li class="page-item page-outer">
-                  <a class="page-link" href="#" aria-label="Previous">
+               
+                <li class="page-outer">
+                  <a class="page-link" href="pre" aria-label="Previous">
                     <span aria-hidden="true">
                     	<i class="fa-solid fa-angle-left"></i>
                     </span>
                   </a>
-                </li> -->
+                </li>
                 <div class="page-layer">
-                	
-                
-                
+
                 </div>
-                <!-- 
-                <li class="page-item page-outer">
-                  <a class="page-link" href="#" aria-label="Next">
+                <li class="page-outer">
+                  <a class="page-link" href="nex" aria-label="Next">
                     <span aria-hidden="true">
                     	<i class="fa-solid fa-angle-right"></i>
                     </span>
                   </a>
-                </li> -->
+                </li>
               </ul>
             </nav>
           </div>
