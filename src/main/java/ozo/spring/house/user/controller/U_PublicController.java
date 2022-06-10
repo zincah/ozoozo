@@ -42,7 +42,7 @@ public class U_PublicController {
 	
 	
 	//send Emails
-	private String key; // 占쎌뵠筌롫뗄�뵬嚥∽옙 癰귣�沅∽쭪占� 占쎄텆占쎈땾
+	private String key; // �뜝�럩逾좂춯濡ル뾼占쎈뎄�슖�댙�삕 �솻洹ｏ옙亦끸댙彛ゅ뜝占� �뜝�럡�뀊�뜝�럥�빢
 	
 	@ResponseBody
 	@RequestMapping(value = "/sendEmail.com", method=RequestMethod.POST)
@@ -60,7 +60,7 @@ public class U_PublicController {
 	public Boolean checkCode(@RequestBody String Code) {
 		System.err.println("[Log] --- Public Controller >>>>> checkCode Method");
 		String code = Code.replace("\"", "");
-		//System.out.println("占쎄텢占쎌뒠占쎌쁽揶쏉옙 占쎌뿯占쎌젾占쎈립 Code : "+code + "\n占쎌뜚占쎌삋 �굜遺얜굡 : " + key);
+		//System.out.println("�뜝�럡�뀬�뜝�럩�뮔�뜝�럩�겱�뤆�룊�삕 �뜝�럩肉��뜝�럩�졑�뜝�럥由� Code : "+code + "\n�뜝�럩�쐸�뜝�럩�굥 占쎄턀�겫�뼔援� : " + key);
 		if(key.equals(code)) {
 			return true;
 		}else {
@@ -106,6 +106,7 @@ public class U_PublicController {
 		}
 	}
 	
+	// main ranking filtering
 	@RequestMapping(value = "/mainRanking.com")
 	public String user_main(@RequestBody Map<String, String> rank, UserProductVO vo, UserScrapVO svo, Model model, HttpSession session) {
 		System.err.println("[Log] --- Public Controller >>>>> user_main Method");
@@ -126,7 +127,7 @@ public class U_PublicController {
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
 			
-			DecimalFormat decFormat = new DecimalFormat("###,###"); //�뜝�럥爰뽩뜝�럥�빢�뜝�럩�젍 �뜝�럥留쇿뜝�럥�빢
+			DecimalFormat decFormat = new DecimalFormat("###,###"); //占쎈쐻占쎈윥�댆戮⑸쐻占쎈윥占쎈묄占쎈쐻占쎈윪占쎌젌 占쎈쐻占쎈윥筌띿눨�쐻占쎈윥占쎈묄
 			
 			pro.setSale_price(decFormat.format(sale_price));
 			//System.out.println(pro.getPost_id());
@@ -146,7 +147,7 @@ public class U_PublicController {
 		return "oZo_MainAssist";
 	}
 	
-	// �궓�뒗 嫄�
+	// 占쎄텚占쎈뮉 椰꾬옙
 	@RequestMapping(value = "/shopApply.com")
 	public String user_shopApply(HttpServletRequest request) {
 		System.err.println("[Log] --- Public Controller >>>>> user_shopApply Method");

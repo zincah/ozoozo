@@ -39,6 +39,7 @@ public class U_PagingController {
 	@RequestMapping(value = "/getProductList.com")
 	public String user_main(@RequestBody Map<String, String> searchMap, UserProductVO vo, UserPagingVO pvo, UserScrapVO svo,  Model model, HttpSession session) {
 		System.err.println("[Log] --- Paging Controller >>>>> user_main Method");
+		
 		// scrap
 		List<UserScrapVO> scrap = new ArrayList<UserScrapVO>();
 		vo.setCheckit(false);
@@ -47,20 +48,22 @@ public class U_PagingController {
 			scrap = mypageService.userScrapList(svo);
 		}
 		
-
-		// product list pagecount
+		// get current page number
 		int pagecount = Integer.parseInt(searchMap.get("page"));
-		pvo.setThispage(pagecount);
+		pvo.setThispage(pagecount); // set page number
+		
+		// set ranking section
 		pvo.setOrderKind(searchMap.get("ranking"));
 		
+		// get product list
 		List<UserProductVO> productList = userMainService.plusProductList(pvo);
 
+		// set sale price and scrap 
 		for(int i=0; i<productList.size(); i++) {
+			
 			UserProductVO pro = productList.get(i);
 			int sale_price = pro.getWhole_price()*(100-pro.getSale_ratio())/100;
-			
 			DecimalFormat decFormat = new DecimalFormat("###,###"); 
-			
 			pro.setSale_price(decFormat.format(sale_price));
 			
 			for(int j=0; j<scrap.size(); j++) {
@@ -72,7 +75,6 @@ public class U_PagingController {
 		}
 		
 		model.addAttribute("productList", productList);
-		//model.addAttribute("pagecount", pagecount);
 		
 		return "oZo_MainAssist";
 	}

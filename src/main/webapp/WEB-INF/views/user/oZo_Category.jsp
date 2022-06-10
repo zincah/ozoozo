@@ -425,7 +425,7 @@
 													d="M6.07 7.56l4.39-4.55.87.87-5.25 5.45L.67 3.9 1.53 3z"></path></svg>
 										</button>
 										</c:if>
-									</div> <!--버튼 누르면 밑에 토글다운 생기게-->
+									</div> <!--버튼 누르면 밑에 토글다운-->
 	
 									<div class="category_tree_child_layer" style="overflow: hidden;">
 										<ul class="category_tree_children">

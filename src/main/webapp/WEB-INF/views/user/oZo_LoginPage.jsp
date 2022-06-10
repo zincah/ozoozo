@@ -18,8 +18,8 @@
                 $("#nonmember").toggle("slow", function(){});
             })
         });
+
         
-        //	fc7fc6f3684227823c32640d578cac9e
         // 카카오 로그인 구현
         window.Kakao.init("fc7fc6f3684227823c32640d578cac9e");
         //console.log(Kakao.isInitialized()); // sdk 초기화?
@@ -34,6 +34,7 @@
         				url: '/v2/user/me',
         				success: function(response){
         					
+        					// kakao access token 얻어서 변수에 저장
         					var accessToken = Kakao.Auth.getAccessToken();
         					Kakao.Auth.setAccessToken(accessToken);
         					
@@ -41,9 +42,6 @@
         					
         					var email = response.kakao_account.email;
         					var name = response.properties.nickname;
-        					
-        					console.log(email);
-        					console.log(name);
         					
         					$("#kaemail").val(email);
         					$("#kanickname").val(name);

@@ -22,8 +22,8 @@
 
 	let rank = 'latestRanking';
 	let totalCount;
-	var firstscroll = 0;
-	var page = 0; // 페이징
+	let firstscroll = 0;
+	let page = 0; // 페이징
 
 	var dealtimelist = ${dealtimelist};
 
@@ -41,18 +41,18 @@
 		// 인기순 판매순 순위 매기기
 		$(".dropdown_btn").click(function(){
 			
-			page = 0;
-			rank = $(this).val();
-			var ranktext = $(this).text();
+			page = 0; // page 0으로 세팅
+			rank = $(this).val(); // 순위 값 받아오기
+			var ranktext = $(this).text(); // 순위 text 값 가져오기
 			
+			// 순위 옆에 화살표 모양
 			var html = '\
 			<svg class="caret" width="8" height="8" viewBox="0 0 8 8" preserveAspectRatio="xMidYMid meet">\
 			<path fill="#BDBDBD" d="M0 2l4 4 4-4z"></path></svg>'
 			
+			// 순위 버튼 바꿔주기
 			$("#filter_btn").html(ranktext + html);
-			//alert(ranktext);
-			
-			
+
 			var ranking = { "ranking" : rank };
 			
 			$.ajax({
@@ -76,58 +76,59 @@
 	});
 	
 	
-	// 무한 스크롤
-	
+	// 스크롤 이벤트가 일어날 경우 실행되는 function
 	$(window).on("scroll", function(event){
 		
-		//console.log("window.innerHeight : ${window.innerHeight}");
-	    //console.log("window.scrollY : ${window.scrollY}");
-	    //console.log("document.body.offsetHeight : ${document.body.offsetHeight}");
-		
+		// 스크롤 바 상단 위치
 		var scrollTop = $(window).scrollTop();
 		//console.log("scrollTop : " + scrollTop);
 
+		// 현재 보이는 창의 높이
 		var windowHeight = $(window).height();
 		//console.log("windowHeight : " + windowHeight);
 		
+		// 문서 높이
 		var documentHeight = $(document).height();
 		//console.log("documentHeight : " + documentHeight);
 		
-		// scroll 위치...
+		// 스크롤 바 상단 위치 + 보이는 창의 높이 + 100 한 값이 문서 높이보다 클 때 true값을 준다.
 		var isBottom=scrollTop+windowHeight + 100 >= documentHeight;
 
+		// 무한 스크롤 액션
 		if(isBottom){
 			
-			if(totalCount%12 == 0){
-				console.log(totalCount/12)
+			// totalCount : 데이터베이스에 저장되어 있는 총 게시물 수
+			// pag : 스크롤 액션을 조절하는 변수
+			// page : 현재 페이지
+			
+			if(totalCount%12 == 0){ // 데이터베이스에 저장되어있는 총 게시물 수가 12로 나누어 떨어질 경우
+				// ex. 36개의 게시물은 스크롤 이벤트가 2번만 더 발생하면 되지만
+				// 37개의 게시물은 스크롤 이벤트가 3번 발생해야 한다는 것을 생각하면 된다.
 				var pag = parseInt(totalCount/12-1); 
 			}else{
 				var pag = parseInt(totalCount/12); 
 			}
 			
-			if(page == pag){ // productList개수/4 인 몫 값을 가져와야 함
+			if(page == pag){ // 현재 페이지가 pag와 일치하면 해당 함수를 종료한다.
 				return;
 			}
 			
-			page++;
-			getProductList(page);
+			page++; // page 증가
+			getProductList(page); // 다음 페이지 게시물을 얻어오는 함수 호출
 
 		}
 	});
 	
+	// 페이징에 맞춰 게시물을 얻어오는 함수
 	function getProductList(page){
 
-		console.log("thispage :" +page);
-		
-		
+		// console.log("thispage :" +page);
+
 		var searchMap = {
 				"page" : page,
 				"ranking" : rank
 		}
-		
-		console.log(searchMap)
-		
-		
+
 		$.ajax({
 	  		url:'getProductList.com',
 	  		method:'post',
@@ -139,7 +140,8 @@
 	  			
 	  		},
 	  		error : function(request, status, error) {
-				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				alert("code:"+request.status+"\n"+"message:"+
+						request.responseText+"\n"+"error:"+error);
 			}
 	  		});
 		

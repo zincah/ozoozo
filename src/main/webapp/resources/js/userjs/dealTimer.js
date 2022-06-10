@@ -4,6 +4,8 @@
 
 	// timer 설정하기
 	const getTime =()=>{
+	
+		// 현재 시간 받아오기
 		const now = new Date();
 		let year = now.getFullYear();
 		let month = now.getMonth();
@@ -18,6 +20,7 @@
 		
 		//var dealtimelist = ${dealtimelist};
 		
+		// deal 종료 시간 계산
 		for(var i=0; i<dealtimelist.length; i++){
 			var dealtime = dealtimelist[i];
 			var postid = dealtime.deal_postid;
