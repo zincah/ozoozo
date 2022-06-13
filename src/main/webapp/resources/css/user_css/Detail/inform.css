@@ -1,5 +1,6 @@
 @charset "EUC-KR";
 
+
 /* 상품 상세페이지 nav */
 .production-selling-navigation__wrap {
     z-index: 101;
@@ -66,8 +67,8 @@ li:first-child>.production-selling-navigation__item {
 }
 
 .production-selling-navigation__item.production-selling-navigation__item--active {
-    color: #35c5f0;
-    border-bottom: 3px solid #35c5f0;
+    color: #f77;
+    border-bottom: 3px solid #f77;
     z-index: 1;
 }
 
@@ -88,7 +89,7 @@ li:first-child>.production-selling-navigation__item {
     transition: color .1s;
 }
 .production-selling-navigation__item:hover{
-    color: #35c5f0;
+    color: #f77;
 }
 
 @media (min-width: 768px) {
@@ -266,7 +267,8 @@ li:first-child>.production-selling-navigation__item {
     -webkit-align-items: center;
     -moz-align-items: center;
     align-items: center;
-    margin: 20px 0;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
 }
 
 .production-selling-section__header__hidden {
@@ -324,8 +326,8 @@ li:first-child>.production-selling-navigation__item {
     }
 }
 .button--color-blue {
-    background-color: #35c5f0;
-    border-color: #35c5f0;
+    background-color: #ff778e;
+    border-color: #ff778e;
     color: #fff;
 }
 

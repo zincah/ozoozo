@@ -366,7 +366,6 @@
     var $w = $(window);
     $w.click('scroll', function(){
         size=$('.layout-footer').outerHeight();
-        console.log(size);
     });
     </script>
 </body>

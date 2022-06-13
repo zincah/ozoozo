@@ -16,6 +16,11 @@
 		WHERE user_email = #{user_email}
 	</select>
 	
+	<!-- 네이버 유저 체크 -->
+	<select id="checkUserByNaver" resultType="user">
+		SELECT * FROM user_table WHERE user_email = #{user_email}
+	</select>
+	
 	<!-- 이메일 중복체크 -->
 	<select id="Duplicate_Check_Email" resultType="user">
 		SELECT user_email FROM user_table WHERE user_email = #{user_email}
@@ -25,8 +30,30 @@
 	<select id="Duplicate_Check_Nickname" resultType="user">
 		SELECT nickname FROM user_table WHERE nickname = #{nickname}
 	</select>
+	
 	<!-- 비밀번호 변경 -->
 	<select id="change_pass" resultType="user">
 		UPDATE user_table SET user_pw = #{user_pw} WHERE user_email = #{user_email}
 	</select>
+	
+	<!-- 마지막 로그인 시간 체크 -->
+	<update id="lastLoginCheck" parameterType="user">
+		UPDATE user_table SET last_login=now() WHERE user_email=#{user_email};
+	</update>
+	
+	<!-- 비활동중 멤버 로그인 안되게 하기 : 비활동중 멤버 숫자 1로 리턴-->
+	<select id="checkMemberStatus" resultType="String">
+		select user_status from user_table where user_email=#{user_email};
+	</select>
+	
+	<!-- 유동인구 측정 -->
+	<insert id="insertLoginCount" parameterType="user">
+		INSERT INTO logincount (lc_usernum, login_date) VALUES (#{user_num}, #{login_date})
+	</insert>
+	
+	<select id="selectLoginCount" resultType="user">
+		SELECT * FROM logincount WHERE lc_usernum=#{user_num} AND login_date=#{login_date} 
+	</select>
+	
+	
 </mapper>

@@ -35,18 +35,11 @@
 					<button class="_1eWD8 _3SroY _27do9 css-15i71tl-SubmitButton e7sx0340" type="submit">
 						로그인
 					</button>
-					
-					<section class="css-6ofxvx-Actions e5voaya1">
-						<a class="css-a6x0yj-ActionLink e5voaya0" href="/users/password/new">비밀번호 재설정</a>
-						<a class="css-a6x0yj-ActionLink e5voaya0" href="/partner/applications/new">판매자 신청</a>
-					</section>
 				</form>
 			</div>
 			
 			<footer class="css-1a7naln-Footer ebon26m0">
-				© &nbsp;<a href="https://www.bucketplace.co.kr/" target="_blank"
-					rel="noopener noreferrer">bucketplace, Co., Ltd.</a>. All Rights
-				Reserved
+				© &nbsp;<a href="#" target="_blank" rel="noopener noreferrer">ozohouse.admin</a>. All Rights Reserved
 			</footer>
 		</main>
 		<!--푸터-->

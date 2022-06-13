@@ -86,7 +86,7 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 
 @media ( min-width : 576px) {
 	.modal-dialog {
-		max-width: 800px;
+		max-width: 1000px;
 		margin: 1.75rem auto;
 	}
 	.modal-dialog-small {

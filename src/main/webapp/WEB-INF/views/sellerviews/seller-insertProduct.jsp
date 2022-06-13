@@ -11,28 +11,29 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>상품등록</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
-	rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <link href="resources/css/sellercss/fonts.css?var=1" rel="stylesheet" />
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
-<link href="resources/css/sellercss/insertProduct.css?var=1" rel="stylesheet" />
+<link href="resources/css/sellercss/insertProduct.css?var=212" rel="stylesheet" />
 <jsp:include page="header/headerModalView.jsp"></jsp:include>
 <script type="text/javascript" src="resources/js/sellerjs/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="resources/js/sellerjs/plus_photo.js?var=1"></script>
+<script type="text/javascript" src="resources/js/sellerjs/plus_photo.js?var=12"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <script>
+
       $(document).ready(function () {
     	  
-    	  // enter event 제거
-    	  $('form').keydown(function() {
+
+	   	  // enter event 제거 : 자동 form전송 막기위해서
+	   	  $('form').keydown(function() {
 			    if (event.keyCode === 13) {
 			        event.preventDefault();
 			    }
 			});
 			    	  
+        /* 판매가 입력 관련 js */
         $(".sale_price_layer").hide();
-        // 68%
+
         $(".sale_percent_input").keydown(function (key) {
           if (key.keyCode == 13) {
         	var pri = $("#represent_price").val();
@@ -51,7 +52,6 @@
         });
 
         /* 카테고리 토글 */
-
         var optionMap = new Object();
 
         $(".option_list").click(function () {
@@ -159,114 +159,197 @@
 
       /* file 이름 나옴 */
       function changeValue(input) {
+    	  console.log("change")
     	  var checkId = input.id;
     	  var checkSu = checkId.substr(-1);
     	  
         var file = input.files[0]; //선택된 파일 가져오기
+        var filename;
+        if(file != null){
+        	filename = file.name;
+        	console.log(filename);
+        }
+        
+        if (/(\.gif|\.jpg|\.jpeg|\.webp|\.png|\.PNG)$/i.test(filename) == false) {
+        	$('#main_photo'+checkSu).val("");
+            alert("이미지 형식의 파일을 선택하십시오");
+        }else{
+        	
+            //미리 만들어 놓은 div에 text(파일 이름) 추가
+            //var name = document.getElementById('fileName');
+            //name.textContent = file.name;
 
-        //미리 만들어 놓은 div에 text(파일 이름) 추가
-        //var name = document.getElementById('fileName');
-        //name.textContent = file.name;
+            //새로운 이미지 div 추가
+            var newImage = document.createElement("img");
+            newImage.setAttribute("class", "upload_img");
 
-        //새로운 이미지 div 추가
-        var newImage = document.createElement("img");
-        newImage.setAttribute("class", "upload_img");
+            //이미지 source 가져오기
+            newImage.src = URL.createObjectURL(file);
+            newImage.style.visibility = "visible";
+            newImage.style.objectFit = "contain";
+            alert(URL.createObjectURL(file));
 
-        //이미지 source 가져오기
-        newImage.src = URL.createObjectURL(file);
-        newImage.style.visibility = "visible";
-        newImage.style.objectFit = "contain";
-        alert(URL.createObjectURL(file));
-
-        //이미지를 image-show div에 추가
-        var container = document.getElementById('image_show'+checkSu);
-        container.appendChild(newImage);
-        $('#image_show'+checkSu).show();
+            //이미지를 image-show div에 추가
+            var container = document.getElementById('image_show'+checkSu);
+            container.appendChild(newImage);
+            $('#image_show'+checkSu).show();
+        	
+        }
         
       }
 
+
       
       	// 데이터모으기
+      	// 할인율 설정안함 처리 해줘야해
       	
 	    function gatherData(){
       		
-      		//checkProduct();
-      		//photoUpload();
       		
-      		var colorList = []
-      		var woodtone = []
-      		var materials = []
-      		
-      		var jsonmove = []
-      		
-      		// color 체크박스 값 가져오기
-      		$("input:checkbox[name=colorcheck]:checked").each(function(){
-      			var checkit = $(this).val();
-      			colorList.push(checkit);
-      		});
-      		
-      		// woodtone 체크박스 값 가져오기
-      		$("input:checkbox[name=woodtone]:checked").each(function(){
-      			var checkit = $(this).val();
-      			woodtone.push(checkit);
-      		});
-      		
-      		// material 체크박스 값 가져오기
-      		$("input:checkbox[name=f_material]:checked").each(function(){
-      			var checkit = $(this).val();
-      			materials.push(checkit);
-      		});
+      		if($("input[name=post_name]").val()=="" || $("#category").val()==null ||
+      				$("#middle-select").val()==null ||
+      				$("#option1_name").val()=="" || $("#product_title").val()=="" ||
+      				$("#option1").val()=="" || $("#product_price").val()=="" ||
+      				$("#product_quantity").val()=="" || $("#table-productTitle").val()=="" ||
+      				$("#table-kc").val()=="" || $("#table-color").val()=="" || 
+      				$("#table-component").val()=="" || $("#table-material").val()=="" ||
+      				$("#table-manufacturer").val()=="" || $("#table-country").val()=="" ||
+      				$("#table-size").val()=="" ||  $("#table-delivery").val()=="" ||
+      				$("#table-qa").val()=="" || $("#table-cstel").val()=="" ||
+      				$("#represent_price").val()=="" || $("#sale_ratio").val()=="" || 
+      				$("#post_shipfee").val()=="" || $("#shiptable_info").val()=="" ||
+      				$("#shiptable_fee").val()=="" || $("#shiptable_plusfee").val()=="" ||
+      				$("#shiptable_plusfee").val()=="" || $("#shiptable_unable").val()=="" ||
+      				$("#shiptable_propotionalfee").val()=="" || $("#refundtable_fee").val()=="" ||
+      				$("#exchangetable_fee").val()=="" || $("#refundtable_address").val()==""){
+      			
+      			alert("내용이 제대로 입력되지 않았습니다.");
+      		}else{
 
-			var option = {
-					"using_people" : $("#option_input").find("#using_people").val(),
-					"place" : $("#option_input").find("#place").val(),
-					"rental" : $("#option_input").find("#rental").val(),
-					"refurbish" : $("#option_input").find("#refurbish").val(),
-					"color" : colorList,
-					"woodtone" : woodtone,
-					"material" : materials
-				}
-			
-			var table = {
-					"table-productTitle" : $("#table-productTitle").val(),
-					"table-kc" : $("#table-kc").val(),
-					"table-color" : $("#table-color").val(),
-					"table-component" : $("#table-component").val(),
-					"table-material" : $("#table-material").val(),
-					"table-manufacturer" : $("#table-manufacturer").val(),
-					"table-country" : $("#table-country").val(),
-					"table-size" : $("#table-size").val(),
-					"table-delivery" : $("#table-delivery").val(),
-					"table-qa" : $("#table-qa").val(),
-					"table-cstel" : $("#table-cstel").val()
-			}
+          		checkProduct();
+          		photoUpload();
+          		
+          		var wholelist = []
+          		var jsonmove = []
+          		titles = [];
+          		
+          		var checkmap = {};
+          		
+          		var topcate = $("#category").val();
 
-			jsonmove.push(option);
-			jsonmove.push(table)
-			
-			console.log(JSON.stringify(jsonmove));
+    			var cates = {
+    					"cate_code" : topcate,
+    			}
+          		
+          		$(".checkTitle").each(function(){
+          			var checkTitle = $(this).text();
+          			titles.push(checkTitle);
+          		})
+          		
+          		for(var i=0; i<titles.length; i++){
+          			var checkli = []
 
-			// ajax로 데이터 넘기기
-		  	$.ajax({
-	  		url:'getJson.seller',
-	  		method:'post',
-	  		data: JSON.stringify(jsonmove),
-	  		contentType : 'application/json; charset=UTF-8',
-	  		dataType : 'json',
-	  		async: false,
-	  		success : function(resp){
+          			$('input:checkbox[name='+titles[i]+']:checked').each(function(){
+          				var checkit = $(this).val();
+          				checkli.push(checkit);
+          			});
+          			
+          			var key = titles[i];
+          			checkmap[key] = checkli;
+    				
+          		}
+          		
+    			/*
+          		if($("#option_input").find("#rental").val() != ""){
+          			checkmap.상품유형 = [$("#option_input").find("#rental").val()];
+          		}else{
+          			checkmap.상품유형 = []
+          		}
+          		
+          		if($("#option_input").find("#refurbish").val() != ""){
+          			checkmap.상품유형 = [$("#option_input").find("#rental").val()];
+          		}else{
+          			checkmap.상품유형 = []
+          		}*/
 
-	  			
-	  			}
-	  		});
+          		
+          		console.log(checkmap);
+    			
+    			var table = {
+    					"table_productTitle" : $("#table-productTitle").val(),
+    					"table_kc" : $("#table-kc").val(),
+    					"table_color" : $("#table-color").val(),
+    					"table_component" : $("#table-component").val(),
+    					"table_material" : $("#table-material").val(),
+    					"table_manufacturer" : $("#table-manufacturer").val(),
+    					"table_country" : $("#table-country").val(),
+    					"table_size" : $("#table-size").val(),
+    					"table_delivery" : $("#table-delivery").val(),
+    					"table_qa" : $("#table-qa").val(),
+    					"table_cstel" : $("#table-cstel").val(),
+    					"shiptable_info" : $("#shiptable_info").val(),
+    					"shiptable_fee" : $("#shiptable_fee").val(),
+    					"shiptable_plusfee" : $("#shiptable_plusfee").val(),
+    					"shiptable_unable" : $("#shiptable_unable").val(),
+    					"shiptable_propotionalfee" : $("#shiptable_propotionalfee").val(),
+    					"refundtable_fee" : $("#refundtable_fee").val(),
+    					"exchangetable_fee" : $("#exchangetable_fee").val(),
+    					"refundtable_address" : $("#refundtable_address").val()
+    			}
+    			
+    			jsonmove.push(checkmap);
+    			jsonmove.push(table);
+    			jsonmove.push(cates);
+    			
+    			console.log(JSON.stringify(jsonmove));
+    			
+    			// ajax로 데이터 넘기기
+    		  	$.ajax({
+    	  		url:'getJson.seller',
+    	  		method:'post',
+    	  		data: JSON.stringify(jsonmove),
+    	  		contentType : 'application/json; charset=UTF-8',
+    	  		dataType : 'json',
+    	  		async: false,
+    	  		success : function(resp){
+    					
+    	  				alert("filter data");
+
+    	  			}
+    	  		});
+      			
+      		}
 
 	    }
+      	
+      	// filtering option 뽑기
+      	function getFilterOption(category){
+      		
+      		
+      	
+      		
+      		$.ajax({
+		  		url:'getFilterOption.seller',
+		  		method:'post',
+		  		data: JSON.stringify(category),
+		  		contentType : 'application/json; charset=UTF-8',
+		  		dataType : 'html',
+		  		success : function(resp){
+		  			
+		  			$(".filtering-layer").html("");
+		  			$(".filtering-layer").append(resp);
+		  		}
+		  		
+		  		})
+      		
+      	}
       
       	
       	// category 뽑기
       	function changeFirstOption(){
 			var category = {"cate_code" : $("#category").val()}
 
+			getFilterOption(category);
 			
 		  	$.ajax({
 		  		url:'getMiddleCategory.seller',
@@ -369,12 +452,12 @@
 						"pro_subcatecode" : subcate,
 						"option1_name" : $("#option1_name").val(),
 						"option2_name" : $("#option2_name").val(),
-						"seller_id" : 500001,
+						"seller_id" : ${seller.seller_id},
 						"product_title" : $("#product_wrap"+i+"").find("#product_title").val(),
 						"option1" : $("#product_wrap"+i+"").find("#option1").val(),
 						"option2" : $("#product_wrap"+i+"").find("#option2").val(),
 						"product_price" : $("#product_wrap"+i+"").find("#product_price").val(),
-						"product_quantity" : $("#product_wrap"+i+"").find("#product_quantity").val()
+						"product_quantity" : $("#product_wrap"+i+"").find("#product_quantity").val(),
 				}
 
 				
@@ -393,8 +476,15 @@
 		  		async: false, // ajax 동기식 처리
 		  		success : function(resp){
 		  			$("#post_id").attr('value',resp);
-		  			console.log($("#post_id").val());
+		  			var cate = $("#category").val();
 		  			
+		  			$("#po_category").attr('value', cate);
+		  			$("#po_subcate").attr('value', subcate);
+		  			
+		  			var shipfee = $("#post_shipfee").val();
+		  			if(shipfee == ""){
+		  				$("#post_shipfee").val(0);
+		  			}
 		  			
 		  			alert("form전송");
 		  			$("form").submit();
@@ -412,6 +502,7 @@
 		function photoUpload(){
 			
 			var formData = new FormData();
+		
 			
 			var mainFileInput = $(".main_photo");
 			var fileInput = $(".thisisfile");
@@ -497,14 +588,15 @@
 					class="container container-option container-option-topPadding bottomline">
 					<div class="row optionGroup1">
 						<div class="col-2 status-name-600" id="option-name">브랜드명(상호명)</div>
-						<div class="col-4 search-input status-name-400">ozo
-							chair(ozo)</div>
+						<div class="col-4 search-input status-name-400">${seller.company_name}</div>
 						<div class="col-2 status-name-600">대표명</div>
-						<div class="col-4 search-input status-name-400">이영</div>
+						<div class="col-4 search-input status-name-400">${seller.representative}</div>
 					</div>
 				</div>
-				<input type="hidden" value="500001" name="post_sellerid">
+				<input type="hidden" value="${seller.seller_id}" name="post_sellerid">
 				<input type="hidden" value="0" name="post_id" id="post_id">
+				<input type="hidden" value="0" name="po_category" id="po_category">
+				<input type="hidden" value="0" name="po_subcate" id="po_subcate">
 				<div
 					class="container container-option container-option-topPadding bottomline">
 					<div class="row optionGroup1">
@@ -554,312 +646,39 @@
 				</div>
 				<!-- option db처리 나중에 -->
 				<div class="plus_layer">
-					<div
-						class="container container-option container-option-topPadding bottomline"
-						id="option_whole_wrap">
+					<div class="container container-option container-option-topPadding bottomline" id="option_whole_wrap">
 						<div class="row optionGroup1 option-wrap">
 							<div class="col-2 status-name-600" id="option-layer-name">옵션 (가구)</div>
-							<div class="col-10 search-input option_container"
-								id="option_input">
+							<div class="col-10 search-input option_container" id="option_input">
 								
-								<div class="radio-productCode">
-									<div class="btn-group" role="group"
-										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState" id="using_people" name="using_people"
-											aria-label="Default select example">
-											<option selected value="">사용인원</option>
-											<option value="1">1인</option>
-											<option value="2">2인</option>
-											<option value="3">3인</option>
-											<option value="4">4인</option>
-											<option value="5">5인</option>
-											<option value="6">6인</option>
-											<option value="7">7인</option>
-											<option value="8">8인이상</option>
-										</select>
-									</div>
-									<div class="btn-group" role="group"
-										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState" id="place" name="place"
-											aria-label="Default select example">
-											<option selected value="">사용공간</option>
-											<option value="living room">거실</option>
-											<option value="bed room">침실</option>
-											<option value="kitchen">주방</option>
-											<option value="dress room">옷방</option>
-											<option value="study room">서재/공부방</option>
-											<option value="kid room">아이방</option>
-										</select>
-									</div>
-									<div class="btn-group" role="group"
-										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState" id="rental" name="rental"
-											aria-label="Default select example">
-											<option selected value="">상품유형</option>
-											<option value="y">렌탈상품</option>
-											<option value="n">렌탈상품 x</option>
-										</select>
-									</div>
-									<div class="btn-group" role="group"
-										aria-label="Basic radio toggle button group">
-										<select class="form-select selectState" name="refurbish" id="refurbish"
-											aria-label="Default select example">
-											<option selected value="">리퍼상품 유무</option>
-											<option value="y">리퍼상품</option>
-											<option value="n">리퍼상품 x</option>
-										</select>
+								<div class="filtering-layer">
+									<div class="color_option mt-3 row">
+										<c:forEach items="${wholeList }" var="perList" begin="0">
+										<div class="col-2 option_title status-name-600 checkTitle" style="font-size: 13px" id="${perList[0].filter_id }">${perList[0].filter_name }</div>
+										<div class="col-10 color_options" style="padding-bottom: 1rem;">
+											<c:forEach items="${perList }" var="item" begin="1">
+											<div class="form-check form-check-display">
+												<input class="form-check-input form-check-input-margin checking"
+													type="checkbox" value="${item.filter_id }" id="${item.filter_id }" name="${perList[0].filter_name }"/> 
+													<label class="form-check-label" for="${item.filter_id }"> ${item.filter_name }
+												</label>
+											</div>
+											</c:forEach>
+										</div>
+									</c:forEach>
 									</div>
 								</div>
-								<div class="color_option mt-3 row">
-									<div class="col-2 option_title" style="font-size: 13px">색상</div>
-									<div class="col-10 color_options bottomline2">
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="white" id="colorcheck1" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck1"> 화이트
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="black" id="colorcheck2" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck2"> 블랙
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="brown" id="colorcheck3" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck3"> 브라운
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="gold" id="colorcheck4" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck4"> 골드
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="orange" id="colorcheck5" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck5"> 오렌지
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="green" id="colorcheck6" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck6"> 그린
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="navy" id="colorcheck7" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck7"> 네이비
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="pink" id="colorcheck8" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck8"> 핑크
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="transparent" id="colorcheck9" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck9"> 투명
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="grey" id="colorcheck10" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck10"> 그레이
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="beige" id="colorcheck11" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck11"> 베이지
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="silver" id="colorcheck12" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck12"> 실버
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="red" id="colorcheck13" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck13"> 레드
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="yellow" id="colorcheck14" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck14"> 옐로우
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="blue" id="colorcheck15" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck15"> 블루
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="violet" id="colorcheck16" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck16">
-												바이올렛 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="multi" id="colorcheck17" name="colorcheck"/> <label
-												class="form-check-label" for="colorcheck17"> 멀티
-											</label>
-										</div>
-									</div>
-								</div>
-
-								<div class="color_option mt-3 row">
-									<div class="col-2 option_title" style="font-size: 13px">우드톤</div>
-									<div class="col-10 color_options bottomline2">
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="rigth" id="woodcheck1" name="woodtone"/> <label
-												class="form-check-label" for="woodcheck1"> 밝은
-												우드톤 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="middle" id="woodcheck2" name="woodtone"/> <label
-												class="form-check-label" for="woodcheck2"> 중간
-												우드톤 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="dark" id="woodcheck3" name="woodtone"/> <label
-												class="form-check-label" for="woodcheck3"> 어두운
-												우드톤 </label>
-										</div>
-									</div>
-								</div>
-
-								<div class="color_option mt-3 row">
-									<div class="col-2 option_title" style="font-size: 13px">소재</div>
-									<div class="col-10 color_options">
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="wood" id="meterialcheck1" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck1"> 원목
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="nature" id="meterialcheck2" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck2"> 천연
-												대리석 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="ceramic" id="meterialcheck3" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck3"> 세라믹
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="glass" id="meterialcheck4" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck4"> 유리
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="plastic" id="meterialcheck5" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck5">
-												플라스틱 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="concrete" id="meterialcheck6" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck6">
-												콘크리트 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="leather" id="meterialcheck7" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck7">
-												인조가죽 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="suede" id="meterialcheck8" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck8">
-												스웨이드 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="velvet" id="meterialcheck9" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck9"> 벨벳
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="process wood" id="meterialcheck10" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck10"> 가공목
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="artificial marble" id="meterialcheck11" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck11">
-												인조대리석 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="volcanic stone" id="meterialcheck12" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck12"> 화산석
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="steel" id="meterialcheck13" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck13">
-												철재/스틸 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="rattan" id="meterialcheck14" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck14"> 라탄
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="natural leather" id="meterialcheck15" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck15">
-												천연가죽 </label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="fabric" id="meterialcheck16" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck16"> 패브릭
-											</label>
-										</div>
-										<div class="form-check form-check-display">
-											<input class="form-check-input form-check-input-margin"
-												type="checkbox" value="mash" id="meterialcheck17" name="f_material"/> <label
-												class="form-check-label" for="meterialcheck17"> 매쉬
-											</label>
-										</div>
-									</div>
-								</div>
-
-
+								
 							</div>
 						</div>
 					</div>
-				</div>
+					</div>
+						
 				
 				<!-- 상품추가 -->
 				
 				<div
-					class="container container-option container-option-topPadding bottomline">
+					class="container container-option container-option-topPadding bottomline" style="border-top: 1px solid #ced4da;">
 					<div class="row optionGroup1">
 						<div class="col-2 status-name-600 point_col">상품 추가</div>
 						<div class="col-10 search-input option_container">
@@ -891,16 +710,16 @@
 											</div>
 											<div class="pro_option_flex row">
 												<p class="col-2">가격</p>
-												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" id="product_price" name="product_price"
+												<input type="number" class="col-4 form-control mt-2 option_name_input" style="width:150px" id="product_price" name="product_price"
 												placeholder="(원)" />
 												<p class="col-2">수량</p>
-												<input type="text" class="col-4 form-control mt-2 option_name_input" style="width:150px" id="product_quantity" name="product_quantity"
+												<input type="number" class="col-4 form-control mt-2 option_name_input" style="width:150px" id="product_quantity" name="product_quantity"
 												placeholder="(개)" />
 											</div>
 										</div>
 								</div>
 							</div>
-
+					
 							
 						</div>
 					</div>
@@ -987,7 +806,7 @@
 							<div class="col-2 col-lg-2 status-name-600">판매가</div>
 							<div class="col-10 col-lg-6">
 								<div class="input-group">
-									<input type="text" name="whole_price" id="represent_price"
+									<input type="number" name="whole_price" id="represent_price"
 										class="product_input form-control input-custom"
 										placeholder="판매가" aria-label="whole_price"
 										aria-describedby="basic-addon2" /> 
@@ -1021,8 +840,8 @@
 
 								<div class="col-6 mt-2">
 									<div class="input-group input-group-sm">
-										<input type="text" class="sale_percent_input form-control"
-											style="font-size: 11px" placeholder="할인율" name="sale_ratio"
+										<input type="number" class="sale_percent_input form-control"
+											style="font-size: 11px" placeholder="할인율" id="sale_ratio" name="sale_ratio"
 											aria-label="sale_ratio" aria-describedby="basic-addon2" />
 										<span class="input-group-text" id="basic-addon2"
 											style="font-size: 11px">%</span>
@@ -1156,6 +975,10 @@
 												class="form-check-label" for="flexRadioDefault3">
 												화물배송 </label>
 										</div>
+										<div class="form-check">
+											<input style="margin-left: 0.5rem;" class="form-control input-custom" id="post_shipfee" name="post_shipfee" type="number" placeholder="배송비(숫자만)">
+										</div>
+							
 									</div>
 									<div class="col-6">
 										<div class="form-check">
@@ -1192,11 +1015,81 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="row">
+					<div class="col-12 col-md-6">
+						<div class="card text-dark my-4 box-shadow">
+							<div class="card-header card-header-text">배송</div>
+							<div class="card-body">
+								<table class="table">
+									<tbody class="table_body">
+										<tr class="verticalAlignCenter">
+											<th scope="row" style="width: 5%">1</th>
+											<td style="width: 35%">배송</td>
+											<td style="width: 60%"><input
+												class="form-control input-custom" name="shiptable_info" id="shiptable_info"/></td>
+										</tr>
+										<tr class="verticalAlignCenter">
+											<th scope="row">2</th>
+											<td>배송비</td>
+											<td><input class="form-control input-custom" name="shiptable_fee" id="shiptable_fee"/></td>
+										</tr>
+										<tr class="verticalAlignCenter">
+											<th scope="row">3</th>
+											<td>도서산간 추가배송비</td>
+											<td>
+												<input class="form-control input-custom" name="shiptable_plusfee" id="shiptable_plusfee"/></td>
+										</tr>
+										<tr class="verticalAlignCenter">
+											<th scope="row">4</th>
+											<td>배송불가 지역</td>
+											<td><input class="form-control input-custom" name="shiptable_unable" id="shiptable_unable"/></td>
+										</tr>
+										<tr class="verticalAlignCenter">
+											<th scope="row">5</th>
+											<td>비례 배송비</td>
+											<td><input class="form-control input-custom" name="shiptable_propotionalfee" id="shiptable_propotionalfee"/></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-12 col-md-6">
+						<div class="card text-dark my-4 box-shadow">
+							<div class="card-header card-header-text">교환/환불</div>
+							<div class="card-body">
+								<table class="table">
+									<tbody class="table_body">
+										<tr class="verticalAlignCenter">
+											<th scope="row" style="width: 5%">1</th>
+											<td style="width: 35%">반품배송비</td>
+											<td style="width: 60%"><input
+												class="form-control input-custom" name="refundtable_fee" id="refundtable_fee"/></td>
+										</tr>
+										<tr class="verticalAlignCenter">
+											<th scope="row">2</th>
+											<td>교환배송비</td>
+											<td><input class="form-control input-custom" name="exchangetable_fee" id="exchangetable_fee"/></td>
+										</tr>
+										<tr class="verticalAlignCenter">
+											<th scope="row">3</th>
+											<td>보내실 곳</td>
+											<td>
+												<input class="form-control input-custom" name="refundtable_address" id="refundtable_address"/></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
 
 				<div class="text-end mb-5">
 					<button class="btn btn-outline-secondary btn-size" type="reset">취소</button>
 					<button type="button" class="btn btn-secondary btn-size" onclick="gatherData()">등록하기</button>
 				</div>
+
 			</form>
 		</div>
 	</main>
@@ -1212,7 +1105,7 @@
 		</div>
 	</footer>
 </div>
-</div>
+
 <script>
 
 

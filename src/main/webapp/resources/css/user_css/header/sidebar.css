@@ -93,8 +93,9 @@
     -moz-box-flex: 0;
     -moz-flex: 0 0 auto;
     -ms-flex: 0 0 auto;
-    flex: 0 0 auto;
-    display: block;
+    flex:flex;
+    align-items:center;
+    display: flex;
     margin: 30px 10px;
     font-size: 14px;
     font-weight: 700;
@@ -104,11 +105,16 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.layout-navigation-drawer-user__nickname {
+    font-size: 14px;
+    line-height: 20px;
+    margin-left: 4px;
+}
 .layout-navigation-drawer-user__image {
     position: relative;
     display: inline-block;
-    width: 22px;
-    height: 22px;
+    width: 70px;
+    height: 70px;
     margin-right: 6px;
     border-radius: 100%;
     background-color: #f5f5f5;

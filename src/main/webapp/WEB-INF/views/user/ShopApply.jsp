@@ -27,7 +27,7 @@
                             <li>입점 검토까지 시일이 다소 소요될 수 있으니,&nbsp; 고객센터를 통한 MD연락처 및 가능여부 문의는 피해주시길 바랍니다.</li>
                             <li>입점 불가의 경우 별도 회신을 드리지 못하는 점 양해 부탁 드립니다.</li>
                             <li>중복 입점 신청이 불가능합니다.&nbsp; 입점 신청이 불가능한 경우&nbsp;<a
-                                    href="mailto:sellers@bucketplace.net">sellers@bucketplace.net</a>&nbsp;(수신전용 메일)로 문의 부탁드립니다.
+                                    href="mailto:sellers@ozohouse.net">sellers@ozohouse.net</a>&nbsp;(수신전용 메일)로 문의 부탁드립니다.
                             </li>
                         </ul>
                     </div>
@@ -37,9 +37,9 @@
                 </div>
             </div>
             <div class="container seller-layout__body">
-                <form id="sales-form--application" class="sales-form sales-form--application" action="/partner/applications"
-                    method="post" accept-charset="UTF-8"><input type="hidden" name="authenticity_token"
-                        value="VaCidCCMNCd/uTcER9vtdmxOzEKo2dDCcUaXuHlDDxpEJ4O8U9sQbyzUuyCXb5iMJuI48O68ewgJG19kfVYXFQ==">
+                <form id="sales-form--application" class="sales-form sales-form--application" action="/partner/applications" method="post" accept-charset="UTF-8">
+                	<input type="hidden" value="${Usercode}">
+                	
                     <div class="sales-form__section">
                         <div class="row">
                             <div class="offset-1 col-10">
@@ -52,7 +52,7 @@
                                         class="sales-form__form-group__required">*</span></label></div>
                             <div class="col-8">
                                 <div class="sales-form__form-control-wrap"><input type="text" id="sales_application__company"
-                                        name="sales_application[company]" class="form-control" placeholder="오늘의집" value="">
+                                        name="sales_application[company]" class="form-control" placeholder="오조의집" value="">
                                 </div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                                         class="sales-form__form-group__required">*</span></label></div>
                             <div class="col-8">
                                 <div class="sales-form__form-control-wrap"><input type="text" id="sales_application__brand"
-                                        name="sales_application[brand]" class="form-control" placeholder="오늘의집 가구" value="">
+                                        name="sales_application[brand]" class="form-control" placeholder="오조의집 가구" value="">
                                 </div>
                             </div>
                         </div>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserMainDAO">
+
+    <!-- 브랜드 전체 상품리스트 보기 -->
+    <select id="shopItemList" resultType="userproduct">
+        SELECT po.post_id, po.post_status, po.star_ratio, po.post_name, po.whole_price*(1-po.sale_ratio/100.0) as sale_price, po.sale_ratio, 
+		po.whole_price, po.shipping_info1, po.po_category, po.po_subcate, s.company_name, pimg.photo_url, od.payment, scount, rcount
+        FROM product_posting po INNER JOIN seller s ON po.post_sellerid = s.seller_id
+        INNER JOIN (
+            SELECT photo_id, photo_postid, photo_url FROM product_image
+            WHERE (photo_id, photo_postid)
+                      IN (
+                      SELECT MIN(photo_id) AS photo_id, photo_postid
+                      FROM product_image
+                      GROUP BY photo_postid
+                  )
+        ) pimg ON po.post_id = pimg.photo_postid
+        left outer join (select od_postid, sum(payment) as payment from user_order group by od_postid) od on po.post_id = od.od_postid
+	  	left outer join (select count(sc_postid) as scount, sc_postid from user_scrap group by sc_postid) sc on po.post_id = sc_postid
+	  	left outer join (select count(review_id) as rcount, repost_id from review group by repost_id) r on po.post_id = r.repost_id
+        <where>
+        po.post_status = '판매중' and s.seller_id=#{post_sellerid}
+        	<if test="po_category != 0 and po_category != null">
+        		<trim prefix="and">
+					po.po_category=#{po_category}
+				</trim>
+        	</if>
+        	<if test="Int != 0 and Int != null">
+				<trim prefix="and">
+					po.po_subcate/100*100=#{Int}
+				</trim>
+			</if>
+			<if test="po_subcate != 0 and po_subcate != null">
+				<trim prefix="and">
+					po.po_subcate=#{po_subcate}
+				</trim>
+			</if>
+        </where>
+        <if test="orderKind == 'latestRanking' or orderKind == null">
+			order by po.post_id desc
+		</if>
+		<if test="orderKind == 'saleRanking'">
+			order by od.payment is null asc, od.payment desc
+		</if>
+		<if test="orderKind == 'popularRanking'">
+			order by scount is null asc, scount desc
+		</if>
+		<if test="orderKind == 'reviewRanking'">
+			order by rcount is null asc, rcount desc
+		</if>
+		<if test="orderKind == 'highpriceRanking'">
+			order by sale_price desc
+		</if>
+		<if test="orderKind == 'rowpriceRanking'">
+			order by sale_price
+		</if>
+        limit 12 offset #{thispage} * 12
+    </select>
+    
+    <select id="sellerInfo" resultType="seller">
+    	SELECT * FROM seller WHERE seller_id=#{post_sellerid}
+    </select>
+
+	
+    <!-- 카테고리 정보 가져오기 -->
+	<!-- 
+    <select id="shopCateList" resultType="cate">
+        select po.po_category, po.po_subcate, sc.subcate_name, c.cate_name
+        from product_posting po
+                 inner join sub_category sc on po.po_subcate = sc.subcate_code
+                 inner join category c on sc.top_catecode = c.cate_code
+
+        where po.post_sellerid = 500001;
+    </select>  -->
+
+    <!-- 브랜드 카테고리 뽑기 대 -->
+    <select id="printTopCate" resultType="ucate">
+    SELECT distinct po_category as cate_code, ca.cate_name FROM
+    product_posting po INNER JOIN category ca ON 
+    po.po_category = ca.cate_code
+	WHERE post_sellerid = #{post_sellerid} 
+	ORDER BY cate_code asc;
+	</select>
+	
+	<!-- 브랜드 카테고리 뽑기 중 -->
+	<select id="printMidCate" resultType="ucate">
+	SELECT sc.subcate_code, sc.subcate_name FROM 
+	sub_category sc INNER JOIN (
+	SELECT distinct po_subcate/100*100 AS mid FROM
+	product_posting WHERE post_sellerid = #{post_sellerid}) 
+	md ON sc.subcate_code = md.mid
+	WHERE sc.subcate_code/10000 = #{po_category};
+	</select>
+	
+	<!-- 브랜드 카테고리 뽑기 소 -->
+	<select id="printSmCate" resultType="ucate">
+	SELECT distinct po_subcate as subcate_code, sc.subcate_name 
+	FROM product_posting po
+	INNER JOIN sub_category sc ON po.po_subcate = sc.subcate_code
+	WHERE post_sellerid = #{post_sellerid} 
+	AND subcate_code/10000 = #{po_category}
+	ORDER BY po.po_subcate asc;
+	</select>
+	
+	<!-- 총 판매글 갯수 구하기 페이징 상관없이 -->
+	<select id="shopItemListCount" resultType="int">
+        select count(po.post_id) as count
+        FROM product_posting po INNER JOIN seller s ON po.post_sellerid = s.seller_id
+                                INNER JOIN (
+            SELECT photo_id, photo_postid, photo_url FROM product_image
+            WHERE (photo_id, photo_postid)
+                      IN (
+                      SELECT MIN(photo_id) AS photo_id, photo_postid
+                      FROM product_image
+                      GROUP BY photo_postid
+                  )
+        ) pimg ON po.post_id = pimg.photo_postid
+        <where>
+        po.post_status = '판매중' and s.seller_id=#{post_sellerid}
+        	<if test="po_category != 0 and po_category != null">
+        		<trim prefix="and">
+					po.po_category=#{po_category}
+				</trim>
+        	</if>
+        	<if test="Int != 0 and Int != null">
+				<trim prefix="and">
+					po.po_subcate/100*100=#{Int}
+				</trim>
+			</if>
+			<if test="po_subcate != 0 and po_subcate != null">
+				<trim prefix="and">
+					po.po_subcate=#{po_subcate}
+				</trim>
+			</if>
+		</where>
+	</select>
+	
+	<!-- 브랜드 별점 가져오기 -->
+	<select id="setBrandStarRatio" resultType="double">
+		select sum(star_ratio)/((select count(star_ratio) from product_posting 
+		where post_sellerid=#{post_sellerid} and post_status='판매중' and star_ratio > 0)+0.0) as star_ratio 
+		from product_posting where post_sellerid=#{post_sellerid} and post_status='판매중';
+	</select>
+	
+	
+    
+</mapper>

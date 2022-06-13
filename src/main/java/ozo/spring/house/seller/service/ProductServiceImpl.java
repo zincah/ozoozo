@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ozo.spring.house.seller.dao.ProductDAO;
+import ozo.spring.house.seller.dao.S_ProductDAO;
 import ozo.spring.house.seller.vo.ProductVO;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
-	ProductDAO productDAO;
+	S_ProductDAO productDAO;
 
 	@Override
 	public void insertProduct(ProductVO vo) {
@@ -45,8 +45,43 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<ProductVO> selectProductView(int vo) {
+	public List<ProductVO> selectProductView(ProductVO vo) {
 		return productDAO.selectProductView(vo);
+	}
+
+	@Override
+	public int selectListCount(ProductVO vo) {
+		return productDAO.selectListCount(vo);
+	}
+	
+	@Override
+	public void updateProductStatus(ProductVO vo) {
+		productDAO.updateProductStatus(vo);
+	}
+	
+	@Override
+	public void updateProductUpdated(ProductVO vo) {
+		productDAO.updateProductUpdated(vo);
+	}
+
+	@Override
+	public ProductVO selectSelectProduct(ProductVO vo) {
+		return productDAO.selectSelectProduct(vo);
+	}
+
+	@Override
+	public void deleteSelectProduct(ProductVO vo) {
+		productDAO.deleteSelectProduct(vo);
+	}
+	
+	@Override
+	public List<ProductVO> selectSearchProduct(ProductVO vo) {
+		return productDAO.selectSearchProduct(vo);
+	}
+	
+	@Override
+	public int selectSearchProductCount(ProductVO vo) {
+		return productDAO.selectSearchProductCount(vo);
 	}
 
 }

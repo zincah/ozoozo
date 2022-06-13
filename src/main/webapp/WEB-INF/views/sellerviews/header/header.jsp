@@ -58,7 +58,7 @@
 							aria-controls="collapseLayouts">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-columns"></i>
-							</div> 상품관리
+							</div> 상품/판매글
 							<div class="sb-sidenav-collapse-arrow">
 								<i class="fas fa-angle-down"></i>
 							</div>
@@ -67,8 +67,9 @@
 						<div class="collapse" id="collapseLayouts"
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="insertProduct.seller">상품등록</a> <a
-									class="nav-link" href="productManagement.seller">상품관리</a>
+								<a class="nav-link" href="insertProduct.seller">상품등록</a>
+								<a class="nav-link" href="productManagement.seller">상품관리</a>
+								<a class="nav-link" href="productPostingManagement.seller">판매글관리</a>
 							</nav>
 						</div>
 
@@ -83,27 +84,24 @@
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-chart-area"></i>
 							</div> 매출내역
-						</a> <a class="nav-link" href="#">
-							<div class="sb-nav-link-icon">
-								<i class="fas fa-table"></i>
-							</div> 정산내역
 						</a>
-
-						<div class="sb-sidenav-menu-heading">CS Management</div>
+						
+						<div class="sb-sidenav-menu-heading"><!-- CS Management --></div>
 						<a class="nav-link" href="#">
 							<div class="sb-nav-link-icon">
-								<i class="bi bi-pencil-square"></i>
-							</div> 고객문의
+								<!-- <i class="bi bi-pencil-square"></i> -->
+							</div> <!-- 고객문의 -->
 						</a> <a class="nav-link" href="review.seller">
 							<div class="sb-nav-link-icon">
-								<i class="bi bi-pencil-square"></i>
-							</div> 리뷰관리
+								<!-- <i class="bi bi-pencil-square"></i> -->
+							</div> <!-- 리뷰관리 -->
 						</a> <a class="nav-link" href="notice.seller">
 							<div class="sb-nav-link-icon">
-								<i class="bi bi-megaphone-fill"></i>
-							</div> 공지사항
+								<!-- <i class="bi bi-megaphone-fill"></i> -->
+							</div> <!-- 공지사항 -->
 						</a>
 					</div>
+
 				</div>
 
 				<div class="sb-sidenav-footer">

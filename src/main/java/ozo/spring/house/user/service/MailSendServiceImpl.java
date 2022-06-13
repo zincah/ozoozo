@@ -53,7 +53,7 @@ public class MailSendServiceImpl implements MailSendService {
             .append(authKey)
             .toString());
             
-            sendMail.setFrom("ioi9737@gmail.com", "包府磊");
+            sendMail.setFrom("ozohousepost@gmail.com", "包府磊");
             sendMail.setTo(email);
             sendMail.send();
         } catch (MessagingException e) {

@@ -18,6 +18,7 @@
 	rel="stylesheet" />
 <link href="resources/css/sellercss/fonts.css?after" rel="stylesheet" />
 <link href="resources/css/sellercss/styles.css" rel="stylesheet" />
+<link href="resources/css/sellercss/paging.css" rel="stylesheet" />
 <link href="resources/css/sellercss/insertProduct.css" rel="stylesheet" />
 <link href="resources/css/sellercss/seller-productManagement.css"
 	rel="stylesheet" />
@@ -41,7 +42,7 @@
 				<div class="row optionGroup1">
 					<div class="col status-name">
 						<span>전체</span> <span class="status-value"><fmt:formatNumber
-								value="${fn:length(productList)}" pattern="#,###" /></span>
+								value="${fn:length(productListView)}" pattern="#,###" /></span>
 					</div>
 					<div class="col status-name">
 						<span>판매대기</span> <span class="status-value"><fmt:formatNumber
@@ -94,25 +95,25 @@
 							<div class="search-input-box">
 								<input type="text"
 									class="form-control form-control-sm input-font"
-									id="exampleFormControlInput1" placeholder="" />
+									id="searchName" placeholder="" />
 							</div>
 							<div class="radio-productCode paddingLeft1">
 								<div class="form-check">
-									<input class="form-check-input" type="radio"
-										name="flexRadioDefault" id="flexRadioDefault1" checked /> <label
-										class="form-check-label" for="flexRadioDefault1">
+									<input class="form-check-input searchNameStatusGroup" type="radio"
+										name="searchNameStatus" id="searchNameStatus1" value="1" checked /> <label
+										class="form-check-label" for="searchNameStatus1">
 										고유상품번호 </label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio"
-										name="flexRadioDefault" id="flexRadioDefault2" /> <label
-										class="form-check-label" for="flexRadioDefault2">
+									<input class="form-check-input searchNameStatusGroup" type="radio"
+										name="searchNameStatus" id="searchNameStatus2" value="2" /> <label
+										class="form-check-label" for="searchNameStatus2">
 										판매자상품번호 </label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio"
-										name="flexRadioDefault" id="flexRadioDefault3" /> <label
-										class="form-check-label" for="flexRadioDefault3"> 상품명
+									<input class="form-check-input searchNameStatusGroup" type="radio"
+										name="searchNameStatus" id="searchNameStatus3" value="3" /> <label
+										class="form-check-label" for="searchNameStatus3"> 상품명
 									</label>
 								</div>
 							</div>
@@ -125,50 +126,50 @@
 						<div class="col-1 status-name-400">판매 상태</div>
 						<div class="col search-check-group">
 							<div class="form-check form-check-display">
-								<input class="form-check-input form-check-input-margin"
-									type="checkbox" value="" id="statusCheckAll" /> <label
-									class="form-check-label" for="statusCheck1"> 전체 </label>
+								<input class="form-check-input form-check-input-margin searchStatusGroup"
+									type="checkbox" id="statusCheckAll" name="searchStatus" value="1" /> <label
+									class="form-check-label" for="statusCheckAll"> 전체 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
-									class="form-check-input form-check-input-margin statusCheck"
-									type="checkbox" value="" id="statusCheck1" /> <label
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck1" name="searchStatus" value="2" /> <label
 									class="form-check-label" for="statusCheck1"> 판매대기 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
-									class="form-check-input form-check-input-margin statusCheck"
-									type="checkbox" value="" id="statusCheck2" /> <label
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck2" name="searchStatus" value="3" /> <label
 									class="form-check-label" for="statusCheck2"> 판매중 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
-									class="form-check-input form-check-input-margin statusCheck"
-									type="checkbox" value="" id="statusCheck3" /> <label
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck3" name="searchStatus" value="4" /> <label
 									class="form-check-label" for="statusCheck3"> 품절 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
-									class="form-check-input form-check-input-margin statusCheck"
-									type="checkbox" value="" id="statusCheck4" /> <label
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck4" name="searchStatus" value="5" /> <label
 									class="form-check-label" for="statusCheck4"> 승인대기 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
-									class="form-check-input form-check-input-margin statusCheck"
-									type="checkbox" value="" id="statusCheck5" /> <label
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck5" name="searchStatus" value="6" /> <label
 									class="form-check-label" for="statusCheck5"> 판매중지 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
-									class="form-check-input form-check-input-margin statusCheck"
-									type="checkbox" value="" id="statusCheck6" /> <label
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck6" name="searchStatus" value="7" /> <label
 									class="form-check-label" for="statusCheck6"> 판매종료 </label>
 							</div>
 							<div class="form-check form-check-display">
 								<input
-									class="form-check-input form-check-input-margin statusCheck"
-									type="checkbox" value="" id="statusCheck7" /> <label
+									class="form-check-input form-check-input-margin statusCheck searchStatusGroup"
+									type="checkbox" id="statusCheck7" name="searchStatus" value="8" /> <label
 									class="form-check-label" for="statusCheck7"> 판매금지 </label>
 							</div>
 						</div>
@@ -222,45 +223,43 @@
 								aria-label="Basic radio toggle button group">
 								<select class="form-select selectDate"
 									aria-label="Default select example" id="selectDate">
-									<!-- <option selected>대분류</option> -->
-									<option value="1">상품 등록일1</option>
-									<option value="2">상품 등록일2</option>
-									<option value="3">상품 등록일3</option>
+									<option value="1">상품 등록일</option>
+									<option value="2">상품 수정일</option>
 								</select>
 							</div>
 							<div class="radio-productCode">
 								<div class="btn-group paddingLeft1" role="group"
 									aria-label="Basic radio toggle button group">
-									<input type="radio" class="btn-check dateBtn-1" name="btnradio"
-										id="btnradio1" autocomplete="off" checked /> <label
+									<input type="radio" class="btn-check dateBtn-1 searchDateBtn" name="btnradio"
+										id="btnradio1" autocomplete="off"  /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio1">오늘</label>
 
-									<input type="radio" class="btn-check dateBtn-2" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-2 searchDateBtn" name="btnradio"
 										id="btnradio2" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio2">3일</label>
 
-									<input type="radio" class="btn-check dateBtn-3" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-3 searchDateBtn" name="btnradio"
 										id="btnradio3" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio3">1주일</label>
 
-									<input type="radio" class="btn-check dateBtn-4" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-4 searchDateBtn" name="btnradio"
 										id="btnradio4" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio4">1개월</label>
 
-									<input type="radio" class="btn-check dateBtn-5" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-5 searchDateBtn" name="btnradio"
 										id="btnradio5" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio5">3개월</label>
 
-									<input type="radio" class="btn-check dateBtn-6" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-6 searchDateBtn" name="btnradio"
 										id="btnradio6" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio6">6개월</label>
 
-									<input type="radio" class="btn-check dateBtn-7" name="btnradio"
+									<input type="radio" class="btn-check dateBtn-7 searchDateBtn" name="btnradio"
 										id="btnradio7" autocomplete="off" /> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio7">1년</label>
 
-									<input type="radio" class="btn-check dateBtn-8" name="btnradio"
-										id="btnradio8" autocomplete="off" /> <label
+									<input type="radio" class="btn-check dateBtn-8 searchDateBtn" name="btnradio"
+										id="btnradio8" autocomplete="off" checked/> <label
 										class="btn btn-outline-secondary dateBtn" for="btnradio8">전체</label>
 								</div>
 							</div>
@@ -274,12 +273,8 @@
 				<div class="container container-option container-option-topPadding">
 					<div class="row optionGroup1">
 						<div class="col search-submitBtn">
-							<div class="d-grid gap-2">
-								<button class="btn btn-secondary submitBtn" type="button"
-									id="submitBtn">검색</button>
-							</div>
-							<div class="d-grid gap-2">
-								<button class="btn btn-outline-secondary initBtn" type="button">초기화</button>
+							<div class="d-grid gap-2"> <!-- 비강조 클래스 : btn-outline-secondary -->
+								<button class="btn btn-secondary initBtn" type="button">초기화</button>
 							</div>
 						</div>
 					</div>
@@ -296,16 +291,6 @@
 					class="content-view-title-text2">건)</span>
 			</div>
 			<div class="content-view-title-right">
-				<div class="btn-group" role="group"
-					aria-label="Basic radio toggle button group">
-					<select class="form-select selectAlign"
-						aria-label="Default select example">
-						<!-- <option selected>대분류</option> -->
-						<option value="1">상품등록일순</option>
-						<option value="2">상품명순</option>
-						<option value="3">상품번호순</option>
-					</select>
-				</div>
 				<div class="d-grid gap-2">
 					<button class="btn btn-secondary excelDownBtn" type="button">엑셀다운</button>
 				</div>
@@ -322,9 +307,10 @@
 						aria-labelledby="dropdownMenuButton1">
 						<li><h6 class="dropdown-header">상품 설정 일괄 변경</h6></li>
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-							data-bs-target="#modal-status-select" id="productStatusChange">판매상태 변경</a></li>
+							data-bs-target="#modal-status-select" id="productStatusChange">판매상태
+								변경</a></li>
 						<li><a class="dropdown-item" href="#" data-bs-toggle="modal"
-							data-bs-target="#modal-delete">상품 삭제</a></li>
+							data-bs-target="#modal-delete" id="productDelete">상품 삭제</a></li>
 					</ul>
 				</div>
 			</div>
@@ -342,15 +328,16 @@
 					<div class="modal-body modal-status-select-product">
 						<div class="modal-status-select-product-num">
 							<span>선택된 상품 수 : </span> <span
-								class="modal-status-select-product-num-value productNum">0</span> <span>개</span>
+								class="modal-status-select-product-num-value productNum">0</span>
+							<span>개</span>
 						</div>
 						<div class="modal-status-select">
 							<div class="btn-group modal-status-select-btn-group" role="group"
 								aria-label="Basic radio toggle button group">
 								<select class="form-select modal-status-select-option"
-									aria-label="Default select example">
-									<option value="1">판매중</option>
-									<option value="2">판매대기</option>
+									aria-label="Default select example" id="statusOption">
+									<option value="1">판매대기</option>
+									<option value="2">판매중</option>
 									<option value="3">품절</option>
 									<option value="4">판매중지</option>
 									<option value="5">판매종료</option>
@@ -362,7 +349,8 @@
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">취소</button>
 						<button type="button"
-							class="btn btn-primary modal-status-select-submit-button" id="pscSubmitBtn">변경</button>
+							class="btn btn-primary modal-status-select-submit-button"
+							id="pscSubmitBtn">변경</button>
 					</div>
 				</div>
 			</div>
@@ -380,7 +368,7 @@
 					<div class="modal-body modal-status-select-product">
 						<div class="modal-delete-product-num">
 							<span>선택된 상품 수 : </span> <span
-								class="modal-delete-product-num-value">0</span> <span>개</span>
+								class="modal-delete-product-num-value productNum">0</span> <span>개</span>
 						</div>
 						<div class="modal-delete-select-product">
 							<div class="accordion accordion-flush" id="accordionFlushExample">
@@ -409,27 +397,17 @@
 												<table class="table table-box-style">
 													<thead>
 														<tr class="content-table-title">
-															<td class="content-table-title-text option-line">No.</td>
 															<td class="content-table-title-text option-line">상품고유번호</td>
 															<td class="content-table-title-text option-line">판매자상품코드</td>
 															<td class="content-table-title-text option-line">상품명</td>
 															<td class="content-table-title-text option-line">판매가</td>
 															<td class="content-table-title-text option-line">카테고리</td>
 															<td class="content-table-title-text option-line">판매상태</td>
+															<td class="content-table-title-text option-line">재고</td>
 														</tr>
 													</thead>
-													<tbody>
-														<!-- for -->
-														<tr class="content-table-content">
-															<td class="content-table-content-text option-line">1</td>
-															<td class="content-table-content-text option-line state0">0654367</td>
-															<td class="content-table-content-text option-line">001</td>
-															<td class="content-table-content-text option-line">동준이의
-																핫핑크 미니스커트</td>
-															<td class="content-table-content-text option-line">12,000</td>
-															<td class="content-table-content-text option-line">가구</td>
-															<td class="content-table-content-text option-line">판매중</td>
-														</tr>
+													<tbody id="productDeleteView">
+														
 													</tbody>
 												</table>
 											</div>
@@ -443,32 +421,44 @@
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">취소</button>
 						<button type="button"
-							class="btn btn-primary modal-status-select-submit-button">삭제</button>
+							class="btn btn-primary modal-status-select-submit-button"
+							id="pdSubmitBtn">삭제</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<table class="table table-hover table-box-style">
+		<table class="table table-hover table-box-style" id="productListTable">
 			<thead>
 				<tr class="content-table-title">
-					<td class="content-table-title-text option-line"><input
-						class="form-check-input" type="checkbox" value="" id="allCheck" /></td>
-					<td class="content-table-title-text option-line">상품고유번호</td>
-					<td class="content-table-title-text option-line">판매자상품코드</td>
-					<td class="content-table-title-text option-line">상품명</td>
-					<td class="content-table-title-text option-line">판매가</td>
-					<td class="content-table-title-text option-line">카테고리</td>
-					<td class="content-table-title-text option-line">판매상태</td>
-					<td class="content-table-title-text option-line">재고</td>
-					<td class="content-table-title-text option-line">등록일</td>
-					<td class="content-table-title-text option-line">수정일</td>
+					<td class="content-table-title-text option-line" style="width : 1rem">
+						<input type="hidden" id="findPage" value=1>
+						<input class="form-check-input" type="checkbox" value="" id="allCheck" />
+					</td>
+					<td class="content-table-title-text option-line" style="width : 5rem">상품고유번호</td>
+					<td class="content-table-title-text option-line" style="width : 5rem">판매자상품코드</td>
+					<td class="content-table-title-text option-line" style="width : 20rem">상품명</td>
+					<td class="content-table-title-text option-line" style="width : 3rem">판매가</td>
+					<td class="content-table-title-text option-line" style="width : 3rem">카테고리</td>
+					<td class="content-table-title-text option-line" style="width : 3rem">판매상태</td>
+					<td class="content-table-title-text option-line" style="width : 2rem">재고</td>
+					<td class="content-table-title-text option-line" style="width : 5rem">등록일</td>
+					<td class="content-table-title-text option-line" style="width : 5rem">수정일</td>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="productList">
+				<input type="hidden" value="${totalcount}" id="totalcount">
+				<input type="hidden" value="${pageMaker.getPageNum()}" id="pageMakerGetPageNum">
+				<input type="hidden" value="${pageMaker.getAmount()}" id="pageMakerGetAmount">
 				<c:forEach var="productListView" items="${productListView}">
 					<tr class="content-table-content content-hover">
-						<td class="content-table-content-text option-line"><input
-							class="form-check-input check" type="checkbox" value="" /></td>
+						<td class="content-table-content-text option-line checkTd">
+							<c:if test="${productListView.getStatus() ne '승인대기'}">
+								<input class="form-check-input check" type="checkbox" value="" />
+							</c:if>
+							<c:if test="${productListView.getStatus() eq '승인대기'}">
+								<input class="form-check-input" type="checkbox" value="" disabled />
+							</c:if>
+						</td>
 						<td class="content-table-content-text option-line state0">${productListView.getProduct_id()}</td>
 						<td class="content-table-content-text option-line">${productListView.getProduct_seller_code()}</td>
 						<td class="content-table-content-text option-line">${productListView.getProduct_title()}</td>
@@ -487,6 +477,15 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<div class="pagi mt-3">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <div class="page-layer">
+                
+                </div>
+              </ul>
+            </nav>
+    	</div>
 	</div>
 	<!-- footer -->
 	<footer class="py-4 bg-light mt-auto">
@@ -510,7 +509,7 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
 	crossorigin="anonymous"></script>
 <script
-	src="resources/js/sellerjs/seller-productManagement.js?t=<%=System.currentTimeMillis() %>"></script>
+	src="resources/js/sellerjs/seller-productManagement.js?t=<%=System.currentTimeMillis()%>"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"
 	crossorigin="anonymous"></script>

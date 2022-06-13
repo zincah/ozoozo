@@ -12,5 +12,12 @@ public interface ProductService {
 	public void insertDetail(ProductVO vo);
 	public void insertPhoto(ProductVO vo);
 	public List<ProductVO> selectProduct(int vo);
-	public List<ProductVO> selectProductView(int vo);
+	public List<ProductVO> selectProductView(ProductVO pvo);
+	public int selectListCount(ProductVO pvo);
+	public void updateProductStatus(ProductVO vo);
+	public void updateProductUpdated(ProductVO vo);
+	public ProductVO selectSelectProduct(ProductVO vo);
+	public void deleteSelectProduct(ProductVO vo);
+	public List<ProductVO> selectSearchProduct(ProductVO vo);
+	public int selectSearchProductCount(ProductVO vo);
 }

@@ -9,7 +9,7 @@
 }
 
 .paddingLeft1 {
-	padding-left: 0;
+	padding-left: 1rem;
 }
 
 .selectState {
@@ -23,3 +23,96 @@
 .input-font {
 	height: 2rem;
 }
+
+/* 아연 수정 */
+.form-custom-ay{
+	display: flex;
+    align-items: flex-end;
+}
+
+.setting-button {
+    margin-left: 0.4rem;
+    margin-bottom: 0.1rem;
+}
+
+.settingBtn {
+    background-color: transparent;
+    border: 0px;
+}
+
+.dropdown-menu.show {
+    display: block;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.dropdown-header{
+	font-size: 13px;
+}
+
+.dropdown-item{
+	font-size: 13px;
+}
+
+/* modal */
+.modal-title{
+	font-size: 16px;
+}
+
+.modal-dialog-small {
+    max-width: 400px;
+    margin: 1.75rem auto;
+}
+
+.modal-status-select-product {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-status-select-product-num{
+    padding-bottom: 0.3rem;
+}
+
+.modal-status-select-product-num>span{
+    font-size:11px;
+}
+
+.modal-status-select-product-num-value{
+    color: #ff778e;
+}
+
+.modal-status-select-btn-group {
+    display: block;
+}
+
+.modal-status-select-option {
+    font-size: 11px;
+    height: 2rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+    color: #444;
+    width: 100%;
+}
+
+.modal-status-select-submit-button {
+    color: #fff;
+    background-color: #ff778e;
+    border: 1px solid #ff778e;
+}
+
+.modal-status-select-submit-button:hover {
+    color: #fff;
+    background-color: #ce596d;
+    border: 1px solid #ce596d;
+}
+
+.breadcrumb2 {
+	display: flex;
+    flex-wrap: wrap;
+    padding: 0 0 1rem 0;
+    margin-bottom: 0.2rem;
+    list-style: none;
+    justify-content: space-between;
+}
+

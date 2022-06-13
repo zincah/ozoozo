@@ -30,6 +30,8 @@ function searchBtnEvent() {
 	}
 }
 
+
+
 /* input Date JS */
 // Get dateBtn
 var dateBtn1 = document.getElementsByClassName("dateBtn-1")[0];
@@ -59,7 +61,7 @@ dateBtn7.addEventListener("click", dateBtn7Event);
 dateBtn8.addEventListener("click", dateBtn8Event);
 
 // Window open function
-window.open = dateBtn1Event();
+window.open = dateBtn8Event();
 
 // Function
 function dateBtn1Event() {
@@ -109,18 +111,13 @@ function dateBtn8Event() {
   endDate.valueAsDate = today;
 }
 
+
+
 /* 상세검색 초기화 클릭 JS */
-// Get initBtn
-var initBtn = document.getElementsByClassName("initBtn")[0];
-
-// Listen for click
-initBtn.addEventListener("click", initBtnEvent);
-
-// Function
-function initBtnEvent() {
+$(".initBtn").click(function () {
 	//검색어 초기화
-	document.getElementById("exampleFormControlInput1").value = "";
-	document.getElementById("flexRadioDefault1").checked = true;
+	$("#searchName").val("");
+	$("#searchNameStatus1").prop("checked", true);
 
 	//판매상태 초기화
 	$("#statusCheckAll").prop("checked", false);
@@ -134,11 +131,14 @@ function initBtnEvent() {
 	$("#small-select").attr("disabled", true);
 
 	//기간 초기화
-	document.getElementById("selectDate").value = "1";
-	document.getElementById("btnradio1").checked = true;
-	startDate.valueAsDate = today;
-	endDate.valueAsDate = today;
-}
+	$("#selectDate").val("1");
+	$("#btnradio8").prop("checked", true);
+	dateBtn8Event();
+	
+	getProductData();
+});
+
+
 
 /* 상품 삭제 모달 이벤트 */
 var modalDelListBtn = document.getElementsByClassName("modal-product-list")[0];
@@ -156,6 +156,8 @@ function modalDelListBtnEvent() {
 		modalDelListBtnStatus = 1;
 	}
 }
+
+
 
 /* 검색-판매상태 체크박스 */
 // 전체 체크박스 체크 여부에 따른 하위 체크박스들 상태 변경
@@ -176,6 +178,8 @@ $(".statusCheck").change(function () {
     $("#statusCheckAll").prop("checked", false);
   }
 });
+
+
 
 /* 상품 선택 체크박스 */
 // 전체 체크박스 체크 여부에 따른 하위 체크박스들 상태 변경
@@ -205,12 +209,314 @@ $(".check").change(function () {
   }
 });
 
+
+
 /* 판매상태 변경 기능 */
-// 모달 내 선택된 상품 수 변경
+// 모달 내 선택된 상품 수 표시
 $("#productStatusChange").click(function () {
 	$(".productNum").text($(".check:checked").length);
 });
+
 // 판매상태 변경 처리
 $("#pscSubmitBtn").click(function () {
+
+	// 선택된 상품의 product_id 값 배열로 받아오기
+	var pscList = new Array();
+	var index = 0;
+	$(".check:checked").each(function () {
+		pscList[index] = $(this).parent().next().text();
+		++index;
+	});
+	
+	// 상태 옵션값 받아오기
+	var statusOption = $("#statusOption option:selected").text();
+	
+	// 데이터 모으기
+	var allData = {"pscList":pscList, "statusOption":statusOption};
+	
+	// ajax 통신
+	$.ajax({
+		url : "productStatusUpdate.seller",
+		type : "POST",
+		data : allData,
+		success : function(res) {
+			alert("판매상태 변경 완료");
+			document.location.reload(); // 페이지 새로고침
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("판매상태 변경 실패");
+		}
+	});
+});
+
+
+
+/* 상품삭제 기능 */
+// 모달 내 선택된 상품 수 표시 & 선택된 상품 리스트 띄우기
+$("#productDelete").click(function () {
+	$(".productNum").text($(".check:checked").length);
+	
+	// 선택<된 상품의 product_id 값 배열로 받아오기 (DB 처리용)
+	var pdList = new Array();
+	var index = 0;
+	$(".check:checked").each(function () {
+		pdList[index] = $(this).parent().next().text();
+		++index;
+	});
+	
+	// ajax 통신
+	$.ajax({
+		url : "selectProductList.seller",
+		type : "POST",
+		dataType : "html",
+		data : JSON.stringify(pdList),
+		contentType : "application/json",
+		success : function(res) {
+			$("#productDeleteView").html(res);
+		},
+		error : function(request, status, error) {
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	});
 	
 });
+
+// 삭제버튼 클릭 후 상품 삭제 처리
+$("#pdSubmitBtn").click(function () {
+
+	// 선택된 상품의 product_id 값 배열로 받아오기 (DB 처리용)
+	var pdList = new Array();
+	var index = 0;
+	$(".check:checked").each(function () {
+		pdList[index] = $(this).parent().next().text();
+		++index;
+	});
+	
+	// ajax 통신
+	$.ajax({
+		url : "selectProductDelete.seller",
+		type : "POST",
+		data : JSON.stringify(pdList),
+		contentType : "application/json",
+		success : function(res) {
+			alert("상품 삭제 완료");
+			document.location.reload(); // 페이지 새로고침
+		},
+		error : function(request, status, error) {
+			alert("상품 삭제 실패");
+		}
+	});
+});
+
+
+/* 상품 검색 기능 */
+$(document).ready(function () {	
+	// 검색어 값 받아오기
+	$("#searchName").keyup(function() {
+		getProductData();
+	});
+	
+	// 검색어 조건 값 받아오기
+	$(".searchNameStatusGroup").change(function() {
+		getProductData();
+	});
+	
+	// 판매 상태 값 받아오기
+	$(".searchStatusGroup").change(function() {
+		getProductData();
+	});
+	
+	// 카테고리(대분류) 값 받아오기
+	$("#category").change(function() {
+		getProductData();
+	});
+	
+	// 카테고리(중분류) 값 받아오기
+	$("#middle-select").change(function() {
+		getProductData();
+	});
+	
+	// 카테고리(소분류) 값 받아오기
+	$("#small-select").change(function() {
+		getProductData();
+	});
+	
+	// 기간 조건 값 받아오기
+	$("#selectDate").change(function() {
+		getProductData();
+	});
+	
+	// 기간 값 받아오기
+	$(".searchDateBtn").change(function() {
+		getProductData();
+	});
+	$(".startDate").change(function() {
+		getProductData();
+	});
+	$(".endDate").change(function() {
+		getProductData();
+	});
+	
+	// 페이징 - setpage
+	var pageNum = $("#pageMakerGetPageNum").val();
+	setPage(pageNum);
+});
+
+// 검색 처리
+function getProductData() {
+	
+	// 상품 선택 checkBox 초기화
+	$("#allCheck").prop("checked", false);
+	
+	// 페이징 - page 정보
+	var thispage = $("#findPage").val();
+	console.log(thispage);
+	
+	// 값 받아오기
+	var searchName = $("#searchName").val();
+	var searchNameStatus = $("input[name='searchNameStatus']:checked").val();
+	var searchStatus = [];
+	$("input:checkbox[name='searchStatus']:checked").each(function(i) {
+		searchStatus.push($(this).val());
+	});
+	var category = $("#category").val();
+	var middleSelect = $("#middle-select").val();
+	var smallSelect = $("#small-select").val();
+	var selectDate = $("#selectDate").val();
+	var startDate = $(".startDate").val();
+	var endDate = $(".endDate").val();
+	
+	// 값 묶어서 저장
+	var searchMap = {
+		"searchName" : searchName,
+		"searchNameStatus" : searchNameStatus,
+		"category" : category,
+		"middleSelect" : middleSelect,
+		"smallSelect" : smallSelect,
+		"selectDate" : selectDate,
+		"startDate" : startDate,
+		"endDate" : endDate,
+	};
+	
+	var datas = {"searchMap" : searchMap, "searchStatus" : searchStatus};
+
+	// 데이터 처리 요청
+	$.ajax({
+  		url:'getSearchProductList.seller',
+  		type:'post',
+  		data: JSON.stringify(datas),
+  		contentType : 'application/json; charset=UTF-8',
+  		dataType : 'html',
+  		success : function(resp){
+			$("#productList").empty();
+  			$("#productList").html(resp);
+			setPage(1);
+  		}
+  	});
+}
+
+function setPage(pageNum){
+    		
+	var total = $("#totalcount").val();
+	var amount = $("#pageMakerGetAmount").val();
+
+	var endPage = Math.ceil(pageNum/10.0)*10;
+	var startPage = endPage - 9;
+
+	if(total == 0){
+		var realEnd = 1;
+	}else{
+		var realEnd = Math.ceil((total*1.0)/amount);
+	}
+
+    if(realEnd < endPage){
+    	endPage = realEnd;
+    }
+    
+    var prev = startPage > 1;
+    var next = endPage < realEnd; // 쓸지안쓸지
+    
+    $(".page-layer").html("");
+    
+	for(var i=startPage; i<=endPage; i++){
+		
+		if(pageNum == i){
+			var li = '<li class="page-item active"><a class="page-link" href="'+i+'">'+i+'</a></li>';
+		}else{
+			var li = '<li class="page-item"><a class="page-link" href="'+i+'">'+i+'</a></li>';
+		}
+		
+		$(".page-layer").append(li);
+
+	}
+	
+	if(endPage == 1){
+		$(".page-layer").hide();
+		$(".page-outer").hide();
+	}else{
+		$(".page-layer").show();
+		$(".page-outer").show();
+	}
+	
+	// paging a link click
+	$(".page-item a").on("click", function(e){
+
+		e.preventDefault();
+		var pageNum = $(this).attr("href");
+		$("#findPage").val(pageNum);
+		movepage(pageNum);
+	});
+}
+
+// page 이동
+function movepage(pageNum){
+	
+	// 상품 선택 checkBox 초기화
+	$("#allCheck").prop("checked", false);
+	
+	// 페이징 - page 정보
+	var thispage = $("#findPage").val();
+	
+	// 값 받아오기
+	var searchName = $("#searchName").val();
+	var searchNameStatus = $("input[name='searchNameStatus']:checked").val();
+	var searchStatus = [];
+	$("input:checkbox[name='searchStatus']:checked").each(function(i) {
+		searchStatus.push($(this).val());
+	});
+	var category = $("#category").val();
+	var middleSelect = $("#middle-select").val();
+	var smallSelect = $("#small-select").val();
+	var selectDate = $("#selectDate").val();
+	var startDate = $(".startDate").val();
+	var endDate = $(".endDate").val();
+	
+	// 값 묶어서 저장
+	var searchMap = {
+		"searchName" : searchName,
+		"searchNameStatus" : searchNameStatus,
+		"category" : category,
+		"middleSelect" : middleSelect,
+		"smallSelect" : smallSelect,
+		"selectDate" : selectDate,
+		"startDate" : startDate,
+		"endDate" : endDate,
+		"pageNum" : pageNum
+	};
+	
+	var datas = {"searchMap" : searchMap, "searchStatus" : searchStatus};
+
+	// 데이터 처리 요청
+	$.ajax({
+  		url:'movePaging.seller',
+  		type:'post',
+  		data: JSON.stringify(datas),
+  		contentType : 'application/json; charset=UTF-8',
+  		dataType : 'html',
+  		success : function(resp){
+			$("#productList").empty();
+  			$("#productList").html(resp);
+			setPage(pageNum);
+  		}
+  	});
+}

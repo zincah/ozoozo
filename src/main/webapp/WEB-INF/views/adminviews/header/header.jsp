@@ -4,7 +4,7 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.jsp">Admin Page</a>
+        <a class="navbar-brand ps-3" href="/house/index.admin">Admin Page</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 class="fas fa-bars"></i></button>
@@ -37,11 +37,11 @@
 
                         <div class="sb-sidenav-menu-heading">seller Management</div>
 
-
+						<!-- 
                         <a class="nav-link" href="information.admin">
                             <div class="sb-nav-link-icon"><i class="bi bi-megaphone-fill"></i></div>
                             공지사항
-                        </a>
+                        </a> -->
                         
                         <a class="nav-link collapsed" href="companyManagement.admin">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
@@ -53,11 +53,12 @@
                             상품등록관리
 
                         </a>
+                        <!-- 
                         <a class="nav-link collapsed" href="reviewManagement.admin">
                             <div class="sb-nav-link-icon"><i class="bi bi-exclamation-circle"></i></div>
                             리뷰신고관리
 
-                        </a>
+                        </a> -->
 
 
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
@@ -85,25 +86,18 @@
 
 
 
-
-
-
-
                         <div class="sb-sidenav-menu-heading">Sales Management</div>
                         <a class="nav-link" href="salesStatus.admin">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             매출현황
                         </a>
-                        <a class="nav-link" href="calculateManagement.admin">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            정산관리
-                        </a>
 
                         <div class="sb-sidenav-menu-heading">CS Management</div>
+                        <!-- 
                         <a class="nav-link" href="clientInformation.admin">
                             <div class="sb-nav-link-icon"><i class="bi bi-info-square-fill"></i></div>
                             고객센터 공지사항
-                        </a>
+                        </a> -->
                         <a class="nav-link" href="memberManagement.admin">
                             <div class="sb-nav-link-icon">
                                 <i class="bi bi-person-video2"></i>
@@ -115,7 +109,7 @@
                             </div>
                             쿠폰발급
                         </a>
-                        <a class="nav-link" href="eventManagement.admin">
+                        <a class="nav-link" href="m_eventManagement.admin">
                             <div class="sb-nav-link-icon"><i class="bi bi-calendar3-event"></i></div>
                             이벤트관리
                         </a>
