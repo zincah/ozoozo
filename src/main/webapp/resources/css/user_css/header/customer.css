@@ -262,6 +262,7 @@ ol, ul {
     line-height: 28px;
 }
 .faq__contents__item__answer, .faq__contents__item__question {
+	
     padding-left: 20px;
     
 }
@@ -297,13 +298,19 @@ element.style {
     position: relative;
     line-height: 28px;
     padding-top: 30px;
-    transition: .2s ease;
+    
     box-sizing: content-box;
-    white-space: pre-wrap;
+
 }
 .faq__contents__item__answer:before {
     content: "A";
 }
+.active{
+	max-height: none;
+	opacity:none;
+	padding-top: none;
+}
+
 @media (min-width: 768px){
 .customer-center__contact--mobile {
     display: none;

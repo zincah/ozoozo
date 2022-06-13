@@ -20,5 +20,10 @@ public class CategoryVO {
 	private int depth;
 	private String subcate_name;
 	private int top_catecode;
+	
+	
+	// filter check
+	private int checkfid;
+	
 
 }

@@ -4,7 +4,127 @@
 
 <mapper namespace="ReviewDAO">
 
+	<!-- 리뷰 쓸 구매확정 목록 -->
+	<select id="listofobject" resultType="HashMap">
+		select uo.order_id, uo.od_postid, uo.seller_id, uo.user_num, uo.order_status, 
+		uo.product_id, op.*, po.post_name, s.company_name, photo.photo_url 
+		from user_order uo
+		inner join product_option op on uo.product_id = op.op_productid
+		inner join product_posting po on uo.od_postid = po.post_id 
+		inner join (select seller_id as sid, company_name from seller) s on s.sid = uo.seller_id
+		inner join (
+			select photo_id, photo_postid, photo_url from product_image 
+		         where (photo_id, photo_postid) 
+		         in (
+		            select MIN(photo_id) as photo_id, photo_postid
+		            from product_image 
+		            group by photo_postid 
+		         )
+		) photo on uo.od_postid = photo.photo_postid
+		where user_num=#{user_num} and order_status='구매확정' and review_status='false'
+		order by uo.order_date;
+	</select>
+	
+	<!-- 리뷰버튼 눌렀을 때 셀렉트 -->
+	<select id="getReviewInfo" resultType="HashMap">
+		select uo.order_id, uo.od_postid, uo.seller_id, uo.user_num, uo.order_status, 
+		uo.product_id, op.*, po.post_name, s.company_name, photo.photo_url 
+		from user_order uo
+		inner join product_option op on uo.product_id = op.op_productid
+		inner join product_posting po on uo.od_postid = po.post_id 
+		inner join (select seller_id as sid, company_name from seller) s on s.sid = uo.seller_id
+		inner join (
+			select photo_id, photo_postid, photo_url from product_image 
+		         where (photo_id, photo_postid) 
+		         in (
+		            select MIN(photo_id) as photo_id, photo_postid
+		            from product_image 
+		            group by photo_postid 
+		         )
+		) photo on uo.od_postid = photo.photo_postid
+		where user_num=#{user_num} and order_status='구매확정' and order_id=#{order_id}
+		order by uo.order_date;
+	</select>
+	
+	<!-- 리뷰 등록 -->
+	<insert id="insertReview" parameterType="review">
+		insert into review (reuser_num, reproduct_id, reseller_id, rating,
+		review_image, recontent, repost_id) values (#{reuser_num}, #{reproduct_id},
+		#{reseller_id}, #{rating}, #{review_image}, #{recontent}, #{repost_id});
+	</insert>
+	
+	<!-- 리뷰 등록시에 주문 테이블에서 리뷰 썼다고 change  -->
+	<update id="changeReviewStatus" parameterType="review">
+		update user_order set review_status=true where order_id=#{order_id};
+	</update>
+	
+	
+	<!-- review 쓰면 포인트 500 -->
+	<update id="changeUserPoint" parameterType="review">
+		update user_table set 
+		reccode=500+(select reccode from user_table where user_num=#{reuser_num})
+		where user_num=#{reuser_num};
+	</update>
+	
+	<!-- 리뷰 등록시에 product-posting table 별점 바꿔주는 거 -->
+	<update id="changeStarRatio" parameterType="review">
+		update product_posting set star_ratio = 
+		(select sum(rating) from review where repost_id=#{repost_id})/((select count(rating) from review where repost_id=#{repost_id})+0.0)
+		where post_id=#{repost_id};
+	</update>
+	
+	<!-- 내 리뷰 보기 -->
+	<select id="selectMyReview" resultType="HashMap">
+		select re.*, s.company_name, po.post_name, op.* from review re 
+		inner join seller s on s.seller_id = reseller_id
+		inner join product_posting po on re.repost_id = po.post_id 
+		inner join product_option op on re.reproduct_id = op.op_productid
+		where reuser_num=#{reuser_num} order by review_id desc;
+	</select> 
+	
+	<!-- 리뷰 수정하기 위해서 정보 가져오기 -->
+	<select id="selectMyReviewOne" resultType="HashMap">
+		select re.*, s.company_name, po.post_name, op.*, photo.photo_url from review re 
+		inner join seller s on s.seller_id = reseller_id
+		inner join product_posting po on re.repost_id = po.post_id 
+		inner join product_option op on re.reproduct_id = op.op_productid
+		inner join (
+					select photo_id, photo_postid, photo_url from product_image 
+				         where (photo_id, photo_postid) 
+				         in (
+				            select MIN(photo_id) as photo_id, photo_postid
+				            from product_image 
+				            group by photo_postid 
+				         )
+				) photo on re.repost_id = photo.photo_postid
+		where review_id = #{review_id};
+	</select>
+	
+	<update id="updateMyReview" parameterType="review">
+		update review set rating=#{rating},review_image=#{review_image},recontent=#{recontent}
+		where review_id=#{review_id}
+	</update>
+	
+	<!-- 상세페이지 리뷰 -->
+	<select id="getReviewTODetailPage" resultType="review">
+		select re.*, ut.nickname, ut.user_img, po.* from review re 
+		inner join user_table ut on re.reuser_num = ut.user_num
+		inner join product_option po on po.op_productid = re.reproduct_id
+		where repost_id = #{repost_id};
+	</select>
+	
+	<!-- 도움이돼요 -->
+	<update id="updateLiked">
+		update review set liked=(select liked from review where review_id=#{review_id})+1 
+		where review_id=#{review_id};
+	</update>  
+	
+	<select id="getLikedSu" resultType="int">
+		select liked from review where review_id = #{review_id};
+	</select>
 
+	
+	
 
 </mapper>
 

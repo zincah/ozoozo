@@ -58,7 +58,7 @@
 							aria-controls="collapseLayouts">
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-columns"></i>
-							</div> 상품관리
+							</div> 상품/판매글
 							<div class="sb-sidenav-collapse-arrow">
 								<i class="fas fa-angle-down"></i>
 							</div>
@@ -67,8 +67,9 @@
 						<div class="collapse" id="collapseLayouts"
 							aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" href="insertProduct.seller">상품등록</a> <a
-									class="nav-link" href="productManagement.seller">상품관리</a>
+								<a class="nav-link" href="insertProduct.seller">상품등록</a>
+								<a class="nav-link" href="productManagement.seller">상품관리</a>
+								<a class="nav-link" href="productPostingManagement.seller">판매글관리</a>
 							</nav>
 						</div>
 
@@ -83,31 +84,28 @@
 							<div class="sb-nav-link-icon">
 								<i class="fas fa-chart-area"></i>
 							</div> 매출내역
-						</a> <a class="nav-link" href="#">
-							<div class="sb-nav-link-icon">
-								<i class="fas fa-table"></i>
-							</div> 정산내역
 						</a>
-
-						<div class="sb-sidenav-menu-heading">CS Management</div>
+						
+						<div class="sb-sidenav-menu-heading"><!-- CS Management --></div>
 						<a class="nav-link" href="#">
 							<div class="sb-nav-link-icon">
-								<i class="bi bi-pencil-square"></i>
-							</div> 고객문의
+								<!-- <i class="bi bi-pencil-square"></i> -->
+							</div> <!-- 고객문의 -->
 						</a> <a class="nav-link" href="review.seller">
 							<div class="sb-nav-link-icon">
-								<i class="bi bi-pencil-square"></i>
-							</div> 리뷰관리
+								<!-- <i class="bi bi-pencil-square"></i> -->
+							</div> <!-- 리뷰관리 -->
 						</a> <a class="nav-link" href="notice.seller">
 							<div class="sb-nav-link-icon">
-								<i class="bi bi-megaphone-fill"></i>
-							</div> 공지사항
+								<!-- <i class="bi bi-megaphone-fill"></i> -->
+							</div> <!-- 공지사항 -->
 						</a>
 					</div>
+
 				</div>
 
 				<div class="sb-sidenav-footer">
-					<div class="shopName">${companyname}</div>
+					<div class="shopName">${seller.getCompany_name()}</div>
 					<div class="signDate">
 						입점일 : ${entrydate}</div>
 				</div>
@@ -116,7 +114,7 @@
 		<!-- 주문상세 Modal -->
 		<div class="modal fade" id="modal-view" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-dialog modal-dialog-centered modal-dialog-shopinfo">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">쇼핑몰 정보</h5>
@@ -130,9 +128,9 @@
 									class="container container-option container-option-topPadding bottomline">
 									<div class="row optionGroup1">
 										<div class="col-3 view-title">상호명</div>
-										<div class="col">${companyname}</div>
+										<div class="col">${seller.getCompany_name()}</div>
 										<div class="col-3 view-title-last">대표이사</div>
-										<div class="col">${representative}</div>
+										<div class="col">${seller.getRepresentative()}</div>
 									</div>
 								</div>
 							</div>
@@ -142,8 +140,8 @@
 									<div class="row optionGroup1">
 										<div class="col-3 view-title">주소</div>
 										<div class="col">
-											[${registration_num}]
-											${address}</div>
+											[우편번호 들어가는곳]
+											${seller.getAddress()}</div>
 									</div>
 								</div>
 							</div>
@@ -152,9 +150,9 @@
 									class="container container-option container-option-topPadding bottomline">
 									<div class="row optionGroup1">
 										<div class="col-3 view-title">대표 전화번호</div>
-										<div class="col">${shoptell}</div>
+										<div class="col">${seller.getShop_tell()}</div>
 										<div class="col-3 view-title-last">대표 이메일</div>
-										<div class="col">${email}</div>
+										<div class="col">${seller.getEmail()}</div>
 									</div>
 								</div>
 							</div>
@@ -164,6 +162,8 @@
 									<div class="row optionGroup1">
 										<div class="col-3 view-title">입점일</div>
 										<div class="col">${entrydate}</div>
+										<div class="col-3 view-title-last">사업자등록번호</div>
+										<div class="col">${seller.getRegistration_num()}</div>
 									</div>
 								</div>
 							</div>

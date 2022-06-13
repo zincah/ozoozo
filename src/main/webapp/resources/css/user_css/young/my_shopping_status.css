@@ -146,7 +146,7 @@ textarea {
 .button--color-blue-light-very-more {
     background-color: #e8f4fb;
     border-color: #e8f4fb;
-    color: #35c5f0;
+    color: #ff778e;
 }
 
 .button {
@@ -256,7 +256,7 @@ textarea {
 .button--color-blue-light-very-more {
     background-color: #e8f4fb;
     border-color: #e8f4fb;
-    color: #35c5f0;
+    color: #ff778e;
 }
 
 .button {
@@ -306,8 +306,8 @@ textarea {
 }
 
 .button--color-blue {
-    background-color: #35c5f0;
-    border-color: #35c5f0;
+    background-color: #ff778e;
+    border-color: #ff778e;
     color: #fff;
 }
 
@@ -437,7 +437,7 @@ h3 {
     display: inline-block;
     border-radius: 4px;
     font-weight: 700;
-    color: rgb(53, 197, 240);
+    color: #ff778e;
 }
 
 .css-gw5lra {
@@ -544,7 +544,7 @@ input[type=submit] {
 .css-5b05l4 {
     font-size: 16px;
     line-height: 20px;
-    color: rgb(53, 197, 240);
+    color: #ff778e;
 }
 
 .css-1yl0oty {
@@ -576,9 +576,14 @@ input[type=submit] {
     border-radius: 4px;
     padding: 0px 16px;
     font-weight: 700;
-    color: rgb(53, 197, 240);
-    border: 1px solid rgb(53, 197, 240);
+    color: #ff778e;
+    border: 1px solid #ff778e;
     display: block;
+}
+
+.css-klr9vj:hover{
+	color: #fff;
+	background-color: #ff778e;
 }
 
 .css-klr9vj::before {
@@ -617,7 +622,7 @@ input[type=submit] {
 
 .css-1hm59ir {
     margin-left: 10px;
-    color: rgb(53, 197, 240);
+    color: #ff778e;
 }
 
 .css-i1jsxi {
@@ -913,7 +918,7 @@ div {
 body,
 html {
     line-height: 1;
-    font-family: OhouseSans, Noto Sans KR, Apple SD Gothic Neo, ë§‘ì€ ê³ ë”•, Malgun Gothic, sans-serif;
+    font-family: OhouseSans, Noto Sans KR, Apple SD Gothic Neo, 梨섏쭬占쎌깣占쏀샄占쎄텢 梨쀬� 梨섓옙�빁占쏙옙, Malgun Gothic, sans-serif;
     -webkit-font-smoothing: antialiased;
     letter-spacing: -.4px;
     font-size: 13px;
@@ -969,8 +974,8 @@ html {
     border-radius: 4px;
     padding: 0px 16px;
     font-weight: 400;
-    color: rgb(53, 197, 240);
-    border: 1px solid rgb(53, 197, 240);
+    color: #ff778e;
+    border: 1px solid #ff778e;
     display: block;
 }
 
@@ -1021,7 +1026,7 @@ textarea {
     display: inline-block;
     border-radius: 4px;
     font-weight: 700;
-    color: rgb(53, 197, 240);
+    color: #ff778e;
 }
 
 h3 {
@@ -1048,5 +1053,11 @@ h3 {
 
 .css-1hm59ir {
     margin-left: 10px;
-    color: rgb(53, 197, 240);
+    color: #ff778e;
+}
+.dh_edit {
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 160px;
+    font-weight: 700;
 }

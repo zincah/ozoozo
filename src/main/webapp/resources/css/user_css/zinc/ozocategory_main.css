@@ -196,12 +196,15 @@ img{
     position: relative;
 }
 
-.category_header_title a{
-    font-size: 15px;
+.category_header_title{
+	display: flex;
+	align-items: center;
+    font-size: 13px;
     font-weight: 400;
     margin-bottom: 20px;
     color: #424242;
 }
+
 
 .category_banner{
     position: relative;
@@ -286,6 +289,8 @@ img{
 }
 
 .filter_btn{
+	display: flex;
+	align-items: center;
     padding: 8px 10px;
     border: 1px solid rgb(218, 220, 224);
     border-radius: 4px;
@@ -294,6 +299,10 @@ img{
     font-weight: 600;
     color: rgb(66, 66, 66);
     background-color: rgb(255,255,255);
+}
+
+.filter_btn > svg{
+	margin-right: 0.2rem;
 }
 
 .filter_btn:hover{
@@ -316,9 +325,31 @@ span{
     font-weight: 400;
 }
 
-.location{
-    top: 20px;
-    left:50px;
+
+.location8{
+    top: 50px;
+    left:350px;
+}
+
+.location9{
+    top: 96px;
+    left: 86px;
+}
+
+.dropdown_panel8, .dropdown_panel9{
+    display: none;
+    position: absolute;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px 0 rgb(0 0 0 / 30%);
+    margin: 0 -1px;
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0 -1px 16px rgb(0 0 0 / 20%);
+    border-radius: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 460px;
+    z-index: 100;
 }
 
 .dropdown_panel{
@@ -334,7 +365,7 @@ span{
     overflow: hidden;
     white-space: nowrap;
     width: 460px;
-    z-index: 2;
+    z-index: 100;
 }
 
 .property_filter_dropdown{
@@ -358,7 +389,7 @@ span{
     position: relative;
     width: 100%;
     margin: 0;
-    padding: 15px;
+    padding: 0.5rem;
     box-sizing: border-box;
     border: none;
     background: #fff;
@@ -376,6 +407,47 @@ span{
     justify-content: flex-start;
     align-items: center;
 }
+
+.input-type{
+	display: inline-flex;
+    padding: 0;
+    margin-right: 8px;
+}
+
+._3UImz {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    cursor: inherit;
+    opacity: 0;
+    box-sizing: border-box;
+}
+
+._3UImz:checked+._2mDYR {
+    border-color: #ff778e;
+    background-color: #ff778e;
+    color: #fff;
+}
+
+._2mDYR {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    box-sizing: border-box;
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #fff;
+    font-size: 16px;
+    line-height: 1;
+    transition: color .1s,border-color .1s,background-color .1s;
+}
+
 
 
 /* 선택한 필터 나오게 하는 */
@@ -395,6 +467,7 @@ span{
 }
 
 .reset_btn{
+	display: flex;
     padding: 18px 24px;
     margin: 0;
     order: none;
@@ -407,6 +480,11 @@ span{
     transition: opacity .1s ease;
     white-space: nowrap;
     border: 0;
+    align-items: center;
+}
+
+.reset_btn > svg{
+	margin-right: 0.2rem;
 }
 
 .category_filter_control_pack{
@@ -416,10 +494,15 @@ span{
 }
 
 .category_filter_control_tag_list{
+	display: flex;
     margin: 0;
     padding: 8px 14px;
     list-style: none;
     line-height: 0;
+}
+
+.category_filter_control_tag_list > li{
+	margin-right: 0.5rem;
 }
 
 .category_filter_tag{
@@ -429,7 +512,7 @@ span{
     padding: 6px 12px;
     font-size: 14px;
     border: 1px solid #ff778e;
-    border-radius: 18px;
+    border-radius: 0.3rem;
     font-weight: 400;
     font-stretch: normal;
     font-style: normal;
@@ -466,6 +549,7 @@ span{
     border: none;
     z-index: 2;
     transition: opacity .1s;
+    color: #f77;
 }
 
 .item_filter_btn:hover .dropdown_wrap{
@@ -478,7 +562,7 @@ span{
     position: absolute;
     top: 30px;
     right: 0;
-    z-index: 3;
+    z-index: 1000;
     border-radius: 8px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
@@ -529,6 +613,17 @@ span{
 }
 
 @media all and (max-width:1024px) {
+
+	/*
+	.location8 {
+	    top: 73px;
+	    left: 80px;
+	}
+	
+	.location9 {
+	    top: 73px;
+	    left: 80px;
+	}*/
     
     .container{
         width: calc(100% - 80px);
@@ -605,6 +700,7 @@ span{
      /* 카테고리 나브바 */
      .category_navi{
         display: block;
+        border-top: 1px solid #ededed;
 
     }
 
@@ -613,8 +709,6 @@ span{
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-        margin: 0 15px;
-        border-top: 1px solid #ededed;
         overflow: hidden;
         padding: 10px 0 0;
         
@@ -623,6 +717,9 @@ span{
     .category_navi_list_item{
         flex: 0 0 25%;
         width: 25%;
+        border-bottom: 1px solid #ededed;
+        margin-bottom: 1rem;
+        
     }
 
     .category_navi_list_item a{

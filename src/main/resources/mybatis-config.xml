@@ -12,15 +12,47 @@
 		<typeAlias type="ozo.spring.house.seller.vo.SellerVO" alias="seller"/>
 		<typeAlias type="ozo.spring.house.seller.vo.CategoryVO" alias="cate"/>
 		<typeAlias type="ozo.spring.house.user.vo.ReviewVO" alias="review"/>
+		<typeAlias type="ozo.spring.house.seller.vo.ProductVO" alias="product"/>
+		<typeAlias type="ozo.spring.house.seller.vo.ProductDetailVO" alias="productdetail"/>
+		<typeAlias type="ozo.spring.house.user.vo.UserProductVO" alias="userproduct"/>
+		<typeAlias type="ozo.spring.house.user.vo.UserCategoryVO" alias="ucate"/>
+		<typeAlias type="ozo.spring.house.user.vo.UserProduct_tableVO" alias="user_P_table"/>
+		<typeAlias type="ozo.spring.house.admin.vo.BannerVO" alias="banner"/>
+		<typeAlias type="ozo.spring.house.admin.vo.AdminProductVO" alias="adminproduct"/>
+		<typeAlias type="ozo.spring.house.user.vo.CartVO" alias="cart"/>
+		<typeAlias type="ozo.spring.house.seller.vo.FilterVO" alias="filter"/>
+		<typeAlias type="ozo.spring.house.user.vo.UserAddressVO" alias="address"/>
+		<typeAlias type="ozo.spring.house.user.vo.UserScrapVO" alias="userscrap"/>
+		<typeAlias type="ozo.spring.house.user.vo.ScrapVO" alias="scrap"/>
+    <typeAlias type="ozo.spring.house.admin.vo.AdminCouponVO" alias="coupon"/>
+    <typeAlias type="ozo.spring.house.user.vo.UserPaymentLogVO" alias="paymentlog"/>
+    <typeAlias type="ozo.spring.house.user.vo.CouponVO" alias="usercoupon"/>
 	</typeAliases>
 	<!-- 원래 여기에 datasource를 넣어줘야하는데 applicationContext에서 넣었음 -->
 	<mappers>
 		<!-- 원하는 mapping xml 여러개 가능 -->
 		<mapper resource="mappings/adminLogin-mapping.xml"/>
+		<mapper resource="mappings/adminManage-mapping.xml"/>
 		<mapper resource="mappings/userManage-mapping.xml"/>
 		<mapper resource="mappings/sellerLogin-mapping.xml"/>
 		<mapper resource="mappings/userCScenter-mapping.xml"/>
 		<mapper resource="mappings/sellerCategory-mapping.xml"/>
 		<mapper resource="mappings/userReview-mapping.xml"/>
+		<mapper resource="mappings/product-mapping.xml"/>
+		<mapper resource="mappings/userProduct-mapping.xml"/>
+		<mapper resource="mappings/sellerProductDetail-mapping.xml"/>
+		<mapper resource="mappings/userCategory-mapping.xml"/>
+		<mapper resource="mappings/userMain-mapping.xml"/>
+		<mapper resource="mappings/adminBanner-mapping.xml"/>
+		<mapper resource="mappings/userTodayDeal-mapping.xml"/>
+	    <mapper resource="mappings/sellerOrder-mapping.xml"/>
+	    <mapper resource="mappings/sellerPosting-mapping.xml"/>
+	    <mapper resource="mappings/userShop-mapping.xml"/>
+	    <mapper resource="mappings/sellerOrder-mapping.xml"/>
+	    <mapper resource="mappings/userScrap-mapping.xml"/>
+	    <mapper resource="mappings/userMyPage-mapping.xml"/>
+	    <mapper resource="mappings/serverStart-mapping.xml"/>
+	    <mapper resource="mappings/sellerSales-mapping.xml"/>
+	    <mapper resource="mappings/sellerIndex-mapping.xml"/>
 	</mappers>
 </configuration>

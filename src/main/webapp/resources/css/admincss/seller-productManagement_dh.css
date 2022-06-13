@@ -110,7 +110,6 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
 }
 
 .paddingLeft1 {
-	padding-left: 1rem;
 	display: flex;
 }
 
@@ -289,5 +288,10 @@ input[type="date"] {
 }
 
 .reply-write {
+	padding-left: 1rem;
+}
+
+/* 추가 */
+.paddingLeft1{
 	padding-left: 1rem;
 }

@@ -5,14 +5,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ozo.spring.house.seller.dao.CategoryDAO;
+import ozo.spring.house.seller.dao.S_CategoryDAO;
 import ozo.spring.house.seller.vo.CategoryVO;
+import ozo.spring.house.seller.vo.FilterVO;
 
 @Service("categoryService")
 public class CategoryServiceImpl implements CategoryService {
 	
 	@Autowired
-	CategoryDAO categoryDAO;
+	S_CategoryDAO categoryDAO;
 
 	@Override
 	public List<CategoryVO> getCategoryList(CategoryVO vo) {
@@ -27,6 +28,11 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<CategoryVO> getBotCategoryList(CategoryVO vo) {
 		return categoryDAO.getBotCategoryList(vo);
+	}
+
+	@Override
+	public List<List<FilterVO>> getFilterOption(CategoryVO vo) {
+		return categoryDAO.getFilterOption(vo);
 	}
 
 }

@@ -29,13 +29,13 @@ fieldset, img {border: 0;}
 .mypage-profile-content-top {display: flex; padding: 20px 0px 20px 0px; min-height: 60px;}
 .mypage-profile-content-midline {display: flex; border-bottom: 1px solid #dbdbdb;}
 .mypage-profile-content-bottom {display: flex; padding: 20px; flex-direction: column;}
-.mypage-profile-content {display: flex; flex-direction: column; margin: 0; padding: 0; background: none; font: inherit; -webkit-box-flex: 1; -webkit-flex: 1 0 0px; -moz-box-flex: 1; -moz-flex: 1 0 0px; -ms-flex: 1 0 0px; flex: 1 0 0px; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; -moz-justify-content: center; justify-content: center; border: none; border-right: 1px solid #dbdbdb; cursor: pointer; font-size: 15px; min-height: 60px;}
+.mypage-profile-content {display: flex; flex-direction: column; margin: 0; padding: 0; background: none; font: inherit; -webkit-box-flex: 1; -webkit-flex: 1 0 0px; -moz-box-flex: 1; -moz-flex: 1 0 0px; -ms-flex: 1 0 0px; flex: 1 0 0px; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; -moz-justify-content: center; justify-content: center; border: none; border-right: 1px solid #dbdbdb; cursor: pointer; font-size: 19px; min-height: 60px;}
 .mypage-profile-content-container {display: flex; width: 100%; align-content: space-around; flex-direction: column; justify-content: space-evenly;}
 .mypage-profile-content-text {display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; -webkit-box-direction: normal; -webkit-box-orient: vertical; -webkit-flex-direction: column; -moz-flex-direction: column; -ms-flex-direction: column; flex-direction: column; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; text-align: center; word-break: break-all; color: #292929; line-height: 18px;}
-.mypage-profile-content-point {display: flex; flex-direction: column; margin: 0; padding: 0; background: none; font: inherit; -webkit-box-flex: 1; -webkit-flex: 1 0 0px; -moz-box-flex: 1; -moz-flex: 1 0 0px; -ms-flex: 1 0 0px; flex: 1 0 0px; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; -moz-justify-content: center; justify-content: center; border: none; cursor: pointer; font-size: 15px; min-height: 60px;}
+.mypage-profile-content-point {display: flex; flex-direction: column; margin: 0; padding: 0; background: none; font: inherit; -webkit-box-flex: 1; -webkit-flex: 1 0 0px; -moz-box-flex: 1; -moz-flex: 1 0 0px; -ms-flex: 1 0 0px; flex: 1 0 0px; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; -webkit-box-pack: center; -ms-flex-pack: center; -webkit-justify-content: center; -moz-justify-content: center; justify-content: center; border: none; cursor: pointer; font-size: 19px; min-height: 60px;}
 .mypage-profile-content-value {color: #ff778e; font-weight: 700; display: inline-block; min-width: 30px;  margin-top: 5px;}
-.mypage-profile-content-scrapbook-icon, .mypage-profile-content-coupon-icon, .mypage-profile-content-point-icon {color: #757575; display: block; width: 50px; height: 28px; margin-bottom: 10px}
-.mypage-profile-content-scrapbook-icon {width: 28px;}
+.mypage-profile-content-scrapbook-icon, .mypage-profile-content-coupon-icon, .mypage-profile-content-point-icon {color: #757575; display: block; width: 58px; height: 55px; margin-bottom: 10px}
+.mypage-profile-content-scrapbook-icon {width: 37px;}
 .mypage-profile-content-code {text-align: center; display: -webkit-box; display: -webkit-flex; display: -moz-flex; display: -ms-flexbox; display: flex; flex-direction: column; -webkit-justify-content: flex-end; -moz-justify-content: flex-end; justify-content: flex-end; -webkit-box-flex: 1; -webkit-flex: 1 0 0px; -moz-box-flex: 1; -moz-flex: 1 0 0px; -ms-flex: 1 0 0px; flex: 1 0 0px; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; -moz-align-items: center; align-items: center; -webkit-box-pack: center; -ms-flex-pack: center; line-height: 18px; font-size: 16px;}
 .mypage-profile-content-code-title {color: #424242; font-weight: 700; font-size: 15px;}
 .mypage-profile-content-code-number {display: block; height: 18px; font-weight: 400; font-size: 13px; margin-top: 5px;}
@@ -50,7 +50,9 @@ fieldset, img {border: 0;}
 .store_index_best_header{display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;}
 .filter_btn{margin: 0; padding: 0; background: none; border: none; z-index: 2; transition: opacity .1s; color: #ff778e;}
 .row{display: flex; flex-wrap: wrap; margin-right: -10px; margin-left: -10px; box-sizing: border-box;}
-.container{position: relative; margin-right: auto; margin-left: auto; max-width: 100%; height: auto; width: calc(100% - 120px);}
+
+.container{position: relative; margin-right: auto; margin-left: auto; max-width: 1180px; height: auto; width: calc(100% - 120px);}
+
 .col-lg-3{position: relative; width: 100%; min-height: 1px; box-sizing: border-box; flex: 0 0 25%; flex-grow: 0; flex-shrink: 0; flex-basis: 25%; max-width: 25%; padding-right: 10px; padding-left: 10px;}
 .deals_item{position: relative; display: flex; padding: 0 10px 30px; flex-direction: column; align-items: center;}
 .deals_item_pic_out{position: relative; width: auto; margin: 0 -10px;}
@@ -70,9 +72,16 @@ fieldset, img {border: 0;}
 .review-icon{color: #ff778e;}
 .review_score{color: #424242; margin-right: 3px; font-weight: 800;}
 .review_count{font-weight: 800; color: #A3A3A3}
-.item_bookmark{position: absolute; bottom: 12px; right: 12px; z-index: 2; width: 24px; height: 24px; margin: 0; padding: 0; background: none; border: none; font-size: 18px; color: black;}
+.item_bookmark{position: absolute; top: 12px; right: 17px; z-index: 2; width: 24px; height: 24px; margin: 0; padding: 0; background: none; border: none; font-size: 18px; color: black;}
 .item_bookmark:hover{background-color: #828282; border-radius: 4px; opacity: 0.3;}
 .best_item_info{margin-top: 8px;}
+
+.mypage-profile-img-area>.img{
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+	
+}
 
 @media all and (max-width:1024px) {
   .container{width: calc(100% - 80px);}
@@ -143,4 +152,40 @@ fieldset, img {border: 0;}
 
 @media (min-width: 1256px) {
   .mypage-profile-container {margin-right: auto; margin-left: auto; width: 1136px; max-width: 100%; box-sizing: border-box; min-height: 1px;}
+}
+.css-fhjsnf {
+    width: 355px;
+    text-align: center;
+    margin: 60px auto 100px;
+}
+@media (min-width: 768px){
+.css-fhjsnf {
+    margin: 76px auto 120px;
+}
+}
+
+@media (min-width: 768px){
+.css-fhjsnf * {
+    white-space: normal;
+}
+}
+.css-116kduv {
+    font-size: 24px;
+    line-height: 32px;
+    color: rgb(47, 52, 56);
+    white-space: pre-wrap;
+}
+
+
+@media (min-width: 768px){
+.css-fhjsnf * {
+    white-space: normal;
+}
+}
+.css-uotqtd {
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 10px;
+    color: rgb(130, 140, 148);
+    white-space: pre-wrap;
 }

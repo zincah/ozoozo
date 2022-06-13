@@ -44,7 +44,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    color: #35c5f0;
+    color: #ff778e;
     font-weight: 700;
 }
 .production-question-feed__item__content {
@@ -76,10 +76,10 @@
     display: block;
 }
 .list-paginator__page:hover {
-    color: #35c5f0;
+    color: #ff778e;
 }
 .list-paginator__page.selected {
-    background-color: #35c5f0;
+    background-color: #ff778e;
     color: #fff;
     text-decoration: none;
 }

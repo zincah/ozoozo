@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ 
+<mapper namespace="ProductDAO">
+
+	<!-- selectkey 찾아보기 -->
+	
+	<!-- insert product_posting -->
+	<insert id="insertPostId" parameterType="product">
+		insert into product_posting (post_id) values ((SELECT COALESCE(MAX(post_id), 50000)+1 from product_posting));
+	</insert>
+	
+	<!-- select product_posting id -->
+	<select id="selectPostIdOne" resultType="Integer">
+		SELECT MAX(post_id) FROM product_posting
+	</select>
+
+	<!-- product insert -->
+	<insert id="insertProduct" parameterType="product">
+		INSERT INTO product(product_id, seller_id, product_title, pro_catecode, pro_subcatecode, product_price, product_quantity, product_postid) VALUES 
+		((SELECT COALESCE(MAX(product_id), 1000)+1 FROM product), #{seller_id}, #{product_title}, #{pro_catecode}, #{pro_subcatecode}, #{product_price}, #{product_quantity}, #{product_postid})
+	</insert>
+	
+	<!-- product status insert -->
+	<insert id="insertProductStatus" parameterType="product">
+		INSERT INTO product_status(status_id, st_product_id)
+		VALUES ((SELECT COALESCE(MAX(status_id), 1000)+1 FROM product_status), (SELECT MAX(product_id) FROM product));
+	</insert>
+	
+	<!-- option insert -->
+	<insert id="insertOption" parameterType="product">
+		INSERT INTO product_option(op_productid, option1_name, option1, option2_name, option2) VALUES 
+		((SELECT MAX(product_id) FROM product), #{option1_name}, #{option1}, #{option2_name}, #{option2})
+	</insert>
+	
+	<!-- product detail insert -->
+	<insert id="insertDetail" parameterType="product">
+		INSERT INTO product_detail values 
+		((SELECT COALESCE(MAX(detail_id), 0)+1 FROM product_detail), #{detail_content}, #{detail_table}, #{prodetail_postid})
+	</insert>
+	
+	
+	<!-- product posting insert -->
+	<update id="updatePost" parameterType="product">
+		UPDATE product_posting SET  
+		post_name = #{post_name}, 
+		sale_ratio = #{sale_ratio}, 
+		whole_price = #{whole_price}, 
+		shipping_info1 = #{shipping_info1}, 
+		shipping_info2 = #{shipping_info2}, 
+		post_sellerid = #{post_sellerid},
+		po_category = #{po_category},
+		po_subcate = #{po_subcate}
+		WHERE post_id = #{post_id}
+	</update>
+	
+	<!-- photo upload -->
+	<insert id="insertPhoto" parameterType="product">
+		INSERT INTO product_image (photo_url, photo_separate, photo_postid)
+		VALUES (#{photo_url}, #{photo_separate}, #{photo_postid})
+	</insert>
+
+	<!-- 상품+상품상태 테이블 -->
+	<select id="selectProduct" resultType="product">
+		SELECT * FROM product p JOIN product_status ps ON p.product_id = ps.st_product_id WHERE seller_id = #{seller_id} ORDER BY p.product_id DESC;
+	</select>
+	
+	<!-- jsp 테이블에 뿌릴 상품목록 -->
+	<select id="selectProductView" resultType="product">
+		SELECT	p.product_id, 
+				p.product_seller_code, 
+				p.product_title, 
+				p.product_price, 
+				(SELECT cate_name FROM category c WHERE p.pro_catecode = c.cate_code) AS category_name, 
+				ps.status, 
+				p.product_quantity, 
+				p.product_created, 
+				p.product_updated 
+				FROM product p 
+				JOIN product_status ps ON p.product_id = ps.st_product_id 
+		WHERE	seller_id = #{seller_id}
+				AND ps.product_del = 'false'
+		ORDER BY p.product_id DESC
+		LIMIT	#{cri.amount} offset (#{cri.pageNum}-1) * #{cri.amount};
+	</select>
+
+	<!-- 상품목록 COUNT -->
+	<select id="selectListCount" resultType="int">
+		SELECT	count(p.product_id)
+				FROM product p 
+				JOIN product_status ps ON p.product_id = ps.st_product_id 
+		WHERE	seller_id = #{seller_id}
+				AND ps.product_del = 'false';
+	</select>
+
+	<!-- 선택한 상품 판매상태 업데이트 -->
+	<update id="updateProductStatus" parameterType="product">
+		UPDATE product_status SET status = #{status} WHERE st_product_id = #{product_id};
+	</update>
+	
+	<!-- 상품 수정일 업데이트 -->
+	<update id="updateProductUpdated" parameterType="product">
+		UPDATE product SET product_updated = now() WHERE product_id = #{product_id};
+	</update>
+	
+	<!-- 선택한 상품 목록의 데이터 -->
+	<select id="selectSelectProduct" resultType="product">
+		SELECT p.product_id, 
+		p.product_seller_code, 
+		p.product_title, 
+		p.product_price, 
+		(SELECT cate_name FROM category c WHERE p.pro_catecode = c.cate_code) AS category_name, 
+		ps.status, 
+		p.product_quantity, 
+		p.product_created, 
+		p.product_updated FROM product p 
+		JOIN product_status ps ON p.product_id = ps.st_product_id 
+		WHERE product_id = #{product_id};
+	</select>
+	
+	<!-- 상품 삭제처리 (삭제 상태를 'true'로 변경) -->
+	<update id="deleteSelectProduct" parameterType="product">
+		UPDATE product_status SET product_del = 'true' WHERE st_product_id = #{product_id};
+	</update>
+	
+	<!-- jsp 테이블에 뿌릴 상품목록 -->
+	<select id="selectSearchProduct" resultType="product">
+		SELECT p.product_id, 
+		p.product_seller_code, 
+		p.product_title, 
+		p.product_price, 
+		(SELECT cate_name FROM category c WHERE p.pro_catecode = c.cate_code) AS category_name, 
+		ps.status, 
+		p.product_quantity, 
+		p.product_created, 
+		p.product_updated FROM product p 
+		JOIN product_status ps ON p.product_id = ps.st_product_id 
+		<where>
+			<if test="seller_id != null">
+				p.seller_id = #{seller_id} AND ps.product_del = 'false'
+			</if>
+			<if test="sc_searchName != ''">
+				<if test="sc_searchNameStatus == 1">
+					<trim prefix="and">
+						cast(p.product_id as VARCHAR) LIKE <trim prefix="replace('" suffix="%',' ','')">${sc_searchName}</trim>
+					</trim>
+				</if>
+				<if test="sc_searchNameStatus == 2">
+					<trim prefix="and">
+						p.product_seller_code LIKE <trim prefix="replace('%" suffix="%',' ','')">${sc_searchName}</trim>
+					</trim>
+				</if>
+				<if test="sc_searchNameStatus == 3">
+					<trim prefix="and">
+						p.product_title LIKE <trim prefix="replace('%" suffix="%',' ','')">#{sc_searchName}</trim>
+					</trim>
+				</if>
+			</if>
+			<if test="sc_searchStatus != null">
+				<trim prefix="and">
+					<if test="sc_searchStatus.size != 8">
+						<foreach collection="sc_searchStatus" item="arr" separator="or">
+							<if test="arr == 2">
+								ps.status = '판매대기'
+							</if>
+							<if test="arr == 3">
+								ps.status = '판매중'
+							</if>
+							<if test="arr == 4">
+								ps.status = '품절'
+							</if>
+							<if test="arr == 5">
+								ps.status = '승인대기'
+							</if>
+							<if test="arr == 6">
+								ps.status = '판매중지'
+							</if>
+							<if test="arr == 7">
+								ps.status = '판매종료'
+							</if>
+							<if test="arr == 8">
+								ps.status = '판매금지'
+							</if>
+						</foreach>
+					</if>
+				</trim>
+			</if>
+			<if test="sc_category != 0">
+				<trim prefix="and">
+					p.pro_catecode = #{sc_category}
+				</trim>
+			</if>
+			<if test="sc_middleSelect != 0 and sc_smallSelect == 0">
+				<trim prefix="and">
+					(p.pro_subcatecode/100) = (#{sc_middleSelect}/100)
+				</trim>
+			</if>
+			<if test="sc_smallSelect != 0">
+				<trim prefix="and">
+					p.pro_subcatecode = #{sc_smallSelect}
+				</trim>
+			</if>
+			<if test="sc_selectDate == 1">
+				<trim prefix="and">
+					p.product_created BETWEEN TO_DATE(#{sc_startDate}, 'YYYY-MM-DD') AND TO_DATE(#{sc_endDate}, 'YYYY-MM-DD') + INTERVAL '1 DAY'
+				</trim>
+			</if>
+			<if test="sc_selectDate == 2">
+				<trim prefix="and">
+					p.product_updated BETWEEN TO_DATE(#{sc_startDate}, 'YYYY-MM-DD') AND TO_DATE(#{sc_endDate}, 'YYYY-MM-DD') + INTERVAL '1 DAY'
+				</trim>
+			</if>
+			<if test="true">
+				AND ps.product_del = 'false'
+				ORDER BY p.product_id DESC
+				LIMIT #{cri.amount}
+				OFFSET (#{cri.pageNum}-1)*#{cri.amount};
+			</if>
+		</where>
+	</select>
+
+	<!-- 상품목록 카운터 -->
+	<select id="selectSearchProductCount" resultType="int">
+		SELECT	count(p.product_id)
+				FROM product p 
+		JOIN	product_status ps ON p.product_id = ps.st_product_id 
+		<where>
+			<if test="seller_id != null">
+				p.seller_id = #{seller_id} AND ps.product_del = 'false'
+			</if>
+			<if test="sc_searchName != ''">
+				<if test="sc_searchNameStatus == 1">
+					<trim prefix="and">
+						cast(p.product_id as VARCHAR) LIKE <trim prefix="replace('" suffix="%',' ','')">${sc_searchName}</trim>
+					</trim>
+				</if>
+				<if test="sc_searchNameStatus == 2">
+					<trim prefix="and">
+						p.product_seller_code LIKE <trim prefix="replace('%" suffix="%',' ','')">${sc_searchName}</trim>
+					</trim>
+				</if>
+				<if test="sc_searchNameStatus == 3">
+					<trim prefix="and">
+						p.product_title LIKE <trim prefix="replace('%" suffix="%',' ','')">#{sc_searchName}</trim>
+					</trim>
+				</if>
+			</if>
+			<if test="sc_searchStatus != null">
+				<trim prefix="and">
+					<if test="sc_searchStatus.size != 8">
+						<foreach collection="sc_searchStatus" item="arr" separator="or">
+							<if test="arr == 2">
+								ps.status = '판매대기'
+							</if>
+							<if test="arr == 3">
+								ps.status = '판매중'
+							</if>
+							<if test="arr == 4">
+								ps.status = '품절'
+							</if>
+							<if test="arr == 5">
+								ps.status = '승인대기'
+							</if>
+							<if test="arr == 6">
+								ps.status = '판매중지'
+							</if>
+							<if test="arr == 7">
+								ps.status = '판매종료'
+							</if>
+							<if test="arr == 8">
+								ps.status = '판매금지'
+							</if>
+						</foreach>
+					</if>
+				</trim>
+			</if>
+			<if test="sc_category != 0">
+				<trim prefix="and">
+					p.pro_catecode = #{sc_category}
+				</trim>
+			</if>
+			<if test="sc_middleSelect != 0 and sc_smallSelect == 0">
+				<trim prefix="and">
+					(p.pro_subcatecode/100) = (#{sc_middleSelect}/100)
+				</trim>
+			</if>
+			<if test="sc_smallSelect != 0">
+				<trim prefix="and">
+					p.pro_subcatecode = #{sc_smallSelect}
+				</trim>
+			</if>
+			<if test="sc_selectDate == 1">
+				<trim prefix="and">
+					p.product_created BETWEEN TO_DATE(#{sc_startDate}, 'YYYY-MM-DD') AND TO_DATE(#{sc_endDate}, 'YYYY-MM-DD') + INTERVAL '1 DAY'
+				</trim>
+			</if>
+			<if test="sc_selectDate == 2">
+				<trim prefix="and">
+					p.product_updated BETWEEN TO_DATE(#{sc_startDate}, 'YYYY-MM-DD') AND TO_DATE(#{sc_endDate}, 'YYYY-MM-DD') + INTERVAL '1 DAY'
+				</trim>
+			</if>
+			<if test="true">
+				AND ps.product_del = 'false';
+			</if>
+		</where>
+	</select>
+</mapper>

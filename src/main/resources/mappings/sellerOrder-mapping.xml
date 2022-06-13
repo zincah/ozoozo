@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="SellerOrderDAO">
+	
+	<!-- 주문건 리스트 -->
+	<select id="selectOrderList" resultType="product">
+		SELECT * FROM user_order uo 
+		JOIN payment p ON p.py_orderid = uo.order_id
+		JOIN product p2 ON p2.product_id = uo.product_id 
+		JOIN address a ON a.address_id = uo.address_id
+		JOIN product_option po ON po.op_productid = uo.product_id
+		WHERE uo.seller_id = #{seller_id} AND uo.refund_id IS NULL OR (uo.refund_id IS NOT NULL AND uo.order_status = '환불처리')
+		ORDER BY uo.order_id DESC;
+	</select>
+	
+	<!-- 주문건 검색 리스트 -->
+	<select id="selectSearchOrder" resultType="product">
+		SELECT * FROM user_order uo 
+		JOIN payment p ON p.py_orderid  = uo.order_id 
+		JOIN product p2 ON p2.product_id = uo.product_id 
+		JOIN address a ON a.address_id = uo.address_id
+		JOIN product_option po ON po.op_productid = uo.product_id
+		<where>
+			<if test="seller_id != null">
+				uo.seller_id = #{seller_id}
+			</if>
+			<if test="sc_searchName != ''">
+				<if test="sc_searchNameStatus == 1">
+					<trim prefix="and">
+						cast(uo.order_id as VARCHAR) LIKE <trim prefix="replace('" suffix="%',' ','')">${sc_searchName}</trim>
+					</trim>
+				</if>
+				<if test="sc_searchNameStatus == 2">
+					<trim prefix="and">
+						cast(uo.order_num as VARCHAR) LIKE <trim prefix="replace('" suffix="%',' ','')">${sc_searchName}</trim>
+					</trim>
+				</if>
+				<if test="sc_searchNameStatus == 3">
+					<trim prefix="and">
+						a.receiver LIKE <trim prefix="replace('%" suffix="%',' ','')">${sc_searchName}</trim>
+					</trim>
+				</if>
+			</if>
+			<if test="sc_searchStatus != null">
+				<trim prefix="and">
+					<if test="sc_searchStatus.size != 9">
+						<foreach collection="sc_searchStatus" item="arr" separator="or">
+							<if test="arr == 2">
+								uo.order_status = '결제완료'
+							</if>
+							<if test="arr == 3">
+								uo.order_status = '배송준비중'
+							</if>
+							<if test="arr == 4">
+								uo.order_status = '배송중'
+							</if>
+							<if test="arr == 5">
+								uo.order_status = '배송완료'
+							</if>
+							<if test="arr == 6">
+								uo.order_status = '배송완료'
+							</if>
+							<if test="arr == 7">
+								uo.order_status = '교환'
+							</if>
+							<if test="arr == 8">
+								uo.order_status = '반품'
+							</if>
+							<if test="arr == 9">
+								uo.order_status = '환불처리'
+							</if>
+							<if test="arr == 10">
+								uo.order_status = '주문취소'
+							</if>
+						</foreach>
+					</if>
+				</trim>
+			</if>
+			<if test="sc_category != 0">
+				<trim prefix="and">
+					p2.pro_catecode = #{sc_category}
+				</trim>
+			</if>
+			<if test="sc_middleSelect != 0 and sc_smallSelect == 0">
+				<trim prefix="and">
+					(p2.pro_subcatecode/100) = (#{sc_middleSelect}/100)
+				</trim>
+			</if>
+			<if test="sc_smallSelect != 0">
+				<trim prefix="and">
+					p2.pro_subcatecode = #{sc_smallSelect}
+				</trim>
+			</if>
+			<trim prefix="and">
+				uo.order_date BETWEEN TO_DATE(#{sc_startDate}, 'YYYY-MM-DD') AND TO_DATE(#{sc_endDate}, 'YYYY-MM-DD') + INTERVAL '1 DAY'
+			</trim>
+			<if test="true">
+				ORDER BY uo.order_date DESC;
+			</if>
+		</where>
+	</select>
+	
+	<!-- 선택한 주문건의 통합 상세정보 (상품 개별 리스트) -->
+	<select id="selectOrderDetailData" resultType="product">
+		SELECT * FROM user_order uo 
+		JOIN product p2 ON p2.product_id = uo.product_id 
+		JOIN product_option po ON po.op_productid = uo.product_id
+		WHERE uo.seller_id = #{seller_id} AND uo.order_num = #{order_num}
+		ORDER BY uo.order_id DESC;
+	</select>
+	
+	<!-- 선택한 주문건의 통합 상세정보 (해당 주문건 결제정보) -->
+	<select id="selectOrderDetailPayment" resultType="product">
+		SELECT * FROM payment p 
+		JOIN user_order uo ON uo.order_id = p.py_orderid 
+		JOIN user_table ut ON ut.user_num = uo.user_num
+		JOIN address a ON a.address_id = uo.address_id
+		WHERE p.py_sellerid = #{seller_id} AND p.py_orderid = #{order_id};
+	</select>
+
+	<!-- 선택한 주문건(메뉴 모달용) -->
+	<select id="selectOrderListModal" resultType="product">
+		SELECT * FROM user_order uo 
+		JOIN product p2 ON p2.product_id = uo.product_id 
+		JOIN product_option po ON po.op_productid = uo.product_id
+		WHERE uo.seller_id = #{seller_id} AND uo.order_id = #{order_id};
+	</select>
+	
+	<!-- 발주처리 -->
+	<update id="updateOrderCheck" parameterType="product">
+		UPDATE user_order SET order_status = '배송준비중' WHERE order_id = #{order_id};
+	</update>
+
+	<!-- 발송처리, 송장수정처리 -->
+	<update id="updateOrderSend" parameterType="product">
+		UPDATE user_order SET order_status = '배송중', delivery = #{delivery}, invoice_number = #{invoice_number}, shipstart_date = now() WHERE order_id = #{order_id} AND seller_id = #{seller_id};
+	</update>
+</mapper>
+

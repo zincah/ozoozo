@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="BannerDAO">
+	
+	<select id="b_select" resultType="banner">
+	SELECT * FROM banner order by banner_id asc
+	</select>
+	
+	<select id="b_selectone" resultType="banner">
+	SELECT * FROM banner where banner_id=#{banner_id} order by banner_id asc
+	</select>
+	
+	<insert id="b_insert" parameterType="banner">
+	INSERT INTO banner (banner_title,banner_bigname,banner_urlbig,banner_smname,banner_urlsm) VALUES (#{banner_title},#{banner_bigname},#{banner_urlbig},#{banner_smname},#{banner_urlsm})
+	</insert>
+	
+	<delete id="b_delete" parameterType="banner">
+	DELETE FROM banner WHERE banner_id=#{banner_id}
+	</delete>
+	
+	<update id="b_boolean" parameterType="banner">
+	UPDATE banner SET banner_status=#{banner_status} where banner_id=#{banner_id}
+	</update>
+	
+
+
+
+
+	<!-- coupon list -->
+	<select id="couponListView" resultType="coupon">
+		select * from product_coupon
+	</select>
+
+
+	<select id="couponViewData" resultType="coupon">
+		select * from product_coupon where coupon_id = #{coupon_id}
+	</select>
+
+
+	<!-- coupon searching -->
+	<select id="couponSearching" resultType="coupon">
+		select * from product_coupon pc
+	<where>
+		<if test="coupon_type != '' and coupon_type != null">
+			coupon_type = ${coupon_type}
+		</if>
+		<if test="pc_searchName != ''">
+			<trim prefix="and">
+				pc.coupon_name LIKE <trim prefix="replace('%" suffix="%',' ','')">${pc_searchName}</trim>
+			</trim>
+		</if>
+		<if test="pc_searchStatus != null">
+			<trim prefix="and">
+				<if test="pc_searchStatus.size != 4">
+					<foreach collection="pc_searchStatus" item="arr" separator="or">
+						<if test="arr == 2">
+							pc.coupon_status = '대기'
+						</if>
+						<if test="arr == 3">
+							pc.coupon_status = '진행중'
+						</if>
+						<if test="arr == 4">
+							pc.coupon_status = '종료'
+						</if>
+					</foreach>
+				</if>
+			</trim>
+		</if>
+		<if test="pc.selectDate">
+			<trim prefix="and">
+				pc.coupon_created BETWEEN TO_DATE(#{pc_startDate}, 'YYYY-MM-DD') AND TO_DATE(#{pc_endDate}, 'YYYY-MM-DD') + INTERVAL '1 DAY'
+			</trim>
+		</if>
+		<if test="true">
+			ORDER BY pc.coupon_id DESC;
+		</if>
+
+	</where>
+	</select>
+
+
+	<!-- coupon inserting -->
+	<insert id="couponInserting" parameterType="coupon">
+		INSERT INTO product_coupon (coupon_id, coupon_title, coupon_subtitle, coupon_startdate, coupon_enddate, coupon_more, coupon_discount)
+		VALUES ((select coalesce (max (coupon_id), 100)+1 from product_coupon),#{coupon_title},#{coupon_subtitle},#{coupon_startdate},#{coupon_enddate},#{coupon_more},${coupon_discount})
+	</insert>
+
+	<!-- coupon update -->
+	<update id="couponUpdate" parameterType="coupon">
+		update product_coupon
+		set coupon_more  = #{coupon_more}, coupon_discount = #{coupon_discount},
+			coupon_title = #{coupon_title}, coupon_subtitle = #{coupon_subtitle},
+		    coupon_update = now()
+		where coupon_id = #{coupon_id};
+	</update>
+
+	<!-- coupon status update -->
+	<update id="updateCouponStatus" parameterType="coupon">
+		update product_coupon AS coupon_status SET coupon_status=#{coupon_status} WHERE coupon_id=#{coupon_id};
+	</update>
+
+</mapper>

@@ -1,5 +1,6 @@
 @charset "EUC-KR";
 /* ÄíÆù ÆË¾÷ */
+
 .coupon-modal.react-modal {
     z-index: 10000001;
 }
@@ -172,7 +173,7 @@
     font-family: Tahoma,sans-serif;
     font-size: 30px;
     font-weight: 800;
-    color: #424242;
+    color: white;
 }
 .coupon-modal__item__stat-list, .coupon-modal__item__title {
     font-size: 13px;
@@ -239,7 +240,7 @@
     transition: background-color .1s,color .1s;
 }
 .large-close-modal__button:hover {
-    background-color: #35c5f0;
+    background-color: #ff778e;
     color:#fff;
 }
 
@@ -330,4 +331,20 @@
 }
 .css-1w25a88 {
     display: flex;
+}
+
+.production-selling-select-modal__content.react-modal__content-dh {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 1 auto;
+    -moz-box-flex: 0;
+    -moz-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    possition: relative;
+}
+@media (min-width: 768px){
+.production-selling-select-modal__content.react-modal__content-dh {
+    width: 405px;
+    padding: 30px;
+}
 }
